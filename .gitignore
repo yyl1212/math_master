@@ -1,0 +1,10 @@
+# 本机服务器配置（包含密码）
+/config/*.local.json
+
+# 本机环境变量
+.env
+.env.*
+!.env.example
+
+# macOS 系统文件
+.DS_Store
