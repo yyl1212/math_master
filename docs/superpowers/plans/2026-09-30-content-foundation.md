@@ -109,14 +109,14 @@ flowchart LR
 
 **接口：**`content.ValidateStructure(c catalogue.Catalogue, p content.Package, assetRoot string) content.Report`；`Report` 含 `Errors/ReviewItems []content.Issue`，`Issue` 含 `Code/Path/Message`；`content.ValidateAndSeal(c catalogue.Catalogue, p content.Package, assetRoot string) (content.ValidatedPackage, content.Report)`。`ValidatedPackage` 内部字段不导出，提供 `Catalogue() catalogue.Catalogue`、`Package() content.Package`、`AssetBytes(id string) ([]byte, bool)`、`SHA256() string`、`CatalogueSHA256() string` 的防变更副本/摘要；有阻断错误则返回零值。
 
-- [ ] 1. 写 `TestReferencesRequireExactPackageVersion`、`TestPrerequisiteDAGIgnoresRelatedCycles`、`TestIDsAndDomainMembership`；断言错版本/缺失前置/重复稳定编号/不存在主题阻断，合法相关关系双向循环允许，知识点主题必须属于其声明板块，路线包含成员的全部前置闭包。
-- [ ] 2. 写 `TestAssetsRejectTraversalAndActiveSVG`、`TestMarkdownRejectsExecutableContent`、`TestSealedPackageIncludesImmutableAssetBytes`；覆盖 `../`、绝对路径、符号链接逃逸、超大 SVG、摘要不匹配、SVG 的 script/事件/foreignObject/外部引用，以及 raw HTML、危险链接、公式中的外链/HTML 宏；安全 SVG 与普通 LaTeX 通过。改动封存后的原文件或 getter 返回值不改变封存字节。导入阶段不执行公式或用户代码。
-- [ ] 3. 运行包装器中的 `go test ./internal/content -run 'TestReferences|TestPrerequisite|TestIDs|TestAssets|TestMarkdown|TestSealed' -timeout 2m -count=1`，预期失败。
-- [ ] 4. 实现验证、原创 SVG 元素/属性白名单与受限 Markdown 检查；对稳定编号的前置图拓扑排序，给出可定位的环。包内引用必须准确匹配；不允许从数据库静默补齐。未完成正文/两角度/证明记为待复核项，不作为结构错误。规范摘要按解码后结构序列化计算，素材摘要参与包内容；有序路线与讲解保持原序。封存时保存已经验证的素材字节，导入不再次读取可能变化的文件。
+- [x] 1. 写 `TestReferencesRequireExactPackageVersion`、`TestPrerequisiteDAGIgnoresRelatedCycles`、`TestIDsAndDomainMembership`；断言错版本/缺失前置/重复稳定编号/不存在主题阻断，合法相关关系双向循环允许，知识点主题必须属于其声明板块，路线包含成员的全部前置闭包。
+- [x] 2. 写 `TestAssetsRejectTraversalAndActiveSVG`、`TestMarkdownRejectsExecutableContent`、`TestSealedPackageIncludesImmutableAssetBytes`；覆盖 `../`、绝对路径、符号链接逃逸、超大 SVG、摘要不匹配、SVG 的 script/事件/foreignObject/外部引用，以及 raw HTML、危险链接、公式中的外链/HTML 宏；安全 SVG 与普通 LaTeX 通过。改动封存后的原文件或 getter 返回值不改变封存字节。导入阶段不执行公式或用户代码。
+- [x] 3. 运行包装器中的 `go test ./internal/content -run 'TestReferences|TestPrerequisite|TestIDs|TestAssets|TestMarkdown|TestSealed' -timeout 2m -count=1`，预期失败。
+- [x] 4. 实现验证、原创 SVG 元素/属性白名单与受限 Markdown 检查；对稳定编号的前置图拓扑排序，给出可定位的环。包内引用必须准确匹配；不允许从数据库静默补齐。未完成正文/两角度/证明记为待复核项，不作为结构错误。规范摘要按解码后结构序列化计算，素材摘要参与包内容；有序路线与讲解保持原序。封存时保存已经验证的素材字节，导入不再次读取可能变化的文件。
   - SVG 仅允许 `svg/g/rect/line/path/circle/ellipse/polygon/polyline/text/tspan/title/desc`；属性仅允许 `xmlns/width/height/viewBox/x/y/x1/y1/x2/y2/cx/cy/r/rx/ry/d/points/transform/fill/stroke/stroke-width/font-size/font-family/text-anchor/role/aria-label`。禁止 DTD、处理指令、style、href、事件；颜色只接收固定颜色、十六进制或 `none`，不接收 URL。后续扩大集合须审查。
   - Markdown 通过 AST 检查原始 HTML 与链接，正文链接仅允许 HTTPS、以单个 `/` 开始的站内路径（拒绝 `//` 和反斜杠），图片只允许 `asset:<id>`；公式拒绝外链/HTML、文件读入和自定义宏命令。P2 渲染继续禁用 raw HTML，KaTeX 使用 `trust: false`，限制展开和尺寸；P1 检查不替代浏览器渲染安全。
-- [ ] 5. 同命令通过后，对正式草稿执行同一校验流程，预期零阻断错误、有明确待复核项；确认 `ValidatedPackage` 不能绕过校验构造，修改其返回值不改变已封存数据。
-- [ ] 6. 暂存本任务文件，提交 `feat: 校验内容引用前置图与原创素材`。
+- [x] 5. 同命令通过后，对正式草稿执行同一校验流程，预期零阻断错误、有明确待复核项；确认 `ValidatedPackage` 不能绕过校验构造，修改其返回值不改变已封存数据。
+- [x] 6. 暂存本任务文件，提交 `feat: 校验内容引用前置图与原创素材`。
 
 ## 任务 4：数据库版本约束与导入事务
 
