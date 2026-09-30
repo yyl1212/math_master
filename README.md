@@ -1,6 +1,12 @@
 # 数学学习成长网站
 
-本项目旨在搭建一个全面的数学学习成长网站。当前完成 Git 仓库与服务器配置初始化，网站功能及技术方案将在后续开发前确定。
+本项目旨在搭建一个全面的数学学习成长网站，以内容正确性、内容覆盖与数量和丰富的学习路径为核心，逐步覆盖零基础学习到学术研究与知识分享。
+
+当前完成 Git 仓库与服务器配置初始化，已形成首版设计文档，网站代码尚未实现。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立全层次方向地图，做扎实初等数学学习路线。
+
+## 设计文档
+
+[总体方向与首版设计](docs/superpowers/specs/2026-09-30-math-learning-platform-design.md)包含知识点、解锁与回顾、内容和题库审核、反馈纠错、架构、文件范围与验收标准。书面设计审阅通过后，再制定实现计划并开发。
 
 ## 目录结构
 
@@ -8,9 +14,10 @@
 math_master/
 ├── .gitignore                 # 排除私有配置和本机文件
 ├── README.md                  # 项目说明
-└── config/
-    ├── server.example.json    # 可提交的服务器配置模板
-    └── server.local.json      # 本机私有服务器配置，不提交 Git
+├── config/
+│   ├── server.example.json    # 可提交的服务器配置模板
+│   └── server.local.json      # 本机私有服务器配置，不提交 Git
+└── docs/superpowers/specs/     # 中文设计文档
 ```
 
 ## 配置结构
