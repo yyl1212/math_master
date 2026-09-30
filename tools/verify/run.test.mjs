@@ -27,6 +27,6 @@ test('kills remaining process group after its leader exits on timeout', {skip:pr
   const result=run('--timeout-ms','300','--',process.execPath,'-e',leader);assert.equal(result.status,124);assert.equal(existsSync(pidFile),true);pid=Number(readFileSync(pidFile));
   let running=true;try{process.kill(pid,0)}catch(e){if(e.code==='ESRCH')running=false;else throw e}
   // Linux can briefly keep the killed orphan as a zombie; it cannot execute work.
-  if(running&&process.platform==='linux'){const state=readFileSync(`/proc/${pid}/stat`,'utf8').split(') ')[1]?.[0];running=state!=='Z';}
+  if(running&&process.platform==='linux'){try {const state=readFileSync(`/proc/${pid}/stat`,'utf8').split(') ')[1]?.[0];running=state!=='Z';} catch(e) {if(e.code==='ENOENT')running=false;else throw e;}}
   assert.equal(running,false,'descendant survived timeout cleanup');
 });

@@ -16,8 +16,8 @@
 
 - 插件 task-brief 仅识别英文 Task 标题，计划为中文任务标题；保留中文计划，按任务段落保存 brief 并记录 BASE，任务完成仍使用 task-done。若提取边界错误可能遗漏要求，因此逐任务对照原段落。
 - 原生工作区在静态可写根之外，使用已授权的执行命令写入该工作区；辅助目录脚本首次因权限错误进入循环，已停止并在提升权限后创建专属目录。只写本计划工作区，避免影响其他项目。
-- Go embed cannot reference ../schemas; use a dependency-free local schemas module to embed the sole canonical JSON contracts. Cost: future CI/Docker builds must include schemas alongside backend.
-- source trace metadata is stored separately from schema v1; add docs/content/elementary-fractions-source-map.json instead of adding unreviewed fields to the public contract. Cost: editors must keep mapping metadata with each authored package revision.
+- Go embed 无法跨父目录引用 schemas，因此以无依赖的本地 schemas 模块嵌入唯一契约。代价：后续 CI/容器构建须同时包含 backend 和 schemas。
+- 来源追溯放入独立 source-map，不向 schema v1 临时增加字段。代价：编辑每次修订必须同时保留来源映射。
 - 首批正式包仅采用计划指定的 10 节点骨架及一个完整分数单元，其余源记录分批映射；原索引与增量索引联合冻结为 905 文件/35 包/97 主文件。原因：来源持续增长且未经独立复核，不可把原记录批量当成正式内容。成本：其他内容与 legacy_id 合并需后续编辑批次完成。
 - 增加可复用的离线快照工具，落实用户确认的持续更新流程；源原字节私有保存，清单比较新增/修改/缺失，不自动发布。成本：每次整理需手动指定新输出目录和上一批清单。
 - 负面夹具按同一合法种子在测试内生成，避免重复保存大份 JSON；错误路径和语义与计划一致。成本：单独手工重放某个负面文件需先由测试生成。
