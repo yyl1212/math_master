@@ -1,0 +1,497 @@
+{
+  "schemaVersion": 1,
+  "version": 1,
+  "domains": [
+    {
+      "id": "foundations-logic",
+      "order": 1,
+      "name": "Foundations & Logic",
+      "nameZh": "数学基础与逻辑",
+      "topics": [
+        {
+          "id": "foundations-logic-sets",
+          "name": "Sets",
+          "nameZh": "集合"
+        },
+        {
+          "id": "foundations-logic-propositions",
+          "name": "Propositions",
+          "nameZh": "命题"
+        },
+        {
+          "id": "foundations-logic-proofs",
+          "name": "Proofs",
+          "nameZh": "证明"
+        },
+        {
+          "id": "foundations-logic-mathematical-logic",
+          "name": "Mathematical logic",
+          "nameZh": "数理逻辑"
+        }
+      ],
+      "relatedDomainIds": [
+        "abstract-algebra",
+        "topology",
+        "discrete-combinatorics"
+      ]
+    },
+    {
+      "id": "elementary-mathematics",
+      "order": 2,
+      "name": "Elementary Mathematics",
+      "nameZh": "初等数学",
+      "topics": [
+        {
+          "id": "elementary-mathematics-arithmetic",
+          "name": "Arithmetic",
+          "nameZh": "算术"
+        },
+        {
+          "id": "elementary-mathematics-elementary-algebra",
+          "name": "Elementary algebra",
+          "nameZh": "初等代数"
+        },
+        {
+          "id": "elementary-mathematics-functions",
+          "name": "Functions",
+          "nameZh": "函数"
+        },
+        {
+          "id": "elementary-mathematics-trigonometry",
+          "name": "Trigonometry",
+          "nameZh": "三角学"
+        }
+      ],
+      "relatedDomainIds": [
+        "linear-algebra",
+        "number-theory",
+        "mathematical-analysis",
+        "geometry"
+      ]
+    },
+    {
+      "id": "linear-algebra",
+      "order": 3,
+      "name": "Linear Algebra",
+      "nameZh": "线性代数",
+      "topics": [
+        {
+          "id": "linear-algebra-matrices",
+          "name": "Matrices",
+          "nameZh": "矩阵"
+        },
+        {
+          "id": "linear-algebra-vector-spaces",
+          "name": "Vector spaces",
+          "nameZh": "向量空间"
+        },
+        {
+          "id": "linear-algebra-linear-maps",
+          "name": "Linear maps",
+          "nameZh": "线性映射"
+        }
+      ],
+      "relatedDomainIds": [
+        "abstract-algebra",
+        "functional-analysis",
+        "numerical-optimization"
+      ]
+    },
+    {
+      "id": "abstract-algebra",
+      "order": 4,
+      "name": "Abstract Algebra",
+      "nameZh": "抽象代数",
+      "topics": [
+        {
+          "id": "abstract-algebra-groups",
+          "name": "Groups",
+          "nameZh": "群"
+        },
+        {
+          "id": "abstract-algebra-rings",
+          "name": "Rings",
+          "nameZh": "环"
+        },
+        {
+          "id": "abstract-algebra-fields",
+          "name": "Fields",
+          "nameZh": "域"
+        },
+        {
+          "id": "abstract-algebra-representation-theory",
+          "name": "Representation theory",
+          "nameZh": "表示论"
+        }
+      ],
+      "relatedDomainIds": [
+        "linear-algebra",
+        "number-theory",
+        "geometry"
+      ]
+    },
+    {
+      "id": "number-theory",
+      "order": 5,
+      "name": "Number Theory",
+      "nameZh": "数论",
+      "topics": [
+        {
+          "id": "number-theory-divisibility",
+          "name": "Divisibility",
+          "nameZh": "整除"
+        },
+        {
+          "id": "number-theory-primes",
+          "name": "Primes",
+          "nameZh": "素数"
+        },
+        {
+          "id": "number-theory-congruences",
+          "name": "Congruences",
+          "nameZh": "同余"
+        },
+        {
+          "id": "number-theory-algebraic-number-theory",
+          "name": "Algebraic number theory",
+          "nameZh": "代数数论"
+        },
+        {
+          "id": "number-theory-analytic-number-theory",
+          "name": "Analytic number theory",
+          "nameZh": "解析数论"
+        }
+      ],
+      "relatedDomainIds": [
+        "abstract-algebra",
+        "mathematical-analysis",
+        "applied-interdisciplinary"
+      ]
+    },
+    {
+      "id": "mathematical-analysis",
+      "order": 6,
+      "name": "Mathematical Analysis",
+      "nameZh": "数学分析",
+      "topics": [
+        {
+          "id": "mathematical-analysis-calculus",
+          "name": "Calculus",
+          "nameZh": "微积分"
+        },
+        {
+          "id": "mathematical-analysis-real-analysis",
+          "name": "Real analysis",
+          "nameZh": "实分析"
+        },
+        {
+          "id": "mathematical-analysis-measure-and-integration",
+          "name": "Measure and integration",
+          "nameZh": "测度与积分"
+        }
+      ],
+      "relatedDomainIds": [
+        "complex-analysis",
+        "functional-analysis",
+        "probability-stochastic",
+        "differential-equations"
+      ]
+    },
+    {
+      "id": "complex-analysis",
+      "order": 7,
+      "name": "Complex Analysis",
+      "nameZh": "复分析",
+      "topics": [
+        {
+          "id": "complex-analysis-complex-functions",
+          "name": "Complex functions",
+          "nameZh": "复变函数"
+        },
+        {
+          "id": "complex-analysis-several-complex-variables",
+          "name": "Several complex variables",
+          "nameZh": "多复变函数"
+        }
+      ],
+      "relatedDomainIds": [
+        "mathematical-analysis",
+        "geometry",
+        "number-theory"
+      ]
+    },
+    {
+      "id": "functional-analysis",
+      "order": 8,
+      "name": "Functional Analysis",
+      "nameZh": "泛函分析",
+      "topics": [
+        {
+          "id": "functional-analysis-normed-spaces",
+          "name": "Normed spaces",
+          "nameZh": "赋范空间"
+        },
+        {
+          "id": "functional-analysis-operators",
+          "name": "Operators",
+          "nameZh": "算子"
+        },
+        {
+          "id": "functional-analysis-spectral-theory",
+          "name": "Spectral theory",
+          "nameZh": "谱理论"
+        }
+      ],
+      "relatedDomainIds": [
+        "linear-algebra",
+        "mathematical-analysis",
+        "differential-equations"
+      ]
+    },
+    {
+      "id": "geometry",
+      "order": 9,
+      "name": "Geometry",
+      "nameZh": "几何",
+      "topics": [
+        {
+          "id": "geometry-euclidean-geometry",
+          "name": "Euclidean geometry",
+          "nameZh": "欧氏几何"
+        },
+        {
+          "id": "geometry-differential-geometry",
+          "name": "Differential geometry",
+          "nameZh": "微分几何"
+        },
+        {
+          "id": "geometry-algebraic-geometry",
+          "name": "Algebraic geometry",
+          "nameZh": "代数几何"
+        }
+      ],
+      "relatedDomainIds": [
+        "topology",
+        "abstract-algebra",
+        "mathematical-analysis"
+      ]
+    },
+    {
+      "id": "topology",
+      "order": 10,
+      "name": "Topology",
+      "nameZh": "拓扑",
+      "topics": [
+        {
+          "id": "topology-point-set-topology",
+          "name": "Point-set topology",
+          "nameZh": "点集拓扑"
+        },
+        {
+          "id": "topology-algebraic-topology",
+          "name": "Algebraic topology",
+          "nameZh": "代数拓扑"
+        },
+        {
+          "id": "topology-differential-topology",
+          "name": "Differential topology",
+          "nameZh": "微分拓扑"
+        }
+      ],
+      "relatedDomainIds": [
+        "foundations-logic",
+        "geometry",
+        "mathematical-analysis"
+      ]
+    },
+    {
+      "id": "discrete-combinatorics",
+      "order": 11,
+      "name": "Discrete Mathematics & Combinatorics",
+      "nameZh": "离散数学与组合",
+      "topics": [
+        {
+          "id": "discrete-combinatorics-counting",
+          "name": "Counting",
+          "nameZh": "计数"
+        },
+        {
+          "id": "discrete-combinatorics-graph-theory",
+          "name": "Graph theory",
+          "nameZh": "图论"
+        },
+        {
+          "id": "discrete-combinatorics-combinatorial-designs",
+          "name": "Combinatorial designs",
+          "nameZh": "组合设计"
+        }
+      ],
+      "relatedDomainIds": [
+        "foundations-logic",
+        "probability-stochastic",
+        "applied-interdisciplinary"
+      ]
+    },
+    {
+      "id": "probability-stochastic",
+      "order": 12,
+      "name": "Probability & Stochastic Processes",
+      "nameZh": "概率与随机过程",
+      "topics": [
+        {
+          "id": "probability-stochastic-random-variables",
+          "name": "Random variables",
+          "nameZh": "随机变量"
+        },
+        {
+          "id": "probability-stochastic-markov-chains",
+          "name": "Markov chains",
+          "nameZh": "马尔可夫链"
+        },
+        {
+          "id": "probability-stochastic-stochastic-analysis",
+          "name": "Stochastic analysis",
+          "nameZh": "随机分析"
+        }
+      ],
+      "relatedDomainIds": [
+        "mathematical-analysis",
+        "statistics",
+        "applied-interdisciplinary"
+      ]
+    },
+    {
+      "id": "statistics",
+      "order": 13,
+      "name": "Statistics",
+      "nameZh": "统计学",
+      "topics": [
+        {
+          "id": "statistics-estimation",
+          "name": "Estimation",
+          "nameZh": "估计"
+        },
+        {
+          "id": "statistics-hypothesis-testing",
+          "name": "Hypothesis testing",
+          "nameZh": "检验"
+        },
+        {
+          "id": "statistics-regression",
+          "name": "Regression",
+          "nameZh": "回归"
+        },
+        {
+          "id": "statistics-bayesian-methods",
+          "name": "Bayesian methods",
+          "nameZh": "贝叶斯方法"
+        }
+      ],
+      "relatedDomainIds": [
+        "probability-stochastic",
+        "numerical-optimization",
+        "applied-interdisciplinary"
+      ]
+    },
+    {
+      "id": "differential-equations",
+      "order": 14,
+      "name": "Differential Equations & Dynamical Systems",
+      "nameZh": "微分方程与动力系统",
+      "topics": [
+        {
+          "id": "differential-equations-ordinary-differential-equations",
+          "name": "Ordinary differential equations",
+          "nameZh": "常微分方程"
+        },
+        {
+          "id": "differential-equations-partial-differential-equations",
+          "name": "Partial differential equations",
+          "nameZh": "偏微分方程"
+        },
+        {
+          "id": "differential-equations-chaos",
+          "name": "Chaos",
+          "nameZh": "混沌"
+        }
+      ],
+      "relatedDomainIds": [
+        "mathematical-analysis",
+        "functional-analysis",
+        "numerical-optimization"
+      ]
+    },
+    {
+      "id": "numerical-optimization",
+      "order": 15,
+      "name": "Numerical Computing & Optimization",
+      "nameZh": "数值计算与优化",
+      "topics": [
+        {
+          "id": "numerical-optimization-numerical-analysis",
+          "name": "Numerical analysis",
+          "nameZh": "数值分析"
+        },
+        {
+          "id": "numerical-optimization-scientific-computing",
+          "name": "Scientific computing",
+          "nameZh": "科学计算"
+        },
+        {
+          "id": "numerical-optimization-operations-research",
+          "name": "Operations research",
+          "nameZh": "运筹学"
+        },
+        {
+          "id": "numerical-optimization-optimal-control",
+          "name": "Optimal control",
+          "nameZh": "最优控制"
+        }
+      ],
+      "relatedDomainIds": [
+        "linear-algebra",
+        "mathematical-analysis",
+        "differential-equations"
+      ]
+    },
+    {
+      "id": "applied-interdisciplinary",
+      "order": 16,
+      "name": "Applied & Interdisciplinary Mathematics",
+      "nameZh": "应用与交叉数学",
+      "topics": [
+        {
+          "id": "applied-interdisciplinary-mathematical-physics",
+          "name": "Mathematical physics",
+          "nameZh": "数学物理"
+        },
+        {
+          "id": "applied-interdisciplinary-information-theory",
+          "name": "Information theory",
+          "nameZh": "信息论"
+        },
+        {
+          "id": "applied-interdisciplinary-cryptography",
+          "name": "Cryptography",
+          "nameZh": "密码学"
+        },
+        {
+          "id": "applied-interdisciplinary-mathematical-biology",
+          "name": "Mathematical biology",
+          "nameZh": "数学生物学"
+        },
+        {
+          "id": "applied-interdisciplinary-financial-mathematics",
+          "name": "Financial mathematics",
+          "nameZh": "金融数学"
+        }
+      ],
+      "relatedDomainIds": [
+        "number-theory",
+        "probability-stochastic",
+        "differential-equations",
+        "numerical-optimization"
+      ]
+    }
+  ]
+}

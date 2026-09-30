@@ -82,26 +82,26 @@ flowchart LR
 
 **接口：**`config.Load() (config.Config, error)`；`Config` 含 `HTTPAddr/DatabaseURL/ShutdownTimeout`；`httpapi.NewHealthHandler(pinger interface{ PingContext(context.Context) error }) http.Handler`。环境变量为 `HTTP_ADDR`（默认 `127.0.0.1:8080`）、`DATABASE_URL`（必填）、`SHUTDOWN_TIMEOUT`（默认 `5s`）。
 
-- [ ] 1. 检查 Docker 引擎：`docker info`；核对并锁定 pgx/v5、jsonschema/v6、goose/v3、goldmark 1.x 的具体稳定补丁；建立 `github.com/yyl1212/math_master/backend` 模块，Go 指定 1.27.1，提交 `go.sum`。引擎不可用时先恢复本地数据库运行条件，不跳过集成验证。
-- [ ] 2. 编写失败测试：`TestLoadRejectsMissingDatabaseURL`、`TestLoadDoesNotExposeSecret`、`TestHealthSeparatesLivenessAndReadiness`；断言无 DB 时 `/healthz` 为 200，`/readyz` 为 503，非法配置错误及响应不含测试密码。为时限包装器编写子进程成功/失败/超时用例，允许测试传入更短的 `--timeout-ms`，禁止超过 540000。
-- [ ] 3. 运行 `cd backend` 后 `CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi -timeout 2m -count=1`，预期新行为测试失败；`node --test tools/verify/run.test.mjs` 从项目根运行，预期包装器尚未实现而失败。
-- [ ] 4. 实现上述接口和命令包装器：`node tools/verify/run.mjs --cwd backend -- <command> <args...>`。默认总时限 540 秒；超时终止进程组，5 秒后强制终止，返回非零；正常保留子进程退出码。服务只输出已脱敏配置，收到终止信号进行限时关闭。
-- [ ] 5. 从根目录运行 `node --test tools/verify/run.test.mjs` 与 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi -timeout 2m -count=1`，预期全通过。以后全部验证命令经过该包装器。
-- [ ] 6. 暂存本任务明确列出的文件，提交 `feat: 建立 Go 服务与有时限验证入口`。
+- [x] 1. 检查 Docker 引擎：`docker info`；核对并锁定 pgx/v5、jsonschema/v6、goose/v3、goldmark 1.x 的具体稳定补丁；建立 `github.com/yyl1212/math_master/backend` 模块，Go 指定 1.27.1，提交 `go.sum`。引擎不可用时先恢复本地数据库运行条件，不跳过集成验证。
+- [x] 2. 编写失败测试：`TestLoadRejectsMissingDatabaseURL`、`TestLoadDoesNotExposeSecret`、`TestHealthSeparatesLivenessAndReadiness`；断言无 DB 时 `/healthz` 为 200，`/readyz` 为 503，非法配置错误及响应不含测试密码。为时限包装器编写子进程成功/失败/超时用例，允许测试传入更短的 `--timeout-ms`，禁止超过 540000。
+- [x] 3. 运行 `cd backend` 后 `CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi -timeout 2m -count=1`，预期新行为测试失败；`node --test tools/verify/run.test.mjs` 从项目根运行，预期包装器尚未实现而失败。
+- [x] 4. 实现上述接口和命令包装器：`node tools/verify/run.mjs --cwd backend -- <command> <args...>`。默认总时限 540 秒；超时终止进程组，5 秒后强制终止，返回非零；正常保留子进程退出码。服务只输出已脱敏配置，收到终止信号进行限时关闭。
+- [x] 5. 从根目录运行 `node --test tools/verify/run.test.mjs` 与 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi -timeout 2m -count=1`，预期全通过。以后全部验证命令经过该包装器。
+- [x] 6. 暂存本任务明确列出的文件，提交 `feat: 建立 Go 服务与有时限验证入口`。
 
 ## 任务 2：目录、草稿契约与严格解码
 
-**文件：**新增两个 `schemas/*.schema.json`（文件名见结构表）、`backend/internal/catalogue/model.go`、`backend/internal/content/model.go`、`backend/internal/content/decode.go`、`backend/internal/content/decode_test.go`、`backend/internal/content/testdata/{valid-draft,unknown-field,duplicate-key}.json`、`content/catalogue/domains.json`、`content/packages/elementary-fractions.v1.json`、`content/assets/equivalent-fractions.v1.svg`；修改现有 `docs/content/source-inventory.md`。
+**文件：**新增 `tools/content-ingest/{snapshot,snapshot.test}.mjs` 和 `docs/content/elementary-fractions-source-map.json`、两个 `schemas/*.schema.json`（文件名见结构表）、`backend/internal/catalogue/model.go`、`backend/internal/content/model.go`、`backend/internal/content/decode.go`、`backend/internal/content/decode_test.go`、`backend/internal/content/testdata/{valid-draft,unknown-field,duplicate-key}.json`、`content/catalogue/domains.json`、`content/packages/elementary-fractions.v1.json`、`content/assets/equivalent-fractions.v1.svg`；修改现有 `docs/content/source-inventory.md`。
 
 **接口：**产生 `catalogue.Catalogue/Domain/Topic` 和上节全部 `content` 类型；`content.DecodeCatalogue(r io.Reader) (catalogue.Catalogue, error)`、`content.DecodePackage(r io.Reader) (content.Package, error)`。以 JSON 标签锁定契约，schema 为唯一外部格式依据，两者输出同样的字段路径错误。
 
-- [ ] 1. 写 `TestDecodePreservesChineseAndRejectsPreviewState`、`TestDecodeRejectsDuplicateKeysAndUnknownFields`、`TestDecodeLimitsBytesAndVersions`；断言 `unlocked/learningState/contentStatus/reviewedBy`、重复 JSON 键、负版本、尾随第二个对象、超过 10 MiB 均拒绝；超大输入在测试内生成，不提交大夹具；合法中文不损坏；正式目录恰为 16 板块、56 主题。
-- [ ] 2. 运行包装器中的 `go test ./internal/content -run 'TestDecode' -timeout 2m -count=1`，预期新测试失败；测试使用 `CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1`。
-- [ ] 3. 实现类型、Schema 与严格解码，所有对象使用 `additionalProperties: false`；先检测重复键，再执行 schema 校验和类型解码。字节限制读取上限加 1，不信任文件声明大小。版本 1 不接受未知扩展字段。
-- [ ] 4. 改写正式目录与 10 节点骨架，创建原创分数 SVG 和等值分数草稿单元，记录作者/使用条件/摘要；定理示例写明非零分母与非零缩放因子，不因演示图只用正数而扩大图示范围。来源与数学内容保留待复核身份。
-- [ ] 5. 以已核验的本地 `Knowledge_JSON` 清单为输入，联合原索引和增量索引选择主文件；目录路径由本地输入配置提供，不在业务代码中固定。先从 Manes 初等数学资料整理数、运算与分数，其他资料分批处理。将 `knowledge_points`/`records` 和条件、来源、证明等字段映射为正式模型；`capabilities` 单独归为工具资料。建立源包/文件/原编号到正式编号的无碰撞映射，关系同步转换；完整证明包与两个旧样例通过 `legacy_id` 处理重叠，保留来源及题目演进。文字前置条件和主数组之外的前置声明补齐为包内版本引用，再验证闭包与 DAG。每项保留原始出处、作者/版本、使用条件和未解决问题，来源 AI 审查状态不转为正式审核通过。检查结果见 [资料检查报告](../../content/2026-10-01-knowledge-json-inspection.md)，参考资料入口见 [来源清单](../../content/source-inventory.md)。原文件与临时目录保持本地私有，来源 JSON 先转换和校验；后续 ZIP 先登记、解包、去重，不直接传给 `content-import`。不明使用条件只能作为核验线索，不复制原文或配图。
-- [ ] 6. 同命令重跑，预期通过；确认设计目录仍仅作为预览引用，正式内容包无个人状态。
-- [ ] 7. 暂存本任务文件，提交 `feat: 定义正式目录与版本化草稿契约`。
+- [x] 1. 写 `TestDecodePreservesChineseAndRejectsPreviewState`、`TestDecodeRejectsDuplicateKeysAndUnknownFields`、`TestDecodeLimitsBytesAndVersions`；断言 `unlocked/learningState/contentStatus/reviewedBy`、重复 JSON 键、负版本、尾随第二个对象、超过 10 MiB 均拒绝；超大输入在测试内生成，不提交大夹具；合法中文不损坏；正式目录恰为 16 板块、56 主题。
+- [x] 2. 运行包装器中的 `go test ./internal/content -run 'TestDecode' -timeout 2m -count=1`，预期新测试失败；测试使用 `CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1`。
+- [x] 3. 实现类型、Schema 与严格解码，所有对象使用 `additionalProperties: false`；先检测重复键，再执行 schema 校验和类型解码。字节限制读取上限加 1，不信任文件声明大小。版本 1 不接受未知扩展字段。
+- [x] 4. 改写正式目录与 10 节点骨架，创建原创分数 SVG 和等值分数草稿单元，记录作者/使用条件/摘要；定理示例写明非零分母与非零缩放因子，不因演示图只用正数而扩大图示范围。来源与数学内容保留待复核身份。
+- [x] 5. 以已核验的本地 `Knowledge_JSON` 清单为输入，联合原索引和增量索引选择主文件；目录路径由本地输入配置提供，不在业务代码中固定。先从 Manes 初等数学资料整理数、运算与分数，其他资料分批处理。将 `knowledge_points`/`records` 和条件、来源、证明等字段映射为正式模型；`capabilities` 单独归为工具资料。建立源包/文件/原编号到正式编号的无碰撞映射，关系同步转换；完整证明包与两个旧样例通过 `legacy_id` 处理重叠，保留来源及题目演进。文字前置条件和主数组之外的前置声明补齐为包内版本引用，再验证闭包与 DAG。每项保留原始出处、作者/版本、使用条件和未解决问题，来源 AI 审查状态不转为正式审核通过。检查结果见 [资料检查报告](../../content/2026-10-01-knowledge-json-inspection.md)，参考资料入口见 [来源清单](../../content/source-inventory.md)。原文件与临时目录保持本地私有，来源 JSON 先转换和校验；后续 ZIP 先登记、解包、去重，不直接传给 `content-import`。不明使用条件只能作为核验线索，不复制原文或配图。
+- [x] 6. 同命令重跑，预期通过；确认设计目录仍仅作为预览引用，正式内容包无个人状态。
+- [x] 7. 暂存本任务文件，提交 `feat: 定义正式目录与版本化草稿契约`。
 
 ## 任务 3：引用、前置图与素材验证
 
