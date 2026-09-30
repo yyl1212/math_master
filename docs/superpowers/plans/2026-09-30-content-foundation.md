@@ -175,7 +175,7 @@ flowchart LR
 - [x] 2. 从根目录分别运行包装器：`go vet ./...`、`go test ./internal/content ./internal/config ./internal/httpapi -timeout 5m -count=1`、`go test ./internal/store ./internal/cli -timeout 5m -count=1`、`go build ./cmd/...`，均以 `--cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1` 执行；运行 `node --test tools/verify/run.test.mjs`，预期全部通过。`gofmt -l` 无输出，`git diff --check` 无错误。
 - [x] 3. 按任务 5、6 操作复核导入/导出/API，无发布内容却声明已发布、错误包留下半数据、公开草稿、覆盖旧版本任一情况均为阻断问题。
 - [x] 4. 完成代码审查，覆盖五项审查重点、迁移约束、无秘密提交和后续 P3 发布兼容性；修复问题后只重跑受影响回归及阶段门槛，记录实际结果，不以计划中的“预期通过”冒充已测试。
-- [ ] 5. README 添加启动、迁移、导入及测试入口，记录 P1 数学内容尚未发布。PR 说明具体交付、验证结果及 P2/P3 接口边界；推送当前分支，创建面向最新 master 的 PR 并附到当前任务。
+- [x] 5. README 添加启动、迁移、导入及测试入口，记录 P1 数学内容尚未发布。PR 说明具体交付、验证结果及 P2/P3 接口边界；推送当前分支，创建面向最新 master 的 PR 并附到当前任务。
 - [ ] 6. 后续条件任务（本 PR 不执行）：P1 合并后，从最新 master 编写 P2 的英文页面执行计划；继续以原预览为视觉依据，先实现真实目录与诚实的空状态。
 
 ## 可行性及兼容性审查结论

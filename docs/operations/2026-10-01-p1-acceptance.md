@@ -1,5 +1,7 @@
 # P1 验收与最终审查记录
 
+PR：[P1 内容基础层 #5](https://github.com/yyl1212/math_master/pull/5)，面向 master，待合并。
+
 日期：2026-10-01。分支 `codex/p1-content-foundation`，基线 `67b433e`。设计及预览的 PR 2/4/3 已整合至 master，再在独立工作区开发。
 
 交付：正式 16 板块/56 主题；10 个未审核知识草稿、1 个讲解单元及原创 SVG；严格 JSON、精确版本引用和前置 DAG；素材安全与不可变封存；PostgreSQL 版本、原子导入、幂等和导出恢复；英文公共 API/OpenAPI；本地来源快照；有时限的固定版本 CI。
