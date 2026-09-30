@@ -73,3 +73,21 @@ type Package struct {
 	Paths         []Path      `json:"paths"`
 	Assets        []Asset     `json:"assets"`
 }
+
+type AssetView struct {
+	ID          string     `json:"id"`
+	SHA256      string     `json:"sha256"`
+	Author      string     `json:"author"`
+	License     string     `json:"license"`
+	Attribution string     `json:"attribution"`
+	Knowledge   VersionRef `json:"knowledge"`
+}
+type KnowledgeView struct {
+	Knowledge Knowledge   `json:"knowledge"`
+	Units     []Unit      `json:"units"`
+	Assets    []AssetView `json:"assets"`
+}
+type PathView struct {
+	Path      Path            `json:"path"`
+	Knowledge []KnowledgeView `json:"knowledge"`
+}

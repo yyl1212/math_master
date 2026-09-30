@@ -158,12 +158,12 @@ flowchart LR
 
 **路由：**`GET /api/v1/domains?q=&limit=&offset=`（默认 limit 20、offset 0）；`GET /api/v1/domains/{id}`；`GET /api/v1/paths/{id}`；`GET /api/v1/knowledge/{id}`；以及任务 1 的健康路由。列表为 `{items,total,limit,offset}`，详情为 `{data}`；搜索匹配英中名称及主题，顺序按目录 order 稳定。
 
-- [ ] 1. 写 `TestCatalogueSearchAndPagination`、`TestPublicReadsHideDraftAndWithdrawnVersions`、`TestPublicKnowledgeKeepsPrerequisiteVersionRefs`、`TestErrorsAreEnglishAndRedacted`。断言中文、`Markov`、单引号/百分号查询安全，limit 0/101、负 offset 返回 400；错误 404 不区分私有草稿存在与否；真实 DB 查询不返回草稿/撤回版本，返回的关系指向同一有效快照。
-- [ ] 2. 在 SQL 测试夹具中建立仅用于测试的发布/撤回快照，注明不能成为生产种子。运行包装器中的 `go test ./internal/httpapi ./internal/store -run 'TestCatalogue|TestPublic|TestErrors' -timeout 5m -count=1`，预期失败。
-- [ ] 3. 用参数化查询和 `net/http` ServeMux 实现接口及 OpenAPI。知识详情只采用 head 指向的有效快照，过滤撤回成员；快照任一必须引用的前置已撤回时不继续作为有效发布路线返回。错误稳定代码为 `INVALID_QUERY/NOT_FOUND/SERVICE_UNAVAILABLE/INTERNAL_ERROR`，消息英文、请求编号可追踪；异常细节仅脱敏记录。公开内容响应先用 `Cache-Control: no-store`，P3 再设计发布切换与撤回一致性。
-- [ ] 4. 同命令通过；空数学库中 `/domains` 返回 16 个 planned 板块及 56 主题，草稿知识/路线返回 404；停止 DB 后 healthz 200、readyz 和数据请求 503，不回退读取 JSON。
-- [ ] 5. 核对 OpenAPI 的字段、必填项、分页上限和错误与真实响应一致；确认服务入口使用 DB reader，未引用 `design/data` 或本地 JSON 作为运行内容源。
-- [ ] 6. 暂存本任务文件，提交 `feat: 提供正式目录与发布内容查询接口`。
+- [x] 1. 写 `TestCatalogueSearchAndPagination`、`TestPublicReadsHideDraftAndWithdrawnVersions`、`TestPublicKnowledgeKeepsPrerequisiteVersionRefs`、`TestErrorsAreEnglishAndRedacted`。断言中文、`Markov`、单引号/百分号查询安全，limit 0/101、负 offset 返回 400；错误 404 不区分私有草稿存在与否；真实 DB 查询不返回草稿/撤回版本，返回的关系指向同一有效快照。
+- [x] 2. 在 SQL 测试夹具中建立仅用于测试的发布/撤回快照，注明不能成为生产种子。运行包装器中的 `go test ./internal/httpapi ./internal/store -run 'TestCatalogue|TestPublic|TestErrors' -timeout 5m -count=1`，预期失败。
+- [x] 3. 用参数化查询和 `net/http` ServeMux 实现接口及 OpenAPI。知识详情只采用 head 指向的有效快照，过滤撤回成员；快照任一必须引用的前置已撤回时不继续作为有效发布路线返回。错误稳定代码为 `INVALID_QUERY/NOT_FOUND/SERVICE_UNAVAILABLE/INTERNAL_ERROR`，消息英文、请求编号可追踪；异常细节仅脱敏记录。公开内容响应先用 `Cache-Control: no-store`，P3 再设计发布切换与撤回一致性。
+- [x] 4. 同命令通过；空数学库中 `/domains` 返回 16 个 planned 板块及 56 主题，草稿知识/路线返回 404；停止 DB 后 healthz 200、readyz 和数据请求 503，不回退读取 JSON。
+- [x] 5. 核对 OpenAPI 的字段、必填项、分页上限和错误与真实响应一致；确认服务入口使用 DB reader，未引用 `design/data` 或本地 JSON 作为运行内容源。
+- [x] 6. 暂存本任务文件，提交 `feat: 提供正式目录与发布内容查询接口`。
 
 ## 任务 7：持续验证、阶段回归与交接
 
