@@ -2,13 +2,15 @@
 
 本项目旨在搭建一个全面的数学学习成长网站，以内容正确性、内容覆盖与数量和丰富的学习路径为核心，逐步覆盖零基础学习到学术研究与知识分享。
 
-当前完成 Git 仓库与服务器配置初始化，已形成首版设计文档及英文页面设计预览，生产网站尚未实现。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
+当前完成 Git 仓库与服务器配置初始化，已形成首版设计、英文页面预览与分阶段开发计划，生产网站尚未实现。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
 
 ## 设计文档
 
-[总体方向与首版设计](docs/superpowers/specs/2026-09-30-math-learning-platform-design.md)包含知识点、解锁与回顾、内容和题库审核、反馈纠错、架构、文件范围与验收标准。书面设计审阅通过后，再制定实现计划并开发。
+[总体方向与首版设计](docs/superpowers/specs/2026-09-30-math-learning-platform-design.md)包含知识点、解锁与回顾、内容和题库审核、反馈纠错、架构、文件范围与验收标准。
 
-[英文页面设计与预览说明](design/README.md)包含 16 板块数据、页面层级、样例路线、预览启动方式及 Figma 同步状态。
+[开发路线图](docs/superpowers/plans/2026-09-30-development-roadmap.md)按可信内容底座、英文页面、账户审核、学习检测、反馈纠错、首批数据验收、部署试运行推进。[P1 执行计划](docs/superpowers/plans/2026-09-30-content-foundation.md)给出首阶段的文件、接口、验证和提交步骤，供实施前审阅。已读取用户提供的本地 `Knowledge_JSON` 目录，包含 31 个资料包、8,722 条数学候选记录及 104 条软件能力记录；[检查报告](docs/content/2026-10-01-knowledge-json-inspection.md)记录文件校验、结构差异与重复内容。[资料来源清单](docs/content/source-inventory.md)保留本地路径、Library 入口与 ZIP 整理流程，正式内容仍需转换、去重并独立复核。
+
+[英文页面设计与预览说明](design/README.md)包含 16 板块数据、页面层级、样例路线及预览启动方式。后续直接在项目中设计与开发，已取消 Figma 同步。
 
 ```bash
 python3 -m http.server 8897 --bind 127.0.0.1 --directory design
@@ -25,8 +27,12 @@ math_master/
 ├── config/
 │   ├── server.example.json    # 可提交的服务器配置模板
 │   └── server.local.json      # 本机私有服务器配置，不提交 Git
-├── design/                    # 英文设计预览、16 板块数据及待执行 Figma 脚本
-└── docs/superpowers/specs/     # 中文设计文档
+├── design/                    # 英文设计预览、16 板块数据与历史设计脚本
+└── docs/
+    ├── content/               # 资料入口、来源清单与知识点映射
+    └── superpowers/
+        ├── specs/             # 中文设计文档
+        └── plans/             # 分阶段路线图与执行计划
 ```
 
 ## 配置结构
@@ -66,7 +72,7 @@ install -m 600 config/server.example.json config/server.local.json
 ```bash
 git switch master
 git pull --ff-only origin master
-git switch -c feat/your-feature
+git switch -c codex/your-feature
 ```
 
 远程访问优先使用本机已配置的 SSH 密钥，GitHub CLI 用于创建 PR。令牌不写入项目文件或远程地址。

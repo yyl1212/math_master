@@ -24,8 +24,7 @@ flowchart TD
     Points --> Review[讲解回顾与检测入口]
     Preview[静态 HTML / CSS / JavaScript] --> Overview
     Preview --> Review
-    Catalogue --> Figma[待执行 Figma 修订脚本]
-    Sample --> Figma
+    Preview --> Production[后续 Next.js 页面实现]
 ```
 
 板块关系用于内容发现；知识点前置关系用于学习路线。两类关系不互相推导。16 是学习分组数量，不是官方数学领域数量。一个知识点可被多个板块和路线引用，不复制成不同知识点。
@@ -39,8 +38,8 @@ flowchart TD
 | `preview/index.html` | 英文页面框架与主导航 |
 | `preview/styles.css` | 桌面与手机布局、状态样式与原创图形 |
 | `preview/preview.js` | 目录搜索、路线选择、回顾与演示交互 |
-| `figma/build-revision.mjs` | 把相同 JSON 嵌入 Figma 待执行脚本 |
-| `figma/english-revision.template.js` | 英文修订版的原生可编辑页面构建代码 |
+| `figma/build-revision.mjs` | 历史脚本：把 JSON 嵌入设计修订代码，已停止使用 |
+| `figma/english-revision.template.js` | 历史设计构建代码，保留为记录 |
 
 ## 本地预览
 
@@ -52,17 +51,11 @@ python3 -m http.server 8897 --bind 127.0.0.1 --directory design
 
 访问 <http://127.0.0.1:8897/preview/#map>。其他页面入口为 `#hub`、`#lesson`、`#practice`、`#progress`、`#feedback`。直接双击 HTML 无法加载 JSON；需要通过 HTTP 预览。
 
-## Figma 同步状态
+## 后续实现依据
 
-现有文件：[数学成长 · 首版前端页面](https://www.figma.com/design/UDwHVfKZYNDTdvDx8V3dLH)。原有 8 个页面仍是上一版中文设计。
+用户已取消 Figma 使用和同步。后续以本目录的英文预览、正式内容规范与 [开发路线图](../docs/superpowers/plans/2026-09-30-development-roadmap.md)为依据，直接实现 Next.js 页面。
 
-Figma Starter 的 MCP 调用额度已用尽，本次英文与 16 板块改动尚未写入 Figma。以下脚本仅完成本地语法审查；没有在 Figma 运行，也没有完成画布截图验证，不能作为已同步结果。
-
-```bash
-node design/figma/build-revision.mjs /tmp/math-master-english-revision.js
-```
-
-额度恢复后，通过 `use_figma` 执行生成代码，目标文件为上述文件、页面 `0:1`。脚本先检查目标文件、字体与变量，在原版右侧添加独立英文修订版，保留原稿以便对照；重复执行时报告已存在修订版，不重复创建。同步后仍须检查返回节点、桌面和手机截图、长名称及原型跳转；通过检查后才能以新稿作为实现依据。
+历史文件：[数学成长 · 首版前端页面](https://www.figma.com/design/UDwHVfKZYNDTdvDx8V3dLH)，保留原有中文设计。`figma/` 脚本没有写入英文修订稿，也不再作为开发前置任务。
 
 ## 可行性与兼容性审查
 
