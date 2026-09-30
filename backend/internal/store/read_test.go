@@ -1,9 +1,14 @@
 package store_test
 
 import (
+	"crypto/sha256"
 	"errors"
+	"fmt"
+	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/store"
 	"os"
+	"path/filepath"
+	"strings"
 	"testing"
 )
 
@@ -109,5 +114,62 @@ func TestPublicKnowledgeKeepsPrerequisiteVersionRefs(t *testing.T) {
 	domain, e := s.GetDomain(ctx, "elementary-mathematics")
 	if e != nil || domain.ContentStatus != "published" || domain.PublishedKnowledgeCount != 10 || len(domain.Paths) != 1 {
 		t.Fatal(domain, e)
+	}
+}
+
+func revisedAsset(t *testing.T, v content.ValidatedPackage, unitVersion int) content.ValidatedPackage {
+	t.Helper()
+	p := v.Package()
+	p.ID = "fractions-revised"
+	p.Units[0].Version = unitVersion
+	b, _ := v.AssetBytes(p.Assets[0].ID)
+	b = []byte(strings.Replace(string(b), "<title>", "<title>Revised ", 1))
+	p.Assets[0].SHA256 = fmt.Sprintf("%x", sha256.Sum256(b))
+	root := t.TempDir()
+	if e := os.WriteFile(filepath.Join(root, p.Assets[0].Path), b, 0600); e != nil {
+		t.Fatal(e)
+	}
+	next, r := content.ValidateAndSeal(v.Catalogue(), p, root)
+	if len(r.Errors) > 0 {
+		t.Fatal(r.Errors)
+	}
+	return next
+}
+func TestUnitAssetDigestBindingIsImmutableAcrossPackages(t *testing.T) {
+	_, s, ctx := setup(t)
+	v := input(t, nil)
+	if _, e := s.ImportDraft(ctx, v); e != nil {
+		t.Fatal(e)
+	}
+	if _, e := s.ImportDraft(ctx, revisedAsset(t, v, 1)); !errors.Is(e, store.ErrImmutableConflict) {
+		t.Fatal("same unit version accepted different asset digest", e)
+	}
+	if _, e := s.ImportDraft(ctx, revisedAsset(t, v, 2)); e != nil {
+		t.Fatal("new unit version was rejected", e)
+	}
+}
+func TestPublishedUnitRejectsMixedAssetDigest(t *testing.T) {
+	db, s, ctx := setup(t)
+	v := input(t, nil)
+	if _, e := s.ImportDraft(ctx, v); e != nil {
+		t.Fatal(e)
+	}
+	next := revisedAsset(t, v, 2)
+	if _, e := s.ImportDraft(ctx, next); e != nil {
+		t.Fatal(e)
+	}
+	if _, e := db.ExecContext(ctx, "UPDATE publication_snapshots SET status='published';INSERT INTO publication_heads SELECT true,snapshot_id FROM publication_members WHERE package_id='fractions-revised' LIMIT 1"); e != nil {
+		t.Fatal(e)
+	}
+	k, e := s.GetPublishedKnowledge(ctx, "equivalent-fractions")
+	if e != nil || len(k.Units) != 1 || k.Units[0].Version != 2 {
+		t.Fatal(k, e)
+	}
+	if _, e := db.ExecContext(ctx, "UPDATE publication_members SET package_id=$1,package_version=$2,version=1 WHERE snapshot_id=(SELECT snapshot_id FROM publication_heads) AND kind='unit'", v.Package().ID, v.Package().Version); e != nil {
+		t.Fatal(e)
+	}
+	k, e = s.GetPublishedKnowledge(ctx, "equivalent-fractions")
+	if e != nil || len(k.Units) != 0 {
+		t.Fatal("old unit rendered a replacement asset digest", e)
 	}
 }

@@ -92,3 +92,42 @@ func TestSealedPackageIncludesImmutableAssetBytes(t *testing.T) {
 		t.Fatal("seal mutated")
 	}
 }
+
+func TestAssetBudgetStopsBeforeReadingRemainingFiles(t *testing.T) {
+	c, p, _ := seed(t)
+	root := t.TempDir()
+	prefix := `<svg xmlns="http://www.w3.org/2000/svg"><desc>`
+	suffix := `</desc></svg>`
+	b := []byte(prefix + strings.Repeat(" ", 1024*1024-len(prefix)-len(suffix)) + suffix)
+	if e := os.WriteFile(filepath.Join(root, "large.svg"), b, 0600); e != nil {
+		t.Fatal(e)
+	}
+	a := p.Assets[0]
+	a.Path = "large.svg"
+	a.SHA256 = fmt.Sprintf("%x", sha256.Sum256(b))
+	p.Assets = []Asset{}
+	for i := 0; i < 12; i++ {
+		n := a
+		if i > 0 {
+			n.ID = fmt.Sprintf("large-%d", i)
+		}
+		p.Assets = append(p.Assets, n)
+	}
+	last := a
+	last.ID = "unread"
+	last.Path = "missing.svg"
+	p.Assets = append(p.Assets, last)
+	report := ValidateStructure(c, p, root)
+	found := false
+	for _, e := range report.Errors {
+		if e.Code == "INVALID_ASSET" {
+			t.Fatal("read beyond exhausted asset budget")
+		}
+		if e.Code == "ASSETS_TOO_LARGE" {
+			found = true
+		}
+	}
+	if !found {
+		t.Fatal("budget not enforced")
+	}
+}

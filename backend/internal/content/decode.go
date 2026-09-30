@@ -18,8 +18,8 @@ import (
 const MaxPackageBytes = 10 * 1024 * 1024
 
 type DecodeError struct {
-	Code string
-	Path string
+	Code string `json:"code"`
+	Path string `json:"path"`
 }
 
 func (e *DecodeError) Error() string { return e.Code + " at " + e.Path }

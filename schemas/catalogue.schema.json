@@ -6,7 +6,8 @@
     },
     "version": {
       "type": "integer",
-      "minimum": 1
+      "minimum": 1,
+      "maximum": 2147483647
     },
     "domains": {
       "type": "array",
@@ -15,17 +16,27 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "order": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "maximum": 2147483647
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "nameZh": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "topics": {
             "type": "array",
@@ -34,13 +45,22 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 },
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 },
                 "nameZh": {
-                  "type": "string"
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 }
               },
               "required": [
@@ -55,7 +75,10 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           }
         },

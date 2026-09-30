@@ -11,6 +11,7 @@ import (
 	"io"
 	"net"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -24,6 +25,7 @@ type publicationState struct {
 	paths            map[string]content.Path
 	assets           map[string]content.Asset
 	eligible         map[string]bool
+	unitBindings     map[string]map[string]string
 }
 
 func readError(e error) error {
@@ -45,7 +47,7 @@ func (s *Store) withPublication(ctx context.Context, fn func(*publicationState) 
 		return readError(e)
 	}
 	defer tx.Rollback()
-	st := &publicationState{tx: tx, ctx: ctx, knowledge: map[string]content.Knowledge{}, paths: map[string]content.Path{}, assets: map[string]content.Asset{}, eligible: map[string]bool{}, units: []content.Unit{}}
+	st := &publicationState{tx: tx, ctx: ctx, knowledge: map[string]content.Knowledge{}, paths: map[string]content.Path{}, assets: map[string]content.Asset{}, eligible: map[string]bool{}, unitBindings: map[string]map[string]string{}, units: []content.Unit{}}
 	var head string
 	e = tx.QueryRowContext(ctx, "SELECT s.id,s.catalogue_version FROM publication_heads h JOIN publication_snapshots s ON s.id=h.snapshot_id WHERE h.singleton AND s.status='published'").Scan(&head, &st.catalogueVersion)
 	if errors.Is(e, sql.ErrNoRows) {
@@ -75,9 +77,14 @@ func (s *Store) withPublication(ctx context.Context, fn func(*publicationState) 
 			return e
 		})
 		if e == nil {
-			e = load("SELECT u.body FROM publication_members m JOIN unit_versions u ON u.id=m.id AND u.version=m.version WHERE m.snapshot_id=$1 AND m.kind='unit' AND m.availability='active' ORDER BY m.id", func(b []byte) error {
-				var u content.Unit
-				e := json.Unmarshal(b, &u)
+			e = load("SELECT jsonb_build_object('unit',u.body,'bindings',COALESCE((SELECT jsonb_object_agg(b.asset_id,b.asset_sha256) FROM unit_asset_bindings b WHERE b.unit_id=u.id AND b.unit_version=u.version),'{}'::jsonb)) FROM publication_members m JOIN unit_versions u ON u.id=m.id AND u.version=m.version WHERE m.snapshot_id=$1 AND m.kind='unit' AND m.availability='active' ORDER BY m.id", func(b []byte) error {
+				var record struct {
+					Unit     content.Unit      `json:"unit"`
+					Bindings map[string]string `json:"bindings"`
+				}
+				e := json.Unmarshal(b, &record)
+				u := record.Unit
+				st.unitBindings[u.ID+":"+strconv.Itoa(u.Version)] = record.Bindings
 				st.units = append(st.units, u)
 				return e
 			})
@@ -160,7 +167,7 @@ func (st *publicationState) knowledgeView(id string) (content.KnowledgeView, boo
 		}
 		valid := true
 		for _, id := range u.AssetIDs {
-			if !assets[id] {
+			if !assets[id] || st.unitBindings[u.ID+":"+strconv.Itoa(u.Version)][id] != st.assets[id].SHA256 {
 				valid = false
 			}
 		}

@@ -142,7 +142,12 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 		}
 	}
 	for i, d := range c.Domains {
-		for _, id := range d.RelatedDomainIDs {
+		seen := map[string]bool{}
+		for j, id := range d.RelatedDomainIDs {
+			if seen[id] {
+				errAt("DUPLICATE_RELATION", fmt.Sprintf("/domains/%d/relatedDomainIds/%d", i, j))
+			}
+			seen[id] = true
 			if !domains[id] {
 				errAt("MISSING_DOMAIN", fmt.Sprintf("/domains/%d/relatedDomainIds", i))
 			}
@@ -218,6 +223,7 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 		visit(k.ID)
 	}
 	assetIDs := map[string]bool{}
+	assetOwners := map[string]VersionRef{}
 	assetBytes := map[string][]byte{}
 	total := 0
 	for i, a := range p.Assets {
@@ -226,6 +232,7 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 			errAt("DUPLICATE_ID", path)
 		}
 		assetIDs[a.ID] = true
+		assetOwners[a.ID] = a.Knowledge
 		refOK(a.Knowledge, path+"/knowledge")
 		b, e := readAsset(root, a)
 		if e != nil {
@@ -235,6 +242,7 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 		total += len(b)
 		if total > MaxPackageBytes {
 			errAt("ASSETS_TOO_LARGE", "/assets")
+			return ValidatedPackage{}, r
 		}
 		assetBytes[a.ID] = b
 	}
@@ -246,7 +254,15 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 	for i, k := range p.Knowledge {
 		path := fmt.Sprintf("/knowledge/%d", i)
 		for _, s := range append([]string{k.Title, k.TitleZh, k.Statement, k.Scope, k.System, k.Proof}, append(k.Objectives, k.Conditions...)...) {
-			checkText(s, path)
+			owned := map[string]bool{}
+			for id, owner := range assetOwners {
+				if owner.ID == k.ID && owner.Version == k.Version {
+					owned[id] = true
+				}
+			}
+			if !safeMarkdown(s, owned) {
+				errAt("UNSAFE_MARKUP", path)
+			}
 		}
 		if k.Statement == "" || k.Scope == "" || (k.Type == "theorem" && k.Proof == "") {
 			review(path)
@@ -274,7 +290,7 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 		refOK(u.Knowledge, path)
 		allowed := map[string]bool{}
 		for _, id := range u.AssetIDs {
-			if !assetIDs[id] || allowed[id] {
+			if !assetIDs[id] || allowed[id] || assetOwners[id] != u.Knowledge {
 				errAt("INVALID_ASSET_REFERENCE", path)
 			}
 			allowed[id] = true

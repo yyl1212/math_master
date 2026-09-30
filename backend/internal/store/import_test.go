@@ -103,7 +103,7 @@ func TestImportRollsBackLateFailure(t *testing.T) {
 	if _, e := s.ImportDraft(ctx, input(t, nil)); e == nil {
 		t.Fatal("late failure accepted")
 	}
-	for _, table := range []string{"catalogue_versions", "domains", "topics", "knowledge", "knowledge_versions", "knowledge_relations", "assets", "path_versions", "unit_versions", "imported_packages", "package_members", "publication_snapshots", "publication_members", "publication_heads"} {
+	for _, table := range []string{"catalogue_versions", "domains", "topics", "knowledge", "knowledge_versions", "knowledge_relations", "assets", "path_versions", "unit_versions", "unit_asset_bindings", "imported_packages", "package_members", "publication_snapshots", "publication_members", "publication_heads"} {
 		var n int
 		if e := db.QueryRowContext(ctx, "SELECT count(*) FROM "+table).Scan(&n); e != nil || n != 0 {
 			t.Fatalf("%s: %d %v", table, n, e)

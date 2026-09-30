@@ -16,7 +16,7 @@ func migration(ctx context.Context, db *sql.DB, dir string, down bool) error {
 		return e
 	}
 	if down {
-		_, e = p.Down(ctx)
+		_, e = p.DownTo(ctx, 0)
 	} else {
 		_, e = p.Up(ctx)
 	}

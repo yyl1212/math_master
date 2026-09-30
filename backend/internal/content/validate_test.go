@@ -85,3 +85,45 @@ func TestFormalSeedHasReviewItems(t *testing.T) {
 		t.Fatal(report)
 	}
 }
+
+func TestStorageBoundaryRejectsUnstorableDrafts(t *testing.T) {
+	for _, kind := range []string{"package-version", "knowledge-version", "catalogue-version", "domain-order", "nul", "duplicate-domain-relation"} {
+		t.Run(kind, func(t *testing.T) {
+			c, p, r := seed(t)
+			switch kind {
+			case "package-version":
+				p.Version = 2147483648
+			case "knowledge-version":
+				p.Knowledge[0].Version = 2147483648
+				for i := range p.Knowledge {
+					for j := range p.Knowledge[i].Relations {
+						if p.Knowledge[i].Relations[j].Target.ID == p.Knowledge[0].ID {
+							p.Knowledge[i].Relations[j].Target.Version = 2147483648
+						}
+					}
+				}
+				for i := range p.Paths {
+					for j := range p.Paths[i].Nodes {
+						if p.Paths[i].Nodes[j].ID == p.Knowledge[0].ID {
+							p.Paths[i].Nodes[j].Version = 2147483648
+						}
+					}
+				}
+			case "catalogue-version":
+				c.Version = 2147483648
+			case "domain-order":
+				c.Domains[0].Order = 2147483648
+			case "nul":
+				p.Knowledge[0].Statement = "text\x00tail"
+			case "duplicate-domain-relation":
+				c.Domains[0].RelatedDomainIDs = []string{c.Domains[1].ID, c.Domains[1].ID}
+			}
+			blocked(t, c, p, r)
+		})
+	}
+}
+func TestAssetsMustBelongToReferencedKnowledgeVersion(t *testing.T) {
+	c, p, r := seed(t)
+	p.Assets[0].Knowledge = VersionRef{ID: p.Knowledge[0].ID, Version: 1}
+	blocked(t, c, p, r)
+}

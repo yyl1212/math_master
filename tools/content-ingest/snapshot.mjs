@@ -22,8 +22,8 @@ try {
   const changes={added:files.filter(f=>!oldMap.has(f.path)).map(f=>f.path),modified:files.filter(f=>oldMap.has(f.path)&&oldMap.get(f.path)!==f.sha256).map(f=>f.path),missing:before.filter(f=>!now.has(f.path)).map(f=>f.path).sort()};
   const sourceIndexMismatches=[...declared].filter(([p,h])=>!now.has(p)||(h&&now.get(p)!==h)).map(([p])=>p).sort();
   const manifest={schemaVersion:1,snapshotId:hash(JSON.stringify(files)),createdAt:new Date().toISOString(),sourceRoot:source,packageCount,primaryFiles:[...primary].sort(),files,changes,sourceIndexMismatches};
-  mkdirSync(out);created=out;mkdirSync(join(out,'files'));for(const [p,b] of captured){mkdirSync(dirname(join(out,'files',p)),{recursive:true});writeFileSync(join(out,'files',p),b,{flag:'wx'});}
+  mkdirSync(out,{mode:0o700});created=out;mkdirSync(join(out,'files'),{mode:0o700});for(const [p,b] of captured){mkdirSync(dirname(join(out,'files',p)),{recursive:true,mode:0o700});writeFileSync(join(out,'files',p),b,{flag:'wx',mode:0o600});}
   const after=walk(source);if(JSON.stringify(after)!==JSON.stringify(paths)||files.some(f=>hash(readFileSync(join(source,f.path)))!==f.sha256))throw Error('SOURCE_CHANGED_RETRY');
-  writeFileSync(join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n',{flag:'wx'});created=undefined;
+  writeFileSync(join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n',{flag:'wx',mode:0o600});created=undefined;
   process.stdout.write(JSON.stringify({snapshotId:manifest.snapshotId,fileCount:files.length,packageCount,primaryFileCount:primary.size,changeCounts:Object.fromEntries(Object.entries(changes).map(([k,v])=>[k,v.length])),sourceIndexMismatchCount:sourceIndexMismatches.length})+'\n');
 } catch(e){if(created)rmSync(created,{recursive:true,force:true});process.stderr.write(JSON.stringify({error:String(e.message).match(/^[A-Z_]+$/)?.[0]??'SNAPSHOT_FAILED'})+'\n');process.exitCode=1;}

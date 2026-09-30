@@ -44,7 +44,7 @@
 | `schemas/catalogue.schema.json`、`schemas/content-package.schema.json` | JSON Schema 2020-12 契约 |
 | `backend/internal/catalogue/model.go`、`backend/internal/content/{model,decode,validate,assets}.go` | 目录/内容类型、结构、关系、素材检查 |
 | `content/catalogue/domains.json`、`content/packages/elementary-fractions.v1.json`、`content/assets/equivalent-fractions.v1.svg` | 正式目录与原创未审核草稿 |
-| `db/migrations/00001_content_foundation.sql`、`backend/internal/store/{store,migrate,import,export,catalogue,publication}.go` | 数据结构、事务导入和只读查询 |
+| `db/migrations/{00001_content_foundation,00002_unit_asset_bindings}.sql`、`backend/internal/store/{store,migrate,import,export,catalogue,publication}.go` | 数据结构、事务导入和只读查询 |
 | `backend/cmd/{migrate,content-check,content-import,content-export}/main.go`、`backend/internal/cli/content.go` | 命令行边界与退出码 |
 | `api/openapi.yaml`、`backend/internal/httpapi/{handler,catalogue,error}.go` | 只读接口和错误约定 |
 | `compose.dev.yaml`、`.env.example`、`tools/verify/{run,run.test}.mjs`、`.github/workflows/backend.yml` | 本地测试数据库及有时限验证 |
@@ -167,16 +167,16 @@ flowchart LR
 
 ## 任务 7：持续验证、阶段回归与交接
 
-**文件：**新增 `.github/workflows/backend.yml`；修改 `README.md`、`docs/operations/content-foundation.md`；按审查结论修正本阶段实际问题，不新增未设计的业务功能。
+**文件：**新增 `.github/workflows/backend.yml`、`db/migrations/00002_unit_asset_bindings.sql` 与 `docs/operations/2026-10-01-p1-acceptance.md`（最终审查补充）；修改 `README.md`、`docs/operations/content-foundation.md`；按审查结论修正本阶段实际问题，不新增未设计的业务功能。
 
 **接口：**CI 与本地共用任务 1 的包装器；PostgreSQL 服务版本 17.11，Go 工具链 1.27.1，环境 `CGO_ENABLED=0`。不使用要求 CGO 的 `-race` 代替数据库并发用例。
 
-- [ ] 1. 配置 CI 的格式检查、Go 静态检查、纯校验测试、真实 PostgreSQL 集成测试和构建，分为各自最多 540 秒的命令；CI 依赖固定版本，凭据为临时测试值，数据库命名符合测试保护。
-- [ ] 2. 从根目录分别运行包装器：`go vet ./...`、`go test ./internal/content ./internal/config ./internal/httpapi -timeout 5m -count=1`、`go test ./internal/store ./internal/cli -timeout 5m -count=1`、`go build ./cmd/...`，均以 `--cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1` 执行；运行 `node --test tools/verify/run.test.mjs`，预期全部通过。`gofmt -l` 无输出，`git diff --check` 无错误。
-- [ ] 3. 按任务 5、6 操作复核导入/导出/API，无发布内容却声明已发布、错误包留下半数据、公开草稿、覆盖旧版本任一情况均为阻断问题。
-- [ ] 4. 完成代码审查，覆盖五项审查重点、迁移约束、无秘密提交和后续 P3 发布兼容性；修复问题后只重跑受影响回归及阶段门槛，记录实际结果，不以计划中的“预期通过”冒充已测试。
+- [x] 1. 配置 CI 的格式检查、Go 静态检查、纯校验测试、真实 PostgreSQL 集成测试和构建，分为各自最多 540 秒的命令；CI 依赖固定版本，凭据为临时测试值，数据库命名符合测试保护。
+- [x] 2. 从根目录分别运行包装器：`go vet ./...`、`go test ./internal/content ./internal/config ./internal/httpapi -timeout 5m -count=1`、`go test ./internal/store ./internal/cli -timeout 5m -count=1`、`go build ./cmd/...`，均以 `--cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1` 执行；运行 `node --test tools/verify/run.test.mjs`，预期全部通过。`gofmt -l` 无输出，`git diff --check` 无错误。
+- [x] 3. 按任务 5、6 操作复核导入/导出/API，无发布内容却声明已发布、错误包留下半数据、公开草稿、覆盖旧版本任一情况均为阻断问题。
+- [x] 4. 完成代码审查，覆盖五项审查重点、迁移约束、无秘密提交和后续 P3 发布兼容性；修复问题后只重跑受影响回归及阶段门槛，记录实际结果，不以计划中的“预期通过”冒充已测试。
 - [ ] 5. README 添加启动、迁移、导入及测试入口，记录 P1 数学内容尚未发布。PR 说明具体交付、验证结果及 P2/P3 接口边界；推送当前分支，创建面向最新 master 的 PR 并附到当前任务。
-- [ ] 6. P1 合并后，从最新 master 编写 P2 的英文页面执行计划；继续以原预览为视觉依据，先实现真实目录与诚实的空状态。
+- [ ] 6. 后续条件任务（本 PR 不执行）：P1 合并后，从最新 master 编写 P2 的英文页面执行计划；继续以原预览为视觉依据，先实现真实目录与诚实的空状态。
 
 ## 可行性及兼容性审查结论
 

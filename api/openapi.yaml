@@ -509,11 +509,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "version": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "maximum": 2147483647
           }
         },
         "required": [
@@ -532,22 +536,40 @@
             ]
           },
           "author": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "url": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "accessedAt": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "license": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "attribution": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           }
         },
         "required": [
@@ -586,24 +608,34 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "version": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "maximum": 2147483647
           },
           "domainIds": {
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "topicIds": {
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "type": {
@@ -618,33 +650,57 @@
             ]
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "titleZh": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "statement": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "scope": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "system": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "proof": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "objectives": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "conditions": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "sources": {
@@ -683,10 +739,16 @@
         "type": "object",
         "properties": {
           "kind": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "body": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           }
         },
         "required": [
@@ -700,11 +762,15 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "version": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "maximum": 2147483647
           },
           "knowledge": {
             "$ref": "#/components/schemas/ref"
@@ -718,20 +784,29 @@
           "examples": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "counterexamples": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "assetIds": {
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           }
         },
@@ -751,24 +826,37 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "version": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "maximum": 2147483647
           },
           "domainIds": {
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "titleZh": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "nodes": {
             "type": "array",
@@ -792,23 +880,41 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "path": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "sha256": {
             "type": "string",
-            "pattern": "^[a-f0-9]{64}$"
+            "pattern": "^[a-f0-9]{64}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "author": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "license": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "attribution": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "knowledge": {
             "$ref": "#/components/schemas/ref"
@@ -830,17 +936,27 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "order": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "maximum": 2147483647
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "nameZh": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "topics": {
             "type": "array",
@@ -849,13 +965,22 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 },
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 },
                 "nameZh": {
-                  "type": "string"
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 }
               },
               "required": [
@@ -870,7 +995,10 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "contentStatus": {
@@ -902,17 +1030,27 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "order": {
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "maximum": 2147483647
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "nameZh": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "topics": {
             "type": "array",
@@ -921,13 +1059,22 @@
               "properties": {
                 "id": {
                   "type": "string",
-                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 },
                 "name": {
-                  "type": "string"
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 },
                 "nameZh": {
-                  "type": "string"
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
                 }
               },
               "required": [
@@ -942,7 +1089,10 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
             }
           },
           "contentStatus": {
@@ -1007,20 +1157,35 @@
         "properties": {
           "id": {
             "type": "string",
-            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "sha256": {
             "type": "string",
-            "pattern": "^[a-f0-9]{64}$"
+            "pattern": "^[a-f0-9]{64}$",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "author": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "license": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "attribution": {
-            "type": "string"
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
           },
           "knowledge": {
             "$ref": "#/components/schemas/ref"

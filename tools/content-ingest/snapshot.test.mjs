@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync,statSync,chmodSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -43,4 +43,11 @@ test('reports missing files as a review item without modifying the previous snap
   rmSync(join(source,'extra.json'));const second=join(dir,'second');assert.equal(run(source,second,join(first,'manifest.json')).status,0);
   assert.deepEqual(JSON.parse(readFileSync(join(second,'manifest.json'))).changes.missing,['extra.json']);
   assert.equal(existsSync(join(first,'files/extra.json')),true);
+});
+
+test('private snapshots retain owner-only permissions under a permissive umask', {skip:process.platform==='win32'}, t=>{
+ const {dir,source}=fixture(t);chmodSync(join(source,'knowledge.json'),0o600);const out=join(dir,'private');
+ const r=spawnSync(process.execPath,['-e',"process.umask(0o022);import(process.argv[1]);",program,'--source',source,'--out',out],{encoding:'utf8',timeout:10000});assert.equal(r.status,0,r.stderr);
+ for(const p of [out,join(out,'files')])assert.equal(statSync(p).mode&0o777,0o700);
+ for(const p of [join(out,'manifest.json'),join(out,'files/knowledge.json')])assert.equal(statSync(p).mode&0o777,0o600);
 });

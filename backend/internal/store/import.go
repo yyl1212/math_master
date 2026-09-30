@@ -135,6 +135,26 @@ func (s *Store) ImportDraft(ctx context.Context, v content.ValidatedPackage) (Im
 			return result, e
 		}
 	}
+
+	assetDigests := map[string]string{}
+	for _, a := range p.Assets {
+		assetDigests[a.ID] = a.SHA256
+	}
+	for _, u := range p.Units {
+		for _, id := range u.AssetIDs {
+			sha := assetDigests[id]
+			if _, e = tx.ExecContext(ctx, "INSERT INTO unit_asset_bindings VALUES($1,$2,$3,$4) ON CONFLICT DO NOTHING", u.ID, u.Version, id, sha); e != nil {
+				return result, e
+			}
+			var stored string
+			if e = tx.QueryRowContext(ctx, "SELECT asset_sha256 FROM unit_asset_bindings WHERE unit_id=$1 AND unit_version=$2 AND asset_id=$3", u.ID, u.Version, id).Scan(&stored); e != nil {
+				return result, e
+			}
+			if stored != sha {
+				return result, ErrImmutableConflict
+			}
+		}
+	}
 	if _, e = tx.ExecContext(ctx, "INSERT INTO imported_packages VALUES($1,$2,$3,$4,$5,$6)", p.ID, p.Version, v.SHA256(), c.Version, v.CatalogueSHA256(), body(p)); e != nil {
 		return result, e
 	}
