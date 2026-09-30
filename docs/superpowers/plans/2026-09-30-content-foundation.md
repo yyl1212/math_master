@@ -126,12 +126,12 @@ flowchart LR
 
 **数据约束：**表为 `catalogue_versions/domains/topics/domain_relations/knowledge/knowledge_versions/knowledge_relations/unit_versions/path_versions/path_nodes/assets/imported_packages/package_members/publication_snapshots/publication_members/publication_heads`。版本正文与哈希不可原地更新；`(id, version)` 唯一，关系引用外键到实际版本，包摘要唯一。导入记录固定目录版本及摘要；目录成员随目录版本保存。`publication_snapshots` 定义 `draft/published/withdrawn`，成员另有 `active/withdrawn` 可用状态；`publication_heads` 的单例记录指向当前全局快照。P1 只创建 draft，head 保持空；P3 添加审核事件、完整图合并检查和事务切换。正文不可变与发布状态可变分别处理。
 
-- [ ] 1. 用 `.env` 私有值启动 `docker compose -f compose.dev.yaml up -d db`；数据库仅绑定 `127.0.0.1`，版本固定 17.11，凭据取环境。测试使用独立 `math_master_test_*` 数据库；未设置 `TEST_DATABASE_URL` 或库名不合规时直接失败，不跳过、不删除生产数据。
-- [ ] 2. 写 `TestImportIsIdempotent`、`TestVersionCannotBeOverwritten`、`TestImportRollsBackLateFailure`、`TestConcurrentSamePackageImport`、`TestMigrationRoundTrip`。断言复跑返回 `AlreadyImported`、同版本不同摘要失败、模拟最后一步约束失败后所有新增内容/目录/包记录为零、并发重复提交只有一份结果且无半成品；新空测试库执行 up/up/down/up 后结构一致。
-- [ ] 3. 运行包装器中的 `go test ./internal/store -run 'TestImport|TestVersion|TestConcurrent' -timeout 5m -count=1`，预期失败；连接/迁移每步均带 context 时限。
-- [ ] 4. 实现迁移和导入事务，固定目录版本、包成员及版本摘要；相同版本相同内容可复用，不同内容拒绝。并发重复包由唯一约束与事务重读处理；封存哈希复核后整体导入，只创建草稿快照。失败不保留半包、半目录或活动发布指针。迁移不在 HTTP 服务启动时自动执行。
-- [ ] 5. 同命令通过；另运行 `go test ./internal/store -run TestMigrationRoundTrip -timeout 5m -count=1`，新空测试库迁移、再次迁移不重复创建对象。只在专用测试库验证回退，正式运维不默认执行 down。
-- [ ] 6. 暂存本任务文件，提交 `feat: 建立版本化存储与幂等草稿导入`。
+- [x] 1. 用 `.env` 私有值启动 `docker compose -f compose.dev.yaml up -d db`；数据库仅绑定 `127.0.0.1`，版本固定 17.11，凭据取环境。测试使用独立 `math_master_test_*` 数据库；未设置 `TEST_DATABASE_URL` 或库名不合规时直接失败，不跳过、不删除生产数据。
+- [x] 2. 写 `TestImportIsIdempotent`、`TestVersionCannotBeOverwritten`、`TestImportRollsBackLateFailure`、`TestConcurrentSamePackageImport`、`TestMigrationRoundTrip`。断言复跑返回 `AlreadyImported`、同版本不同摘要失败、模拟最后一步约束失败后所有新增内容/目录/包记录为零、并发重复提交只有一份结果且无半成品；新空测试库执行 up/up/down/up 后结构一致。
+- [x] 3. 运行包装器中的 `go test ./internal/store -run 'TestImport|TestVersion|TestConcurrent' -timeout 5m -count=1`，预期失败；连接/迁移每步均带 context 时限。
+- [x] 4. 实现迁移和导入事务，固定目录版本、包成员及版本摘要；相同版本相同内容可复用，不同内容拒绝。并发重复包由唯一约束与事务重读处理；封存哈希复核后整体导入，只创建草稿快照。失败不保留半包、半目录或活动发布指针。迁移不在 HTTP 服务启动时自动执行。
+- [x] 5. 同命令通过；另运行 `go test ./internal/store -run TestMigrationRoundTrip -timeout 5m -count=1`，新空测试库迁移、再次迁移不重复创建对象。只在专用测试库验证回退，正式运维不默认执行 down。
+- [x] 6. 暂存本任务文件，提交 `feat: 建立版本化存储与幂等草稿导入`。
 
 ## 任务 5：校验、导入、导出与迁移命令
 
