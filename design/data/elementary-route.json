@@ -1,0 +1,18 @@
+{
+  "id":"elementary-fractions-preview",
+  "domainId":"elementary-mathematics",
+  "title":"From numbers to fractions",
+  "contentStatus":"preview",
+  "nodes":[
+    {"id":"numbers","title":"Understanding numbers","type":"Concept","description":"Represent quantities and place value.","prerequisites":[],"unlocked":true,"learningState":"mastered"},
+    {"id":"arithmetic","title":"Arithmetic operations","type":"Method","description":"Work with the four basic operations.","prerequisites":["numbers"],"unlocked":true,"learningState":"mastered"},
+    {"id":"factors","title":"Factors & multiples","type":"Concept","description":"Find shared factors and multiples.","prerequisites":["arithmetic"],"unlocked":true,"learningState":"mastered"},
+    {"id":"fractions","title":"What a fraction means","type":"Definition","description":"Connect equal parts with a whole.","prerequisites":["arithmetic"],"unlocked":true,"learningState":"mastered"},
+    {"id":"decimal-place-value","title":"Decimals & place value","type":"Concept","description":"Read tenths, hundredths and beyond.","prerequisites":["arithmetic"],"unlocked":true,"learningState":"learned"},
+    {"id":"equivalent-fractions","title":"Equivalent fractions","type":"Theorem","description":"Different expressions. The same value.","prerequisites":["fractions","arithmetic"],"unlocked":true,"learningState":"learned","lessonAvailable":true},
+    {"id":"simplifying-fractions","title":"Simplifying fractions","type":"Method","description":"Use common factors to write a fraction in lowest terms.","prerequisites":["equivalent-fractions","factors"],"unlocked":false,"learningState":"unlearned"},
+    {"id":"decimal-fraction-conversion","title":"Decimals ↔ fractions","type":"Method","description":"Move between two ways of representing a number.","prerequisites":["equivalent-fractions","decimal-place-value"],"unlocked":false,"learningState":"unlearned"},
+    {"id":"comparing-fractions","title":"Comparing fractions","type":"Method","description":"Compare values using equivalent forms.","prerequisites":["simplifying-fractions"],"unlocked":false,"learningState":"unlearned"},
+    {"id":"percentages","title":"Understanding percentages","type":"Definition","description":"Express a quantity as parts per hundred.","prerequisites":["decimal-fraction-conversion"],"unlocked":false,"learningState":"unlearned"}
+  ]
+}
