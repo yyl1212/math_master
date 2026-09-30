@@ -43,6 +43,16 @@ install -m 600 config/server.example.json config/server.local.json
 
 ## Git 工作流程
 
-仓库初始分支为 `master`，本次配置工作在 `chore/project-init` 分支进行。目前没有配置远程仓库，因此初始化阶段没有远程 `master` 可供拉取，也无法创建 MR。
+远程仓库为 `git@github.com:yyl1212/math_master.git`，本地远程名称为 `origin`。仓库初始分支为 `master`，本次配置工作在 `chore/project-init` 分支进行。首次同步时远程仓库为空，因此先建立 `master` 基线，再推送开发分支并创建面向 `master` 的 PR（即 MR）。
+
+后续开发可按以下步骤更新基线并创建分支：
+
+```bash
+git switch master
+git pull --ff-only origin master
+git switch -c feat/your-feature
+```
+
+远程访问优先使用本机已配置的 SSH 密钥，GitHub CLI 用于创建 PR。令牌不写入项目文件或远程地址。
 
 后续开发遵循项目约定：先更新远程 `master`，再新建开发分支；按审查过的方案与计划实施，完成代码审查、回归验证后，通过 Git 托管平台创建 MR。每次测试不超过 10 分钟，项目文档使用中文。
