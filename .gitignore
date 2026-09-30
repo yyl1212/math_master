@@ -8,3 +8,10 @@
 
 # macOS 系统文件
 .DS_Store
+
+# 执行记录、本地输入、测试输出及编译产物
+.superpowers/
+content/input/
+content/snapshots.local/
+backend/bin/
+coverage*.out
