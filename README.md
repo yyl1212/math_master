@@ -2,13 +2,13 @@
 
 本项目旨在搭建一个全面的数学学习成长网站，以内容正确性、内容覆盖与数量和丰富的学习路径为核心，逐步覆盖零基础学习到学术研究与知识分享。
 
-当前完成 Git 仓库与服务器配置初始化，已形成首版设计、英文页面预览与分阶段开发计划，生产网站尚未实现。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
+当前 P1 内容基础层代码已实现，正在最终审查；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。英文前端仍为设计预览，完整网站和部署尚未实现。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
 
 ## 设计文档
 
 [总体方向与首版设计](docs/superpowers/specs/2026-09-30-math-learning-platform-design.md)包含知识点、解锁与回顾、内容和题库审核、反馈纠错、架构、文件范围与验收标准。
 
-[开发路线图](docs/superpowers/plans/2026-09-30-development-roadmap.md)按可信内容底座、英文页面、账户审核、学习检测、反馈纠错、首批数据验收、部署试运行推进。[P1 执行计划](docs/superpowers/plans/2026-09-30-content-foundation.md)给出首阶段的文件、接口、验证和提交步骤，供实施前审阅。已读取用户提供的本地 `Knowledge_JSON` 目录，包含 31 个资料包、8,722 条数学候选记录及 104 条软件能力记录；[检查报告](docs/content/2026-10-01-knowledge-json-inspection.md)记录文件校验、结构差异与重复内容。[资料来源清单](docs/content/source-inventory.md)保留本地路径、Library 入口与 ZIP 整理流程，正式内容仍需转换、去重并独立复核。
+[开发路线图](docs/superpowers/plans/2026-09-30-development-roadmap.md)按可信内容底座、英文页面、账户审核、学习检测、反馈纠错、首批数据验收、部署试运行推进。[P1 执行计划](docs/superpowers/plans/2026-09-30-content-foundation.md)给出首阶段的文件、接口、验证和提交步骤，记录首阶段实现与验收。2026-10-01 较早批次已读取用户提供的本地 `Knowledge_JSON` 目录，包含 31 个资料包、8,722 条数学候选记录及 104 条软件能力记录；[检查报告](docs/content/2026-10-01-knowledge-json-inspection.md)记录文件校验、结构差异与重复内容。[资料来源清单](docs/content/source-inventory.md)保留本地路径、Library 入口与 ZIP 整理流程，后续本次快照已增至 35 个资料包、905 个文件；正式数学内容仍需分批编写、去重并独立复核。
 
 [英文页面设计与预览说明](design/README.md)包含 16 板块数据、页面层级、样例路线及预览启动方式。后续直接在项目中设计与开发，已取消 Figma 同步。
 
@@ -17,6 +17,36 @@ python3 -m http.server 8897 --bind 127.0.0.1 --directory design
 ```
 
 打开 <http://127.0.0.1:8897/preview/#map>。只提供 `design` 目录，页面中的讲解和学习记录均为演示数据。
+
+
+## P1 开发入口
+
+详见 [内容基础层操作说明](docs/operations/content-foundation.md) 和 [OpenAPI](api/openapi.yaml)。目录为 16 板块、56 主题；10 个初等数学知识点均为草稿，其中 9 个仍是正文骨架。零结构错误不代表独立数学审核通过，P1 尚无公开数学内容。
+
+从项目根操作，先按 `.env.example` 创建本机 `.env` 并填写开发数据库凭据：
+
+```sh
+set -a
+source .env
+set +a
+docker compose -p math-master-p1 -f compose.dev.yaml up -d --wait db
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/ ./cmd/...
+./backend/bin/migrate --dir db/migrations up
+./backend/bin/content-check --catalogue content/catalogue/domains.json --package content/packages/elementary-fractions.v1.json --assets content/assets
+./backend/bin/content-import --catalogue content/catalogue/domains.json --package content/packages/elementary-fractions.v1.json --assets content/assets
+./backend/bin/server
+```
+
+浏览 `http://127.0.0.1:8080/api/v1/domains`。草稿知识与路线返回 404，建设状态由有效发布快照派生；数据接口不读取 `design/data`。P2 将接入英文页面，P3 才提供独立审核和发布。
+
+```sh
+node --test tools/verify/run.test.mjs tools/content-ingest/snapshot.test.mjs
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/content ./internal/config ./internal/httpapi -timeout 5m -count=1
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -timeout 5m -count=1
+```
+
+测试必须设置专用 `TEST_DATABASE_URL`；每次创建并清理自己的随机 `math_master_test_*` 库。每条验证命令最多 540 秒，超时终止宽限 5 秒。
 
 ## 目录结构
 
@@ -27,6 +57,13 @@ math_master/
 ├── config/
 │   ├── server.example.json    # 可提交的服务器配置模板
 │   └── server.local.json      # 本机私有服务器配置，不提交 Git
+├── backend/                   # Go 服务、命令与业务校验
+├── schemas/                   # 唯一正式 JSON 契约及嵌入模块
+├── content/                   # 正式目录、未审核草稿及原创素材
+├── db/migrations/             # 显式数据库迁移
+├── api/openapi.yaml           # 公开只读接口契约
+├── tools/                     # 资料快照与验证时限
+├── compose.dev.yaml           # 本机 PostgreSQL 17.11
 ├── design/                    # 英文设计预览、16 板块数据与历史设计脚本
 └── docs/
     ├── content/               # 资料入口、来源清单与知识点映射

@@ -1,0 +1,54 @@
+name: P1 内容基础层验证
+on:
+  push:
+    branches: [master, 'codex/**']
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: go1.27.1
+      TEST_DATABASE_URL: postgres://math_master:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: math_master
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: math_master_test_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd 'pg_isready -U math_master -d math_master_test_ci'
+          --health-interval 2s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.27.1'
+          cache-dependency-path: backend/go.sum
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.17.0'
+      - name: 格式检查
+        run: |
+          node tools/verify/run.mjs --cwd backend -- node -e '
+          const {spawnSync}=require("node:child_process");
+          const r=spawnSync("gofmt",["-l","."],{encoding:"utf8"});
+          process.stdout.write(r.stdout??"");process.stderr.write(r.stderr??"");
+          process.exit(r.status!==0?1:r.stdout.trim()?1:0);'
+          git diff --check
+      - name: 验证入口与资料快照
+        run: node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/content-ingest/snapshot.test.mjs
+      - name: Go 静态检查
+        run: node tools/verify/run.mjs --cwd backend -- go vet ./...
+      - name: 内容与 HTTP 校验
+        run: node tools/verify/run.mjs --cwd backend -- go test ./internal/content ./internal/config ./internal/httpapi -timeout 5m -count=1
+      - name: 真实 PostgreSQL 集成验证
+        run: node tools/verify/run.mjs --cwd backend -- go test ./internal/store ./internal/cli -timeout 5m -count=1
+      - name: 构建
+        run: node tools/verify/run.mjs --cwd backend -- go build ./cmd/...
