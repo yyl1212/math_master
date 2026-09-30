@@ -141,12 +141,12 @@ flowchart LR
 
 **命令约定：**`content-check --catalogue <file> --package <file> --assets <dir>`；`content-import` 同参数并读 `DATABASE_URL`；`content-export --id <id> --version <n> --catalogue-version <n> --out <new-dir>`；`migrate --dir db/migrations up`。从项目根执行；导出目录必须新建且不能覆盖原内容，生成 `catalogue.json/package.json/assets/`，目录版本必须匹配包的实际导入记录。
 
-- [ ] 1. 写 `TestCheckDoesNotRequireDatabase`、`TestImportRejectsClaimedPublication`、`TestExportRoundTripPreservesVersionsAndAssets`、`TestCLIReportsRedactedFailure`；断言合法草稿可离线检查，`status: published/reviewedBy` 等伪造字段被拒绝，导出再校验/导入内容摘要不变，错误退出码正确且不含凭据。
-- [ ] 2. 运行包装器中的 `go test ./internal/cli ./internal/store -run 'TestCheck|TestImportRejects|TestExport|TestCLI' -timeout 5m -count=1`，预期失败。
-- [ ] 3. 实现命令，check 输出阻断项和待复核项，import 始终导入草稿；素材受校验后以摘要及字节保存到 `assets`，导出从数据库恢复，不能依赖原机器文件仍在。export 固定具体版本，不导出个人记录或内部秘密。
-- [ ] 4. 同命令通过；按操作说明迁移新的本地开发库，导入正式目录/草稿两次，第二次报告幂等；导出到临时新目录，check 为零阻断错误，库中公开数学内容数量仍为 0。
-- [ ] 5. 文档记录待复核与阻断的区别、退出码、私有环境、导出恢复流程，以及 P1 不能发布内容的边界。
-- [ ] 6. 暂存本任务文件，提交 `feat: 提供内容检查导入导出命令`。
+- [x] 1. 写 `TestCheckDoesNotRequireDatabase`、`TestImportRejectsClaimedPublication`、`TestExportRoundTripPreservesVersionsAndAssets`、`TestCLIReportsRedactedFailure`；断言合法草稿可离线检查，`status: published/reviewedBy` 等伪造字段被拒绝，导出再校验/导入内容摘要不变，错误退出码正确且不含凭据。
+- [x] 2. 运行包装器中的 `go test ./internal/cli ./internal/store -run 'TestCheck|TestImportRejects|TestExport|TestCLI' -timeout 5m -count=1`，预期失败。
+- [x] 3. 实现命令，check 输出阻断项和待复核项，import 始终导入草稿；素材受校验后以摘要及字节保存到 `assets`，导出从数据库恢复，不能依赖原机器文件仍在。export 固定具体版本，不导出个人记录或内部秘密。
+- [x] 4. 同命令通过；按操作说明迁移新的本地开发库，导入正式目录/草稿两次，第二次报告幂等；导出到临时新目录，check 为零阻断错误，库中公开数学内容数量仍为 0。
+- [x] 5. 文档记录待复核与阻断的区别、退出码、私有环境、导出恢复流程，以及 P1 不能发布内容的边界。
+- [x] 6. 暂存本任务文件，提交 `feat: 提供内容检查导入导出命令`。
 
 ## 任务 6：目录与发布内容只读 API
 
