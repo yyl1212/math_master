@@ -8,7 +8,7 @@
 
 [总体方向与首版设计](docs/superpowers/specs/2026-09-30-math-learning-platform-design.md)包含知识点、解锁与回顾、内容和题库审核、反馈纠错、架构、文件范围与验收标准。
 
-[开发路线图](docs/superpowers/plans/2026-09-30-development-roadmap.md)按可信内容底座、英文页面、账户审核、学习检测、反馈纠错、首批数据验收、部署试运行推进。[P1 执行计划](docs/superpowers/plans/2026-09-30-content-foundation.md)给出首阶段的文件、接口、验证和提交步骤，供实施前审阅。知识点整理优先参考 wiw 在空间中收集的资料，保留出处并独立复核；具体资料页面待定位。
+[开发路线图](docs/superpowers/plans/2026-09-30-development-roadmap.md)按可信内容底座、英文页面、账户审核、学习检测、反馈纠错、首批数据验收、部署试运行推进。[P1 执行计划](docs/superpowers/plans/2026-09-30-content-foundation.md)给出首阶段的文件、接口、验证和提交步骤，供实施前审阅。知识点与参考资料优先使用用户指定的 math_master Library 文件夹，整理者为 wiw；入口及读取状态见 [资料来源清单](docs/content/source-inventory.md)。条目目录和正文尚未读取，整理后保留出处并独立复核。
 
 [英文页面设计与预览说明](design/README.md)包含 16 板块数据、页面层级、样例路线及预览启动方式。后续直接在项目中设计与开发，已取消 Figma 同步。
 
@@ -28,9 +28,11 @@ math_master/
 │   ├── server.example.json    # 可提交的服务器配置模板
 │   └── server.local.json      # 本机私有服务器配置，不提交 Git
 ├── design/                    # 英文设计预览、16 板块数据与历史设计脚本
-└── docs/superpowers/
-    ├── specs/                 # 中文设计文档
-    └── plans/                 # 分阶段路线图与执行计划
+└── docs/
+    ├── content/               # 资料入口、来源清单与知识点映射
+    └── superpowers/
+        ├── specs/             # 中文设计文档
+        └── plans/             # 分阶段路线图与执行计划
 ```
 
 ## 配置结构

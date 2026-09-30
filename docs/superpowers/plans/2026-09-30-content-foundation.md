@@ -49,7 +49,7 @@
 | `api/openapi.yaml`、`backend/internal/httpapi/{handler,catalogue,error}.go` | 只读接口和错误约定 |
 | `compose.dev.yaml`、`.env.example`、`tools/verify/{run,run.test}.mjs`、`.github/workflows/backend.yml` | 本地测试数据库及有时限验证 |
 | `docs/operations/content-foundation.md`、`README.md`、`.gitignore` | 操作说明、开发入口及生成文件排除 |
-| `docs/content/source-inventory.md` | wiw 空间资料的实际目录、出处和知识点映射，未定位资料明确标为待补充 |
+| `docs/content/source-inventory.md` | 已指定的 Library 文件夹入口、条目读取状态、原始出处和知识点映射 |
 | 各任务列出的 `*_test.go`、`backend/internal/content/testdata/`、`backend/internal/store/testdata/` | 业务与数据库回归，不复刻实现细节 |
 
 ```mermaid
@@ -91,7 +91,7 @@ flowchart LR
 
 ## 任务 2：目录、草稿契约与严格解码
 
-**文件：**新增两个 `schemas/*.schema.json`（文件名见结构表）、`backend/internal/catalogue/model.go`、`backend/internal/content/model.go`、`backend/internal/content/decode.go`、`backend/internal/content/decode_test.go`、`backend/internal/content/testdata/{valid-draft,unknown-field,duplicate-key}.json`、`content/catalogue/domains.json`、`content/packages/elementary-fractions.v1.json`、`content/assets/equivalent-fractions.v1.svg`、`docs/content/source-inventory.md`。
+**文件：**新增两个 `schemas/*.schema.json`（文件名见结构表）、`backend/internal/catalogue/model.go`、`backend/internal/content/model.go`、`backend/internal/content/decode.go`、`backend/internal/content/decode_test.go`、`backend/internal/content/testdata/{valid-draft,unknown-field,duplicate-key}.json`、`content/catalogue/domains.json`、`content/packages/elementary-fractions.v1.json`、`content/assets/equivalent-fractions.v1.svg`；修改现有 `docs/content/source-inventory.md`。
 
 **接口：**产生 `catalogue.Catalogue/Domain/Topic` 和上节全部 `content` 类型；`content.DecodeCatalogue(r io.Reader) (catalogue.Catalogue, error)`、`content.DecodePackage(r io.Reader) (content.Package, error)`。以 JSON 标签锁定契约，schema 为唯一外部格式依据，两者输出同样的字段路径错误。
 
@@ -99,7 +99,7 @@ flowchart LR
 - [ ] 2. 运行包装器中的 `go test ./internal/content -run 'TestDecode' -timeout 2m -count=1`，预期新测试失败；测试使用 `CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1`。
 - [ ] 3. 实现类型、Schema 与严格解码，所有对象使用 `additionalProperties: false`；先检测重复键，再执行 schema 校验和类型解码。字节限制读取上限加 1，不信任文件声明大小。版本 1 不接受未知扩展字段。
 - [ ] 4. 改写正式目录与 10 节点骨架，创建原创分数 SVG 和等值分数草稿单元，记录作者/使用条件/摘要；定理示例写明非零分母与非零缩放因子，不因演示图只用正数而扩大图示范围。来源与数学内容保留待复核身份。
-- [ ] 5. 按用户提供的具体页面链接读取 wiw 资料，建立来源清单与首批知识点映射；每项记录空间页面、原始出处、作者/版本、使用条件、候选知识点和未解决问题。目前资料页面尚未定位；没有实际访问的材料只记待补充，不编造条目。不明使用条件只能作为核验线索，不复制原文或配图。
+- [ ] 5. 读取 [资料来源清单](../../content/source-inventory.md)中指定的 math_master Library 文件夹及其条目，补充首批知识点映射；每项记录资料链接、原始出处、作者/版本、使用条件、候选知识点和未解决问题。入口已明确，目录和正文读取尚待完成；没有实际访问的材料只记待补充，不编造条目。不明使用条件只能作为核验线索，不复制原文或配图。
 - [ ] 6. 同命令重跑，预期通过；确认设计目录仍仅作为预览引用，正式内容包无个人状态。
 - [ ] 7. 暂存本任务文件，提交 `feat: 定义正式目录与版本化草稿契约`。
 
