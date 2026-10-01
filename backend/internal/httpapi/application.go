@@ -1,0 +1,120 @@
+package httpapi
+
+import (
+	"context"
+	"github.com/yyl1212/math_master/backend/internal/auth"
+	"mime"
+	"net/http"
+	"strings"
+	"time"
+)
+
+type AuthOptions struct {
+	Accounts     *auth.Service
+	Admin        *auth.AdminService
+	PublicOrigin string
+	Production   bool
+}
+type privateRoute struct{ kind, method, target string }
+
+func routePrivate(path string) (privateRoute, bool) {
+	for _, kind := range []string{"session", "context", "register", "login", "logout", "logout-all", "password", "reauth"} {
+		if path == "/api/v1/auth/"+kind {
+			method := "POST"
+			if kind == "session" || kind == "context" {
+				method = "GET"
+			}
+			return privateRoute{kind: kind, method: method}, true
+		}
+	}
+	if path == "/api/v1/admin/users" {
+		return privateRoute{kind: "users", method: "GET"}, true
+	}
+	parts := strings.Split(path, "/")
+	if len(parts) == 7 && parts[1] == "api" && parts[2] == "v1" && parts[3] == "admin" && parts[4] == "users" {
+		switch parts[6] {
+		case "roles":
+			return privateRoute{kind: "roles", method: "PUT", target: parts[5]}, true
+		case "password-reset":
+			return privateRoute{kind: "reset", method: "POST", target: parts[5]}, true
+		}
+	}
+	return privateRoute{}, false
+}
+func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) http.Handler {
+	public := NewHandler(reader, pinger)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		path := r.URL.Path
+		if !(path == "/api/v1/auth" || strings.HasPrefix(path, "/api/v1/auth/") || path == "/api/v1/admin" || strings.HasPrefix(path, "/api/v1/admin/")) {
+			public.ServeHTTP(w, r)
+			return
+		}
+		id := requestID()
+		w.Header().Set("X-Request-ID", id)
+		privateHeaders(w)
+		ctx, cancel := context.WithTimeout(r.Context(), 4*time.Second)
+		defer cancel()
+		r = r.Clone(ctx)
+		r.Header = r.Header.Clone()
+		r.Header.Set("X-Request-ID", id)
+		controller := http.NewResponseController(w)
+		_ = controller.SetReadDeadline(time.Now().Add(4 * time.Second))
+		route, ok := routePrivate(path)
+		if !ok {
+			privateError(w, r, auth.ErrNotFound, auth.CookieDelta{}, options.Production)
+			return
+		}
+		if r.Method != route.method {
+			w.Header().Set("Allow", route.method)
+			privateError(w, r, errPrivateMethod, auth.CookieDelta{}, options.Production)
+			return
+		}
+		if route.kind != "users" && (r.URL.RawQuery != "" || r.URL.ForceQuery) {
+			privateError(w, r, auth.ErrInvalidInput, auth.CookieDelta{}, options.Production)
+			return
+		}
+		if route.target != "" && auth.ValidateUserID(route.target) != nil {
+			privateError(w, r, auth.ErrInvalidInput, auth.CookieDelta{}, options.Production)
+			return
+		}
+		if options.Accounts == nil || options.PublicOrigin == "" {
+			privateError(w, r, errAuthNotConfigured, auth.CookieDelta{}, options.Production)
+			return
+		}
+		isWrite := r.Method != "GET"
+		if (isWrite || route.kind == "context") && (len(r.Header.Values("Origin")) > 1 || len(r.Header.Values("X-CSRF-Token")) > 1 || len(r.Header.Values("X-Requested-With")) > 1) {
+			privateError(w, r, auth.ErrCSRF, auth.CookieDelta{}, options.Production)
+			return
+		}
+		if (isWrite || route.kind == "context") && (r.Header.Get("Sec-Fetch-Site") == "cross-site" || (isWrite && r.Header.Get("Origin") != options.PublicOrigin) || (!isWrite && r.Header.Get("Origin") != "" && r.Header.Get("Origin") != options.PublicOrigin) || (route.kind == "context" && r.Header.Get("X-Requested-With") != "MathMaster")) {
+			privateError(w, r, auth.ErrCSRF, auth.CookieDelta{}, options.Production)
+			return
+		}
+		if isWrite {
+			typ, params, err := mime.ParseMediaType(r.Header.Get("Content-Type"))
+			if err != nil || typ != "application/json" || r.ContentLength > privateBodyLimit {
+				privateError(w, r, auth.ErrInvalidInput, auth.CookieDelta{}, options.Production)
+				return
+			}
+			for key, value := range params {
+				if key != "charset" || !strings.EqualFold(value, "utf-8") {
+					privateError(w, r, auth.ErrInvalidInput, auth.CookieDelta{}, options.Production)
+					return
+				}
+			}
+		}
+		cookies, clear, err := privateCookies(r, options.Production)
+		if err != nil {
+			if route.kind == "session" {
+				clear = auth.CookieDelta{}
+			}
+			privateError(w, r, err, clear, options.Production)
+			return
+		}
+		if route.kind == "users" || route.kind == "roles" || route.kind == "reset" {
+			serveAdmin(w, r, route, cookies, options)
+			return
+		}
+		serveAuth(w, r, route.kind, cookies, options)
+	})
+}

@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Math Master content API",
-    "version": "1.1.0",
-    "description": "Read-only content API. Draft, withdrawn and missing content share the same 404. Content JSON exposes asset metadata without filesystem paths; effective published assets can be read by SHA256."
+    "version": "1.2.0",
+    "description": "Published content API plus private account and administrator APIs. Public content contracts remain unchanged; account APIs require explicit origin configuration."
   },
   "paths": {
     "/api/v1/domains": {
@@ -684,6 +684,3815 @@
                   "type": "string",
                   "const": "no-store"
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/session": {
+      "get": {
+        "operationId": "auth_session",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Pure SSR read: no CSRF and no Set-Cookie, including invalid-cookie errors.",
+        "security": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Session"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/context": {
+      "get": {
+        "operationId": "auth_context",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Requested-With",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "const": "MathMaster"
+            },
+            "description": "Cross-site Fetch Metadata or a mismatching supplied Origin is rejected."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Context"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "operationId": "auth_register",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "PreauthCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "operationId": "auth_login",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "PreauthCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "operationId": "auth_logout",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmptyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout-all": {
+      "post": {
+        "operationId": "auth_logout_all",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmptyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/password": {
+      "post": {
+        "operationId": "auth_password",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/reauth": {
+      "post": {
+        "operationId": "auth_reauth",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReauthResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReauthInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users": {
+      "get": {
+        "operationId": "admin_users",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string",
+              "description": "Literal case-insensitive username substring; at most 128 UTF-8 bytes. Percent, underscore and quotes are literal."
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users/{id}/roles": {
+      "put": {
+        "operationId": "admin_roles",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RolesInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/users/{id}/password-reset": {
+      "post": {
+        "operationId": "admin_password_reset",
+        "description": "Private endpoint: exact method/path, no CORS, duplicate/unknown JSON fields and invalid Unicode escapes rejected. Requests never accept arbitrary return URLs. Browser context and successful mutations may set or clear the selected cookies. Restricted reset sessions allow only session/context/password/logout/logout-all.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Exactly the configured public origin; never derived from Host or forwarding headers."
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 43,
+              "maxLength": 43,
+              "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            }
+          },
+          "400": {
+            "description": "INVALID_REQUEST / INVALID_COOKIE.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Each cookie is a separate Set-Cookie header field; never comma-join. Production __Host-mm_session / __Host-mm_preauth, or loopback-only development mm_session_dev / mm_preauth_dev; Path=/, HttpOnly, SameSite=Lax, no Domain, Secure in production. Session Max-Age=604800, preauth=600; clearing has empty value and Max-Age=0."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "INVALID_CREDENTIALS / AUTHENTICATION_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "NOT_FOUND.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "METHOD_NOT_ALLOWED. HEAD/OPTIONS are never implicit.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "USERNAME_UNAVAILABLE / ALREADY_AUTHENTICATED / LAST_ADMIN_REQUIRED.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "REAUTHENTICATION_REQUIRED. Explicit password verification within five minutes.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "RATE_LIMITED. Attempts persist across process restarts.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "description": "Largest known blocking UTC fixed window, in seconds."
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "AUTH_NOT_CONFIGURED / SERVICE_UNAVAILABLE. A failure never becomes an anonymous success.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PrivateError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "JSON object, at most 8192 bytes; no duplicate keys, unknown keys, case aliases, unpaired surrogate escapes, or trailing JSON.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResetInput"
               }
             }
           }
@@ -1500,6 +5309,437 @@
           "limit",
           "offset"
         ]
+      },
+      "Role": {
+        "type": "string",
+        "enum": [
+          "learner",
+          "editor",
+          "reviewer",
+          "admin"
+        ]
+      },
+      "User": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "username": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 32,
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "roles": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            },
+            "contains": {
+              "const": "learner"
+            },
+            "description": "Always contains learner; response order is learner, editor, reviewer, admin."
+          },
+          "mustChangePassword": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "roles",
+          "mustChangePassword"
+        ]
+      },
+      "AuthContext": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "user": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/User"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "csrfToken": {
+            "type": "string",
+            "minLength": 43,
+            "maxLength": 43,
+            "pattern": "^[A-Za-z0-9_-]{42}[AEIMQUYcgkosw048]$"
+          }
+        },
+        "required": [
+          "user",
+          "csrfToken"
+        ]
+      },
+      "Context": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/AuthContext"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "Session": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "user": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/User"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "user"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "UserResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/User"
+              }
+            },
+            "required": [
+              "user"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ReauthResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "validUntil": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "validUntil"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "UserPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "UserQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "q": {
+            "type": "string",
+            "description": "Literal case-insensitive username substring; at most 128 UTF-8 bytes. Percent, underscore and quotes are literal."
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "default": 0
+          }
+        },
+        "required": []
+      },
+      "RegisterInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9_]+$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 128,
+            "writeOnly": true,
+            "description": "Valid UTF-8; 15–128 Unicode codepoints, at most 512 bytes. Spaces are preserved; no trimming or normalization."
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "LoginInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "username": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 32,
+            "pattern": "^[A-Za-z0-9_]+$"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 128,
+            "writeOnly": true,
+            "description": "Valid UTF-8; 15–128 Unicode codepoints, at most 512 bytes. Spaces are preserved; no trimming or normalization."
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "PasswordInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "currentPassword": {
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 128,
+            "writeOnly": true,
+            "description": "Valid UTF-8; 15–128 Unicode codepoints, at most 512 bytes. Spaces are preserved; no trimming or normalization."
+          },
+          "newPassword": {
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 128,
+            "writeOnly": true,
+            "description": "Valid UTF-8; 15–128 Unicode codepoints, at most 512 bytes. Spaces are preserved; no trimming or normalization."
+          }
+        },
+        "required": [
+          "currentPassword",
+          "newPassword"
+        ]
+      },
+      "ReauthInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "password": {
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 128,
+            "writeOnly": true,
+            "description": "Valid UTF-8; 15–128 Unicode codepoints, at most 512 bytes. Spaces are preserved; no trimming or normalization."
+          }
+        },
+        "required": [
+          "password"
+        ]
+      },
+      "RolesInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Role"
+            },
+            "contains": {
+              "const": "learner"
+            },
+            "description": "Contains learner. Duplicate roles are normalized to a sorted set."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 1000,
+            "description": "10–1000 Unicode codepoints; a meaningful reason or manual ownership verification record."
+          }
+        },
+        "required": [
+          "roles",
+          "reason"
+        ]
+      },
+      "ResetInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "temporaryPassword": {
+            "type": "string",
+            "minLength": 15,
+            "maxLength": 128,
+            "writeOnly": true,
+            "description": "Valid UTF-8; 15–128 Unicode codepoints, at most 512 bytes. Spaces are preserved; no trimming or normalization."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 1000,
+            "description": "10–1000 Unicode codepoints; a meaningful reason or manual ownership verification record."
+          },
+          "ownershipNote": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 1000,
+            "description": "10–1000 Unicode codepoints; a meaningful reason or manual ownership verification record."
+          }
+        },
+        "required": [
+          "temporaryPassword",
+          "reason",
+          "ownershipNote"
+        ]
+      },
+      "EmptyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "PrivateErrorCode": {
+        "type": "string",
+        "enum": [
+          "INVALID_REQUEST",
+          "INVALID_COOKIE",
+          "INVALID_CREDENTIALS",
+          "AUTHENTICATION_REQUIRED",
+          "CSRF_FAILED",
+          "FORBIDDEN",
+          "PASSWORD_CHANGE_REQUIRED",
+          "NOT_FOUND",
+          "METHOD_NOT_ALLOWED",
+          "USERNAME_UNAVAILABLE",
+          "ALREADY_AUTHENTICATED",
+          "LAST_ADMIN_REQUIRED",
+          "REAUTHENTICATION_REQUIRED",
+          "RATE_LIMITED",
+          "AUTH_NOT_CONFIGURED",
+          "SERVICE_UNAVAILABLE"
+        ]
+      },
+      "PrivateError": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "$ref": "#/components/schemas/PrivateErrorCode"
+              },
+              "message": {
+                "type": "string",
+                "description": "Fixed English message for the error code; no underlying error or submitted value."
+              },
+              "requestId": {
+                "type": "string",
+                "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      }
+    },
+    "securitySchemes": {
+      "SessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-mm_session",
+        "description": "Production session cookie; development uses mm_session_dev only on loopback HTTP."
+      },
+      "PreauthCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-mm_preauth",
+        "description": "10 minute anonymous context, consumed by successful registration/login; development mm_preauth_dev."
+      },
+      "CSRFToken": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-CSRF-Token",
+        "description": "Synchronizer proof from the current browser auth/context response; cannot identify a user by itself."
       }
     }
   }
