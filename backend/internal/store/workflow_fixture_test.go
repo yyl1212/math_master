@@ -142,3 +142,13 @@ func newMaterial(v publication.DraftInput) publication.DraftInput {
 	}
 	return v
 }
+
+func (f *workflowFixture) Approved(owner, reviewer string) publication.SubmissionView {
+	f.t.Helper()
+	sub := f.Submitted(owner)
+	out, err := f.repo.DecideReview(f.ctx, f.Access(reviewer, false), sub.ID, approvedReviewInput())
+	if err != nil {
+		f.t.Fatal(err)
+	}
+	return out
+}

@@ -187,7 +187,7 @@ func (s *Store) readWorkflowSubmission(ctx context.Context, tx *sql.Tx, u auth.U
 	var frozen, gate []byte
 	var digest string
 	var created time.Time
-	err := tx.QueryRowContext(ctx, `SELECT id::text,workspace_id::text,owner_user_id::text,revision,status,frozen_body,frozen_digest,gate,created_at FROM content_submissions WHERE id=$1 AND sealed`, id).Scan(&out.ID, &out.WorkspaceID, &out.OwnerID, &out.Revision, &out.Status, &frozen, &digest, &gate, &created)
+	err := tx.QueryRowContext(ctx, `SELECT id::text,workspace_id::text,owner_user_id::text,revision,status,frozen_bytes,frozen_digest,gate,created_at FROM content_submissions WHERE id=$1 AND sealed`, id).Scan(&out.ID, &out.WorkspaceID, &out.OwnerID, &out.Revision, &out.Status, &frozen, &digest, &gate, &created)
 	if err != nil {
 		return out, workflowRowError(err)
 	}

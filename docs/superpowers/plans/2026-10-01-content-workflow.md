@@ -238,7 +238,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** 实现 DecideReview 和送审筛选；产出 ValidateReviewInput(ReviewInput)error，冻结 ReviewerID、FrozenDigest 和最终决定，不允许重新编辑决定。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestCopiedAuthorsCannotApprove": {"authorWithReviewer":"FORBIDDEN","copiedOrAdoptedKnownAuthor":"FORBIDDEN","independentReviewer":"approved with matching frozenDigest"},
@@ -248,14 +248,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(CopiedAuthors|ReviewChecks|ReviewRoleRevocation|ConcurrentReview)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现决定与独立性。** 在管理锁、内容锁、排序用户行及 session 之后读取冻结作者和 pending 状态；批准复核者不在作者集合，检查项和文本完整；退回与恢复 editing 同事务。竞争测试使用事务锁、通道和数据库可观察等待状态同步，不用 Sleep 或先后 HTTP 调用冒充并发。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，Task 1/3 权限、幂等和冻结回归全部通过。
-- [ ] **Step 5：提交。** 提交 feat: enforce independent fixed-version content review。
+- [x] **Step 3：实现决定与独立性。** 在管理锁、内容锁、排序用户行及 session 之后读取冻结作者和 pending 状态；批准复核者不在作者集合，检查项和文本完整；退回与恢复 editing 同事务。竞争测试使用事务锁、通道和数据库可观察等待状态同步，不用 Sleep 或先后 HTTP 调用冒充并发。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，Task 1/3 权限、幂等和冻结回归全部通过。
+- [x] **Step 5：提交。** 提交 feat: enforce independent fixed-version content review。
 
 ## Task 5：候选合并、不可变 manifest 与原子激活
 

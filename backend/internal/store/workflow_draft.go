@@ -440,7 +440,7 @@ func (s *Store) AdoptDraft(ctx context.Context, a publication.Access, input publ
 		var raw []byte
 		legacy := true
 		var inherited []string
-		err = tx.QueryRowContext(ctx, `SELECT id::text,frozen_body FROM content_submissions WHERE sealed AND package_id=$1 AND package_version=$2 ORDER BY created_at DESC,id DESC LIMIT 1`, input.PackageID, input.PackageVersion).Scan(&base, &raw)
+		err = tx.QueryRowContext(ctx, `SELECT id::text,frozen_bytes FROM content_submissions WHERE sealed AND package_id=$1 AND package_version=$2 ORDER BY created_at DESC,id DESC LIMIT 1`, input.PackageID, input.PackageVersion).Scan(&base, &raw)
 		if err == nil {
 			var frozen publication.FrozenBody
 			if json.Unmarshal(raw, &frozen) != nil {
