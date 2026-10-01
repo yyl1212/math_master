@@ -77,7 +77,7 @@ node tools/verify/run.mjs --cwd frontend -- npm run e2e
 
 Linux CI 安装浏览器时额外使用 `--with-deps`。测试不会复用已有服务；端口 18080、18081、18082 必须空闲。本机若同时设置 NO_COLOR 和 FORCE_COLOR，可在验证命令后加 `env -u NO_COLOR` 消除环境冲突。
 
-`TEST_DATABASE_URL` 必须命名 `math_master_test_*`，连接角色须能建库；不能使用生产数据库角色。每次 harness 创建独立随机库，只操作自己创建的库，正常 SIGTERM 后使用新的 3 秒 context 清理。控制端口只绑定 loopback，场景改变必须携带随机令牌。状态文件 `tests/e2e/runtime.local.json` 使用 0600，包含随机库名称、端口、测试素材摘要和临时令牌，不包含数据库 URL，受 Git 忽略。不要上传状态文件；浏览器报告关闭 trace，CI 仅上传失败报告。
+`TEST_DATABASE_URL` 必须命名 `math_master_test_*`，连接角色须能建库；不能使用生产数据库角色。查询参数只接受单个 sslmode 和 connect_timeout，拒绝数据库覆盖或额外参数；解析后显式设置随机库名，并在每次物理连接上核验 current_database()，迁移和场景重置只能在本次随机库执行。每次 harness 创建独立随机库，只操作自己创建的库，正常 SIGTERM 后使用新的 3 秒 context 清理。控制端口只绑定 loopback，场景改变必须携带随机令牌。状态文件 `tests/e2e/runtime.local.json` 使用 0600，包含随机库名称、端口、测试素材摘要和临时令牌，不包含数据库 URL，受 Git 忽略。不要上传状态文件；浏览器报告关闭 trace，CI 仅上传失败报告。
 
 ## 异常终止后的受保护恢复
 
@@ -87,12 +87,14 @@ SIGKILL 无法保证清理。若残留状态文件，先停止本次 harness 和
 python3 - <<'PY'
 import json, os, re, subprocess
 from pathlib import Path
-from urllib.parse import urlsplit, urlunsplit
+from urllib.parse import urlsplit, urlunsplit, parse_qs
 state = Path('tests/e2e/runtime.local.json')
 name = json.loads(state.read_text())['database']
 assert re.fullmatch(r'math_master_test_[0-9a-f]{16}', name)
 u = urlsplit(os.environ['TEST_DATABASE_URL'])
-assert u.scheme in ('postgres', 'postgresql') and re.fullmatch(r'/math_master_test_[a-z0-9_]+', u.path)
+assert u.scheme in ('postgres', 'postgresql') and re.fullmatch(r'/math_master_test_[a-z0-9_]+', u.path) and not u.fragment
+params = parse_qs(u.query, keep_blank_values=True, strict_parsing=True)
+assert set(params) <= {'sslmode', 'connect_timeout'} and all(len(v) == 1 for v in params.values())
 admin = urlunsplit((u.scheme, u.netloc, '/postgres', u.query, ''))
 env = dict(os.environ, PGDATABASE=admin)
 subprocess.run(['psql', '--no-psqlrc', '--set=ON_ERROR_STOP=1', '--command', f'DROP DATABASE "{name}" WITH (FORCE)'], env=env, check=True)

@@ -86,11 +86,21 @@ test("withdrawalStopsNewReadsAndAssetRequests", async ({
     expect(
       (await request.get("/api/v1/assets/" + runtime.assetSha)).status(),
     ).toBe(200);
+    await page.goto("/paths/" + runtime.pathId);
+    await expect(page.locator("[data-node-key]")).toHaveCount(10);
+    await expect(
+      page.locator('section[aria-label="Knowledge prerequisites"] svg path'),
+    ).toHaveCount(12);
+    await page.locator('[data-node-key="equivalent-fractions@1"] h2 a').click();
+    await expect(
+      page.getByRole("heading", { name: "Equivalent fractions", exact: true }),
+    ).toBeVisible();
+    await expect(page.locator("#explanations img")).toHaveCount(1);
     await scene(withdrawal);
     expect(
       (await request.get("/api/v1/assets/" + runtime.assetSha)).status(),
     ).toBe(404);
-    await page.goto("/knowledge/" + runtime.knowledgeId);
+    await page.reload();
     if (withdrawal === "withdraw-unit" || withdrawal === "withdraw-asset") {
       await expect(
         page.getByRole("heading", {
@@ -105,6 +115,33 @@ test("withdrawalStopsNewReadsAndAssetRequests", async ({
       ).toBeVisible();
       expect(
         (await request.get("/api/v1/paths/" + runtime.pathId)).status(),
+      ).toBe(404);
+    }
+    const navigation = page.waitForResponse(
+      (r) =>
+        new URL(r.url()).pathname === "/knowledge" &&
+        r.request().method() === "GET",
+    );
+    await page
+      .getByRole("navigation", { name: "Main navigation" })
+      .getByRole("link", { name: "Knowledge Map", exact: true })
+      .click();
+    expect((await navigation).status()).toBe(200);
+    await expect(page.getByLabel("Search learning domains")).toBeVisible();
+    await page
+      .getByRole("link", { name: "Elementary Mathematics", exact: true })
+      .click();
+    await expect(
+      page.getByRole("heading", { name: "Topics to explore" }),
+    ).toBeVisible();
+    if (withdrawal !== "withdraw-unit" && withdrawal !== "withdraw-asset") {
+      await expect(
+        page.getByText("Learning paths are in development."),
+      ).toBeVisible();
+      expect(
+        (
+          await request.get("/api/v1/knowledge/" + runtime.knowledgeId)
+        ).status(),
       ).toBe(404);
     }
   }

@@ -14,15 +14,14 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strings"
 	"sync"
 	"time"
 
-	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/store"
+	"github.com/yyl1212/math_master/backend/internal/testutil"
 )
 
 type Config struct{ TestDatabaseURL, APIAddr, ControlAddr, StateFile string }
@@ -36,8 +35,6 @@ type runtimeState struct {
 	PathID      string `json:"pathId"`
 }
 
-var testName = regexp.MustCompile(`^/math_master_test_[a-z0-9_]+$`)
-
 func localAddress(addr string) bool {
 	host, port, e := net.SplitHostPort(addr)
 	ip := net.ParseIP(host)
@@ -45,8 +42,11 @@ func localAddress(addr string) bool {
 }
 func validate(c Config) (*url.URL, error) {
 	u, e := url.Parse(c.TestDatabaseURL)
-	if e != nil || (u.Scheme != "postgres" && u.Scheme != "postgresql") || !testName.MatchString(u.Path) || u.Host == "" || !localAddress(c.APIAddr) || !localAddress(c.ControlAddr) || !strings.HasSuffix(c.StateFile, ".local.json") {
+	if e != nil || (u.Scheme != "postgres" && u.Scheme != "postgresql") || u.Host == "" || !localAddress(c.APIAddr) || !localAddress(c.ControlAddr) || !strings.HasSuffix(c.StateFile, ".local.json") {
 		return nil, errors.New("unsafe harness configuration")
+	}
+	if _, _, e := testutil.IsolatedConfigs(c.TestDatabaseURL, "math_master_test_0000000000000000"); e != nil {
+		return nil, errors.New("unsafe harness database configuration")
 	}
 	return u, nil
 }
@@ -122,7 +122,7 @@ func loadFixture(root string, long bool) (content.ValidatedPackage, error) {
 
 // Run owns only its freshly generated database and exclusively created local state file.
 func Run(ctx context.Context, c Config) (result error) {
-	u, e := validate(c)
+	_, e := validate(c)
 	if e != nil {
 		return e
 	}
@@ -144,12 +144,11 @@ func Run(ctx context.Context, c Config) (result error) {
 	}
 	name := "math_master_test_" + hex.EncodeToString(random[:8])
 	token := hex.EncodeToString(random[8:])
-	adminURL := *u
-	adminURL.Path = "/postgres"
-	admin, e := sql.Open("pgx", adminURL.String())
+	adminConfig, workConfig, e := testutil.IsolatedConfigs(c.TestDatabaseURL, name)
 	if e != nil {
-		return errors.New("harness database configuration failed")
+		return errors.New("unsafe harness database configuration")
 	}
+	admin := testutil.OpenVerified(adminConfig)
 	defer admin.Close()
 	setup, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
@@ -174,11 +173,7 @@ func Run(ctx context.Context, c Config) (result error) {
 			}
 		}
 	}()
-	u.Path = "/" + name
-	db, e = sql.Open("pgx", u.String())
-	if e != nil {
-		return errors.New("harness isolated connection failed")
-	}
+	db = testutil.OpenVerified(workConfig)
 	db.SetMaxOpenConns(6)
 	if e = store.Up(setup, db, filepath.Join(root, "db/migrations")); e != nil {
 		return errors.New("harness migration failed")

@@ -2,13 +2,13 @@
 
 本项目旨在搭建一个全面的数学学习成长网站，以内容正确性、内容覆盖与数量和丰富的学习路径为核心，逐步覆盖零基础学习到学术研究与知识分享。
 
-P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master，已完成独立审查及回归；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。P2 英文只读前端已实现五页面与安全数学阅读，本机回归通过，独立代码审查与远程 CI 待验证；账户、审核发布、学习记录和部署继续按后续阶段开发。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
+P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master，已完成独立审查及回归；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。P2 英文只读前端已实现五页面与安全数学阅读，已完成独立代码审查问题修复及本机回归，CI 结果见 PR；账户、审核发布、学习记录和部署继续按后续阶段开发。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
 
 ## 设计文档
 
 [总体方向与首版设计](docs/superpowers/specs/2026-09-30-math-learning-platform-design.md)包含知识点、解锁与回顾、内容和题库审核、反馈纠错、架构、文件范围与验收标准。
 
-[开发路线图](docs/superpowers/plans/2026-09-30-development-roadmap.md)按可信内容底座、英文页面、账户审核、学习检测、反馈纠错、首批数据验收、部署试运行推进。[P1 执行计划](docs/superpowers/plans/2026-09-30-content-foundation.md)给出首阶段的文件、接口、验证和提交步骤，记录首阶段实现与验收。[P2 英文只读网站执行计划](docs/superpowers/plans/2026-10-01-english-readonly-frontend.md)包含五页面、素材接口、文件安排、架构及六项实施任务，已按用户确认的计划实现六项任务，正在进行整分支验收。2026-10-01 较早批次已读取用户提供的本地 `Knowledge_JSON` 目录，包含 31 个资料包、8,722 条数学候选记录及 104 条软件能力记录；[检查报告](docs/content/2026-10-01-knowledge-json-inspection.md)记录文件校验、结构差异与重复内容。[资料来源清单](docs/content/source-inventory.md)保留本地路径、Library 入口与 ZIP 整理流程，后续本次快照已增至 35 个资料包、905 个文件；正式数学内容仍需分批编写、去重并独立复核。
+[开发路线图](docs/superpowers/plans/2026-09-30-development-roadmap.md)按可信内容底座、英文页面、账户审核、学习检测、反馈纠错、首批数据验收、部署试运行推进。[P1 执行计划](docs/superpowers/plans/2026-09-30-content-foundation.md)给出首阶段的文件、接口、验证和提交步骤，记录首阶段实现与验收。[P2 英文只读网站执行计划](docs/superpowers/plans/2026-10-01-english-readonly-frontend.md)包含五页面、素材接口、文件安排、架构及六项实施任务，已按用户确认的计划实现六项任务，已完成整分支回归和独立审查问题修复。2026-10-01 较早批次已读取用户提供的本地 `Knowledge_JSON` 目录，包含 31 个资料包、8,722 条数学候选记录及 104 条软件能力记录；[检查报告](docs/content/2026-10-01-knowledge-json-inspection.md)记录文件校验、结构差异与重复内容。[资料来源清单](docs/content/source-inventory.md)保留本地路径、Library 入口与 ZIP 整理流程，后续本次快照已增至 35 个资料包、905 个文件；正式数学内容仍需分批编写、去重并独立复核。
 
 [英文页面设计与预览说明](design/README.md)包含 16 板块数据、页面层级、样例路线及预览启动方式。后续直接在项目中设计与开发，已取消 Figma 同步。
 
@@ -50,7 +50,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 ## P2 英文网站入口
 
-详见 [英文只读网站操作说明](docs/operations/english-readonly-frontend.md)。生产构建接入 Go API，提供首页、知识地图、板块详情、路线与知识阅读；支持英文/中文目录搜索、真实建设状态、精确版本前置图、受限 Markdown/KaTeX 和有效发布素材。实际公开数学内容仍为 0，测试发布只发生在随机隔离数据库。
+详见 [英文只读网站操作说明](docs/operations/english-readonly-frontend.md) 和 [P2 验收记录](docs/operations/2026-10-01-p2-acceptance.md)。生产构建接入 Go API，提供首页、知识地图、板块详情、路线与知识阅读；支持英文/中文目录搜索、真实建设状态、精确版本前置图、受限 Markdown/KaTeX 和有效发布素材。实际公开数学内容仍为 0，测试发布只发生在随机隔离数据库。
 
 ```sh
 node tools/verify/run.mjs --cwd frontend -- npm ci

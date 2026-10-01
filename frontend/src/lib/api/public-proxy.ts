@@ -1,6 +1,7 @@
 import "server-only";
 import { z } from "zod";
 import {
+  errorSchema,
   domainListSchema,
   domainDetailSchema,
   pathViewSchema,
@@ -79,12 +80,31 @@ export function createPublicProxy(
         },
       );
       if (response.status !== 200) {
-        void response.body?.cancel();
-        return finish(
-          proxyError(
-            [400, 404].includes(response.status) ? response.status : 503,
-          ),
+        const status = [400, 404].includes(response.status)
+          ? response.status
+          : 503;
+        if (
+          status === 503 ||
+          response.headers.get("Content-Type")?.split(";")[0] !==
+            "application/json"
+        ) {
+          void response.body?.cancel();
+          return finish(proxyError(503));
+        }
+        // HEAD intentionally has no error body. Validate status and MIME only.
+        if (head) {
+          void response.body?.cancel();
+          return finish(proxyError(status));
+        }
+        const bytes = await readBoundedBytes(
+          response,
+          JSON_MAX_BYTES,
+          controller.signal,
         );
+        const raw = JSON.parse(
+          new TextDecoder("utf-8", { fatal: true }).decode(bytes),
+        );
+        return proxyError(errorSchema.safeParse(raw).success ? status : 503);
       }
       const expected = asset ? "image/svg+xml" : "application/json";
       if (response.headers.get("Content-Type")?.split(";")[0] !== expected) {

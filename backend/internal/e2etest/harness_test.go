@@ -153,3 +153,12 @@ func TestHarnessCleansIsolatedDatabase(t *testing.T) {
 		t.Fatal("unrelated database changed")
 	}
 }
+
+func TestHarnessRejectsDatabaseOverridesBeforeConnecting(t *testing.T) {
+	for _, q := range []string{"dbname=math_master", "database=math_master", "%64bname=math_master", "%20database%20=math_master"} {
+		_, e := validate(Config{TestDatabaseURL: "postgres://localhost/math_master_test_ci?" + q, APIAddr: "127.0.0.1:0", ControlAddr: "127.0.0.1:0", StateFile: "runtime.local.json"})
+		if e == nil {
+			t.Error("database override passed offline validation")
+		}
+	}
+}

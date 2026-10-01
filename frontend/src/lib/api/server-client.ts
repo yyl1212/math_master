@@ -96,9 +96,8 @@ export function createGoClient(
       );
       if (response.status !== 200) {
         const parsed = errorSchema.safeParse(raw);
-        const requestId = parsed.success
-          ? safeRequestId(parsed.data.error.requestId)
-          : undefined;
+        if (!parsed.success) return { ok: false, kind: "unavailable" };
+        const requestId = safeRequestId(parsed.data.error.requestId);
         const kind =
           response.status === 404
             ? "not-found"

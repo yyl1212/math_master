@@ -130,3 +130,38 @@ it("redactsUpstreamFailureAndRejectsContentType", async () => {
     expect(await r.text()).not.toContain("secret");
   }
 });
+
+it("rejectsMalformedUpstreamErrorsButKeepsValidHeadStatus", async () => {
+  for (const status of [400, 404]) {
+    const proxy = createPublicProxy(
+      origin,
+      async () =>
+        new Response("{}", {
+          status,
+          headers: { "Content-Type": "application/json" },
+        }),
+    );
+    expect(
+      (
+        await proxy(new Request("http://site.test/api/v1/knowledge/numbers"), [
+          "knowledge",
+          "numbers",
+        ])
+      ).status,
+    ).toBe(503);
+  }
+  const head = createPublicProxy(
+    origin,
+    async () =>
+      new Response(null, {
+        status: 404,
+        headers: { "Content-Type": "application/json" },
+      }),
+  );
+  const r = await head(
+    new Request("http://site.test/api/v1/assets/" + sha, { method: "HEAD" }),
+    ["assets", sha],
+  );
+  expect(r.status).toBe(404);
+  expect(await r.text()).toBe("");
+});

@@ -53,7 +53,7 @@ jobs:
           node tools/verify/run.mjs --cwd frontend -- npm audit --omit=dev
       - name: 隔离联调环境验证与构建
         run: |
-          node tools/verify/run.mjs --cwd backend -- go test ./internal/e2etest -timeout 5m -count=1
+          node tools/verify/run.mjs --cwd backend -- go test ./internal/e2etest ./internal/testutil -timeout 5m -count=1
           node tools/verify/run.mjs --cwd backend -- go build -o bin/e2e-harness ./cmd/e2e-harness
       - name: 安装锁定浏览器
         run: node tools/verify/run.mjs --cwd frontend -- npm exec -- playwright install --with-deps chromium

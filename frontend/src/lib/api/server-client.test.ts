@@ -125,3 +125,12 @@ describe("Go client", () => {
       expect(() => parseGoOrigin(bad)).toThrow();
   });
 });
+
+it("treatsMalformedErrorBodiesAsUnavailable", async () => {
+  for (const status of [400, 404]) {
+    const r = await createGoClient(origin, async () =>
+      json({}, status),
+    ).getKnowledge("numbers");
+    expect(r).toEqual({ ok: false, kind: "unavailable" });
+  }
+});
