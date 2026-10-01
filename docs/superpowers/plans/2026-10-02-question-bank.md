@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 >
-> 本项目沿用此前已选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后进行一次独立整分支审查。本文目前待用户审阅；实施步骤全部未开始，验收通过后才勾选。
+> 本项目沿用此前已选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后进行一次独立整分支审查。用户于2026-10-02确认本执行计划（PR #16 已合并），实施基线 master 687f87a0ab7e07fb73c593055b79d5ee3eb416bc；逐项验收通过后勾选。
 
 **Goal:** 建立可追责、可复验、经独立审核的题库，让后续学习与检测可以依赖固定题目版本和精确答案。
 
@@ -227,7 +227,7 @@ CLI接口RunQuestion(ctx context.Context,command string,args []string,stdout,std
 **Files:** 文件责任表任务1全部文件；不修改旧schema/model/digest。
 **Interfaces:** 产出上述所有question数据声明、Repository、Action、NewService、CanonicalPackage/CanonicalInstance，严格DecodePackage(io.Reader)(QuestionPackage,error)、DecodeDraft(io.Reader)(DraftInput,error)。模板参数/枚举的家族细节按契约表锁定。
 
-- [ ] **Step 1：写失败测试。** TestQuestionContractBoundary断言未知kind/schema、重复字段/大小写别名/尾随JSON/未配对代理项/32层＋1拒绝，4 MiB envelope/2 MiB package边界；TestQuestionCanonicalIdentity断言固定golden bytes/SHA、关系排序稳定但选项与目标顺序有语义、qi-ID长度67；TestQuestionRoleAndRates断言角色矩阵、coverage GET heavy、30/10/120原预算与未知action拒绝；TestQuestionServiceInjection断言nil repo/acquire拒绝、注入函数实际调用、不存在新槽池。旧内容mathID对67字符仍拒绝。
+- [x] **Step 1：写失败测试。** TestQuestionContractBoundary断言未知kind/schema、重复字段/大小写别名/尾随JSON/未配对代理项/32层＋1拒绝，4 MiB envelope/2 MiB package边界；TestQuestionCanonicalIdentity断言固定golden bytes/SHA、关系排序稳定但选项与目标顺序有语义、qi-ID长度67；TestQuestionRoleAndRates断言角色矩阵、coverage GET heavy、30/10/120原预算与未知action拒绝；TestQuestionServiceInjection断言nil repo/acquire拒绝、注入函数实际调用、不存在新槽池。旧内容mathID对67字符仍拒绝。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -240,10 +240,10 @@ CLI接口RunQuestion(ctx context.Context,command string,args []string,stdout,std
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'TestQuestion(ContractBoundary|CanonicalIdentity|RoleAndRates|ServiceInjection)$' -timeout 5m -count=1；预期新契约不存在或行为失败，工具故障不算RED。
-- [ ] **Step 3：实现声明与纯边界。** schema为封闭判别结构；生成器/完整仓储暂不接入生产，不添加假成功占位。包和实例SHA分别计算，稳定ID/版本规则不修改旧代码。服务测试通过测试专用recordingRepository验证分发与限流。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；追加同入口go test ./internal/content ./internal/publication -timeout 5m -count=1，确认旧digest/角色/ID用例通过。
-- [ ] **Step 5：提交。** 暂存任务1精确文件，提交 feat: 建立独立题库契约与策略。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'TestQuestion(ContractBoundary|CanonicalIdentity|RoleAndRates|ServiceInjection)$' -timeout 5m -count=1；预期新契约不存在或行为失败，工具故障不算RED。
+- [x] **Step 3：实现声明与纯边界。** schema为封闭判别结构；生成器/完整仓储暂不接入生产，不添加假成功占位。包和实例SHA分别计算，稳定ID/版本规则不修改旧代码。服务测试通过测试专用recordingRepository验证分发与限流。
+- [x] **Step 4：验证GREEN。** 重跑Step2；追加同入口go test ./internal/content ./internal/publication -timeout 5m -count=1，确认旧digest/角色/ID用例通过。
+- [x] **Step 5：提交。** 暂存任务1精确文件，提交 feat: 建立独立题库契约与策略。
 
 
 Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整性检查仍可判其未就绪，不影响结构摘要测试：
