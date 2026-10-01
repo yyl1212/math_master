@@ -367,7 +367,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** ContentRoute 为 Task 7 固定方法的判别联合，不能接受自由 URL；ContentResult<T>={ok:true,data:T}|{ok:false,status:number,code:ContentErrorCode,message:string,requestId:string,retryAfter?:number}。产出 contentRouteRequest(route:ContentRoute):{path:string,method:string,kind:ContentEndpoint}|null、createContentProxy(goOrigin:string,options:{publicOrigin:string,production:boolean},fetcher?:typeof fetch)、contentRequest<T>(route:ContentRoute,input?:unknown,key?:string):Promise<ContentResult<T>>、readServerContent<T>(route:ContentRoute,cookieHeader:string):Promise<ContentResult<T>>。AssetScope={kind:"draft"|"submission",id:string} 在 types.ts 定义；readContentAsset(scope:AssetScope,sha:string):Promise<ContentResult<Uint8Array>> 为浏览器的有界素材下载。validateContentSVG(bytes:Uint8Array,expectedSHA:string):boolean 在 server-only svg.ts 定义，使用内置 node:crypto 的 SHA-256；客户端不导入该文件。控制请求使用 auth.getAuthContext，不修改其缓存策略。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestContentProxyRawRequestBoundary": {"rawDuplicateCaseAliasSurrogateNUL":"rejected before JSON reserialization","chunked8MiBPlus1":"413","missingVsNullExpectedHead":"distinct","arbitraryPathOrQueryOrRedirect":"reject"},
@@ -378,12 +378,12 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/content src/lib/api/content-proxy.test.ts
 ~~~
 
-- [ ] **Step 3：实现严格传输。** Proxy 读原始 request 字节，在重序列化之前完成严格 JSON 检查；每类返回使用与 Go/OpenAPI 相同的完整 Schema。总超时 10 秒，JSON 4 MiB / SVG 1 MiB、无 redirect 和 Set-Cookie。SVG 仅在绑定作用域上调用；server-only svg.ts 使用下述受限 XML 状态解析算法，白名单与 Go assets.go 保持一致，不安装解析依赖，不用正则“去脚本”代替结构检查。客户端写入保持命令输入和 UUID key 的确切副本，失败只显示稳定文案。SSR 只读取、只转发选定 session，不创建 context、CSRF 或身份 Cookie。
+- [x] **Step 3：实现严格传输。** Proxy 读原始 request 字节，在重序列化之前完成严格 JSON 检查；每类返回使用与 Go/OpenAPI 相同的完整 Schema。总超时 10 秒，JSON 4 MiB / SVG 1 MiB、无 redirect 和 Set-Cookie。SVG 仅在绑定作用域上调用；server-only svg.ts 使用下述受限 XML 状态解析算法，白名单与 Go assets.go 保持一致，不安装解析依赖，不用正则“去脚本”代替结构检查。客户端写入保持命令输入和 UUID key 的确切副本，失败只显示稳定文案。SSR 只读取、只转发选定 session，不创建 context、CSRF 或身份 Cookie。
 SVG 状态解析规则锁定如下：
 
 1. fatal UTF-8 解码，校验 XML 1.0 字符范围；禁 NUL、DTD、处理指令和自定义实体。字符仅允许 U+0009/U+000A/U+000D、U+0020—U+D7FF、U+E000—U+FFFD、U+10000—U+10FFFF。
@@ -393,14 +393,14 @@ SVG 状态解析规则锁定如下：
 5. fill/stroke 只接受 Go colorPattern；所有解码后属性拒绝大小写不敏感的 url(。完整解析后不能有未闭合栈或尾随根。
 6. 比较实际 SHA-256 与请求摘要后才返回字节；失败返回固定故障，不输出原文。svg.test.ts 与 Go 素材测试共享实体转义 url(、重复属性、注释、65/66 层边界、10000/10001 元素和非法字符的正反例；原 SVG 必须通过。
 
-- [ ] **Step 4：验证 GREEN 与类型零漂移。**
+- [x] **Step 4：验证 GREEN 与类型零漂移。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm run api:generate
 node tools/verify/run.mjs --cwd frontend -- npm run typecheck
 node tools/verify/run.mjs --cwd frontend -- npm test
 ~~~
 生成类型先纳入本任务，再重跑生成，git diff generated.d.ts 必须无新增差异；旧 public/private proxy 测试继续通过。
-- [ ] **Step 5：提交。** 提交 feat: add strict content proxy and typed clients。
+- [x] **Step 5：提交。** 提交 feat: add strict content proxy and typed clients。
 
 ## Task 9：英文编辑、独立复核及发布撤回页面
 

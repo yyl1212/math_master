@@ -2,6 +2,7 @@ package content
 
 import (
 	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -129,5 +130,27 @@ func TestAssetBudgetStopsBeforeReadingRemainingFiles(t *testing.T) {
 	}
 	if !found {
 		t.Fatal("budget not enforced")
+	}
+}
+
+func TestSVGSharedBoundaries(t *testing.T) {
+	data, err := os.ReadFile("testdata/svg-boundaries.json")
+	if err != nil {
+		t.Fatal(err)
+	}
+	var cases []struct {
+		Name  string `json:"name"`
+		Valid bool   `json:"valid"`
+		SVG   string `json:"svg"`
+	}
+	if err = json.Unmarshal(data, &cases); err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range cases {
+		t.Run(c.Name, func(t *testing.T) {
+			if (ValidateSVG([]byte(c.SVG)) == nil) != c.Valid {
+				t.Fatalf("unexpected validity: %t", c.Valid)
+			}
+		})
 	}
 }

@@ -196,3 +196,14 @@ func TestContentChunkedRawLimits(t *testing.T) {
 		}
 	}
 }
+
+func TestContentListQueryExplicitEmpty(t *testing.T) {
+	for _, raw := range []string{"scope=", "status="} {
+		if _, err := contentListQuery(raw, publication.ListDraftsAction); !errors.Is(err, auth.ErrInvalidInput) {
+			t.Fatalf("%s: %v", raw, err)
+		}
+	}
+	if _, err := contentListQuery("", publication.ListDraftsAction); err != nil {
+		t.Fatal(err)
+	}
+}

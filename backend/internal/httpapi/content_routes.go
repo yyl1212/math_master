@@ -145,7 +145,7 @@ func contentListQuery(raw string, action publication.Action) (publication.ListQu
 		return q, auth.ErrInvalidInput
 	}
 	for key, v := range values {
-		if len(v) != 1 {
+		if len(v) != 1 || v[0] == "" {
 			return q, auth.ErrInvalidInput
 		}
 		switch key {
