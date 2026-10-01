@@ -10,7 +10,7 @@
 
 ## 技术验收
 
-每条命令经过 540 秒入口，Go CGO_ENABLED=0/GOTOOLCHAIN=go1.27.1，-timeout 5m。浏览器一 worker、零重试，单例 30 秒、每批 480 秒，实际两批约 32/31 秒。
+每条命令经过 540 秒入口，Go CGO_ENABLED=0/GOTOOLCHAIN=go1.27.1，-timeout 5m。浏览器一 worker、零重试，单例 30 秒、每批 480 秒，实际两批约 36/32 秒。
 
 | 实际执行 | 结果 |
 | --- | --- |
@@ -23,7 +23,7 @@
 | 前端 typecheck/npm test/build | 通过，14 文件/46 测试 |
 | npm audit --omit=dev | 0 漏洞 |
 | 原目录/阅读浏览器 desktop/mobile | 16/16 |
-| 新账户/安全浏览器 desktop/mobile | 10/10，使用最终生产构建与实际 Go/PG |
+| 新账户/安全浏览器 desktop/mobile | 12/12，含两视口固定失败诊断，使用最终生产构建与实际 Go/PG |
 | 1280×900/390×844 图像与键盘 | 查看两种视口登录、账户、管理员截图；无横向溢出，输入遮盖，Tab及验证对话框循环通过 |
 
 账户浏览器覆盖：注册不自动登录、错误密码/错误焦点/字段清空、登录真实身份、退出；另一浏览器在改密后失效；实际 admin-init 后登录与明确重新验证、验证成功无自动角色重放、授予 editor/reviewer 后目标旧会话撤销；非 admin 禁止管理；人工重置、临时会话受限、改密后重新登录；CSRF、伪造角色、跨源写入拒绝；故障与恢复保留登录；匿名数学阅读正常。
@@ -32,7 +32,9 @@
 
 ## 独立审查
 
-独立审查由新上下文 gpt-6-astra 执行，只读检查计划、设计、全部实施决定、五项 Review Focus 及手写代码；未连接数据库，也未把作者回归冒充审查者重新执行。未发现密码槽提前释放、恶意PHC超额参数、旧凭据登录、并发撤权后写入、严格JSON改写或代理失败转发Cookie。结论可合并，无Critical/Important，因此没有代码修复轮，也未再次派审查。
+独立审查由新上下文 gpt-6-astra 执行，只读检查计划、设计、全部实施决定、五项 Review Focus 及手写代码；未连接数据库，也未把作者回归冒充审查者重新执行。未发现密码槽提前释放、恶意PHC超额参数、旧凭据登录、并发撤权后写入、严格JSON改写或代理失败转发Cookie。结论可合并，独立审查未发现Critical/Important。作者在交付诊断检查另复现一项Important：Playwright APIRequestContext连接失败的异常包含Authorization，会让隔离控制令牌进入报告。新增TestControlFailureIsSanitized，公开marker/关闭端口在两视口先失败，再统一catch为固定失败消息；runtime读取/解析同样不传播原异常。该唯一修复轮完成工具9、前端46、Go全部分包/vet/build、契约/构建/审计、公共16与账户/安全12整分支回归，未再次派审查。
+
+远程CI还定位roles_test.go格式门槛失败，本机复现相同gofmt检查后修正；两workflow Go命令显式固定CGO_ENABLED=0/GOTOOLCHAIN=go1.27.1，避免setup-go覆盖环境。最终格式检查通过；以修复后最新提交重新核验CI。
 
 重新按用户实际影响评级后，三项Minor延后：
 

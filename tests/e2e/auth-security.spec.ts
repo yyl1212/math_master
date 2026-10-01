@@ -1,4 +1,4 @@
-import { test, expect, signIn, TEST_PASSWORD } from "./fixtures";
+import { test, expect, signIn, TEST_PASSWORD, changeScene } from "./fixtures";
 
 test("csrfCrossOriginAndForgedRolesCannotChangeIdentity", async ({ page, scene }) => {
   await scene("auth");
@@ -35,4 +35,14 @@ test("crossSiteWriteIsRejectedAndFailureRecoveryRetainsSession", async ({ page, 
   await page.goto("/knowledge/equivalent-fractions");
   await expect(page.getByRole("heading", { name: "Equivalent fractions", exact: true })).toBeVisible();
   await expect(page.locator(".katex").first()).toBeVisible();
+});
+
+
+test("TestControlFailureIsSanitized", async ({ request }) => {
+  let message = "";
+  try {
+    await changeScene(request, { controlURL: "http://127.0.0.1:1", token: "public-diagnostic-marker" }, "auth");
+  } catch (error) { message = String(error instanceof Error ? error.message : error); }
+  // Boolean-only failure output cannot repeat the exception's secret-bearing call log.
+  expect(message === "Test scene change failed").toBe(true);
 });

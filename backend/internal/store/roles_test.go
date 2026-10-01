@@ -126,10 +126,14 @@ func TestLastAdminConcurrentDemotion(t *testing.T) {
 			user    auth.User
 			cookies auth.Cookies
 			csrf    string
-		}) { delta, err := admin.ReplaceRoles(f.ctx, entry.cookies, entry.csrf, entry.user.ID, auth.RolesInput{Roles: []auth.Role{auth.RoleLearner}, Reason: adminReason}, "self-demote"); if err == nil && !delta.ClearSession {
-			results <- errors.New("self cookie not cleared")
-			return
-		}; results <- err }(entry)
+		}) {
+			delta, err := admin.ReplaceRoles(f.ctx, entry.cookies, entry.csrf, entry.user.ID, auth.RolesInput{Roles: []auth.Role{auth.RoleLearner}, Reason: adminReason}, "self-demote")
+			if err == nil && !delta.ClearSession {
+				results <- errors.New("self cookie not cleared")
+				return
+			}
+			results <- err
+		}(entry)
 	}
 	waitForAdminLockWaiters(t, f.db, 2)
 	if lock.Commit() != nil {
