@@ -24,6 +24,7 @@ export function PublicationPanel({ initial, selectedID }: {
         setStale(true); }, [command.failure]);
     async function refresh(offset = page.offset) { const result = await contentRequest<PublicationPage>({ kind: "listPublications", query: { limit: page.limit, offset } }); if (result.ok) {
         setPage(result.data);
+        setSelected(current => result.data.items.some(v => v.id === current) ? current : result.data.items[0]?.id ?? "");
         router.refresh();
     }
     else

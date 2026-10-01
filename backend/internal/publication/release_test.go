@@ -135,3 +135,32 @@ func TestReleaseRejectsOldUnitBinding(t *testing.T) {
 		t.Fatal("unreviewed new unit prepared", err)
 	}
 }
+
+func TestReleaseReplacesSVGWithNewOwnerAndUnitVersions(t *testing.T) {
+	p := releasePackage()
+	base, err := BuildCandidate(Candidate{}, []ReviewedBatch{reviewedBatch(t, p, "44444444-4444-4444-8444-444444444444")})
+	if err != nil {
+		t.Fatal(err)
+	}
+	base.PublicationID = "66666666-6666-4666-8666-666666666666"
+	p.Version = 2
+	p.Knowledge[0].Version = 2
+	p.Units[0].Version = 2
+	p.Units[0].Knowledge.Version = 2
+	p.Assets[0].Knowledge.Version = 2
+	p.Assets[0].SHA256 = strings.Repeat("c", 64)
+	next, err := BuildCandidate(base, []ReviewedBatch{reviewedBatch(t, p, "55555555-5555-4555-8555-555555555555")})
+	if err != nil || next.Snapshot.Assets[0].ID != "root-asset" || next.Snapshot.Assets[0].SHA256 != p.Assets[0].SHA256 || next.Snapshot.Bindings[0].Unit.Version != 2 || next.Snapshot.Bindings[0].SHA256 != p.Assets[0].SHA256 {
+		t.Fatal("legal same-ID illustration revision rejected", err)
+	}
+	unchangedOwner := releasePackage()
+	unchangedOwner.Version = 3
+	unchangedOwner.Units[0].Version = 3
+	unchangedOwner.Assets[0].SHA256 = strings.Repeat("d", 64)
+	if _, err := BuildCandidate(base, []ReviewedBatch{reviewedBatch(t, unchangedOwner, "55555555-5555-4555-8555-555555555555")}); !errors.Is(err, ErrImmutableConflict) {
+		t.Fatal("changed bytes kept old knowledge owner", err)
+	}
+	if base.Snapshot.Assets[0].SHA256 == p.Assets[0].SHA256 || base.Snapshot.Bindings[0].Unit.Version != 1 {
+		t.Fatal("old immutable bytes changed")
+	}
+}

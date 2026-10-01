@@ -322,3 +322,33 @@ func TestActivationReviewerRevocationAtDatabaseBarrier(t *testing.T) {
 		})
 	}
 }
+
+func TestReleaseReplacesSVGInStore(t *testing.T) {
+	f := newWorkflowFixture(t)
+	first := f.Prepare(f.Approved("author_a", "reviewer_a"), nil)
+	f.Activate(first, nil)
+	input := f.Input()
+	input.Package.Version = 2
+	input.Package.Knowledge[0].Version = 2
+	input.Package.Units[0].Version = 2
+	input.Package.Units[0].Knowledge.Version = 2
+	input.Package.Assets[0].Knowledge.Version = 2
+	input.SourceMap[0].Knowledge.Version = 2
+	b, err := base64.StdEncoding.DecodeString(input.AssetBytes[0].Base64)
+	if err != nil {
+		t.Fatal(err)
+	}
+	b = append(b, '\n')
+	input.AssetBytes[0].Base64 = base64.StdEncoding.EncodeToString(b)
+	input.Package.Assets[0].SHA256 = fmt.Sprintf("%x", sha256.Sum256(b))
+	next := f.Prepare(f.ApprovedInput(input), &first.ID)
+	f.Activate(next, &first.ID)
+	view, err := f.repo.GetPublishedKnowledge(f.ctx, input.Package.Knowledge[0].ID)
+	if err != nil || view.Knowledge.Version != 2 || view.Units[0].Version != 2 || view.Assets[0].SHA256 != input.Package.Assets[0].SHA256 {
+		t.Fatal("same-ID illustration revision not published", err)
+	}
+	old, err := f.repo.ReadPublication(f.ctx, f.Access("admin_a", false), first.ID)
+	if err != nil || old.ManifestSHA != first.ManifestSHA {
+		t.Fatal("previous publication changed", err)
+	}
+}

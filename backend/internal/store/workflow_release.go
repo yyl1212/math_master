@@ -33,6 +33,18 @@ func workflowResponseSize(v any) error {
 	}
 	return nil
 }
+
+// Reserve the existing list envelope at preparation time. Every accepted view
+// must be readable as a one-item page, including its longer published status
+// and the largest permitted metadata.
+func workflowPublicationResponseSize(v publication.PublicationView) error {
+	if err := workflowResponseSize(v); err != nil {
+		return err
+	}
+	v.Status = "published"
+	return workflowResponseSize(publication.PublicationPage{Items: []publication.PublicationView{v}, Head: &v.ID, Total: 2147483647, Limit: 100, Offset: 100000})
+}
+
 func readWorkflowPublication(ctx context.Context, tx *sql.Tx, id string) (publication.PublicationView, error) {
 	var out publication.PublicationView
 	var raw, diff []byte
@@ -54,7 +66,7 @@ func readWorkflowPublication(ctx context.Context, tx *sql.Tx, id string) (public
 		return out, auth.ErrUnavailable
 	}
 	out.CreatedAt = created.UTC().Format(time.RFC3339)
-	return out, workflowResponseSize(out)
+	return out, workflowPublicationResponseSize(out)
 }
 
 // The immutable evidence is checked in bulk. Only newly selected approvals need
@@ -348,7 +360,7 @@ func (s *Store) insertWorkflowPublication(ctx context.Context, tx *sql.Tx, u aut
 		return out, err
 	}
 	out = publication.PublicationView{ID: id, Status: status, ManifestSHA: sha, CreatedAt: now.UTC().Format(time.RFC3339), Manifest: candidate.Manifest, Diff: candidate.Diff}
-	if err = workflowResponseSize(out); err != nil {
+	if err = workflowPublicationResponseSize(out); err != nil {
 		return out, err
 	}
 	raw, err := publication.ManifestBytes(candidate.Manifest)
@@ -571,7 +583,12 @@ func (s *Store) ListPublications(ctx context.Context, a publication.Access, q pu
 			}
 			out.Items = append(out.Items, view)
 			if err = workflowResponseSize(out); err != nil {
-				return err
+				out.Items = out.Items[:len(out.Items)-1]
+				if len(out.Items) == 0 {
+					return err
+				}
+				out.Limit = len(out.Items)
+				break
 			}
 		}
 		return nil

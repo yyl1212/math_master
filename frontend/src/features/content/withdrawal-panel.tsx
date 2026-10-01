@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { contentRequest } from "@/lib/content/client";
-import type { PublicationPage, WithdrawalTarget, WithdrawalPreview, WithdrawalResult } from "@/lib/content/types";
+import type { PublicationPage, PublicationView, WithdrawalTarget, WithdrawalPreview, WithdrawalResult } from "@/lib/content/types";
 import { validContentInput } from "@/lib/content/schemas";
 import { TextField, NumberField, SelectField } from "./field-controls";
 import { DiffPanel } from "./diff-panel";
@@ -20,7 +20,13 @@ export function WithdrawalPanel({ initial }: {
         command.clearPending();
     } }, [command.failure]);
     async function refresh() { const result = await contentRequest<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }); if (result.ok) {
-        setPage(result.data);
+        const next = result.data;
+        if (next.head && !next.items.some(v => v.id === next.head)) {
+            const head = await contentRequest<PublicationView>({ kind: "readPublication", id: next.head });
+            if (!head.ok) { command.error(head.message); return false; }
+            next.items = [head.data, ...next.items];
+        }
+        setPage(next);
         return true;
     } command.error(result.message); return false; }
     useEffect(() => { if (!initial)

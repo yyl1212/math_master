@@ -8821,6 +8821,7 @@
             "maxItems": 100
           },
           "limit": {
+            "description": "Effective page size, reduced when needed to keep the complete response within 4 MiB. Advance using the returned limit; head remains independent of this page.",
             "type": "integer",
             "minimum": 1,
             "maximum": 100

@@ -183,6 +183,33 @@ func TestWorkflowCapacityEnvelope(t *testing.T) {
 	if longest >= 8*time.Second {
 		t.Fatal("repository exceeded content deadline")
 	}
+	t.Run("large-history-pages", func(t *testing.T) {
+		seen := map[string]bool{}
+		offset := 0
+		for len(seen) < 4 {
+			page, err := f.repo.ListPublications(f.ctx, f.Access("admin_a", false), publication.ListQuery{Limit: 100, Offset: offset})
+			if err != nil || len(page.Items) == 0 || page.Head == nil || *page.Head != final.ID {
+				t.Fatal("legal large publication history unreadable", err)
+			}
+			encoded, _ := json.Marshal(page)
+			if len(encoded) > 4<<20 {
+				t.Fatal("history page exceeds wire budget")
+			}
+			if len(page.Items) < 100 && offset+len(page.Items) < page.Total && page.Limit != len(page.Items) {
+				t.Fatal("partial page does not expose effective limit")
+			}
+			for _, view := range page.Items {
+				if seen[view.ID] {
+					t.Fatal("history page repeated an item")
+				}
+				seen[view.ID] = true
+			}
+			offset += len(page.Items)
+		}
+		if len(seen) != 4 {
+			t.Fatal("history pagination skipped a snapshot")
+		}
+	})
 	for _, read := range []struct {
 		name   string
 		budget time.Duration

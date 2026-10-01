@@ -4,10 +4,19 @@ import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import type { DraftInput, DraftView, SubmissionView, PublicationPage } from "../../frontend/src/lib/content/types";
 export const contentKnowledge = "e2e-rational-fractions", contentPath = "e2e-fractions-route", contentPackage = "e2e-content-math";
-export async function originalInput(): Promise<DraftInput> { const root = resolve(__dirname, "../../backend/internal/content/testdata"), p = JSON.parse(await readFile(root + "/workflow-ready.json", "utf8")); p.id = contentPackage; p.knowledge[0].id = contentKnowledge; p.units[0].id = "e2e-fractions-unit"; p.units[0].knowledge.id = contentKnowledge; p.assets[0].knowledge.id = contentKnowledge; p.assets[0].id = "e2e-halves"; p.units[0].assetIds = ["e2e-halves"]; p.units[0].angles = p.units[0].angles.map((a: {
-    body: string;
-    kind: string;
-}) => ({ ...a, body: a.body.replaceAll("asset:halves", "asset:e2e-halves") })); p.paths = [{ id: contentPath, version: 1, domainIds: ["elementary-mathematics"], title: "Original rational fractions route", titleZh: "分数路线", nodes: [{ id: contentKnowledge, version: 1 }] }]; return { catalogueVersion: 1, package: p, assetBytes: [{ id: p.assets[0].id, base64: (await readFile(root + "/workflow-ready.svg")).toString("base64") }], sourceMap: [{ knowledge: { id: contentKnowledge, version: 1 }, batchSha256: "a".repeat(64), relativePath: "original/fractions.json", sha256: "b".repeat(64), legacyId: "technical-only", note: "Original technical browser fixture." }] }; }
+export async function originalInput(): Promise<DraftInput> {
+ const root=resolve(__dirname,"../../backend/internal/content/testdata");
+ const p=JSON.parse(await readFile(root+"/workflow-ready.json","utf8"));
+ p.id=contentPackage;p.knowledge[0].id=contentKnowledge;p.units[0].id="e2e-fractions-unit";p.units[0].knowledge.id=contentKnowledge;p.assets[0].knowledge.id=contentKnowledge;p.assets[0].id="e2e-halves";p.units[0].assetIds=["e2e-halves"];
+ p.units[0].angles=p.units[0].angles.map((a:{body:string;kind:string})=>({...a,body:a.body.replaceAll("asset:halves","asset:e2e-halves")}));
+ const foundation=structuredClone(p.knowledge[0]);foundation.id="e2e-parts-of-a-whole";foundation.title="Parts of a whole";foundation.titleZh="整体分割";foundation.statement="Original technical fixture for equal parts of a whole.";foundation.relations=[];
+ const unit=structuredClone(p.units[0]);unit.id="e2e-parts-unit";unit.knowledge.id=foundation.id;unit.assetIds=[];unit.angles=unit.angles.map((a:{body:string;kind:string})=>({...a,body:"Equal parts compose a whole."}));
+ p.knowledge[0].relations=[{kind:"prerequisite",target:{id:foundation.id,version:1}}];
+ p.knowledge[0].sources.push({kind:"external",author:"Technical fixture author",title:"Technical external source",url:"https://example.org/original-math",accessedAt:"2026-10-01",license:"CC0-1.0",attribution:"Original technical source reference, not a production claim."});
+ p.knowledge.push(foundation);p.units.push(unit);
+ p.paths=[{id:contentPath,version:1,domainIds:["elementary-mathematics"],title:"Original rational fractions route",titleZh:"分数路线",nodes:[{id:foundation.id,version:1},{id:contentKnowledge,version:1}]}];
+ return {catalogueVersion:1,package:p,assetBytes:[{id:p.assets[0].id,base64:(await readFile(root+"/workflow-ready.svg")).toString("base64")}],sourceMap:[{knowledge:{id:contentKnowledge,version:1},batchSha256:"a".repeat(64),relativePath:"original/fractions.json",sha256:"b".repeat(64),legacyId:"technical-only",note:"Original technical browser fixture."}]};
+}
 export async function actor(page: Page, name: string) { await page.context().clearCookies(); await signIn(page, name, TEST_PASSWORD); }
 export async function wireContent<T>(page: Page, path: string, method = "GET", input?: unknown, key?: string): Promise<{
     status: number;

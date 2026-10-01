@@ -350,7 +350,7 @@ func buildCandidate(base Candidate, batches []ReviewedBatch) (Candidate, error) 
 					continue
 				}
 			}
-			if old, ok := current[key]; ok && old.Identity.Version == identity.Version && old.Identity.SHA256 != identity.SHA256 {
+			if old, ok := current[key]; ok && identity.Kind != "asset" && old.Identity.Version == identity.Version && old.Identity.SHA256 != identity.SHA256 {
 				return out, ErrImmutableConflict
 			}
 			chosen[key] = member
@@ -365,6 +365,20 @@ func buildCandidate(base Candidate, batches []ReviewedBatch) (Candidate, error) 
 				return out, ErrImmutableConflict
 			}
 			chosenBindings[key] = b
+		}
+	}
+	// Assets use their byte digest as identity and keep member version=1. A new
+	// digest still requires a reviewed replacement of the old knowledge owner;
+	// immutable unit binding checks above and the final graph check remain.
+	for key, member := range chosen {
+		old, exists := current[key]
+		if member.Identity.Kind != "asset" || !exists || old.Identity.SHA256 == member.Identity.SHA256 {
+			continue
+		}
+		owner := bodies[key].owner()
+		replacement, ok := chosen["knowledge/"+owner.ID]
+		if !ok || replacement.Identity.Version == owner.Version {
+			return out, ErrImmutableConflict
 		}
 	}
 	reasons := map[string]string{}

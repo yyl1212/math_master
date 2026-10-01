@@ -1031,6 +1031,7 @@ export interface components {
         ContentPublicationPage: {
             head: string | null;
             items: components["schemas"]["ContentPublicationView"][];
+            /** @description Effective page size, reduced when needed to keep the complete response within 4 MiB. Advance using the returned limit; head remains independent of this page. */
             limit: number;
             offset: number;
             total: number;

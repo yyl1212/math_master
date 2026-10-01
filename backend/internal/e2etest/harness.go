@@ -209,6 +209,8 @@ func Run(ctx context.Context, c Config) (result error) {
 			unavailable = false
 			holdSave.Store(false)
 			return nil
+		case "content-expand-history":
+			return expandWorkflowHistory(ctx, db)
 		case "content-hold-next-save":
 			holdSave.Store(true)
 			return nil
