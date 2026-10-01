@@ -257,7 +257,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** question/{numeric,grade}.go及测试。
 **Interfaces:** 消费Rational/QuestionBody；产出ParseNumeric、GradeNumeric、GradeChoice、CanEnterAnswer、GradeResult/NumericFormatError，不增加HTTP判分端口。
 
-- [ ] **Step 1：写失败测试。** TestNumericModesAndBoundary：1/2=2/4=0.50、1/-2=-0.5、.5/1./+002/负零合法归一、分数只在slash两侧空格/制表符、裸50不能当50%、50%=1/2；128/129原始字符边界、256/257位结果、零分母、指数/表达式/NaN/Unicode数字/数字内部空白/分数百分数拒绝。TestExactGrade：未知choiceID返回格式错误；合法错误答案Correct=false；非法格式不产生判分结果。TestNumericAnswerRepresentable：rational的1/3可输入、percentage的1/3无有限百分数表达不可入库，1/2可50%，整数/分数/小数最短合法形式均超过128字符时false。
+- [x] **Step 1：写失败测试。** TestNumericModesAndBoundary：1/2=2/4=0.50、1/-2=-0.5、.5/1./+002/负零合法归一、分数只在slash两侧空格/制表符、裸50不能当50%、50%=1/2；128/129原始字符边界、256/257位结果、零分母、指数/表达式/NaN/Unicode数字/数字内部空白/分数百分数拒绝。TestExactGrade：未知choiceID返回格式错误；合法错误答案Correct=false；非法格式不产生判分结果。TestNumericAnswerRepresentable：rational的1/3可输入、percentage的1/3无有限百分数表达不可入库，1/2可50%，整数/分数/小数最短合法形式均超过128字符时false。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -269,10 +269,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(NumericModesAndBoundary|ExactGrade|NumericAnswerRepresentable)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现判分及可输入性函数。** 用big.Int构造十进制/分数，big.Rat归一比较；原始rune数先限制，trim只作用首尾。256位答案检测为内部规范Rational检查，不经128字符的用户输入解析器，二者上限不可混用。规范答案校验包括约分和正分母，不使用ParseFloat或表达式引擎。CanEnterAnswer枚举整数/规范分数/终止小数候选最短字符数，percentage先乘100再要求分母只含2/5且含百分号；数值题答案至少一种合法表示≤128字符，否则不能送审。
-- [ ] **Step 4：验证GREEN。** 重跑Step2，再单独通过入口运行question全套，预期0失败；输入判分不修改任何数据库。
-- [ ] **Step 5：提交。** 仅任务2文件，提交 feat: 增加精确数值与稳定选项判分。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(NumericModesAndBoundary|ExactGrade|NumericAnswerRepresentable)$' -timeout 5m -count=1。
+- [x] **Step 3：实现判分及可输入性函数。** 用big.Int构造十进制/分数，big.Rat归一比较；原始rune数先限制，trim只作用首尾。256位答案检测为内部规范Rational检查，不经128字符的用户输入解析器，二者上限不可混用。规范答案校验包括约分和正分母，不使用ParseFloat或表达式引擎。CanEnterAnswer枚举整数/规范分数/终止小数候选最短字符数，percentage先乘100再要求分母只含2/5且含百分号；数值题答案至少一种合法表示≤128字符，否则不能送审。
+- [x] **Step 4：验证GREEN。** 重跑Step2，再单独通过入口运行question全套，预期0失败；输入判分不修改任何数据库。
+- [x] **Step 5：提交。** 仅任务2文件，提交 feat: 增加精确数值与稳定选项判分。
 
 ## Task 3：有界生成、受控插值与独立校验
 
