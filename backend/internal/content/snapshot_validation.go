@@ -107,11 +107,11 @@ func ValidateSnapshot(ctx context.Context, c catalogue.Catalogue, s Snapshot, re
 				v.Assets = append(v.Assets, AssetView{a.ID, a.SHA256, a.Author, a.License, a.Attribution, a.Knowledge})
 			}
 		}
-		b, err := json.Marshal(v)
+		b, err := publicResponseBytes(v)
 		if err != nil {
 			return r, ErrValidation
 		}
-		if len(b) > 10<<20 {
+		if len(b)+1 > 10<<20 {
 			return r, ErrLimit
 		}
 		views[ref] = v
@@ -124,11 +124,11 @@ func ValidateSnapshot(ctx context.Context, c catalogue.Catalogue, s Snapshot, re
 		for _, ref := range path.Nodes {
 			v.Knowledge = append(v.Knowledge, views[ref])
 		}
-		b, err := json.Marshal(v)
+		b, err := publicResponseBytes(v)
 		if err != nil {
 			return r, ErrValidation
 		}
-		if len(b) > 10<<20 {
+		if len(b)+1 > 10<<20 {
 			return r, ErrLimit
 		}
 	}
@@ -137,4 +137,13 @@ func ValidateSnapshot(ctx context.Context, c catalogue.Catalogue, s Snapshot, re
 		return r, ErrValidation
 	}
 	return r, nil
+}
+
+// Public detail handlers wrap views in data and json.Encoder adds one newline.
+// Count that exact wire format so an accepted snapshot remains readable by the
+// existing bounded public proxy.
+func publicResponseBytes(v any) ([]byte, error) {
+	return json.Marshal(struct {
+		Data any `json:"data"`
+	}{Data: v})
 }

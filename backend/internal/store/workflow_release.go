@@ -86,12 +86,18 @@ func workflowManifestEvidence(ctx context.Context, tx *sql.Tx, m publication.Man
 	if inherited == 0 {
 		return nil
 	}
-	const inheritedSQL = `SELECT count(*) FROM jsonb_to_recordset($1::jsonb->'members') e(identity jsonb,evidence jsonb)
- JOIN content_publication_manifests pm ON pm.snapshot_id=e.evidence->>'inheritedFrom'
+	// Every inherited member was checked against BaseHead above. Expand that
+	// immutable manifest once; expanding it for each incoming member is quadratic.
+	const inheritedSQL = `WITH previous AS MATERIALIZED (
+ SELECT old.identity,old.evidence-'inheritedFrom' AS evidence
+ FROM content_publication_manifests pm
  JOIN publication_snapshots s ON s.id=pm.snapshot_id AND s.status='published'
  CROSS JOIN LATERAL jsonb_to_recordset(pm.manifest->'members') old(identity jsonb,evidence jsonb)
- WHERE e.identity=old.identity AND (e.evidence-'inheritedFrom')=(old.evidence-'inheritedFrom')`
-	if err := tx.QueryRowContext(ctx, inheritedSQL, body(m)).Scan(&count); err != nil {
+ WHERE pm.snapshot_id=$2
+ ) SELECT count(*) FROM jsonb_to_recordset($1::jsonb->'members') e(identity jsonb,evidence jsonb)
+ JOIN previous old ON e.identity=old.identity AND (e.evidence-'inheritedFrom')=old.evidence
+ WHERE e.evidence->>'inheritedFrom'=$2`
+	if err := tx.QueryRowContext(ctx, inheritedSQL, body(m), *m.BaseHead).Scan(&count); err != nil {
 		return err
 	}
 	if count != inherited {

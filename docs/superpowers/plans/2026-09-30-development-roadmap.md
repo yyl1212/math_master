@@ -1,6 +1,6 @@
 # 数学学习成长网站：首版开发路线图
 
-日期：2026-09-30。状态：P1 内容基础层已完成独立审查及回归，并于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；P2 已完成独立审查和回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并到 master；P3a 账户基础方案已确认并通过 PR #8 合并，执行计划已确认通过 PR #9 合并，账户实现已完成独立审查与回归，通过 [PR #10](https://github.com/yyl1212/math_master/pull/10) 合并到 master，合并提交 90aca8e 的两项 CI 通过；[P3b 内容工作流设计](../specs/2026-10-01-content-workflow-design.md)已获书面确认并通过 PR #11 合并；[十项执行计划](2026-10-01-content-workflow.md)已获用户确认，沿用 Native；已通过 PR #13 提前完成限流 CI 前置修复，内容功能任务待实施。
+日期：2026-09-30。状态：P1 内容基础层已完成独立审查及回归，并于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；P2 已完成独立审查和回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并到 master；P3a 账户基础方案已确认并通过 PR #8 合并，执行计划已确认通过 PR #9 合并，账户实现已完成独立审查与回归，通过 [PR #10](https://github.com/yyl1212/math_master/pull/10) 合并到 master，合并提交 90aca8e 的两项 CI 通过；[P3b 内容工作流设计](../specs/2026-10-01-content-workflow-design.md)已获书面确认并通过 PR #11 合并；[十项执行计划](2026-10-01-content-workflow.md)已获用户确认，沿用 Native；已通过 PR #13 提前完成限流 CI 前置修复，内容功能已实现，正在完成技术验收与独立审查。
 
 设计依据：[总体方案](../specs/2026-09-30-math-learning-platform-design.md)。界面依据：[英文预览](../../../design/README.md)。用户已决定直接在项目中设计和开发，Figma 同步取消。
 
@@ -112,6 +112,8 @@ JSON 是导入导出与版本审查格式，数据库是正式运行来源。预
 后台实现草稿编辑、送审、复核、发布与基础撤回。知识点草稿可以包含多个版本，发布快照必须固定具体版本及路线成员。发布在同一事务中检查完整前置图和来源/素材条件；作者与复核者为不同真实账户。
 
 首批先发布一条经过独立复核的短路线，供 P4 联调。未找到独立复核者时继续保存草稿，技术开发可以推进，但生产内容发布暂停。
+
+P3b 已实现固定送审、作者隔离、五项独立复核、候选与事务发布、永久撤回和英文后台。最大组合实测最长操作约 3.47 秒，保留 8 秒截止；当前正按 [P3b 计划](2026-10-01-content-workflow.md) 完成最终回归和一次独立整分支审查，证据见 [验收记录](../../operations/2026-10-01-p3b-acceptance.md)。实际数学内容的人员复核及上线仍分别在 P6/P7，技术测试不计发布数量。
 
 ### P4：学习、题库与资格
 

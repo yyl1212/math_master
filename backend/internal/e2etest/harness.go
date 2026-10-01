@@ -11,15 +11,18 @@ import (
 	"errors"
 	"net"
 	"net/http"
+	"net/http/httptest"
 	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
 	"sync"
+	"sync/atomic"
 	"time"
 
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
+	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
 )
@@ -186,12 +189,35 @@ func Run(ctx context.Context, c Config) (result error) {
 	var mu sync.RWMutex
 	unavailable := false
 	authUnavailable := false
+	contentUnavailable := false
+	var holdSave atomic.Bool
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
 		ctx, stop := context.WithTimeout(ctx, 3*time.Second)
 		defer stop()
 		switch scene {
+		case "content":
+			if err := resetWorkflow(ctx, db, accounts, accountAdmin); err != nil {
+				return err
+			}
+			if _, err := s.ImportDraft(ctx, normal); err != nil {
+				return errors.New("content fixture catalogue import failed")
+			}
+			contentUnavailable = false
+			authUnavailable = false
+			unavailable = false
+			holdSave.Store(false)
+			return nil
+		case "content-hold-next-save":
+			holdSave.Store(true)
+			return nil
+		case "content-unavailable":
+			contentUnavailable = true
+			return nil
+		case "content-recover":
+			contentUnavailable = false
+			return nil
 		case "auth":
 			if err := resetAccounts(ctx, db, accounts, accountAdmin); err != nil {
 				return err
@@ -265,11 +291,11 @@ func Run(ctx context.Context, c Config) (result error) {
 		return errors.New("harness control bind failed")
 	}
 	defer controlListener.Close()
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin})
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Content: &httpapi.ContentOptions{Service: publication.NewService(s), PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
-		if authUnavailable && (strings.HasPrefix(r.URL.Path, "/api/v1/auth/") || strings.HasPrefix(r.URL.Path, "/api/v1/admin/")) {
+		if authUnavailable && (strings.HasPrefix(r.URL.Path, "/api/v1/auth/") || strings.HasPrefix(r.URL.Path, "/api/v1/admin/") || strings.HasPrefix(r.URL.Path, "/api/v1/content/")) || contentUnavailable && strings.HasPrefix(r.URL.Path, "/api/v1/content/") {
 			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Cache-Control", "private, no-store")
 			w.Header().Set("X-Content-Type-Options", "nosniff")
@@ -283,6 +309,30 @@ func Run(ctx context.Context, c Config) (result error) {
 			w.Header().Set("Cache-Control", "no-store")
 			w.WriteHeader(503)
 			w.Write([]byte(`{"error":{"code":"UNAVAILABLE","message":"Service unavailable"}}`))
+			return
+		}
+
+		// Commit through the real handler before dropping a delayed response. The
+		// next request must prove idempotent replay, rather than mock a success.
+		if r.Method == "PUT" && strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) {
+			captured := httptest.NewRecorder()
+			actual.ServeHTTP(captured, r)
+			if captured.Code == http.StatusOK {
+				timer := time.NewTimer(11 * time.Second)
+				defer timer.Stop()
+				select {
+				case <-r.Context().Done():
+					return
+				case <-timer.C:
+				}
+			}
+			for key, values := range captured.Header() {
+				for _, value := range values {
+					w.Header().Add(key, value)
+				}
+			}
+			w.WriteHeader(captured.Code)
+			w.Write(captured.Body.Bytes())
 			return
 		}
 		actual.ServeHTTP(w, r)
@@ -312,7 +362,7 @@ func Run(ctx context.Context, c Config) (result error) {
 		return errors.New("harness state write failed")
 	}
 	server := func(h http.Handler) *http.Server {
-		return &http.Server{Handler: h, ReadHeaderTimeout: 3 * time.Second, ReadTimeout: 5 * time.Second, WriteTimeout: 10 * time.Second, IdleTimeout: 30 * time.Second}
+		return &http.Server{Handler: h, ReadHeaderTimeout: 3 * time.Second, ReadTimeout: 10 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: 30 * time.Second}
 	}
 	api, ctl := server(apiHandler), server(control)
 	defer api.Close()

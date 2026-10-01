@@ -2,6 +2,9 @@ package content
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
+	"fmt"
 	"strings"
 	"testing"
 )
@@ -87,5 +90,47 @@ func TestSnapshotPublicViewIncludesOwnedUnusedAssets(t *testing.T) {
 	snapshot := Snapshot{CatalogueVersion: c.Version, Knowledge: p.Knowledge, Units: p.Units, Paths: p.Paths, Assets: p.Assets, Bindings: []AssetBinding{}}
 	if _, err := ValidateSnapshot(context.Background(), c, snapshot, reader); err == nil {
 		t.Fatal("owned unused asset metadata bypassed public view limit")
+	}
+}
+
+func TestSnapshotPublicResponseEnvelope(t *testing.T) {
+	c, p, reader := workflowSeed(t)
+	base := p.Units[0]
+	p.Units = []Unit{}
+	for i := 0; i < 6; i++ {
+		u := clone(base)
+		u.ID = fmt.Sprintf("large-unit-%d", i)
+		p.Units = append(p.Units, u)
+	}
+	a := p.Assets[0]
+	view := KnowledgeView{Knowledge: p.Knowledge[0], Units: p.Units, Assets: []AssetView{{ID: a.ID, SHA256: a.SHA256, Author: a.Author, License: a.License, Attribution: a.Attribution, Knowledge: a.Knowledge}}}
+	raw, _ := json.Marshal(map[string]any{"data": view})
+	padding := (10 << 20) - len(raw) - 1
+	for i := range p.Units {
+		n := padding / 6
+		if i < padding%6 {
+			n++
+		}
+		p.Units[i].Angles[1].Body += strings.Repeat("x", n)
+	}
+	// Each immutable unit can be submitted with this same small knowledge owner.
+	for _, u := range p.Units {
+		fragment := p
+		fragment.Units = []Unit{u}
+		fragment.Paths = []Path{}
+		if _, r := ValidateWorkflow(context.Background(), c, fragment, reader); !r.ReadyToSubmit {
+			t.Fatal("public boundary cannot originate from legal batches")
+		}
+	}
+	snapshot := Snapshot{CatalogueVersion: c.Version, Knowledge: p.Knowledge, Units: p.Units, Paths: []Path{}, Assets: p.Assets, Bindings: []AssetBinding{}}
+	for _, u := range p.Units {
+		snapshot.Bindings = append(snapshot.Bindings, AssetBinding{Unit: VersionRef{ID: u.ID, Version: u.Version}, AssetID: a.ID, SHA256: a.SHA256})
+	}
+	if r, err := ValidateSnapshot(context.Background(), c, snapshot, reader); err != nil || !r.ReadyToSubmit {
+		t.Fatal("exact 10 MiB public response rejected", err)
+	}
+	snapshot.Units[0].Angles[1].Body += "x"
+	if _, err := ValidateSnapshot(context.Background(), c, snapshot, reader); !errors.Is(err, ErrLimit) {
+		t.Fatal("public envelope above 10 MiB accepted")
 	}
 }

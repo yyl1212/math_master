@@ -1,6 +1,6 @@
 # P3b：内容编写、独立复核与发布设计
 
-日期：2026-10-01。状态：用户于 2026-10-01 确认书面方案，通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并；[执行计划](../plans/2026-10-01-content-workflow.md)已获用户确认，沿用 Native；限流测试前置修复已通过 PR #13 合并，十项内容功能任务待实施。基线：master 90aca8e4817577812eb6559a426e497fc56645c1，P3a 已通过 PR #10 合并。本文是设计说明，执行计划另行编写。
+日期：2026-10-01。状态：用户于 2026-10-01 确认书面方案，通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并；[执行计划](../plans/2026-10-01-content-workflow.md)已获用户确认，沿用 Native；限流测试前置修复已通过 PR #13 合并，十项内容功能已实现，正在完成整分支回归与独立审查，证据见 [技术验收记录](../../operations/2026-10-01-p3b-acceptance.md)。基线：master 90aca8e4817577812eb6559a426e497fc56645c1，P3a 已通过 PR #10 合并。本文是设计说明，执行计划另行编写。
 
 依据：[总体方案](2026-09-30-math-learning-platform-design.md)、[开发路线图](../plans/2026-09-30-development-roadmap.md)、[P3a 账户设计](2026-10-01-account-foundation-design.md)及当前 Go、Next.js、PostgreSQL 实现。
 
