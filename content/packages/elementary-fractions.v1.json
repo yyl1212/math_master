@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 1,
+  "id": "elementary-fractions",
+  "version": 1,
+  "knowledge": [
+    {
+      "id": "numbers",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "concept",
+      "title": "Understanding numbers",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "arithmetic",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "method",
+      "title": "Arithmetic operations",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "numbers",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "factors",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "concept",
+      "title": "Factors & multiples",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "arithmetic",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractions",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "What a fraction means",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "arithmetic",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "decimal-place-value",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "concept",
+      "title": "Decimals & place value",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "arithmetic",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "equivalent-fractions",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "theorem",
+      "title": "Equivalent fractions",
+      "titleZh": "等值分数",
+      "statement": "For integers a, b and k with b ≠ 0 and k ≠ 0, a/b = (ka)/(kb).",
+      "scope": "Rational numbers; the shaded bar illustrates the positive case only.",
+      "objectives": [
+        "Explain why nonzero common scaling preserves a rational value.",
+        "Identify excluded zero denominators and zero scale factors."
+      ],
+      "conditions": [
+        "a, b and k are integers.",
+        "b ≠ 0 and k ≠ 0."
+      ],
+      "system": "The rational number system.",
+      "proof": "Multiplying by k/k = 1 preserves a/b. The assumptions guarantee that b and kb are nonzero. This draft proof and examples await independent review.",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers, 2018; equivalent fractions",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-01",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Source knowledge reference: Manes; local record manes-p4-k007. Preserve source notices during review; no source prose or images copied."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fractions",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "arithmetic",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "simplifying-fractions",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "method",
+      "title": "Simplifying fractions",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "equivalent-fractions",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "factors",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "decimal-fraction-conversion",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "method",
+      "title": "Decimals ↔ fractions",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "equivalent-fractions",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "decimal-place-value",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "comparing-fractions",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "method",
+      "title": "Comparing fractions",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "simplifying-fractions",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "percentages",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Understanding percentages",
+      "titleZh": "",
+      "statement": "",
+      "scope": "",
+      "objectives": [],
+      "conditions": [],
+      "system": "",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary fractions editorial draft",
+          "url": "",
+          "accessedAt": "",
+          "license": "LicenseRef-MathMaster-Original",
+          "attribution": "Original wording and SVG prepared for Math Master; mathematical review pending."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "decimal-fraction-conversion",
+            "version": 1
+          }
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "equivalent-fractions-introduction",
+      "version": 1,
+      "knowledge": {
+        "id": "equivalent-fractions",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "visual",
+          "body": "One shaded half and two shaded fourths cover the same amount. The bars illustrate positive fractions only.\n\n![Equal shaded amounts](asset:equivalent-fractions-diagram)"
+        },
+        {
+          "kind": "formal",
+          "body": "For b ≠ 0 and k ≠ 0, multiplying a/b by k/k gives (ka)/(kb). Both fractions denote the same rational number."
+        }
+      ],
+      "examples": [
+        "1/2 = 2/4: use k = 2.",
+        "(-1)/2 = (-3)/6: use k = 3.",
+        "1/2 = (-1)/(-2): use k = -1."
+      ],
+      "counterexamples": [
+        "k = 0 is excluded: 0/0 has no rational value.",
+        "1/2 and 2/3 differ: increasing both entries by one does not preserve a fraction."
+      ],
+      "assetIds": [
+        "equivalent-fractions-diagram"
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "elementary-foundations",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "title": "Numbers to fractions and percentages",
+      "titleZh": "从数的认识到分数和百分数",
+      "nodes": [
+        {
+          "id": "numbers",
+          "version": 1
+        },
+        {
+          "id": "arithmetic",
+          "version": 1
+        },
+        {
+          "id": "factors",
+          "version": 1
+        },
+        {
+          "id": "fractions",
+          "version": 1
+        },
+        {
+          "id": "decimal-place-value",
+          "version": 1
+        },
+        {
+          "id": "equivalent-fractions",
+          "version": 1
+        },
+        {
+          "id": "simplifying-fractions",
+          "version": 1
+        },
+        {
+          "id": "decimal-fraction-conversion",
+          "version": 1
+        },
+        {
+          "id": "comparing-fractions",
+          "version": 1
+        },
+        {
+          "id": "percentages",
+          "version": 1
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "equivalent-fractions-diagram",
+      "path": "equivalent-fractions.v1.svg",
+      "sha256": "c1fb3abdff7b4f35b3e241efaf7e99e601af79282afaca96f0d49c97ba2ee472",
+      "author": "Math Master project",
+      "license": "LicenseRef-MathMaster-Original",
+      "attribution": "Original SVG for this project; educational content awaits independent review.",
+      "knowledge": {
+        "id": "equivalent-fractions",
+        "version": 1
+      }
+    }
+  ]
+}

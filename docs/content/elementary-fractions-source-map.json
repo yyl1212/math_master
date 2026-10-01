@@ -1,0 +1,56 @@
+{
+  "inspectedAt": "2026-10-01",
+  "sourceRelativePath": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+  "sourceSHA256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+  "sourceRecordId": "manes-p4-k007",
+  "projectKnowledge": {
+    "id": "equivalent-fractions",
+    "version": 1
+  },
+  "sourceProvenance": [
+    {
+      "source_id": "manes-elementary-teachers",
+      "part": "4",
+      "section_ids": [
+        "manes-sec-29"
+      ],
+      "printed_page": "185",
+      "pdf_page_1_based": 193,
+      "item_identifiers": [
+        "Key Fraction Rule"
+      ],
+      "url": "https://pressbooks-dev.oer.hawaii.edu/math111/open/download?type=pdf#page=193",
+      "license_id": "CC-BY-SA-4.0"
+    },
+    {
+      "source_id": "manes-elementary-teachers",
+      "part": "4",
+      "section_ids": [
+        "manes-sec-29"
+      ],
+      "printed_page": "186",
+      "pdf_page_1_based": 194,
+      "item_identifiers": [
+        "Key Fraction Rule"
+      ],
+      "url": "https://pressbooks-dev.oer.hawaii.edu/math111/open/download?type=pdf#page=194",
+      "license_id": "CC-BY-SA-4.0"
+    },
+    {
+      "source_id": "manes-elementary-teachers",
+      "part": "4",
+      "section_ids": [
+        "manes-sec-29"
+      ],
+      "printed_page": "187",
+      "pdf_page_1_based": 195,
+      "item_identifiers": [
+        "Key Fraction Rule"
+      ],
+      "url": "https://pressbooks-dev.oer.hawaii.edu/math111/open/download?type=pdf#page=195",
+      "license_id": "CC-BY-SA-4.0"
+    }
+  ],
+  "state": "draft-reference",
+  "note": "Source organization informs editorial drafting; project wording, proof and SVG are original and require independent review."
+}

@@ -1,0 +1,485 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]{0,63}$",
+      "not": {
+        "pattern": "\u0000"
+      }
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "knowledge": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/knowledge"
+      }
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unit"
+      }
+    },
+    "paths": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/path"
+      }
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "version",
+    "knowledge",
+    "units",
+    "paths",
+    "assets"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-master.local/schemas/content-package.schema.json",
+  "$defs": {
+    "ref": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "original",
+            "external"
+          ]
+        },
+        "author": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "title": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "url": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "accessedAt": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "license": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "attribution": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "author",
+        "title",
+        "url",
+        "accessedAt",
+        "license",
+        "attribution"
+      ],
+      "additionalProperties": false
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "prerequisite",
+            "derivation",
+            "related"
+          ]
+        },
+        "target": {
+          "$ref": "#/$defs/ref"
+        }
+      },
+      "required": [
+        "kind",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "knowledge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "domainIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "topicIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "type": {
+          "enum": [
+            "concept",
+            "definition",
+            "axiom",
+            "theorem",
+            "corollary",
+            "method",
+            "mathematical-thinking"
+          ]
+        },
+        "title": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "titleZh": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "statement": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "scope": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "system": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "proof": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source"
+          }
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relation"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "domainIds",
+        "topicIds",
+        "type",
+        "title",
+        "titleZh",
+        "statement",
+        "scope",
+        "system",
+        "proof",
+        "objectives",
+        "conditions",
+        "sources",
+        "relations"
+      ],
+      "additionalProperties": false
+    },
+    "angle": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "body": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        }
+      },
+      "required": [
+        "kind",
+        "body"
+      ],
+      "additionalProperties": false
+    },
+    "unit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "knowledge": {
+          "$ref": "#/$defs/ref"
+        },
+        "angles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/angle"
+          }
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "counterexamples": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "assetIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "knowledge",
+        "angles",
+        "examples",
+        "counterexamples",
+        "assetIds"
+      ],
+      "additionalProperties": false
+    },
+    "path": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "domainIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "title": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "titleZh": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ref"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "domainIds",
+        "title",
+        "titleZh",
+        "nodes"
+      ],
+      "additionalProperties": false
+    },
+    "asset": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "path": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "author": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "license": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "attribution": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "knowledge": {
+          "$ref": "#/$defs/ref"
+        }
+      },
+      "required": [
+        "id",
+        "path",
+        "sha256",
+        "author",
+        "license",
+        "attribution",
+        "knowledge"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

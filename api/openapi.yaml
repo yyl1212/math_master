@@ -1,0 +1,1317 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Math Master content API",
+    "version": "1.0.0",
+    "description": "P1 read-only API. Draft and withdrawn content share the same 404 as missing content. Public assets contain metadata, never filesystem paths."
+  },
+  "paths": {
+    "/api/v1/domains": {
+      "get": {
+        "operationId": "listDomains",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": ""
+            },
+            "description": "Literal English or Chinese name/topic search; maximum 512 UTF-8 bytes. Unknown or duplicate parameters are rejected."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Domains ordered by catalogue order.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DomainList"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service temporarily unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/domains/{id}": {
+      "get": {
+        "operationId": "getDomainDetail",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detail from one valid publication snapshot.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/DomainDetail"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service temporarily unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/knowledge/{id}": {
+      "get": {
+        "operationId": "getKnowledgeView",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detail from one valid publication snapshot.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/KnowledgeView"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service temporarily unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/paths/{id}": {
+      "get": {
+        "operationId": "getPathView",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detail from one valid publication snapshot.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/PathView"
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service temporarily unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/healthz": {
+      "get": {
+        "operationId": "healthz",
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "const": "ok"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "operationId": "readyz",
+        "responses": {
+          "200": {
+            "description": "ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "const": "ready"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "const": "unavailable"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ref": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      },
+      "source": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "enum": [
+              "original",
+              "external"
+            ]
+          },
+          "author": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "title": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "url": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "accessedAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "license": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "attribution": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "author",
+          "title",
+          "url",
+          "accessedAt",
+          "license",
+          "attribution"
+        ],
+        "additionalProperties": false
+      },
+      "relation": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "enum": [
+              "prerequisite",
+              "derivation",
+              "related"
+            ]
+          },
+          "target": {
+            "$ref": "#/components/schemas/ref"
+          }
+        },
+        "required": [
+          "kind",
+          "target"
+        ],
+        "additionalProperties": false
+      },
+      "knowledge": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "domainIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "topicIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "type": {
+            "enum": [
+              "concept",
+              "definition",
+              "axiom",
+              "theorem",
+              "corollary",
+              "method",
+              "mathematical-thinking"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "titleZh": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "statement": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "scope": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "system": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "proof": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "objectives": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "conditions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/source"
+            }
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/relation"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "domainIds",
+          "topicIds",
+          "type",
+          "title",
+          "titleZh",
+          "statement",
+          "scope",
+          "system",
+          "proof",
+          "objectives",
+          "conditions",
+          "sources",
+          "relations"
+        ],
+        "additionalProperties": false
+      },
+      "angle": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "body": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "body"
+        ],
+        "additionalProperties": false
+      },
+      "unit": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ref"
+          },
+          "angles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/angle"
+            }
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "counterexamples": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "assetIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "knowledge",
+          "angles",
+          "examples",
+          "counterexamples",
+          "assetIds"
+        ],
+        "additionalProperties": false
+      },
+      "path": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "domainIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "title": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "titleZh": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ref"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "domainIds",
+          "title",
+          "titleZh",
+          "nodes"
+        ],
+        "additionalProperties": false
+      },
+      "asset": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "path": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "author": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "license": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "attribution": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ref"
+          }
+        },
+        "required": [
+          "id",
+          "path",
+          "sha256",
+          "author",
+          "license",
+          "attribution",
+          "knowledge"
+        ],
+        "additionalProperties": false
+      },
+      "DomainSummary": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "name": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "nameZh": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
+                },
+                "name": {
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
+                },
+                "nameZh": {
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "nameZh"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "relatedDomainIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "contentStatus": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "published"
+            ]
+          },
+          "publishedKnowledgeCount": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "id",
+          "order",
+          "name",
+          "nameZh",
+          "topics",
+          "relatedDomainIds",
+          "contentStatus",
+          "publishedKnowledgeCount"
+        ],
+        "additionalProperties": false
+      },
+      "DomainDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "name": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "nameZh": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
+                },
+                "name": {
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
+                },
+                "nameZh": {
+                  "type": "string",
+                  "not": {
+                    "pattern": "\u0000"
+                  }
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "nameZh"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "relatedDomainIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$",
+              "not": {
+                "pattern": "\u0000"
+              }
+            }
+          },
+          "contentStatus": {
+            "type": "string",
+            "enum": [
+              "planned",
+              "published"
+            ]
+          },
+          "publishedKnowledgeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "paths": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PathSummary"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "order",
+          "name",
+          "nameZh",
+          "topics",
+          "relatedDomainIds",
+          "contentStatus",
+          "publishedKnowledgeCount",
+          "paths"
+        ],
+        "additionalProperties": false
+      },
+      "PathSummary": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleZh": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "title",
+          "titleZh"
+        ]
+      },
+      "AssetMetadata": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "author": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "license": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "attribution": {
+            "type": "string",
+            "not": {
+              "pattern": "\u0000"
+            }
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ref"
+          }
+        },
+        "required": [
+          "id",
+          "sha256",
+          "author",
+          "license",
+          "attribution",
+          "knowledge"
+        ],
+        "additionalProperties": false
+      },
+      "KnowledgeView": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/knowledge"
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/unit"
+            }
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetMetadata"
+            }
+          }
+        },
+        "required": [
+          "knowledge",
+          "units",
+          "assets"
+        ]
+      },
+      "PathView": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "$ref": "#/components/schemas/path"
+          },
+          "knowledge": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KnowledgeView"
+            }
+          }
+        },
+        "required": [
+          "path",
+          "knowledge"
+        ]
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "INVALID_QUERY",
+                  "NOT_FOUND",
+                  "SERVICE_UNAVAILABLE",
+                  "INTERNAL_ERROR"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "DomainList": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DomainSummary"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      }
+    }
+  }
+}

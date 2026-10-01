@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1, "id": "test-draft", "version": 1,
+  "knowledge": [{
+    "id": "fractions", "version": 1, "domainIds": ["elementary-mathematics"], "topicIds": [],
+    "type": "definition", "title": "Fractions", "titleZh": "分数",
+    "statement": "分母不能为零。", "scope": "Rational numbers", "objectives": [], "conditions": [],
+    "system": "", "proof": "", "sources": [], "relations": []
+  }],
+  "units": [], "paths": [], "assets": []
+}
