@@ -2,7 +2,7 @@
 
 本项目旨在搭建一个全面的数学学习成长网站，以内容正确性、内容覆盖与数量和丰富的学习路径为核心，逐步覆盖零基础学习到学术研究与知识分享。
 
-P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master，已完成独立审查及回归；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。P2 英文只读前端已实现五页面与安全数学阅读，已完成独立代码审查问题修复及本机回归，CI 结果见 PR；账户、审核发布、学习记录和部署继续按后续阶段开发。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
+P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master，已完成独立审查及回归；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。P2 英文只读前端已实现五页面与安全数学阅读，已完成独立代码审查问题修复及本机回归，CI 结果见 PR；P3a 已实现账户、会话与角色管理，正在完成整分支审查和验收；内容审核发布、学习记录和部署继续按后续阶段开发。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
 
 ## 设计文档
 
@@ -61,6 +61,12 @@ npm run start -- --hostname 127.0.0.1 --port 3000
 
 启动前按操作说明设置仅供服务端使用的 `GO_API_INTERNAL_URL` 并启动 Go 服务。匿名阅读不创建学习记录，个人解锁与进度属于 P4。
 
+## P3a 账户入口
+
+详见 [账户与权限操作说明](docs/operations/account-foundation.md) 和 [P3a 验收记录](docs/operations/2026-10-01-p3a-acceptance.md)。英文注册、登录、账户与管理员页面接入真实 Go/PostgreSQL；密码修改、角色变更和人工重置撤销旧会话。账户能力独立于数学内容发布和学习进度。
+
+启用前按操作说明备份、显式迁移并配置相同认证 origin；首次管理员通过隐藏终端输入的 admin-init 创建。没有默认真实管理员或口令。本次隔离验收保留开发库和资料快照。
+
 ## 目录结构
 
 ```text
@@ -71,12 +77,12 @@ math_master/
 │   ├── server.example.json    # 可提交的服务器配置模板
 │   └── server.local.json      # 本机私有服务器配置，不提交 Git
 ├── backend/                   # Go 服务、命令与业务校验
-├── frontend/                  # Next.js / TypeScript 英文只读网站
+├── frontend/                  # Next.js / TypeScript 英文网站与账户页面
 ├── tests/e2e/                 # 真实 Go / PostgreSQL 浏览器回归
 ├── schemas/                   # 唯一正式 JSON 契约及嵌入模块
 ├── content/                   # 正式目录、未审核草稿及原创素材
 ├── db/migrations/             # 显式数据库迁移
-├── api/openapi.yaml           # 公开只读接口契约
+├── api/openapi.yaml           # 公开只读及私有账户契约
 ├── tools/                     # 资料快照与验证时限
 ├── compose.dev.yaml           # 本机 PostgreSQL 17.11
 ├── design/                    # 英文设计预览、16 板块数据与历史设计脚本

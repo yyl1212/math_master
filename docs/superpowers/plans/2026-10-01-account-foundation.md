@@ -8,7 +8,7 @@
 
 **Tech Stack:** Go 1.27.1（CGO_ENABLED=0）、PostgreSQL 17.11、Node.js 24.17.0、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3，沿用前端锁文件；新增 golang.org/x/crypto v0.57.0、golang.org/x/term v0.46.0。
 
-**Spec:** [已确认的 P3a 设计](../specs/2026-10-01-account-foundation-design.md)。用户于 2026-10-01 确认，方案通过 [PR #8](https://github.com/yyl1212/math_master/pull/8) 合并。计划基线为 master `91783a9`；本计划等待审阅，产品代码尚未实现。
+**Spec:** [已确认的 P3a 设计](../specs/2026-10-01-account-foundation-design.md)。用户于 2026-10-01 确认，方案通过 [PR #8](https://github.com/yyl1212/math_master/pull/8) 合并。计划基线为 master `91783a9`；用户已确认通过 PR #9 合并计划，选择 Native 连续执行；七项实现正在本功能分支验收，整分支审查和 CI 结果以实际记录为准。
 
 ## 全局约束（Global Constraints）
 
@@ -131,7 +131,7 @@ flowchart LR
 
 **Interfaces:** 消费 store.Up(context.Context,*sql.DB,string)、testutil.Database(*testing.T)。产出 ValidateUsername(string)(string,error)、ValidateNewPassword(string)error、NormalizeRoles([]Role)([]Role,error)、NewID(io.Reader)(string,error)、NewSecret(io.Reader)(Secret,error)、EncodeSecret(Secret)string、DecodeSecret(string)(Secret,error)、TokenDigest(Secret)Digest、EqualSecret(Secret,Secret)bool，以及 PasswordHasher 的 Hash(ctx context.Context,password string)(string,error)/Verify(ctx context.Context,phc,password string)(bool,error) 和 NewArgon2Hasher(io.Reader)*Argon2Hasher。
 
-- [ ] **Step 1：写失败测试。** auth/password_test.go、session_test.go、policy_test.go 覆盖以下断言；store/accounts_schema_test.go 在随机库迁移后验证唯一约束、外键、审计禁止改删、没有 learner 的用户无法提交、增量迁移不改变原内容表。只有数据为空的隔离库允许验证 down/up，运维不得 down 真实账户表。
+- [x] **Step 1：写失败测试。** auth/password_test.go、session_test.go、policy_test.go 覆盖以下断言；store/accounts_schema_test.go 在随机库迁移后验证唯一约束、外键、审计禁止改删、没有 learner 的用户无法提交、增量迁移不改变原内容表。只有数据为空的隔离库允许验证 down/up，运维不得 down 真实账户表。
 
 ```json
 {
@@ -145,10 +145,10 @@ flowchart LR
 
 取消/并发测试使用密码包内部测试构造器 newHasher(random io.Reader,derive deriveFunc) 和通道门闩，deriveFunc 与 argon2.IDKey 签名一致；生产构造器只能使用真实 IDKey，不暴露环境开关。
 
-- [ ] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth ./internal/store -run 'Test(UsernameAndPasswordPolicy|Argon2PHC|PHCRejectsUnboundedParameters|Argon2SlotsSurviveCancellation|TokenAndIDBoundaries|AccountsSchema)' -timeout 5m -count=1`。预期只因新能力缺失失败，连接/编译工具链故障先处理。
-- [ ] **Step 3：实现签名与迁移。** auth_users 存 UUID、唯一规范用户名、PHC、正 credential_version、must_change_password、created_at；roles 联合主键并 CHECK 角色枚举；auth_users 增加恒为 learner 的 default_role，通过 (id,default_role) 到 auth_user_roles(user_id,role) 的 DEFERRABLE INITIALLY DEFERRED / NO ACTION 外键保证提交时存在 learner，建表后 ALTER 添加该约束；sessions 存唯一 32 字节摘要、用户/版本、32 字节 CSRF、created_at/last_seen_at/absolute_expires_at/revoked_at/reauthenticated_at；preauth 存摘要/CSRF/created_at/expires_at/consumed_at；rate_limits 的联合主键为 scope/key/window_start；audit 存上述事件字段与仅用户名摘要的失败事件；bootstrap 单例行记录初始化用户。使用数据库 CHECK/FK/必要索引，不保存原始 Cookie。延迟外键的提交时检查依据 [PostgreSQL 17 CREATE TABLE](https://www.postgresql.org/docs/17/sql-createtable.html)，用户与角色在同一事务创建；不使用不可延迟的 RESTRICT 代替 NO ACTION。锁定 x/crypto v0.57.0、x/term v0.46.0，记录 x/sys v0.48.0、x/text v0.42.0 等实际传递变化。
-- [ ] **Step 4：验证 GREEN 与计算成本。** 重跑 Step 2。实现 BenchmarkArgon2Hash 和 BenchmarkArgon2Concurrent（实际最多 4 并发，真实 IDKey），运行 `node tools/verify/run.mjs --cwd backend -- /usr/bin/time -l env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth -run '^$' -bench '^BenchmarkArgon2(Hash|Concurrent)$' -benchtime=3x -benchmem -timeout 5m`；记录本机耗时、分配与最大驻留内存，说明其包含 Go 进程开销，不能当作生产容量。
-- [ ] **Step 5：提交。** `feat: add account schema and bounded password primitives`，只提交本任务文件，不提交配置秘密或测试产物。
+- [x] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth ./internal/store -run 'Test(UsernameAndPasswordPolicy|Argon2PHC|PHCRejectsUnboundedParameters|Argon2SlotsSurviveCancellation|TokenAndIDBoundaries|AccountsSchema)' -timeout 5m -count=1`。预期只因新能力缺失失败，连接/编译工具链故障先处理。
+- [x] **Step 3：实现签名与迁移。** auth_users 存 UUID、唯一规范用户名、PHC、正 credential_version、must_change_password、created_at；roles 联合主键并 CHECK 角色枚举；auth_users 增加恒为 learner 的 default_role，通过 (id,default_role) 到 auth_user_roles(user_id,role) 的 DEFERRABLE INITIALLY DEFERRED / NO ACTION 外键保证提交时存在 learner，建表后 ALTER 添加该约束；sessions 存唯一 32 字节摘要、用户/版本、32 字节 CSRF、created_at/last_seen_at/absolute_expires_at/revoked_at/reauthenticated_at；preauth 存摘要/CSRF/created_at/expires_at/consumed_at；rate_limits 的联合主键为 scope/key/window_start；audit 存上述事件字段与仅用户名摘要的失败事件；bootstrap 单例行记录初始化用户。使用数据库 CHECK/FK/必要索引，不保存原始 Cookie。延迟外键的提交时检查依据 [PostgreSQL 17 CREATE TABLE](https://www.postgresql.org/docs/17/sql-createtable.html)，用户与角色在同一事务创建；不使用不可延迟的 RESTRICT 代替 NO ACTION。锁定 x/crypto v0.57.0、x/term v0.46.0，记录 x/sys v0.48.0、x/text v0.42.0 等实际传递变化。
+- [x] **Step 4：验证 GREEN 与计算成本。** 重跑 Step 2。实现 BenchmarkArgon2Hash 和 BenchmarkArgon2Concurrent（实际最多 4 并发，真实 IDKey），运行 `node tools/verify/run.mjs --cwd backend -- /usr/bin/time -l env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth -run '^$' -bench '^BenchmarkArgon2(Hash|Concurrent)$' -benchtime=3x -benchmem -timeout 5m`；记录本机耗时、分配与最大驻留内存，说明其包含 Go 进程开销，不能当作生产容量。
+- [x] **Step 5：提交。** `feat: add account schema and bounded password primitives`，只提交本任务文件，不提交配置秘密或测试产物。
 
 ### Task 2：账户、会话、CSRF、限流与撤销事务
 
@@ -188,7 +188,7 @@ Cleanup(ctx context.Context) (int, error)
 
 字符串 csrf 先严格解码为 Secret，Cookie 先解码/摘要；内部 CookieDelta 的原令牌只能由 HTTP 边界写为 Cookie，不直接 JSON 编码。NewService 的假哈希生成失败返回错误，损坏的数据库 PHC 映射 ErrUnavailable；错误密码或凭据版本改变通过 RecordLoginFailure 记录摘要后返回 ErrInvalidCredentials。
 
-- [ ] **Step 1：写失败测试。** 在 store_test 包实现 newAuthFixture(t *testing.T)*authFixture，字段 db/repo/service/ctx；复用现有 setup(t) 的安全随机库，fixture 方法只通过真实 Service 创建上下文和账户，不打印秘密。以下每个期限断言使用独立初始会话；通过 SQL 设置相对 DB 时间，不等待真实分钟/天。
+- [x] **Step 1：写失败测试。** 在 store_test 包实现 newAuthFixture(t *testing.T)*authFixture，字段 db/repo/service/ctx；复用现有 setup(t) 的安全随机库，fixture 方法只通过真实 Service 创建上下文和账户，不打印秘密。以下每个期限断言使用独立初始会话；通过 SQL 设置相对 DB 时间，不等待真实分钟/天。
 
 ```json
 {
@@ -203,10 +203,10 @@ Cleanup(ctx context.Context) (int, error)
 
 用测试 PasswordHasher 包装器在已读取凭据后通过通道暂停验证，另一事务完成改密后释放；不能用顺序调用替代该交错。ReadSession 失败的服务替身只测错误传播，身份/撤销效果仍以 PostgreSQL 为准。
 
-- [ ] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth ./internal/store -run 'Test(AccountRegistration|SessionLifecycle|ContextRecovery|PasswordAndReauth|LoginRacesPasswordChange|AtomicAudit|AuthRateLimits|AuthCleanup)' -timeout 5m -count=1`。
-- [ ] **Step 3：实现账户事务与有限资源。** CSRF 在被锁定的 preauth/会话内常量时间比较；注册/登录消费上下文与用户/会话变更一起提交。注册不登录，未知用户使用初始化时固定假 PHC 验证。会话查询检查 DB 时间、版本和撤销，touch 不获取后续用户锁；所有写先锁用户再处理会话。限流固定窗口：session/context 共用 auth_read 600/分钟，新 context 120/分钟；login 120 全局+10 用户名+10 preauth/分钟；register 30 全局/分钟+3 preauth/10分钟；password/reauth 120 全局+10 session/分钟；admin 写留给任务 3 的 60 全局+10 actor/分钟。用户名键用摘要，其他键用 token 摘要或 user ID，不用伪造 IP。ConsumeRates 先锁定/检查全局键，全局已满时只饱和更新这些已有键，不创建新的用户/上下文键；全局允许后，再按固定顺序锁定并计数全部附加键。拒绝时提交本次已有键的尝试计数并返回已知阻断窗口中最大的 Retry-After；计数饱和于 limit+1 防止溢出，窗口对齐 UTC。已成功计数但后续失败不退回额度。被全局拒绝的随机用户名不能继续增加键数量。
-- [ ] **Step 4：验证 GREEN、额度和清理。** 重跑 Step 2。TestAuthRateLimits 验证登录第 11 次、注册第 4 次、600/120/30/60 等全局门槛、重启同库后计数仍在、并发恰好达到限额且不会多放行；直接测试仓储 ConsumeRates，避免用数百次真实 Hash 堆测试。TestAuthCleanup 验证只删终止超过 24 小时的记录、总批次最多 2000、审计保留、失败不会让过期会话重新有效。确保新包 error 分支不记录原始参数。
-- [ ] **Step 5：提交。** `feat: add transactional accounts and revocable sessions`。
+- [x] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth ./internal/store -run 'Test(AccountRegistration|SessionLifecycle|ContextRecovery|PasswordAndReauth|LoginRacesPasswordChange|AtomicAudit|AuthRateLimits|AuthCleanup)' -timeout 5m -count=1`。
+- [x] **Step 3：实现账户事务与有限资源。** CSRF 在被锁定的 preauth/会话内常量时间比较；注册/登录消费上下文与用户/会话变更一起提交。注册不登录，未知用户使用初始化时固定假 PHC 验证。会话查询检查 DB 时间、版本和撤销，touch 不获取后续用户锁；所有写先锁用户再处理会话。限流固定窗口：session/context 共用 auth_read 600/分钟，新 context 120/分钟；login 120 全局+10 用户名+10 preauth/分钟；register 30 全局/分钟+3 preauth/10分钟；password/reauth 120 全局+10 session/分钟；admin 写留给任务 3 的 60 全局+10 actor/分钟。用户名键用摘要，其他键用 token 摘要或 user ID，不用伪造 IP。ConsumeRates 先锁定/检查全局键，全局已满时只饱和更新这些已有键，不创建新的用户/上下文键；全局允许后，再按固定顺序锁定并计数全部附加键。拒绝时提交本次已有键的尝试计数并返回已知阻断窗口中最大的 Retry-After；计数饱和于 limit+1 防止溢出，窗口对齐 UTC。已成功计数但后续失败不退回额度。被全局拒绝的随机用户名不能继续增加键数量。
+- [x] **Step 4：验证 GREEN、额度和清理。** 重跑 Step 2。TestAuthRateLimits 验证登录第 11 次、注册第 4 次、600/120/30/60 等全局门槛、重启同库后计数仍在、并发恰好达到限额且不会多放行；直接测试仓储 ConsumeRates，避免用数百次真实 Hash 堆测试。TestAuthCleanup 验证只删终止超过 24 小时的记录、总批次最多 2000、审计保留、失败不会让过期会话重新有效。确保新包 error 分支不记录原始参数。
+- [x] **Step 5：提交。** `feat: add transactional accounts and revocable sessions`。
 
 ### Task 3：管理员初始化、角色控制与人工重置
 
@@ -236,7 +236,7 @@ ResetPassword(ctx context.Context, cookies Cookies, csrf, targetID string, input
 
 AdminService 先读取真实会话确定限流 actor，在独立短事务消耗管理额度，不持限流锁进入管理事务；Replace/Reset 仓储在管理事务内再次核验 Actor。ListAccountUsers 的 SQL 在同一读取快照检查会话、版本、admin 和 mustChangePassword，服务预检不替代仓储授权。CLI 接口 RunAdminInit(ctx context.Context,args []string,input io.Reader,stdout,stderr io.Writer,initializer AdminInitializer)int，AdminInitializer 仅含上述 Initialize 方法。
 
-- [ ] **Step 1：写失败测试。** store/roles_test.go 的 LastAdmin/Revocation 测试先持有 1296127049 锁，启动两个操作，通过 pg_locks 确认本随机库有两个未获授权锁等待者后释放；helper waitForAdminLockWaiters(t,db,n) 用有界 5 秒 context 查询，不用猜测 sleep。
+- [x] **Step 1：写失败测试。** store/roles_test.go 的 LastAdmin/Revocation 测试先持有 1296127049 锁，启动两个操作，通过 pg_locks 确认本随机库有两个未获授权锁等待者后释放；helper waitForAdminLockWaiters(t,db,n) 用有界 5 秒 context 查询，不用猜测 sleep。
 
 ```json
 {
@@ -252,10 +252,10 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 
 真实并发测试按最终审计 ID 顺序断言，不依赖 PostgreSQL 等待队列调度；两个自降权与两人互相撤权分开测试，不能把被撤销的 actor 401 错判为最后管理员保护失败。
 
-- [ ] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run 'Test(Admin|LastAdmin|Reset|RestrictedReset|LiteralUserSearch)' -timeout 5m -count=1`。
-- [ ] **Step 3：实现签名、审核理由和初始化命令。** 管理事务按固定锁顺序重读会话/CSRF/角色/reauth/版本；NormalizeRoles 的结果必含 learner，同角色集合不撤销会话，实际变化撤销全部。重置理由和所有权说明不能为空且受码点限制，临时密码只用于 Hash，不进入响应。Bootstrap 的用户、角色、单例、审计一次提交；不提供补建或 HTTP 初始化入口。RunAdminInit 仅接受 --username 与可选 --password-stdin；终端默认仅对 *os.File 且 x/term.IsTerminal 为真的 input 用 x/term.ReadPassword，非终端要求显式 --password-stdin；显式 stdin 只去除单个输入行的行终止符而保留密码空格；拒绝未知参数。DB 连接由 main 使用现有配置建立，CLI 测试注入 initializer；真实 InitializeService 的事务仍有集成测试。
-- [ ] **Step 4：验证 GREEN 和旧流程。** 重跑 Step 2；再运行 Task 2 测试，验证自改/自重置清除 Cookie、其他人会话撤销与新增 roles 不改变内容库。测试失败输出仅用固定说明，不打印秘密结构体。
-- [ ] **Step 5：提交。** `feat: add guarded administrator and role management`。
+- [x] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run 'Test(Admin|LastAdmin|Reset|RestrictedReset|LiteralUserSearch)' -timeout 5m -count=1`。
+- [x] **Step 3：实现签名、审核理由和初始化命令。** 管理事务按固定锁顺序重读会话/CSRF/角色/reauth/版本；NormalizeRoles 的结果必含 learner，同角色集合不撤销会话，实际变化撤销全部。重置理由和所有权说明不能为空且受码点限制，临时密码只用于 Hash，不进入响应。Bootstrap 的用户、角色、单例、审计一次提交；不提供补建或 HTTP 初始化入口。RunAdminInit 仅接受 --username 与可选 --password-stdin；终端默认仅对 *os.File 且 x/term.IsTerminal 为真的 input 用 x/term.ReadPassword，非终端要求显式 --password-stdin；显式 stdin 只去除单个输入行的行终止符而保留密码空格；拒绝未知参数。DB 连接由 main 使用现有配置建立，CLI 测试注入 initializer；真实 InitializeService 的事务仍有集成测试。
+- [x] **Step 4：验证 GREEN 和旧流程。** 重跑 Step 2；再运行 Task 2 测试，验证自改/自重置清除 Cookie、其他人会话撤销与新增 roles 不改变内容库。测试失败输出仅用固定说明，不打印秘密结构体。
+- [x] **Step 5：提交。** `feat: add guarded administrator and role management`。
 
 ### Task 4：Go HTTP 边界、配置兼容与 OpenAPI
 
@@ -263,7 +263,7 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 
 **Interfaces:** 产出 NewApplicationHandler(reader Reader,pinger Pinger,options AuthOptions)http.Handler；AuthOptions 包含 Accounts *auth.Service、Admin *auth.AdminService、PublicOrigin string、Production bool。NewHandler(Reader,Pinger) 和旧公共路由保持可用。Config 新增 AppEnv/PublicOrigin 字段，APP_ENV 默认 development，origin 空为只读模式；server 只在有效认证配置下构建 Service/AdminService 并启动每分钟 Cleanup，随进程 context 结束。private JSON helper 签名 decodePrivateJSON(io.Reader,any)error，Cookie helper 按 AuthOptions 的环境只解析预期两个名字；禁止由客户端/Host 提供配置。
 
-- [ ] **Step 1：写失败测试。** HTTP 单元测试通过可控 Repository/Hasher 组成真实 Service 校验边界；新增 httpapi/auth_integration_test.go 通过真实随机 DB/Service 和 httptest 验证身份与权限，不能用替身证明事务。以下输入用原始 bytes 构造，测试失败信息不包含 body。
+- [x] **Step 1：写失败测试。** HTTP 单元测试通过可控 Repository/Hasher 组成真实 Service 校验边界；新增 httpapi/auth_integration_test.go 通过真实随机 DB/Service 和 httptest 验证身份与权限，不能用替身证明事务。以下输入用原始 bytes 构造，测试失败信息不包含 body。
 
 ```json
 {
@@ -275,10 +275,10 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 }
 ```
 
-- [ ] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi -run 'Test(Private|OriginAndLoginCSRF|AuthConfig|AuthIntegration)' -timeout 5m -count=1`。
-- [ ] **Step 3：实现 HTTP 与契约。** 私有边界先有界读取 8193 字节并检查 UTF-8/JSON 字符串转义（拒绝孤立高/低代理项），再 token walk 拒绝重复/大小写别名和深度>8，最后只解码已知字段，拒绝多段 JSON。Origin 精确匹配规范化配置；context 自定义头，所有写同步 CSRF；读取不会获取管理能力。Request-ID 由 Go 新建，错误映射按固定表。CookieDelta 逐个写 Cookie，204 无正文，未知私有路由/方法不能由默认 HTML 错误或自动重定向代替。扩展 OpenAPI 1.2.0 的 PrivateError、User、Context、UserPage、请求体及 Cookie/CSRF/429/204 响应，不改旧 Error。配置模版只填公开 localhost origin，不读取真实 .env 或服务器配置。
-- [ ] **Step 4：验证 GREEN 和公共兼容。** 重跑 Step 2；`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./... -timeout 5m -count=1` 和 go vet ./...、go build -o bin/ ./cmd/...；公共 16 板块、草稿 404 和 SVG/HEAD 回归必须仍通过。新版启动前只对随机库迁移，开发库迁移由验收步骤明确备份后进行。
-- [ ] **Step 5：提交。** `feat: expose secure account APIs without changing public reads`。
+- [x] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi -run 'Test(Private|OriginAndLoginCSRF|AuthConfig|AuthIntegration)' -timeout 5m -count=1`。
+- [x] **Step 3：实现 HTTP 与契约。** 私有边界先有界读取 8193 字节并检查 UTF-8/JSON 字符串转义（拒绝孤立高/低代理项），再 token walk 拒绝重复/大小写别名和深度>8，最后只解码已知字段，拒绝多段 JSON。Origin 精确匹配规范化配置；context 自定义头，所有写同步 CSRF；读取不会获取管理能力。Request-ID 由 Go 新建，错误映射按固定表。CookieDelta 逐个写 Cookie，204 无正文，未知私有路由/方法不能由默认 HTML 错误或自动重定向代替。扩展 OpenAPI 1.2.0 的 PrivateError、User、Context、UserPage、请求体及 Cookie/CSRF/429/204 响应，不改旧 Error。配置模版只填公开 localhost origin，不读取真实 .env 或服务器配置。
+- [x] **Step 4：验证 GREEN 和公共兼容。** 重跑 Step 2；`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./... -timeout 5m -count=1` 和 go vet ./...、go build -o bin/ ./cmd/...；公共 16 板块、草稿 404 和 SVG/HEAD 回归必须仍通过。新版启动前只对随机库迁移，开发库迁移由验收步骤明确备份后进行。
+- [x] **Step 5：提交。** `feat: expose secure account APIs without changing public reads`。
 
 ### Task 5：前端私有代理、严格响应与 SSR 账户读取
 
@@ -286,7 +286,7 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 
 **Interfaces:** 产出 createPrivateProxy(goOrigin:string,options:{publicOrigin:string;production:boolean},fetcher?:typeof fetch)：函数 (Request,segments:string[])=>Promise<Response>；与公共 createPublicProxy 独立。readServerSession(cookieHeader:string):Promise<AuthResult<User|null>> 只 GET auth/session；readServerUsers(cookieHeader:string,query:UserQuery):Promise<AuthResult<UserPage>> 只 GET admin/users。两者都不获取 context、不转发 Set-Cookie。getAuthContext():Promise<AuthResult<AuthContext>> 在浏览器共享单个在途 Promise，落定后释放；authRequest<T>(route:PrivateRoute,input:unknown):Promise<AuthResult<T>> 在写前取得当前 context 再发送 CSRF，禁止自动重试写请求。AuthResult<T> 为 {ok:true,data:T}|{ok:false,status:number,code:PrivateErrorCode,message:string,retryAfter?:number}；notifyAuthChanged():void 发布固定事件 math-master:auth-change。User/AuthContext/UserPage/UserQuery 来自生成契约的明确别名；PrivateRoute 是 {kind:register|login|logout|logout-all|password|reauth}、{kind:roles|reset;userId:string}、{kind:users;query:UserQuery} 的判别联合，kind 的各值为字符串字面量。authRequest 按 kind 选固定方法/路径，只有写请求获取 context；204 返回 AuthResult<void>，不得用任意 URL 字符串或 any。
 
-- [ ] **Step 1：写失败测试。** 新测试断言以下结果；模拟真实多 Set-Cookie 响应的单元用 Headers.append，原始非法合并字符串单独作为失败案例。
+- [x] **Step 1：写失败测试。** 新测试断言以下结果；模拟真实多 Set-Cookie 响应的单元用 Headers.append，原始非法合并字符串单独作为失败案例。
 
 ```json
 {
@@ -298,10 +298,10 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 }
 ```
 
-- [ ] **Step 2：验证 RED。** 先运行 api:generate 并审查旧路径类型无变化；`node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/api/private-proxy.test.ts src/lib/auth/client.test.ts src/lib/auth/server-client.test.ts src/lib/auth/schemas.test.ts`。
-- [ ] **Step 3：实现签名、边界和生成类型。** 配置读取 APP_ENV/AUTH_PUBLIC_ORIGIN，与 Go origin 校验一致，服务端懒读取，npm build 不要求连接 Go 或创建上下文。固定 method/path/query 映射表只覆盖协议表；原始 Cookie 中只选已知名字，不能用会丢重复项的单值接口。只转发 Cookie、Origin、X-CSRF-Token、X-Requested-With、Sec-Fetch-Site，以及固定 Accept/Content-Type；不转发任意认证、Host/转发链或用户请求 ID。私有 JSON 请求最多 8 KiB、响应最多 1 MiB，流式有界读取、5 秒中断、redirect:error/cache:no-store。按路径/状态 Zod 严格校验成功/错误/204 后才复制安全 Set-Cookie：名字唯一、正确环境、Path=/、无 Domain、HttpOnly、SameSite=Lax、生产 Secure，令牌 43 位 base64url；清除 Cookie 必须空值且 Max-Age=0，新 Cookie Max-Age 为会话 604800 / preauth 600；按分号解析属性、正确处理 Expires 的合法逗号，不以逗号拆分 Set-Cookie。拒绝非法或合并 Cookie，未知错误制造固定 503，不能由失败状态猜测并清除有效身份。
-- [ ] **Step 4：验证 GREEN 和公共代理。** 重跑 Step 2；typecheck、全部 npm test、npm run build；将已审阅首次生成的 generated.d.ts 暂存为对照，重新 api:generate 后 git diff --exit-code -- frontend/src/lib/api/generated.d.ts，确认无生成漂移。公共代理的 Cookie/Authorization 剥离及 GET/HEAD 测试继续通过，不安装重复前端依赖或新增锁文件。
-- [ ] **Step 5：提交。** `feat: add validated private account transport and SSR session reads`。
+- [x] **Step 2：验证 RED。** 先运行 api:generate 并审查旧路径类型无变化；`node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/api/private-proxy.test.ts src/lib/auth/client.test.ts src/lib/auth/server-client.test.ts src/lib/auth/schemas.test.ts`。
+- [x] **Step 3：实现签名、边界和生成类型。** 配置读取 APP_ENV/AUTH_PUBLIC_ORIGIN，与 Go origin 校验一致，服务端懒读取，npm build 不要求连接 Go 或创建上下文。固定 method/path/query 映射表只覆盖协议表；原始 Cookie 中只选已知名字，不能用会丢重复项的单值接口。只转发 Cookie、Origin、X-CSRF-Token、X-Requested-With、Sec-Fetch-Site，以及固定 Accept/Content-Type；不转发任意认证、Host/转发链或用户请求 ID。私有 JSON 请求最多 8 KiB、响应最多 1 MiB，流式有界读取、5 秒中断、redirect:error/cache:no-store。按路径/状态 Zod 严格校验成功/错误/204 后才复制安全 Set-Cookie：名字唯一、正确环境、Path=/、无 Domain、HttpOnly、SameSite=Lax、生产 Secure，令牌 43 位 base64url；清除 Cookie 必须空值且 Max-Age=0，新 Cookie Max-Age 为会话 604800 / preauth 600；按分号解析属性、正确处理 Expires 的合法逗号，不以逗号拆分 Set-Cookie。拒绝非法或合并 Cookie，未知错误制造固定 503，不能由失败状态猜测并清除有效身份。
+- [x] **Step 4：验证 GREEN 和公共代理。** 重跑 Step 2；typecheck、全部 npm test、npm run build；将已审阅首次生成的 generated.d.ts 暂存为对照，重新 api:generate 后 git diff --exit-code -- frontend/src/lib/api/generated.d.ts，确认无生成漂移。公共代理的 Cookie/Authorization 剥离及 GET/HEAD 测试继续通过，不安装重复前端依赖或新增锁文件。
+- [x] **Step 5：提交。** `feat: add validated private account transport and SSR session reads`。
 
 ### Task 6：英文注册、账户与角色管理界面
 
@@ -309,7 +309,7 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 
 **Interfaces:** 消费任务 5 getAuthContext/authRequest/readServerSession/readServerUsers/notifyAuthChanged。产出 CredentialsForm({mode:'register'|'login'})、AccountPanel({user:User})、AdminUsers({initial:UserPage})、AuthState({kind:'anonymous'|'forbidden'|'unavailable'|'invalid-cookie'})、AuthStatus()。服务端页面动态读取真实 session，admin/users 的初始 UserPage 必须经 readServerUsers 取得，失败显示对应错误而非伪造空列表；客户端 Header/表单共享 getAuthContext，在路径变化或 auth-change 后刷新。角色管理读取传入 UserPage，查询使用协议 UserQuery；权限和近期验证由 Go 决定。
 
-- [ ] **Step 1：写关键交互失败测试。** 不为纯排版写测试；组件测试只覆盖真实行为和可访问性，fetch 使用契约合法 fixture。
+- [x] **Step 1：写关键交互失败测试。** 不为纯排版写测试；组件测试只覆盖真实行为和可访问性，fetch 使用契约合法 fixture。
 
 ```json
 {
@@ -320,10 +320,10 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 }
 ```
 
-- [ ] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/auth/forms.test.tsx src/features/auth/admin-users.test.tsx src/components/auth-status.test.tsx`。
-- [ ] **Step 3：实现页面与表单。** 注册/登录按钮为 Create account / Sign in，注册不登录；正常 account 显示用户名/角色、Change password / Sign out / Sign out everywhere，临时会话显示 Change your password to continue。admin/users 字面搜索、分页、角色集合、Reason/Ownership verification 和独立 Verify password 对话框；近期验证成功不自动重放之前的管理写请求，用户再明确提交。每个写操作在 await 前用同步 pending ref 锁住，完成/失败都清空密码字段，不保存到持久化或日志。所有账户导航禁用预取；SSR 匿名显示 Sign in 入口，无权限显示拒绝，故障显示 Accounts are temporarily unavailable，不把故障转成匿名；坏 Cookie 提示通过 browser context 清除后重新加载。保持系统字体、原创样式、1280/390 布局、标签、Tab 与错误焦点，不添加外部媒体。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2；全部 typecheck/npm test/npm run build。异步 SSR 页面与真 Cookie 跳转由任务 7 实测，不以同步组件测试冒充。知识目录、路线与安全阅读组件回归仍通过。
-- [ ] **Step 5：提交。** `feat: add English account and administrator pages`。
+- [x] **Step 2：验证 RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/auth/forms.test.tsx src/features/auth/admin-users.test.tsx src/components/auth-status.test.tsx`。
+- [x] **Step 3：实现页面与表单。** 注册/登录按钮为 Create account / Sign in，注册不登录；正常 account 显示用户名/角色、Change password / Sign out / Sign out everywhere，临时会话显示 Change your password to continue。admin/users 字面搜索、分页、角色集合、Reason/Ownership verification 和独立 Verify password 对话框；近期验证成功不自动重放之前的管理写请求，用户再明确提交。每个写操作在 await 前用同步 pending ref 锁住，完成/失败都清空密码字段，不保存到持久化或日志。所有账户导航禁用预取；SSR 匿名显示 Sign in 入口，无权限显示拒绝，故障显示 Accounts are temporarily unavailable，不把故障转成匿名；坏 Cookie 提示通过 browser context 清除后重新加载。保持系统字体、原创样式、1280/390 布局、标签、Tab 与错误焦点，不添加外部媒体。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2；全部 typecheck/npm test/npm run build。异步 SSR 页面与真 Cookie 跳转由任务 7 实测，不以同步组件测试冒充。知识目录、路线与安全阅读组件回归仍通过。
+- [x] **Step 5：提交。** `feat: add English account and administrator pages`。
 
 ### Task 7：真实联调、兼容回归、独立审查与交付
 
@@ -361,6 +361,6 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 - 数据：增量七表及用户 FK，不修改数学版本/发布指针。credential_version、审计、撤销和管理员存活约束由同一事务决定；清理不改变有效性语义。
 - 细化：session 与 context 共享 600/分钟读取额度；管理重新验证显式执行；同角色集合不撤销会话；全部为方案约束的实现细化，随本计划审阅。公共 API 的旧模式、no-store、404、HEAD 与授权信息剥离回归不变。
 - 可行性：已核验版本与现有 Go/Next/PG 兼容；没有必须先部署、购买服务或发布数学草稿的开发依赖。真实独立人员、生产资源和公网条件属于后续阶段，未宣称完成。
-- 执行方式：推荐 Native，在当前会话逐项实现七个任务，最后一次独立整分支审查；任务强依赖类型/事务，复用上下文减少交接成本。也可由用户选择逐项代理实现和审查，需更多独立上下文。等待用户审阅本计划并确定执行方式后再开发。
+- 执行方式：推荐 Native，在当前会话逐项实现七个任务，最后一次独立整分支审查；任务强依赖类型/事务，复用上下文减少交接成本。也可由用户选择逐项代理实现和审查，需更多独立上下文。用户已确认计划并选择 Native，实施过程中按逐项测试门槛推进。
 
-本计划只记录拟执行步骤，不把计划测试当作已通过证据；实际命令结果、审查决定和未解决事项必须在执行时记录。
+任务勾选表示已执行步骤；实际命令结果、审查决定和限制见账户验收记录，不把设计或计划本身当作通过证据。

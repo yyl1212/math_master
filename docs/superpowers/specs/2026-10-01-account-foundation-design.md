@@ -1,6 +1,6 @@
 # P3a：账户与权限基础设计
 
-日期：2026-10-01。状态：用户已于 2026-10-01 确认，通过 [PR #8](https://github.com/yyl1212/math_master/pull/8) 合并；[执行计划](../plans/2026-10-01-account-foundation.md)待审阅，产品代码尚未实现。基线：master `52d4ffc`，P2 已通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并。
+日期：2026-10-01。状态：用户已于 2026-10-01 确认，通过 [PR #8](https://github.com/yyl1212/math_master/pull/8) 合并；[执行计划](../plans/2026-10-01-account-foundation.md)已确认通过 PR #9 合并；P3a 已实现，整分支验收与独立审查进行中，结果见 [验收记录](../../operations/2026-10-01-p3a-acceptance.md)。基线：master `52d4ffc`，P2 已通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并。
 
 依据：[总体方案](2026-09-30-math-learning-platform-design.md)和[开发路线图](../plans/2026-09-30-development-roadmap.md)。用户优先级保持为内容正确性、数量与覆盖、学习路径、页面美观；文档使用中文，网站使用英文并保留中文数学术语。Knowledge_JSON 持续更新，但运行页面不直接读取资料目录。
 

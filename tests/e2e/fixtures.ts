@@ -17,7 +17,14 @@ export type Runtime = {
 export const test = base.extend<{
   runtime: Runtime;
   scene: (name: string) => Promise<void>;
+  safeDiagnostics: void;
 }>({
+  safeDiagnostics: [async ({ page }, use, info) => {
+    await use();
+    if (info.status !== info.expectedStatus && !page.isClosed()) {
+      await page.screenshot({ path: info.outputPath("masked-failure.png"), fullPage: true, mask: [page.locator("input, textarea")] }).catch(() => {});
+    }
+  }, { auto: true }],
   runtime: async ({}, use) => {
     const state: Runtime = JSON.parse(
       await readFile(resolve(__dirname, "runtime.local.json"), "utf8"),
@@ -45,4 +52,17 @@ export async function fitsViewport(page: Page) {
       ),
     )
     .toBe(true);
+}
+
+export const TEST_PASSWORD = "Test-only 中文数学密码 with spaces";
+export const NEW_PASSWORD = "New test-only 中文数学密码 with spaces";
+export async function signIn(page: Page, username: string, password: string) {
+  await page.goto("/login");
+  await page.getByLabel("Username", { exact: true }).fill(username);
+  await page.getByLabel("Password", { exact: true }).fill(password);
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await expect(page).toHaveURL(/\/account$/);
+}
+export async function safeScreenshot(page: Page, info: { outputPath: (name: string) => string }, name: string) {
+  if (!process.env.CI) await page.screenshot({ path: info.outputPath(name + ".png"), fullPage: true, mask: [page.locator("input, textarea")] });
 }
