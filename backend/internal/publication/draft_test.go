@@ -60,3 +60,14 @@ func TestWorkflowDraftNoteAndEncoding(t *testing.T) {
 		}
 	}
 }
+
+func TestContentRelativeSourcePathRejectsAbsolutePrefixes(t *testing.T) {
+	for _, path := range []string{"/root.json", "C:/root.json", "c:root.json", "\\\\host\\root.json", "a//b.json", "a/../b.json", "a/./b.json"} {
+		if RelativeSourcePath(path) {
+			t.Fatal("absolute or non-relative source path accepted", path)
+		}
+	}
+	if !RelativeSourcePath("数学基础/root.json") {
+		t.Fatal("ordinary Unicode relative source path rejected")
+	}
+}

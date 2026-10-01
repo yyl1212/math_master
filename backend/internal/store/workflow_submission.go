@@ -284,28 +284,38 @@ func (s *Store) ReviseSubmission(ctx context.Context, a publication.Access, id s
 	return out, err
 }
 func (s *Store) ListSubmissions(ctx context.Context, a publication.Access, q publication.ListQuery) (publication.Page[publication.SubmissionSummary], error) {
+	scope := q.Scope
+	if scope == "review" {
+		q.Scope = ""
+	}
 	q, err := publication.ValidateList(q, "pending", "approved", "returned")
+	q.Scope = scope
 	out := publication.Page[publication.SubmissionSummary]{Items: []publication.SubmissionSummary{}, Limit: q.Limit, Offset: q.Offset}
 	if err != nil {
 		return out, err
 	}
 	err = s.workflowReadTx(ctx, a, publication.ListSubmissionsAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
-		all := q.Scope == "all"
-		if all && !publication.HasRole(u, auth.RoleAdmin) {
+		if q.Scope == "" {
+			switch {
+			case publication.HasRole(u, auth.RoleAdmin):
+				q.Scope = "all"
+			case publication.HasRole(u, auth.RoleReviewer):
+				q.Scope = "review"
+			default:
+				q.Scope = "mine"
+			}
+		}
+		if q.Scope == "all" && !publication.HasRole(u, auth.RoleAdmin) || q.Scope == "review" && !publication.HasRole(u, auth.RoleReviewer) {
 			return auth.ErrForbidden
 		}
-		if q.Scope == "" && publication.HasRole(u, auth.RoleReviewer) {
-			if q.Status != "" && q.Status != "pending" {
-				return auth.ErrInvalidInput
-			}
-			all = true
+		if q.Scope == "review" && q.Status == "" {
 			q.Status = "pending"
 		}
-		where := `WHERE sealed AND ($1 OR owner_user_id=$2) AND ($3='' OR status=$3)`
-		if err := tx.QueryRowContext(ctx, `SELECT count(*) FROM content_submissions `+where, all, u.ID, q.Status).Scan(&out.Total); err != nil {
+		where := `WHERE sealed AND ($1='all' OR ($1='mine' AND owner_user_id=$2) OR ($1='review' AND (($3='pending' AND NOT EXISTS(SELECT 1 FROM content_submission_authors a WHERE a.submission_id=content_submissions.id AND a.user_id=$2)) OR ($3<>'pending' AND EXISTS(SELECT 1 FROM content_review_decisions d WHERE d.submission_id=content_submissions.id AND d.reviewer_user_id=$2))))) AND ($3='' OR status=$3)`
+		if err := tx.QueryRowContext(ctx, `SELECT count(*) FROM content_submissions `+where, q.Scope, u.ID, q.Status).Scan(&out.Total); err != nil {
 			return err
 		}
-		rows, err := tx.QueryContext(ctx, `SELECT id::text,workspace_id::text,owner_user_id::text,package_id,package_version,catalogue_version,status,revision,frozen_digest,created_at FROM content_submissions `+where+` ORDER BY created_at DESC,id DESC LIMIT $4 OFFSET $5`, all, u.ID, q.Status, q.Limit, q.Offset)
+		rows, err := tx.QueryContext(ctx, `SELECT id::text,workspace_id::text,owner_user_id::text,package_id,package_version,catalogue_version,status,revision,frozen_digest,created_at FROM content_submissions `+where+` ORDER BY created_at DESC,id DESC LIMIT $4 OFFSET $5`, q.Scope, u.ID, q.Status, q.Limit, q.Offset)
 		if err != nil {
 			return err
 		}

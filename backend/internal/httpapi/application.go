@@ -10,6 +10,7 @@ import (
 )
 
 type AuthOptions struct {
+	Content      *ContentOptions
 	Accounts     *auth.Service
 	Admin        *auth.AdminService
 	PublicOrigin string
@@ -45,6 +46,17 @@ func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) ht
 	public := NewHandler(reader, pinger)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
+		if path == "/api/v1/content" || strings.HasPrefix(path, "/api/v1/content/") {
+			content := ContentOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
+			if options.Content != nil {
+				content = *options.Content
+			}
+			if options.Accounts == nil {
+				content.PublicOrigin = ""
+			}
+			serveContent(w, r, content)
+			return
+		}
 		if !(path == "/api/v1/auth" || strings.HasPrefix(path, "/api/v1/auth/") || path == "/api/v1/admin" || strings.HasPrefix(path, "/api/v1/admin/")) {
 			public.ServeHTTP(w, r)
 			return

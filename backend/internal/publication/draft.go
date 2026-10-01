@@ -36,7 +36,7 @@ func validStrings(v reflect.Value) bool {
 	return true
 }
 func RelativeSourcePath(v string) bool {
-	if v == "" || strings.HasPrefix(v, "/") || strings.ContainsAny(v, "\\\x00") {
+	if v == "" || strings.HasPrefix(v, "/") || strings.ContainsAny(v, "\\\x00") || len(v) > 1 && v[1] == ':' && (v[0] >= 'a' && v[0] <= 'z' || v[0] >= 'A' && v[0] <= 'Z') {
 		return false
 	}
 	for _, part := range strings.Split(v, "/") {

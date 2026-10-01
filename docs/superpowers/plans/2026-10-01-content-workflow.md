@@ -327,7 +327,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 列表 query 仅 scope/status/limit/offset，重复拒绝；draft scope=mine/all、status=editing/submitted；submission scope=mine/review/all、status=pending/approved/returned；publication scope=all、status=draft/published，均可省略。review scope 需要 reviewer，并从 pending 队列排除作者本人；status 省略时默认 pending，status=approved/returned 时只列该复核者处理的记录；默认 editor 为 mine、reviewer 为 review、admin 为 all，多角色用户可主动切换合法 scope。路径其他 query、HEAD/OPTIONS、末尾斜线和编码别名均拒绝。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestContentJSONExactBoundary": {"requestLimits":[8388608,8192],"responseMaximum":4194304,"maxDepth":32,"missingExpectedHead":"INVALID_REQUEST","explicitNullFirstHead":"valid","duplicateCaseAliasOrSurrogateOrNUL":"INVALID_REQUEST","chunkedLimitPlus1":"PAYLOAD_TOO_LARGE"},
@@ -338,14 +338,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi -run 'Test(Content|PrivateContent)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现精确边界与契约。** content JSON Walker 不复用账户 depth=8 的限制值；共享仅纯编码检查，保持账户行为。unknown/重复/case alias 在 Go 与代理一致拒绝；Input 大小按原始流计量，再按组件规范字节计量。生产无认证 origin 或迁移时保持明确故障。Content Handler 自己 8 秒读/计算总截止，SVG 不设置身份 Cookie。OpenAPI info 改为 1.3.0，新增上述路径/类型/固定英文消息，旧 public/auth/admin 组件不改；400/401/403/404/405/428/429/503 复用已有文案，新增错误消息按下面表固定。
-- [ ] **Step 4：验证 GREEN 与兼容。** 重跑 Step 2 和全套 httpapi/auth/config；契约生成后仅新增 content 类型，账户时限、Cookie 和 SSR 协议不改变。
-- [ ] **Step 5：提交。** 提交 feat: expose bounded private content workflow APIs。
+- [x] **Step 3：实现精确边界与契约。** content JSON Walker 不复用账户 depth=8 的限制值；共享仅纯编码检查，保持账户行为。unknown/重复/case alias 在 Go 与代理一致拒绝；Input 大小按原始流计量，再按组件规范字节计量。生产无认证 origin 或迁移时保持明确故障。Content Handler 自己 8 秒读/计算总截止，SVG 不设置身份 Cookie。OpenAPI info 改为 1.3.0，新增上述路径/类型/固定英文消息，旧 public/auth/admin 组件不改；400/401/403/404/405/428/429/503 复用已有文案，新增错误消息按下面表固定。
+- [x] **Step 4：验证 GREEN 与兼容。** 重跑 Step 2 和全套 httpapi/auth/config；契约生成后仅新增 content 类型，账户时限、Cookie 和 SSR 协议不改变。
+- [x] **Step 5：提交。** 提交 feat: expose bounded private content workflow APIs。
 
 | HTTP / code | 固定英文 message |
 | --- | --- |

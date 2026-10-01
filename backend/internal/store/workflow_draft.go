@@ -351,7 +351,7 @@ func (s *Store) ListDrafts(ctx context.Context, a publication.Access, q publicat
 		return out, err
 	}
 	err = s.workflowReadTx(ctx, a, publication.ListDraftsAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
-		all := q.Scope == "all"
+		all := q.Scope == "all" || q.Scope == "" && publication.HasRole(u, auth.RoleAdmin)
 		if all && !publication.HasRole(u, auth.RoleAdmin) {
 			return auth.ErrForbidden
 		}

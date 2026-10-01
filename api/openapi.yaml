@@ -2,8 +2,8 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Math Master content API",
-    "version": "1.2.0",
-    "description": "Published content API plus private account and administrator APIs. Public content contracts remain unchanged; account APIs require explicit origin configuration."
+    "version": "1.3.0",
+    "description": "Published content and private account APIs, plus bounded private content authoring, independent review, immutable publication and withdrawal. Existing public/account schemas remain unchanged."
   },
   "paths": {
     "/api/v1/domains": {
@@ -4498,6 +4498,1961 @@
           }
         }
       }
+    },
+    "/api/v1/content/drafts": {
+      "get": {
+        "operationId": "content_get_drafts",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "mine",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "editing",
+                "submitted"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentDraftPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      },
+      "post": {
+        "operationId": "content_post_drafts",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 MiB raw UTF-8 request; package 2 MiB, sourceMap 256 KiB, decoded SVG total 4 MiB and each 1 MiB.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentDraftInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/drafts/{id}": {
+      "get": {
+        "operationId": "content_get_drafts_id",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      },
+      "put": {
+        "operationId": "content_put_drafts_id",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 MiB raw UTF-8 request; package 2 MiB, sourceMap 256 KiB, decoded SVG total 4 MiB and each 1 MiB.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentSaveDraftInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/drafts/adopt": {
+      "post": {
+        "operationId": "content_post_drafts_adopt",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentAdoptInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/drafts/{id}/validate": {
+      "post": {
+        "operationId": "content_post_drafts_id_validate",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentGateReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentValidateInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/drafts/{id}/submit": {
+      "post": {
+        "operationId": "content_post_drafts_id_submit",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentSubmissionView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentSubmitInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/submissions": {
+      "get": {
+        "operationId": "content_get_submissions",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "mine",
+                "review",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "returned"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentSubmissionPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      }
+    },
+    "/api/v1/content/submissions/{id}": {
+      "get": {
+        "operationId": "content_get_submissions_id",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentSubmissionView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      }
+    },
+    "/api/v1/content/submissions/{id}/revision": {
+      "post": {
+        "operationId": "content_post_submissions_id_revision",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentEmptyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/submissions/{id}/decision": {
+      "post": {
+        "operationId": "content_post_submissions_id_decision",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentSubmissionView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentReviewInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/publications": {
+      "get": {
+        "operationId": "content_get_publications",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "published"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentPublicationPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      }
+    },
+    "/api/v1/content/publications/{id}": {
+      "get": {
+        "operationId": "content_get_publications_id",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentPublicationView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      }
+    },
+    "/api/v1/content/publications/prepare": {
+      "post": {
+        "operationId": "content_post_publications_prepare",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentPublicationView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentPrepareInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/publications/{id}/activate": {
+      "post": {
+        "operationId": "content_post_publications_id_activate",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentPublicationView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentActivateInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/withdrawals/preview": {
+      "post": {
+        "operationId": "content_post_withdrawals_preview",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentWithdrawalPreview"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentWithdrawalPreviewInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/withdrawals": {
+      "post": {
+        "operationId": "content_post_withdrawals",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentWithdrawalResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentWithdrawalInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/content/drafts/{id}/assets/{sha256}": {
+      "get": {
+        "operationId": "content_get_drafts_id_assets_sha256",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "sha256",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Exact bound SVG bytes, at most 1 MiB, with verified SHA-256 and the restricted SVG whitelist.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              },
+              "Content-Security-Policy": {
+                "schema": {
+                  "const": "sandbox; default-src 'none'"
+                }
+              }
+            },
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      }
+    },
+    "/api/v1/content/submissions/{id}/assets/{sha256}": {
+      "get": {
+        "operationId": "content_get_submissions_id_assets_sha256",
+        "description": "Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "sha256",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Exact bound SVG bytes, at most 1 MiB, with verified SHA-256 and the restricted SVG whitelist.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              },
+              "Content-Security-Policy": {
+                "schema": {
+                  "const": "sandbox; default-src 'none'"
+                }
+              }
+            },
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/ContentError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/ContentError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/ContentError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/ContentError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/ContentError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/ContentError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/ContentError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/ContentError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/ContentError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/ContentError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/ContentError503"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -5720,6 +7675,2704 @@
         "required": [
           "error"
         ]
+      },
+      "ContentActivateInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedHead": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expectedManifestSha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "reason": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          }
+        },
+        "required": [
+          "expectedHead",
+          "expectedManifestSha",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "ContentAdoptInput": {
+        "additionalProperties": false,
+        "properties": {
+          "packageId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "packageVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "reason": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          }
+        },
+        "required": [
+          "packageId",
+          "packageVersion",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "ContentAngle": {
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "body"
+        ],
+        "type": "object"
+      },
+      "ContentAsset": {
+        "additionalProperties": false,
+        "properties": {
+          "attribution": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "author": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ContentVersionRef"
+          },
+          "license": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "path": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "path",
+          "sha256",
+          "author",
+          "license",
+          "attribution",
+          "knowledge"
+        ],
+        "type": "object"
+      },
+      "ContentAssetBinding": {
+        "additionalProperties": false,
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/ContentVersionRef"
+          }
+        },
+        "required": [
+          "unit",
+          "assetId",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "ContentAssetInput": {
+        "additionalProperties": false,
+        "properties": {
+          "base64": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1398104,
+            "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          }
+        },
+        "required": [
+          "id",
+          "base64"
+        ],
+        "type": "object"
+      },
+      "ContentAssetView": {
+        "additionalProperties": false,
+        "properties": {
+          "attribution": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "author": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ContentVersionRef"
+          },
+          "license": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "sha256",
+          "author",
+          "license",
+          "attribution",
+          "knowledge"
+        ],
+        "type": "object"
+      },
+      "ContentChange": {
+        "additionalProperties": false,
+        "properties": {
+          "after": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ContentMemberIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "before": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ContentMemberIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "kind": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "reason": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "reason",
+          "before",
+          "after"
+        ],
+        "type": "object"
+      },
+      "ContentDiff": {
+        "additionalProperties": false,
+        "properties": {
+          "added": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "changes": {
+            "items": {
+              "$ref": "#/components/schemas/ContentChange"
+            },
+            "type": "array"
+          },
+          "removed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "replaced": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "added",
+          "replaced",
+          "removed",
+          "changes"
+        ],
+        "type": "object"
+      },
+      "ContentDraftInput": {
+        "additionalProperties": false,
+        "properties": {
+          "assetBytes": {
+            "items": {
+              "$ref": "#/components/schemas/ContentAssetInput"
+            },
+            "type": "array",
+            "maxItems": 16
+          },
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "package": {
+            "$ref": "#/components/schemas/ContentPackage"
+          },
+          "sourceMap": {
+            "items": {
+              "$ref": "#/components/schemas/ContentSourceLink"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "catalogueVersion",
+          "package",
+          "assetBytes",
+          "sourceMap"
+        ],
+        "type": "object"
+      },
+      "ContentDraftPage": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ContentDraftSummary"
+            },
+            "type": "array",
+            "maxItems": 100
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "type": "object"
+      },
+      "ContentDraftSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "completenessTotal": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "createdAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "ownerId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "packageId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "packageVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "editing",
+              "submitted"
+            ]
+          },
+          "structuralTotal": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "updatedAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "ownerId",
+          "packageId",
+          "status",
+          "createdAt",
+          "updatedAt",
+          "packageVersion",
+          "catalogueVersion",
+          "structuralTotal",
+          "completenessTotal",
+          "revision"
+        ],
+        "type": "object"
+      },
+      "ContentDraftView": {
+        "additionalProperties": false,
+        "properties": {
+          "assets": {
+            "items": {
+              "$ref": "#/components/schemas/ContentAssetView"
+            },
+            "type": "array"
+          },
+          "authorIds": {
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "type": "array"
+          },
+          "catalogueSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "createdAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          },
+          "gate": {
+            "$ref": "#/components/schemas/ContentGateReport"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "legacyUnattributed": {
+            "type": "boolean"
+          },
+          "ownerId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "package": {
+            "$ref": "#/components/schemas/ContentPackage"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "sourceMap": {
+            "items": {
+              "$ref": "#/components/schemas/ContentSourceLink"
+            },
+            "type": "array"
+          },
+          "status": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "editing",
+              "submitted"
+            ]
+          },
+          "updatedAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "ownerId",
+          "catalogueSha256",
+          "catalogueVersion",
+          "revision",
+          "status",
+          "package",
+          "sourceMap",
+          "authorIds",
+          "legacyUnattributed",
+          "assets",
+          "gate",
+          "createdAt",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "ContentFrozenBody": {
+        "additionalProperties": false,
+        "properties": {
+          "assets": {
+            "items": {
+              "$ref": "#/components/schemas/ContentAssetView"
+            },
+            "type": "array"
+          },
+          "authorIds": {
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "type": "array"
+          },
+          "catalogueSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "frozenDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "legacyUnattributed": {
+            "type": "boolean"
+          },
+          "package": {
+            "$ref": "#/components/schemas/ContentPackage"
+          },
+          "sourceMap": {
+            "items": {
+              "$ref": "#/components/schemas/ContentSourceLink"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "catalogueVersion",
+          "catalogueSha256",
+          "package",
+          "sourceMap",
+          "authorIds",
+          "legacyUnattributed",
+          "assets",
+          "frozenDigest"
+        ],
+        "type": "object"
+      },
+      "ContentGateReport": {
+        "additionalProperties": false,
+        "properties": {
+          "completenessErrors": {
+            "items": {
+              "$ref": "#/components/schemas/ContentIssue"
+            },
+            "type": "array"
+          },
+          "completenessTotal": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "humanReviewRequirements": {
+            "items": {
+              "$ref": "#/components/schemas/ContentIssue"
+            },
+            "type": "array"
+          },
+          "humanReviewTotal": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "readyToSubmit": {
+            "type": "boolean"
+          },
+          "structuralErrors": {
+            "items": {
+              "$ref": "#/components/schemas/ContentIssue"
+            },
+            "type": "array"
+          },
+          "structuralTotal": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "truncated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "structuralErrors",
+          "completenessErrors",
+          "humanReviewRequirements",
+          "structuralTotal",
+          "completenessTotal",
+          "humanReviewTotal",
+          "truncated",
+          "readyToSubmit",
+          "digest"
+        ],
+        "type": "object"
+      },
+      "ContentIssue": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "message": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "path": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          }
+        },
+        "required": [
+          "code",
+          "path",
+          "message"
+        ],
+        "type": "object"
+      },
+      "ContentKnowledge": {
+        "additionalProperties": false,
+        "properties": {
+          "conditions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "domainIds": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            },
+            "type": "array"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "objectives": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "proof": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "relations": {
+            "items": {
+              "$ref": "#/components/schemas/ContentRelation"
+            },
+            "type": "array"
+          },
+          "scope": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/ContentSource"
+            },
+            "type": "array"
+          },
+          "statement": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "system": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "title": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "titleZh": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "topicIds": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            },
+            "type": "array"
+          },
+          "type": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "concept",
+              "definition",
+              "axiom",
+              "theorem",
+              "corollary",
+              "method",
+              "mathematical-thinking"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "domainIds",
+          "topicIds",
+          "type",
+          "title",
+          "titleZh",
+          "statement",
+          "scope",
+          "objectives",
+          "conditions",
+          "system",
+          "proof",
+          "sources",
+          "relations"
+        ],
+        "type": "object"
+      },
+      "ContentManifest": {
+        "additionalProperties": false,
+        "properties": {
+          "baseHead": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "bindings": {
+            "items": {
+              "$ref": "#/components/schemas/ContentAssetBinding"
+            },
+            "type": "array"
+          },
+          "catalogueSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "members": {
+            "items": {
+              "$ref": "#/components/schemas/ContentManifestMember"
+            },
+            "type": "array",
+            "maxItems": 6200
+          }
+        },
+        "required": [
+          "catalogueVersion",
+          "catalogueSha256",
+          "baseHead",
+          "members",
+          "bindings"
+        ],
+        "type": "object"
+      },
+      "ContentManifestMember": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "$ref": "#/components/schemas/ContentMemberEvidence"
+          },
+          "identity": {
+            "$ref": "#/components/schemas/ContentMemberIdentity"
+          }
+        },
+        "required": [
+          "identity",
+          "evidence"
+        ],
+        "type": "object"
+      },
+      "ContentMemberEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "decisionId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "frozenDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "inheritedFrom": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "submissionId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "submissionId",
+          "decisionId",
+          "frozenDigest",
+          "inheritedFrom"
+        ],
+        "type": "object"
+      },
+      "ContentMemberIdentity": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "kind": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "knowledge",
+              "unit",
+              "path",
+              "asset"
+            ]
+          },
+          "packageId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "packageVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "kind",
+          "id",
+          "packageId",
+          "sha256",
+          "version",
+          "packageVersion"
+        ],
+        "type": "object"
+      },
+      "ContentPackage": {
+        "additionalProperties": false,
+        "properties": {
+          "assets": {
+            "items": {
+              "$ref": "#/components/schemas/ContentAsset"
+            },
+            "type": "array",
+            "maxItems": 16
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "knowledge": {
+            "items": {
+              "$ref": "#/components/schemas/ContentKnowledge"
+            },
+            "type": "array",
+            "maxItems": 100
+          },
+          "paths": {
+            "items": {
+              "$ref": "#/components/schemas/ContentPath"
+            },
+            "type": "array",
+            "maxItems": 20
+          },
+          "schemaVersion": {
+            "type": "integer",
+            "const": 1
+          },
+          "units": {
+            "items": {
+              "$ref": "#/components/schemas/ContentUnit"
+            },
+            "type": "array",
+            "maxItems": 200
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "schemaVersion",
+          "id",
+          "version",
+          "knowledge",
+          "units",
+          "paths",
+          "assets"
+        ],
+        "type": "object"
+      },
+      "ContentPath": {
+        "additionalProperties": false,
+        "properties": {
+          "domainIds": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            },
+            "type": "array"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "nodes": {
+            "items": {
+              "$ref": "#/components/schemas/ContentVersionRef"
+            },
+            "type": "array"
+          },
+          "title": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "titleZh": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "domainIds",
+          "title",
+          "titleZh",
+          "nodes"
+        ],
+        "type": "object"
+      },
+      "ContentPrepareInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedHead": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          },
+          "submissionIds": {
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 20,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "submissionIds",
+          "expectedHead",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "ContentPublicationItems": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ContentPublicationView"
+            },
+            "type": "array",
+            "maxItems": 100
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "type": "object"
+      },
+      "ContentPublicationPage": {
+        "additionalProperties": false,
+        "properties": {
+          "head": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ContentPublicationView"
+            },
+            "type": "array",
+            "maxItems": 100
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset",
+          "head"
+        ],
+        "type": "object"
+      },
+      "ContentPublicationView": {
+        "additionalProperties": false,
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          },
+          "diff": {
+            "$ref": "#/components/schemas/ContentDiff"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "manifest": {
+            "$ref": "#/components/schemas/ContentManifest"
+          },
+          "manifestSha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "status": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "draft",
+              "published"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "manifestSha",
+          "createdAt",
+          "manifest",
+          "diff"
+        ],
+        "type": "object"
+      },
+      "ContentRelation": {
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "prerequisite",
+              "derivation",
+              "related"
+            ]
+          },
+          "target": {
+            "$ref": "#/components/schemas/ContentVersionRef"
+          }
+        },
+        "required": [
+          "kind",
+          "target"
+        ],
+        "type": "object"
+      },
+      "ContentReviewChecks": {
+        "additionalProperties": false,
+        "properties": {
+          "explanations": {
+            "type": "boolean"
+          },
+          "illustrations": {
+            "type": "boolean"
+          },
+          "mathematics": {
+            "type": "boolean"
+          },
+          "relationships": {
+            "type": "boolean"
+          },
+          "sources": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "mathematics",
+          "explanations",
+          "relationships",
+          "sources",
+          "illustrations"
+        ],
+        "type": "object"
+      },
+      "ContentReviewDecision": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "$ref": "#/components/schemas/ContentReviewChecks"
+          },
+          "createdAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          },
+          "decision": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "approve",
+              "return"
+            ]
+          },
+          "frozenDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "independenceNote": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          },
+          "note": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          },
+          "reviewerId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "submissionId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "id",
+          "submissionId",
+          "reviewerId",
+          "frozenDigest",
+          "decision",
+          "checks",
+          "independenceNote",
+          "note",
+          "createdAt"
+        ],
+        "type": "object"
+      },
+      "ContentReviewInput": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "$ref": "#/components/schemas/ContentReviewChecks"
+          },
+          "decision": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "approve",
+              "return"
+            ]
+          },
+          "independenceNote": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          },
+          "note": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          }
+        },
+        "required": [
+          "decision",
+          "checks",
+          "independenceNote",
+          "note"
+        ],
+        "type": "object"
+      },
+      "ContentSaveDraftInput": {
+        "additionalProperties": false,
+        "properties": {
+          "assetBytes": {
+            "items": {
+              "$ref": "#/components/schemas/ContentAssetInput"
+            },
+            "type": "array",
+            "maxItems": 16
+          },
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "package": {
+            "$ref": "#/components/schemas/ContentPackage"
+          },
+          "sourceMap": {
+            "items": {
+              "$ref": "#/components/schemas/ContentSourceLink"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "catalogueVersion",
+          "package",
+          "assetBytes",
+          "sourceMap",
+          "expectedRevision"
+        ],
+        "type": "object"
+      },
+      "ContentSource": {
+        "additionalProperties": false,
+        "properties": {
+          "accessedAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "attribution": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "author": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "original",
+              "external"
+            ]
+          },
+          "license": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "title": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "url": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "author",
+          "title",
+          "url",
+          "accessedAt",
+          "license",
+          "attribution"
+        ],
+        "type": "object"
+      },
+      "ContentSourceLink": {
+        "additionalProperties": false,
+        "properties": {
+          "batchSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ContentVersionRef"
+          },
+          "legacyId": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "note": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            }
+          },
+          "relativePath": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "description": "Relative source data only: no absolute/drive prefix, backslash, empty segment or dot segment. Never interpreted as instructions."
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "knowledge",
+          "batchSha256",
+          "relativePath",
+          "sha256",
+          "legacyId",
+          "note"
+        ],
+        "type": "object"
+      },
+      "ContentSubmissionPage": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ContentSubmissionSummary"
+            },
+            "type": "array",
+            "maxItems": 100
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "type": "object"
+      },
+      "ContentSubmissionSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "createdAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          },
+          "frozenDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "ownerId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "packageId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "packageVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "pending",
+              "approved",
+              "returned"
+            ]
+          },
+          "workspaceId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "id",
+          "workspaceId",
+          "ownerId",
+          "packageId",
+          "status",
+          "frozenDigest",
+          "createdAt",
+          "packageVersion",
+          "catalogueVersion",
+          "revision"
+        ],
+        "type": "object"
+      },
+      "ContentSubmissionView": {
+        "additionalProperties": false,
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "format": "date-time"
+          },
+          "frozen": {
+            "$ref": "#/components/schemas/ContentFrozenBody"
+          },
+          "gate": {
+            "$ref": "#/components/schemas/ContentGateReport"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "ownerId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ContentReviewDecision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "enum": [
+              "pending",
+              "approved",
+              "returned"
+            ]
+          },
+          "workspaceId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "id",
+          "workspaceId",
+          "ownerId",
+          "status",
+          "revision",
+          "frozen",
+          "gate",
+          "review",
+          "createdAt"
+        ],
+        "type": "object"
+      },
+      "ContentSubmitInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedDigest": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "expectedRevision",
+          "expectedDigest"
+        ],
+        "type": "object"
+      },
+      "ContentUnit": {
+        "additionalProperties": false,
+        "properties": {
+          "angles": {
+            "items": {
+              "$ref": "#/components/schemas/ContentAngle"
+            },
+            "type": "array"
+          },
+          "assetIds": {
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            },
+            "type": "array"
+          },
+          "counterexamples": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "examples": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ContentVersionRef"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "knowledge",
+          "angles",
+          "examples",
+          "counterexamples",
+          "assetIds"
+        ],
+        "type": "object"
+      },
+      "ContentValidateInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "expectedRevision"
+        ],
+        "type": "object"
+      },
+      "ContentVersionRef": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "type": "object"
+      },
+      "ContentWithdrawalInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedHead": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "not": {
+              "pattern": "\\x00"
+            },
+            "maxLength": 1000,
+            "description": "At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace."
+          },
+          "target": {
+            "$ref": "#/components/schemas/ContentWithdrawalTarget"
+          }
+        },
+        "required": [
+          "target",
+          "expectedHead",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "ContentWithdrawalPreview": {
+        "additionalProperties": false,
+        "properties": {
+          "currentHead": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "diff": {
+            "$ref": "#/components/schemas/ContentDiff"
+          },
+          "target": {
+            "$ref": "#/components/schemas/ContentWithdrawalTarget"
+          }
+        },
+        "required": [
+          "currentHead",
+          "target",
+          "diff"
+        ],
+        "type": "object"
+      },
+      "ContentWithdrawalPreviewInput": {
+        "additionalProperties": false,
+        "properties": {
+          "target": {
+            "$ref": "#/components/schemas/ContentWithdrawalTarget"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "type": "object"
+      },
+      "ContentWithdrawalResult": {
+        "additionalProperties": false,
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "previousHead": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "publication": {
+            "$ref": "#/components/schemas/ContentPublicationView"
+          }
+        },
+        "required": [
+          "eventId",
+          "previousHead",
+          "publication"
+        ],
+        "type": "object"
+      },
+      "ContentWithdrawalTarget": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "knowledge",
+                  "unit",
+                  "path"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 2147483647
+              }
+            },
+            "required": [
+              "kind",
+              "id",
+              "version"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "asset"
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            },
+            "required": [
+              "kind",
+              "sha256"
+            ]
+          }
+        ]
+      },
+      "ContentErrorCode": {
+        "type": "string",
+        "enum": [
+          "INVALID_REQUEST",
+          "INVALID_COOKIE",
+          "AUTHENTICATION_REQUIRED",
+          "CSRF_FAILED",
+          "FORBIDDEN",
+          "PASSWORD_CHANGE_REQUIRED",
+          "NOT_FOUND",
+          "METHOD_NOT_ALLOWED",
+          "DRAFT_CONFLICT",
+          "REVIEW_CONFLICT",
+          "IMMUTABLE_CONFLICT",
+          "VERSION_CONFLICT",
+          "IDEMPOTENCY_CONFLICT",
+          "PUBLICATION_STALE",
+          "PAYLOAD_TOO_LARGE",
+          "CONTENT_NOT_READY",
+          "CONTENT_INVALID",
+          "REVIEW_REQUIRED",
+          "CONTENT_LIMIT_EXCEEDED",
+          "REAUTHENTICATION_REQUIRED",
+          "RATE_LIMITED",
+          "SERVICE_UNAVAILABLE",
+          "AUTH_NOT_CONFIGURED",
+          "CONTENT_NOT_CONFIGURED"
+        ]
+      },
+      "ContentError": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "INVALID_REQUEST"
+                  },
+                  "message": {
+                    "const": "Invalid request."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "INVALID_COOKIE"
+                  },
+                  "message": {
+                    "const": "Invalid sign-in cookie."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "AUTHENTICATION_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Please sign in to continue."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "CSRF_FAILED"
+                  },
+                  "message": {
+                    "const": "Request verification failed."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "FORBIDDEN"
+                  },
+                  "message": {
+                    "const": "You do not have permission."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "PASSWORD_CHANGE_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Change your password to continue."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "NOT_FOUND"
+                  },
+                  "message": {
+                    "const": "Resource not found."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "METHOD_NOT_ALLOWED"
+                  },
+                  "message": {
+                    "const": "Method not allowed."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "DRAFT_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This draft has changed. Reload it before continuing."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "REVIEW_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This submission already has a review decision."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "IMMUTABLE_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This version conflicts with saved content."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "VERSION_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This version conflicts with saved content."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "IDEMPOTENCY_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This request key was already used for different input."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "PUBLICATION_STALE"
+                  },
+                  "message": {
+                    "const": "Published content has changed. Prepare a new snapshot."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "PAYLOAD_TOO_LARGE"
+                  },
+                  "message": {
+                    "const": "This content exceeds the request size limit."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "CONTENT_NOT_READY"
+                  },
+                  "message": {
+                    "const": "Complete the required content before submitting."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "CONTENT_INVALID"
+                  },
+                  "message": {
+                    "const": "Content validation failed."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "REVIEW_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Independent review is required before publication."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "CONTENT_LIMIT_EXCEEDED"
+                  },
+                  "message": {
+                    "const": "Split this content into smaller reviewed batches."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "REAUTHENTICATION_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Verify your password before continuing."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "RATE_LIMITED"
+                  },
+                  "message": {
+                    "const": "Too many requests. Try again later."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "SERVICE_UNAVAILABLE"
+                  },
+                  "message": {
+                    "const": "Service temporarily unavailable."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "AUTH_NOT_CONFIGURED"
+                  },
+                  "message": {
+                    "const": "Accounts are temporarily unavailable."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "CONTENT_NOT_CONFIGURED"
+                  },
+                  "message": {
+                    "const": "Content management is temporarily unavailable."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          }
+        ]
+      },
+      "ContentEmptyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {}
       }
     },
     "securitySchemes": {
@@ -5740,6 +10393,349 @@
         "in": "header",
         "name": "X-CSRF-Token",
         "description": "Synchronizer proof from the current browser auth/context response; cannot identify a user by itself."
+      }
+    },
+    "responses": {
+      "ContentError400": {
+        "description": "INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError401": {
+        "description": "AUTHENTICATION_REQUIRED. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError403": {
+        "description": "CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError404": {
+        "description": "NOT_FOUND. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError405": {
+        "description": "METHOD_NOT_ALLOWED. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          },
+          "Allow": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError409": {
+        "description": "DRAFT_CONFLICT / REVIEW_CONFLICT / IMMUTABLE_CONFLICT / VERSION_CONFLICT / IDEMPOTENCY_CONFLICT / PUBLICATION_STALE. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError413": {
+        "description": "PAYLOAD_TOO_LARGE. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError422": {
+        "description": "CONTENT_NOT_READY / CONTENT_INVALID / REVIEW_REQUIRED / CONTENT_LIMIT_EXCEEDED. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError428": {
+        "description": "REAUTHENTICATION_REQUIRED. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError429": {
+        "description": "RATE_LIMITED. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          },
+          "Retry-After": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[1-9]|[1-5][0-9]|60)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "ContentError503": {
+        "description": "SERVICE_UNAVAILABLE / AUTH_NOT_CONFIGURED / CONTENT_NOT_CONFIGURED. Fixed English messages only.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
       }
     }
   }

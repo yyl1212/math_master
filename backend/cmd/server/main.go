@@ -16,6 +16,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/config"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
+	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/store"
 )
 
@@ -58,6 +59,13 @@ func main() {
 			}
 		}()
 	}
+	readyCtx, readyCancel := context.WithTimeout(ctx, 8*time.Second)
+	contentConfigured, contentErr := httpapi.ContentReady(readyCtx, db)
+	readyCancel()
+	if contentErr != nil {
+		log.Print("content configuration check failed")
+	}
+	options.Content = &httpapi.ContentOptions{Service: publication.NewService(repo), PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production", Configured: contentConfigured}
 	srv := &http.Server{Addr: c.HTTPAddr, Handler: httpapi.NewApplicationHandler(repo, db, options), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: time.Minute}
 	go func() {
 		<-ctx.Done()
