@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Form from "next/form";
 import type { ApiResult, DomainList } from "@/lib/api/types";
 import { ContentState } from "@/components/content-state";
 import { ContentStatus } from "@/components/content-status";
@@ -25,10 +26,11 @@ export function KnowledgeMap({
         <h1>Knowledge Map</h1>
         <p>Choose a domain. Explore its ideas, then follow a learning path.</p>
       </div>
-      <form
+      <Form
         role="search"
         action="/knowledge"
-        method="get"
+        prefetch={false}
+        key={q + "\0" + status}
         className={styles.toolbar}
       >
         <div className={styles.search}>
@@ -56,7 +58,7 @@ export function KnowledgeMap({
         <button className="button" type="submit">
           Search
         </button>
-      </form>
+      </Form>
       {!result.ok ? (
         <ContentState
           kind={result.kind === "not-found" ? "not-found" : "unavailable"}
