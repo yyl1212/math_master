@@ -1,0 +1,453 @@
+{
+  "kind": "question-bank",
+  "schemaVersion": 1,
+  "id": "coverage-trap-fixture",
+  "version": 1,
+  "templates": [],
+  "fixedQuestions": [
+    {
+      "id": "fixture-question-0",
+      "version": 1,
+      "body": {
+        "type": "numeric",
+        "knowledge": {
+          "id": "fractions",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fractions",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [],
+        "prompt": "Calculate 1 + 1.",
+        "explanation": "Adding the two integers gives 2.",
+        "answerFormat": "rational",
+        "choices": [],
+        "correctChoiceId": null,
+        "correctNumeric": {
+          "numerator": "2",
+          "denominator": "1"
+        },
+        "witness": {
+          "engine": {
+            "family": "rational_arithmetic",
+            "operation": "add",
+            "unknownSide": null,
+            "generatorVersion": 1,
+            "verifierVersion": 1
+          },
+          "parameters": [
+            {
+              "name": "left",
+              "value": "1"
+            },
+            {
+              "name": "right",
+              "value": "1"
+            }
+          ]
+        },
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master",
+            "title": "Original negative test fixture; not independently approved teaching content",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "fixture-question-1",
+      "version": 1,
+      "body": {
+        "type": "numeric",
+        "knowledge": {
+          "id": "fractions",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fractions",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [],
+        "prompt": "Calculate 1 + 2.",
+        "explanation": "Adding the two integers gives 3.",
+        "answerFormat": "rational",
+        "choices": [],
+        "correctChoiceId": null,
+        "correctNumeric": {
+          "numerator": "3",
+          "denominator": "1"
+        },
+        "witness": {
+          "engine": {
+            "family": "rational_arithmetic",
+            "operation": "add",
+            "unknownSide": null,
+            "generatorVersion": 1,
+            "verifierVersion": 1
+          },
+          "parameters": [
+            {
+              "name": "left",
+              "value": "1"
+            },
+            {
+              "name": "right",
+              "value": "2"
+            }
+          ]
+        },
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master",
+            "title": "Original negative test fixture; not independently approved teaching content",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "fixture-question-2",
+      "version": 1,
+      "body": {
+        "type": "numeric",
+        "knowledge": {
+          "id": "fractions",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fractions",
+              "version": 2
+            },
+            "objectiveIndices": [
+              2
+            ]
+          }
+        ],
+        "units": [],
+        "prompt": "Calculate 1 + 3.",
+        "explanation": "Adding the two integers gives 4.",
+        "answerFormat": "rational",
+        "choices": [],
+        "correctChoiceId": null,
+        "correctNumeric": {
+          "numerator": "4",
+          "denominator": "1"
+        },
+        "witness": {
+          "engine": {
+            "family": "rational_arithmetic",
+            "operation": "add",
+            "unknownSide": null,
+            "generatorVersion": 1,
+            "verifierVersion": 1
+          },
+          "parameters": [
+            {
+              "name": "left",
+              "value": "1"
+            },
+            {
+              "name": "right",
+              "value": "3"
+            }
+          ]
+        },
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master",
+            "title": "Original negative test fixture; not independently approved teaching content",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "fixture-question-3",
+      "version": 1,
+      "body": {
+        "type": "numeric",
+        "knowledge": {
+          "id": "fractions",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fractions",
+              "version": 2
+            },
+            "objectiveIndices": [
+              3
+            ]
+          }
+        ],
+        "units": [],
+        "prompt": "Calculate 1 + 4.",
+        "explanation": "Adding the two integers gives 5.",
+        "answerFormat": "rational",
+        "choices": [],
+        "correctChoiceId": null,
+        "correctNumeric": {
+          "numerator": "5",
+          "denominator": "1"
+        },
+        "witness": {
+          "engine": {
+            "family": "rational_arithmetic",
+            "operation": "add",
+            "unknownSide": null,
+            "generatorVersion": 1,
+            "verifierVersion": 1
+          },
+          "parameters": [
+            {
+              "name": "left",
+              "value": "1"
+            },
+            {
+              "name": "right",
+              "value": "4"
+            }
+          ]
+        },
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master",
+            "title": "Original negative test fixture; not independently approved teaching content",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "fixture-question-4",
+      "version": 1,
+      "body": {
+        "type": "numeric",
+        "knowledge": {
+          "id": "fractions",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fractions",
+              "version": 2
+            },
+            "objectiveIndices": [
+              4
+            ]
+          }
+        ],
+        "units": [],
+        "prompt": "Calculate 1 + 5.",
+        "explanation": "Adding the two integers gives 6.",
+        "answerFormat": "rational",
+        "choices": [],
+        "correctChoiceId": null,
+        "correctNumeric": {
+          "numerator": "6",
+          "denominator": "1"
+        },
+        "witness": {
+          "engine": {
+            "family": "rational_arithmetic",
+            "operation": "add",
+            "unknownSide": null,
+            "generatorVersion": 1,
+            "verifierVersion": 1
+          },
+          "parameters": [
+            {
+              "name": "left",
+              "value": "1"
+            },
+            {
+              "name": "right",
+              "value": "5"
+            }
+          ]
+        },
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master",
+            "title": "Original negative test fixture; not independently approved teaching content",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "fixture-question-5",
+      "version": 1,
+      "body": {
+        "type": "numeric",
+        "knowledge": {
+          "id": "fractions",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fractions",
+              "version": 2
+            },
+            "objectiveIndices": [
+              5
+            ]
+          }
+        ],
+        "units": [],
+        "prompt": "Calculate 1 + 6.",
+        "explanation": "Adding the two integers gives 7.",
+        "answerFormat": "rational",
+        "choices": [],
+        "correctChoiceId": null,
+        "correctNumeric": {
+          "numerator": "7",
+          "denominator": "1"
+        },
+        "witness": {
+          "engine": {
+            "family": "rational_arithmetic",
+            "operation": "add",
+            "unknownSide": null,
+            "generatorVersion": 1,
+            "verifierVersion": 1
+          },
+          "parameters": [
+            {
+              "name": "left",
+              "value": "1"
+            },
+            {
+              "name": "right",
+              "value": "6"
+            }
+          ]
+        },
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master",
+            "title": "Original negative test fixture; not independently approved teaching content",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": ""
+          }
+        ]
+      }
+    }
+  ],
+  "blueprints": [
+    {
+      "id": "six-required-trap",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions",
+        "version": 2
+      },
+      "coreObjectiveIndices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "fixture-question-0",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "fixture-question-1",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "fixture-question-2",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "fixture-question-3",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "fixture-question-4",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "fixture-question-5",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "All six goals appear in the union, but every question covers a different single goal. No five questions cover all six.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    }
+  ]
+}

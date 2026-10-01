@@ -302,7 +302,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** question/{coverage,validate}.go及测试；两个负向原创fixture。
 **Interfaces:** 消费Task3和ReferenceSnapshot；产出FiveQuestionCover、ValidateEditable、ValidateAndSeal、SealedPackage/ValidationReport。草稿结构合法可保存，送审必须完整且绑定当前公开固定引用。
 
-- [ ] **Step 1：写失败测试。** TestFiveDistinctQuestionsCoverAllCore：8/9核心、1000/1001池、重复ID不能凑5题、恰好5覆盖、并集完整但需6题才覆盖→false；最多12候选的小池以固定种子20261002生成100组，用独立穷举五组合对照可行性和返回五ID见证、不得复用可变父状态；TestQuestionFixedReferences：objectiveIndex越界、知识版本不匹配、未公开K/单元/素材、跨知识错映射、第四额外映射、蓝图题源跨包、核心缺失拒绝；TestQuestionSealLimits：50/51模板、200/201固定、100/101蓝图、1000/+1实例、4 MiB frozen、8 KiB题面解析、6/7选项、8/9素材；TestFixedNumericWitness：无适用见证或答案没有128字符内合法表示拒绝，概念单选必须列人工复核；101问题只显示100但ready=false。
+- [x] **Step 1：写失败测试。** TestFiveDistinctQuestionsCoverAllCore：8/9核心、1000/1001池、重复ID不能凑5题、恰好5覆盖、并集完整但需6题才覆盖→false；最多12候选的小池以固定种子20261002生成100组，用独立穷举五组合对照可行性和返回五ID见证、不得复用可变父状态；TestQuestionFixedReferences：objectiveIndex越界、知识版本不匹配、未公开K/单元/素材、跨知识错映射、第四额外映射、蓝图题源跨包、核心缺失拒绝；TestQuestionSealLimits：50/51模板、200/201固定、100/101蓝图、1000/+1实例、4 MiB frozen、8 KiB题面解析、6/7选项、8/9素材；TestFixedNumericWitness：无适用见证或答案没有128字符内合法表示拒绝，概念单选必须列人工复核；101问题只显示100但ready=false。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -315,10 +315,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(FiveDistinctQuestionsCoverAllCore|QuestionFixedReferences|QuestionSealLimits|FixedNumericWitness)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现完整校验与封存。** 覆盖用按候选迭代的(count≤5,mask≤255)状态，倒序数量更新防重复取同一题并记录五ID见证；非核心目标显式补充。验证题源闭包、固定引用SHA、受限Markdown和来源，再冻结完整实例字节；不因显示报告截断而跳过数学检查。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；记录最大单模板1000组合/节点1000候选在8秒内是否完成，未达标定位优化，不改限额。草稿缺公开引用时safe gate提示，不能读取其他人员知识草稿。
-- [ ] **Step 5：提交。** 仅任务4文件，提交 feat: 验证固定题包与完整五题目标覆盖。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(FiveDistinctQuestionsCoverAllCore|QuestionFixedReferences|QuestionSealLimits|FixedNumericWitness)$' -timeout 5m -count=1。
+- [x] **Step 3：实现完整校验与封存。** 覆盖用按候选迭代的(count≤5,mask≤255)状态，倒序数量更新防重复取同一题并记录五ID见证；非核心目标显式补充。验证题源闭包、固定引用SHA、受限Markdown和来源，再冻结完整实例字节；不因显示报告截断而跳过数学检查。
+- [x] **Step 4：验证GREEN。** 重跑Step2；记录最大单模板1000组合/节点1000候选在8秒内是否完成，未达标定位优化，不改限额。草稿缺公开引用时safe gate提示，不能读取其他人员知识草稿。
+- [x] **Step 5：提交。** 仅任务4文件，提交 feat: 验证固定题包与完整五题目标覆盖。
 
 ## Task 5：数据库不可变约束与共享授权事务
 
