@@ -15,3 +15,11 @@ content/input/
 content/snapshots.local/
 backend/bin/
 coverage*.out
+
+# 前端依赖、构建及浏览器测试输出
+frontend/node_modules/
+frontend/.next/
+frontend/*.tsbuildinfo
+tests/e2e/*.local.json
+test-results/
+playwright-report/

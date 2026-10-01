@@ -9,6 +9,7 @@ import (
 )
 
 type Reader interface {
+	GetPublishedAsset(context.Context, string) ([]byte, error)
 	ListDomains(context.Context, string, int, int) ([]catalogue.DomainSummary, int, error)
 	GetDomain(context.Context, string) (catalogue.DomainDetail, error)
 	GetPublishedPath(context.Context, string) (content.PathView, error)
@@ -20,6 +21,7 @@ func NewHandler(reader Reader, pinger Pinger) http.Handler {
 	health := NewHealthHandler(pinger)
 	mux.Handle("GET /healthz", health)
 	mux.Handle("GET /readyz", health)
+	mux.HandleFunc("GET /api/v1/assets/{sha256}", func(w http.ResponseWriter, r *http.Request) { publicAsset(w, r, reader) })
 	mux.HandleFunc("GET /api/v1/domains", func(w http.ResponseWriter, r *http.Request) { listDomains(w, r, reader) })
 	mux.HandleFunc("GET /api/v1/domains/{id}", func(w http.ResponseWriter, r *http.Request) {
 		v, e := reader.GetDomain(r.Context(), r.PathValue("id"))
