@@ -115,3 +115,12 @@ it("doesNotShareCustomMacrosOrRenderUnboundedSize", () => {
   expect(container.querySelector(".katex")).not.toBeNull();
   expect(container.querySelector('[style*="500em"]')).toBeNull();
 });
+
+it("TestPrivateBoundAssetPreviewAndRecovery",()=>{
+ const id="11111111-1111-4111-8111-111111111111";
+ const {rerender}=render(<SafeMarkdown source="![Private](asset:fraction-bar)" assets={[asset]} assetScope={{kind:"draft",id}}/>);
+ const img=screen.getByRole("img",{name:"Private"});expect(img).toHaveAttribute("src",`/api/v1/content/drafts/${id}/assets/${asset.sha256}`);fireEvent.error(img);
+ rerender(<SafeMarkdown source="![Private](asset:fraction-bar)" assets={[{...asset,sha256:"b".repeat(64)}]} assetScope={{kind:"submission",id}}/>);
+ expect(screen.getByRole("img",{name:"Private"})).toHaveAttribute("src",`/api/v1/content/submissions/${id}/assets/${"b".repeat(64)}`);
+ rerender(<SafeMarkdown source="![Private](asset:fraction-bar)" assets={[asset]} assetScope={{kind:"draft",id:"https://unsafe.example"}}/>);expect(screen.queryByRole("img")).not.toBeInTheDocument();
+});

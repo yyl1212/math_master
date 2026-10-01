@@ -2,7 +2,7 @@
 
 本项目旨在搭建一个全面的数学学习成长网站，以内容正确性、内容覆盖与数量和丰富的学习路径为核心，逐步覆盖零基础学习到学术研究与知识分享。
 
-P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master，已完成独立审查及回归；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。P2 英文只读前端已实现五页面与安全数学阅读，已完成独立代码审查问题修复及本机回归，CI 结果见 PR；P3a 已实现账户、会话与角色管理，已完成独立审查与本机回归，功能交付见 [PR #10](https://github.com/yyl1212/math_master/pull/10) 及其最新提交 CI；内容审核发布、学习记录和部署继续按后续阶段开发。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
+P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master，已完成独立审查及回归；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。P2 英文只读前端已实现五页面与安全数学阅读，已完成独立代码审查问题修复及本机回归，CI 结果见 PR；P3a 已实现账户、会话与角色管理，已完成独立审查与本机回归，功能交付见 [PR #10](https://github.com/yyl1212/math_master/pull/10) 及其最新提交 CI；P3b 内容工作流已按十项任务实现，已完成整分支回归、独立审查及三项问题修复，通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 交付，技术提交的四项 CI 全部通过，详见 [技术验收记录](docs/operations/2026-10-01-p3b-acceptance.md)；学习记录和部署继续按后续阶段开发。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
 
 ## 设计文档
 
@@ -37,7 +37,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 ./backend/bin/server
 ```
 
-浏览 `http://127.0.0.1:8080/api/v1/domains`。草稿知识与路线返回 404，建设状态由有效发布快照派生；数据接口不读取 `design/data`。P2 已接入英文页面，P3 才提供独立审核和发布。
+浏览 `http://127.0.0.1:8080/api/v1/domains`。草稿知识与路线返回 404，建设状态由有效发布快照派生；数据接口不读取 `design/data`。P2 已接入英文页面，P3b 提供独立审核和发布工作流，实际草稿仍须人员复核。
 
 ```sh
 node --test tools/verify/run.test.mjs tools/content-ingest/snapshot.test.mjs
@@ -60,6 +60,10 @@ npm run start -- --hostname 127.0.0.1 --port 3000
 ```
 
 启动前按操作说明设置仅供服务端使用的 `GO_API_INTERNAL_URL` 并启动 Go 服务。匿名阅读不创建学习记录，个人解锁与进度属于 P4。
+
+## P3b 内容工作流入口
+
+详见 [内容操作说明](docs/operations/content-workflow.md)。英文编辑、复核、发布与撤回后台接入 Go/PostgreSQL；知识、公理、定理、来源及原创 SVG 按固定版本审核。上线前需操作者显式迁移、授予人员角色并完成真实数学复核，本次仅在随机测试库验收。
 
 ## P3a 账户入口
 

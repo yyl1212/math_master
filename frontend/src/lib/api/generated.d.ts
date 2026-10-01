@@ -303,6 +303,297 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/content/drafts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_drafts"];
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_drafts"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/drafts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_drafts_id"];
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        put: operations["content_put_drafts_id"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/drafts/adopt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_drafts_adopt"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/drafts/{id}/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_drafts_id_validate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/drafts/{id}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_drafts_id_submit"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/submissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_submissions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/submissions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_submissions_id"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/submissions/{id}/revision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_submissions_id_revision"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/submissions/{id}/decision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_submissions_id_decision"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/publications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_publications"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/publications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_publications_id"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/publications/prepare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_publications_prepare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/publications/{id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_publications_id_activate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/withdrawals/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_withdrawals_preview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/withdrawals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        post: operations["content_post_withdrawals"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/drafts/{id}/assets/{sha256}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_drafts_id_assets_sha256"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/content/submissions/{id}/assets/{sha256}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private content endpoint: exact method/path, canonical UUID/SHA, duplicate or unknown fields, case aliases, null nonnullable values, NUL and invalid UTF-8/surrogates rejected. Maximum JSON nesting 32; request deadline 8 seconds; no CORS or Set-Cookie. Editor/reviewer/admin permissions come from the current session. Activation and withdrawal require explicit recent password verification. GET requests do not accept bodies. Unknown/repeated query parameters, trailing slashes and encoded path aliases are rejected. */
+        get: operations["content_get_submissions_id_assets_sha256"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -534,8 +825,704 @@ export interface components {
                 requestId: string;
             };
         };
+        ContentActivateInput: {
+            expectedHead: string | null;
+            expectedManifestSha: string;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            reason: string;
+        };
+        ContentAdoptInput: {
+            packageId: string;
+            packageVersion: number;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            reason: string;
+        };
+        ContentAngle: {
+            body: string;
+            kind: string;
+        };
+        ContentAsset: {
+            attribution: string;
+            author: string;
+            id: string;
+            knowledge: components["schemas"]["ContentVersionRef"];
+            license: string;
+            path: string;
+            sha256: string;
+        };
+        ContentAssetBinding: {
+            assetId: string;
+            sha256: string;
+            unit: components["schemas"]["ContentVersionRef"];
+        };
+        ContentAssetInput: {
+            base64: string;
+            id: string;
+        };
+        ContentAssetView: {
+            attribution: string;
+            author: string;
+            id: string;
+            knowledge: components["schemas"]["ContentVersionRef"];
+            license: string;
+            sha256: string;
+        };
+        ContentChange: {
+            after: components["schemas"]["ContentMemberIdentity"] | null;
+            before: components["schemas"]["ContentMemberIdentity"] | null;
+            id: string;
+            kind: string;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            reason: string;
+        };
+        ContentDiff: {
+            added: number;
+            changes: components["schemas"]["ContentChange"][];
+            removed: number;
+            replaced: number;
+        };
+        ContentDraftInput: {
+            assetBytes: components["schemas"]["ContentAssetInput"][];
+            catalogueVersion: number;
+            package: components["schemas"]["ContentPackage"];
+            sourceMap: components["schemas"]["ContentSourceLink"][];
+        };
+        ContentDraftPage: {
+            items: components["schemas"]["ContentDraftSummary"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        ContentDraftSummary: {
+            catalogueVersion: number;
+            completenessTotal: number;
+            /** Format: date-time */
+            createdAt: string;
+            id: string;
+            ownerId: string;
+            packageId: string;
+            packageVersion: number;
+            revision: number;
+            /** @enum {string} */
+            status: "editing" | "submitted";
+            structuralTotal: number;
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        ContentDraftView: {
+            assets: components["schemas"]["ContentAssetView"][];
+            authorIds: string[];
+            catalogueSha256: string;
+            catalogueVersion: number;
+            /** Format: date-time */
+            createdAt: string;
+            gate: components["schemas"]["ContentGateReport"];
+            id: string;
+            legacyUnattributed: boolean;
+            ownerId: string;
+            package: components["schemas"]["ContentPackage"];
+            revision: number;
+            sourceMap: components["schemas"]["ContentSourceLink"][];
+            /** @enum {string} */
+            status: "editing" | "submitted";
+            /** Format: date-time */
+            updatedAt: string;
+        };
+        ContentFrozenBody: {
+            assets: components["schemas"]["ContentAssetView"][];
+            authorIds: string[];
+            catalogueSha256: string;
+            catalogueVersion: number;
+            frozenDigest: string;
+            legacyUnattributed: boolean;
+            package: components["schemas"]["ContentPackage"];
+            sourceMap: components["schemas"]["ContentSourceLink"][];
+        };
+        ContentGateReport: {
+            completenessErrors: components["schemas"]["ContentIssue"][];
+            completenessTotal: number;
+            digest: string;
+            humanReviewRequirements: components["schemas"]["ContentIssue"][];
+            humanReviewTotal: number;
+            readyToSubmit: boolean;
+            structuralErrors: components["schemas"]["ContentIssue"][];
+            structuralTotal: number;
+            truncated: boolean;
+        };
+        ContentIssue: {
+            code: string;
+            message: string;
+            path: string;
+        };
+        ContentKnowledge: {
+            conditions: string[];
+            domainIds: string[];
+            id: string;
+            objectives: string[];
+            proof: string;
+            relations: components["schemas"]["ContentRelation"][];
+            scope: string;
+            sources: components["schemas"]["ContentSource"][];
+            statement: string;
+            system: string;
+            title: string;
+            titleZh: string;
+            topicIds: string[];
+            /** @enum {string} */
+            type: "concept" | "definition" | "axiom" | "theorem" | "corollary" | "method" | "mathematical-thinking";
+            version: number;
+        };
+        ContentManifest: {
+            baseHead: string | null;
+            bindings: components["schemas"]["ContentAssetBinding"][];
+            catalogueSha256: string;
+            catalogueVersion: number;
+            members: components["schemas"]["ContentManifestMember"][];
+        };
+        ContentManifestMember: {
+            evidence: components["schemas"]["ContentMemberEvidence"];
+            identity: components["schemas"]["ContentMemberIdentity"];
+        };
+        ContentMemberEvidence: {
+            decisionId: string;
+            frozenDigest: string;
+            inheritedFrom: string | null;
+            submissionId: string;
+        };
+        ContentMemberIdentity: {
+            id: string;
+            /** @enum {string} */
+            kind: "knowledge" | "unit" | "path" | "asset";
+            packageId: string;
+            packageVersion: number;
+            sha256: string;
+            version: number;
+        };
+        ContentPackage: {
+            assets: components["schemas"]["ContentAsset"][];
+            id: string;
+            knowledge: components["schemas"]["ContentKnowledge"][];
+            paths: components["schemas"]["ContentPath"][];
+            /** @constant */
+            schemaVersion: 1;
+            units: components["schemas"]["ContentUnit"][];
+            version: number;
+        };
+        ContentPath: {
+            domainIds: string[];
+            id: string;
+            nodes: components["schemas"]["ContentVersionRef"][];
+            title: string;
+            titleZh: string;
+            version: number;
+        };
+        ContentPrepareInput: {
+            expectedHead: string | null;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            reason: string;
+            submissionIds: string[];
+        };
+        ContentPublicationItems: {
+            items: components["schemas"]["ContentPublicationView"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        ContentPublicationPage: {
+            head: string | null;
+            items: components["schemas"]["ContentPublicationView"][];
+            /** @description Effective page size, reduced when needed to keep the complete response within 4 MiB. Advance using the returned limit; head remains independent of this page. */
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        ContentPublicationView: {
+            /** Format: date-time */
+            createdAt: string;
+            diff: components["schemas"]["ContentDiff"];
+            id: string;
+            manifest: components["schemas"]["ContentManifest"];
+            manifestSha: string;
+            /** @enum {string} */
+            status: "draft" | "published";
+        };
+        ContentRelation: {
+            /** @enum {string} */
+            kind: "prerequisite" | "derivation" | "related";
+            target: components["schemas"]["ContentVersionRef"];
+        };
+        ContentReviewChecks: {
+            explanations: boolean;
+            illustrations: boolean;
+            mathematics: boolean;
+            relationships: boolean;
+            sources: boolean;
+        };
+        ContentReviewDecision: {
+            checks: components["schemas"]["ContentReviewChecks"];
+            /** Format: date-time */
+            createdAt: string;
+            /** @enum {string} */
+            decision: "approve" | "return";
+            frozenDigest: string;
+            id: string;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            independenceNote: string;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            note: string;
+            reviewerId: string;
+            submissionId: string;
+        };
+        ContentReviewInput: {
+            checks: components["schemas"]["ContentReviewChecks"];
+            /** @enum {string} */
+            decision: "approve" | "return";
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            independenceNote: string;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            note: string;
+        };
+        ContentSaveDraftInput: {
+            assetBytes: components["schemas"]["ContentAssetInput"][];
+            catalogueVersion: number;
+            expectedRevision: number;
+            package: components["schemas"]["ContentPackage"];
+            sourceMap: components["schemas"]["ContentSourceLink"][];
+        };
+        ContentSource: {
+            accessedAt: string;
+            attribution: string;
+            author: string;
+            /** @enum {string} */
+            kind: "original" | "external";
+            license: string;
+            title: string;
+            url: string;
+        };
+        ContentSourceLink: {
+            batchSha256: string;
+            knowledge: components["schemas"]["ContentVersionRef"];
+            legacyId: string;
+            note: string;
+            /** @description Relative source data only: no absolute/drive prefix, backslash, empty segment or dot segment. Never interpreted as instructions. */
+            relativePath: string;
+            sha256: string;
+        };
+        ContentSubmissionPage: {
+            items: components["schemas"]["ContentSubmissionSummary"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        ContentSubmissionSummary: {
+            catalogueVersion: number;
+            /** Format: date-time */
+            createdAt: string;
+            frozenDigest: string;
+            id: string;
+            ownerId: string;
+            packageId: string;
+            packageVersion: number;
+            revision: number;
+            /** @enum {string} */
+            status: "pending" | "approved" | "returned";
+            workspaceId: string;
+        };
+        ContentSubmissionView: {
+            /** Format: date-time */
+            createdAt: string;
+            frozen: components["schemas"]["ContentFrozenBody"];
+            gate: components["schemas"]["ContentGateReport"];
+            id: string;
+            ownerId: string;
+            review: components["schemas"]["ContentReviewDecision"] | null;
+            revision: number;
+            /** @enum {string} */
+            status: "pending" | "approved" | "returned";
+            workspaceId: string;
+        };
+        ContentSubmitInput: {
+            expectedDigest: string;
+            expectedRevision: number;
+        };
+        ContentUnit: {
+            angles: components["schemas"]["ContentAngle"][];
+            assetIds: string[];
+            counterexamples: string[];
+            examples: string[];
+            id: string;
+            knowledge: components["schemas"]["ContentVersionRef"];
+            version: number;
+        };
+        ContentValidateInput: {
+            expectedRevision: number;
+        };
+        ContentVersionRef: {
+            id: string;
+            version: number;
+        };
+        ContentWithdrawalInput: {
+            expectedHead: string | null;
+            /** @description At most 1000 original Unicode code points and 3000 UTF-8 bytes; required reasons and review notes have at least 10 code points and are not all whitespace. */
+            reason: string;
+            target: components["schemas"]["ContentWithdrawalTarget"];
+        };
+        ContentWithdrawalPreview: {
+            currentHead: string | null;
+            diff: components["schemas"]["ContentDiff"];
+            target: components["schemas"]["ContentWithdrawalTarget"];
+        };
+        ContentWithdrawalPreviewInput: {
+            target: components["schemas"]["ContentWithdrawalTarget"];
+        };
+        ContentWithdrawalResult: {
+            eventId: string;
+            previousHead: string | null;
+            publication: components["schemas"]["ContentPublicationView"];
+        };
+        ContentWithdrawalTarget: {
+            /** @enum {unknown} */
+            kind: "knowledge" | "unit" | "path";
+            id: string;
+            version: number;
+        } | {
+            /** @constant */
+            kind: "asset";
+            sha256: string;
+        };
+        /** @enum {string} */
+        ContentErrorCode: "INVALID_REQUEST" | "INVALID_COOKIE" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "DRAFT_CONFLICT" | "REVIEW_CONFLICT" | "IMMUTABLE_CONFLICT" | "VERSION_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "PUBLICATION_STALE" | "PAYLOAD_TOO_LARGE" | "CONTENT_NOT_READY" | "CONTENT_INVALID" | "REVIEW_REQUIRED" | "CONTENT_LIMIT_EXCEEDED" | "REAUTHENTICATION_REQUIRED" | "RATE_LIMITED" | "SERVICE_UNAVAILABLE" | "AUTH_NOT_CONFIGURED" | "CONTENT_NOT_CONFIGURED";
+        ContentError: {
+            error: {
+                /** @constant */
+                code: "INVALID_REQUEST";
+                /** @constant */
+                message: "Invalid request.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "INVALID_COOKIE";
+                /** @constant */
+                message: "Invalid sign-in cookie.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "AUTHENTICATION_REQUIRED";
+                /** @constant */
+                message: "Please sign in to continue.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "CSRF_FAILED";
+                /** @constant */
+                message: "Request verification failed.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "FORBIDDEN";
+                /** @constant */
+                message: "You do not have permission.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "PASSWORD_CHANGE_REQUIRED";
+                /** @constant */
+                message: "Change your password to continue.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "NOT_FOUND";
+                /** @constant */
+                message: "Resource not found.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "METHOD_NOT_ALLOWED";
+                /** @constant */
+                message: "Method not allowed.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "DRAFT_CONFLICT";
+                /** @constant */
+                message: "This draft has changed. Reload it before continuing.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "REVIEW_CONFLICT";
+                /** @constant */
+                message: "This submission already has a review decision.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "IMMUTABLE_CONFLICT";
+                /** @constant */
+                message: "This version conflicts with saved content.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "VERSION_CONFLICT";
+                /** @constant */
+                message: "This version conflicts with saved content.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "IDEMPOTENCY_CONFLICT";
+                /** @constant */
+                message: "This request key was already used for different input.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "PUBLICATION_STALE";
+                /** @constant */
+                message: "Published content has changed. Prepare a new snapshot.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "PAYLOAD_TOO_LARGE";
+                /** @constant */
+                message: "This content exceeds the request size limit.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "CONTENT_NOT_READY";
+                /** @constant */
+                message: "Complete the required content before submitting.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "CONTENT_INVALID";
+                /** @constant */
+                message: "Content validation failed.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "REVIEW_REQUIRED";
+                /** @constant */
+                message: "Independent review is required before publication.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "CONTENT_LIMIT_EXCEEDED";
+                /** @constant */
+                message: "Split this content into smaller reviewed batches.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "REAUTHENTICATION_REQUIRED";
+                /** @constant */
+                message: "Verify your password before continuing.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "RATE_LIMITED";
+                /** @constant */
+                message: "Too many requests. Try again later.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "SERVICE_UNAVAILABLE";
+                /** @constant */
+                message: "Service temporarily unavailable.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "AUTH_NOT_CONFIGURED";
+                /** @constant */
+                message: "Accounts are temporarily unavailable.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "CONTENT_NOT_CONFIGURED";
+                /** @constant */
+                message: "Content management is temporarily unavailable.";
+                requestId: string;
+            };
+        };
+        ContentEmptyInput: Record<string, never>;
     };
-    responses: never;
+    responses: {
+        /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */
+        ContentError400: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description AUTHENTICATION_REQUIRED. Fixed English messages only. */
+        ContentError401: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description CSRF_FAILED / FORBIDDEN / PASSWORD_CHANGE_REQUIRED. Fixed English messages only. */
+        ContentError403: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description NOT_FOUND. Fixed English messages only. */
+        ContentError404: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description METHOD_NOT_ALLOWED. Fixed English messages only. */
+        ContentError405: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                Allow?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description DRAFT_CONFLICT / REVIEW_CONFLICT / IMMUTABLE_CONFLICT / VERSION_CONFLICT / IDEMPOTENCY_CONFLICT / PUBLICATION_STALE. Fixed English messages only. */
+        ContentError409: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description PAYLOAD_TOO_LARGE. Fixed English messages only. */
+        ContentError413: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description CONTENT_NOT_READY / CONTENT_INVALID / REVIEW_REQUIRED / CONTENT_LIMIT_EXCEEDED. Fixed English messages only. */
+        ContentError422: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description REAUTHENTICATION_REQUIRED. Fixed English messages only. */
+        ContentError428: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description RATE_LIMITED. Fixed English messages only. */
+        ContentError429: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                "Retry-After"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description SERVICE_UNAVAILABLE / AUTH_NOT_CONFIGURED / CONTENT_NOT_CONFIGURED. Fixed English messages only. */
+        ContentError503: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["ContentError"];
+            };
+        };
+    };
     parameters: never;
     requestBodies: never;
     headers: never;
@@ -2508,6 +3495,775 @@ export interface operations {
                     "application/json": components["schemas"]["PrivateError"];
                 };
             };
+        };
+    };
+    content_get_drafts: {
+        parameters: {
+            query?: {
+                scope?: "mine" | "all";
+                status?: "editing" | "submitted";
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentDraftPage"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_drafts: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Maximum 8 MiB raw UTF-8 request; package 2 MiB, sourceMap 256 KiB, decoded SVG total 4 MiB and each 1 MiB. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentDraftInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentDraftView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_get_drafts_id: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentDraftView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_put_drafts_id: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Maximum 8 MiB raw UTF-8 request; package 2 MiB, sourceMap 256 KiB, decoded SVG total 4 MiB and each 1 MiB. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentSaveDraftInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentDraftView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_drafts_adopt: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentAdoptInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentDraftView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_drafts_id_validate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentValidateInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentGateReport"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_drafts_id_submit: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentSubmitInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentSubmissionView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_get_submissions: {
+        parameters: {
+            query?: {
+                scope?: "mine" | "review" | "all";
+                status?: "pending" | "approved" | "returned";
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentSubmissionPage"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_get_submissions_id: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentSubmissionView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_submissions_id_revision: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentEmptyInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentDraftView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_submissions_id_decision: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentReviewInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentSubmissionView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_get_publications: {
+        parameters: {
+            query?: {
+                scope?: "all";
+                status?: "draft" | "published";
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentPublicationPage"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_get_publications_id: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentPublicationView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_publications_prepare: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentPrepareInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentPublicationView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_publications_id_activate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentActivateInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentPublicationView"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_withdrawals_preview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentWithdrawalPreviewInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentWithdrawalPreview"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_post_withdrawals: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description One UUID v4 for this exact user/action/input; manual retries reuse it. Successful historical replays do not change the current head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Maximum 8 KiB raw UTF-8 control request. expectedHead is required when declared; explicit null represents no current head. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ContentWithdrawalInput"];
+            };
+        };
+        responses: {
+            /** @description Success. The exact DTO is the complete JSON body; no Set-Cookie. Maximum 4 MiB. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ContentWithdrawalResult"];
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_get_drafts_id_assets_sha256: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                sha256: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Exact bound SVG bytes, at most 1 MiB, with verified SHA-256 and the restricted SVG whitelist. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    "Content-Security-Policy"?: "sandbox; default-src 'none'";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "image/svg+xml": string;
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
+        };
+    };
+    content_get_submissions_id_assets_sha256: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                sha256: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Exact bound SVG bytes, at most 1 MiB, with verified SHA-256 and the restricted SVG whitelist. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    "Content-Security-Policy"?: "sandbox; default-src 'none'";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "image/svg+xml": string;
+                };
+            };
+            400: components["responses"]["ContentError400"];
+            401: components["responses"]["ContentError401"];
+            403: components["responses"]["ContentError403"];
+            404: components["responses"]["ContentError404"];
+            405: components["responses"]["ContentError405"];
+            409: components["responses"]["ContentError409"];
+            413: components["responses"]["ContentError413"];
+            422: components["responses"]["ContentError422"];
+            428: components["responses"]["ContentError428"];
+            429: components["responses"]["ContentError429"];
+            503: components["responses"]["ContentError503"];
         };
     };
 }

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 >
-> 本项目沿用用户此前选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查；不自动分派实现代理。以下尚未执行，不能提前勾选。
+> 本项目沿用用户此前选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查；不自动分派实现代理。实施步骤仅在验收通过后勾选。
 
 **Goal:** 交付可追责的英文内容后台，使原创数学草稿经固定版本送审和独立复核后安全发布，问题版本可以原子撤回。
 
@@ -10,7 +10,7 @@
 
 **Tech Stack:** Go 1.27.1、PostgreSQL 17.11、Node.js 24.17.0、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3；沿用当前锁文件，不新增产品依赖。
 
-**Spec:** [P3b 已确认设计](../specs/2026-10-01-content-workflow-design.md)，用户于 2026-10-01 确认，已通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并。计划已于 2026-10-01 获用户书面确认，执行方式 Native；基线 master a4cf6278774b30cce3e7278a7582dd522c465be8 已包含 [PR #13](https://github.com/yyl1212/math_master/pull/13) 的限流测试修复。十项功能任务尚未完成。方案的七组顺序细化为十个可独立验证的任务，没有增加产品范围。
+**Spec:** [P3b 已确认设计](../specs/2026-10-01-content-workflow-design.md)，用户于 2026-10-01 确认，已通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并。计划已于 2026-10-01 获用户书面确认，执行方式 Native；基线 master a4cf6278774b30cce3e7278a7582dd522c465be8 已包含 [PR #13](https://github.com/yyl1212/math_master/pull/13) 的限流测试修复。实施状态见下方各任务已勾选步骤。方案的七组顺序细化为十个可独立验证的任务，没有增加产品范围。
 
 ## 全局约束（Global Constraints）
 
@@ -116,7 +116,7 @@ flowchart LR
 - WithdrawalInput：Target WithdrawalTarget、ExpectedHead *string、Reason string；WithdrawalPreviewInput 只有 Target；WithdrawalPreview：CurrentHead *string、Target WithdrawalTarget、Diff Diff；WithdrawalResult：EventID string、PreviousHead *string、Publication PublicationView。
 - ListQuery：Scope/Status string、Limit/Offset int；Page[T]：Items []T、Total/Limit/Offset int；PublicationPage 增加 Head *string。DraftSummary 固定为 ID/OwnerID/PackageID/Status/CreatedAt/UpdatedAt string、PackageVersion/CatalogueVersion/StructuralTotal/CompletenessTotal int、Revision int64；SubmissionSummary 为 ID/WorkspaceID/OwnerID/PackageID/Status/FrozenDigest/CreatedAt string、PackageVersion/CatalogueVersion int、Revision int64。两个列表不含正文、来源映射、作者私有说明或素材字节。
 - 字段 JSON 均使用对应 lowerCamelCase；需要首次 null 的 ExpectedHead 必须显式存在，不能把缺失字段当 null。时间固定 RFC3339 UTC。
-- publication.Candidate：Manifest、Diff、Snapshot content.Snapshot；Snapshot 为 CatalogueVersion、Knowledge []content.Knowledge、Units []content.Unit、Paths []content.Path、Assets []content.Asset、Bindings []content.AssetBinding。这些类型只用于服务器内部，客户端不能提交候选成员。
+- publication.Candidate：PublicationID（仅内部 json:"-" 的当前快照 ID）、Manifest、Diff、Snapshot content.Snapshot；Snapshot 为 CatalogueVersion、Knowledge []content.Knowledge、Units []content.Unit、Paths []content.Path、Assets []content.Asset、Bindings []content.AssetBinding。这些类型只用于服务器内部，客户端不能提交候选成员。
 
 ### 服务与仓储端口
 
@@ -151,11 +151,11 @@ auth.DecodeContentProof(cookies Cookies, csrf string, write bool)(SessionProof,e
 
 ## Task 1：工作流契约、数据库约束与授权基础
 
-**Files:** 新增 db/migrations/00004_content_workflow.sql；publication/model.go、repository.go、service.go、policy.go、rate_limit.go 及 policy_test.go、service_test.go；auth/content_proof.go、content_proof_test.go；store/workflow_schema_test.go、workflow_tx.go、workflow_tx_test.go、workflow_idempotency.go、workflow_idempotency_test.go。
+**Files:** 新增 db/migrations/00004_content_workflow.sql；content/workflow_model.go（提前定义 Snapshot / AssetBinding 纯数据类型）；publication/model.go、repository.go、service.go、policy.go、rate_limit.go 及 policy_test.go、service_test.go；auth/content_proof.go、content_proof_test.go；store/workflow_schema_test.go、workflow_tx.go、workflow_tx_test.go、workflow_idempotency.go、workflow_idempotency_test.go。
 
 **Interfaces:** 定义上一节全部类型/端口。store 产出内部 workflowTx(ctx context.Context,access publication.Access,action publication.Action,relatedUserIDs []string,fn func(context.Context,*sql.Tx,auth.User,time.Time)error)error、workflowReadTx(ctx context.Context,access publication.Access,action publication.Action,fn func(context.Context,*sql.Tx,auth.User)error)error、workflowReplay(ctx context.Context,tx *sql.Tx,actorID,route,key,digest string)([]byte,bool,error)、workflowRemember(ctx context.Context,tx *sql.Tx,actorID,route,key,digest string,result []byte)error。读取、验证和撤回预览不写成功幂等记录。迁移为 workspace/revision 的送审建立唯一约束，封存状态用延迟约束触发器保证提交时已封存；未封存行仅供同一事务插入关联，不能成为已提交可见状态。
 
-- [ ] **Step 1：写失败测试。** 在真实随机数据库验证迁移和事务；以下是测试的精确断言集：
+- [x] **Step 1：写失败测试。** 在真实随机数据库验证迁移和事务；以下是测试的精确断言集：
 
 ~~~json
 {
@@ -169,15 +169,15 @@ auth.DecodeContentProof(cookies Cookies, csrf string, write bool)(SessionProof,e
 
 迁移使用设计中的十个表，外键到 auth_users/catalogue_versions/imported_packages/package_members；工作区 UUID 与 revision、状态枚举、大小 CHECK；送审只允许一次终态更新，冻结字段及子表与 frozenDigest 一致。作者/成员关联禁止在冻结完成后插入新行；事务内先建待封存行和关联，再封存，默认不允许留下未封存的送审。manifest 加入后禁止快照成员插入/改删；P1 未关联 manifest 的草稿不受新冻结触发器约束。content_withdrawals 区分版本与素材摘要分支，数据库唯一身份防重；content_idempotency 固定 actor/route/key 唯一且不可改删。
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth ./internal/publication ./internal/store -run 'Test(ContentProof|WorkflowSchema|WorkflowRoleMatrix|WorkflowIdempotencyRechecksPermission|WorkflowSessionExpiresWhileWaiting|ContentRateBudget)$' -timeout 5m -count=1
 ~~~
 预期仅因新契约/迁移/行为不存在而失败，连接或工具链故障先处理。
 
-- [ ] **Step 3：实现契约和基础事务。** 使用既有 account/session/dbClock、管理锁和 ConsumeRates。workflowTx 自己从请求剩余截止创建事务，不能使用会固定到 3 秒的 authTx 包装；在获取任何锁之前 SET LOCAL lock_timeout='1s'，按全局锁顺序执行。幂等请求摘要在严格解码后由服务器规范化；成功结果与审计同事务。用户读取限流使用既有全局 auth_read 600/分钟预算及 content_read_user 120/分钟，写入使用本阶段固定预算；不引入无限范围限流键。首版两槽 AcquireValidation 不创建后台计算队列。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，另运行原 auth/store 账户角色与审计测试，确认新增角色消费不改变旧账户能力。
-- [ ] **Step 5：提交。** 暂存本任务列出的文件，提交 feat: establish content workflow contracts and transaction guards。
+- [x] **Step 3：实现契约和基础事务。** 使用既有 account/session/dbClock、管理锁和 ConsumeRates。workflowTx 自己从请求剩余截止创建事务，不能使用会固定到 3 秒的 authTx 包装；在获取任何锁之前 SET LOCAL lock_timeout='1s'，按全局锁顺序执行。幂等请求摘要在严格解码后由服务器规范化；成功结果与审计同事务。用户读取限流使用既有全局 auth_read 600/分钟预算及 content_read_user 120/分钟，写入使用本阶段固定预算；不引入无限范围限流键。首版两槽 AcquireValidation 不创建后台计算队列。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，另运行原 auth/store 账户角色与审计测试，确认新增角色消费不改变旧账户能力。
+- [x] **Step 5：提交。** 暂存本任务列出的文件，提交 feat: establish content workflow contracts and transaction guards。
 
 ## Task 2：机器完整性、素材读取器与导入事务复用
 
@@ -185,7 +185,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** content.AssetReader 为 func(context.Context,content.Asset)([]byte,error)；产出 ValidateAndSealWithAssets(ctx,catalogue.Catalogue,Package,AssetReader)(ValidatedPackage,Report)、ValidateWorkflow(ctx,catalogue.Catalogue,Package,AssetReader)(ValidatedPackage,WorkflowReport)、ValidateEditable(ctx,catalogue.Catalogue,Package,AssetReader)(WorkflowReport,error)、ValidateSnapshot(ctx,catalogue.Catalogue,Snapshot,AssetReader)(WorkflowReport,error)、ValidateSVG([]byte)error。WorkflowReport 具有三类完整 Issue 数组与总数，不依赖 publication；publication.GateReport 从它映射。store.importValidatedTx(ctx,*sql.Tx,content.ValidatedPackage)(ImportResult,error) 只做当前已加锁事务中的写入，ImportDraft 原签名保持。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestWorkflowAssetReaderParity": {"fileAndDBBytes":"same package digest/report","pathTraversalOrSymlink":"file reader rejection","DBReader":"never opens asset.path","wrongSHAOrUnsafeSVG":"CONTENT_INVALID","assetAliasBinding":"exact digest"},
@@ -196,15 +196,15 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。** Run 以下两个独立批次，预期新行为缺失失败：
+- [x] **Step 2：验证 RED。** Run 以下两个独立批次，预期新行为缺失失败：
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/content -run 'Test(Workflow|Editable|Snapshot)' -timeout 5m -count=1
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'Test(ImportTransactionReuse|ImportIsIdempotent|VersionCannotBeOverwritten|ImportRollsBackLateFailure)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现校验与复用。** 共同结构检查接收读取器，旧 ValidateAndSeal 调用文件适配器并保留原 Report 和 REVIEW_REQUIRED 语义。Editable 模式允许缺失数学引用和正文，但拒绝危险文本、错误素材字节与 Schema。Workflow 模式执行设计第 6 节最低完整性要求；素材字节或数学含义改变须创建相应知识/单元新版本；机器校验检查摘要和绑定，是否属于数学含义修改由复核核对。Snapshot 模式独立检查整图及公开 view 大小，不把一个随意 Package 拼装成可信审核证明。引用遍历采用有界迭代算法并检查 ctx，避免大图递归爆栈；按计数和字节上限预检后再读取正文或 SVG。
-- [ ] **Step 4：验证 GREEN 与 P1 兼容。** 重跑 Step 2，再跑完整 content/cli/import 旧测试；重新导出旧包摘要必须相同，无新增发布 head。
-- [ ] **Step 5：提交。** 提交 feat: separate content readiness from independent review。
+- [x] **Step 3：实现校验与复用。** 共同结构检查接收读取器，旧 ValidateAndSeal 调用文件适配器并保留原 Report 和 REVIEW_REQUIRED 语义。Editable 模式允许缺失数学引用和正文，但拒绝危险文本、错误素材字节与 Schema。Workflow 模式执行设计第 6 节最低完整性要求；素材字节或数学含义改变须创建相应知识/单元新版本；机器校验检查摘要和绑定，是否属于数学含义修改由复核核对。Snapshot 模式独立检查整图及公开 view 大小，不把一个随意 Package 拼装成可信审核证明。引用遍历采用有界迭代算法并检查 ctx，避免大图递归爆栈；按计数和字节上限预检后再读取正文或 SVG。
+- [x] **Step 4：验证 GREEN 与 P1 兼容。** 重跑 Step 2，再跑完整 content/cli/import 旧测试；重新导出旧包摘要必须相同，无新增发布 head。
+- [x] **Step 5：提交。** 提交 feat: separate content readiness from independent review。
 
 ## Task 3：本人草稿、认领修订与固定版本送审
 
@@ -212,7 +212,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** 实现 Create/Read/Save/Adopt/Validate/SubmitDraft、ListDrafts、ReadSubmission、ListSubmissions、ReviseSubmission，以及受作用域限制的两类 Asset 读取。产出 publication.FrozenDigest(FrozenBody)(string,error)、DraftDigest(DraftView)(string,error)。从输入到归一化字段只做确定序列化，不改变有效 Unicode 数学文本。摘要只序列化明确的内容字段：目录 version/SHA、包、素材摘要、来源、排序作者和 legacy 标记；DraftDigest 额外包含工作区 ID/revision，均排除 Gate、时间与摘要字段自身，避免循环定义。测试 helper newWorkflowFixture(t *testing.T) 复用既有 setup/newAuthFixture；Access(username string,recent bool)publication.Access、Input()publication.DraftInput、Submitted(owner string)publication.SubmissionView 在本任务定义，后续复用；初始化测试账户/角色只在随机库。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestWorkflowDraftOwnership": {"otherEditorReadOrWrite":"NOT_FOUND","adminRead":"allowed","adminOnlyWrite":"FORBIDDEN","saveExpectedRevision1":"revision2","staleSave":"DRAFT_CONFLICT,unchanged"},
@@ -223,14 +223,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(WorkflowDraft|WorkflowAdopt|WorkflowSubmit|FrozenSubmission|WorkflowAuthor)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现工作区与冻结。** revision 初值 1，更新必须使用条件 UPDATE，素材替换同事务。包/SVG/sourceMap 先有界校验，标准 Base64 重新编码必须等于原输入。作者集合从负责人、base_submission 和相同固定成员的既有冻结作者并集得到，排序去重后参与摘要。送审在统一锁下再次检查 revision/digest、正式版本冲突和机器完整性，调用 importValidatedTx，再保存冻结 sourceMap/作者/成员与 frozenDigest；提交前无可变工作区读取进入冻结 view。列表 scope 仅 mine/all，all 仅 admin；reviewer 可读取冻结送审但不能读取任意编辑工作区。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2；重复导入、冻结失败、私有素材作用域均必须通过；确认测试创建和清理只操作随机库。
-- [ ] **Step 5：提交。** 提交 feat: add authoring workspaces and immutable submissions。
+- [x] **Step 3：实现工作区与冻结。** revision 初值 1，更新必须使用条件 UPDATE，素材替换同事务。包/SVG/sourceMap 先有界校验，标准 Base64 重新编码必须等于原输入。作者集合从负责人、base_submission 和相同固定成员的既有冻结作者并集得到，排序去重后参与摘要。送审在统一锁下再次检查 revision/digest、正式版本冲突和机器完整性，调用 importValidatedTx，再保存冻结 sourceMap/作者/成员与 frozenDigest；提交前无可变工作区读取进入冻结 view。列表 scope 仅 mine/all，all 仅 admin；reviewer 可读取冻结送审但不能读取任意编辑工作区。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2；重复导入、冻结失败、私有素材作用域均必须通过；确认测试创建和清理只操作随机库。
+- [x] **Step 5：提交。** 提交 feat: add authoring workspaces and immutable submissions。
 
 ## Task 4：独立复核、终态竞争与角色撤销
 
@@ -238,7 +238,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** 实现 DecideReview 和送审筛选；产出 ValidateReviewInput(ReviewInput)error，冻结 ReviewerID、FrozenDigest 和最终决定，不允许重新编辑决定。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestCopiedAuthorsCannotApprove": {"authorWithReviewer":"FORBIDDEN","copiedOrAdoptedKnownAuthor":"FORBIDDEN","independentReviewer":"approved with matching frozenDigest"},
@@ -248,14 +248,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(CopiedAuthors|ReviewChecks|ReviewRoleRevocation|ConcurrentReview)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现决定与独立性。** 在管理锁、内容锁、排序用户行及 session 之后读取冻结作者和 pending 状态；批准复核者不在作者集合，检查项和文本完整；退回与恢复 editing 同事务。竞争测试使用事务锁、通道和数据库可观察等待状态同步，不用 Sleep 或先后 HTTP 调用冒充并发。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，Task 1/3 权限、幂等和冻结回归全部通过。
-- [ ] **Step 5：提交。** 提交 feat: enforce independent fixed-version content review。
+- [x] **Step 3：实现决定与独立性。** 在管理锁、内容锁、排序用户行及 session 之后读取冻结作者和 pending 状态；批准复核者不在作者集合，检查项和文本完整；退回与恢复 editing 同事务。竞争测试使用事务锁、通道和数据库可观察等待状态同步，不用 Sleep 或先后 HTTP 调用冒充并发。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，Task 1/3 权限、幂等和冻结回归全部通过。
+- [x] **Step 5：提交。** 提交 feat: enforce independent fixed-version content review。
 
 ## Task 5：候选合并、不可变 manifest 与原子激活
 
@@ -263,7 +263,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** publication.BuildCandidate(base Candidate,batches []ReviewedBatch)(Candidate,error)、ManifestDigest(Manifest)(string,error)；ReviewedBatch 包含 SubmissionView、MemberIdentity 和固定 AssetBinding，从可信数据库加载。实现 PrepareRelease、ActivateRelease、List/ReadPublication。store.loadWorkflowCandidate(ctx,*sql.Tx,head *string)(Candidate,error) 先计数/计字节，再读取，不能调用另开事务的 withPublication 来校验激活。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestReleaseMerge": {"firstExpectedHeadNull":"prepared,public head absent","differentCatalogue":"VERSION_CONFLICT","sameMemberDifferentVersionAcrossBatches":"VERSION_CONFLICT","knowledgeReplacement":"old owned units/assets listed removed","unchangedDependentOldPrerequisiteOrPath":"CONTENT_INVALID"},
@@ -274,14 +274,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(Release|Manifest|Activation)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现候选及激活。** Manifest 按 kind/ID/version/package/sha 固定排序，Bindings 按 unit ID/version/asset ID 排序，作者去重排序；Digest 使用带用途标识的 Go JSON 结构，不采用客户端 hash。对同 ID 新版本替换与旧归属成员清理给出完整 Diff。既有已发布依据可以继承，新增部分重新核验 reviewer 当前角色；无 manifest 的旧公开测试快照仍可读取，但新流程不能继承没有独立批准的成员。准备前验证 PublicationView 序列化不超过 4 MiB，避免创建无法读取的候选。激活统一事务中重新核验 baseHead、manifest、机器整图、当前资格、黑名单，再一次切换 head；published 历史继续保留。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，真实 PostgreSQL 竞争与旧公开 domain/knowledge/path/asset 测试通过。新增成员同一批次整体发布，公共请求不能混合新旧版本。
-- [ ] **Step 5：提交。** 提交 feat: prepare and atomically activate reviewed snapshots。
+- [x] **Step 3：实现候选及激活。** Manifest 按 kind/ID/version/package/sha 固定排序，Bindings 按 unit ID/version/asset ID 排序，作者去重排序；Digest 使用带用途标识的 Go JSON 结构，不采用客户端 hash。对同 ID 新版本替换与旧归属成员清理给出完整 Diff。既有已发布依据可以继承，新增部分重新核验 reviewer 当前角色；无 manifest 的旧公开测试快照仍可读取，但新流程不能继承没有独立批准的成员。准备前验证 PublicationView 序列化不超过 4 MiB，避免创建无法读取的候选。激活统一事务中重新核验 baseHead、manifest、机器整图、当前资格、黑名单，再一次切换 head；published 历史继续保留。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，真实 PostgreSQL 竞争与旧公开 domain/knowledge/path/asset 测试通过。新增成员同一批次整体发布，公共请求不能混合新旧版本。
+- [x] **Step 5：提交。** 提交 feat: prepare and atomically activate reviewed snapshots。
 
 ## Task 6：撤回目标、依赖闭包与派生快照
 
@@ -289,7 +289,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** publication.WithdrawCandidate(base Candidate,target WithdrawalTarget)(Candidate,error) 为纯计算；实现 PreviewWithdrawal、WithdrawVersion。撤回生成独立 published 快照、事件和 head，不修改旧 snapshot/members；复用 Task 5 canonical manifest 与读取助手。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestWithdrawalClosure": {"rootKnowledge":"root,prerequisite dependents,their units/assets and containing paths unavailable","relatedOnly":"other knowledge retained,edge filtered","unit":"its knowledge paused","assetSHA":"all knowledge using exact bytes paused","path":"only path removed"},
@@ -299,14 +299,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(Withdrawal|PublicationWithdrawal)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现撤回与预览。** Target 查库获得可信版本/字节摘要，不接受客户端摘要替代版本；在固定上限内计算知识前置反向闭包，再移除单元/素材及涉及路线。非前置边沿用读取过滤。新快照只包含原来已发布且仍可用的成员，并保留其原批准证据；空快照仍保留目录。预览是只读业务动作，不写事件或幂等成功；真实撤回在管理员最近验证、CSRF、expectedHead 及同一发布锁下重新计算。P4/P5 扩展点写入注释和运维契约，不创建学习表。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，以及 Task 5 激活竞争和旧公开读取，确认撤回提交后新请求不再取得问题版本。
-- [ ] **Step 5：提交。** 提交 feat: withdraw fixed content versions without losing history。
+- [x] **Step 3：实现撤回与预览。** Target 查库获得可信版本/字节摘要，不接受客户端摘要替代版本；在固定上限内计算知识前置反向闭包，再移除单元/素材及涉及路线。非前置边沿用读取过滤。新快照只包含原来已发布且仍可用的成员，并保留其原批准证据；空快照仍保留目录。预览是只读业务动作，不写事件或幂等成功；真实撤回在管理员最近验证、CSRF、expectedHead 及同一发布锁下重新计算。P4/P5 扩展点写入注释和运维契约，不创建学习表。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，以及 Task 5 激活竞争和旧公开读取，确认撤回提交后新请求不再取得问题版本。
+- [x] **Step 5：提交。** 提交 feat: withdraw fixed content versions without losing history。
 
 ## Task 7：Go 私有 HTTP、严格 JSON、SVG 与 OpenAPI
 
@@ -327,7 +327,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 列表 query 仅 scope/status/limit/offset，重复拒绝；draft scope=mine/all、status=editing/submitted；submission scope=mine/review/all、status=pending/approved/returned；publication scope=all、status=draft/published，均可省略。review scope 需要 reviewer，并从 pending 队列排除作者本人；status 省略时默认 pending，status=approved/returned 时只列该复核者处理的记录；默认 editor 为 mine、reviewer 为 review、admin 为 all，多角色用户可主动切换合法 scope。路径其他 query、HEAD/OPTIONS、末尾斜线和编码别名均拒绝。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestContentJSONExactBoundary": {"requestLimits":[8388608,8192],"responseMaximum":4194304,"maxDepth":32,"missingExpectedHead":"INVALID_REQUEST","explicitNullFirstHead":"valid","duplicateCaseAliasOrSurrogateOrNUL":"INVALID_REQUEST","chunkedLimitPlus1":"PAYLOAD_TOO_LARGE"},
@@ -338,14 +338,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi -run 'Test(Content|PrivateContent)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现精确边界与契约。** content JSON Walker 不复用账户 depth=8 的限制值；共享仅纯编码检查，保持账户行为。unknown/重复/case alias 在 Go 与代理一致拒绝；Input 大小按原始流计量，再按组件规范字节计量。生产无认证 origin 或迁移时保持明确故障。Content Handler 自己 8 秒读/计算总截止，SVG 不设置身份 Cookie。OpenAPI info 改为 1.3.0，新增上述路径/类型/固定英文消息，旧 public/auth/admin 组件不改；400/401/403/404/405/428/429/503 复用已有文案，新增错误消息按下面表固定。
-- [ ] **Step 4：验证 GREEN 与兼容。** 重跑 Step 2 和全套 httpapi/auth/config；契约生成后仅新增 content 类型，账户时限、Cookie 和 SSR 协议不改变。
-- [ ] **Step 5：提交。** 提交 feat: expose bounded private content workflow APIs。
+- [x] **Step 3：实现精确边界与契约。** content JSON Walker 不复用账户 depth=8 的限制值；共享仅纯编码检查，保持账户行为。unknown/重复/case alias 在 Go 与代理一致拒绝；Input 大小按原始流计量，再按组件规范字节计量。生产无认证 origin 或迁移时保持明确故障。Content Handler 自己 8 秒读/计算总截止，SVG 不设置身份 Cookie。OpenAPI info 改为 1.3.0，新增上述路径/类型/固定英文消息，旧 public/auth/admin 组件不改；400/401/403/404/405/428/429/503 复用已有文案，新增错误消息按下面表固定。
+- [x] **Step 4：验证 GREEN 与兼容。** 重跑 Step 2 和全套 httpapi/auth/config；契约生成后仅新增 content 类型，账户时限、Cookie 和 SSR 协议不改变。
+- [x] **Step 5：提交。** 提交 feat: expose bounded private content workflow APIs。
 
 | HTTP / code | 固定英文 message |
 | --- | --- |
@@ -367,7 +367,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** ContentRoute 为 Task 7 固定方法的判别联合，不能接受自由 URL；ContentResult<T>={ok:true,data:T}|{ok:false,status:number,code:ContentErrorCode,message:string,requestId:string,retryAfter?:number}。产出 contentRouteRequest(route:ContentRoute):{path:string,method:string,kind:ContentEndpoint}|null、createContentProxy(goOrigin:string,options:{publicOrigin:string,production:boolean},fetcher?:typeof fetch)、contentRequest<T>(route:ContentRoute,input?:unknown,key?:string):Promise<ContentResult<T>>、readServerContent<T>(route:ContentRoute,cookieHeader:string):Promise<ContentResult<T>>。AssetScope={kind:"draft"|"submission",id:string} 在 types.ts 定义；readContentAsset(scope:AssetScope,sha:string):Promise<ContentResult<Uint8Array>> 为浏览器的有界素材下载。validateContentSVG(bytes:Uint8Array,expectedSHA:string):boolean 在 server-only svg.ts 定义，使用内置 node:crypto 的 SHA-256；客户端不导入该文件。控制请求使用 auth.getAuthContext，不修改其缓存策略。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestContentProxyRawRequestBoundary": {"rawDuplicateCaseAliasSurrogateNUL":"rejected before JSON reserialization","chunked8MiBPlus1":"413","missingVsNullExpectedHead":"distinct","arbitraryPathOrQueryOrRedirect":"reject"},
@@ -378,12 +378,12 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/content src/lib/api/content-proxy.test.ts
 ~~~
 
-- [ ] **Step 3：实现严格传输。** Proxy 读原始 request 字节，在重序列化之前完成严格 JSON 检查；每类返回使用与 Go/OpenAPI 相同的完整 Schema。总超时 10 秒，JSON 4 MiB / SVG 1 MiB、无 redirect 和 Set-Cookie。SVG 仅在绑定作用域上调用；server-only svg.ts 使用下述受限 XML 状态解析算法，白名单与 Go assets.go 保持一致，不安装解析依赖，不用正则“去脚本”代替结构检查。客户端写入保持命令输入和 UUID key 的确切副本，失败只显示稳定文案。SSR 只读取、只转发选定 session，不创建 context、CSRF 或身份 Cookie。
+- [x] **Step 3：实现严格传输。** Proxy 读原始 request 字节，在重序列化之前完成严格 JSON 检查；每类返回使用与 Go/OpenAPI 相同的完整 Schema。总超时 10 秒，JSON 4 MiB / SVG 1 MiB、无 redirect 和 Set-Cookie。SVG 仅在绑定作用域上调用；server-only svg.ts 使用下述受限 XML 状态解析算法，白名单与 Go assets.go 保持一致，不安装解析依赖，不用正则“去脚本”代替结构检查。客户端写入保持命令输入和 UUID key 的确切副本，失败只显示稳定文案。SSR 只读取、只转发选定 session，不创建 context、CSRF 或身份 Cookie。
 SVG 状态解析规则锁定如下：
 
 1. fatal UTF-8 解码，校验 XML 1.0 字符范围；禁 NUL、DTD、处理指令和自定义实体。字符仅允许 U+0009/U+000A/U+000D、U+0020—U+D7FF、U+E000—U+FFFD、U+10000—U+10FFFF。
@@ -393,14 +393,14 @@ SVG 状态解析规则锁定如下：
 5. fill/stroke 只接受 Go colorPattern；所有解码后属性拒绝大小写不敏感的 url(。完整解析后不能有未闭合栈或尾随根。
 6. 比较实际 SHA-256 与请求摘要后才返回字节；失败返回固定故障，不输出原文。svg.test.ts 与 Go 素材测试共享实体转义 url(、重复属性、注释、65/66 层边界、10000/10001 元素和非法字符的正反例；原 SVG 必须通过。
 
-- [ ] **Step 4：验证 GREEN 与类型零漂移。**
+- [x] **Step 4：验证 GREEN 与类型零漂移。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm run api:generate
 node tools/verify/run.mjs --cwd frontend -- npm run typecheck
 node tools/verify/run.mjs --cwd frontend -- npm test
 ~~~
 生成类型先纳入本任务，再重跑生成，git diff generated.d.ts 必须无新增差异；旧 public/private proxy 测试继续通过。
-- [ ] **Step 5：提交。** 提交 feat: add strict content proxy and typed clients。
+- [x] **Step 5：提交。** 提交 feat: add strict content proxy and typed clients。
 
 ## Task 9：英文编辑、独立复核及发布撤回页面
 
@@ -408,7 +408,7 @@ node tools/verify/run.mjs --cwd frontend -- npm test
 
 **Interfaces:** DraftEditor({initial:DraftView})、ReviewPanel({submission:SubmissionView})、PublicationPanel({initial:PublicationPage})、WithdrawalPanel()；其余字段组件接受对应 DTO 与 onChange，不自行调用服务。消费任务 8 的 AssetScope；SafeMarkdown 和 AssetImage 增加可选 assetScope，默认仍使用现有 /api/v1/assets/{sha}。私有路径只能由 UUID 和已绑定 sha 构造，不接受自由 image URL。pending-command.ts 产出 createPendingCommand(route,input):PendingCommand、retryPendingCommand(command):Promise<ContentResult<unknown>>；仅内存保存确切输入和 key，成功后清除，不进入 localStorage/URL。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestAuthoringForms": {"schemaFields":"knowledge/unit/path/source fully editable","JSONImportExport":"same DTO,no private credential","missingBody":"saved but submit disabled","saveConflict":"unsaved input retained","invalidSVG":"rejected","privatePreview":"bound private endpoint"},
@@ -419,20 +419,20 @@ node tools/verify/run.mjs --cwd frontend -- npm test
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/content src/features/reading
 ~~~
 
-- [ ] **Step 3：实现页面。** SSR 读取真实身份并区分未登录、拒绝和故障；结构化表单覆盖设计字段，数组项新增/删除不改他项编号，包/成员版本显式展示并保留用户选择。JSON/SVG 文件导入先检查字节上限和编码；JSON 导入导出固定为 DraftInput envelope，导出通过 readContentAsset 读取绑定字节并标准 Base64 编码，不导出凭据；目录版本由输入明确选择并经 DB 核验，不硬编码资料文件版本。使用既有 Markdown/KaTeX 安全选项预览。sourceMap/manifest 等内部信息仅内容后台展示，不加入学习者公开页面。管理员列表和版本选择来自授权接口。发布/撤回成功再刷新 head；冲突、超时和取消不显示成功。复用既有重新验证接口，密码只在验证对话框使用，不放入内容命令或待重试副本。
-- [ ] **Step 4：验证 GREEN、构建和旧界面。**
+- [x] **Step 3：实现页面。** SSR 读取真实身份并区分未登录、拒绝和故障；结构化表单覆盖设计字段，数组项新增/删除不改他项编号，包/成员版本显式展示并保留用户选择。JSON/SVG 文件导入先检查字节上限和编码；JSON 导入导出固定为 DraftInput envelope，导出通过 readContentAsset 读取绑定字节并标准 Base64 编码，不导出凭据；目录版本由输入明确选择并经 DB 核验，不硬编码资料文件版本。使用既有 Markdown/KaTeX 安全选项预览。sourceMap/manifest 等内部信息仅内容后台展示，不加入学习者公开页面。管理员列表和版本选择来自授权接口。发布/撤回成功再刷新 head；冲突、超时和取消不显示成功。复用既有重新验证接口，密码只在验证对话框使用，不放入内容命令或待重试副本。
+- [x] **Step 4：验证 GREEN、构建和旧界面。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm test
 node tools/verify/run.mjs --cwd frontend -- npm run typecheck
 node tools/verify/run.mjs --cwd frontend -- npm run build
 ~~~
 任务内组件测试可用局部网络夹具；任务 10 浏览器必须连接真实 Go/PG。既有知识页、公式安全、认证导航和样式回归通过。
-- [ ] **Step 5：提交。** 提交 feat: build English content authoring and review workbenches。
+- [x] **Step 5：提交。** 提交 feat: build English content authoring and review workbenches。
 
 ## Task 10：真实联调、性能边界、独立审查与 PR 交付
 
@@ -440,15 +440,15 @@ node tools/verify/run.mjs --cwd frontend -- npm run build
 
 **Interfaces:** harness 新增 content 场景，在随机库创建 editor、reviewer、admin 和原创测试小路线，接入真正 Service/HTTP。角色授予和登录使用真实账户能力，技术测试的批准不构成独立数学验收。scene/control 继续 loopback、随机控制令牌，生产 server 禁止导入 e2etest。产出整分支验收记录。
 
-- [ ] **Step 1：写真实浏览器失败测试。** 两种视口覆盖创建/结构化编写/公式与私有图预览 → 保存 → 送审 → 作者禁止自审 → 另一账户批准/退回 → 管理员准备差异/重新验证/主动激活 → 匿名知识与路线读取 → 预览撤回/重新验证/撤回 → 匿名不可用。另测跨账户素材、无权限写入、复制作者、冲突保留输入、取消对话框、超时手动同 key 重试、故障恢复和旧公开/账户流程。不 route.fulfill 伪造成功；控制请求失败、截图与 runtime 读取沿用已修复的固定诊断，输入和 textarea 遮盖，trace/video 关闭。限流前置已通过 PR #13 提前交付，保留 store/auth_rate_limit_test.go 的 TestAuthRateLimitFixedWindowBoundary：同一固定分钟内前 10 次未知用户名登录返回 ErrInvalidCredentials，第 11 次返回 RateLimitError；数据库测试时钟推进一分钟后再次返回 ErrInvalidCredentials。原 ServicePolicies 的四项分钟预算断言必须使用固定时钟，注册的 10 分钟预算保持原值。
-- [ ] **Step 2：验证 RED。** 构建 harness 和现有生产前端后运行每个 content spec 独立批次；预期只有新场景或流程缺失失败，不能把错误数据库连接当 RED。
+- [x] **Step 1：写真实浏览器失败测试。** 两种视口覆盖创建/结构化编写/公式与私有图预览 → 保存 → 送审 → 作者禁止自审 → 另一账户批准/退回 → 管理员准备差异/重新验证/主动激活 → 匿名知识与路线读取 → 预览撤回/重新验证/撤回 → 匿名不可用。另测跨账户素材、无权限写入、复制作者、冲突保留输入、取消对话框、超时手动同 key 重试、故障恢复和旧公开/账户流程。不 route.fulfill 伪造成功；控制请求失败、截图与 runtime 读取沿用已修复的固定诊断，输入和 textarea 遮盖，trace/video 关闭。限流前置已通过 PR #13 提前交付，保留 store/auth_rate_limit_test.go 的 TestAuthRateLimitFixedWindowBoundary：同一固定分钟内前 10 次未知用户名登录返回 ErrInvalidCredentials，第 11 次返回 RateLimitError；数据库测试时钟推进一分钟后再次返回 ErrInvalidCredentials。原 ServicePolicies 的四项分钟预算断言必须使用固定时钟，注册的 10 分钟预算保持原值。
+- [x] **Step 2：验证 RED。** 构建 harness 和现有生产前端后运行每个 content spec 独立批次；预期只有新场景或流程缺失失败，不能把错误数据库连接当 RED。
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/ ./cmd/...
 node tools/verify/run.mjs --cwd frontend -- npm run e2e -- content-authoring.spec.ts
 ~~~
 其他 content 三个 spec 各自单独运行，使用相同 480 秒上限。
 
-- [ ] **Step 3：实现真实夹具与容量测试。** 新增 store/workflow_capacity_test.go（纳入本任务 Files）的 TestWorkflowCapacityEnvelope：合法最大计数/32 MiB JSON/10 MiB SVG、超限计数、4 MiB DTO、10 MiB public view、两个验证槽、锁等待和取消；边界数据同时满足其他限制，不把“只满足一种上限”的输入称为完全合法。记录 8 秒请求下完成情况、Go分配与进程最大驻留、DB查询计划和公开读取既有 3/5 秒预算。新增 BenchmarkWorkflowValidation、BenchmarkWorkflowSnapshot，各跑 -benchtime=3x，记录本机结果不声称生产容量。若最大合法输入不满足时限/内存约束，记录实测并修订方案的相应限制，兼容性修改经审阅后再继续，不静默放宽截止。
+- [x] **Step 3：实现真实夹具与容量测试。** 新增 store/workflow_capacity_test.go（纳入本任务 Files）的 TestWorkflowCapacityEnvelope：合法最大计数/32 MiB JSON/10 MiB SVG、超限计数、4 MiB DTO、10 MiB public view、两个验证槽、锁等待和取消；边界数据同时满足其他限制，不把“只满足一种上限”的输入称为完全合法。记录 8 秒请求下完成情况、Go分配与进程最大驻留、DB查询计划和公开读取既有 3/5 秒预算。新增 BenchmarkWorkflowValidation、BenchmarkWorkflowSnapshot，各跑 -benchtime=3x，记录本机结果不声称生产容量。若最大合法输入不满足时限/内存约束，记录实测并修订方案的相应限制，兼容性修改经审阅后再继续，不静默放宽截止。
 账户限流测试复用已交付的 fixedRateFixture(t *testing.T, at time.Time) (*authFixture, func(time.Time))：在严格验证名称的随机隔离库建立一行测试时钟及 public.clock_timestamp() SQL 函数，仅设置该随机数据库的 search_path=public,pg_catalog 并回收旧物理连接，推进函数只更新该行。新连接和仓储并发测试均使用同一固定时钟，不限制最大连接数；不重复编写已经通过 RED→GREEN 的夹具与边界测试。不修改生产 dbClock、固定窗口额度或并发测试的连接池；不通过重试、跳过测试或放宽额度掩盖跨窗问题。
 容量/成本独立命令：
 ~~~bash
@@ -457,7 +457,7 @@ node tools/verify/run.mjs --cwd backend -- /usr/bin/time -l env CGO_ENABLED=0 GO
 ~~~
 /usr/bin/time -l 用于本机 macOS 资源记录，Linux CI 使用已有计时能力并注明环境，不将此 macOS 参数原样写入 CI。Benchmark 函数在任务 2 的对应 validation 测试文件中增加。
 
-- [ ] **Step 4：完成 GREEN 和整分支回归。** 各命令单独受 540 秒限制；数据库包太慢时按工作流/账户/CLI 分批，不增加单批时限。
+- [x] **Step 4：完成 GREEN 和整分支回归。** 各命令单独受 540 秒限制；数据库包太慢时按工作流/账户/CLI 分批，不增加单批时限。
 ~~~bash
 node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/content-ingest/snapshot.test.mjs
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...
@@ -478,7 +478,7 @@ node tools/verify/run.mjs --cwd frontend -- npm run e2e -- content-security.spec
 ~~~
 若必须拆分 store/cli，先用 go test -list . 取得全部测试名，明确分批并检查并集覆盖所有名字；所有原测试均需纳入，不能只挑匹配 Workflow 的测试。gofmt 全目录无未格式化文件，git diff --check 通过，重复 api:generate 零差异。检查新随机库被清理，真实开发库无新增账户/审核/head，源快照保留。CI 增加 publication 包与 content 浏览器批次；每个步骤仍用限时入口。
 
-- [ ] **Step 5：独立整分支审查、修复与交付。** 使用 requesting-code-review / verification-before-completion 技能，在技术验收提交后做一次新上下文整分支审查，审查者采用该技能规定的最强可用模型，重点核对五项 Review Focus、真实竞争、触发器、权限、响应边界和旧契约。必要修复先补失败测试，修复后重跑受影响及整分支验证；未解决阻塞问题不宣称完成。记录审查结论和实测验收，勾选步骤只依据已执行证据。提交 test: verify content review publication and withdrawal flows；使用 SSH 推送功能分支，通过 Git 创建面向 master 的 PR 并附到会话，核验确切最新 head 的 CI。不得用真实库里的测试批准或自动部署替代数学/上线验收。
+- [x] **Step 5：独立整分支审查、修复与交付。** 使用 requesting-code-review / verification-before-completion 技能，在技术验收提交后做一次新上下文整分支审查，审查者采用该技能规定的最强可用模型，重点核对五项 Review Focus、真实竞争、触发器、权限、响应边界和旧契约。必要修复先补失败测试，修复后重跑受影响及整分支验证；未解决阻塞问题不宣称完成。记录审查结论和实测验收，勾选步骤只依据已执行证据。提交 test: verify content review publication and withdrawal flows；使用 SSH 推送功能分支，通过 Git 创建面向 master 的 PR 并附到会话，核验确切最新 head 的 CI。不得用真实库里的测试批准或自动部署替代数学/上线验收。
 
 ## 可行性、覆盖与执行交接
 
@@ -502,3 +502,7 @@ PR #12 的初始提交 612fd9b 仅包含三份文档。前端 push/PR 和后端 
 在临时源码副本和随机隔离 PostgreSQL 库中，主动让一次登录与后续十次登录跨越分钟边界，复现了同一断言失败：login_username 有两个窗口、总次数 11、单窗最多 10，最后返回 ErrInvalidCredentials。未修改的完整 store/cli 本地回归随后通过（store 11.506 秒、cli 1.695 秒）。这证明既有测试隐含的“十一尝试始终同窗”假设不稳定。用户确认计划后，将任务 10 的这项修复提前作为开工前置：PR #13 已通过独立整分支审查、完整本地 Go 回归及四项远程 CI，并合并到 master；生产源码和限额未改。具体 RED→GREEN、固定时钟、重连及保留多连接竞争的实现与证据见 [修复记录](../../operations/2026-10-01-auth-rate-ci-fix.md)。该问题已闭环，其余内容功能仍按十项任务验收。
 
 执行方式沿用已确认的 Native；更新 master、新建功能分支并按 Task 1—10 顺序推进，最后一次独立整分支审查。除上述已交付的 CI 前置修复外，未提前勾选功能步骤；最终技术 PR 和真实数学发布分别验收。
+
+### P3b 实施技术验证记录
+
+Task 1—9 已按 RED→GREEN 逐项提交。Task 10 的真实夹具、容量与回归已通过：Go/store/cli 全部、前端 72 单元测试、46 真实浏览器用例、类型/构建/审计及格式检查；详细环境、性能、边界失败与修复见 [技术验收](../../operations/2026-10-01-p3b-acceptance.md)。最大候选准备约 3.47 秒，生产 8 秒截止及原容量上限保持。Step 5 的独立审查已完成，三项 Important 均经 RED→GREEN 修复并通过整分支回归；已通过 SSH 创建并附上 [PR #14](https://github.com/yyl1212/math_master/pull/14)，精确技术提交 5e6ee0f 的 push/PR 后端与前端四项 CI 全部通过；后续验收文档提交以 PR 最新检查为准。Step 5 依据上述实际证据勾选，工作区保留，未部署或发布真实数学内容。

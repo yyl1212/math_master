@@ -1,0 +1,32 @@
+import { beforeEach, it, expect, vi } from "vitest";
+import { createPendingCommand, retryPendingCommand } from "./pending-command";
+import { fixtureID } from "@/lib/content/test-fixtures";
+import { contentFailure } from "@/lib/content/schemas";
+const mocks = vi.hoisted(() => ({ request: vi.fn() }));
+vi.mock("@/lib/content/client", () => ({ contentRequest: mocks.request }));
+beforeEach(() => mocks.request.mockReset());
+it("TestPendingCommandManualRetry", async () => {
+    const input = { expectedRevision: 1, expectedDigest: "a".repeat(64) }, command = createPendingCommand({ kind: "submitDraft", id: fixtureID }, input);
+    input.expectedRevision = 2;
+    mocks.request.mockResolvedValueOnce(contentFailure()).mockResolvedValueOnce({ ok: true, data: { id: fixtureID } });
+    await retryPendingCommand(command);
+    expect(command.state).toBe("pending");
+    await retryPendingCommand(command);
+    expect(mocks.request).toHaveBeenCalledTimes(2);
+    expect(mocks.request.mock.calls[0]).toEqual(mocks.request.mock.calls[1]);
+    expect(mocks.request.mock.calls[0][1].expectedRevision).toBe(1);
+    expect(command.state).toBe("done");
+    expect(command.input).toBe(null);
+    expect(createPendingCommand({ kind: "submitDraft", id: fixtureID }, input).key).not.toBe(command.key);
+});
+it("TestPendingCommandDoubleClick", async () => {
+    let resolve!: (value: unknown) => void;
+    mocks.request.mockReturnValue(new Promise(r => resolve = r));
+    const c = createPendingCommand({ kind: "reviseSubmission", id: fixtureID }, {});
+    const a = retryPendingCommand(c), b = retryPendingCommand(c);
+    expect(mocks.request).toHaveBeenCalledTimes(1);
+    resolve({ ok: true, data: {} });
+    expect(await a).toEqual(await b);
+    await retryPendingCommand(c);
+    expect(mocks.request).toHaveBeenCalledTimes(1);
+});

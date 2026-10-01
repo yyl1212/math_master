@@ -10,7 +10,9 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
+	"unicode/utf8"
 )
 
 var svgElements = words("svg g rect line path circle ellipse polygon polyline text tspan title desc")
@@ -28,13 +30,8 @@ var colorPattern = regexp.MustCompile(`^(?:none|black|white|red|green|blue|gray|
 
 func readAsset(root string, a Asset) ([]byte, error) {
 	bad := errors.New("invalid asset")
-	if filepath.IsAbs(a.Path) || strings.Contains(a.Path, "\\") || !strings.HasSuffix(a.Path, ".svg") {
+	if !ValidAssetPath(a.Path) {
 		return nil, bad
-	}
-	for _, part := range strings.Split(a.Path, "/") {
-		if part == "" || part == "." || part == ".." {
-			return nil, bad
-		}
 	}
 	realRoot, e := filepath.EvalSymlinks(root)
 	if e != nil {
@@ -64,6 +61,9 @@ func readAsset(root string, a Asset) ([]byte, error) {
 }
 func validateSVG(b []byte) error {
 	bad := errors.New("invalid SVG")
+	if !validSVGLexical(b) {
+		return bad
+	}
 	d := xml.NewDecoder(bytes.NewReader(b))
 	depth, count, roots := 0, 0, 0
 	for {
@@ -117,4 +117,68 @@ func validateSVG(b []byte) error {
 		return bad
 	}
 	return nil
+}
+
+// encoding/xml substitutes invalid numeric surrogates with U+FFFD and resolves
+// prefixes. Validate their original spelling before accepting decoded tokens.
+func validSVGLexical(b []byte) bool {
+	if !utf8.Valid(b) {
+		return false
+	}
+	d := xml.NewDecoder(bytes.NewReader(b))
+	for {
+		start := d.InputOffset()
+		token, err := d.RawToken()
+		if err == io.EOF {
+			return true
+		}
+		if err != nil {
+			return false
+		}
+		raw := b[start:d.InputOffset()]
+		switch n := token.(type) {
+		case xml.StartElement:
+			if n.Name.Space != "" {
+				return false
+			}
+			for _, a := range n.Attr {
+				if a.Name.Space != "" {
+					return false
+				}
+			}
+		case xml.EndElement:
+			if n.Name.Space != "" {
+				return false
+			}
+			continue
+		case xml.CharData:
+			if bytes.HasPrefix(raw, []byte("<![CDATA[")) {
+				continue
+			}
+		default:
+			continue
+		}
+		for {
+			at := bytes.Index(raw, []byte("&#"))
+			if at < 0 {
+				break
+			}
+			raw = raw[at+2:]
+			end := bytes.IndexByte(raw, ';')
+			if end < 0 {
+				return false
+			}
+			digits := string(raw[:end])
+			base := 10
+			if strings.HasPrefix(digits, "x") {
+				base = 16
+				digits = digits[1:]
+			}
+			v, e := strconv.ParseUint(digits, base, 32)
+			if e != nil || !(v == 9 || v == 10 || v == 13 || v >= 0x20 && v <= 0xd7ff || v >= 0xe000 && v <= 0xfffd || v >= 0x10000 && v <= 0x10ffff) {
+				return false
+			}
+			raw = raw[end+1:]
+		}
+	}
 }

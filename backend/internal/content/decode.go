@@ -66,11 +66,14 @@ func DecodeCatalogue(r io.Reader) (catalogue.Catalogue, error) {
 }
 
 func decode(r io.Reader, name string, out any) error {
-	data, err := io.ReadAll(io.LimitReader(r, MaxPackageBytes+1))
+	return decodeLimit(r, name, out, MaxPackageBytes)
+}
+func decodeLimit(r io.Reader, name string, out any, limit int) error {
+	data, err := io.ReadAll(io.LimitReader(r, int64(limit)+1))
 	if err != nil {
 		return &DecodeError{"READ_FAILED", "/"}
 	}
-	if len(data) > MaxPackageBytes {
+	if len(data) > limit {
 		return &DecodeError{"INPUT_TOO_LARGE", "/"}
 	}
 	if !utf8.Valid(data) {
