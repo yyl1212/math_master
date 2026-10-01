@@ -347,7 +347,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** store/question_{import,draft,export}.go及测试；cli/question.go/question_test.go；三个cmd/main.go。
 **Interfaces:** 产出RunQuestion、ImportQuestionDraft(ctx,Archive)(QuestionImportResult,error)、ExportQuestionArchive(ctx,id string,version int)(Archive,error)，以及Repository的draft六个方法和QuestionPreflight；QuestionImportResult含PackageID/PackageSHA/Status string、PackageVersion/ImportedInstances/DuplicateInstances int，Status固定draft。
 
-- [ ] **Step 1：写失败测试。** TestQuestionCLIArchiveRoundTrip保持包/实例SHA、引擎版本、sourceMap和可验证作者来源；同库既有作者由DB继承、外来记录不继承批准、输出只能新目录且无路径泄漏；TestQuestionDraftOwnership：本人编辑、admin只读、他人404、expectedRevision冲突、结构合法不完整可保存、private知识草稿不能读取；TestQuestionAdoptionPreservesResponsibility：10/2000及±1边界、复制原作者/legacy标记不可清空、CLI不能指定可信平台作者或review，当前认领者新增整理责任。
+- [x] **Step 1：写失败测试。** TestQuestionCLIArchiveRoundTrip保持包/实例SHA、引擎版本、sourceMap和可验证作者来源；同库既有作者由DB继承、外来记录不继承批准、输出只能新目录且无路径泄漏；TestQuestionDraftOwnership：本人编辑、admin只读、他人404、expectedRevision冲突、结构合法不完整可保存、private知识草稿不能读取；TestQuestionAdoptionPreservesResponsibility：10/2000及±1边界、复制原作者/legacy标记不可清空、CLI不能指定可信平台作者或review，当前认领者新增整理责任。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -359,10 +359,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** 分两批：node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run TestQuestionCLI -timeout 5m -count=1；同入口go test ./internal/store -run 'TestQuestion(DraftOwnership|AdoptionPreservesResponsibility)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现工具与草稿。** 导入只取既有内容锁、再核验数据库引用，不反向取admin锁；检查/导入用输入上限和8秒数学截止，不把离线references视为公开批准。保存只固定输入和revision，validate针对已保存revision实时读取公开引用/完整生成；summary不含答案/来源。不存在snapshot或已有同版本异字节时整次失败，原CLI调用接口不改。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；用临时新目录和随机库执行check→import→export→check，技术草稿始终零批准零公开；原content check/import/export回归通过。导出失败仅清理本次创建目录。
-- [ ] **Step 5：提交。** 任务6文件，提交 feat: 增加未批准题包工具与安全草稿编写。
+- [x] **Step 2：验证RED。** 分两批：node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run TestQuestionCLI -timeout 5m -count=1；同入口go test ./internal/store -run 'TestQuestion(DraftOwnership|AdoptionPreservesResponsibility)$' -timeout 5m -count=1。
+- [x] **Step 3：实现工具与草稿。** 导入只取既有内容锁、再核验数据库引用，不反向取admin锁；检查/导入用输入上限和8秒数学截止，不把离线references视为公开批准。保存只固定输入和revision，validate针对已保存revision实时读取公开引用/完整生成；summary不含答案/来源。不存在snapshot或已有同版本异字节时整次失败，原CLI调用接口不改。
+- [x] **Step 4：验证GREEN。** 重跑Step2；用临时新目录和随机库执行check→import→export→check，技术草稿始终零批准零公开；原content check/import/export回归通过。导出失败仅清理本次创建目录。
+- [x] **Step 5：提交。** 任务6文件，提交 feat: 增加未批准题包工具与安全草稿编写。
 
 ## Task 7：冻结送审、作者继承与独立复核
 

@@ -23,6 +23,7 @@ CREATE TABLE question_packages (
  CHECK((body->'body'->>'kind'='question-bank' AND body->'body'->>'schemaVersion'='1') IS TRUE),
  CHECK((body->'body'->>'id'=id AND (body->'body'->>'version')::integer=version) IS TRUE)
 );
+CREATE INDEX question_package_content ON question_packages USING gin ((body->'body') jsonb_path_ops);
 CREATE TABLE question_templates (
  id text NOT NULL CHECK((id ~ '^[a-z][a-z0-9]*(-[a-z0-9]+)*$' AND length(id)<=64) IS TRUE),version integer NOT NULL CHECK((version>0) IS TRUE),sha256 text NOT NULL CHECK((sha256 ~ '^[0-9a-f]{64}$') IS TRUE),body jsonb NOT NULL,body_bytes bytea NOT NULL,
  CHECK((encode(sha256(body_bytes),'hex')=sha256) IS TRUE), CHECK((convert_from(body_bytes,'UTF8')::jsonb=body) IS TRUE), CHECK((jsonb_typeof(body)='object') IS TRUE),
@@ -126,7 +127,7 @@ CREATE TABLE question_withdrawals (
 );
 CREATE TABLE question_events (
  id uuid PRIMARY KEY CHECK((id::text ~ '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$') IS TRUE),actor_user_id uuid NOT NULL REFERENCES auth_users(id),action text NOT NULL,object_kind text NOT NULL,object_id text NOT NULL,
- before_digest text,after_digest text,before_state text,after_state text,reason text NOT NULL DEFAULT '',request_id text NOT NULL,created_at timestamptz NOT NULL DEFAULT clock_timestamp(),CHECK((octet_length(reason)<=3000) IS TRUE)
+ before_digest text,after_digest text,before_state text,after_state text,reason text NOT NULL DEFAULT '',request_id text NOT NULL,created_at timestamptz NOT NULL DEFAULT clock_timestamp(),CHECK((octet_length(reason)<=6000) IS TRUE)
 );
 CREATE TABLE question_idempotency (
  actor_user_id uuid NOT NULL REFERENCES auth_users(id),route text NOT NULL CHECK((route IN ('createDraft','saveDraft','adoptDraft','submitDraft','reviseSubmission','decideReview','prepareRelease','activateRelease','withdrawVersion')) IS TRUE),
