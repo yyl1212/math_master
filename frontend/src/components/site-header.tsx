@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { AuthStatus } from "./auth-status";
 import { usePathname } from "next/navigation";
 export function SiteHeader() {
   const path = usePathname();
@@ -45,12 +46,12 @@ export function SiteHeader() {
           prefetch={false}
           href="/knowledge"
           aria-current={path === "/knowledge" ? "page" : undefined}
-          data-active={path !== "/"}
+          data-active={path === "/knowledge" || path.startsWith("/knowledge/")}
         >
           Knowledge Map
         </Link>
       </nav>
-      <span className="header-note">Explore at your own pace</span>
+      <AuthStatus />
     </header>
   );
 }
