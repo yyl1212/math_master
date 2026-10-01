@@ -65,3 +65,5 @@ func TestErrorsAreEnglishAndRedacted(t *testing.T) {
 		}
 	}
 }
+
+func (f *fakeReader) GetPublishedAsset(context.Context, string) ([]byte, error) { return nil, f.err }
