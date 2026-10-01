@@ -119,6 +119,8 @@ CREATE TABLE question_publication_members (
  FOREIGN KEY(template_id,version,sha256) REFERENCES question_templates(id,version,sha256),FOREIGN KEY(instance_id,version,sha256) REFERENCES question_instances(id,version,sha256),FOREIGN KEY(blueprint_id,version,sha256) REFERENCES question_blueprints(id,version,sha256),
  CHECK(((kind='template' AND template_id IS NOT NULL AND template_id=id AND instance_id IS NULL AND blueprint_id IS NULL) OR (kind='instance' AND instance_id IS NOT NULL AND instance_id=id AND template_id IS NULL AND blueprint_id IS NULL) OR (kind='blueprint' AND blueprint_id IS NOT NULL AND blueprint_id=id AND template_id IS NULL AND instance_id IS NULL)) IS TRUE)
 );
+CREATE INDEX question_member_history ON question_publication_members(kind,id,version,publication_id);
+CREATE INDEX question_publication_changes ON question_publications USING gin(changes jsonb_path_ops);
 CREATE TABLE question_heads (singleton boolean PRIMARY KEY DEFAULT true CHECK((singleton) IS TRUE),publication_id uuid NOT NULL REFERENCES question_publications(id));
 CREATE TABLE question_withdrawals (
  id uuid PRIMARY KEY CHECK((id::text ~ '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$') IS TRUE),kind text NOT NULL CHECK((kind IN ('template','instance','blueprint')) IS TRUE),target_id text NOT NULL,target_version integer NOT NULL CHECK((target_version>0) IS TRUE),sha256 text NOT NULL CHECK((sha256 ~ '^[0-9a-f]{64}$') IS TRUE),

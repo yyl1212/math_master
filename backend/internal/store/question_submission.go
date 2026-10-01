@@ -51,9 +51,13 @@ func questionFrozen(d question.DraftView, sealed question.SealedPackage, gate qu
 	generators, verifiers := question.UsedEngineVersions(sealed.Package, sealed.Instances)
 	return question.FrozenBody{CatalogueVersion: d.CatalogueVersion, CatalogueSHA256: d.CatalogueSHA256, QuestionPackage: sealed.Package, SourceMap: d.SourceMap, AuthorIDs: responsible.AuthorIDs, LegacyUnattributed: responsible.LegacyUnattributed, Resolved: sealed.Resolved, Objectives: sealed.Objectives, Generation: sealed.Generation, InstanceIdentities: ids, Coverage: gate.Coverage, GeneratorVersions: generators, VerifierVersions: verifiers}
 }
-func questionFitPage[T any](page *question.Page[T]) error {
+func questionFitPage[T any](page *question.Page[T], envelope ...func() any) error {
 	for {
-		raw, err := json.Marshal(page)
+		var value any = page
+		if len(envelope) > 0 {
+			value = envelope[0]()
+		}
+		raw, err := json.Marshal(value)
 		if err != nil {
 			return err
 		}

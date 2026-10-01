@@ -415,7 +415,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** question/{withdrawal,facts}.go及测试；store/question_{withdrawal,coverage,facts}.go及测试。
 **Interfaces:** 产出PreviewQuestionWithdrawal、WithdrawQuestionVersion、ReadQuestionCoverage、questionOfferable/questionHistoricalFacts；到此var _ question.Repository=(*Store)(nil)才加入生产编译断言。
 
-- [ ] **Step 1：写失败测试。** TestQuestionPermanentWithdrawalFacts：template移除全部关联实例/蓝图、fixed实例移除显式蓝图、单generated实例只移该实例并重新计算模板蓝图ready、blueprint不删正确讲解；TestQuestionCoverageAfterSingleInstanceWithdrawal：5→4不足、不用重复凑数/旧ready、允许撤成空库；TestQuestionKnowledgeWithdrawalStopsOffer：K/unit/asset当前不可用立即停止、无关K更新不整体停止；TestQuestionWithdrawalReplayRace：两head变化/不同键重复目标409，激活或旧送审不能带回黑名单；TestQuestionHistoricalFactSeparation：普通替换仅退出new offer，永久撤回另列固定事实，历史字节可追溯；TestQuestionCoverageCounts：distinct总量与多节点覆盖区别、固定题/模板/实例不混算。
+- [x] **Step 1：写失败测试。** TestQuestionPermanentWithdrawalFacts：template移除全部关联实例/蓝图、fixed实例移除显式蓝图、单generated实例只移该实例并重新计算模板蓝图ready、blueprint不删正确讲解；TestQuestionCoverageAfterSingleInstanceWithdrawal：5→4不足、不用重复凑数/旧ready、允许撤成空库；TestQuestionKnowledgeWithdrawalStopsOffer：K/unit/asset当前不可用立即停止、无关K更新不整体停止；TestQuestionWithdrawalReplayRace：两head变化/不同键重复目标409，激活或旧送审不能带回黑名单；TestQuestionHistoricalFactSeparation：普通替换仅退出new offer，永久撤回另列固定事实，历史字节可追溯；TestQuestionCoverageCounts：distinct总量与多节点覆盖区别、固定题/模板/实例不混算。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -428,10 +428,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(PermanentWithdrawalFacts|CoverageAfterSingleInstanceWithdrawal|KnowledgeWithdrawalStopsOffer|WithdrawalReplayRace|HistoricalFactSeparation|CoverageCounts)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现撤回闭包与分离读取。** 从当前head固定影响/ImpactDigest，按Target规则生成新manifest与黑名单/审计/幂等同事务；不把非当前成员当不存在或永久撤回。coverage repeatable-read读取两个head及固定有效性，每节点动态FiveQuestionCover，报告分页面向reviewer/admin；历史读取不套当前head存在性过滤。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；原知识/单元/素材撤回仍使用原闭包/锁且不增旧表kind；无用户assessment/learning写入。随机库记录全部新表/原表兼容回归结果。
-- [ ] **Step 5：提交。** 任务9文件，提交 feat: 永久撤回题目并区分当前可用与历史证据。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(PermanentWithdrawalFacts|CoverageAfterSingleInstanceWithdrawal|KnowledgeWithdrawalStopsOffer|WithdrawalReplayRace|HistoricalFactSeparation|CoverageCounts)$' -timeout 5m -count=1。
+- [x] **Step 3：实现撤回闭包与分离读取。** 从当前head固定影响/ImpactDigest，按Target规则生成新manifest与黑名单/审计/幂等同事务；不把非当前成员当不存在或永久撤回。coverage repeatable-read读取两个head及固定有效性，每节点动态FiveQuestionCover，报告分页面向reviewer/admin；历史读取不套当前head存在性过滤。
+- [x] **Step 4：验证GREEN。** 重跑Step2；原知识/单元/素材撤回仍使用原闭包/锁且不增旧表kind；无用户assessment/learning写入。随机库记录全部新表/原表兼容回归结果。
+- [x] **Step 5：提交。** 任务9文件，提交 feat: 永久撤回题目并区分当前可用与历史证据。
 
 ## Task 10：Go私有HTTP、共享资源与OpenAPI
 

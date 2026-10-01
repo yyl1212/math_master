@@ -35,3 +35,18 @@ func TestQuestionSubmissionResponseBudget(t *testing.T) {
 		t.Fatal("budget check rewrote submission")
 	}
 }
+
+func TestQuestionWrappedPageBudget(t *testing.T) {
+	page := question.Page[string]{Items: []string{strings.Repeat("x", question.MaxResponseBytes/2-100), strings.Repeat("y", question.MaxResponseBytes/2-100)}, Total: 2, Limit: 2}
+	wrapper := struct {
+		question.Page[string]
+		Metadata string `json:"metadata"`
+	}{Page: page, Metadata: strings.Repeat("z", 500)}
+	if err := questionFitPage(&wrapper.Page, func() any { return wrapper }); err != nil {
+		t.Fatal(err)
+	}
+	raw, _ := json.Marshal(wrapper)
+	if len(raw) > question.MaxResponseBytes || wrapper.Limit != 1 || len(wrapper.Items) != 1 {
+		t.Fatal("ignored complete response envelope")
+	}
+}

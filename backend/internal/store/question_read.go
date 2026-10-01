@@ -82,7 +82,7 @@ func (s *Store) ListQuestionPublications(ctx context.Context, a question.Access,
 		if err = rows.Err(); err != nil {
 			return err
 		}
-		return questionFitPage(&out.Page)
+		return questionFitPage(&out.Page, func() any { return out })
 	})
 	return out, err
 }
@@ -126,7 +126,7 @@ func (s *Store) ListQuestionMembers(ctx context.Context, a question.Access, id s
 		if err = rows.Err(); err != nil {
 			return err
 		}
-		return questionFitPage(&out.Page)
+		return questionFitPage(&out.Page, func() any { return out })
 	})
 	return out, err
 }
@@ -161,7 +161,7 @@ func (s *Store) ListQuestionChanges(ctx context.Context, a question.Access, id s
 		if err = rows.Err(); err != nil {
 			return err
 		}
-		return questionFitPage(&out.Page)
+		return questionFitPage(&out.Page, func() any { return out })
 	})
 	return out, err
 }
