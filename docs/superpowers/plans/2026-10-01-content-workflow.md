@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 >
-> 本项目沿用用户此前选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查；不自动分派实现代理。以下尚未执行，不能提前勾选。
+> 本项目沿用用户此前选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查；不自动分派实现代理。实施步骤仅在验收通过后勾选。
 
 **Goal:** 交付可追责的英文内容后台，使原创数学草稿经固定版本送审和独立复核后安全发布，问题版本可以原子撤回。
 
@@ -10,7 +10,7 @@
 
 **Tech Stack:** Go 1.27.1、PostgreSQL 17.11、Node.js 24.17.0、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3；沿用当前锁文件，不新增产品依赖。
 
-**Spec:** [P3b 已确认设计](../specs/2026-10-01-content-workflow-design.md)，用户于 2026-10-01 确认，已通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并。计划已于 2026-10-01 获用户书面确认，执行方式 Native；基线 master a4cf6278774b30cce3e7278a7582dd522c465be8 已包含 [PR #13](https://github.com/yyl1212/math_master/pull/13) 的限流测试修复。十项功能任务尚未完成。方案的七组顺序细化为十个可独立验证的任务，没有增加产品范围。
+**Spec:** [P3b 已确认设计](../specs/2026-10-01-content-workflow-design.md)，用户于 2026-10-01 确认，已通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并。计划已于 2026-10-01 获用户书面确认，执行方式 Native；基线 master a4cf6278774b30cce3e7278a7582dd522c465be8 已包含 [PR #13](https://github.com/yyl1212/math_master/pull/13) 的限流测试修复。实施状态见下方各任务已勾选步骤。方案的七组顺序细化为十个可独立验证的任务，没有增加产品范围。
 
 ## 全局约束（Global Constraints）
 
@@ -185,7 +185,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** content.AssetReader 为 func(context.Context,content.Asset)([]byte,error)；产出 ValidateAndSealWithAssets(ctx,catalogue.Catalogue,Package,AssetReader)(ValidatedPackage,Report)、ValidateWorkflow(ctx,catalogue.Catalogue,Package,AssetReader)(ValidatedPackage,WorkflowReport)、ValidateEditable(ctx,catalogue.Catalogue,Package,AssetReader)(WorkflowReport,error)、ValidateSnapshot(ctx,catalogue.Catalogue,Snapshot,AssetReader)(WorkflowReport,error)、ValidateSVG([]byte)error。WorkflowReport 具有三类完整 Issue 数组与总数，不依赖 publication；publication.GateReport 从它映射。store.importValidatedTx(ctx,*sql.Tx,content.ValidatedPackage)(ImportResult,error) 只做当前已加锁事务中的写入，ImportDraft 原签名保持。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestWorkflowAssetReaderParity": {"fileAndDBBytes":"same package digest/report","pathTraversalOrSymlink":"file reader rejection","DBReader":"never opens asset.path","wrongSHAOrUnsafeSVG":"CONTENT_INVALID","assetAliasBinding":"exact digest"},
@@ -196,15 +196,15 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。** Run 以下两个独立批次，预期新行为缺失失败：
+- [x] **Step 2：验证 RED。** Run 以下两个独立批次，预期新行为缺失失败：
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/content -run 'Test(Workflow|Editable|Snapshot)' -timeout 5m -count=1
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'Test(ImportTransactionReuse|ImportIsIdempotent|VersionCannotBeOverwritten|ImportRollsBackLateFailure)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现校验与复用。** 共同结构检查接收读取器，旧 ValidateAndSeal 调用文件适配器并保留原 Report 和 REVIEW_REQUIRED 语义。Editable 模式允许缺失数学引用和正文，但拒绝危险文本、错误素材字节与 Schema。Workflow 模式执行设计第 6 节最低完整性要求；素材字节或数学含义改变须创建相应知识/单元新版本；机器校验检查摘要和绑定，是否属于数学含义修改由复核核对。Snapshot 模式独立检查整图及公开 view 大小，不把一个随意 Package 拼装成可信审核证明。引用遍历采用有界迭代算法并检查 ctx，避免大图递归爆栈；按计数和字节上限预检后再读取正文或 SVG。
-- [ ] **Step 4：验证 GREEN 与 P1 兼容。** 重跑 Step 2，再跑完整 content/cli/import 旧测试；重新导出旧包摘要必须相同，无新增发布 head。
-- [ ] **Step 5：提交。** 提交 feat: separate content readiness from independent review。
+- [x] **Step 3：实现校验与复用。** 共同结构检查接收读取器，旧 ValidateAndSeal 调用文件适配器并保留原 Report 和 REVIEW_REQUIRED 语义。Editable 模式允许缺失数学引用和正文，但拒绝危险文本、错误素材字节与 Schema。Workflow 模式执行设计第 6 节最低完整性要求；素材字节或数学含义改变须创建相应知识/单元新版本；机器校验检查摘要和绑定，是否属于数学含义修改由复核核对。Snapshot 模式独立检查整图及公开 view 大小，不把一个随意 Package 拼装成可信审核证明。引用遍历采用有界迭代算法并检查 ctx，避免大图递归爆栈；按计数和字节上限预检后再读取正文或 SVG。
+- [x] **Step 4：验证 GREEN 与 P1 兼容。** 重跑 Step 2，再跑完整 content/cli/import 旧测试；重新导出旧包摘要必须相同，无新增发布 head。
+- [x] **Step 5：提交。** 提交 feat: separate content readiness from independent review。
 
 ## Task 3：本人草稿、认领修订与固定版本送审
 

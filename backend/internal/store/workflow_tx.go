@@ -17,6 +17,9 @@ func workflowError(err error) error {
 	if err == nil {
 		return nil
 	}
+	if errors.Is(err, ErrImmutableConflict) {
+		return publication.ErrImmutableConflict
+	}
 	for _, known := range []error{publication.ErrDraftConflict, publication.ErrReviewConflict, publication.ErrImmutableConflict, publication.ErrIdempotencyConflict, publication.ErrVersionConflict, publication.ErrPublicationStale, publication.ErrContentNotReady, publication.ErrContentInvalid, publication.ErrReviewRequired, publication.ErrContentLimitExceeded, publication.ErrContentNotConfigured} {
 		if errors.Is(err, known) {
 			return known

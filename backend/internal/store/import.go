@@ -24,17 +24,29 @@ func (s *Store) ImportDraft(ctx context.Context, v content.ValidatedPackage) (Im
 	}
 	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
-	p, c := v.Package(), v.Catalogue()
-	result := ImportResult{PackageID: p.ID, Version: p.Version, SHA256: v.SHA256()}
 	tx, e := s.db.BeginTx(ctx, nil)
+	if e != nil {
+		return ImportResult{}, e
+	}
+	defer tx.Rollback()
+	if _, e = tx.ExecContext(ctx, "SELECT pg_advisory_xact_lock(1296127048)"); e != nil {
+		return ImportResult{}, e
+	}
+	result, e := s.importValidatedTx(ctx, tx, v)
 	if e != nil {
 		return result, e
 	}
-	defer tx.Rollback()
-	// One transaction lock serializes overlapping immutable versions, including different packages.
-	if _, e = tx.ExecContext(ctx, "SELECT pg_advisory_xact_lock(1296127048)"); e != nil {
-		return result, e
+	return result, tx.Commit()
+}
+
+// The caller owns the content lock, transaction, deadline, and commit.
+func (s *Store) importValidatedTx(ctx context.Context, tx *sql.Tx, v content.ValidatedPackage) (ImportResult, error) {
+	if !v.Verify() {
+		return ImportResult{}, ErrInvalidPackage
 	}
+	p, c := v.Package(), v.Catalogue()
+	result := ImportResult{PackageID: p.ID, Version: p.Version, SHA256: v.SHA256()}
+	var e error
 	var prior string
 	e = tx.QueryRowContext(ctx, "SELECT sha256 FROM imported_packages WHERE id=$1 AND version=$2", p.ID, p.Version).Scan(&prior)
 	if e == nil {
@@ -42,7 +54,7 @@ func (s *Store) ImportDraft(ctx context.Context, v content.ValidatedPackage) (Im
 			return result, ErrImmutableConflict
 		}
 		result.AlreadyImported = true
-		return result, tx.Commit()
+		return result, nil
 	}
 	if !errors.Is(e, sql.ErrNoRows) {
 		return result, e
@@ -200,5 +212,5 @@ func (s *Store) ImportDraft(ctx context.Context, v content.ValidatedPackage) (Im
 	if _, e = tx.ExecContext(ctx, "INSERT INTO publication_members SELECT $1,package_id,package_version,kind,id,version,'active' FROM package_members WHERE package_id=$2 AND package_version=$3", snapshot, p.ID, p.Version); e != nil {
 		return result, e
 	}
-	return result, tx.Commit()
+	return result, nil
 }

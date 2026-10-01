@@ -28,13 +28,8 @@ var colorPattern = regexp.MustCompile(`^(?:none|black|white|red|green|blue|gray|
 
 func readAsset(root string, a Asset) ([]byte, error) {
 	bad := errors.New("invalid asset")
-	if filepath.IsAbs(a.Path) || strings.Contains(a.Path, "\\") || !strings.HasSuffix(a.Path, ".svg") {
+	if !ValidAssetPath(a.Path) {
 		return nil, bad
-	}
-	for _, part := range strings.Split(a.Path, "/") {
-		if part == "" || part == "." || part == ".." {
-			return nil, bad
-		}
 	}
 	realRoot, e := filepath.EvalSymlinks(root)
 	if e != nil {

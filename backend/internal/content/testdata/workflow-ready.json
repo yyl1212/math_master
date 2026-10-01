@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "id": "workflow-ready",
+  "version": 1,
+  "knowledge": [
+    {
+      "id": "fractions",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [],
+      "type": "definition",
+      "title": "Fractions as rational numbers",
+      "titleZh": "分数",
+      "statement": "A rational number can be represented by $a/b$ for integers $a$ and $b$ with $b \\ne 0$.",
+      "scope": "Elementary rational arithmetic.",
+      "objectives": [
+        "Represent one half as a rational number."
+      ],
+      "conditions": [],
+      "system": "The field of rational numbers.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master technical fixture author",
+          "title": "Original fractions test lesson",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original technical test wording, not a published lesson."
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "units": [
+    {
+      "id": "fractions-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "visual",
+          "body": "Two equal parts form one whole. ![Equal halves](asset:halves)"
+        },
+        {
+          "kind": "formal",
+          "body": "The notation $1/2$ represents one of two equal parts."
+        }
+      ],
+      "examples": [
+        "One half plus one half equals one."
+      ],
+      "counterexamples": [],
+      "assetIds": [
+        "halves"
+      ]
+    }
+  ],
+  "paths": [],
+  "assets": [
+    {
+      "id": "halves",
+      "path": "workflow-ready.svg",
+      "sha256": "c0e9cba36c9276c123681183bd3b62cbd073f49adfa7a50a34f65b435f946b42",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original fixture illustration.",
+      "knowledge": {
+        "id": "fractions",
+        "version": 1
+      }
+    }
+  ]
+}

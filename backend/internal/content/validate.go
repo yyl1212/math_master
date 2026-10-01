@@ -2,6 +2,7 @@ package content
 
 import (
 	"bytes"
+	"context"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
@@ -108,6 +109,12 @@ func safeMarkdown(s string, assets map[string]bool) bool {
 	return safe
 }
 func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPackage, Report) {
+	return ValidateAndSealWithAssets(context.Background(), c, p, FileAssetReader(root))
+}
+func ValidateAndSealWithAssets(ctx context.Context, c catalogue.Catalogue, p Package, reader AssetReader) (ValidatedPackage, Report) {
+	return validateAndSeal(ctx, c, p, reader, MaxPackageBytes, MaxPackageBytes, false)
+}
+func validateAndSeal(ctx context.Context, c catalogue.Catalogue, p Package, reader AssetReader, maxJSON, maxAssets int, uniqueAssets bool) (ValidatedPackage, Report) {
 	r := Report{Errors: []Issue{}, ReviewItems: []Issue{}}
 	errAt := func(code, path string) { r.Errors = append(r.Errors, Issue{code, path, "Content validation failed."}) }
 	review := func(path string) {
@@ -115,10 +122,15 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 	}
 	cb, _ := json.Marshal(c)
 	pb, _ := json.Marshal(p)
+	if err := ctx.Err(); err != nil {
+		errAt("CANCELLED", "/")
+		return ValidatedPackage{}, r
+	}
 	if _, e := DecodeCatalogue(bytes.NewReader(cb)); e != nil {
 		errAt("INVALID_CATALOGUE", "/")
 	}
-	if _, e := DecodePackage(bytes.NewReader(pb)); e != nil {
+	var decoded Package
+	if e := decodeLimit(bytes.NewReader(pb), "content-package.schema.json", &decoded, maxJSON); e != nil {
 		errAt("INVALID_PACKAGE", "/")
 	}
 	if len(r.Errors) > 0 {
@@ -203,29 +215,48 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 			}
 		}
 	}
-	colors := map[string]int{}
-	var visit func(string)
-	visit = func(id string) {
-		if colors[id] == 1 {
-			errAt("PREREQUISITE_CYCLE", "/knowledge/"+id)
-			return
-		}
-		if colors[id] == 2 {
-			return
-		}
-		colors[id] = 1
-		for _, next := range graph[id] {
-			visit(next)
-		}
-		colors[id] = 2
-	}
+	// Kahn traversal bounds stack use even for long dependency chains.
+	incoming := map[string]int{}
+	dependents := map[string][]string{}
 	for _, k := range p.Knowledge {
-		visit(k.ID)
+		incoming[k.ID] = 0
+	}
+	for id, refs := range graph {
+		for _, ref := range refs {
+			if _, ok := kmap[ref]; ok {
+				incoming[id]++
+				dependents[ref] = append(dependents[ref], id)
+			}
+		}
+	}
+	queue := []string{}
+	for _, k := range p.Knowledge {
+		if incoming[k.ID] == 0 {
+			queue = append(queue, k.ID)
+		}
+	}
+	visited := 0
+	for i := 0; i < len(queue); i++ {
+		if ctx.Err() != nil {
+			errAt("CANCELLED", "/")
+			return ValidatedPackage{}, r
+		}
+		visited++
+		for _, id := range dependents[queue[i]] {
+			incoming[id]--
+			if incoming[id] == 0 {
+				queue = append(queue, id)
+			}
+		}
+	}
+	if visited < len(kmap) {
+		errAt("PREREQUISITE_CYCLE", "/knowledge")
 	}
 	assetIDs := map[string]bool{}
 	assetOwners := map[string]VersionRef{}
 	assetBytes := map[string][]byte{}
 	total := 0
+	uniqueBytes := map[string]bool{}
 	for i, a := range p.Assets {
 		path := fmt.Sprintf("/assets/%d", i)
 		if assetIDs[a.ID] {
@@ -234,13 +265,30 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 		assetIDs[a.ID] = true
 		assetOwners[a.ID] = a.Knowledge
 		refOK(a.Knowledge, path+"/knowledge")
-		b, e := readAsset(root, a)
+		if ctx.Err() != nil {
+			errAt("CANCELLED", "/")
+			return ValidatedPackage{}, r
+		}
+		var b []byte
+		var e error
+		if reader == nil || !ValidAssetPath(a.Path) {
+			e = fmt.Errorf("invalid asset reader or path")
+		} else {
+			b, e = reader(ctx, a)
+		}
+		if e == nil && (len(b) > 1<<20 || fmt.Sprintf("%x", sha256.Sum256(b)) != a.SHA256 || ValidateSVG(b) != nil) {
+			e = fmt.Errorf("invalid stored asset")
+		}
+
 		if e != nil {
 			errAt("INVALID_ASSET", path)
 			continue
 		}
-		total += len(b)
-		if total > MaxPackageBytes {
+		if !uniqueAssets || !uniqueBytes[a.SHA256] {
+			total += len(b)
+			uniqueBytes[a.SHA256] = true
+		}
+		if total > maxAssets {
 			errAt("ASSETS_TOO_LARGE", "/assets")
 			return ValidatedPackage{}, r
 		}
@@ -334,6 +382,9 @@ func ValidateAndSeal(c catalogue.Catalogue, p Package, root string) (ValidatedPa
 		}
 		checkText(path.Title, where)
 		checkText(path.TitleZh, where)
+	}
+	if ctx.Err() != nil {
+		errAt("CANCELLED", "/")
 	}
 	if len(r.Errors) > 0 {
 		return ValidatedPackage{}, r
