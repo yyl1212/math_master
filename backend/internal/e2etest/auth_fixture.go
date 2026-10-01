@@ -19,8 +19,8 @@ const fixtureOrigin = "http://127.0.0.1:18080"
 
 func resetAccounts(ctx context.Context, db *sql.DB, accounts *auth.Service, admin *auth.AdminService) error {
 	// OpenVerified checks this harness's random database on every physical connection.
-	// Explicitly name all seven tables, including both sides of the deferred learner FK.
-	if _, err := db.ExecContext(ctx, `TRUNCATE auth_bootstrap, auth_audit_events, auth_rate_limits, auth_preauth, auth_sessions, auth_user_roles, auth_users RESTART IDENTITY`); err != nil {
+	// Reset account-owned workflow records and both sides of the deferred learner FK.
+	if _, err := db.ExecContext(ctx, `TRUNCATE content_idempotency, content_workflow_events, content_withdrawals, content_publication_manifests, content_review_decisions, content_submission_members, content_submission_authors, content_submissions, content_workspace_assets, content_workspaces, auth_bootstrap, auth_audit_events, auth_rate_limits, auth_preauth, auth_sessions, auth_user_roles, auth_users RESTART IDENTITY`); err != nil {
 		return errors.New("account fixture reset failed")
 	}
 	if cli.RunAdminInit(ctx, []string{"--username", "auth_admin", "--password-stdin"}, strings.NewReader(fixturePassword+"\n"), io.Discard, io.Discard, admin) != 0 {

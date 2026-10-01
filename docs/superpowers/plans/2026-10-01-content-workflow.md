@@ -151,11 +151,11 @@ auth.DecodeContentProof(cookies Cookies, csrf string, write bool)(SessionProof,e
 
 ## Task 1：工作流契约、数据库约束与授权基础
 
-**Files:** 新增 db/migrations/00004_content_workflow.sql；publication/model.go、repository.go、service.go、policy.go、rate_limit.go 及 policy_test.go、service_test.go；auth/content_proof.go、content_proof_test.go；store/workflow_schema_test.go、workflow_tx.go、workflow_tx_test.go、workflow_idempotency.go、workflow_idempotency_test.go。
+**Files:** 新增 db/migrations/00004_content_workflow.sql；content/workflow_model.go（提前定义 Snapshot / AssetBinding 纯数据类型）；publication/model.go、repository.go、service.go、policy.go、rate_limit.go 及 policy_test.go、service_test.go；auth/content_proof.go、content_proof_test.go；store/workflow_schema_test.go、workflow_tx.go、workflow_tx_test.go、workflow_idempotency.go、workflow_idempotency_test.go。
 
 **Interfaces:** 定义上一节全部类型/端口。store 产出内部 workflowTx(ctx context.Context,access publication.Access,action publication.Action,relatedUserIDs []string,fn func(context.Context,*sql.Tx,auth.User,time.Time)error)error、workflowReadTx(ctx context.Context,access publication.Access,action publication.Action,fn func(context.Context,*sql.Tx,auth.User)error)error、workflowReplay(ctx context.Context,tx *sql.Tx,actorID,route,key,digest string)([]byte,bool,error)、workflowRemember(ctx context.Context,tx *sql.Tx,actorID,route,key,digest string,result []byte)error。读取、验证和撤回预览不写成功幂等记录。迁移为 workspace/revision 的送审建立唯一约束，封存状态用延迟约束触发器保证提交时已封存；未封存行仅供同一事务插入关联，不能成为已提交可见状态。
 
-- [ ] **Step 1：写失败测试。** 在真实随机数据库验证迁移和事务；以下是测试的精确断言集：
+- [x] **Step 1：写失败测试。** 在真实随机数据库验证迁移和事务；以下是测试的精确断言集：
 
 ~~~json
 {
@@ -169,15 +169,15 @@ auth.DecodeContentProof(cookies Cookies, csrf string, write bool)(SessionProof,e
 
 迁移使用设计中的十个表，外键到 auth_users/catalogue_versions/imported_packages/package_members；工作区 UUID 与 revision、状态枚举、大小 CHECK；送审只允许一次终态更新，冻结字段及子表与 frozenDigest 一致。作者/成员关联禁止在冻结完成后插入新行；事务内先建待封存行和关联，再封存，默认不允许留下未封存的送审。manifest 加入后禁止快照成员插入/改删；P1 未关联 manifest 的草稿不受新冻结触发器约束。content_withdrawals 区分版本与素材摘要分支，数据库唯一身份防重；content_idempotency 固定 actor/route/key 唯一且不可改删。
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/auth ./internal/publication ./internal/store -run 'Test(ContentProof|WorkflowSchema|WorkflowRoleMatrix|WorkflowIdempotencyRechecksPermission|WorkflowSessionExpiresWhileWaiting|ContentRateBudget)$' -timeout 5m -count=1
 ~~~
 预期仅因新契约/迁移/行为不存在而失败，连接或工具链故障先处理。
 
-- [ ] **Step 3：实现契约和基础事务。** 使用既有 account/session/dbClock、管理锁和 ConsumeRates。workflowTx 自己从请求剩余截止创建事务，不能使用会固定到 3 秒的 authTx 包装；在获取任何锁之前 SET LOCAL lock_timeout='1s'，按全局锁顺序执行。幂等请求摘要在严格解码后由服务器规范化；成功结果与审计同事务。用户读取限流使用既有全局 auth_read 600/分钟预算及 content_read_user 120/分钟，写入使用本阶段固定预算；不引入无限范围限流键。首版两槽 AcquireValidation 不创建后台计算队列。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，另运行原 auth/store 账户角色与审计测试，确认新增角色消费不改变旧账户能力。
-- [ ] **Step 5：提交。** 暂存本任务列出的文件，提交 feat: establish content workflow contracts and transaction guards。
+- [x] **Step 3：实现契约和基础事务。** 使用既有 account/session/dbClock、管理锁和 ConsumeRates。workflowTx 自己从请求剩余截止创建事务，不能使用会固定到 3 秒的 authTx 包装；在获取任何锁之前 SET LOCAL lock_timeout='1s'，按全局锁顺序执行。幂等请求摘要在严格解码后由服务器规范化；成功结果与审计同事务。用户读取限流使用既有全局 auth_read 600/分钟预算及 content_read_user 120/分钟，写入使用本阶段固定预算；不引入无限范围限流键。首版两槽 AcquireValidation 不创建后台计算队列。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，另运行原 auth/store 账户角色与审计测试，确认新增角色消费不改变旧账户能力。
+- [x] **Step 5：提交。** 暂存本任务列出的文件，提交 feat: establish content workflow contracts and transaction guards。
 
 ## Task 2：机器完整性、素材读取器与导入事务复用
 
