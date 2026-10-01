@@ -665,7 +665,8 @@ func validatePackage(ctx context.Context, input DraftInput, refs ReferenceSnapsh
 	for _, i := range allInstances {
 		identities = append(identities, i.Identity)
 	}
-	frozen := FrozenBody{CatalogueVersion: input.CatalogueVersion, CatalogueSHA256: refs.CatalogueSHA256, QuestionPackage: p, SourceMap: input.SourceMap, AuthorIDs: []string{}, Resolved: resolved, Objectives: objectives, Generation: v.report.Generation, InstanceIdentities: identities, Coverage: v.report.Coverage, GeneratorVersions: []int{1}, VerifierVersions: []int{1}}
+	generators, verifiers := UsedEngineVersions(p, allInstances)
+	frozen := FrozenBody{CatalogueVersion: input.CatalogueVersion, CatalogueSHA256: refs.CatalogueSHA256, QuestionPackage: p, SourceMap: input.SourceMap, AuthorIDs: []string{}, Resolved: resolved, Objectives: objectives, Generation: v.report.Generation, InstanceIdentities: identities, Coverage: v.report.Coverage, GeneratorVersions: generators, VerifierVersions: verifiers}
 	v.report.FrozenBytes, e = frozenSize(frozen, allInstances)
 	if errors.Is(e, ErrLimitExceeded) {
 		v.limitAt("/")

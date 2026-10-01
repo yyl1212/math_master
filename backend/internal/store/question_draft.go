@@ -430,12 +430,7 @@ func (s *Store) ValidateQuestionDraft(ctx context.Context, a question.Access, id
 		if d.Status != "editing" || d.Revision != input.ExpectedRevision {
 			return question.ErrDraftConflict
 		}
-		in := question.DraftInput{CatalogueVersion: d.CatalogueVersion, QuestionPackage: d.QuestionPackage, SourceMap: d.SourceMap}
-		refs, err := questionReferences(ctx, tx, in)
-		if err != nil {
-			return err
-		}
-		out, err = question.ValidateEditable(ctx, in, refs)
+		_, out, _, err = questionCheckDraft(ctx, tx, d)
 		return err
 	})
 	return out, err

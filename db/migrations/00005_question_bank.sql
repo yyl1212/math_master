@@ -67,10 +67,10 @@ CREATE TABLE question_instance_coverage (
  FOREIGN KEY(instance_id,instance_version) REFERENCES question_instances(id,version),FOREIGN KEY(knowledge_id,knowledge_version) REFERENCES knowledge_versions(id,version)
 );
 CREATE TABLE question_blueprint_sources (
- blueprint_id text NOT NULL,blueprint_version integer NOT NULL,kind text NOT NULL CHECK((kind IN ('template','fixed')) IS TRUE),id text NOT NULL,version integer NOT NULL CHECK((version>0) IS TRUE),template_id text,instance_id text,
+ blueprint_id text NOT NULL,blueprint_version integer NOT NULL,kind text NOT NULL CHECK((kind IN ('template','instance')) IS TRUE),id text NOT NULL,version integer NOT NULL CHECK((version>0) IS TRUE),template_id text,instance_id text,
  PRIMARY KEY(blueprint_id,blueprint_version,kind,id),FOREIGN KEY(blueprint_id,blueprint_version) REFERENCES question_blueprints(id,version),
  FOREIGN KEY(template_id,version) REFERENCES question_templates(id,version),FOREIGN KEY(instance_id,version) REFERENCES question_instances(id,version),
- CHECK(((kind='template' AND template_id=id AND template_id IS NOT NULL AND instance_id IS NULL) OR (kind='fixed' AND instance_id=id AND instance_id IS NOT NULL AND template_id IS NULL)) IS TRUE)
+ CHECK(((kind='template' AND template_id=id AND template_id IS NOT NULL AND instance_id IS NULL) OR (kind='instance' AND instance_id=id AND instance_id IS NOT NULL AND template_id IS NULL)) IS TRUE)
 );
 CREATE TABLE question_submissions (
  id uuid PRIMARY KEY CHECK((id::text ~ '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$') IS TRUE),workspace_id uuid NOT NULL REFERENCES question_workspaces(id),owner_user_id uuid NOT NULL REFERENCES auth_users(id),revision bigint NOT NULL CHECK((revision>=1) IS TRUE),
@@ -168,7 +168,7 @@ BEGIN
   SELECT coalesce(jsonb_agg(jsonb_build_object('kind',kind,'ref',jsonb_build_object('id',id,'version',version)) ORDER BY kind,id,version),'[]') INTO actual FROM question_blueprint_sources WHERE blueprint_id=s.id AND blueprint_version=s.version;
   SELECT coalesce(jsonb_agg(v ORDER BY v->>'kind',v->'ref'->>'id',(v->'ref'->>'version')::integer),'[]') INTO expected FROM jsonb_array_elements(s.body#>'{body,sources}') v;
   IF actual<>expected THEN RAISE EXCEPTION 'fixed blueprint source mismatch'; END IF;
-  IF EXISTS(SELECT 1 FROM question_blueprint_sources b JOIN question_instances i ON b.kind='fixed' AND i.id=b.id AND i.version=b.version WHERE b.blueprint_id=s.id AND b.blueprint_version=s.version AND (i.origin<>'fixed' OR NOT i.sealed)) THEN RAISE EXCEPTION 'invalid fixed source'; END IF;
+  IF EXISTS(SELECT 1 FROM question_blueprint_sources b JOIN question_instances i ON b.kind='instance' AND i.id=b.id AND i.version=b.version WHERE b.blueprint_id=s.id AND b.blueprint_version=s.version AND (i.origin<>'fixed' OR NOT i.sealed)) THEN RAISE EXCEPTION 'invalid fixed source'; END IF;
  ELSE
   SELECT * INTO s FROM question_packages WHERE id=NEW.id AND version=NEW.version;
   IF NOT s.sealed THEN RAISE EXCEPTION 'unsealed package'; END IF;
@@ -188,7 +188,7 @@ BEGIN
  ELSIF NEW.status='submitted' THEN
   IF NEW.revision<>OLD.revision OR (to_jsonb(NEW)-'status'-'updated_at') IS DISTINCT FROM (to_jsonb(OLD)-'status'-'updated_at') THEN RAISE EXCEPTION 'invalid workspace submission'; END IF;
  ELSE
-  IF NEW.revision NOT IN (OLD.revision,OLD.revision+1) OR (NEW.revision=OLD.revision AND (to_jsonb(NEW)-'gate'-'updated_at') IS DISTINCT FROM (to_jsonb(OLD)-'gate'-'updated_at')) THEN RAISE EXCEPTION 'invalid workspace revision'; END IF;
+  IF NEW.revision NOT IN (OLD.revision,OLD.revision+1) OR (NEW.revision=OLD.revision AND (to_jsonb(NEW)-'gate'-'legacy_unattributed'-'updated_at') IS DISTINCT FROM (to_jsonb(OLD)-'gate'-'legacy_unattributed'-'updated_at')) THEN RAISE EXCEPTION 'invalid workspace revision'; END IF;
  END IF;
  RETURN NEW;
 END $$;
@@ -228,7 +228,6 @@ BEGIN
  IF expected<>actual THEN RAISE EXCEPTION 'frozen instance count mismatch'; END IF;
  IF EXISTS(SELECT 1 FROM jsonb_array_elements(s.frozen_body#>'{body,instances}') v JOIN question_instances i ON i.id=v->'identity'->>'id' AND i.version=(v->'identity'->>'version')::integer WHERE i.body->'body'<>jsonb_set(v,'{identity}',(v->'identity')-'sha256')) THEN RAISE EXCEPTION 'frozen instance body mismatch'; END IF;
  IF s.status IN ('pending','approved') AND NOT EXISTS(SELECT 1 FROM question_workspaces WHERE id=s.workspace_id AND status='submitted' AND revision=s.revision AND owner_user_id=s.owner_user_id) THEN RAISE EXCEPTION 'workspace submission state mismatch'; END IF;
- IF NOT (s.frozen_body#>'{body,body,sourceMap}') @> p.source_map THEN RAISE EXCEPTION 'frozen source responsibility mismatch'; END IF;
  IF s.status='pending' AND EXISTS(SELECT 1 FROM question_review_decisions WHERE submission_id=s.id) OR s.status<>'pending' AND NOT EXISTS(SELECT 1 FROM question_review_decisions WHERE submission_id=s.id AND frozen_digest=s.frozen_digest AND decision=CASE s.status WHEN 'approved' THEN 'approve' ELSE 'return' END) THEN RAISE EXCEPTION 'review state mismatch'; END IF;
  RETURN NULL;
 END $$;

@@ -369,7 +369,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** store/question_{submission,review}.go及测试、question_fixture_test.go；question/review.go及测试。
 **Interfaces:** 产出Submit/List/Read/ReviseQuestionSubmission、ListQuestionInstances、DecideQuestionReview；FrozenBody/Instance关联保证同一冻结摘要，分页不读取后来工作区。
 
-- [ ] **Step 1：写失败测试。** TestQuestionFrozenSubmission：expectedRevision/digest双对比、重算后来源变化、冻结完整实例/作者/来源/目标/assetSHA、原工作区/文件变化后逐字节相同；TestQuestionCopiedAuthorCannotApprove：editor+reviewer、adopt/跨题包复用同ID/version相同字节时继承作者且均不可自审，异字节VERSION_CONFLICT；TestQuestionReviewFinality：六项check和无模板说明、竞争审核仅一终态、returned原工作区revision+1、approved修订新workspace且不继承批准；TestQuestionInstancePages：全部分页可见、别送审同ID不能借页越权、实际4 MiB缩页、冻结后不得补成员。
+- [x] **Step 1：写失败测试。** TestQuestionFrozenSubmission：expectedRevision/digest双对比、重算后来源变化、冻结完整实例/作者/来源/目标/assetSHA、原工作区/文件变化后逐字节相同；TestQuestionCopiedAuthorCannotApprove：editor+reviewer、adopt/跨题包复用同ID/version相同字节时继承作者且均不可自审，异字节VERSION_CONFLICT；TestQuestionReviewFinality：六项check和无模板说明、竞争审核仅一终态、returned原工作区revision+1、approved修订新workspace且不继承批准；TestQuestionInstancePages：全部分页可见、别送审同ID不能借页越权、实际4 MiB缩页、冻结后不得补成员。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -382,10 +382,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(FrozenSubmission|CopiedAuthorCannotApprove|ReviewFinality|InstancePages)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现送审与审核事务。** 精确同版本查出原作者，锁其账户行；以全量冻结载荷规范摘要保存字节/JSONB/子表，实例页面仅读取冻结绑定。审核队列排除作者，reviewer只批准当前pending且Checks全true；author、sourceMap、engine信息不能来自当前workspace回查。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；批量实例及审核依据读取不得N+1展开每个历史送审，审计/终态错误使全事务回滚；原P3b独立复核回归保持。
-- [ ] **Step 5：提交。** 任务7文件，提交 feat: 冻结题库并要求真实独立复核。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(FrozenSubmission|CopiedAuthorCannotApprove|ReviewFinality|InstancePages)$' -timeout 5m -count=1。
+- [x] **Step 3：实现送审与审核事务。** 精确同版本查出原作者，锁其账户行；以全量冻结载荷规范摘要保存字节/JSONB/子表，实例页面仅读取冻结绑定。审核队列排除作者，reviewer只批准当前pending且Checks全true；author、sourceMap、engine信息不能来自当前workspace回查。
+- [x] **Step 4：验证GREEN。** 重跑Step2；批量实例及审核依据读取不得N+1展开每个历史送审，审计/终态错误使全事务回滚；原P3b独立复核回归保持。
+- [x] **Step 5：提交。** 任务7文件，提交 feat: 冻结题库并要求真实独立复核。
 
 ## Task 8：固定manifest、双head准备与激活
 
