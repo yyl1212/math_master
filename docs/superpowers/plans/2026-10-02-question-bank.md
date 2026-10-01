@@ -279,7 +279,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** question/{generate,verify,render}.go及测试；原创content/questions/elementary-rationals.v1.json（技术草稿，不计已审核数量）。
 **Interfaces:** 消费Task1/2，产出Generate、VerifyInstance；每家族分离生成答案和Big.Int验证，不共享答案算法。
 
-- [ ] **Step 1：写失败测试。** TestGeneratorFiniteSpace：4/5参数、32/33值、1000/1001组合、精确等价参数先去重、零有效实例、未声明除零、显式排除完整计数、包级总生成量由任务4验收；TestMissingOperandUniqueSolution覆盖0*x=0多解、0*x=1无解和除法定义域；TestTemplateChoiceEquivalence拒绝1/2与2/4、干扰项等于答案；TestVerifierRejectsMutatedGeneratedAnswer在正确参数保留时把数值/choice答案变错，独立拒绝三个家族；TestControlledQuestionRender拒绝未知占位符、prompt的answer、HTML/链接注入。
+- [x] **Step 1：写失败测试。** TestGeneratorFiniteSpace：4/5参数、32/33值、1000/1001组合、精确等价参数先去重、零有效实例、未声明除零、显式排除完整计数、包级总生成量由任务4验收；TestMissingOperandUniqueSolution覆盖0*x=0多解、0*x=1无解和除法定义域；TestTemplateChoiceEquivalence拒绝1/2与2/4、干扰项等于答案；TestVerifierRejectsMutatedGeneratedAnswer在正确参数保留时把数值/choice答案变错，独立拒绝三个家族；TestControlledQuestionRender拒绝未知占位符、prompt的answer、HTML/链接注入。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -292,10 +292,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(GeneratorFiniteSpace|MissingOperandUniqueSolution|TemplateChoiceEquivalence|VerifierRejectsMutatedGeneratedAnswer|ControlledQuestionRender)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现Generate/VerifyInstance。** 先检查完整组合/字节预算再分配；按固定枚举约束检查每组合，计数完整且不吞失败；生成Rat、验证独立交叉乘积或反代/唯一性，定时检查context。三家族版本1单独登记，未知/不存在旧版本拒绝；重复身份不增加题量。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；对技术题包全部参数完整校验，验证篡改fixture确实失败，同输入重复生成字节与身份一致。不得把校验成功写成数学批准。
-- [ ] **Step 5：提交。** 仅任务3文件，提交 feat: 生成可复验实例并独立检查数学答案。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(GeneratorFiniteSpace|MissingOperandUniqueSolution|TemplateChoiceEquivalence|VerifierRejectsMutatedGeneratedAnswer|ControlledQuestionRender)$' -timeout 5m -count=1。
+- [x] **Step 3：实现Generate/VerifyInstance。** 先检查完整组合/字节预算再分配；按固定枚举约束检查每组合，计数完整且不吞失败；生成Rat、验证独立交叉乘积或反代/唯一性，定时检查context。三家族版本1单独登记，未知/不存在旧版本拒绝；重复身份不增加题量。
+- [x] **Step 4：验证GREEN。** 重跑Step2；对技术题包全部参数完整校验，验证篡改fixture确实失败，同输入重复生成字节与身份一致。不得把校验成功写成数学批准。
+- [x] **Step 5：提交。** 仅任务3文件，提交 feat: 生成可复验实例并独立检查数学答案。
 
 ## Task 4：固定引用、五题覆盖与题包封存
 
