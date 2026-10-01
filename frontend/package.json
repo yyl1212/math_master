@@ -6,9 +6,9 @@
     "node": "24.17.0"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --hostname 127.0.0.1",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "api:generate": "openapi-typescript ../api/openapi.yaml -o src/lib/api/generated.d.ts",

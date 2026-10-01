@@ -1,0 +1,60 @@
+# P3a 账户基础验收记录
+
+日期：2026-10-01。功能分支 codex/p3-account-foundation，基线 master 6abf283（计划 PR #9）。设计见 [账户方案](../superpowers/specs/2026-10-01-account-foundation-design.md)，实施见 [七项计划](../superpowers/plans/2026-10-01-account-foundation.md)。技术验收与一次新上下文独立审查已完成；审查提交 45ca39f619499d982e3643cd9cdf422639cf94ab，Critical 0、Important 0、Minor 3，结论可合并。功能 [PR #10](https://github.com/yyl1212/math_master/pull/10) 已创建。最终 CI 对应 PR 最新 head，以 [实时检查](https://github.com/yyl1212/math_master/pull/10/checks) 为准；交付前逐项核验。
+
+## 已验证能力
+
+账户增量七表；Argon2id 固定参数、进程四槽、取消请求不提前释放；随机令牌只存摘要；注册仅 learner、登录/退出/全设备退出、改密与版本撤销；一次性管理员初始化、角色与人工重置、五分钟明确重新验证；不可变审计及有界数据库限流/清理。英文注册、登录、账户和管理员页面动态读取真实身份，代理完整校验响应后才转发 Cookie。
+
+用户学习进度、解锁、内容审核发布和生产部署不属于 P3a。真实开发库没有账户迁移或管理员初始化，公共数学发布指针 0、知识版本 10、无正文单元的骨架 9，原有正文单元 1。资料目录及快照保留。测试发布与账户只在随机隔离库；最终随机库数量 0，固定测试连接库保留。
+
+## 技术验收
+
+每条命令经过 540 秒入口，Go CGO_ENABLED=0/GOTOOLCHAIN=go1.27.1，-timeout 5m。浏览器一 worker、零重试，单例 30 秒、每批 480 秒，实际两批约 36/32 秒。
+
+| 实际执行 | 结果 |
+| --- | --- |
+| git diff --check；工具/快照 node 测试 | 通过，9/9 |
+| Go vet ./... | 通过 |
+| Go auth/config/httpapi/content/e2etest/testutil | 全部通过，真实 HTTP 和随机 PG 事务 |
+| Go store/cli | 全部通过，含锁顺序、并发撤权、改密竞争、审计回滚和隐藏输入边界 |
+| Go build -o bin/ ./cmd/... | 通过 |
+| api:generate + git diff 生成类型 | 无差异；原公开接口结构保持 |
+| 前端 typecheck/npm test/build | 通过，14 文件/46 测试 |
+| npm audit --omit=dev | 0 漏洞 |
+| 原目录/阅读浏览器 desktop/mobile | 16/16 |
+| 新账户/安全浏览器 desktop/mobile | 12/12，含两视口固定失败诊断，使用最终生产构建与实际 Go/PG |
+| 1280×900/390×844 图像与键盘 | 查看两种视口登录、账户、管理员截图；无横向溢出，输入遮盖，Tab及验证对话框循环通过 |
+
+账户浏览器覆盖：注册不自动登录、错误密码/错误焦点/字段清空、登录真实身份、退出；另一浏览器在改密后失效；实际 admin-init 后登录与明确重新验证、验证成功无自动角色重放、授予 editor/reviewer 后目标旧会话撤销；非 admin 禁止管理；人工重置、临时会话受限、改密后重新登录；CSRF、伪造角色、跨源写入拒绝；故障与恢复保留登录；匿名数学阅读正常。
+
+测试先观察缺失账户 scene 造成两视口 10 项失败，再接入实际服务。测试提前退出曾留下一个随机库：新增 TestHarnessCleanupWaitsOnEarlyExit，用真实 pg_database 锁控制 DROP，先失败再修复 startHarness 清理等待。按严格随机名称、无活动连接、10 个测试知识、零账户、零发布及唯一已知资料包核对后清理该失败夹具；最终随机库 0。没有删除开发库或固定连接库。
+
+## 独立审查
+
+独立审查由新上下文 gpt-6-astra 执行，只读检查计划、设计、全部实施决定、五项 Review Focus 及手写代码；未连接数据库，也未把作者回归冒充审查者重新执行。未发现密码槽提前释放、恶意PHC超额参数、旧凭据登录、并发撤权后写入、严格JSON改写或代理失败转发Cookie。结论可合并，独立审查未发现Critical/Important。作者在交付诊断检查另复现一项Important：Playwright APIRequestContext连接失败的异常包含Authorization，会让隔离控制令牌进入报告。新增TestControlFailureIsSanitized，公开marker/关闭端口在两视口先失败，再统一catch为固定失败消息；runtime读取/解析同样不传播原异常。该唯一修复轮完成工具9、前端46、Go全部分包/vet/build、契约/构建/审计、公共16与账户/安全12整分支回归，未再次派审查。
+
+远程CI还定位roles_test.go格式门槛失败，本机复现相同gofmt检查后修正；两workflow Go命令显式固定CGO_ENABLED=0/GOTOOLCHAIN=go1.27.1，避免setup-go覆盖环境。最终格式检查通过；以修复后最新提交重新核验CI。
+
+重新按用户实际影响评级后，三项Minor延后：
+
+1. 验证对话框关闭后未恢复触发按钮焦点，键盘用户需要重新定位，仍可完成操作。
+2. 操作说明“SSR不转发Cookie”措辞有歧义；当前实现实际仅向Go转发选定Session、不向浏览器转发Set-Cookie。
+3. 管理理由、核验说明或查询含U+0000时PG text拒绝并被映射为503，应后续明确拒绝并映射400；无身份越权或持续服务失效，密码经哈希保存不改变其Unicode规则。
+
+最终 CI 核验包括 Go 与英文网站两份既有 workflow 的 push/pull_request runs；以 PR 最新 head 为准，不用历史绿色代替。最终核验结果见 PR checks。
+
+## 实施决定
+
+1. GET auth/session 畸形 Cookie 返回 400、不发 Set-Cookie；浏览器 context 清除。SSR 无身份副作用协议优先。代价：恢复需要额外一次 context。
+2. Go 对 IPv6 和数值端口做规范化，与 JS URL 一致。代价：少数非标准地址配置需要规范写法或解析调整。
+3. Next 补私有前缀根路径固定 404；默认 dev/start 绑定 127.0.0.1。代价：增加两入口、默认不支持局域网访问。
+
+4. 独立审查放在Task7技术验收提交后、最终完成门槛前，满足Task7包含审查的约束，只派一次。代价：技术验收提交不是最终状态，以最后验收提交及CI为准。
+5. 生产容量、HTTPS、可信IP和公网全局额度可用性归P7实测。代价：当前预算可能需依实际流量调整。
+6. 暂不扩展跨标签页首次context协调，当前同页面single-flight与后端CSRF约束成立。代价：多页竞争可能要求重取context并手工重试，后续需扩展体验。
+7. 所有权与自然人独立性由人工核验承担，软件只记录说明并执行权限。代价：人工核验不足可能错误恢复账户或授予复核资格，P3b/运营需落实人员规则。
+
+## 范围及下一步
+
+功能分支通过 Git PR 交付，最终 CI 全通过后供用户审阅，不自动合并或部署。P3b 再单独设计作者送审、独立数学复核、发布/撤回；P4 接入学习/解锁/回顾。数学内容数量和正确性仍需内容阶段持续建设。

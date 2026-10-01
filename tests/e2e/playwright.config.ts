@@ -17,8 +17,9 @@ export default defineConfig({
   use: {
     baseURL: "http://127.0.0.1:18080",
     browserName: "chromium",
-    screenshot: "only-on-failure",
+    screenshot: "off",
     trace: "off",
+    video: "off",
   },
   projects: [
     { name: "desktop", use: { viewport: { width: 1280, height: 900 } } },
@@ -42,6 +43,8 @@ export default defineConfig({
       env: {
         GO_API_INTERNAL_URL: "http://127.0.0.1:18081",
         NEXT_TELEMETRY_DISABLED: "1",
+        APP_ENV: "development",
+        AUTH_PUBLIC_ORIGIN: "http://127.0.0.1:18080",
       },
       reuseExistingServer: false,
       timeout: 30000,

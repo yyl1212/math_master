@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/rand"
 	"database/sql"
 	"errors"
 	"log"
@@ -12,6 +13,7 @@ import (
 	"time"
 
 	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/config"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/store"
@@ -30,9 +32,33 @@ func main() {
 	db.SetMaxOpenConns(10)
 	db.SetMaxIdleConns(5)
 	db.SetConnMaxLifetime(5 * time.Minute)
-	srv := &http.Server{Addr: c.HTTPAddr, Handler: httpapi.NewHandler(store.New(db), db), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: time.Minute}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
+	repo := store.New(db)
+	options := httpapi.AuthOptions{PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
+	if c.PublicOrigin != "" {
+		hasher := auth.NewArgon2Hasher(rand.Reader)
+		options.Accounts, err = auth.NewService(repo, hasher, rand.Reader)
+		if err != nil {
+			log.Fatal("account initialization failed")
+		}
+		options.Admin = auth.NewAdminService(repo, hasher, rand.Reader)
+		go func() {
+			ticker := time.NewTicker(time.Minute)
+			defer ticker.Stop()
+			for {
+				select {
+				case <-ctx.Done():
+					return
+				case <-ticker.C:
+					if _, err := options.Accounts.Cleanup(ctx); err != nil && ctx.Err() == nil {
+						log.Print("account cleanup failed")
+					}
+				}
+			}
+		}()
+	}
+	srv := &http.Server{Addr: c.HTTPAddr, Handler: httpapi.NewApplicationHandler(repo, db, options), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: time.Minute}
 	go func() {
 		<-ctx.Done()
 		shutdown, cancel := context.WithTimeout(context.Background(), c.ShutdownTimeout)

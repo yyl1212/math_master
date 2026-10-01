@@ -179,13 +179,33 @@ func Run(ctx context.Context, c Config) (result error) {
 		return errors.New("harness migration failed")
 	}
 	s := store.New(db)
+	accounts, accountAdmin, e := fixtureAccounts(s)
+	if e != nil {
+		return e
+	}
 	var mu sync.RWMutex
 	unavailable := false
+	authUnavailable := false
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
 		ctx, stop := context.WithTimeout(ctx, 3*time.Second)
 		defer stop()
+		switch scene {
+		case "auth":
+			if err := resetAccounts(ctx, db, accounts, accountAdmin); err != nil {
+				return err
+			}
+			authUnavailable = false
+			unavailable = false
+			return nil
+		case "auth-unavailable":
+			authUnavailable = true
+			return nil
+		case "auth-recover":
+			authUnavailable = false
+			return nil
+		}
 		if scene == "unavailable" {
 			unavailable = true
 			return nil
@@ -245,10 +265,19 @@ func Run(ctx context.Context, c Config) (result error) {
 		return errors.New("harness control bind failed")
 	}
 	defer controlListener.Close()
-	actual := httpapi.NewHandler(s, db)
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
+		if authUnavailable && (strings.HasPrefix(r.URL.Path, "/api/v1/auth/") || strings.HasPrefix(r.URL.Path, "/api/v1/admin/")) {
+			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set("Cache-Control", "private, no-store")
+			w.Header().Set("X-Content-Type-Options", "nosniff")
+			w.Header().Set("X-Request-ID", "unavailable")
+			w.WriteHeader(503)
+			w.Write([]byte(`{"error":{"code":"SERVICE_UNAVAILABLE","message":"Service temporarily unavailable.","requestId":"unavailable"}}`))
+			return
+		}
 		if unavailable {
 			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Cache-Control", "no-store")
