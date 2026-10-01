@@ -10,7 +10,7 @@
 
 **Tech Stack:** Go 1.27.1、PostgreSQL 17.11、Node.js 24.17.0、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3；沿用当前锁文件，不新增产品依赖。
 
-**Spec:** [P3b 已确认设计](../specs/2026-10-01-content-workflow-design.md)，用户于 2026-10-01 确认，已通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并。计划基线 master 9181a3fd9dd9af45ad323c5a1e54e714534ced59；本计划已完成自查，等待书面计划审阅。方案的七组顺序细化为十个可独立验证的任务，没有增加产品范围。
+**Spec:** [P3b 已确认设计](../specs/2026-10-01-content-workflow-design.md)，用户于 2026-10-01 确认，已通过 [PR #11](https://github.com/yyl1212/math_master/pull/11) 合并。计划已于 2026-10-01 获用户书面确认，执行方式 Native；基线 master a4cf6278774b30cce3e7278a7582dd522c465be8 已包含 [PR #13](https://github.com/yyl1212/math_master/pull/13) 的限流测试修复。十项功能任务尚未完成。方案的七组顺序细化为十个可独立验证的任务，没有增加产品范围。
 
 ## 全局约束（Global Constraints）
 
@@ -440,7 +440,7 @@ node tools/verify/run.mjs --cwd frontend -- npm run build
 
 **Interfaces:** harness 新增 content 场景，在随机库创建 editor、reviewer、admin 和原创测试小路线，接入真正 Service/HTTP。角色授予和登录使用真实账户能力，技术测试的批准不构成独立数学验收。scene/control 继续 loopback、随机控制令牌，生产 server 禁止导入 e2etest。产出整分支验收记录。
 
-- [ ] **Step 1：写真实浏览器失败测试。** 两种视口覆盖创建/结构化编写/公式与私有图预览 → 保存 → 送审 → 作者禁止自审 → 另一账户批准/退回 → 管理员准备差异/重新验证/主动激活 → 匿名知识与路线读取 → 预览撤回/重新验证/撤回 → 匿名不可用。另测跨账户素材、无权限写入、复制作者、冲突保留输入、取消对话框、超时手动同 key 重试、故障恢复和旧公开/账户流程。不 route.fulfill 伪造成功；控制请求失败、截图与 runtime 读取沿用已修复的固定诊断，输入和 textarea 遮盖，trace/video 关闭。同时在 store/auth_rate_limit_test.go 增加 TestAuthRateLimitFixedWindowBoundary：同一固定分钟内前 10 次未知用户名登录返回 ErrInvalidCredentials，第 11 次返回 RateLimitError；数据库测试时钟推进一分钟后再次返回 ErrInvalidCredentials。原 ServicePolicies 的四项分钟预算断言必须使用固定时钟，注册的 10 分钟预算保持原值。
+- [ ] **Step 1：写真实浏览器失败测试。** 两种视口覆盖创建/结构化编写/公式与私有图预览 → 保存 → 送审 → 作者禁止自审 → 另一账户批准/退回 → 管理员准备差异/重新验证/主动激活 → 匿名知识与路线读取 → 预览撤回/重新验证/撤回 → 匿名不可用。另测跨账户素材、无权限写入、复制作者、冲突保留输入、取消对话框、超时手动同 key 重试、故障恢复和旧公开/账户流程。不 route.fulfill 伪造成功；控制请求失败、截图与 runtime 读取沿用已修复的固定诊断，输入和 textarea 遮盖，trace/video 关闭。限流前置已通过 PR #13 提前交付，保留 store/auth_rate_limit_test.go 的 TestAuthRateLimitFixedWindowBoundary：同一固定分钟内前 10 次未知用户名登录返回 ErrInvalidCredentials，第 11 次返回 RateLimitError；数据库测试时钟推进一分钟后再次返回 ErrInvalidCredentials。原 ServicePolicies 的四项分钟预算断言必须使用固定时钟，注册的 10 分钟预算保持原值。
 - [ ] **Step 2：验证 RED。** 构建 harness 和现有生产前端后运行每个 content spec 独立批次；预期只有新场景或流程缺失失败，不能把错误数据库连接当 RED。
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/ ./cmd/...
@@ -449,7 +449,7 @@ node tools/verify/run.mjs --cwd frontend -- npm run e2e -- content-authoring.spe
 其他 content 三个 spec 各自单独运行，使用相同 480 秒上限。
 
 - [ ] **Step 3：实现真实夹具与容量测试。** 新增 store/workflow_capacity_test.go（纳入本任务 Files）的 TestWorkflowCapacityEnvelope：合法最大计数/32 MiB JSON/10 MiB SVG、超限计数、4 MiB DTO、10 MiB public view、两个验证槽、锁等待和取消；边界数据同时满足其他限制，不把“只满足一种上限”的输入称为完全合法。记录 8 秒请求下完成情况、Go分配与进程最大驻留、DB查询计划和公开读取既有 3/5 秒预算。新增 BenchmarkWorkflowValidation、BenchmarkWorkflowSnapshot，各跑 -benchtime=3x，记录本机结果不声称生产容量。若最大合法输入不满足时限/内存约束，记录实测并修订方案的相应限制，兼容性修改经审阅后再继续，不静默放宽截止。
-账户限流测试新增 fixedRateFixture(t *testing.T, at time.Time) (*authFixture, func(time.Time))，仅供上述顺序测试使用：在随机隔离库建立一行测试时钟及 public.clock_timestamp() SQL 函数，测试连接池固定为一条连接并设置 search_path=public,pg_catalog，推进函数只更新该行。不修改生产 dbClock、固定窗口额度或并发测试的连接池；不通过重试、跳过测试或放宽额度掩盖跨窗问题。
+账户限流测试复用已交付的 fixedRateFixture(t *testing.T, at time.Time) (*authFixture, func(time.Time))：在严格验证名称的随机隔离库建立一行测试时钟及 public.clock_timestamp() SQL 函数，仅设置该随机数据库的 search_path=public,pg_catalog 并回收旧物理连接，推进函数只更新该行。新连接和仓储并发测试均使用同一固定时钟，不限制最大连接数；不重复编写已经通过 RED→GREEN 的夹具与边界测试。不修改生产 dbClock、固定窗口额度或并发测试的连接池；不通过重试、跳过测试或放宽额度掩盖跨窗问题。
 容量/成本独立命令：
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestWorkflowCapacityEnvelope$' -timeout 5m -count=1
@@ -499,6 +499,6 @@ node tools/verify/run.mjs --cwd frontend -- npm run e2e -- content-security.spec
 
 PR #12 的初始提交 612fd9b 仅包含三份文档。前端 push/PR 和后端 push 检查通过，后端 PR 检查在 TestAuthRateLimitsServicePolicies/loginUsernameAndPreauth 失败。CI 将整包输出汇总到末尾，日志没有逐次窗口计数，因此不能逐次还原该次失败。
 
-在临时源码副本和随机隔离 PostgreSQL 库中，主动让一次登录与后续十次登录跨越分钟边界，复现了同一断言失败：login_username 有两个窗口、总次数 11、单窗最多 10，最后返回 ErrInvalidCredentials。未修改的完整 store/cli 本地回归随后通过（store 11.506 秒、cli 1.695 秒）。这证明既有测试隐含的“十一尝试始终同窗”假设不稳定；本次未修复测试或改变生产限流。任务 10 明确补同窗/跨窗测试并固定顺序测试的数据库时钟；实施验收前必须闭环，不能把文档 CI 的一次通过当成修复证据。
+在临时源码副本和随机隔离 PostgreSQL 库中，主动让一次登录与后续十次登录跨越分钟边界，复现了同一断言失败：login_username 有两个窗口、总次数 11、单窗最多 10，最后返回 ErrInvalidCredentials。未修改的完整 store/cli 本地回归随后通过（store 11.506 秒、cli 1.695 秒）。这证明既有测试隐含的“十一尝试始终同窗”假设不稳定。用户确认计划后，将任务 10 的这项修复提前作为开工前置：PR #13 已通过独立整分支审查、完整本地 Go 回归及四项远程 CI，并合并到 master；生产源码和限额未改。具体 RED→GREEN、固定时钟、重连及保留多连接竞争的实现与证据见 [修复记录](../../operations/2026-10-01-auth-rate-ci-fix.md)。该问题已闭环，其余内容功能仍按十项任务验收。
 
-执行方式沿用 Native；用户审阅确认本计划后，更新 master、新建功能分支并按 Task 1—10 顺序推进。书面计划尚未确认时只交付文档，不开始实现；最终技术 PR 和真实数学发布分别验收。
+执行方式沿用已确认的 Native；更新 master、新建功能分支并按 Task 1—10 顺序推进，最后一次独立整分支审查。除上述已交付的 CI 前置修复外，未提前勾选功能步骤；最终技术 PR 和真实数学发布分别验收。
