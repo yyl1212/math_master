@@ -594,6 +594,331 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/question-bank/drafts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_drafts"];
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_drafts"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/drafts/adopt": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_drafts_adopt"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/drafts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_drafts_id"];
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        put: operations["question_put_drafts_id"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/drafts/{id}/validate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_drafts_id_validate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/drafts/{id}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_drafts_id_submit"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/submissions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_submissions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/submissions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_submissions_id"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/submissions/{id}/instances": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_submissions_id_instances"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/submissions/{id}/revision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_submissions_id_revision"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/submissions/{id}/decision": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_submissions_id_decision"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/publications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_publications"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/publications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_publications_id"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/publications/{id}/members": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_publications_id_members"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/publications/{id}/changes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_publications_id_changes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/publications/prepare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_publications_prepare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/publications/{id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_publications_id_activate"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/withdrawals/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_withdrawals_preview"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/withdrawals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        post: operations["question_post_withdrawals"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/question-bank/coverage": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification. */
+        get: operations["question_get_coverage"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -1386,6 +1711,672 @@ export interface components {
             };
         };
         ContentEmptyInput: Record<string, never>;
+        QuestionActivateInput: {
+            expectedKnowledgeHead: string | null;
+            expectedManifestSha: string;
+            expectedQuestionHead: string | null;
+            reason: string;
+        };
+        QuestionAdoptInput: {
+            packageId: string;
+            packageVersion: number;
+            reason: string;
+        };
+        QuestionAssetRef: {
+            id: string;
+            sha256: string;
+        };
+        QuestionBlueprint: {
+            id: string;
+            version: number;
+            knowledge: components["schemas"]["QuestionRef"];
+            coreObjectiveIndices: number[];
+            sources: components["schemas"]["QuestionBlueprintSource"][];
+            coverageNote: string;
+            /** @constant */
+            ruleVersion: 1;
+            /** @constant */
+            questionCount: 5;
+            /** @constant */
+            passCount: 4;
+        };
+        QuestionBlueprintSource: {
+            /** @enum {unknown} */
+            kind: "template" | "instance";
+            ref: components["schemas"]["QuestionRef"];
+        };
+        QuestionChange: {
+            after: components["schemas"]["QuestionMemberIdentity"] | null;
+            before: components["schemas"]["QuestionMemberIdentity"] | null;
+            id: string;
+            kind: string;
+            reason: string;
+        };
+        QuestionChangePage: {
+            items: components["schemas"]["QuestionChange"][];
+            limit: number;
+            manifestSha: string;
+            offset: number;
+            publicationId: string;
+            total: number;
+        };
+        QuestionChoice: {
+            id: string;
+            text: string;
+        };
+        QuestionConstraintCount: {
+            constraint: string;
+            count: number;
+        };
+        QuestionCoverageNode: {
+            assessmentInstances: number;
+            blueprint: components["schemas"]["QuestionIdentity"] | null;
+            coreObjectiveIndices: number[];
+            coveredObjectiveIndices: number[];
+            duplicateInstances: number;
+            effectiveInstances: number;
+            fiveQuestionFeasible: boolean;
+            fixedInstances: number;
+            generatedInstances: number;
+            knowledge: components["schemas"]["QuestionIdentity"];
+            ready: boolean;
+            reasons: components["schemas"]["QuestionIssue"][];
+            supplementaryObjectiveIndices: number[];
+        };
+        QuestionCoverageReport: {
+            approvedTemplates: number;
+            duplicateInstances: number;
+            effectiveInstances: number;
+            fixedQuestions: number;
+            knowledgeHead: string | null;
+            nodes: components["schemas"]["QuestionCoverageItems"];
+            publishedKnowledge: number;
+            questionHead: string | null;
+        };
+        QuestionDiffSummary: {
+            added: number;
+            removed: number;
+            replaced: number;
+        };
+        QuestionDraftInput: {
+            catalogueVersion: number;
+            questionPackage: components["schemas"]["QuestionPackage"];
+            sourceMap: components["schemas"]["QuestionSourceLink"][];
+        };
+        QuestionDraftSummary: {
+            catalogueVersion: number;
+            completenessTotal: number;
+            createdAt: string;
+            id: string;
+            ownerId: string;
+            packageId: string;
+            packageVersion: number;
+            revision: number;
+            status: string;
+            structuralTotal: number;
+            updatedAt: string;
+        };
+        QuestionDraftView: {
+            authorIds: string[];
+            catalogueSha256: string;
+            catalogueVersion: number;
+            createdAt: string;
+            gate: components["schemas"]["QuestionValidationReport"];
+            id: string;
+            legacyUnattributed: boolean;
+            ownerId: string;
+            questionPackage: components["schemas"]["QuestionPackage"];
+            revision: number;
+            sourceMap: components["schemas"]["QuestionSourceLink"][];
+            status: string;
+            updatedAt: string;
+        };
+        QuestionEngineSpec: {
+            /** @enum {unknown} */
+            family: "rational_arithmetic" | "rational_comparison" | "missing_operand";
+            /** @enum {unknown} */
+            operation: "add" | "subtract" | "multiply" | "divide" | "compare";
+            /** @enum {unknown} */
+            unknownSide: null | "left" | "right";
+            generatorVersion: number;
+            verifierVersion: number;
+        } & (unknown & unknown & unknown);
+        QuestionFixedQuestion: {
+            id: string;
+            version: number;
+            body: components["schemas"]["QuestionBody"];
+        };
+        QuestionFrozenBody: {
+            authorIds: string[];
+            catalogueSha256: string;
+            catalogueVersion: number;
+            coverage: components["schemas"]["QuestionCoverageNode"][];
+            frozenDigest: string;
+            generation: components["schemas"]["QuestionGenerationReport"][];
+            generatorVersions: number[];
+            instanceIdentities: components["schemas"]["QuestionIdentity"][];
+            legacyUnattributed: boolean;
+            objectives: components["schemas"]["QuestionResolvedObjective"][];
+            questionPackage: components["schemas"]["QuestionPackage"];
+            resolved: components["schemas"]["QuestionKnownObject"][];
+            sourceMap: components["schemas"]["QuestionSourceLink"][];
+            verifierVersions: number[];
+        };
+        QuestionGenerationReport: {
+            constraintCounts: components["schemas"]["QuestionConstraintCount"][];
+            excludedCombinations: number;
+            generatorVersion: number;
+            rawCombinations: number;
+            template: components["schemas"]["QuestionIdentity"];
+            validInstances: number;
+            verifierVersion: number;
+        };
+        QuestionIdentity: {
+            id: string;
+            sha256: string;
+            version: number;
+        };
+        QuestionInstance: {
+            body: components["schemas"]["QuestionBody"];
+            generatorVersion: number | null;
+            identity: components["schemas"]["QuestionIdentity"];
+            origin: string;
+            parameters: components["schemas"]["QuestionParameterValue"][];
+            template: components["schemas"]["QuestionIdentity"] | null;
+            verifierVersion: number | null;
+        };
+        QuestionIssue: {
+            code: string;
+            message: string;
+            path: string;
+        };
+        QuestionKnownObject: {
+            id: string;
+            kind: string;
+            sha256: string;
+            version: number;
+        };
+        QuestionManifestMember: {
+            evidence: components["schemas"]["QuestionMemberEvidence"];
+            identity: components["schemas"]["QuestionMemberIdentity"];
+        };
+        QuestionMemberEvidence: {
+            decisionId: string;
+            frozenDigest: string;
+            inheritedFrom: string | null;
+            submissionId: string;
+        };
+        QuestionMemberIdentity: {
+            id: string;
+            kind: string;
+            packageId: string;
+            packageVersion: number;
+            sha256: string;
+            version: number;
+        };
+        QuestionMemberPage: {
+            items: components["schemas"]["QuestionManifestMember"][];
+            limit: number;
+            manifestSha: string;
+            offset: number;
+            publicationId: string;
+            total: number;
+        };
+        QuestionObjectiveCoverage: {
+            knowledge: components["schemas"]["QuestionRef"];
+            objectiveIndices: number[];
+        };
+        QuestionChangeItems: {
+            items: components["schemas"]["QuestionChange"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        QuestionCoverageItems: {
+            items: components["schemas"]["QuestionCoverageNode"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        QuestionDraftPage: {
+            items: components["schemas"]["QuestionDraftSummary"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        QuestionInstancePage: {
+            items: components["schemas"]["QuestionInstance"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        QuestionSubmissionPage: {
+            items: components["schemas"]["QuestionSubmissionSummary"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        QuestionParameter: {
+            name: string;
+            values: string[];
+        };
+        QuestionParameterValue: {
+            name: string;
+            value: string;
+        };
+        QuestionPrepareInput: {
+            expectedKnowledgeHead: string | null;
+            expectedQuestionHead: string | null;
+            reason: string;
+            submissionIds: string[];
+        };
+        QuestionPublicationPage: {
+            head: string | null;
+            items: components["schemas"]["QuestionPublicationSummary"][];
+            limit: number;
+            offset: number;
+            total: number;
+        };
+        QuestionPublicationSummary: {
+            baseKnowledgeHead: string | null;
+            baseQuestionHead: string | null;
+            blueprintCount: number;
+            catalogueSha256: string;
+            catalogueVersion: number;
+            createdAt: string;
+            diff: components["schemas"]["QuestionDiffSummary"];
+            id: string;
+            instanceCount: number;
+            manifestSha: string;
+            status: string;
+            templateCount: number;
+        };
+        QuestionBody: {
+            /** @enum {unknown} */
+            type: "single_choice" | "numeric";
+            knowledge: components["schemas"]["QuestionRef"];
+            coverage: components["schemas"]["QuestionObjectiveCoverage"][];
+            units: components["schemas"]["QuestionRef"][];
+            prompt: string;
+            explanation: string;
+            /** @enum {unknown} */
+            answerFormat: null | "rational" | "percentage";
+            choices: components["schemas"]["QuestionChoice"][];
+            correctChoiceId: string | null;
+            correctNumeric: components["schemas"]["QuestionRational"] | null;
+            witness: components["schemas"]["QuestionVerificationWitness"] | null;
+            assets: components["schemas"]["QuestionAssetRef"][];
+            sources: components["schemas"]["QuestionSource"][];
+        } & (unknown & unknown);
+        QuestionPackage: {
+            /** @constant */
+            kind: "question-bank";
+            /** @constant */
+            schemaVersion: 1;
+            id: string;
+            version: number;
+            templates: components["schemas"]["QuestionTemplate"][];
+            fixedQuestions: components["schemas"]["QuestionFixedQuestion"][];
+            blueprints: components["schemas"]["QuestionBlueprint"][];
+        };
+        QuestionRational: {
+            numerator: string;
+            denominator: string;
+        };
+        QuestionResolvedObjective: {
+            knowledge: components["schemas"]["QuestionIdentity"];
+            objectiveIndex: number;
+            text: string;
+        };
+        QuestionReviewChecks: {
+            explanations: boolean;
+            generation: boolean;
+            illustrations: boolean;
+            mathematics: boolean;
+            objectives: boolean;
+            sources: boolean;
+        };
+        QuestionReviewDecision: {
+            checks: components["schemas"]["QuestionReviewChecks"];
+            createdAt: string;
+            decision: string;
+            frozenDigest: string;
+            generationNote: string;
+            id: string;
+            independenceNote: string;
+            note: string;
+            reviewerId: string;
+            submissionId: string;
+        };
+        QuestionReviewInput: {
+            checks: components["schemas"]["QuestionReviewChecks"];
+            decision: string;
+            generationNote: string;
+            independenceNote: string;
+            note: string;
+        };
+        QuestionSaveDraftInput: {
+            catalogueVersion: number;
+            expectedRevision: number;
+            questionPackage: components["schemas"]["QuestionPackage"];
+            sourceMap: components["schemas"]["QuestionSourceLink"][];
+        };
+        QuestionSource: {
+            kind: string;
+            author: string;
+            title: string;
+            accessedAt: string;
+            license: string;
+            attribution: string;
+            url: string;
+        };
+        QuestionSourceLink: {
+            knowledge: components["schemas"]["QuestionRef"];
+            batchSha256: string;
+            relativePath: string;
+            sha256: string;
+            legacyId: string;
+            note: string;
+        };
+        QuestionSubmissionSummary: {
+            catalogueVersion: number;
+            createdAt: string;
+            frozenDigest: string;
+            id: string;
+            ownerId: string;
+            packageId: string;
+            packageVersion: number;
+            revision: number;
+            status: string;
+            workspaceId: string;
+        };
+        QuestionSubmissionView: {
+            createdAt: string;
+            frozen: components["schemas"]["QuestionFrozenBody"];
+            gate: components["schemas"]["QuestionValidationReport"];
+            id: string;
+            ownerId: string;
+            review: components["schemas"]["QuestionReviewDecision"] | null;
+            revision: number;
+            status: string;
+            workspaceId: string;
+        };
+        QuestionSubmitInput: {
+            expectedDigest: string;
+            expectedRevision: number;
+        };
+        QuestionTemplate: {
+            id: string;
+            version: number;
+            knowledge: components["schemas"]["QuestionRef"];
+            coverage: components["schemas"]["QuestionObjectiveCoverage"][];
+            units: components["schemas"]["QuestionRef"][];
+            /** @enum {unknown} */
+            type: "single_choice" | "numeric";
+            /** @enum {unknown} */
+            answerFormat: null | "rational" | "percentage";
+            promptTemplate: string;
+            explanationTemplate: string;
+            engine: components["schemas"]["QuestionEngineSpec"];
+            parameters: components["schemas"]["QuestionParameter"][];
+            constraints: ("nonzero_divisor" | "nonnegative_result" | "distinct_operands")[];
+            distractors: ("negate" | "plus_one" | "minus_one" | "reciprocal")[];
+            assets: components["schemas"]["QuestionAssetRef"][];
+            sources: components["schemas"]["QuestionSource"][];
+        } & (unknown & unknown & unknown & unknown & unknown);
+        QuestionValidateInput: {
+            expectedRevision: number;
+        };
+        QuestionValidationReport: {
+            completenessErrors: components["schemas"]["QuestionIssue"][];
+            completenessTotal: number;
+            coverage: components["schemas"]["QuestionCoverageNode"][];
+            digest: string;
+            frozenBytes: number;
+            generation: components["schemas"]["QuestionGenerationReport"][];
+            humanReviewRequirements: components["schemas"]["QuestionIssue"][];
+            humanReviewTotal: number;
+            packageBytes: number;
+            readyToSubmit: boolean;
+            structuralErrors: components["schemas"]["QuestionIssue"][];
+            structuralTotal: number;
+            truncated: boolean;
+        };
+        QuestionVerificationWitness: {
+            engine: components["schemas"]["QuestionEngineSpec"];
+            parameters: components["schemas"]["QuestionParameterValue"][];
+        };
+        QuestionRef: {
+            id: string;
+            version: number;
+        };
+        QuestionWithdrawalInput: {
+            expectedKnowledgeHead: string | null;
+            expectedQuestionHead: string | null;
+            reason: string;
+            target: components["schemas"]["QuestionWithdrawalTarget"];
+        };
+        QuestionWithdrawalPreview: {
+            affectedBlueprints: number;
+            affectedInstances: number;
+            affectedTemplates: number;
+            changes: components["schemas"]["QuestionChangeItems"];
+            currentKnowledgeHead: string | null;
+            currentQuestionHead: string | null;
+            diff: components["schemas"]["QuestionDiffSummary"];
+            impactDigest: string;
+            target: components["schemas"]["QuestionWithdrawalTarget"];
+        };
+        QuestionWithdrawalPreviewInput: {
+            target: components["schemas"]["QuestionWithdrawalTarget"];
+        };
+        QuestionWithdrawalResult: {
+            eventId: string;
+            previousKnowledgeHead: string | null;
+            previousQuestionHead: string | null;
+            publication: components["schemas"]["QuestionPublicationSummary"];
+        };
+        QuestionWithdrawalTarget: {
+            id: string;
+            kind: string;
+            version: number;
+        };
+        QuestionEmptyInput: Record<string, never>;
+        /** @enum {string} */
+        QuestionErrorCode: "INVALID_REQUEST" | "INVALID_COOKIE" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "QUESTION_DRAFT_CONFLICT" | "QUESTION_PUBLICATION_STALE" | "REVIEW_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "IMMUTABLE_CONFLICT" | "VERSION_CONFLICT" | "PAYLOAD_TOO_LARGE" | "QUESTION_INVALID" | "QUESTION_NOT_READY" | "QUESTION_LIMIT_EXCEEDED" | "REVIEW_REQUIRED" | "REAUTHENTICATION_REQUIRED" | "RATE_LIMITED" | "QUESTION_BANK_NOT_CONFIGURED" | "AUTH_NOT_CONFIGURED" | "SERVICE_UNAVAILABLE";
+        QuestionError: {
+            error: {
+                /** @constant */
+                code: "INVALID_REQUEST";
+                /** @constant */
+                message: "Invalid request.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "INVALID_COOKIE";
+                /** @constant */
+                message: "Invalid sign-in cookie.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "AUTHENTICATION_REQUIRED";
+                /** @constant */
+                message: "Please sign in to continue.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "CSRF_FAILED";
+                /** @constant */
+                message: "Request verification failed.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "FORBIDDEN";
+                /** @constant */
+                message: "You do not have permission.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "PASSWORD_CHANGE_REQUIRED";
+                /** @constant */
+                message: "Change your password to continue.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "NOT_FOUND";
+                /** @constant */
+                message: "Resource not found.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "METHOD_NOT_ALLOWED";
+                /** @constant */
+                message: "Method not allowed.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "QUESTION_DRAFT_CONFLICT";
+                /** @constant */
+                message: "This draft has changed. Reload before continuing.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "QUESTION_PUBLICATION_STALE";
+                /** @constant */
+                message: "Published snapshots changed. Prepare again.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "REVIEW_CONFLICT";
+                /** @constant */
+                message: "This submission already has a final decision.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "IDEMPOTENCY_CONFLICT";
+                /** @constant */
+                message: "This request key was used for different input.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "IMMUTABLE_CONFLICT";
+                /** @constant */
+                message: "This fixed version conflicts with saved questions.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "VERSION_CONFLICT";
+                /** @constant */
+                message: "Create a new version for changed questions.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "PAYLOAD_TOO_LARGE";
+                /** @constant */
+                message: "This request exceeds the size limit.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "QUESTION_INVALID";
+                /** @constant */
+                message: "Question validation failed.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "QUESTION_NOT_READY";
+                /** @constant */
+                message: "Complete the required questions before submitting.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "QUESTION_LIMIT_EXCEEDED";
+                /** @constant */
+                message: "Split this question bank into smaller reviewed batches.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "REVIEW_REQUIRED";
+                /** @constant */
+                message: "Independent review is required.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "REAUTHENTICATION_REQUIRED";
+                /** @constant */
+                message: "Verify your password before continuing.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "RATE_LIMITED";
+                /** @constant */
+                message: "Too many requests. Try again later.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "QUESTION_BANK_NOT_CONFIGURED";
+                /** @constant */
+                message: "Question management is temporarily unavailable.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "AUTH_NOT_CONFIGURED";
+                /** @constant */
+                message: "Accounts are temporarily unavailable.";
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "SERVICE_UNAVAILABLE";
+                /** @constant */
+                message: "Service temporarily unavailable.";
+                requestId: string;
+            };
+        };
     };
     responses: {
         /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */
@@ -1520,6 +2511,140 @@ export interface components {
             };
             content: {
                 "application/json": components["schemas"]["ContentError"];
+            };
+        };
+        /** @description Question bank failure: INVALID_REQUEST, INVALID_COOKIE. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError400: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: AUTHENTICATION_REQUIRED. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError401: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: CSRF_FAILED, FORBIDDEN, PASSWORD_CHANGE_REQUIRED. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError403: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: NOT_FOUND. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError404: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: METHOD_NOT_ALLOWED. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError405: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                Allow?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: QUESTION_DRAFT_CONFLICT, QUESTION_PUBLICATION_STALE, REVIEW_CONFLICT, IDEMPOTENCY_CONFLICT, IMMUTABLE_CONFLICT, VERSION_CONFLICT. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError409: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: PAYLOAD_TOO_LARGE. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError413: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: QUESTION_INVALID, QUESTION_NOT_READY, QUESTION_LIMIT_EXCEEDED, REVIEW_REQUIRED. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError422: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: REAUTHENTICATION_REQUIRED. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError428: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: RATE_LIMITED. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError429: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                "Retry-After"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description Question bank failure: QUESTION_BANK_NOT_CONFIGURED, AUTH_NOT_CONFIGURED, SERVICE_UNAVAILABLE. Private JSON; no question content or sign-in cookie changes. */
+        QuestionError503: {
+            headers: {
+                "Cache-Control"?: "private, no-store";
+                "X-Content-Type-Options"?: "nosniff";
+                "X-Request-ID"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["QuestionError"];
             };
         };
     };
@@ -4264,6 +5389,857 @@ export interface operations {
             428: components["responses"]["ContentError428"];
             429: components["responses"]["ContentError429"];
             503: components["responses"]["ContentError503"];
+        };
+    };
+    question_get_drafts: {
+        parameters: {
+            query?: {
+                scope?: "mine" | "all";
+                status?: "editing" | "submitted";
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionDraftPage"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_drafts: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 4 MiB envelope, questionPackage 2 MiB. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionDraftInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionDraftView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_drafts_adopt: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionAdoptInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionDraftView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_drafts_id: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionDraftView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_put_drafts_id: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 4 MiB envelope, questionPackage 2 MiB. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionSaveDraftInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionDraftView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_drafts_id_validate: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionValidateInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionValidationReport"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_drafts_id_submit: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionSubmitInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionSubmissionView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_submissions: {
+        parameters: {
+            query?: {
+                scope?: "mine" | "review" | "all";
+                status?: "pending" | "approved" | "returned";
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionSubmissionPage"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_submissions_id: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionSubmissionView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_submissions_id_instances: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionInstancePage"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_submissions_id_revision: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionEmptyInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionDraftView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_submissions_id_decision: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionReviewInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionSubmissionView"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_publications: {
+        parameters: {
+            query?: {
+                scope?: "all";
+                status?: "prepared" | "published";
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionPublicationPage"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_publications_id: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionPublicationSummary"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_publications_id_members: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionMemberPage"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_publications_id_changes: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionChangePage"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_publications_prepare: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionPrepareInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionPublicationSummary"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_publications_id_activate: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionActivateInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionPublicationSummary"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_withdrawals_preview: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionWithdrawalPreviewInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionWithdrawalPreview"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_post_withdrawals: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head. */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Original UTF-8 bytes: 8 KiB control request. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["QuestionWithdrawalInput"];
+            };
+        };
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionWithdrawalResult"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
+        };
+    };
+    question_get_coverage: {
+        parameters: {
+            query?: {
+                knowledgeId?: string;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Complete private DTO, maximum 4 MiB, no Set-Cookie. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionCoverageReport"];
+                };
+            };
+            400: components["responses"]["QuestionError400"];
+            401: components["responses"]["QuestionError401"];
+            403: components["responses"]["QuestionError403"];
+            404: components["responses"]["QuestionError404"];
+            405: components["responses"]["QuestionError405"];
+            409: components["responses"]["QuestionError409"];
+            413: components["responses"]["QuestionError413"];
+            422: components["responses"]["QuestionError422"];
+            428: components["responses"]["QuestionError428"];
+            429: components["responses"]["QuestionError429"];
+            503: components["responses"]["QuestionError503"];
         };
     };
 }

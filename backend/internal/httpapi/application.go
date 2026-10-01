@@ -10,6 +10,7 @@ import (
 )
 
 type AuthOptions struct {
+	Question     *QuestionOptions
 	Content      *ContentOptions
 	Accounts     *auth.Service
 	Admin        *auth.AdminService
@@ -46,6 +47,17 @@ func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) ht
 	public := NewHandler(reader, pinger)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
+		if path == "/api/v1/question-bank" || strings.HasPrefix(path, "/api/v1/question-bank/") {
+			q := QuestionOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
+			if options.Question != nil {
+				q = *options.Question
+			}
+			if options.Accounts == nil {
+				q.PublicOrigin = ""
+			}
+			serveQuestion(w, r, q)
+			return
+		}
 		if path == "/api/v1/content" || strings.HasPrefix(path, "/api/v1/content/") {
 			content := ContentOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
 			if options.Content != nil {

@@ -438,7 +438,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** httpapi/question_{routes,json,error,dispatch}.go及测试；application.go；cmd/server/main.go；api/openapi.yaml；generated.d.ts；api/question-boundary-cases.json。
 **Interfaces:** QuestionOptions{Service *question.Service,PublicOrigin string,Production/Configured bool}，AuthOptions增加Question *QuestionOptions；QuestionReady(ctx context.Context,db *sql.DB)(bool,error)只读检查18表/迁移是否齐备。NewService注入同一个publicationService.AcquireValidation，serveQuestion固定路由，不提供学习者答案/自由判分端口。
 
-- [ ] **Step 1：写失败测试。** TestQuestionHTTPContract所有设计端口、根/额外段404、方法405/Allow、状态201/200及幂等重放、未知/重复JSON/query/原始整数词法/UTF-8/NUL/终止边界；TestQuestionPrivateScopeAndErrors：learner不可读答案、private越权404、缺迁移503与旧业务正常、error/log无题面/路径/SQL/secret；TestSharedQuestionValidationSlots：P3b+题库共用两槽、第三项立即503、取消/失败/慢body释放时机；TestSharedContentQuestionRateWindow跨后台共享30/10配额、coverage计heavy且有Retry-After；TestQuestionBodyDeadline包含body/SQL8s、超大chunked413、取消/断连无残留事务，原账户4s不改。
+- [x] **Step 1：写失败测试。** TestQuestionHTTPContract所有设计端口、根/额外段404、方法405/Allow、状态201/200及幂等重放、未知/重复JSON/query/原始整数词法/UTF-8/NUL/终止边界；TestQuestionPrivateScopeAndErrors：learner不可读答案、private越权404、缺迁移503与旧业务正常、error/log无题面/路径/SQL/secret；TestSharedQuestionValidationSlots：P3b+题库共用两槽、第三项立即503、取消/失败/慢body释放时机；TestSharedContentQuestionRateWindow跨后台共享30/10配额、coverage计heavy且有Retry-After；TestQuestionBodyDeadline包含body/SQL8s、超大chunked413、取消/断连无残留事务，原账户4s不改。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -451,10 +451,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi -run 'Test(QuestionHTTPContract|QuestionPrivateScopeAndErrors|SharedQuestionValidationSlots|SharedContentQuestionRateWindow|QuestionBodyDeadline)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现固定路由与错误映射。** 严格解码前做实际账户证明和写Origin/CSRF；大正文及重操作持已有槽至实际结束。错误状态/code逐项实现设计第11节，QUESTION_*只映射新sentinel；完整业务响应实际序列化≤4 MiB、no-store，秘密证明不序列化。控制请求≤8 KiB，创建/保存4 MiB；撤回预览允许limit/offset并验证全部影响计数摘要。共享资源装配只有一个publication.Service，不再NewService两次制造独立槽。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；单批原httpapi完整回归。api:generate两次均零差异；比较master旧paths/schema结构逐项不变，仅新增题库端口/DTO。共享边界用例文件含请求原字节、路径/方法、期待status/code，两端读取同一用例。
-- [ ] **Step 5：提交。** 任务10文件，提交 feat: 接入严格私有题库API与共享资源边界。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi -run 'Test(QuestionHTTPContract|QuestionPrivateScopeAndErrors|SharedQuestionValidationSlots|SharedContentQuestionRateWindow|QuestionBodyDeadline)$' -timeout 5m -count=1。
+- [x] **Step 3：实现固定路由与错误映射。** 严格解码前做实际账户证明和写Origin/CSRF；大正文及重操作持已有槽至实际结束。错误状态/code逐项实现设计第11节，QUESTION_*只映射新sentinel；完整业务响应实际序列化≤4 MiB、no-store，秘密证明不序列化。控制请求≤8 KiB，创建/保存4 MiB；撤回预览允许limit/offset并验证全部影响计数摘要。共享资源装配只有一个publication.Service，不再NewService两次制造独立槽。
+- [x] **Step 4：验证GREEN。** 重跑Step2；单批原httpapi完整回归。api:generate两次均零差异；比较master旧paths/schema结构逐项不变，仅新增题库端口/DTO。共享边界用例文件含请求原字节、路径/方法、期待status/code，两端读取同一用例。
+- [x] **Step 5：提交。** 任务10文件，提交 feat: 接入严格私有题库API与共享资源边界。
 
 ## Task 11：TypeScript私有契约、原始代理与客户端
 
