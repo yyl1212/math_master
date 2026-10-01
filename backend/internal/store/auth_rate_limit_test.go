@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/store"
+	"regexp"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -12,7 +13,7 @@ import (
 )
 
 func TestAuthRateLimits(t *testing.T) {
-	f := newAuthFixture(t)
+	f, _ := fixedRateFixture(t, time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC))
 	for _, limit := range []int{3, 10, 30, 60, 120, 600} {
 		scope := fmt.Sprintf("threshold_%d", limit)
 		keys := []auth.RateKey{{Scope: scope, Limit: limit, Window: time.Hour}}
@@ -111,7 +112,7 @@ func TestAuthCleanup(t *testing.T) {
 
 func TestAuthRateLimitsServicePolicies(t *testing.T) {
 	t.Run("loginUsernameAndPreauth", func(t *testing.T) {
-		f := newAuthFixture(t)
+		f, _ := fixedRateFixture(t, time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC))
 		cookies, csrf := f.anonymous()
 		for i := 0; i < 11; i++ {
 			_, _, err := f.service.Login(f.ctx, cookies, csrf, auth.LoginInput{Username: "UNKNOWN_NAME", Password: accountTestPassword}, "attempt")
@@ -127,7 +128,7 @@ func TestAuthRateLimitsServicePolicies(t *testing.T) {
 		}
 	})
 	t.Run("registerPreauth", func(t *testing.T) {
-		f := newAuthFixture(t)
+		f, _ := fixedRateFixture(t, time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC))
 		f.register("taken_name")
 		cookies, csrf := f.anonymous()
 		for i := 0; i < 4; i++ {
@@ -144,7 +145,7 @@ func TestAuthRateLimitsServicePolicies(t *testing.T) {
 		}
 	})
 	t.Run("sharedRead", func(t *testing.T) {
-		f := newAuthFixture(t)
+		f, _ := fixedRateFixture(t, time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC))
 		for i := 0; i < 599; i++ {
 			if f.repo.ConsumeRates(f.ctx, []auth.RateKey{{Scope: "auth_read", Limit: 600, Window: time.Minute}}) != nil {
 				t.Fatal("read budget setup failed")
@@ -160,7 +161,7 @@ func TestAuthRateLimitsServicePolicies(t *testing.T) {
 		}
 	})
 	t.Run("newPreauth", func(t *testing.T) {
-		f := newAuthFixture(t)
+		f, _ := fixedRateFixture(t, time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC))
 		for i := 0; i < 119; i++ {
 			if f.repo.ConsumeRates(f.ctx, []auth.RateKey{{Scope: "new_preauth", Limit: 120, Window: time.Minute}}) != nil {
 				t.Fatal("context budget setup failed")
@@ -174,7 +175,7 @@ func TestAuthRateLimitsServicePolicies(t *testing.T) {
 		}
 	})
 	t.Run("sharedPasswordReauth", func(t *testing.T) {
-		f := newAuthFixture(t)
+		f, _ := fixedRateFixture(t, time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC))
 		_, cookies, csrf := f.signup("limited_password")
 		for i := 0; i < 11; i++ {
 			var err error
@@ -194,4 +195,78 @@ func TestAuthRateLimitsServicePolicies(t *testing.T) {
 			}
 		}
 	})
+}
+
+// 只改变随机测试库的时钟；所有新连接使用相同 search_path，保留真实多连接竞争。
+func fixedRateFixture(t *testing.T, at time.Time) (*authFixture, func(time.Time)) {
+	t.Helper()
+	f := newAuthFixture(t)
+	var database string
+	if err := f.db.QueryRowContext(f.ctx, "SELECT current_database()").Scan(&database); err != nil ||
+		!regexp.MustCompile(`^math_master_test_[0-9a-f]{16}$`).MatchString(database) {
+		t.Fatal("fixed clock requires an isolated random test database")
+	}
+	f.exec("CREATE TABLE auth_rate_test_clock (singleton boolean PRIMARY KEY CHECK(singleton), current_at timestamptz NOT NULL)")
+	f.exec("INSERT INTO auth_rate_test_clock VALUES(true,$1)", at)
+	f.exec("CREATE FUNCTION public.clock_timestamp() RETURNS timestamptz LANGUAGE SQL STABLE AS 'SELECT current_at FROM public.auth_rate_test_clock WHERE singleton'")
+	// 名称已验证为严格的随机测试库格式，数据库设置不会影响角色或其他数据库。
+	f.exec(fmt.Sprintf(`ALTER DATABASE "%s" SET search_path TO public, pg_catalog`, database))
+	// 回收默认 search_path 的原连接；以后每条物理连接均读取数据库默认值。
+	f.db.SetMaxIdleConns(0)
+	f.db.SetMaxIdleConns(2)
+	return f, func(next time.Time) {
+		t.Helper()
+		f.exec("UPDATE public.auth_rate_test_clock SET current_at=$1 WHERE singleton", next)
+	}
+}
+
+func TestAuthRateClockFixture(t *testing.T) {
+	at := time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC)
+	f, advance := fixedRateFixture(t, at)
+	checkClock := func(want time.Time) {
+		t.Helper()
+		var got time.Time
+		if err := f.db.QueryRowContext(f.ctx, "SELECT clock_timestamp()").Scan(&got); err != nil {
+			t.Fatal("test database clock query failed")
+		}
+		if !got.Equal(want) {
+			t.Fatal("test database clock is not fixed at the requested instant")
+		}
+	}
+	checkClock(at)
+	// 重新建立物理连接后也必须使用同一测试时钟。
+	f.db.SetMaxIdleConns(0)
+	f.db.SetMaxIdleConns(2)
+	checkClock(at)
+	at = at.Add(time.Millisecond)
+	advance(at)
+	checkClock(at)
+}
+
+func TestAuthRateLimitFixedWindowBoundary(t *testing.T) {
+	at := time.Date(2026, 10, 1, 12, 0, 59, 999000000, time.UTC)
+	f, advance := fixedRateFixture(t, at)
+	cookies, csrf := f.anonymous()
+	attempt := func() error {
+		_, _, err := f.service.Login(f.ctx, cookies, csrf, auth.LoginInput{Username: "UNKNOWN_NAME", Password: accountTestPassword}, "fixed-window")
+		return err
+	}
+	for i := 0; i < 10; i++ {
+		if !errors.Is(attempt(), auth.ErrInvalidCredentials) {
+			t.Fatal("same-window login blocked before its quota")
+		}
+	}
+	var limited *auth.RateLimitError
+	if !errors.As(attempt(), &limited) || limited.RetryAfterSeconds != 1 {
+		t.Fatal("same-window eleventh login must be limited until the next minute")
+	}
+	advance(at.Add(time.Millisecond))
+	if !errors.Is(attempt(), auth.ErrInvalidCredentials) {
+		t.Fatal("login quota did not reset at the next UTC minute")
+	}
+	if f.count("SELECT count(*) FROM auth_rate_limits WHERE scope='login_username'") != 2 ||
+		f.count("SELECT attempts FROM auth_rate_limits WHERE scope='login_username' AND window_start=$1", at.Truncate(time.Minute)) != 11 ||
+		f.count("SELECT attempts FROM auth_rate_limits WHERE scope='login_username' AND window_start=$1", at.Truncate(time.Minute).Add(time.Minute)) != 1 {
+		t.Fatal("fixed windows did not retain their independent saturated counts")
+	}
 }
