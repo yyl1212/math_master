@@ -1,0 +1,130 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #eaf0e5;
+  border: 1px solid #dce4d5;
+}
+.heroCopy {
+  padding: 46px 44px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.heroCopy > p:first-child {
+  margin: 0;
+}
+.heroCopy h1 em {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+.heroCopy > p:not(:first-child) {
+  font-size: 14px;
+  max-width: 420px;
+  color: #63715f;
+}
+.heroCopy .heroNote {
+  font-size: 11px;
+  color: #82907a;
+}
+.heroArt {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 34px 18px 30px;
+}
+.heroArt svg {
+  width: 100%;
+  height: auto;
+  max-height: 340px;
+}
+.artLabel {
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  color: #829179;
+  text-align: center;
+}
+.artFooter {
+  display: flex;
+  justify-content: center;
+  gap: 26px;
+  font-size: 10px;
+  letter-spacing: 0.03em;
+  color: #6e8264;
+}
+.learningNote {
+  display: flex;
+  gap: 24px;
+  align-items: start;
+  margin-top: 36px;
+  padding: 28px 32px;
+  border-radius: var(--radius);
+  background: var(--sand);
+}
+.learningNote > span {
+  font-size: 26px;
+  color: #97834e;
+}
+.learningNote h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+.learningNote p {
+  font-size: 13px;
+  color: #7a725e;
+  max-width: 740px;
+}
+@media (max-width: 900px) {
+  .heroCopy {
+    padding: 36px 30px;
+  }
+  .heroCopy h1 {
+    font-size: 42px;
+  }
+  .heroArt {
+    padding: 25px 10px;
+  }
+  .artFooter {
+    gap: 14px;
+  }
+}
+@media (max-width: 600px) {
+  .hero {
+    grid-template-columns: 1fr;
+    border-radius: 18px;
+  }
+  .heroCopy {
+    padding: 30px 25px 28px;
+    gap: 20px;
+  }
+  .heroCopy h1 {
+    font-size: 39px;
+  }
+  .heroCopy > p:not(:first-child) {
+    font-size: 13px;
+  }
+  .heroArt {
+    border-top: 1px solid #d7e0d0;
+    padding: 20px;
+  }
+  .heroArt svg {
+    max-height: 200px;
+  }
+  .artFooter {
+    font-size: 9px;
+    gap: 22px;
+  }
+  .learningNote {
+    padding: 23px;
+    gap: 16px;
+  }
+  .learningNote p {
+    font-size: 12px;
+  }
+  .learningNote h2 {
+    font-size: 18px;
+  }
+}
