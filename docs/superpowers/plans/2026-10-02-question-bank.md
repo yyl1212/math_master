@@ -325,7 +325,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** 00005迁移；store/{managed_identity,question_tx,question_idempotency}.go及测试、question_schema_test.go；小范围修改workflow_tx.go及原测试。
 **Interfaces:** 产出questionTx/questionReadTx/questionConfigured/managedIdentity/questionReplay/questionRemember；保留workflowIdentity/workflowTx/workflowReadTx签名、动作授权、原错误映射。
 
-- [ ] **Step 1：写失败测试。** TestQuestionSchema：设计18张领域表、FK/唯一身份/参数摘要、固定字节JSONB/SHA一致、冻结后父/子UPDATE/DELETE/额外关联拒绝、只插review或半送审提交拒绝、workspace状态窄例外、00001—00004字节和原数据SHA不变；TestQuestionSessionExpiresWhileWaiting真实屏障覆盖账户行/内容行等待后过期、提交前过期、撤权/密码版本/CSRF/5分钟边界；TestQuestionIdempotencyAtomicity：同键同输入一次结果、异输入409、撤权重放拒绝、审计失败全部回滚。
+- [x] **Step 1：写失败测试。** TestQuestionSchema：设计18张领域表、FK/唯一身份/参数摘要、固定字节JSONB/SHA一致、冻结后父/子UPDATE/DELETE/额外关联拒绝、只插review或半送审提交拒绝、workspace状态窄例外、00001—00004字节和原数据SHA不变；TestQuestionSessionExpiresWhileWaiting真实屏障覆盖账户行/内容行等待后过期、提交前过期、撤权/密码版本/CSRF/5分钟边界；TestQuestionIdempotencyAtomicity：同键同输入一次结果、异输入409、撤权重放拒绝、审计失败全部回滚。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -337,10 +337,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(Schema|SessionExpiresWhileWaiting|IdempotencyAtomicity)$' -timeout 5m -count=1，仅全新随机测试库。
-- [ ] **Step 3：追加迁移与共享证明。** 建设计列出的workspaces/authors、packages/templates/instances/blueprints、coverage/sources、submissions/authors/members、decisions、publications/members/heads、withdrawals/events/idempotency；CHECK、准确FK、唯一固定身份、延迟一致性与不可变触发器。managedIdentity返回会话和DB时钟，CSRF是否必需由wrapper指定，不允许读取动作因为共享提取变成要求CSRF。wrapper各自Authorize/reauth，先锁后取当前proof、提交前再核验；error不暴露SQL。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；独立单批运行原workflow_tx/roles/account并发和幂等全部回归。迁移只运行在随机库，questionConfigured检查缺表返回固定QUESTION_BANK_NOT_CONFIGURED，服务器不自动up。
-- [ ] **Step 5：提交。** 任务5文件，提交 feat: 增加题库固定记录与授权事务约束。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(Schema|SessionExpiresWhileWaiting|IdempotencyAtomicity)$' -timeout 5m -count=1，仅全新随机测试库。
+- [x] **Step 3：追加迁移与共享证明。** 建设计列出的workspaces/authors、packages/templates/instances/blueprints、coverage/sources、submissions/authors/members、decisions、publications/members/heads、withdrawals/events/idempotency；CHECK、准确FK、唯一固定身份、延迟一致性与不可变触发器。managedIdentity返回会话和DB时钟，CSRF是否必需由wrapper指定，不允许读取动作因为共享提取变成要求CSRF。wrapper各自Authorize/reauth，先锁后取当前proof、提交前再核验；error不暴露SQL。
+- [x] **Step 4：验证GREEN。** 重跑Step2；独立单批运行原workflow_tx/roles/account并发和幂等全部回归。迁移只运行在随机库，questionConfigured检查缺表返回固定QUESTION_BANK_NOT_CONFIGURED，服务器不自动up。
+- [x] **Step 5：提交。** 任务5文件，提交 feat: 增加题库固定记录与授权事务约束。
 
 ## Task 6：离线检查、不可变导入导出与本人草稿
 
