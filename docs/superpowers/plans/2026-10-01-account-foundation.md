@@ -8,7 +8,7 @@
 
 **Tech Stack:** Go 1.27.1（CGO_ENABLED=0）、PostgreSQL 17.11、Node.js 24.17.0、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3，沿用前端锁文件；新增 golang.org/x/crypto v0.57.0、golang.org/x/term v0.46.0。
 
-**Spec:** [已确认的 P3a 设计](../specs/2026-10-01-account-foundation-design.md)。用户于 2026-10-01 确认，方案通过 [PR #8](https://github.com/yyl1212/math_master/pull/8) 合并。计划基线为 master `91783a9`；用户已确认通过 PR #9 合并计划，选择 Native 连续执行；七项实现正在本功能分支验收，整分支审查和 CI 结果以实际记录为准。
+**Spec:** [已确认的 P3a 设计](../specs/2026-10-01-account-foundation-design.md)。用户于 2026-10-01 确认，方案通过 [PR #8](https://github.com/yyl1212/math_master/pull/8) 合并。计划基线为 master `91783a9`；用户已确认通过 PR #9 合并计划，选择 Native 连续执行；七项实现及独立审查已完成本机回归，最终交付 CI 以实际验收记录为准。
 
 ## 全局约束（Global Constraints）
 
@@ -331,11 +331,11 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 
 **Interfaces:** 测试进程启用 NewApplicationHandler，认证 origin 固定 http://127.0.0.1:18080，API/control 仍在 18081/18082；Next 测试 env 同时设置 APP_ENV=development、AUTH_PUBLIC_ORIGIN 和既有 GO_API_INTERNAL_URL。新增账号场景只操作本次随机库的 auth_* 表，沿用受令牌保护的控制端口，不加入正式 server。auth fixture 提供源码公开的隔离测试口令，不读取任何真实密码；runtime.local.json 不增加密码、Cookie 或 CSRF。每场景重置账号/限流/初始化状态，内容保持指定的旧 draft/published 测试场景；不改开发库。
 
-- [ ] **Step 1：写真实浏览器失败测试。** 两种屏幕各测试：注册→登录→account→退出；错误密码不改身份；改密使另一个已打开浏览器会话失效；admin 初始化后登录→重新验证→授予 editor/reviewer→对方旧会话失效并重新登录；人工重置→临时会话受限→改密→重新登录；CSRF/跨源/伪造角色拒绝；接口故障→恢复后仍可读取真实登录态；匿名公共知识读取继续正常。页面断言只读真实 Go 返回，不路由拦截伪造成功。失败截图遮盖表单输入，trace/video 关闭，异常只显示固定失败信息，禁止将 Cookie、CSRF、控制令牌和 runtime 文件作为实际值或附件输出。
-- [ ] **Step 2：验证 RED。** 先使用现有 production build/harness 执行 `node tools/verify/run.mjs --cwd frontend -- npm run e2e -- auth.spec.ts auth-security.spec.ts`，记录缺失认证场景/页面导致的失败；不能把端口占用或数据库连接故障计作 RED。
-- [ ] **Step 3：接入 harness、两份既有 CI 与运维。** 复用 IsolatedConfigs/OpenVerified 及正常退出清理，auth reset 明确列出本随机库的表；guard 测试继续拦截 dbname/database 覆盖。正式 main 不能导入 e2etest。backend.yml 增加 auth 包单测，不遗漏新包；frontend.yml 构建新版 harness 并分别运行旧目录/阅读与新账户 E2E 两批，每批 globalTimeout=480000、单例 30000。沿用已锁定 Actions SHA 与 7 日失败报告，仅上传去秘密诊断，不新增第三份重复 workflow。中文操作文档说明认证 origin、只读兼容、admin-init 隐藏输入、所有权核验/近期验证、改密会话撤销、应用回退保留表、备份与版本；禁止执行 down 删除真实账户。
-- [ ] **Step 4：完整 GREEN。** 从根目录加载私有环境但不打印；执行下表的所有命令。每批浏览器由已配置 desktop/mobile 两项目分别覆盖；若 480 秒不足，按 spec 文件拆更多批，不加重试或提高时限。人工查看两种屏幕登录/account/admin 截图和 Tab 路径；确认无横向溢出、密码遮盖、身份/拒绝/故障正确。SQL 验证开发库发布指针和数学草稿数量未因账户测试变化、所有本次随机库已清理；只记录数量，不输出配置或真实账户。
-- [ ] **Step 5：独立审查、一次修复与 PR。** 使用 requesting-code-review 与 verification-before-completion 技能，新上下文整分支审查关注五项 Review Focus、权限/锁/秘密/公共兼容。Critical/Important 修复先写失败测试，再修复及相应/整分支回归；处理审查结论并保留验收记录。未解决阻塞问题不声称完成。提交 `test: verify real account flows and publish acceptance evidence`，push 功能分支并创建面向 master 的 Git PR，附到当前会话，核验最终提交 CI；不自行合并或部署。
+- [x] **Step 1：写真实浏览器失败测试。** 两种屏幕各测试：注册→登录→account→退出；错误密码不改身份；改密使另一个已打开浏览器会话失效；admin 初始化后登录→重新验证→授予 editor/reviewer→对方旧会话失效并重新登录；人工重置→临时会话受限→改密→重新登录；CSRF/跨源/伪造角色拒绝；接口故障→恢复后仍可读取真实登录态；匿名公共知识读取继续正常。页面断言只读真实 Go 返回，不路由拦截伪造成功。失败截图遮盖表单输入，trace/video 关闭，异常只显示固定失败信息，禁止将 Cookie、CSRF、控制令牌和 runtime 文件作为实际值或附件输出。
+- [x] **Step 2：验证 RED。** 先使用现有 production build/harness 执行 `node tools/verify/run.mjs --cwd frontend -- npm run e2e -- auth.spec.ts auth-security.spec.ts`，记录缺失认证场景/页面导致的失败；不能把端口占用或数据库连接故障计作 RED。
+- [x] **Step 3：接入 harness、两份既有 CI 与运维。** 复用 IsolatedConfigs/OpenVerified 及正常退出清理，auth reset 明确列出本随机库的表；guard 测试继续拦截 dbname/database 覆盖。正式 main 不能导入 e2etest。backend.yml 增加 auth 包单测，不遗漏新包；frontend.yml 构建新版 harness 并分别运行旧目录/阅读与新账户 E2E 两批，每批 globalTimeout=480000、单例 30000。沿用已锁定 Actions SHA 与 7 日失败报告，仅上传去秘密诊断，不新增第三份重复 workflow。中文操作文档说明认证 origin、只读兼容、admin-init 隐藏输入、所有权核验/近期验证、改密会话撤销、应用回退保留表、备份与版本；禁止执行 down 删除真实账户。
+- [x] **Step 4：完整 GREEN。** 从根目录加载私有环境但不打印；执行下表的所有命令。每批浏览器由已配置 desktop/mobile 两项目分别覆盖；若 480 秒不足，按 spec 文件拆更多批，不加重试或提高时限。人工查看两种屏幕登录/account/admin 截图和 Tab 路径；确认无横向溢出、密码遮盖、身份/拒绝/故障正确。SQL 验证开发库发布指针和数学草稿数量未因账户测试变化、所有本次随机库已清理；只记录数量，不输出配置或真实账户。
+- [x] **Step 5：独立审查、一次修复与 PR。** 使用 requesting-code-review 与 verification-before-completion 技能，新上下文整分支审查关注五项 Review Focus、权限/锁/秘密/公共兼容。Critical/Important 修复先写失败测试，再修复及相应/整分支回归；处理审查结论并保留验收记录。未解决阻塞问题不声称完成。提交 `test: verify real account flows and publish acceptance evidence`，push 功能分支并创建面向 master 的 Git PR，附到当前会话，核验最终提交 CI；不自行合并或部署。
 
 ### 最终验证命令
 
@@ -364,3 +364,5 @@ AdminService 先读取真实会话确定限流 actor，在独立短事务消耗�
 - 执行方式：推荐 Native，在当前会话逐项实现七个任务，最后一次独立整分支审查；任务强依赖类型/事务，复用上下文减少交接成本。也可由用户选择逐项代理实现和审查，需更多独立上下文。用户已确认计划并选择 Native，实施过程中按逐项测试门槛推进。
 
 任务勾选表示已执行步骤；实际命令结果、审查决定和限制见账户验收记录，不把设计或计划本身当作通过证据。
+
+执行交付：[PR #10](https://github.com/yyl1212/math_master/pull/10)，独立审查无Critical/Important，三项Minor延后；最终CI以最新head的PR checks核验，详情见 [账户验收记录](../../operations/2026-10-01-p3a-acceptance.md)。

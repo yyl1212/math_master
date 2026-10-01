@@ -1,6 +1,6 @@
 # 数学学习成长网站：首版开发路线图
 
-日期：2026-09-30。状态：P1 内容基础层已完成独立审查及回归，并于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；P2 已完成独立审查和回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并到 master；P3a 账户基础方案已确认并通过 PR #8 合并，执行计划已确认通过 PR #9 合并，账户实现正在功能分支整体验收；P3b 内容审核尚未开始。
+日期：2026-09-30。状态：P1 内容基础层已完成独立审查及回归，并于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；P2 已完成独立审查和回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并到 master；P3a 账户基础方案已确认并通过 PR #8 合并，执行计划已确认通过 PR #9 合并，账户实现已在功能分支完成独立审查与本机回归，功能交付见 [PR #10](https://github.com/yyl1212/math_master/pull/10) 及其最新提交 CI；P3b 内容审核尚未开始。
 
 设计依据：[总体方案](../specs/2026-09-30-math-learning-platform-design.md)。界面依据：[英文预览](../../../design/README.md)。用户已决定直接在项目中设计和开发，Figma 同步取消。
 
