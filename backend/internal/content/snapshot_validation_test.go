@@ -78,3 +78,14 @@ func TestSnapshotGraph(t *testing.T) {
 		t.Fatal("oversized path view accepted")
 	}
 }
+
+func TestSnapshotPublicViewIncludesOwnedUnusedAssets(t *testing.T) {
+	c, p, reader := workflowSeed(t)
+	p.Units[0].AssetIDs = []string{}
+	p.Units[0].Angles[0].Body = "An illustration can belong to the knowledge without being linked by this unit."
+	p.Assets[0].Attribution = strings.Repeat("x", 10<<20)
+	snapshot := Snapshot{CatalogueVersion: c.Version, Knowledge: p.Knowledge, Units: p.Units, Paths: p.Paths, Assets: p.Assets, Bindings: []AssetBinding{}}
+	if _, err := ValidateSnapshot(context.Background(), c, snapshot, reader); err == nil {
+		t.Fatal("owned unused asset metadata bypassed public view limit")
+	}
+}

@@ -97,17 +97,13 @@ func ValidateSnapshot(ctx context.Context, c catalogue.Catalogue, s Snapshot, re
 		}
 		ref := VersionRef{k.ID, k.Version}
 		v := KnowledgeView{Knowledge: k, Units: []Unit{}, Assets: []AssetView{}}
-		used := map[string]bool{}
 		for _, u := range p.Units {
 			if u.Knowledge == ref {
 				v.Units = append(v.Units, u)
-				for _, id := range u.AssetIDs {
-					used[id] = true
-				}
 			}
 		}
 		for _, a := range p.Assets {
-			if used[a.ID] {
+			if a.Knowledge == ref {
 				v.Assets = append(v.Assets, AssetView{a.ID, a.SHA256, a.Author, a.License, a.Attribution, a.Knowledge})
 			}
 		}
