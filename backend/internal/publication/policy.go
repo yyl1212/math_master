@@ -29,6 +29,10 @@ const (
 	ReadSubmissionAssetAction Action = "readSubmissionAsset"
 )
 
+var mathID = regexp.MustCompile(`^[a-z][a-z0-9-]{0,63}$`)
+
+func ValidMathID(v string) bool { return mathID.MatchString(v) }
+
 var uuidV4 = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$`)
 var sha256Hex = regexp.MustCompile(`^[0-9a-f]{64}$`)
 

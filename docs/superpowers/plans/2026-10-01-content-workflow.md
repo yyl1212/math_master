@@ -116,7 +116,7 @@ flowchart LR
 - WithdrawalInput：Target WithdrawalTarget、ExpectedHead *string、Reason string；WithdrawalPreviewInput 只有 Target；WithdrawalPreview：CurrentHead *string、Target WithdrawalTarget、Diff Diff；WithdrawalResult：EventID string、PreviousHead *string、Publication PublicationView。
 - ListQuery：Scope/Status string、Limit/Offset int；Page[T]：Items []T、Total/Limit/Offset int；PublicationPage 增加 Head *string。DraftSummary 固定为 ID/OwnerID/PackageID/Status/CreatedAt/UpdatedAt string、PackageVersion/CatalogueVersion/StructuralTotal/CompletenessTotal int、Revision int64；SubmissionSummary 为 ID/WorkspaceID/OwnerID/PackageID/Status/FrozenDigest/CreatedAt string、PackageVersion/CatalogueVersion int、Revision int64。两个列表不含正文、来源映射、作者私有说明或素材字节。
 - 字段 JSON 均使用对应 lowerCamelCase；需要首次 null 的 ExpectedHead 必须显式存在，不能把缺失字段当 null。时间固定 RFC3339 UTC。
-- publication.Candidate：Manifest、Diff、Snapshot content.Snapshot；Snapshot 为 CatalogueVersion、Knowledge []content.Knowledge、Units []content.Unit、Paths []content.Path、Assets []content.Asset、Bindings []content.AssetBinding。这些类型只用于服务器内部，客户端不能提交候选成员。
+- publication.Candidate：PublicationID（仅内部 json:"-" 的当前快照 ID）、Manifest、Diff、Snapshot content.Snapshot；Snapshot 为 CatalogueVersion、Knowledge []content.Knowledge、Units []content.Unit、Paths []content.Path、Assets []content.Asset、Bindings []content.AssetBinding。这些类型只用于服务器内部，客户端不能提交候选成员。
 
 ### 服务与仓储端口
 
@@ -263,7 +263,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** publication.BuildCandidate(base Candidate,batches []ReviewedBatch)(Candidate,error)、ManifestDigest(Manifest)(string,error)；ReviewedBatch 包含 SubmissionView、MemberIdentity 和固定 AssetBinding，从可信数据库加载。实现 PrepareRelease、ActivateRelease、List/ReadPublication。store.loadWorkflowCandidate(ctx,*sql.Tx,head *string)(Candidate,error) 先计数/计字节，再读取，不能调用另开事务的 withPublication 来校验激活。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestReleaseMerge": {"firstExpectedHeadNull":"prepared,public head absent","differentCatalogue":"VERSION_CONFLICT","sameMemberDifferentVersionAcrossBatches":"VERSION_CONFLICT","knowledgeReplacement":"old owned units/assets listed removed","unchangedDependentOldPrerequisiteOrPath":"CONTENT_INVALID"},
@@ -274,14 +274,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(Release|Manifest|Activation)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现候选及激活。** Manifest 按 kind/ID/version/package/sha 固定排序，Bindings 按 unit ID/version/asset ID 排序，作者去重排序；Digest 使用带用途标识的 Go JSON 结构，不采用客户端 hash。对同 ID 新版本替换与旧归属成员清理给出完整 Diff。既有已发布依据可以继承，新增部分重新核验 reviewer 当前角色；无 manifest 的旧公开测试快照仍可读取，但新流程不能继承没有独立批准的成员。准备前验证 PublicationView 序列化不超过 4 MiB，避免创建无法读取的候选。激活统一事务中重新核验 baseHead、manifest、机器整图、当前资格、黑名单，再一次切换 head；published 历史继续保留。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，真实 PostgreSQL 竞争与旧公开 domain/knowledge/path/asset 测试通过。新增成员同一批次整体发布，公共请求不能混合新旧版本。
-- [ ] **Step 5：提交。** 提交 feat: prepare and atomically activate reviewed snapshots。
+- [x] **Step 3：实现候选及激活。** Manifest 按 kind/ID/version/package/sha 固定排序，Bindings 按 unit ID/version/asset ID 排序，作者去重排序；Digest 使用带用途标识的 Go JSON 结构，不采用客户端 hash。对同 ID 新版本替换与旧归属成员清理给出完整 Diff。既有已发布依据可以继承，新增部分重新核验 reviewer 当前角色；无 manifest 的旧公开测试快照仍可读取，但新流程不能继承没有独立批准的成员。准备前验证 PublicationView 序列化不超过 4 MiB，避免创建无法读取的候选。激活统一事务中重新核验 baseHead、manifest、机器整图、当前资格、黑名单，再一次切换 head；published 历史继续保留。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，真实 PostgreSQL 竞争与旧公开 domain/knowledge/path/asset 测试通过。新增成员同一批次整体发布，公共请求不能混合新旧版本。
+- [x] **Step 5：提交。** 提交 feat: prepare and atomically activate reviewed snapshots。
 
 ## Task 6：撤回目标、依赖闭包与派生快照
 

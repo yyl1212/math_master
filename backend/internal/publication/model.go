@@ -240,9 +240,10 @@ type SubmissionSummary struct {
 	Revision         int64  `json:"revision"`
 }
 type Candidate struct {
-	Manifest Manifest         `json:"manifest"`
-	Diff     Diff             `json:"diff"`
-	Snapshot content.Snapshot `json:"snapshot"`
+	PublicationID string           `json:"-"`
+	Manifest      Manifest         `json:"manifest"`
+	Diff          Diff             `json:"diff"`
+	Snapshot      content.Snapshot `json:"snapshot"`
 }
 
 var (
