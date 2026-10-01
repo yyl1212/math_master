@@ -11,6 +11,7 @@ require (
 	github.com/yuin/goldmark v1.8.6
 	github.com/yyl1212/math_master/schemas v0.0.0
 	golang.org/x/crypto v0.57.0
+	golang.org/x/term v0.46.0
 )
 
 require (
@@ -22,6 +23,5 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/sync v0.23.0 // indirect
 	golang.org/x/sys v0.48.0 // indirect
-	golang.org/x/term v0.46.0 // indirect
 	golang.org/x/text v0.42.0 // indirect
 )
