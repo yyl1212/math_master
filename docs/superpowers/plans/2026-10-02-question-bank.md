@@ -461,7 +461,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** lib/question/{types,schemas,client,server-client}.ts及测试；lib/api/question-proxy.ts及测试；两个固定Next.js路由。
 **Interfaces:** questionRouteRequest(route QuestionRoute):{method:string,path:string}|null；readQuestionResponse(response:Response,action:QuestionAction,signal?:AbortSignal):Promise<QuestionResult<unknown>>；createQuestionProxy(rawGoOrigin:string,options:{publicOrigin:string,production:boolean},fetcher?:typeof fetch)返回(request:Request,segments:string[])=>Promise<Response>；readServerQuestion<T>(route,cookieHeader):Promise<QuestionResult<T>>；requestQuestion<T>(route,input?,pendingKey?,signal?):Promise<QuestionResult<T>>。
 
-- [ ] **Step 1：写失败测试。** TestQuestionProxyBoundary读取api共享raw用例，重复/未知键、1e0/1.0版本、unsafe int、null/遗漏字段、未知status拒绝，允许的原字节不重新stringify；TestQuestionResponseIntegrity核验status/DTO/headers、实际4 MiB、null review/head、分页缩limit、来源答案只授权角色；TestQuestionProxyCancellation body到fetch到response全程10s/信号、redirect拒绝、仅选账户cookie/CSRF、Set-Cookie不转发、SSR server-only/no-store；TestQuestionClientNoAutomaticRetry成功键生成一次、超时不猜失败/自动重写。
+- [x] **Step 1：写失败测试。** TestQuestionProxyBoundary读取api共享raw用例，重复/未知键、1e0/1.0版本、unsafe int、null/遗漏字段、未知status拒绝，允许的原字节不重新stringify；TestQuestionResponseIntegrity核验status/DTO/headers、实际4 MiB、null review/head、分页缩limit、来源答案只授权角色；TestQuestionProxyCancellation body到fetch到response全程10s/信号、redirect拒绝、仅选账户cookie/CSRF、Set-Cookie不转发、SSR server-only/no-store；TestQuestionClientNoAutomaticRetry成功键生成一次、超时不猜失败/自动重写。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -474,10 +474,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/question src/lib/api/question-proxy.test.ts，预期新行为失败。
-- [ ] **Step 3：实现封闭Zod与固定代理。** 复用现有raw-json/bytes纯读取工具但保持旧接口不变；按新的具名DTO判别输入输出，原body bytes直接转发。普通SSR不获取CSRF，写入从现有context受控取得；只允许白名单GoOrigin与明确路由，拒绝通用URL参数。客户端错误文字英文，数值算法只在Go。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；单独入口npm run typecheck和原content/auth/lib客户端单元回归。api:generate产物与Task10契约一致，所有私有fetch不进入公共缓存。
-- [ ] **Step 5：提交。** 任务11文件，提交 feat: 增加严格题库私有代理与类型客户端。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/question src/lib/api/question-proxy.test.ts，预期新行为失败。
+- [x] **Step 3：实现封闭Zod与固定代理。** 复用现有raw-json/bytes纯读取工具但保持旧接口不变；按新的具名DTO判别输入输出，原body bytes直接转发。普通SSR不获取CSRF，写入从现有context受控取得；只允许白名单GoOrigin与明确路由，拒绝通用URL参数。客户端错误文字英文，数值算法只在Go。
+- [x] **Step 4：验证GREEN。** 重跑Step2；单独入口npm run typecheck和原content/auth/lib客户端单元回归。api:generate产物与Task10契约一致，所有私有fetch不进入公共缓存。
+- [x] **Step 5：提交。** 任务11文件，提交 feat: 增加严格题库私有代理与类型客户端。
 
 ## Task 12：英文编写、审核、发布与撤回页面
 
