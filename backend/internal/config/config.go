@@ -77,6 +77,9 @@ func NormalizeAuthOrigin(raw string, production bool) (string, error) {
 	if err != nil || u == nil || u.Opaque != "" || u.User != nil || u.Host == "" || u.Path != "" || u.RawPath != "" || u.RawQuery != "" || u.ForceQuery || u.Fragment != "" || u.RawFragment != "" || (u.Scheme != "http" && u.Scheme != "https") {
 		return fail()
 	}
+	if strings.HasSuffix(u.Host, ":") {
+		return fail()
+	}
 	hostname := strings.ToLower(u.Hostname())
 	if hostname == "" {
 		return fail()
@@ -93,11 +96,56 @@ func NormalizeAuthOrigin(raw string, production bool) (string, error) {
 			return fail()
 		}
 	}
+	if ip := net.ParseIP(hostname); ip != nil {
+		if strings.Contains(hostname, ":") {
+			words := make([]string, 8)
+			bestStart, bestLength := -1, 0
+			for i := 0; i < 8; {
+				value := uint16(ip[2*i])<<8 | uint16(ip[2*i+1])
+				words[i] = strconv.FormatUint(uint64(value), 16)
+				i++
+			}
+			for i := 0; i < 8; {
+				if words[i] != "0" {
+					i++
+					continue
+				}
+				start := i
+				for i < 8 && words[i] == "0" {
+					i++
+				}
+				if i-start > bestLength {
+					bestStart, bestLength = start, i-start
+				}
+			}
+			if bestLength > 1 {
+				hostname = strings.Join(words[:bestStart], ":") + "::" + strings.Join(words[bestStart+bestLength:], ":")
+			} else {
+				hostname = strings.Join(words, ":")
+			}
+		} else {
+			hostname = ip.String()
+		}
+	} else {
+		numeric := true
+		for _, r := range hostname {
+			if !(r >= '0' && r <= '9' || r == '.') {
+				numeric = false
+			}
+		}
+		if numeric {
+			return fail()
+		}
+	}
 	if production && u.Scheme != "https" {
 		return fail()
 	}
 	if !production && u.Scheme == "http" && !IsLoopbackHost(hostname) {
 		return fail()
+	}
+	if port != "" {
+		n, _ := strconv.Atoi(port)
+		port = strconv.Itoa(n)
 	}
 	if (u.Scheme == "https" && port == "443") || (u.Scheme == "http" && port == "80") {
 		port = ""

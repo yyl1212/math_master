@@ -68,3 +68,12 @@ func TestAuthConfigCompatibility(t *testing.T) {
 		t.Fatal("origin normalization failed")
 	}
 }
+
+func TestAuthConfigBrowserCanonicalOrigin(t *testing.T) {
+	for _, tt := range []struct{ raw, want string }{{"http://[0:0:0:0:0:0:0:1]:003000", "http://[::1]:3000"}, {"http://[::ffff:127.0.0.1]:3000", "http://[::ffff:7f00:1]:3000"}, {"https://MATH.EXAMPLE:00443", "https://math.example"}} {
+		got, err := NormalizeAuthOrigin(tt.raw, strings.HasPrefix(tt.raw, "https:"))
+		if err != nil || got != tt.want {
+			t.Fatal("Go origin disagrees with browser canonical origin")
+		}
+	}
+}
