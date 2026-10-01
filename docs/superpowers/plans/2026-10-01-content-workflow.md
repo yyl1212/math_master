@@ -289,7 +289,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** publication.WithdrawCandidate(base Candidate,target WithdrawalTarget)(Candidate,error) 为纯计算；实现 PreviewWithdrawal、WithdrawVersion。撤回生成独立 published 快照、事件和 head，不修改旧 snapshot/members；复用 Task 5 canonical manifest 与读取助手。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestWithdrawalClosure": {"rootKnowledge":"root,prerequisite dependents,their units/assets and containing paths unavailable","relatedOnly":"other knowledge retained,edge filtered","unit":"its knowledge paused","assetSHA":"all knowledge using exact bytes paused","path":"only path removed"},
@@ -299,14 +299,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(Withdrawal|PublicationWithdrawal)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现撤回与预览。** Target 查库获得可信版本/字节摘要，不接受客户端摘要替代版本；在固定上限内计算知识前置反向闭包，再移除单元/素材及涉及路线。非前置边沿用读取过滤。新快照只包含原来已发布且仍可用的成员，并保留其原批准证据；空快照仍保留目录。预览是只读业务动作，不写事件或幂等成功；真实撤回在管理员最近验证、CSRF、expectedHead 及同一发布锁下重新计算。P4/P5 扩展点写入注释和运维契约，不创建学习表。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2，以及 Task 5 激活竞争和旧公开读取，确认撤回提交后新请求不再取得问题版本。
-- [ ] **Step 5：提交。** 提交 feat: withdraw fixed content versions without losing history。
+- [x] **Step 3：实现撤回与预览。** Target 查库获得可信版本/字节摘要，不接受客户端摘要替代版本；在固定上限内计算知识前置反向闭包，再移除单元/素材及涉及路线。非前置边沿用读取过滤。新快照只包含原来已发布且仍可用的成员，并保留其原批准证据；空快照仍保留目录。预览是只读业务动作，不写事件或幂等成功；真实撤回在管理员最近验证、CSRF、expectedHead 及同一发布锁下重新计算。P4/P5 扩展点写入注释和运维契约，不创建学习表。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2，以及 Task 5 激活竞争和旧公开读取，确认撤回提交后新请求不再取得问题版本。
+- [x] **Step 5：提交。** 提交 feat: withdraw fixed content versions without losing history。
 
 ## Task 7：Go 私有 HTTP、严格 JSON、SVG 与 OpenAPI
 
