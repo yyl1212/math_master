@@ -110,3 +110,7 @@
 | pull_request | [Go 内容与账户验证](https://github.com/yyl1212/math_master/actions/runs/36884908741) | [英文网站与账户验证](https://github.com/yyl1212/math_master/actions/runs/36884908841) |
 
 本记录及计划勾选作为后续文档提交保存；其最终 SHA 与检查结论以 [PR 最新提交检查](https://github.com/yyl1212/math_master/pull/14/checks)为准，交付前再次核验该精确 SHA 的四项检查。开发工作区保留供 PR 反馈使用，真实开发库、生产服务器和数学内容的人员批准按后续阶段执行。
+
+## master 合并回归
+
+用户于 2026-10-01 确认后，PR #14 已以 merge commit 合并到 master，提交 086ed7aa5c068e3404631b2eab2ffee2a55850e0。合并树与已验收 2dd5f94 相同，合并后的 [Go 内容与账户验证](https://github.com/yyl1212/math_master/actions/runs/36888080290) 和 [英文网站与账户验证](https://github.com/yyl1212/math_master/actions/runs/36888080414) 已全部通过。随后从该最新 master 在已有隔离工作区建立 codex/p4-learning-design，仅编写下一阶段待审设计；未部署、迁移真实库或发布数学内容。
