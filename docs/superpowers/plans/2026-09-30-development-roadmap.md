@@ -1,6 +1,6 @@
 # 数学学习成长网站：首版开发路线图
 
-日期：2026-09-30。状态：P1 内容基础层已完成独立审查及回归，并于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；P2 已完成独立审查和回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并到 master；P3a 账户基础方案已确认并通过 PR #8 合并，执行计划已确认通过 PR #9 合并，账户实现已完成独立审查与回归，通过 [PR #10](https://github.com/yyl1212/math_master/pull/10) 合并到 master，合并提交 90aca8e 的两项 CI 通过；[P3b 内容工作流设计](../specs/2026-10-01-content-workflow-design.md)已获书面确认并通过 PR #11 合并；[十项执行计划](2026-10-01-content-workflow.md)已获用户确认，沿用 Native；已通过 PR #13 提前完成限流 CI 前置修复，内容功能已实现，已完成技术验收、独立审查及问题修复，正在进行 PR/CI 交付。
+日期：2026-09-30。状态：P1 内容基础层已完成独立审查及回归，并于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；P2 已完成独立审查和回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并到 master；P3a 账户基础方案已确认并通过 PR #8 合并，执行计划已确认通过 PR #9 合并，账户实现已完成独立审查与回归，通过 [PR #10](https://github.com/yyl1212/math_master/pull/10) 合并到 master，合并提交 90aca8e 的两项 CI 通过；[P3b 内容工作流设计](../specs/2026-10-01-content-workflow-design.md)已获书面确认并通过 PR #11 合并；[十项执行计划](2026-10-01-content-workflow.md)已获用户确认，沿用 Native；已通过 PR #13 提前完成限流 CI 前置修复，内容功能已实现，已完成技术验收、独立审查及问题修复，通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 交付，技术提交的四项 CI 全部通过。
 
 设计依据：[总体方案](../specs/2026-09-30-math-learning-platform-design.md)。界面依据：[英文预览](../../../design/README.md)。用户已决定直接在项目中设计和开发，Figma 同步取消。
 
@@ -105,7 +105,7 @@ JSON 是导入导出与版本审查格式，数据库是正式运行来源。预
 
 ### P3：账户、复核与发布
 
-按依赖拆成两次独立交付：P3a 建立账户/会话/角色和管理能力，P3b 在此基础上实现草稿、独立复核、发布与基础撤回。[P3a 账户与权限基础设计](../specs/2026-10-01-account-foundation-design.md)已获用户确认并通过 PR #8 合并；[七项执行计划](2026-10-01-account-foundation.md)已通过 PR #9 合并，P3a 实现通过 PR #10 合并，合并后的两项 CI 通过；下一阶段按已确认的 [P3b 设计](../specs/2026-10-01-content-workflow-design.md)和 [十项执行计划](2026-10-01-content-workflow.md)推进，计划已确认，限流基线修复已完成，Native 实施已完成，正在交付 PR。拆分不改变 P3 的整阶段验收门槛，不把账户完成计为内容发布完成。
+按依赖拆成两次独立交付：P3a 建立账户/会话/角色和管理能力，P3b 在此基础上实现草稿、独立复核、发布与基础撤回。[P3a 账户与权限基础设计](../specs/2026-10-01-account-foundation-design.md)已获用户确认并通过 PR #8 合并；[七项执行计划](2026-10-01-account-foundation.md)已通过 PR #9 合并，P3a 实现通过 PR #10 合并，合并后的两项 CI 通过；下一阶段按已确认的 [P3b 设计](../specs/2026-10-01-content-workflow-design.md)和 [十项执行计划](2026-10-01-content-workflow.md)推进，计划已确认，限流基线修复已完成，Native 实施已完成，通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 交付。拆分不改变 P3 的整阶段验收门槛，不把账户完成计为内容发布完成。
 
 实现用户名/密码登录、Argon2id、会话撤销、CSRF、限流和学习者/编辑者/复核者/管理员权限。管理员通过一次性 CLI 初始化，公开注册只创建学习者。
 
@@ -113,7 +113,7 @@ JSON 是导入导出与版本审查格式，数据库是正式运行来源。预
 
 首批先发布一条经过独立复核的短路线，供 P4 联调。未找到独立复核者时继续保存草稿，技术开发可以推进，但生产内容发布暂停。
 
-P3b 已实现固定送审、作者隔离、五项独立复核、候选与事务发布、永久撤回和英文后台。最大组合实测最长操作约 3.47 秒，保留 8 秒截止；已按 [P3b 计划](2026-10-01-content-workflow.md) 完成最终回归、一次独立整分支审查及三项问题修复，证据见 [验收记录](../../operations/2026-10-01-p3b-acceptance.md)。实际数学内容的人员复核及上线仍分别在 P6/P7，技术测试不计发布数量。
+P3b 已实现固定送审、作者隔离、五项独立复核、候选与事务发布、永久撤回和英文后台。最大组合实测最长操作约 3.47 秒，保留 8 秒截止；已按 [P3b 计划](2026-10-01-content-workflow.md) 完成最终回归、一次独立整分支审查及三项问题修复，通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 交付，四项技术提交 CI 全部通过，证据见 [验收记录](../../operations/2026-10-01-p3b-acceptance.md)。实际数学内容的人员复核及上线仍分别在 P6/P7，技术测试不计发布数量。
 
 ### P4：学习、题库与资格
 

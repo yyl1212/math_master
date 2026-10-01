@@ -2,7 +2,7 @@
 
 日期：2026-09-30
 
-阶段：会话方案已确认，已编写 [开发路线图](../plans/2026-09-30-development-roadmap.md)及 [P1 执行计划](../plans/2026-09-30-content-foundation.md)，P1 内容基础层已完成独立审查及回归，于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；[P2 英文只读网站执行计划](../plans/2026-10-01-english-readonly-frontend.md)已实现五页面，完成独立审查与回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并；[P3a 账户与权限基础设计](2026-10-01-account-foundation-design.md)已确认并通过 PR #8 合并，其执行计划已确认通过 PR #9 合并，账户实现已在功能分支完成独立审查与本机回归，功能交付见 [PR #10](https://github.com/yyl1212/math_master/pull/10) 及其最新提交 CI；P3b 内容审核发布已按已确认方案实现，已完成 [技术验收](../../operations/2026-10-01-p3b-acceptance.md)、独立审查及问题修复，正在进行 PR/CI 交付；学习记录尚未实现。
+阶段：会话方案已确认，已编写 [开发路线图](../plans/2026-09-30-development-roadmap.md)及 [P1 执行计划](../plans/2026-09-30-content-foundation.md)，P1 内容基础层已完成独立审查及回归，于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master；[P2 英文只读网站执行计划](../plans/2026-10-01-english-readonly-frontend.md)已实现五页面，完成独立审查与回归，全部 CI 通过，于 2026-10-01 通过 [PR #7](https://github.com/yyl1212/math_master/pull/7) 合并；[P3a 账户与权限基础设计](2026-10-01-account-foundation-design.md)已确认并通过 PR #8 合并，其执行计划已确认通过 PR #9 合并，账户实现已在功能分支完成独立审查与本机回归，功能交付见 [PR #10](https://github.com/yyl1212/math_master/pull/10) 及其最新提交 CI；P3b 内容审核发布已按已确认方案实现，已完成 [技术验收](../../operations/2026-10-01-p3b-acceptance.md)、独立审查及问题修复，通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 交付，技术提交的四项 CI 全部通过；学习记录尚未实现。
 
 首个子项目：知识数据与可信内容底座，以及初等数学学习闭环。
 

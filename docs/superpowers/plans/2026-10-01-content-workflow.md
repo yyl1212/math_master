@@ -478,7 +478,7 @@ node tools/verify/run.mjs --cwd frontend -- npm run e2e -- content-security.spec
 ~~~
 若必须拆分 store/cli，先用 go test -list . 取得全部测试名，明确分批并检查并集覆盖所有名字；所有原测试均需纳入，不能只挑匹配 Workflow 的测试。gofmt 全目录无未格式化文件，git diff --check 通过，重复 api:generate 零差异。检查新随机库被清理，真实开发库无新增账户/审核/head，源快照保留。CI 增加 publication 包与 content 浏览器批次；每个步骤仍用限时入口。
 
-- [ ] **Step 5：独立整分支审查、修复与交付。** 使用 requesting-code-review / verification-before-completion 技能，在技术验收提交后做一次新上下文整分支审查，审查者采用该技能规定的最强可用模型，重点核对五项 Review Focus、真实竞争、触发器、权限、响应边界和旧契约。必要修复先补失败测试，修复后重跑受影响及整分支验证；未解决阻塞问题不宣称完成。记录审查结论和实测验收，勾选步骤只依据已执行证据。提交 test: verify content review publication and withdrawal flows；使用 SSH 推送功能分支，通过 Git 创建面向 master 的 PR 并附到会话，核验确切最新 head 的 CI。不得用真实库里的测试批准或自动部署替代数学/上线验收。
+- [x] **Step 5：独立整分支审查、修复与交付。** 使用 requesting-code-review / verification-before-completion 技能，在技术验收提交后做一次新上下文整分支审查，审查者采用该技能规定的最强可用模型，重点核对五项 Review Focus、真实竞争、触发器、权限、响应边界和旧契约。必要修复先补失败测试，修复后重跑受影响及整分支验证；未解决阻塞问题不宣称完成。记录审查结论和实测验收，勾选步骤只依据已执行证据。提交 test: verify content review publication and withdrawal flows；使用 SSH 推送功能分支，通过 Git 创建面向 master 的 PR 并附到会话，核验确切最新 head 的 CI。不得用真实库里的测试批准或自动部署替代数学/上线验收。
 
 ## 可行性、覆盖与执行交接
 
@@ -505,4 +505,4 @@ PR #12 的初始提交 612fd9b 仅包含三份文档。前端 push/PR 和后端 
 
 ### P3b 实施技术验证记录
 
-Task 1—9 已按 RED→GREEN 逐项提交。Task 10 的真实夹具、容量与回归已通过：Go/store/cli 全部、前端 72 单元测试、46 真实浏览器用例、类型/构建/审计及格式检查；详细环境、性能、边界失败与修复见 [技术验收](../../operations/2026-10-01-p3b-acceptance.md)。最大候选准备约 3.47 秒，生产 8 秒截止及原容量上限保持。Step 5 的独立审查已完成，三项 Important 均经 RED→GREEN 修复并通过整分支回归；确切 head CI 仍待远程交付，完成后再勾选。
+Task 1—9 已按 RED→GREEN 逐项提交。Task 10 的真实夹具、容量与回归已通过：Go/store/cli 全部、前端 72 单元测试、46 真实浏览器用例、类型/构建/审计及格式检查；详细环境、性能、边界失败与修复见 [技术验收](../../operations/2026-10-01-p3b-acceptance.md)。最大候选准备约 3.47 秒，生产 8 秒截止及原容量上限保持。Step 5 的独立审查已完成，三项 Important 均经 RED→GREEN 修复并通过整分支回归；已通过 SSH 创建并附上 [PR #14](https://github.com/yyl1212/math_master/pull/14)，精确技术提交 5e6ee0f 的 push/PR 后端与前端四项 CI 全部通过；后续验收文档提交以 PR 最新检查为准。Step 5 依据上述实际证据勾选，工作区保留，未部署或发布真实数学内容。

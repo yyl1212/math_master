@@ -30,7 +30,7 @@
 
 验收后只读检查：随机测试库剩余 0；真实开发库仍有 10 个知识点、公开 head 0、迁移版本 2，没有账户表或内容工作流表；原始冻结资料目录和 manifest 保留。CI 已加入 publication 包和四个独立内容浏览器步骤，保留旧回归。
 
-独立整分支审查已完成，三项 Important 全部经失败测试验证后修复。下面记录修复后再次完整执行的本地回归；PR 精确 head CI 尚待远程执行。
+独立整分支审查已完成，三项 Important 全部经失败测试验证后修复。下面记录修复后再次完整执行的本地回归；技术交付提交 5e6ee0f 的四项 CI 已全部通过，见下方远程交付记录。
 
 ## 独立整分支审查与修复
 
@@ -44,7 +44,7 @@
 
 真实浏览器额外验证 101 条历史下的翻页、再次准备及撤回预览，两视口各通过。历史容量夹具先经真实 API 审核并激活，再复制其精确固定 manifest/成员为测试 prepared 历史，不新造审核或改变 head；仅随机 harness 可用。过程中同请求编号的 503 已用临时取消诊断核对为页面切换取消后台读取，诊断已删除。
 
-修复后最终整分支回归通过：所有 Go 包共 146 个顶层测试，含 store/cli 72 项；Go vet/build、gofmt、差异检查通过。前端 23 文件 72 项单元测试、类型、生产构建、审计 0 漏洞和重复类型生成通过；真实浏览器 46/46，两视口无重试。新精确边界测试 TestWorkflowPublicationEnvelopeReservesPublishedStatus 先失败后通过，确保准备时预留未来 published 状态，完整列表精确 4 MiB 可读，+1 拒绝。再次只读检查：随机库 0、开发库 10 知识/head 0/迁移 2/私有表 0，原资料与快照清单保留。远程交付及 CI 另行追加。
+修复后最终整分支回归通过：所有 Go 包共 146 个顶层测试，含 store/cli 72 项；Go vet/build、gofmt、差异检查通过。前端 23 文件 72 项单元测试、类型、生产构建、审计 0 漏洞和重复类型生成通过；真实浏览器 46/46，两视口无重试。新精确边界测试 TestWorkflowPublicationEnvelopeReservesPublishedStatus 先失败后通过，确保准备时预留未来 published 状态，完整列表精确 4 MiB 可读，+1 拒绝。再次只读检查：随机库 0、开发库 10 知识/head 0/迁移 2/私有表 0，原资料与快照清单保留。技术交付提交的远程 CI 已通过，后续记录提交仍以 PR 最新 head 检查为准。
 
 ## 执行裁决记录
 
@@ -99,3 +99,14 @@
 | 45 | 先记录任务 10 技术完成并独立整分支审查，再补 Step 5 交付勾选 — 技能要求任务完成后审查，计划又将审查/PR纳入任务10，技术门槛全部已执行，交付状态显式待完成 — 若判断错误，仅记账顺序，不能据此提前宣称 PR/CI 完成。 |
 | 46 | 发布列表保持原 PublicationPage DTO，以4MiB预算截取连续页并返回有效limit，准备时为单项列表包装预留最坏元数据 — 审查已建议保持DTO分页，避免大历史关闭发布/撤回后台 — 若判断错误，临界小范围候选会更早拒绝，分页尺寸可能降低；字段、4MiB上限和offset语义保持。 |
 | 47 | 大历史浏览器夹具复制真正批准并激活快照的固定 manifest/成员作为100条 prepared 历史 — 真实批准与激活仍先走API，避免测试受每分钟10次重操作限制或超过单例30秒 — 若判断错误，仅容量浏览器覆盖不足；生产服务不导入夹具，绝不修改真实库或制造数学批准。 |
+
+## 远程交付记录
+
+已通过 SSH 推送 codex/p3b-content-workflow，并创建面向 master 的 [PR #14](https://github.com/yyl1212/math_master/pull/14)，已附到工作会话。技术交付提交为 5e6ee0f5e5fa78956e6c0cfcd4f58edfc8e62960；下列四项检查均已完成且结论为 success：
+
+| 触发 | 后端 | 前端 |
+| --- | --- | --- |
+| push | [Go 内容与账户验证](https://github.com/yyl1212/math_master/actions/runs/36884901213) | [英文网站与账户验证](https://github.com/yyl1212/math_master/actions/runs/36884901166) |
+| pull_request | [Go 内容与账户验证](https://github.com/yyl1212/math_master/actions/runs/36884908741) | [英文网站与账户验证](https://github.com/yyl1212/math_master/actions/runs/36884908841) |
+
+本记录及计划勾选作为后续文档提交保存；其最终 SHA 与检查结论以 [PR 最新提交检查](https://github.com/yyl1212/math_master/pull/14/checks)为准，交付前再次核验该精确 SHA 的四项检查。开发工作区保留供 PR 反馈使用，真实开发库、生产服务器和数学内容的人员批准按后续阶段执行。
