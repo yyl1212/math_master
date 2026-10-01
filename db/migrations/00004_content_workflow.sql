@@ -56,8 +56,8 @@ CREATE TABLE content_review_decisions (
  frozen_digest text NOT NULL CHECK(frozen_digest ~ '^[0-9a-f]{64}$'),decision text NOT NULL CHECK(decision IN ('approve','return')),
  checks jsonb NOT NULL,independence_note text NOT NULL DEFAULT '',note text NOT NULL,
  created_at timestamptz NOT NULL DEFAULT clock_timestamp(),
- CHECK(char_length(btrim(note))>=10 AND char_length(note)<=1000 AND octet_length(note)<=3000),
- CHECK(decision='return' OR (char_length(btrim(independence_note))>=10 AND char_length(independence_note)<=1000 AND octet_length(independence_note)<=3000 AND checks @> '{"mathematics":true,"explanations":true,"relationships":true,"sources":true,"illustrations":true}'))
+ CHECK(char_length(note)>=10 AND note ~ '[^[:space:]]' AND char_length(note)<=1000 AND octet_length(note)<=3000),
+ CHECK(decision='return' OR (char_length(independence_note)>=10 AND independence_note ~ '[^[:space:]]' AND char_length(independence_note)<=1000 AND octet_length(independence_note)<=3000 AND checks @> '{"mathematics":true,"explanations":true,"relationships":true,"sources":true,"illustrations":true}'))
 );
 CREATE TABLE content_publication_manifests (
  snapshot_id text PRIMARY KEY REFERENCES publication_snapshots(id),base_head text REFERENCES publication_snapshots(id),
@@ -72,7 +72,7 @@ CREATE TABLE content_withdrawals (
  actor_user_id uuid NOT NULL REFERENCES auth_users(id),reason text NOT NULL,request_id text NOT NULL,
  created_at timestamptz NOT NULL DEFAULT clock_timestamp(),
  CHECK((kind='asset' AND target_id IS NULL AND target_version IS NULL) OR (kind<>'asset' AND target_id IS NOT NULL AND target_version>0)),
- CHECK(char_length(btrim(reason))>=10 AND char_length(reason)<=1000 AND octet_length(reason)<=3000)
+ CHECK(char_length(reason)>=10 AND reason ~ '[^[:space:]]' AND char_length(reason)<=1000 AND octet_length(reason)<=3000)
 );
 CREATE UNIQUE INDEX content_withdrawal_version ON content_withdrawals(kind,target_id,target_version) WHERE kind<>'asset';
 CREATE UNIQUE INDEX content_withdrawal_asset ON content_withdrawals(sha256) WHERE kind='asset';

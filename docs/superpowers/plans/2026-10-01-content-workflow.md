@@ -212,7 +212,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 **Interfaces:** 实现 Create/Read/Save/Adopt/Validate/SubmitDraft、ListDrafts、ReadSubmission、ListSubmissions、ReviseSubmission，以及受作用域限制的两类 Asset 读取。产出 publication.FrozenDigest(FrozenBody)(string,error)、DraftDigest(DraftView)(string,error)。从输入到归一化字段只做确定序列化，不改变有效 Unicode 数学文本。摘要只序列化明确的内容字段：目录 version/SHA、包、素材摘要、来源、排序作者和 legacy 标记；DraftDigest 额外包含工作区 ID/revision，均排除 Gate、时间与摘要字段自身，避免循环定义。测试 helper newWorkflowFixture(t *testing.T) 复用既有 setup/newAuthFixture；Access(username string,recent bool)publication.Access、Input()publication.DraftInput、Submitted(owner string)publication.SubmissionView 在本任务定义，后续复用；初始化测试账户/角色只在随机库。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestWorkflowDraftOwnership": {"otherEditorReadOrWrite":"NOT_FOUND","adminRead":"allowed","adminOnlyWrite":"FORBIDDEN","saveExpectedRevision1":"revision2","staleSave":"DRAFT_CONFLICT,unchanged"},
@@ -223,14 +223,14 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/publication ./internal/store -run 'Test(WorkflowDraft|WorkflowAdopt|WorkflowSubmit|FrozenSubmission|WorkflowAuthor)' -timeout 5m -count=1
 ~~~
 
-- [ ] **Step 3：实现工作区与冻结。** revision 初值 1，更新必须使用条件 UPDATE，素材替换同事务。包/SVG/sourceMap 先有界校验，标准 Base64 重新编码必须等于原输入。作者集合从负责人、base_submission 和相同固定成员的既有冻结作者并集得到，排序去重后参与摘要。送审在统一锁下再次检查 revision/digest、正式版本冲突和机器完整性，调用 importValidatedTx，再保存冻结 sourceMap/作者/成员与 frozenDigest；提交前无可变工作区读取进入冻结 view。列表 scope 仅 mine/all，all 仅 admin；reviewer 可读取冻结送审但不能读取任意编辑工作区。
-- [ ] **Step 4：验证 GREEN。** 重跑 Step 2；重复导入、冻结失败、私有素材作用域均必须通过；确认测试创建和清理只操作随机库。
-- [ ] **Step 5：提交。** 提交 feat: add authoring workspaces and immutable submissions。
+- [x] **Step 3：实现工作区与冻结。** revision 初值 1，更新必须使用条件 UPDATE，素材替换同事务。包/SVG/sourceMap 先有界校验，标准 Base64 重新编码必须等于原输入。作者集合从负责人、base_submission 和相同固定成员的既有冻结作者并集得到，排序去重后参与摘要。送审在统一锁下再次检查 revision/digest、正式版本冲突和机器完整性，调用 importValidatedTx，再保存冻结 sourceMap/作者/成员与 frozenDigest；提交前无可变工作区读取进入冻结 view。列表 scope 仅 mine/all，all 仅 admin；reviewer 可读取冻结送审但不能读取任意编辑工作区。
+- [x] **Step 4：验证 GREEN。** 重跑 Step 2；重复导入、冻结失败、私有素材作用域均必须通过；确认测试创建和清理只操作随机库。
+- [x] **Step 5：提交。** 提交 feat: add authoring workspaces and immutable submissions。
 
 ## Task 4：独立复核、终态竞争与角色撤销
 

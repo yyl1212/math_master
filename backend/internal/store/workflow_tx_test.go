@@ -123,3 +123,24 @@ func TestWorkflowSessionExpiresWhileWaiting(t *testing.T) {
 		}
 	})
 }
+
+func TestWorkflowSessionExpiresDuringContentWork(t *testing.T) {
+	s, db, a, id := workflowGuardFixture(t)
+	if _, err := db.Exec(`UPDATE auth_sessions SET absolute_expires_at=clock_timestamp()+interval '300 milliseconds'`); err != nil {
+		t.Fatal(err)
+	}
+	err := s.workflowTx(context.Background(), a, publication.SaveDraftAction, nil, func(ctx context.Context, tx *sql.Tx, _ auth.User, now time.Time) error {
+		if _, err := tx.ExecContext(ctx, `INSERT INTO content_workflow_events(id,actor_user_id,action,object_kind,object_id,request_id,created_at) VALUES('44444444-4444-4444-8444-444444444444',$1,'saveDraft','draft','expiry-fixture','expiry-fixture',$2)`, id, now); err != nil {
+			return err
+		}
+		time.Sleep(350 * time.Millisecond)
+		return nil
+	})
+	if !errors.Is(err, auth.ErrAuthenticationRequired) {
+		t.Fatalf("expired session committed after content work: %v", err)
+	}
+	var n int
+	if err = db.QueryRow(`SELECT count(*) FROM content_workflow_events`).Scan(&n); err != nil || n != 0 {
+		t.Fatal("expired work leaked an audit")
+	}
+}

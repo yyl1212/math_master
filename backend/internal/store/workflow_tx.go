@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"sort"
 	"time"
@@ -16,6 +17,12 @@ const workflowTimeout = 8 * time.Second
 func workflowError(err error) error {
 	if err == nil {
 		return nil
+	}
+	if errors.Is(err, content.ErrLimit) {
+		return publication.ErrContentLimitExceeded
+	}
+	if errors.Is(err, content.ErrValidation) || errors.Is(err, ErrInvalidPackage) {
+		return publication.ErrContentInvalid
 	}
 	if errors.Is(err, ErrImmutableConflict) {
 		return publication.ErrImmutableConflict
@@ -117,6 +124,10 @@ func (s *Store) workflowTx(ctx context.Context, a publication.Access, action pub
 		return workflowError(err)
 	}
 	if err = fn(ctx, tx, user, now); err != nil {
+		return workflowError(err)
+	}
+	// Content row waits and validation can outlive the proof checked at entry.
+	if _, _, err = workflowIdentity(ctx, tx, a, action, false, nil); err != nil {
 		return workflowError(err)
 	}
 	return workflowError(tx.Commit())
