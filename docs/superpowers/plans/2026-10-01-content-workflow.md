@@ -408,7 +408,7 @@ node tools/verify/run.mjs --cwd frontend -- npm test
 
 **Interfaces:** DraftEditor({initial:DraftView})、ReviewPanel({submission:SubmissionView})、PublicationPanel({initial:PublicationPage})、WithdrawalPanel()；其余字段组件接受对应 DTO 与 onChange，不自行调用服务。消费任务 8 的 AssetScope；SafeMarkdown 和 AssetImage 增加可选 assetScope，默认仍使用现有 /api/v1/assets/{sha}。私有路径只能由 UUID 和已绑定 sha 构造，不接受自由 image URL。pending-command.ts 产出 createPendingCommand(route,input):PendingCommand、retryPendingCommand(command):Promise<ContentResult<unknown>>；仅内存保存确切输入和 key，成功后清除，不进入 localStorage/URL。
 
-- [ ] **Step 1：写失败测试。**
+- [x] **Step 1：写失败测试。**
 ~~~json
 {
   "TestAuthoringForms": {"schemaFields":"knowledge/unit/path/source fully editable","JSONImportExport":"same DTO,no private credential","missingBody":"saved but submit disabled","saveConflict":"unsaved input retained","invalidSVG":"rejected","privatePreview":"bound private endpoint"},
@@ -419,20 +419,20 @@ node tools/verify/run.mjs --cwd frontend -- npm test
 }
 ~~~
 
-- [ ] **Step 2：验证 RED。**
+- [x] **Step 2：验证 RED。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/content src/features/reading
 ~~~
 
-- [ ] **Step 3：实现页面。** SSR 读取真实身份并区分未登录、拒绝和故障；结构化表单覆盖设计字段，数组项新增/删除不改他项编号，包/成员版本显式展示并保留用户选择。JSON/SVG 文件导入先检查字节上限和编码；JSON 导入导出固定为 DraftInput envelope，导出通过 readContentAsset 读取绑定字节并标准 Base64 编码，不导出凭据；目录版本由输入明确选择并经 DB 核验，不硬编码资料文件版本。使用既有 Markdown/KaTeX 安全选项预览。sourceMap/manifest 等内部信息仅内容后台展示，不加入学习者公开页面。管理员列表和版本选择来自授权接口。发布/撤回成功再刷新 head；冲突、超时和取消不显示成功。复用既有重新验证接口，密码只在验证对话框使用，不放入内容命令或待重试副本。
-- [ ] **Step 4：验证 GREEN、构建和旧界面。**
+- [x] **Step 3：实现页面。** SSR 读取真实身份并区分未登录、拒绝和故障；结构化表单覆盖设计字段，数组项新增/删除不改他项编号，包/成员版本显式展示并保留用户选择。JSON/SVG 文件导入先检查字节上限和编码；JSON 导入导出固定为 DraftInput envelope，导出通过 readContentAsset 读取绑定字节并标准 Base64 编码，不导出凭据；目录版本由输入明确选择并经 DB 核验，不硬编码资料文件版本。使用既有 Markdown/KaTeX 安全选项预览。sourceMap/manifest 等内部信息仅内容后台展示，不加入学习者公开页面。管理员列表和版本选择来自授权接口。发布/撤回成功再刷新 head；冲突、超时和取消不显示成功。复用既有重新验证接口，密码只在验证对话框使用，不放入内容命令或待重试副本。
+- [x] **Step 4：验证 GREEN、构建和旧界面。**
 ~~~bash
 node tools/verify/run.mjs --cwd frontend -- npm test
 node tools/verify/run.mjs --cwd frontend -- npm run typecheck
 node tools/verify/run.mjs --cwd frontend -- npm run build
 ~~~
 任务内组件测试可用局部网络夹具；任务 10 浏览器必须连接真实 Go/PG。既有知识页、公式安全、认证导航和样式回归通过。
-- [ ] **Step 5：提交。** 提交 feat: build English content authoring and review workbenches。
+- [x] **Step 5：提交。** 提交 feat: build English content authoring and review workbenches。
 
 ## Task 10：真实联调、性能边界、独立审查与 PR 交付
 

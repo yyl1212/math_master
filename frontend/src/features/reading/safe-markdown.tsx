@@ -2,6 +2,7 @@ import Markdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import type { AssetView } from "@/lib/api/types";
+import type {AssetScope} from "@/lib/content/types";
 import { AssetImage } from "./asset-image";
 import styles from "@/styles/reading.module.css";
 export function safeTextUrl(url: string): string | undefined {
@@ -67,9 +68,11 @@ function limitMath() {
 export function SafeMarkdown({
   source,
   assets,
+  assetScope,
 }: {
   source: string;
   assets: AssetView[];
+  assetScope?: AssetScope;
 }) {
   const available = new Map(assets.map((a) => [a.id, a]));
   return (
@@ -102,7 +105,7 @@ export function SafeMarkdown({
             const asset =
               typeof src === "string" ? available.get(src.slice(6)) : undefined;
             return asset ? (
-              <AssetImage asset={asset} alt={alt ?? ""} />
+              <AssetImage asset={asset} alt={alt ?? ""} assetScope={assetScope} />
             ) : (
               <span className={styles.figureError}>
                 Illustration is not available.
