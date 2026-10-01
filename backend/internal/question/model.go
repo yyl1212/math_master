@@ -442,9 +442,11 @@ type CoverageQuery struct {
 	KnowledgeID string `json:"knowledgeId"`
 }
 type BaseManifest struct {
-	Head      *string    `json:"head"`
-	Manifest  *Manifest  `json:"manifest"`
-	Instances []Instance `json:"instances"`
+	Templates  []Template  `json:"templates"`
+	Blueprints []Blueprint `json:"blueprints"`
+	Head       *string     `json:"head"`
+	Manifest   *Manifest   `json:"manifest"`
+	Instances  []Instance  `json:"instances"`
 }
 type ApprovedSubmission struct {
 	SubmissionID string         `json:"submissionId"`
@@ -453,10 +455,12 @@ type ApprovedSubmission struct {
 	Decision     ReviewDecision `json:"decision"`
 }
 type Candidate struct {
-	Manifest  Manifest    `json:"manifest"`
-	Diff      DiffSummary `json:"diff"`
-	Changes   []Change    `json:"changes"`
-	Instances []Instance  `json:"instances"`
+	Templates  []Template  `json:"templates"`
+	Blueprints []Blueprint `json:"blueprints"`
+	Manifest   Manifest    `json:"manifest"`
+	Diff       DiffSummary `json:"diff"`
+	Changes    []Change    `json:"changes"`
+	Instances  []Instance  `json:"instances"`
 }
 type ReplacementFact struct {
 	From          Identity  `json:"from"`

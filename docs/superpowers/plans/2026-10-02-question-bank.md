@@ -392,7 +392,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** question/{manifest,release}.go及测试；store/question_{release,read}.go及测试。
 **Interfaces:** 产出BuildCandidate(ctx,BaseManifest,[]ApprovedSubmission,ReferenceSnapshot)(Candidate,error)（内部Candidate含Manifest/DiffSummary/Changes/Instances），Repository发布五个方法＋member/change分页；BaseManifest只加载一次验证，ApprovedSubmission含冻结body/instances/decision。
 
-- [ ] **Step 1：写失败测试。** TestQuestionDualHeadActivation：任何一head准备后变化409、manifestSha不符、撤权/rehash/reauth过期拒绝、审计失败head不变、重放不恢复旧head；TestQuestionEvidenceEligibility：新选reviewer已撤权拒绝、已发布继承证据可沿用、作者/原冻结digest冲突拒绝；TestQuestionReplacementPreservesHistoricalFacts：同模板新version退出旧generated实例、引用旧模板蓝图须同批批准更新、旧正文不删除、不写永久撤回；TestQuestionPublicationPagination：101历史/head不在第一页、每项summary≤4 MiB、未来published状态增字节仍可读、members/changes精确分页；TestQuestionCandidateCapacity验证200/10000/1000、32/8 MiB以及1—20送审边界。
+- [x] **Step 1：写失败测试。** TestQuestionDualHeadActivation：任何一head准备后变化409、manifestSha不符、撤权/rehash/reauth过期拒绝、审计失败head不变、重放不恢复旧head；TestQuestionEvidenceEligibility：新选reviewer已撤权拒绝、已发布继承证据可沿用、作者/原冻结digest冲突拒绝；TestQuestionReplacementPreservesHistoricalFacts：同模板新version退出旧generated实例、引用旧模板蓝图须同批批准更新、旧正文不删除、不写永久撤回；TestQuestionPublicationPagination：101历史/head不在第一页、每项summary≤4 MiB、未来published状态增字节仍可读、members/changes精确分页；TestQuestionCandidateCapacity验证200/10000/1000、32/8 MiB以及1—20送审边界。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -405,10 +405,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(DualHeadActivation|EvidenceEligibility|ReplacementPreservesHistoricalFacts|PublicationPagination|CandidateCapacity)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现固定候选与激活。** 批量校验当前准确K/unit/asset与catalogue身份，整批五题可覆盖，更新template须对应准确蓝图题源。prepare固定两个head和manifest/diff但不公开；activate同事务重新授权、5分钟验证、两head比较、黑名单/审核/容量核验，再变更head/状态/审计/幂等。PublicationSummary不携带大正文，head单独读取。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；同步屏障覆盖知识发布与题库激活竞争，只有符合实际两个head的一方可提交；原P3b发布/公开读取回归保持。
-- [ ] **Step 5：提交。** 任务8文件，提交 feat: 通过固定双head证据激活可信题库。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(DualHeadActivation|EvidenceEligibility|ReplacementPreservesHistoricalFacts|PublicationPagination|CandidateCapacity)$' -timeout 5m -count=1。
+- [x] **Step 3：实现固定候选与激活。** 批量校验当前准确K/unit/asset与catalogue身份，整批五题可覆盖，更新template须对应准确蓝图题源。prepare固定两个head和manifest/diff但不公开；activate同事务重新授权、5分钟验证、两head比较、黑名单/审核/容量核验，再变更head/状态/审计/幂等。PublicationSummary不携带大正文，head单独读取。
+- [x] **Step 4：验证GREEN。** 重跑Step2；同步屏障覆盖知识发布与题库激活竞争，只有符合实际两个head的一方可提交；原P3b发布/公开读取回归保持。
+- [x] **Step 5：提交。** 任务8文件，提交 feat: 通过固定双head证据激活可信题库。
 
 ## Task 9：永久撤回、当前覆盖与历史事实
 

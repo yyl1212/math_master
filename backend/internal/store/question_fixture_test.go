@@ -2,6 +2,7 @@ package store_test
 
 import (
 	"crypto/sha256"
+	"database/sql"
 	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"os"
@@ -49,4 +50,50 @@ func (f *questionFixture) QSubmitted(owner string) question.SubmissionView {
 }
 func approvedQuestionInput() question.ReviewInput {
 	return question.ReviewInput{Decision: "approve", Checks: question.ReviewChecks{Mathematics: true, Explanations: true, Objectives: true, Sources: true, Illustrations: true, Generation: true}, IndependenceNote: "Different isolated author and reviewer accounts.", GenerationNote: "Every finite instance and independent verifier were checked.", Note: "All six requirements reviewed on the complete technical payload."}
+}
+
+func (f *questionFixture) QApproved(owner, reviewer string) question.SubmissionView {
+	f.t.Helper()
+	sub := f.QSubmitted(owner)
+	out, err := f.repo.DecideQuestionReview(f.ctx, f.Access(reviewer, false), sub.ID, approvedQuestionInput())
+	if err != nil {
+		f.t.Fatal(err)
+	}
+	return out
+}
+func (f *questionFixture) QHead() *string {
+	f.t.Helper()
+	var id string
+	err := f.db.QueryRow(`SELECT publication_id::text FROM question_heads WHERE singleton`).Scan(&id)
+	if err == sql.ErrNoRows {
+		return nil
+	}
+	if err != nil {
+		f.t.Fatal(err)
+	}
+	return &id
+}
+func (f *questionFixture) KHead() *string {
+	f.t.Helper()
+	var id string
+	if err := f.db.QueryRow(`SELECT snapshot_id FROM publication_heads WHERE singleton`).Scan(&id); err != nil {
+		f.t.Fatal(err)
+	}
+	return &id
+}
+func (f *questionFixture) QPrepare(subs ...string) question.PublicationSummary {
+	f.t.Helper()
+	out, err := f.repo.PrepareQuestionRelease(f.ctx, f.Access("admin_a", false), question.PrepareInput{SubmissionIDs: subs, ExpectedKnowledgeHead: f.KHead(), ExpectedQuestionHead: f.QHead(), Reason: "Prepare the fixed question evidence in an isolated test."})
+	if err != nil {
+		f.t.Fatal(err)
+	}
+	return out
+}
+func (f *questionFixture) QActivate(p question.PublicationSummary) question.PublicationSummary {
+	f.t.Helper()
+	out, err := f.repo.ActivateQuestionRelease(f.ctx, f.Access("admin_a", true), p.ID, question.ActivateInput{ExpectedKnowledgeHead: p.BaseKnowledgeHead, ExpectedQuestionHead: p.BaseQuestionHead, ExpectedManifestSHA: p.ManifestSHA, Reason: "Explicitly activate this fixed evidence in an isolated test."})
+	if err != nil {
+		f.t.Fatal(err)
+	}
+	return out
 }
