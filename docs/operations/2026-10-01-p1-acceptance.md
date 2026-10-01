@@ -1,6 +1,6 @@
 # P1 验收与最终审查记录
 
-PR：[P1 内容基础层 #5](https://github.com/yyl1212/math_master/pull/5)，面向 master，待合并。
+PR：[P1 内容基础层 #5](https://github.com/yyl1212/math_master/pull/5)，已于 2026-10-01 合并到 master，合并提交 `42524e6`。
 
 日期：2026-10-01。分支 `codex/p1-content-foundation`，基线 `67b433e`。设计及预览的 PR 2/4/3 已整合至 master，再在独立工作区开发。
 
@@ -35,4 +35,4 @@ PR：[P1 内容基础层 #5](https://github.com/yyl1212/math_master/pull/5)，�
 
 ## 后续边界
 
-数学正文、条件、证明和外部许可仍需编辑及独立复核。其余源包、capabilities 分类、legacy_id 去重和外部前置补全按后续内容批次推进。P2 的最终浏览器渲染和受控素材下载、P3 的授权审核/全图发布/切换、大规模容量验证均尚未完成。P1 合并后再从最新 master 编写 P2 英文页面执行计划。
+数学正文、条件、证明和外部许可仍需编辑及独立复核。其余源包、capabilities 分类、legacy_id 去重和外部前置补全按后续内容批次推进。P2 的最终浏览器渲染和受控素材下载、P3 的授权审核/全图发布/切换、大规模容量验证均尚未完成。P1 合并后已从最新 master 编写 [P2 英文页面执行计划](../superpowers/plans/2026-10-01-english-readonly-frontend.md)，目前等待计划审阅，P2 产品代码尚未实现。
