@@ -1,6 +1,6 @@
 # P4a：可信题库、精确判分与独立审核设计
 
-日期：2026-10-02。状态：方案草稿，待用户书面审阅；尚未制定本阶段执行计划或实现业务代码。用户已确认继续 P4，本文依据已确认的总体方案细化首个子阶段。基线为 master 086ed7aa5c068e3404631b2eab2ffee2a55850e0，P3b 已通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 合并；合并后的 [Go CI](https://github.com/yyl1212/math_master/actions/runs/36888080290) 和 [前端 CI](https://github.com/yyl1212/math_master/actions/runs/36888080414) 均通过。设计工作在隔离分支 codex/p4-learning-design 进行。
+日期：2026-10-02。状态：用户于 2026-10-02 书面确认，通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并。[P4a 执行计划](../plans/2026-10-02-question-bank.md)已编写待审；尚未实现业务代码。用户已确认继续 P4，本文依据已确认的总体方案细化首个子阶段。基线为 master 086ed7aa5c068e3404631b2eab2ffee2a55850e0，P3b 已通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 合并；合并后的 [Go CI](https://github.com/yyl1212/math_master/actions/runs/36888080290) 和 [前端 CI](https://github.com/yyl1212/math_master/actions/runs/36888080414) 均通过。设计工作在隔离分支 codex/p4-learning-design 进行。
 
 ## 1. 目标、既定约束与分期
 
@@ -317,4 +317,4 @@ Go 使用 CGO_ENABLED=0、GOTOOLCHAIN=go1.27.1；所有单次验证通过 tools/
 
 本文已逐项检查范围、契约版本、目标引用、数值语法、生成/独立校验、作者隔离、冻结字节、发布/撤回、分页、锁、资源和 P4b/P5 边界。已解决旧包自动升级、目标缺稳定编号、组合爆炸、大历史读取和普通更新混同错误撤回这五组静态阻塞候选；没有未填写的设计占位项。
 
-书面方案仍需用户审阅，尤其是独立题库契约、两次交付和上述兼容性处理。确认后再为 P4a 制定具体执行计划及任务验收，并选择执行方式；不会用对总体 P4 方向的确认代替对尚未存在的执行计划的确认。本设计 PR 不实现题库、学习或部署。
+用户已于 2026-10-02 审阅并确认独立题库契约、两次交付及兼容性处理。具体执行计划已编写待审，沿用此前 Native；计划确认后逐项实施。不会用书面方案确认代替尚未获确认的执行计划。本设计及计划 PR 不实现题库、学习或部署。
