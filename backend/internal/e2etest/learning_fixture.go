@@ -122,7 +122,7 @@ func learningPublishContent(ctx context.Context, db *sql.DB, s *store.Store, acc
 	_, e = s.ActivateRelease(ctx, manager, pub.ID, publication.ActivateInput{ExpectedHead: old, ExpectedManifestSHA: pub.ManifestSHA, Reason: "Publish approved isolated learning fixture."})
 	return e
 }
-func learningPublishQuestions(ctx context.Context, db *sql.DB, s *store.Store, accounts *auth.Service, root string, p content.Package) error {
+func learningPublishQuestions(ctx context.Context, db *sql.DB, s *store.Store, accounts *auth.Service, root string, p content.Package, scenes ...LearningScenario) error {
 	in, e := questionFixtureInput(root)
 	if e != nil {
 		return e
@@ -148,6 +148,11 @@ func learningPublishQuestions(ctx context.Context, db *sql.DB, s *store.Store, a
 		if index != 3 {
 			in.QuestionPackage.Blueprints = append(in.QuestionPackage.Blueprints, question.Blueprint{ID: k.ID + "-five", Version: 1, Knowledge: t.Knowledge, CoreObjectiveIndices: []int{0}, Sources: []question.BlueprintSource{{Kind: "template", Ref: question.Ref{ID: t.ID, Version: 1}}}, CoverageNote: "Original finite addition cases cover the declared objective.", RuleVersion: 1, QuestionCount: 5, PassCount: 4})
 		}
+	}
+	if len(scenes) > 0 && scenes[0] == LearningDiagnostic {
+		b := in.QuestionPackage.Blueprints[0]
+		b.ID = "learning-root-alternate"
+		in.QuestionPackage.Blueprints = append(in.QuestionPackage.Blueprints, b)
 	}
 	author, e := fixtureAccess(ctx, accounts, "content_editor", false)
 	if e != nil {
@@ -208,7 +213,7 @@ func resetLearning(ctx context.Context, db *sql.DB, s *store.Store, accounts *au
 	if e = learningPublishContent(ctx, db, s, accounts, in); e != nil {
 		return fmt.Errorf("learning content setup: %w", e)
 	}
-	if e = learningPublishQuestions(ctx, db, s, accounts, root, in.Package); e != nil {
+	if e = learningPublishQuestions(ctx, db, s, accounts, root, in.Package, scene); e != nil {
 		return fmt.Errorf("learning question setup: %w", e)
 	}
 	v, d, e := accounts.Context(ctx, auth.Cookies{})

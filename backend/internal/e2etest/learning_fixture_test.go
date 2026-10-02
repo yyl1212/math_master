@@ -50,6 +50,9 @@ func TestLearningRealFixtureAndReset(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
+	if handled, err := learningChange(ctx, db, s, a, root, "learning-withdraw-first-assessed"); !handled || err != nil {
+		t.Fatal(handled, err)
+	}
 	if handled, err := learningChange(ctx, db, s, a, root, "learning-new-route"); !handled || err != nil {
 		t.Fatal(handled, err)
 	}
