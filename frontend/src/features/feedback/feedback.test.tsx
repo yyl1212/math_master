@@ -24,3 +24,17 @@ it('account invalidation clears mounted text',async()=>{vi.mocked(getAuthContext
 
 import {feedbackPageError} from './page-data';
 it('server error projections survive serialization with only safe fields',()=>{const error=feedbackPageError(new FeedbackRequestError('FEEDBACK_NOT_CONFIGURED'));expect(Object.getPrototypeOf(error)).toBe(Object.prototype);expect(JSON.parse(JSON.stringify(error))).toEqual({code:'FEEDBACK_NOT_CONFIGURED',message:'Feedback is temporarily unavailable.'});expect(feedbackPageError(new Error('answer-sentinel')).message).not.toContain('answer-sentinel')});
+it('replaces rows when a fresh server queue page arrives on the same route',async()=>{
+ const route='/api/v1/feedback/review/tickets';
+ const view=render(<TicketList initial={{items:[metadata()],nextCursor:null}} review={true} route={route}/>,{wrapper});
+ expect(screen.getByRole('link',{name:metadata().label})).toBeVisible();
+ view.rerender(<TicketList initial={{items:[],nextCursor:null}} review={true} route={route}/>);
+ expect(await screen.findByText('No reports match this queue.')).toBeVisible();
+ expect(screen.queryByRole('link',{name:metadata().label})).toBeNull();
+});
+it('queue filter controls follow updated routes including browser back navigation',()=>{
+ const view=render(<TicketList initial={{items:[],nextCursor:null}} review={true} route='/api/v1/feedback/review/tickets?status=closed&category=suggestion'/>,{wrapper});
+ view.rerender(<TicketList initial={{items:[],nextCursor:null}} review={true} route='/api/v1/feedback/review/tickets?status=processing&category=math_error'/>);
+ expect(screen.getByLabelText('Status',{exact:true})).toHaveValue('processing');
+ expect(screen.getByLabelText('Category',{exact:true})).toHaveValue('math_error');
+});
