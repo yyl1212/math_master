@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 >
-> 沿用用户已选定的 Native：当前会话使用 superpowers:executing-plans 逐项实现，全部实现后进行一次独立整分支审查。2026-10-03 已确认设计及第八节兼容性变化；用户已书面确认本计划；Task1—11及Task12编码和本机完整矩阵已实施，Task12独立审查与MR交付门槛正在执行。设计及计划通过文档 [PR #20](https://github.com/yyl1212/math_master/pull/20) 交付，产品实现另建分支。
+> 沿用用户已选定的 Native：当前会话使用 superpowers:executing-plans 逐项实现，全部实现后进行一次独立整分支审查。2026-10-03 已确认设计及第八节兼容性变化；用户已书面确认本计划；Task1—11及Task12编码和本机完整矩阵已实施，Task12一次独立审查、五项重要修复与完整矩阵283单元/130浏览器已通过，Step5实现MR及最新四项CI正在交付。设计及计划通过文档 [PR #20](https://github.com/yyl1212/math_master/pull/20) 交付，产品实现另建分支。
 
 **Goal:** 用户可对真实数学版本或网站区域提交、补充和追踪反馈，独立处理者可回复、核验处理依据并留下完整结果。
 
@@ -58,7 +58,7 @@
 | 9 | 新frontend/src/features/feedback/{feedback-account,new-form,ticket-list,discussion-panel,review-panel,status}.tsx、{pending-command,page-data}.ts、{feedback,review}.test.tsx、pending-command.test.ts；app/feedback/new/page.tsx、feedback/page.tsx、feedback/[id]/page.tsx、review/feedback/page.tsx、review/feedback/[id]/page.tsx（均frontend/src下） | 固定账户命令与五页 |
 | 10 | 新features/feedback/report-link.tsx及.test.tsx；改app/knowledge/[id]/page.tsx、app/paths/[id]/page.tsx、features/practice/practice-panel.tsx、features/assessment/{assessment-panel,result-panel}.tsx、components/site-header.tsx（均frontend/src下）；新backend/internal/e2etest/feedback_{fixture,control}.go、feedback_fixture_test.go；改e2etest/harness.go；新tests/e2e/feedback-{user,review,security}.spec.ts、feedback-helpers.ts | 真实来源入口/联调 |
 | 11 | 新store/feedback_capacity_test.go、api/feedback-compatibility-baseline.json、tools/verify/feedback-compatibility.test.mjs | 1000工单/10000事件及旧契约兼容 |
-| 12 | 新tools/verify/feedback-ci.test.mjs；docs/operations/feedback-workflow.md、2026-10-03-p5a-acceptance.md、2026-10-03-p5a-final-review.md、evidence/p5a/脱敏报告/截图；改.github/workflows/{backend,frontend}.yml与本设计/计划/路线 | 完整回归/运维/审查/SSH PR |
+| 12 | 新tools/verify/feedback-ci.test.mjs及最终审查回归frontend/src/features/feedback/review-regressions.test.tsx；重要修复消费Task9组件/SSR及Task10浏览器；docs/operations/feedback-workflow.md、2026-10-03-p5a-acceptance.md、2026-10-03-p5a-final-review.md、evidence/p5a/脱敏报告/截图；改.github/workflows/{backend,frontend}.yml与本设计/计划/路线 | 完整回归/运维/审查/SSH PR |
 
 ```mermaid
 flowchart TD
@@ -330,7 +330,7 @@ assert.equal(playwrightGlobalTimeout,480000);
   测试文件定义解析helper，检查每条wrapper/单次时限，不只搜无关字符串。
 - [x] **Step 2：确认RED。** `node tools/verify/run.mjs -- node --test tools/verify/feedback-ci.test.mjs`。Expected：缺新增批次；负测捕获删改/skip。
 - [x] **Step 3：扩充CI/运维文档。** pure组加入feedback；旧store批次skip改为 `^Test(Learning|Assessment|Feedback)`；新增feedback非capacity/capacity独立批次，原14浏览器再加3。文档明确五状态/依据/曝光/配额/缺迁移/保留四表binary回退与恢复；路线不宣称P5b/P6/P7完成。
-- [ ] **Step 4：运行以下完整矩阵并做一次独立整分支审查。** requesting-code-review安排一位新reviewer审查最新master到完整分支实际diff/设计/计划/证据；Native实施方式保留。重要问题先失败回归/最小修复/受影响复验。Expected：旧100浏览器/135单元及全部新增/Go/容量/兼容PASS、零skip/retry；报告不把技术夹具当数学批准。
+- [x] **Step 4：运行以下完整矩阵并做一次独立整分支审查。** requesting-code-review安排一位新reviewer审查最新master到完整分支实际diff/设计/计划/证据；Native实施方式保留。重要问题先失败回归/最小修复/受影响复验。Expected：旧100浏览器/135单元及全部新增/Go/容量/兼容PASS、零skip/retry；报告不把技术夹具当数学批准。
 - [ ] **Step 5：提交交付。** 明确add本任务CI/ops/计划状态/设计状态/路线，`git commit -m "test: complete feedback regression and operational acceptance"`。本机全通过后SSH普通push、创建面向最新master的实现PR并attach；最终标题描述围绕行为，四项CI核对最新完整SHA。合并/部署按届时授权，创建PR不代表合并授权。
 
 ### 完整验收命令
@@ -399,7 +399,7 @@ node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedb
 | §10 容量/旧回归/当前SHA四项CI | Task10—12，1000工单/10000事件与受限时矩阵 |
 | §11 设计确认→计划审阅→Native实施 | 本计划状态及实施门槛 |
 
-2026-10-03自审核对：产出/消费者一致，完整Repository不提前断言，原身份/锁/曝光函数实际存在，配额在成功事务，四表不触及旧数据，五个Review Focus均有具名测试，DTO/TS/OpenAPI统一，两个原容量不合并超5m。12项都有RED/GREEN及提交；容量满足时如实首跑PASS，不伪造失败。设计层无阻塞；本机全部矩阵已经实测通过，Task12的独立审查与最终完整SHA四项CI继续作为交付门槛。
+2026-10-03自审核对：产出/消费者一致，完整Repository不提前断言，原身份/锁/曝光函数实际存在，配额在成功事务，四表不触及旧数据，五个Review Focus均有具名测试，DTO/TS/OpenAPI统一，两个原容量不合并超5m。12项都有RED/GREEN及提交；容量满足时如实首跑PASS，不伪造失败。设计层无阻塞；本机全部矩阵已经实测通过，Task12一次独立审查及重要修复已通过，最终完整SHA四项CI继续作为交付门槛。
 
 ## 审阅与实施门槛
 
