@@ -56,3 +56,7 @@
 - [手机真实目标刷新v2](evidence/p5a/mobile-feedback-refreshed-target.png)、[桌面目标刷新](evidence/p5a/desktop-feedback-refreshed-target.png)
 
 最终30张脱敏截图已核对，完整最终矩阵及此前273/124项审查前矩阵分别保存；首次失败注入被公共导航消耗的真实日志也保留，修正故障时段后两视口恢复通过。
+
+## MR交付
+
+[draft MR #21](https://github.com/yyl1212/math_master/pull/21)已SSH推送并附到当前任务。首轮完整交付head `6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61` 的Go/前端push/PR四项CI全部SUCCESS，精确SHA、事件和run链接见[首轮CI证据](evidence/p5a/ci-initial-delivery.json)。本次后续文档提交只保存验收与完成记录；最终以MR最新完整head四项CI另行核对，在MR正文记录最终SHA及run链接。未以旧提交通过代替最新提交检查。

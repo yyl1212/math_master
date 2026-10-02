@@ -1,0 +1,79 @@
+{
+  "headSha": "6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61",
+  "capturedAt": "2026-10-02T21:40:21.058273+00:00",
+  "expectedChecks": 4,
+  "checks": [
+    {
+      "conclusion": "success",
+      "databaseId": 37066575191,
+      "event": "pull_request",
+      "headSha": "6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61",
+      "status": "completed",
+      "url": "https://github.com/yyl1212/math_master/actions/runs/37066575191",
+      "workflowName": "Go 内容账户与题库验证",
+      "jobs": [
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "currentSteps": [],
+          "completedSteps": 21
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37066575211,
+      "event": "pull_request",
+      "headSha": "6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61",
+      "status": "completed",
+      "url": "https://github.com/yyl1212/math_master/actions/runs/37066575211",
+      "workflowName": "英文网站账户与题库验证",
+      "jobs": [
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "currentSteps": [],
+          "completedSteps": 34
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37066528325,
+      "event": "push",
+      "headSha": "6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61",
+      "status": "completed",
+      "url": "https://github.com/yyl1212/math_master/actions/runs/37066528325",
+      "workflowName": "Go 内容账户与题库验证",
+      "jobs": [
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "currentSteps": [],
+          "completedSteps": 21
+        }
+      ]
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 37066528274,
+      "event": "push",
+      "headSha": "6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61",
+      "status": "completed",
+      "url": "https://github.com/yyl1212/math_master/actions/runs/37066528274",
+      "workflowName": "英文网站账户与题库验证",
+      "jobs": [
+        {
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "currentSteps": [],
+          "completedSteps": 34
+        }
+      ]
+    }
+  ]
+}

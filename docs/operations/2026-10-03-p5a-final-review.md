@@ -29,3 +29,7 @@
 ## 修复和最终验证
 
 原实现者完成一次五项重要问题RED→GREEN修复，不安排第二轮审查；十个新增回归分别复现并覆盖问题，42项反馈UI/钩子及全量283项前端通过。具体测试在`review-regressions.test.tsx`及`pending-command.test.ts`。完整Go/容量与17批130项浏览器复验全部通过，零skip/retry；24项Node/兼容及全部构建检查通过。受验重要修复提交`175c61f41df6c1c1f974c0ce3e9a023c54361951`，逐项命令及日志摘要见验收证据。后端及浏览器各用独立随机测试库，未修改来源资料或生产数据。MR、合并和生产部署各有独立门槛，本次授权仅实现、验证、SSH推送和创建draft MR。
+
+## MR交付
+
+[draft MR #21](https://github.com/yyl1212/math_master/pull/21)已SSH推送并附到当前任务。首轮完整交付head `6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61` 的Go/前端push/PR四项CI全部SUCCESS，精确SHA、事件和run链接见[首轮CI证据](evidence/p5a/ci-initial-delivery.json)。本次后续文档提交只保存验收与完成记录；最终以MR最新完整head四项CI另行核对，在MR正文记录最终SHA及run链接。未以旧提交通过代替最新提交检查。

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 >
-> 沿用用户已选定的 Native：当前会话使用 superpowers:executing-plans 逐项实现，全部实现后进行一次独立整分支审查。2026-10-03 已确认设计及第八节兼容性变化；用户已书面确认本计划；Task1—11及Task12编码和本机完整矩阵已实施，Task12一次独立审查、五项重要修复与完整矩阵283单元/130浏览器已通过，Step5实现MR及最新四项CI正在交付。设计及计划通过文档 [PR #20](https://github.com/yyl1212/math_master/pull/20) 交付，产品实现另建分支。
+> 沿用用户已选定的 Native：当前会话使用 superpowers:executing-plans 逐项实现，全部实现后进行一次独立整分支审查。2026-10-03 已确认设计及第八节兼容性变化；用户已书面确认本计划；Task1—11及Task12编码和本机完整矩阵已实施，Task12一次独立审查、五项重要修复与完整矩阵283单元/130浏览器已通过，Step5已创建draft MR #21并通过首轮完整head四项CI；最终文档head在MR中另行核对。设计及计划通过文档 [PR #20](https://github.com/yyl1212/math_master/pull/20) 交付，产品实现另建分支。
 
 **Goal:** 用户可对真实数学版本或网站区域提交、补充和追踪反馈，独立处理者可回复、核验处理依据并留下完整结果。
 
@@ -331,7 +331,7 @@ assert.equal(playwrightGlobalTimeout,480000);
 - [x] **Step 2：确认RED。** `node tools/verify/run.mjs -- node --test tools/verify/feedback-ci.test.mjs`。Expected：缺新增批次；负测捕获删改/skip。
 - [x] **Step 3：扩充CI/运维文档。** pure组加入feedback；旧store批次skip改为 `^Test(Learning|Assessment|Feedback)`；新增feedback非capacity/capacity独立批次，原14浏览器再加3。文档明确五状态/依据/曝光/配额/缺迁移/保留四表binary回退与恢复；路线不宣称P5b/P6/P7完成。
 - [x] **Step 4：运行以下完整矩阵并做一次独立整分支审查。** requesting-code-review安排一位新reviewer审查最新master到完整分支实际diff/设计/计划/证据；Native实施方式保留。重要问题先失败回归/最小修复/受影响复验。Expected：旧100浏览器/135单元及全部新增/Go/容量/兼容PASS、零skip/retry；报告不把技术夹具当数学批准。
-- [ ] **Step 5：提交交付。** 明确add本任务CI/ops/计划状态/设计状态/路线，`git commit -m "test: complete feedback regression and operational acceptance"`。本机全通过后SSH普通push、创建面向最新master的实现PR并attach；最终标题描述围绕行为，四项CI核对最新完整SHA。合并/部署按届时授权，创建PR不代表合并授权。
+- [x] **Step 5：提交交付。** 明确add本任务CI/ops/计划状态/设计状态/路线，`git commit -m "test: complete feedback regression and operational acceptance"`。本机全通过后SSH普通push、创建面向最新master的实现PR并attach；最终标题描述围绕行为，四项CI核对最新完整SHA。合并/部署按届时授权，创建PR不代表合并授权。
 
 ### 完整验收命令
 
@@ -404,3 +404,5 @@ node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedb
 ## 审阅与实施门槛
 
 用户已确认12项/60步骤，保留Native；文档PR #20已合并，从最新master 20a68fa6f087e5e78561bf07c0229e072642e257建立隔离产品分支并完成旧基线、新旧完整矩阵。实施证据见[验收记录](../../operations/2026-10-03-p5a-acceptance.md)。仅本机隔离随机测试库验证，生产迁移和部署仍在P7。一次整分支独立审查与当前实现MR完整head四项CI正在执行。
+
+实施交付记录：Task1—12及一次重要修复完成；283前端、130浏览器、24Node和全部Go/容量通过。[MR #21](https://github.com/yyl1212/math_master/pull/21)首轮完整head `6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61` 四项CI全部通过，文档提交后的MR最新完整head另行逐项核验；合并和部署仍需相应授权。

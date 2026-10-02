@@ -27,7 +27,7 @@
 - [x] Task 9: complete
 - [x] Task 10: complete
 - [x] Task 11: complete
-- [ ] Task 12: in_progress
+- [x] Task 12: complete
 
 Baseline commit: 20a68fa6f087e5e78561bf07c0229e072642e257
 Task 1: complete (commits 20a68fa..a9419ac, tests: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/feedback -timeout 5m -count=1 → ok  	github.com/yyl1212/math_master/backend/internal/feedback	0.318s)
@@ -84,3 +84,6 @@ Final: fixed Important/P2 临时身份错误无法恢复—Reload action/focus/s
 Final: fixed Important/P2 过期来源没有保留输入刷新路径—refreshes a stale target while retaining the original text and waiting for explicit new submission RED→GREEN，真实新发布v2两视口通过，suite 前端283/283、浏览器130/130及全部矩阵通过。
 Final: fixed Important/P2 刷新工单清草稿—manual owner status refresh及conflict recovery preserves handler draft and references while an old-key retry stays frozen RED→GREEN，suite 前端283/283、浏览器130/130及全部矩阵通过。
 Final: product repair commit 175c61f41df6c1c1f974c0ce3e9a023c54361951；只执行一次重要修复，不再派独立审查。完整复验4前端阶段/11后端阶段/17浏览器阶段均exit0，17批130项/零skip/retry，最长浏览器74.814s；三容量11.187s/232.357s/121.352s，反馈最大182.861792ms、607731-byte正文页。Go原5m/浏览器8m/包装器9m/CI job30m保持。Task12本机与审查Step4完成，Step5 SSH MR和最新四项CI待远端。
+Task 12: complete (commits 640658e..6c550d9, tests: node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/content-ingest/snapshot.test.mjs → ℹ duration_ms 5538.483042)
+
+Final: draft MR #21已创建并attach，首轮交付head 6c550d9aa68bc4a5bc2a15cd35b8168cc5ab2d61 的Go/前端push/PR四项CI全部SUCCESS；以下最终文档提交仅保存交付事实，仍再次核对该最新HEAD四项CI，结果保存到MR描述，不以旧head代替。

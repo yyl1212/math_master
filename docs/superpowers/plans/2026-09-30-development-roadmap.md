@@ -150,7 +150,7 @@ P4a [PR #17](https://github.com/yyl1212/math_master/pull/17)已合并，master 4
 
 #### P5a：版本化反馈方案进展（2026-10-03）
 
-用户已于2026-10-03书面确认[P5a方案](../specs/2026-10-03-feedback-workflow-design.md)及第八节兼容性变化：先交付版本化反馈、五状态处理、补充/重开和可查回执，再单独设计P5b的纠错影响任务、独立重算和站内通知。[十二项/六十步执行计划](2026-10-03-feedback-workflow.md)已编写，包含精确文件/接口、架构、真实来源与曝光、成功配额/回执、Go/Node边界、容量/兼容和完整回归矩阵；用户已确认计划并保留Native，Task1—11及Task12本机矩阵已完成：283项前端、24项Node、原100+新增30项双视口浏览器全部通过；1000反馈/10000事件与原两项最大容量通过。一次独立整分支审查及五项重要问题RED→GREEN已完成，修复后完整矩阵通过；实现MR及最新完整SHA四项CI仍为交付门槛，证据见[验收记录](../../operations/2026-10-03-p5a-acceptance.md)。
+用户已于2026-10-03书面确认[P5a方案](../specs/2026-10-03-feedback-workflow-design.md)及第八节兼容性变化：先交付版本化反馈、五状态处理、补充/重开和可查回执，再单独设计P5b的纠错影响任务、独立重算和站内通知。[十二项/六十步执行计划](2026-10-03-feedback-workflow.md)已编写，包含精确文件/接口、架构、真实来源与曝光、成功配额/回执、Go/Node边界、容量/兼容和完整回归矩阵；用户已确认计划并保留Native，Task1—11及Task12本机矩阵已完成：283项前端、24项Node、原100+新增30项双视口浏览器全部通过；1000反馈/10000事件与原两项最大容量通过。一次独立整分支审查及五项重要问题RED→GREEN已完成，修复后完整矩阵通过；[draft MR #21](https://github.com/yyl1212/math_master/pull/21)已SSH创建，首轮完整head四项CI通过；最新文档提交的四项CI继续逐项核对，P5b另审设计和兼容性，证据见[验收记录](../../operations/2026-10-03-p5a-acceptance.md)。
 
 P4b [PR #19](https://github.com/yyl1212/math_master/pull/19)完整head `f919c5aa780f166fbadb718bb55830b82d4c175d` 四项CI已通过并按授权合并，master为 `8400ee56d59fd13ecf23f83d89d7685027c93c2d`。文档[PR #20](https://github.com/yyl1212/math_master/pull/20)已通过四项CI并合并；产品从最新master 20a68fa6f087e5e78561bf07c0229e072642e257新建codex/p5a-feedback-workflow隔离分支，旧基线及新旧回归均已验证。反馈处理沿用独立审核/发布/撤回，原答案、成绩、历史解锁和其他有效证据保留；P5b另审原4/5重算与不足五题重测。
 
