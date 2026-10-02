@@ -4,7 +4,7 @@ import { ContentState } from "@/components/content-state";
 import { buildPathGraph, refKey } from "./path-graph";
 import { PathConnections } from "./path-connections";
 import styles from "@/styles/reading.module.css";
-export function PathView({ result }: { result: ApiResult<PathData> }) {
+export function PathView({ result,personal }: { result: ApiResult<PathData>;personal?:React.ReactNode }) {
   if (!result.ok)
     return (
       <ContentState
@@ -44,6 +44,7 @@ export function PathView({ result }: { result: ApiResult<PathData> }) {
           Read freely and follow the prerequisites to connect the ideas.
         </p>
       </header>
+      {personal}
       <section
         className={styles.pathGraph}
         aria-label="Knowledge prerequisites"

@@ -8,11 +8,11 @@ import styles from "@/styles/catalogue.module.css";
 export function KnowledgeMap({
   result,
   q,
-  status,
+  status,personal,
 }: {
   result: ApiResult<DomainList>;
   q: string;
-  status: CatalogueStatus;
+  status: CatalogueStatus;personal?:React.ReactNode;
 }) {
   const domains = result.ok
     ? result.data.items
@@ -26,6 +26,7 @@ export function KnowledgeMap({
         <h1>Knowledge Map</h1>
         <p>Choose a domain. Explore its ideas, then follow a learning path.</p>
       </div>
+      {personal}
       <Form
         role="search"
         action="/knowledge"

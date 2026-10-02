@@ -232,6 +232,9 @@ func Run(ctx context.Context, c Config) (result error) {
 		}
 		ctx, stop := context.WithTimeout(ctx, 3*time.Second)
 		defer stop()
+		if handled, err := learningChange(ctx, db, s, accounts, root, scene); handled {
+			return err
+		}
 		if handled, err := qcontrol.change(ctx, scene); handled {
 			return err
 		}

@@ -50,6 +50,16 @@ func TestLearningRealFixtureAndReset(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
+	if handled, err := learningChange(ctx, db, s, a, root, "learning-new-route"); !handled || err != nil {
+		t.Fatal(handled, err)
+	}
+	state, err := learningState(ctx, db)
+	if err != nil || state.Path.Version != 2 {
+		t.Fatal(state, err)
+	}
+	if handled, err := learningChange(ctx, db, s, a, root, "learning-withdraw-root"); !handled || err != nil {
+		t.Fatal(handled, err)
+	}
 	if e = resetAccounts(ctx, db, a, admin); e != nil {
 		t.Fatal(e)
 	}
