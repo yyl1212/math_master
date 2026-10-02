@@ -24,9 +24,14 @@ func questionExposureRefs(input question.DraftInput, instances []question.Instan
 		return out, auth.ErrUnavailable
 	}
 	for _, t := range env.Body.Templates {
-		_, sha, e := questionCanonical("question-template-v1", t)
+		_, sha, e := question.CanonicalTemplate(t)
 		if e != nil {
-			return out, e
+			// Editing may retain incomplete templates. Their raw identity cannot
+			// match an approved normalized template, and must remain editable.
+			_, sha, e = questionCanonical("question-template-v1", t)
+			if e != nil {
+				return out, e
+			}
 		}
 		out = append(out, learning.ExposureRef{Kind: "template", Identity: question.Identity{ID: t.ID, Version: t.Version, SHA256: sha}})
 	}

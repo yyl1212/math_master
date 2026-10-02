@@ -124,3 +124,22 @@ func TestLearningExposureQuestionReadRechecksPermission(t *testing.T) {
 		t.Fatal("failed read left exposure", n, e)
 	}
 }
+
+func TestLearningExposureUsesDeliveryDatabaseTime(t *testing.T) {
+	s, db, a, owner := workflowGuardFixture(t)
+	var prepared time.Time
+	e := s.learningTx(context.Background(), a, learning.ReadKnowledgeAction, func(ctx context.Context, tx *sql.Tx, u auth.User, entered time.Time) error {
+		if e := tx.QueryRowContext(ctx, `SELECT clock_timestamp()`).Scan(&prepared); e != nil {
+			return e
+		}
+		_, e := learningRecordExposure(ctx, tx, u.ID, []learning.ExposureRef{{Kind: "template", Identity: question.Identity{ID: "prepared-template", Version: 1, SHA256: strings.Repeat("5", 64)}}}, entered.Add(-time.Hour))
+		return e
+	})
+	if e != nil {
+		t.Fatal(e)
+	}
+	var recorded time.Time
+	if e = db.QueryRow(`SELECT exposed_at FROM learner_answer_exposures WHERE owner_user_id=$1`, owner).Scan(&recorded); e != nil || recorded.Before(prepared) {
+		t.Fatal("exposure used entry/supplied time rather than prepared delivery", recorded, prepared, e)
+	}
+}

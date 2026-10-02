@@ -34,6 +34,11 @@ func learningRecordExposure(ctx context.Context, tx *sql.Tx, actor string, refs 
 			input = append(input, map[string]any{"kind": r.Kind, "id": r.Identity.ID, "version": r.Identity.Version, "sha256": r.Identity.SHA256})
 		}
 	}
+	// Timestamp belongs to the actual prepared answer delivery, not transaction
+	// entry or a caller's stale clock. The user lock already serializes sequence.
+	if e = tx.QueryRowContext(ctx, `SELECT clock_timestamp()`).Scan(&now); e != nil {
+		return 0, e
+	}
 	var n int64
 	e = tx.QueryRowContext(ctx, `INSERT INTO learner_exposure_state(owner_user_id,sequence,updated_at) VALUES($1,1,$2) ON CONFLICT(owner_user_id) DO UPDATE SET sequence=learner_exposure_state.sequence+1,updated_at=greatest(learner_exposure_state.updated_at,EXCLUDED.updated_at) RETURNING sequence`, actor, now).Scan(&n)
 	if e != nil {
