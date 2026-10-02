@@ -18,5 +18,27 @@ it('manual retry preserves the command after an unconfirmed response',async()=>{
 it('FeedbackPendingIdentityDeadline stops a never-returning identity without sending',async()=>{vi.useFakeTimers();vi.mocked(getAuthContext).mockReturnValue(new Promise(()=>{}));const h=renderHook(()=>useFeedbackCommand(id,vi.fn()),{wrapper});act(()=>{void h.result.current.run(input())});await act(async()=>vi.advanceTimersByTimeAsync(10000));expect(h.result.current.busy).toBe(false);expect(h.result.current.error?.code).toBe('SERVICE_UNAVAILABLE');expect(sendFeedback).not.toHaveBeenCalled();h.unmount()});
 it('the click budget includes slow identity and an abort-ignoring mutation',async()=>{vi.useFakeTimers();vi.mocked(getAuthContext).mockImplementation(()=>new Promise(resolve=>setTimeout(()=>resolve(proof()),4000)));vi.mocked(sendFeedback).mockReturnValue(new Promise(()=>{}));const h=renderHook(()=>useFeedbackCommand(id,vi.fn()),{wrapper});act(()=>{void h.result.current.run(input())});await act(async()=>vi.advanceTimersByTimeAsync(4000));expect(sendFeedback).toHaveBeenCalledTimes(1);await act(async()=>vi.advanceTimersByTimeAsync(6000));expect(h.result.current.busy).toBe(false);expect(h.result.current.pending).not.toBeNull();expect(sendFeedback).toHaveBeenCalledTimes(1);h.unmount()});
 it.each(['account','password'] as const)('invalidates %s changes before sending',async kind=>{const v=proof();if(kind==='account')v.data.user.id=otherId;else v.data.user.mustChangePassword=true;vi.mocked(getAuthContext).mockResolvedValue(v);const h=renderHook(()=>useFeedbackCommand(id,vi.fn()),{wrapper});await act(async()=>h.result.current.run(input()));expect(sendFeedback).not.toHaveBeenCalled();expect(invalidate).toHaveBeenCalled();h.unmount()});
-it('delivers the original replay receipt for a separate metadata refresh',async()=>{vi.mocked(getAuthContext).mockResolvedValue(proof());vi.mocked(sendFeedback).mockResolvedValue({actorId:id,data:{status:200,ticket:metadata()}});const success=vi.fn(async()=>{});const h=renderHook(()=>useFeedbackCommand(id,success),{wrapper});await act(async()=>h.result.current.run(input()));expect(success).toHaveBeenCalledWith({status:200,ticket:metadata()});expect(h.result.current.pending).toBeNull();h.unmount()});
+it('delivers the original replay receipt for a separate metadata refresh',async()=>{vi.mocked(getAuthContext).mockResolvedValue(proof());vi.mocked(sendFeedback).mockResolvedValue({actorId:id,data:{status:200,ticket:metadata()}});const success=vi.fn(async()=>{});const h=renderHook(()=>useFeedbackCommand(id,success),{wrapper});await act(async()=>h.result.current.run(input()));expect(success).toHaveBeenCalledWith({status:200,ticket:metadata()},expect.any(AbortSignal));expect(h.result.current.pending).toBeNull();h.unmount()});
 it('does not deliver a late response after unmount',async()=>{vi.mocked(getAuthContext).mockResolvedValue(proof());let resolve!:(v:Awaited<ReturnType<typeof sendFeedback>>)=>void;vi.mocked(sendFeedback).mockReturnValue(new Promise(r=>resolve=r));const success=vi.fn(async()=>{});const h=renderHook(()=>useFeedbackCommand(id,success),{wrapper});act(()=>{void h.result.current.run(input())});await act(async()=>Promise.resolve());h.unmount();await act(async()=>resolve({actorId:id,data:{status:200,ticket:metadata()}}));expect(success).not.toHaveBeenCalled()});
+
+it.each(['error', 'deadline'] as const)('keeps the confirmed original command when latest-view refresh fails by %s', async failure => {
+ if (failure === 'deadline') vi.useFakeTimers();
+ vi.mocked(getAuthContext).mockResolvedValue(proof());
+ vi.mocked(sendFeedback).mockResolvedValue({ actorId: id, data: { status: 200, ticket: metadata() } });
+ const success = vi.fn().mockImplementationOnce(() => failure === 'error' ? Promise.reject(new FeedbackRequestError()) : new Promise(() => {})).mockResolvedValue(undefined);
+ const h = renderHook(() => useFeedbackCommand(id, success), { wrapper });
+ if (failure === 'deadline') {
+  act(() => { void h.result.current.run(input()); });
+  await act(async () => vi.advanceTimersByTimeAsync(10000));
+ } else await act(async () => h.result.current.run(input()));
+ const original = vi.mocked(sendFeedback).mock.calls[0][0];
+ expect(h.result.current.pending).toEqual(original);
+ expect(h.result.current.confirmed).toBe(true);
+ expect(h.result.current.error?.code).toBe('SERVICE_UNAVAILABLE');
+ expect(h.result.current.busy).toBe(false);
+ await act(async () => h.result.current.run(input()));
+ expect(sendFeedback).toHaveBeenCalledTimes(1);
+ await act(async () => h.result.current.retry());
+ expect(vi.mocked(sendFeedback).mock.calls[1][0]).toEqual(original);
+ expect(h.result.current.pending).toBeNull(); h.unmount();
+});

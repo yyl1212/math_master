@@ -14,10 +14,10 @@ export function createPendingFeedbackCommand(actorId: string, command: FeedbackC
   validateFeedbackBytes(new TextEncoder().encode(raw), route.action);
   return freeze({ actorId, key: crypto.randomUUID(), route: command.route, input: JSON.parse(raw) }) as FeedbackCommand;
 }
-export function useFeedbackCommand(actorId: string, onSuccess: (receipt: Receipt) => Promise<void>) {
-  const account = useContext(FeedbackAccountContext), [pending, setPending] = useState<FeedbackCommand | null>(null), [error, setError] = useState<FeedbackRequestError | null>(null), [busy, setBusy] = useState(false);
+export function useFeedbackCommand(actorId: string, onSuccess: (receipt: Receipt, signal: AbortSignal) => Promise<void>) {
+  const account = useContext(FeedbackAccountContext), [pending, setPending] = useState<FeedbackCommand | null>(null), [error, setError] = useState<FeedbackRequestError | null>(null), [busy, setBusy] = useState(false), [confirmed, setConfirmed] = useState(false);
   const live = useRef(true), generation = useRef(0), inFlight = useRef(false), controller = useRef<AbortController | null>(null), success = useRef(onSuccess); success.current = onSuccess;
-  const clear = () => { generation.current++; controller.current?.abort(); inFlight.current = false; setPending(null); setError(null); setBusy(false); };
+  const clear = () => { generation.current++; controller.current?.abort(); inFlight.current = false; setPending(null); setConfirmed(false); setError(null); setBusy(false); };
   useEffect(() => { live.current = true; window.addEventListener('math-master:auth-change', clear); return () => { live.current = false; generation.current++; controller.current?.abort(); window.removeEventListener('math-master:auth-change', clear); }; }, [actorId]);
   const perform = async (command: FeedbackCommand) => {
     if (inFlight.current) return;
@@ -33,12 +33,13 @@ export function useFeedbackCommand(actorId: string, onSuccess: (receipt: Receipt
       const result = await feedbackAwait(sendFeedback(command, signal), signal);
       if (!valid()) return;
       if (result.actorId !== actorId) { clear(); account.invalidate(); return; }
-      setPending(null);
-      await feedbackAwait(success.current(result.data), signal);
+      setConfirmed(true);
+      await feedbackAwait(success.current(result.data, signal), signal);
+      if (valid() && !signal.aborted) { setPending(null); setConfirmed(false); }
     }); } catch (e) { if (valid()) { const closed = e instanceof FeedbackRequestError ? e : new FeedbackRequestError(); if (['AUTHENTICATION_REQUIRED', 'PASSWORD_CHANGE_REQUIRED', 'FORBIDDEN'].includes(closed.code)) { clear(); account.invalidate(); } else setError(closed); } }
     finally { if (controller.current === active) controller.current = null; if (valid()) { inFlight.current = false; setBusy(false); } }
   };
   const run = async (command: FeedbackCommandInput) => { if (inFlight.current || pending) return; try { await perform(createPendingFeedbackCommand(actorId, command)); } catch (e) { setError(e instanceof FeedbackRequestError ? e : new FeedbackRequestError()); } };
   const retry = async () => { if (pending) await perform(pending); };
-  return { run, retry, clear, busy, pending, error };
+  return { run, retry, clear, busy, pending, confirmed, error };
 }

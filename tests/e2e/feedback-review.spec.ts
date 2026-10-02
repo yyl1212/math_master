@@ -11,6 +11,9 @@ test('review filters replace visible rows through client navigation and browser 
  const advanced=await wireFeedback(page,'/api/v1/feedback/review/tickets/'+seeded.ticketId+'/transition','POST',{expectedSequence:1,status:'processing',message:'Another confirmed handling operation.',resolution:null});expect(advanced.status).toBe(200);
  await page.getByLabel('Report status',{exact:true}).selectOption('processing');await page.getByLabel('Review reply',{exact:true}).fill('A stale handling attempt.');await page.getByRole('button',{name:'Save handling result',exact:true}).click();
  await expect(page.locator('#main-content').getByRole('alert')).toContainText(/changed/i);await fitsViewport(page);await safeScreenshot(page,info,'feedback-sequence-conflict');
+ await page.getByRole('button',{name:'Reload report status',exact:true}).click();await expect(page.getByText(/Event 2/)).toBeVisible();
+ await expect(page.getByLabel('Review reply',{exact:true})).toHaveValue('A stale handling attempt.');await expect(page.getByRole('button',{name:'Retry same request',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'Edit as a new request',exact:true}).click();await page.getByRole('button',{name:'Save handling result',exact:true}).click();await expect(page.getByLabel('Review reply',{exact:true})).toHaveValue('');
  await handleReport(page,seeded.ticketId,'closed','This original suggestion has been recorded.','suggestion_recorded');
  await page.goto('/review/feedback');await expect(page.locator('a[href="/review/feedback/'+own.id+'"]')).toHaveCount(1);
  await page.getByLabel('Status',{exact:true}).selectOption('closed');await page.getByRole('button',{name:'Filter queue',exact:true}).click();

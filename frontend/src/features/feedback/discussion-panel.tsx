@@ -1,6 +1,6 @@
 "use client";
 import Link from 'next/link';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FeedbackAccountContext, useFeedbackRead } from './feedback-account';
 import { useFeedbackCommand } from './pending-command';
 import { ReviewPanel } from './review-panel';
@@ -18,12 +18,13 @@ export function DiscussionPanel({ ticketId, review = false }: { ticketId: string
 }
 export function FeedbackTicket({ initial, review }: { initial: Metadata; review: boolean }) {
   const [ticket, setTicket] = useState(initial), [message, setMessage] = useState(''), [error, setError] = useState<FeedbackRequestError | null>(null), account = useContext(FeedbackAccountContext), read = useFeedbackRead();
+  useEffect(() => { setTicket(initial); }, [initial]);
   const path = '/api/v1/feedback/' + (review ? 'review/' : '') + 'tickets/' + initial.id;
-  async function refresh(_receipt?: Receipt) { const result = await read<Metadata>(path); if (result) { setTicket(result.data); setMessage(''); setError(null); } }
-  const command = useFeedbackCommand(account?.actorId ?? '', refresh), input = { expectedSequence: ticket.sequence, message };
+  async function refresh(_receipt?: Receipt, signal?: AbortSignal) { const result = await read<Metadata>(path, signal); if (result) { setTicket(result.data); setError(null); } return result?.data ?? null; }
+  const command = useFeedbackCommand(account?.actorId ?? '', async (receipt, signal) => { const latest = await refresh(receipt, signal); if (latest) setMessage(''); }), input = { expectedSequence: ticket.sequence, message };
   return <section className={styles.workbench} style={{overflowWrap:"anywhere"}}><Link prefetch={false} href={review ? '/review/feedback' : '/feedback'}>Back to reports</Link><h1>Report details</h1><p className={styles.metadata}>{ticket.label}</p><p><FeedbackStatus status={ticket.status}/> · Event {ticket.sequence} · {ticket.targetValidity}</p>{ticket.resolutionKind && <p>Current basis: {ticket.resolutionKind.replaceAll('_', ' ')}</p>}
     <button type="button" className="button secondary" onClick={() => void refresh().catch(e => setError(e instanceof FeedbackRequestError ? e : new FeedbackRequestError()))}>Reload report status</button>{error && <FeedbackState error={error}/>}
     <DiscussionPanel key={"discussion-"+ticket.sequence} ticketId={ticket.id} review={review}/>
-    {review && ticket.canHandle ? <ReviewPanel key={"review-"+ticket.sequence} ticket={ticket} onSuccess={refresh}/> : <form onSubmit={e => { e.preventDefault(); void command.run({ route: `/api/v1/feedback/tickets/${ticket.id}/reply`, input }); }}><label className={styles.field}>Additional details<textarea aria-label="Additional details" required rows={6} disabled={command.busy || !!command.pending} value={message} onChange={e => setMessage(e.target.value)}/><small>{[...message].length}/4000 characters</small></label><button className="button" disabled={command.busy || !!command.pending || !feedbackInputSchemas.reply.safeParse(input).success}>Add details</button><FeedbackCommandStatus command={command}/></form>}
+    {review && ticket.canHandle ? <ReviewPanel key={"review-"+ticket.id} ticket={ticket} onSuccess={refresh}/> : <form onSubmit={e => { e.preventDefault(); void command.run({ route: `/api/v1/feedback/tickets/${ticket.id}/reply`, input }); }}><label className={styles.field}>Additional details<textarea aria-label="Additional details" required rows={6} disabled={command.busy || !!command.pending} value={message} onChange={e => setMessage(e.target.value)}/><small>{[...message].length}/4000 characters</small></label><button className="button" disabled={command.busy || !!command.pending || !feedbackInputSchemas.reply.safeParse(input).success}>Add details</button><FeedbackCommandStatus command={command}/></form>}
   </section>;
 }
