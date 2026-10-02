@@ -1,0 +1,330 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/feedback/feedback.test.tsx
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/frontend
+
+ ❯ src/features/feedback/feedback.test.tsx (19 tests | 2 failed) 1112ms
+   × replaces rows when a fresh server queue page arrives on the same route 1016ms
+   × queue filter controls follow updated routes including browser back navigation 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/feedback/feedback.test.tsx > replaces rows when a fresh server queue page arrives on the same route
+TestingLibraryElementError: Unable to find an element with the text: No reports match this queue.. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"_workbench_e47cba"[39m
+      [33mstyle[39m=[32m"overflow-wrap: anywhere;"[39m
+    [36m>[39m
+      [36m<h1>[39m
+        [0mFeedback review queue[0m
+      [36m</h1>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"_actions_e47cba"[39m
+        [33mmethod[39m=[32m"GET"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"_field_e47cba"[39m
+        [36m>[39m
+          [0mStatus[0m
+          [36m<select[39m
+            [33maria-label[39m=[32m"Status"[39m
+            [33mname[39m=[32m"status"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mselected[39m=[32m""[39m
+              [33mvalue[39m=[32m""[39m
+            [36m>[39m
+              [0mAll statuses[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"new"[39m
+            [36m>[39m
+              [0mnew[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"processing"[39m
+            [36m>[39m
+              [0mprocessing[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"waiting_details"[39m
+            [36m>[39m
+              [0mwaiting details[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"resolved"[39m
+            [36m>[39m
+              [0mresolved[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"closed"[39m
+            [36m>[39m
+              [0mclosed[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"_field_e47cba"[39m
+        [36m>[39m
+          [0mCategory[0m
+          [36m<select[39m
+            [33maria-label[39m=[32m"Category"[39m
+            [33mname[39m=[32m"category"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mselected[39m=[32m""[39m
+              [33mvalue[39m=[32m""[39m
+            [36m>[39m
+              [0mAll categories[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"math_error"[39m
+            [36m>[39m
+              [0mmath error[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"unclear_explanation"[39m
+            [36m>[39m
+              [0munclear explanation[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"typo"[39m
+            [36m>[39m
+              [0mtypo[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"accessibility"[39m
+            [36m>[39m
+              [0maccessibility[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"technical_issue"[39m
+            [36m>[39m
+              [0mtechnical issue[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"suggestion"[39m
+            [36m>[39m
+              [0msuggestion[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+        [36m>[39m
+          [0mFilter queue[0m
+        [36m</button>[39m
+      [36m</form>[39m
+      [36m<ul[39m
+        [33mclass[39m=[32m"_list_e47cba"[39m
+      [36m>[39m
+        [36m<li>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"/review/feedback/11111111-1111-4111-8111-111111111111"[39m
+          [36m>[39m
+            [0mknowledge math-root · v1[0m
+          [36m</a>[39m
+          [36m<p>[39m
+            [36m<span[39m
+              [33mdata-feedback-status[39m=[32m"new"[39m
+            [36m>[39m
+              [0mNew[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mmath error[0m
+            [0m · Event [0m
+            [0m1[0m
+          [36m</p>[39m
+          [36m<small[39m
+            [33mclass[39m=[32m"_metadata_e47cba"[39m
+          [36m>[39m
+            [0mcurrent[0m
+            [0m · [0m
+            [0m10/3/2026, 8:00:00 AM[0m
+          [36m</small>[39m
+        [36m</li>[39m
+      [36m</ul>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"_workbench_e47cba"[39m
+      [33mstyle[39m=[32m"overflow-wrap: anywhere;"[39m
+    [36m>[39m
+      [36m<h1>[39m
+        [0mFeedback review queue[0m
+      [36m</h1>[39m
+      [36m<form[39m
+        [33mclass[39m=[32m"_actions_e47cba"[39m
+        [33mmethod[39m=[32m"GET"[39m
+      [36m>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"_field_e47cba"[39m
+        [36m>[39m
+          [0mStatus[0m
+          [36m<select[39m
+            [33maria-label[39m=[32m"Status"[39m
+            [33mname[39m=[32m"status"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mselected[39m=[32m""[39m
+              [33mvalue[39m=[32m""[39m
+            [36m>[39m
+              [0mAll statuses[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"new"[39m
+            [36m>[39m
+              [0mnew[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"processing"[39m
+            [36m>[39m
+              [0mprocessing[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"waiting_details"[39m
+            [36m>[39m
+              [0mwaiting details[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"resolved"[39m
+            [36m>[39m
+              [0mresolved[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"closed"[39m
+            [36m>[39m
+              [0mclosed[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<label[39m
+          [33mclass[39m=[32m"_field_e47cba"[39m
+        [36m>[39m
+          [0mCategory[0m
+          [36m<select[39m
+            [33maria-label[39m=[32m"Category"[39m
+            [33mname[39m=[32m"category"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mselected[39m=[32m""[39m
+              [33mvalue[39m=[32m""[39m
+            [36m>[39m
+              [0mAll categories[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"math_error"[39m
+            [36m>[39m
+              [0mmath error[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"unclear_explanation"[39m
+            [36m>[39m
+              [0munclear explanation[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"typo"[39m
+            [36m>[39m
+              [0mtypo[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"accessibility"[39m
+            [36m>[39m
+              [0maccessibility[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"technical_issue"[39m
+            [36m>[39m
+              [0mtechnical issue[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"suggestion"[39m
+            [36m>[39m
+              [0msuggestion[0m
+            [36m</option>[39m
+          [36m</select>[39m
+        [36m</label>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+        [36m>[39m
+          [0mFilter queue[0m
+        [36m</button>[39m
+      [36m</form>[39m
+      [36m<ul[39m
+        [33mclass[39m=[32m"_list_e47cba"[39m
+      [36m>[39m
+        [36m<li>[39m
+          [36m<a[39m
+            [33mhref[39m=[32m"/review/feedback/11111111-1111-4111-8111-111111111111"[39m
+          [36m>[39m
+            [0mknowledge math-root · v1[0m
+          [36m</a>[39m
+          [36m<p>[39m
+            [36m<span[39m
+              [33mdata-feedback-status[39m=[32m"new"[39m
+            [36m>[39m
+              [0mNew[0m
+            [36m</span>[39m
+            [0m · [0m
+            [0mmath error[0m
+            [0m · Event [0m
+            [0m1[0m
+          [36m</p>[39m
+          [36m<small[39m
+            [33mclass[39m=[32m"_metadata_e47cba"[39m
+          [36m>[39m
+            [0mcurrent[0m
+            [0m · [0m
+            [0m10/3/2026, 8:00:00 AM[0m
+          [36m</small>[39m
+        [36m</li>[39m
+      [36m</ul>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/feedback/feedback.test.tsx:32:22
+     30|  expect(screen.getByRole('link',{name:metadata().label})).toBeVisible(…
+     31|  view.rerender(<TicketList initial={{items:[],nextCursor:null}} review…
+     32|  expect(await screen.findByText('No reports match this queue.')).toBeV…
+       |                      ^
+     33|  expect(screen.queryByRole('link',{name:metadata().label})).toBeNull();
+     34| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/features/feedback/feedback.test.tsx > queue filter controls follow updated routes including browser back navigation
+Error: expect(element).toHaveValue(processing)
+
+Expected the element to have value:
+  processing
+Received:
+  closed
+ ❯ src/features/feedback/feedback.test.tsx:38:55
+     36|  const view=render(<TicketList initial={{items:[],nextCursor:null}} re…
+     37|  view.rerender(<TicketList initial={{items:[],nextCursor:null}} review…
+     38|  expect(screen.getByLabelText('Status',{exact:true})).toHaveValue('pro…
+       |                                                       ^
+     39|  expect(screen.getByLabelText('Category',{exact:true})).toHaveValue('m…
+     40| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 17 passed (19)
+   Start at  04:33:06
+   Duration  1.56s (tests 74%, environment 14%, transform 6%, import 3%, setup 3%)
+

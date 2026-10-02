@@ -1,8 +1,8 @@
 # P5a 版本化反馈与处理结果 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 >
-> 沿用用户已选定的 Native：当前会话使用 superpowers:executing-plans 逐项实现，全部实现后进行一次独立整分支审查。2026-10-03 已确认设计及第八节兼容性变化；本计划供书面审阅，12项/60步骤均未实施。设计及计划通过文档 [PR #20](https://github.com/yyl1212/math_master/pull/20) 交付，产品实现另建分支。
+> 沿用用户已选定的 Native：当前会话使用 superpowers:executing-plans 逐项实现，全部实现后进行一次独立整分支审查。2026-10-03 已确认设计及第八节兼容性变化；用户已书面确认本计划；Task1—11及Task12编码和本机完整矩阵已实施，Task12独立审查与MR交付门槛正在执行。设计及计划通过文档 [PR #20](https://github.com/yyl1212/math_master/pull/20) 交付，产品实现另建分支。
 
 **Goal:** 用户可对真实数学版本或网站区域提交、补充和追踪反馈，独立处理者可回复、核验处理依据并留下完整结果。
 
@@ -126,7 +126,7 @@ sentinel：ErrNotConfigured→503 FEEDBACK_NOT_CONFIGURED、ErrConflict→409 FE
 
 **Files:** 文件表Task1。**Interfaces:** 产出跨任务DTO/纯规则，仅依赖auth/question基础类型。
 
-- [ ] **Step 1：写FeedbackState/Policy/Validation/Digest失败测试。** 同名测试使用以下断言；另表测五状态/八依据/全部Action和角色、终态原状态回复、site分类。
+- [x] **Step 1：写FeedbackState/Policy/Validation/Digest失败测试。** 同名测试使用以下断言；另表测五状态/八依据/全部Action和角色、终态原状态回复、site分类。
 ```go
 if next,err:=OwnerReplyState(Status("closed")); err!=nil||next!="processing" { t.Fatal(next,err) }
 if err:=ValidateReply(ReplyInput{ExpectedSequence:1,Message:strings.Repeat("中",4000)}); err!=nil { t.Fatal(err) }
@@ -134,16 +134,16 @@ if err:=ValidateReply(ReplyInput{ExpectedSequence:1,Message:strings.Repeat("😀
 if CanHandle(auth.User{ID:"owner",Roles:[]auth.Role{auth.RoleAdmin}},"owner") { t.Fatal("self handling") }
 ```
   摘要验证同输入同digest，换动作/资源/序号/文本不同digest；unit/asset互斥，asset额外version在Task7字节验证。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/feedback -timeout 5m -count=1`。Expected：新符号缺失或上述确切断言失败。
-- [ ] **Step 3：实现精确纯接口。** 标量在trim前计数，必填文本trim后非空；保留原文不归一化。摘要复用规范JSON字节规则，仅增加feedback-command-v1用途。
-- [ ] **Step 4：确认GREEN。** 同Step2；Expected：纯包PASS；非法原始编码/代理项留给Task7，不让Go解码替换后冒充合法。
-- [ ] **Step 5：提交。** `git add backend/internal/feedback`；`git commit -m "feat: define versioned feedback contracts and rules"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/feedback -timeout 5m -count=1`。Expected：新符号缺失或上述确切断言失败。
+- [x] **Step 3：实现精确纯接口。** 标量在trim前计数，必填文本trim后非空；保留原文不归一化。摘要复用规范JSON字节规则，仅增加feedback-command-v1用途。
+- [x] **Step 4：确认GREEN。** 同Step2；Expected：纯包PASS；非法原始编码/代理项留给Task7，不让Go解码替换后冒充合法。
+- [x] **Step 5：提交。** `git add backend/internal/feedback`；`git commit -m "feat: define versioned feedback contracts and rules"`。
 
 ## Task 2：四表迁移与数据库不变量
 
 **Files:** 文件表Task2。**Interfaces:** 消费Task1；测试 `newFeedbackFixture(t *testing.T) *feedbackFixture` 复用store_test的newLearningFixture、真实双账号审核发布；新事件用数据库微秒时间。
 
-- [ ] **Step 1：写FeedbackSchema/Migration失败测试。** 随机库Up→空Down→Up；创建工单及seq1必须同事务，所有不变量直接SQL负测。
+- [x] **Step 1：写FeedbackSchema/Migration失败测试。** 随机库Up→空Down→Up；创建工单及seq1必须同事务，所有不变量直接SQL负测。
 ```go
 if countFeedbackTables(t,db)!=4 { t.Fatal("four tables") }
 if tryUpdateOriginalTitle(t,db,ticketID)==nil { t.Fatal("immutable title") }
@@ -151,16 +151,16 @@ if tryAppendEvent(t,db,ticketID,3)==nil { t.Fatal("sequence gap") }
 if tryDownSeven(t,db)==nil { t.Fatal("nonempty rollback") }
 ```
   同文件定义上述SQL helper；错误owner/source/SHA/伪批准、无创建事件、投影不匹配、改/删event/receipt、非法迁移拒绝。四张表各自单独非空均拒绝Down。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Schema|Migration)' -timeout 5m -count=1`。Expected：缺00007/表/确切约束失败。
-- [ ] **Step 3：实现00007及合法夹具。** FK/数据库函数校验真实固定来源、owner、SHA和批准；延迟约束验证连续事件/最新投影；原报告/事件/回执不可改删。新终态依据入库时核验，保留的历史依据不要求永久当前head。索引owner+created_at+id、status/category+created_at+id、ticket+seq、actor/scope+consumed_at；Down一次核验四表全空后删除，失败整体回滚。
-- [ ] **Step 4：确认GREEN。** 同Step2；Expected：数据库全部正负例PASS，旧00001—00006字节无变化。
-- [ ] **Step 5：提交。** `git add db/migrations/00007_feedback_workflow.sql backend/internal/store/feedback_fixture_test.go backend/internal/store/feedback_schema_test.go backend/internal/store/feedback_migration_test.go`；`git commit -m "feat: add append-only feedback schema"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Schema|Migration)' -timeout 5m -count=1`。Expected：缺00007/表/确切约束失败。
+- [x] **Step 3：实现00007及合法夹具。** FK/数据库函数校验真实固定来源、owner、SHA和批准；延迟约束验证连续事件/最新投影；原报告/事件/回执不可改删。新终态依据入库时核验，保留的历史依据不要求永久当前head。索引owner+created_at+id、status/category+created_at+id、ticket+seq、actor/scope+consumed_at；Down一次核验四表全空后删除，失败整体回滚。
+- [x] **Step 4：确认GREEN。** 同Step2；Expected：数据库全部正负例PASS，旧00001—00006字节无变化。
+- [x] **Step 5：提交。** `git add db/migrations/00007_feedback_workflow.sql backend/internal/store/feedback_fixture_test.go backend/internal/store/feedback_schema_test.go backend/internal/store/feedback_migration_test.go`；`git commit -m "feat: add append-only feedback schema"`。
 
 ## Task 3：当前身份、共享事务与真实来源
 
 **Files:** 文件表Task3。**Interfaces:** 产出FeedbackPreflight/feedbackTx/Configured/ResolveTarget/ReadFeedbackContext；复用managedIdentity、learningLocks与固定item/发布成员。
 
-- [ ] **Step 1：写FeedbackTargets/CommitIdentity/Configuration失败测试。** 真实author/reviewer分别批准，五种context包含qi-64/unit/asset/site；撤权/会话过期竞争用屏障，身份变化先提交，再继续业务。
+- [x] **Step 1：写FeedbackTargets/CommitIdentity/Configuration失败测试。** 真实author/reviewer分别批准，五种context包含qi-64/unit/asset/site；撤权/会话过期竞争用屏障，身份变化先提交，再继续业务。
 ```go
 if got.Data.Target.Identity.ID!=frozenItem.Instance.ID { t.Fatal("original item") }
 if got.Data.Source.Position==nil||*got.Data.Source.Position!=5 { t.Fatal("position") }
@@ -168,16 +168,16 @@ if !errors.Is(otherOwnerErr,auth.ErrNotFound) { t.Fatal(otherOwnerErr) }
 if committedAfterRevocation||insertedEvents!=0 { t.Fatal("commit identity") }
 ```
   public head变化/伪部位/错误SHA拒绝；自己的旧题withdrawn/普通替换后仍解析原固定item；全部角色可读本人context，editor不可读review；部分/全部缺00007返回ErrNotConfigured。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Targets|CommitIdentity|Configuration)' -timeout 5m -count=1`。Expected：缺新接口或来源/身份断言失败。
-- [ ] **Step 3：实现精确仓储接口。** 8秒总期限/1秒锁等待，shared locks→稳定账户/会话→业务→提交前复核，Preflight仅认证/角色。公开新创建核验expected head，旧私有题不要求当前题库成员；标签只由类型/ID/版本生成，Binding不进入DTO。缺迁移不走免曝光降级。
-- [ ] **Step 4：确认GREEN。** 同Step2；Expected：真实来源、撤权、DBclock/锁等待/缺迁移PASS，Context JSON无正文/答案/批准封印。
-- [ ] **Step 5：提交。** `git add backend/internal/store/feedback_tx.go backend/internal/store/feedback_targets.go backend/internal/store/feedback_tx_test.go backend/internal/store/feedback_targets_test.go`；`git commit -m "feat: resolve authenticated feedback sources"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Targets|CommitIdentity|Configuration)' -timeout 5m -count=1`。Expected：缺新接口或来源/身份断言失败。
+- [x] **Step 3：实现精确仓储接口。** 8秒总期限/1秒锁等待，shared locks→稳定账户/会话→业务→提交前复核，Preflight仅认证/角色。公开新创建核验expected head，旧私有题不要求当前题库成员；标签只由类型/ID/版本生成，Binding不进入DTO。缺迁移不走免曝光降级。
+- [x] **Step 4：确认GREEN。** 同Step2；Expected：真实来源、撤权、DBclock/锁等待/缺迁移PASS，Context JSON无正文/答案/批准封印。
+- [x] **Step 5：提交。** `git add backend/internal/store/feedback_tx.go backend/internal/store/feedback_targets.go backend/internal/store/feedback_tx_test.go backend/internal/store/feedback_targets_test.go`；`git commit -m "feat: resolve authenticated feedback sources"`。
 
 ## Task 4：新建、补充、原回执与成功配额
 
 **Files:** 文件表Task4。**Interfaces:** 产出CreateFeedback/ReplyFeedback、Replay/Remember/ConsumeRates；内部now只来自当前事务DBclock，不接收HTTP时间。
 
-- [ ] **Step 1：写FeedbackCommands/ReplayAfterAdvance/SlidingBoundary/Rates失败测试。** 两连接屏障同键并发；先创建推进seq2，再重试原命令。
+- [x] **Step 1：写FeedbackCommands/ReplayAfterAdvance/SlidingBoundary/Rates失败测试。** 两连接屏障同键并发；先创建推进seq2，再重试原命令。
 ```go
 if replay.Data.Ticket.Sequence!=1||current.Data.Sequence!=2 { t.Fatal("original receipt") }
 if createEvents!=1||rateConsumptions!=1 { t.Fatal("single success") }
@@ -185,16 +185,16 @@ if !errors.Is(changedInputErr,question.ErrIdempotencyConflict) { t.Fatal(changed
 if fifthCreateStatus!=201||sixthCreateStatus!=429 { t.Fatal("5/15m") }
 ```
   同一已捕获DB微秒now下seed消费恰now−15min和晚1µs，前者排除后者计入；另测20/24h、30/h、120/h的N/N+1、失败不消费、真实retryAt、重放不消费。重放仍需当前身份/权限，不被后来head/状态/序号拒绝。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Commands|Replay|Sliding|Rates)' -timeout 5m -count=1`。Expected：命令/窗口/原回执断言失败。
-- [ ] **Step 3：实现精确写接口。** 身份及资源权限先于replay；唯一actor/action/resource/key下同digest立即返原Receipt；新动作才查source/sequence、配额与事件/投影，失败无消费/新receipt。owner重开清当前resolutionKind，旧事件保留。
-- [ ] **Step 4：确认GREEN。** 同Step2；Expected：真实同键并发只一个业务成功、原回执、配额边界PASS，所有receipt序列化无自由文本。
-- [ ] **Step 5：提交。** `git add backend/internal/store/feedback_write.go backend/internal/store/feedback_idempotency.go backend/internal/store/feedback_rate.go backend/internal/store/feedback_write_test.go backend/internal/store/feedback_idempotency_test.go backend/internal/store/feedback_rate_test.go`；`git commit -m "feat: add atomic feedback commands and replay"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Commands|Replay|Sliding|Rates)' -timeout 5m -count=1`。Expected：命令/窗口/原回执断言失败。
+- [x] **Step 3：实现精确写接口。** 身份及资源权限先于replay；唯一actor/action/resource/key下同digest立即返原Receipt；新动作才查source/sequence、配额与事件/投影，失败无消费/新receipt。owner重开清当前resolutionKind，旧事件保留。
+- [x] **Step 4：确认GREEN。** 同Step2；Expected：真实同键并发只一个业务成功、原回执、配额边界PASS，所有receipt序列化无自由文本。
+- [x] **Step 5：提交。** `git add backend/internal/store/feedback_write.go backend/internal/store/feedback_idempotency.go backend/internal/store/feedback_rate.go backend/internal/store/feedback_write_test.go backend/internal/store/feedback_idempotency_test.go backend/internal/store/feedback_rate_test.go`；`git commit -m "feat: add atomic feedback commands and replay"`。
 
 ## Task 5：独立处理与真实结案依据
 
 **Files:** 文件表Task5。**Interfaces:** 产出TransitionFeedback/feedbackResolutionProof；消费Task4回执/额度，只读核验既有撤回/发布事实。
 
-- [ ] **Step 1：写FeedbackTransitions/GeneratedReplacement/DuplicatePrivacy失败测试。** 五状态矩阵、同状态回复、终态重开；两个handler同序号屏障并发。
+- [x] **Step 1：写FeedbackTransitions/GeneratedReplacement/DuplicatePrivacy失败测试。** 五状态矩阵、同状态回复、终态重开；两个handler同序号屏障并发。
 ```go
 if !errors.Is(selfHandleErr,auth.ErrForbidden) { t.Fatal(selfHandleErr) }
 if successCount!=1||latestSequence!=oldSequence+1 { t.Fatal("concurrent sequence") }
@@ -202,16 +202,16 @@ if oldGeneratedID==newGeneratedID||replacementErr!=nil { t.Fatal("new instance i
 if ownerDuplicateOf!=nil { t.Fatal("other ticket id") }
 ```
   真实撤回匹配根/部位、当前独立批准修订/知识对应；未发布/错误知识/伪撤回拒绝，service_fixed仅site。duplicate不同工单、完整Target含Part、category全匹配；自引用/别版本拒绝。结案前后原learning/answers/results/unlocks逐值保持。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Transitions|GeneratedReplacement|DuplicatePrivacy)' -timeout 5m -count=1`。Expected：处理接口或依据/竞争断言失败。
-- [ ] **Step 3：实现处理/依据校验。** 另一reviewer/admin处理，replay先于sequence；知识/路线稳定ID、unit对应知识、asset新SHA、instance新ID/知识均核验真实批准当前发布。保存固定事件依据，后续发布不改旧记录；duplicate ID仅授权非owner discussion可见，metadata/receipt永不含。
-- [ ] **Step 4：确认GREEN。** 同Step2；Expected：全部正负依据/并发PASS，原学习事实未改。
-- [ ] **Step 5：提交。** `git add backend/internal/store/feedback_resolution.go backend/internal/store/feedback_resolution_test.go`；`git commit -m "feat: add independent feedback handling proofs"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Transitions|GeneratedReplacement|DuplicatePrivacy)' -timeout 5m -count=1`。Expected：处理接口或依据/竞争断言失败。
+- [x] **Step 3：实现处理/依据校验。** 另一reviewer/admin处理，replay先于sequence；知识/路线稳定ID、unit对应知识、asset新SHA、instance新ID/知识均核验真实批准当前发布。保存固定事件依据，后续发布不改旧记录；duplicate ID仅授权非owner discussion可见，metadata/receipt永不含。
+- [x] **Step 4：确认GREEN。** 同Step2；Expected：全部正负依据/并发PASS，原学习事实未改。
+- [x] **Step 5：提交。** `git add backend/internal/store/feedback_resolution.go backend/internal/store/feedback_resolution_test.go`；`git commit -m "feat: add independent feedback handling proofs"`。
 
 ## Task 6：安全元数据、讨论曝光与连续分页
 
 **Files:** 文件表Task6。**Interfaces:** 产出三种读取和feedbackDiscussionExposure，消费固定Binding及原learningRecordExposure。
 
-- [ ] **Step 1：写FeedbackMetadataRedaction/OriginalTemplateExposure/Exposure/CursorIsolation/Read失败测试。** title/location/正文/reply用不同答案哨兵，逐种list/detail/write/replay序列化；discussion才有文本。
+- [x] **Step 1：写FeedbackMetadataRedaction/OriginalTemplateExposure/Exposure/CursorIsolation/Read失败测试。** title/location/正文/reply用不同答案哨兵，逐种list/detail/write/replay序列化；discussion才有文本。
 ```go
 if strings.Contains(metadataJSON,"answer-sentinel") { t.Fatal("metadata free text") }
 if !errors.Is(overlapErr,feedback.ErrAnswerOverlap)||deliveredText!="" { t.Fatal("overlap") }
@@ -219,16 +219,16 @@ if exposedInstance!=originalInstance||exposedTemplate!=originalTemplate { t.Fata
 if len(seenSequences)!=51||duplicates!=0 { t.Fatal("event pages") }
 ```
   handler也有active overlap；同模板不同实例阻断、精确旧新template区分；过期active不阻断。记账失败无文本；撤回/交付真实锁屏障验证当前限制/原引用。同微秒51工单、跨actor游标、limit20/50/51、filter/404；discussion第2页也记账，>50条仍能结案。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Metadata|OriginalTemplate|Exposure|Cursor|Read)' -timeout 5m -count=1`。Expected：新读取/曝光符号或泄漏/分页断言失败。
-- [ ] **Step 3：实现精确读取/逐字段投影。** 授权先于游标，metadata不复用完整ticket/event；discussion同authenticated tx解析原instance/template，当前DBclock判断未到期active，获取reader曝光状态并记账，提交成功后才交付；失败丢弃已准备文本。owner即使经review URL也隐藏其他duplicate ID/身份。
-- [ ] **Step 4：确认GREEN。** 同Step2；Expected：投影、51条连续分页、精确曝光及真实事务竞争PASS。
-- [ ] **Step 5：提交。** `git add backend/internal/store/feedback_read.go backend/internal/store/feedback_exposure.go backend/internal/store/feedback_read_test.go backend/internal/store/feedback_exposure_test.go`；`git commit -m "feat: protect feedback discussion and exposure"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback(Metadata|OriginalTemplate|Exposure|Cursor|Read)' -timeout 5m -count=1`。Expected：新读取/曝光符号或泄漏/分页断言失败。
+- [x] **Step 3：实现精确读取/逐字段投影。** 授权先于游标，metadata不复用完整ticket/event；discussion同authenticated tx解析原instance/template，当前DBclock判断未到期active，获取reader曝光状态并记账，提交成功后才交付；失败丢弃已准备文本。owner即使经review URL也隐藏其他duplicate ID/身份。
+- [x] **Step 4：确认GREEN。** 同Step2；Expected：投影、51条连续分页、精确曝光及真实事务竞争PASS。
+- [x] **Step 5：提交。** `git add backend/internal/store/feedback_read.go backend/internal/store/feedback_exposure.go backend/internal/store/feedback_read_test.go backend/internal/store/feedback_exposure_test.go`；`git commit -m "feat: protect feedback discussion and exposure"`。
 
 ## Task 7：完整Go服务、HTTP/OpenAPI与共享边界
 
 **Files:** 文件表Task7。**Interfaces:** 声明完整Repository/NewService/Store编译断言；新增 `FeedbackOptions{Service:*feedback.Service,PublicOrigin:string,Production:bool}` 和 `serveFeedback(http.ResponseWriter,*http.Request,FeedbackOptions)`；AuthOptions只增加Feedback字段。
 
-- [ ] **Step 1：写FeedbackHTTP/JSON/Service失败测试及共享raw bytes。** cases固定 `{name,route,rawBase64,expectedValid,expectedStatus,expectedCode}`；合法字节expectedValid=true且status/code=null，实际201/200由真实HTTP测试证明；非法固定false/400/INVALID_REQUEST。rawBase64保留非法UTF-8/重复键，不能用已解析JSON替代。
+- [x] **Step 1：写FeedbackHTTP/JSON/Service失败测试及共享raw bytes。** cases固定 `{name,route,rawBase64,expectedValid,expectedStatus,expectedCode}`；合法字节expectedValid=true且status/code=null，实际201/200由真实HTTP测试证明；非法固定false/400/INVALID_REQUEST。rawBase64保留非法UTF-8/重复键，不能用已解析JSON替代。
 ```go
 if status!=400||code!="INVALID_REQUEST" { t.Fatal(status,code) } // 65537-byte body
 if chinese4000Status!=201 { t.Fatal("legal maximum") }
@@ -236,16 +236,16 @@ if overlapStatus!=409||overlapCode!="FEEDBACK_ANSWER_OVERLAP" { t.Fatal(overlapS
 if preflightRateCalls!=0 { t.Fatal("no preflight quota") }
 ```
   共享cases固定title120/121、body4000/4001、location400/401、emoji/中文/NUL/孤立代理项/UTF-8、重复/额外键、null分支、asset额外version、qi ID、seq0/1/9007199254740991/9007199254740992、position0/1/5/6、重复query、截断流和两种私有source。真实HTTP测Origin/CSRF/唯一键、14操作、响应边界/private-no-store、未配置503和全部错误码。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/feedback ./internal/httpapi -run 'Feedback' -timeout 5m -count=1`。Expected：缺新服务/路由或边界断言失败。
-- [ ] **Step 3：实现精确服务和14操作/OpenAPI。** 路由按设计§6，原路由不改；字节校验先拒绝非法Unicode/重复键再闭合DTO。8秒HTTP、64KiB body、完整安全包装≤2MiB，写按Receipt.status返回，错误不回显输入；server显式注入不自动迁移。共享case文件自身闭合验证。
-- [ ] **Step 4：确认GREEN。** 同Step2，另 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...`。Expected：PASS、旧HTTP保留、全部命令/replay无文本。
-- [ ] **Step 5：提交。** `git add backend/internal/feedback backend/internal/httpapi backend/cmd/server/main.go api/openapi.yaml api/feedback-boundary-cases.json`；`git commit -m "feat: expose strict private feedback API"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/feedback ./internal/httpapi -run 'Feedback' -timeout 5m -count=1`。Expected：缺新服务/路由或边界断言失败。
+- [x] **Step 3：实现精确服务和14操作/OpenAPI。** 路由按设计§6，原路由不改；字节校验先拒绝非法Unicode/重复键再闭合DTO。8秒HTTP、64KiB body、完整安全包装≤2MiB，写按Receipt.status返回，错误不回显输入；server显式注入不自动迁移。共享case文件自身闭合验证。
+- [x] **Step 4：确认GREEN。** 同Step2，另 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...`。Expected：PASS、旧HTTP保留、全部命令/replay无文本。
+- [x] **Step 5：提交。** `git add backend/internal/feedback backend/internal/httpapi backend/cmd/server/main.go api/openapi.yaml api/feedback-boundary-cases.json`；`git commit -m "feat: expose strict private feedback API"`。
 
 ## Task 8：TypeScript契约、同源代理与私有读取
 
 **Files:** 文件表Task8。**Interfaces:** 产出固定TS客户端、`proxyFeedback(request:Request,segments:readonly string[]):Promise<Response>`；server-client按当前cookie调用仅服务端Go地址，显式no-store不缓存私有响应。
 
-- [ ] **Step 1：写schemas/client/server-client/proxy失败测试。** Node读取同一boundary raw bytes，每种非法输入与Go相同status/code；合法case只验证字节/DTO通过，业务成功另由真实联调证明。
+- [x] **Step 1：写schemas/client/server-client/proxy失败测试。** Node读取同一boundary raw bytes，每种非法输入与Go相同status/code；合法case只验证字节/DTO通过，业务成功另由真实联调证明。
 ```ts
 expect(validateRaw(boundaryCase.rawBase64).valid).toBe(boundaryCase.expectedValid);
 if (!boundaryCase.expectedValid) expect(validateRaw(boundaryCase.rawBase64).status).toBe(400);
@@ -254,16 +254,16 @@ expect(response.headers.get("cache-control")).toBe("private, no-store");
 expect(await rejectsOversizeStream(2097153)).toBe(true);
 ```
   本任务定义validateRaw/rejectsOversizeStream测试helper；再测request65536/65537、response2097152/2097153、截断响应、允许字段重建、多cookie/header/额外字段、10s deadline、503/409/429/网络。readFeedback非法/跨namespace route拒绝。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/feedback src/lib/api/feedback-proxy.test.ts`。Expected：缺模块或字节/投影断言失败。
-- [ ] **Step 3：实现严格Zod/原字节读取及routes。** JSON.parse前拒绝非法UTF-8/代理项/重复键；只按固定路由转发、逐字段构造metadata/discussion，保留安全requestId/错误，不执行HTML或外链。运行 `node tools/verify/run.mjs --cwd frontend -- npm run api:generate`，不手写generated.d.ts。
-- [ ] **Step 4：确认GREEN。** 同Step2，另 `node tools/verify/run.mjs --cwd frontend -- npm run typecheck`。Expected：边界/代理PASS，TS/OpenAPI字段一致。
-- [ ] **Step 5：提交。** `git add frontend/src/lib/feedback frontend/src/lib/api/feedback-proxy.ts frontend/src/lib/api/feedback-proxy.test.ts frontend/src/app/api/v1/feedback frontend/src/lib/api/generated.d.ts`；`git commit -m "feat: add typed feedback client and private proxy"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/feedback src/lib/api/feedback-proxy.test.ts`。Expected：缺模块或字节/投影断言失败。
+- [x] **Step 3：实现严格Zod/原字节读取及routes。** JSON.parse前拒绝非法UTF-8/代理项/重复键；只按固定路由转发、逐字段构造metadata/discussion，保留安全requestId/错误，不执行HTML或外链。运行 `node tools/verify/run.mjs --cwd frontend -- npm run api:generate`，不手写generated.d.ts。
+- [x] **Step 4：确认GREEN。** 同Step2，另 `node tools/verify/run.mjs --cwd frontend -- npm run typecheck`。Expected：边界/代理PASS，TS/OpenAPI字段一致。
+- [x] **Step 5：提交。** `git add frontend/src/lib/feedback frontend/src/lib/api/feedback-proxy.ts frontend/src/lib/api/feedback-proxy.test.ts frontend/src/app/api/v1/feedback frontend/src/lib/api/generated.d.ts`；`git commit -m "feat: add typed feedback client and private proxy"`。
 
 ## Task 9：固定账户命令与用户/处理页面
 
 **Files:** 文件表Task9。**Interfaces:** 产出useFeedbackCommand/FeedbackAccountProvider及五页，page-data固定actor读取；discussion显式读原文，metadata不代替正文。
 
-- [ ] **Step 1：写FeedbackPendingIdentityDeadline/Pages/Review失败测试。** 假时钟测试点击开始计时、identity等待/同键手动retry；恶意HTML/中文4000/换行纯文本显示。
+- [x] **Step 1：写FeedbackPendingIdentityDeadline/Pages/Review失败测试。** 假时钟测试点击开始计时、identity等待/同键手动retry；恶意HTML/中文4000/换行纯文本显示。
 ```ts
 await vi.advanceTimersByTimeAsync(10000);
 expect(sendFeedback).toHaveBeenCalledTimes(0); // identity永不返回
@@ -272,16 +272,16 @@ expect(screen.queryByRole("img")).toBeNull(); // <img>纯文本
 expect(screen.queryByText("answer-sentinel")).toBeNull(); // metadata/overlap
 ```
   增加cross-tab换actor、旧read响应/unmount、撤权/强制改密、已提交后客户端超时、回执seq1/最新seq2；成功/replay后另读metadata。五状态/空队列/登录/无权/503/409/429/超时可恢复；reviewer自己工单只补充不能处理。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/feedback`。Expected：新命令/页面或账户/截止/纯文本断言失败。
-- [ ] **Step 3：实现精确页面/命令接口。** 固定actor/deep-freeze输入/UUID key，identity和send共享10s预算/AbortController；认证变化清旧草稿、pending和private reads。无自动重发/持久化，成功后refetch；discussion每页经保护接口。状态显示New/In progress/Waiting for details/Resolved/Closed及依据选择。
-- [ ] **Step 4：确认GREEN。** 同Step2及typecheck；Expected：时序/状态PASS，纯文本完整，旧学习命令不改。
-- [ ] **Step 5：提交。** `git add frontend/src/features/feedback frontend/src/app/feedback frontend/src/app/review/feedback`；`git commit -m "feat: build feedback and handling pages"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/feedback`。Expected：新命令/页面或账户/截止/纯文本断言失败。
+- [x] **Step 3：实现精确页面/命令接口。** 固定actor/deep-freeze输入/UUID key，identity和send共享10s预算/AbortController；认证变化清旧草稿、pending和private reads。无自动重发/持久化，成功后refetch；discussion每页经保护接口。状态显示New/In progress/Waiting for details/Resolved/Closed及依据选择。
+- [x] **Step 4：确认GREEN。** 同Step2及typecheck；Expected：时序/状态PASS，纯文本完整，旧学习命令不改。
+- [x] **Step 5：提交。** `git add frontend/src/features/feedback frontend/src/app/feedback frontend/src/app/review/feedback`；`git commit -m "feat: build feedback and handling pages"`。
 
 ## Task 10：真实来源入口与浏览器闭环
 
 **Files:** 文件表Task10。**Interfaces:** `ReportLink({source}:{source:ContextQuery})` 只定位来源，Go context决定身份；`setupFeedback(ctx context.Context,s *store.Store) (feedbackFixture,error)` 在原harness中集成，生产不导入e2etest。
 
-- [ ] **Step 1：写ReportLink/FeedbackFixture与三组Playwright失败测试。** 每组两个视口走真实Go/Next/随机PostgreSQL，fixture用真实author/reviewer批准和本人practice/assessment，不造前端成功响应。
+- [x] **Step 1：写ReportLink/FeedbackFixture与三组Playwright失败测试。** 每组两个视口走真实Go/Next/随机PostgreSQL，fixture用真实author/reviewer批准和本人practice/assessment，不造前端成功响应。
 ```ts
 await expect(page.getByRole("link",{name:"Report a problem"})).toBeVisible();
 await expect(page.getByText("Waiting for details",{exact:true})).toBeVisible();
@@ -289,16 +289,16 @@ await expect(page.getByText("In progress",{exact:true})).toBeVisible(); // owner
 await expect(page.getByText("answer-sentinel",{exact:true})).toHaveCount(0); // active overlap
 ```
   user覆盖知识/路线/本人练习/测评/site、终态异议重开/分页；review覆盖独立处理/真实撤回/新实例修订/原状态回复；security覆盖editor/匿名/其他404/自处理/cross-tab/active曝光/纯文本。feedback503时公开SSR正文仍可浏览。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/e2etest -run 'Feedback' -timeout 5m -count=1`；按Task12构建后分别跑三个新增浏览器命令。Expected：缺入口/夹具或流程断言失败，环境未启动不算RED。
-- [ ] **Step 3：实现真实入口/隔离夹具。** 知识可定位实际unit/asset；practice固定item、assessment位置1—5，结果保持原attempt；siteheader网站意见。control仅loopback/鉴权/测试库，readiness等待夹具；不扩大学习题源或改旧测试前提。
-- [ ] **Step 4：确认GREEN。** 同Step2及report-link单元；Expected：新E2E两个视口全PASS、零skip/retry；脱敏截图目视核对长英文/中文、版本、冲突、active阻断。
-- [ ] **Step 5：提交。** `git add frontend/src/features/feedback frontend/src/app/knowledge frontend/src/app/paths frontend/src/features/practice frontend/src/features/assessment frontend/src/components/site-header.tsx backend/internal/e2etest tests/e2e/feedback-user.spec.ts tests/e2e/feedback-review.spec.ts tests/e2e/feedback-security.spec.ts tests/e2e/feedback-helpers.ts`；`git commit -m "feat: connect real feedback sources and browser flows"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/e2etest -run 'Feedback' -timeout 5m -count=1`；按Task12构建后分别跑三个新增浏览器命令。Expected：缺入口/夹具或流程断言失败，环境未启动不算RED。
+- [x] **Step 3：实现真实入口/隔离夹具。** 知识可定位实际unit/asset；practice固定item、assessment位置1—5，结果保持原attempt；siteheader网站意见。control仅loopback/鉴权/测试库，readiness等待夹具；不扩大学习题源或改旧测试前提。
+- [x] **Step 4：确认GREEN。** 同Step2及report-link单元；Expected：新E2E两个视口全PASS、零skip/retry；脱敏截图目视核对长英文/中文、版本、冲突、active阻断。
+- [x] **Step 5：提交。** `git add frontend/src/features/feedback frontend/src/app/knowledge frontend/src/app/paths frontend/src/features/practice frontend/src/features/assessment frontend/src/components/site-header.tsx backend/internal/e2etest tests/e2e/feedback-user.spec.ts tests/e2e/feedback-review.spec.ts tests/e2e/feedback-security.spec.ts tests/e2e/feedback-helpers.ts`；`git commit -m "feat: connect real feedback sources and browser flows"`。
 
 ## Task 11：历史容量与旧契约兼容
 
 **Files:** 文件表Task11。**Interfaces:** baseline从master8400ee5的旧OpenAPI/00001—00006/数学摘要用途生成并记录commit，不从已修改API自取基线。
 
-- [ ] **Step 1：写FeedbackCapacity/feedback-compatibility失败测试。** 历史夹具合法来源/事件/投影/DB微秒；可填过去历史测查询，不冒充突破HTTP配额。初始化phase≤4m，之后仍用Go5m剩余总deadline。
+- [x] **Step 1：写FeedbackCapacity/feedback-compatibility失败测试。** 历史夹具合法来源/事件/投影/DB微秒；可填过去历史测查询，不冒充突破HTTP配额。初始化phase≤4m，之后仍用Go5m剩余总deadline。
 ```go
 if tickets!=1000||events!=10000 { t.Fatal(tickets,events) }
 if ownerPageSize!=50||reviewPageSize!=50||discussionPageSize!=50 { t.Fatal("bounded pages") }
@@ -310,16 +310,16 @@ assert.throws(()=>compareOneChangedLearningField(),/Learning/);
 assert.equal(changedOriginalMigrationDetected,true);
 ```
   定义上述负测helper；所有旧对象canonical digest逐值比对，保留原兼容测试。记录SQL EXPLAIN/延时/bytes，响应≤2MiB；长期工单>50仍补充/结案。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs -- node --test tools/verify/feedback-compatibility.test.mjs`；`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedbackCapacity$' -timeout 5m -count=1 -v`。Expected：确切兼容/容量失败；若实现首跑已满足容量，如实记录首跑PASS，不制造假RED。
-- [ ] **Step 3：完成覆盖并修复实际问题。** 无性能缺陷则不改产品；有失败先定位/最小修复，不放宽8s/5m/数量/原容量。补充空Down/非空拒绝/缺迁移旧系统工作的实测证据。
-- [ ] **Step 4：确认GREEN。** 同Step2及Task12两个旧P4b容量/旧store/learning批次；Expected：新旧容量、75路径/192schema/32responses/3security逐值PASS，原兼容检查未删。
-- [ ] **Step 5：提交。** `git add backend/internal/store/feedback_capacity_test.go api/feedback-compatibility-baseline.json tools/verify/feedback-compatibility.test.mjs`；实际修复逐文件add后 `git commit -m "test: verify feedback capacity and legacy compatibility"`。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs -- node --test tools/verify/feedback-compatibility.test.mjs`；`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedbackCapacity$' -timeout 5m -count=1 -v`。Expected：确切兼容/容量失败；若实现首跑已满足容量，如实记录首跑PASS，不制造假RED。
+- [x] **Step 3：完成覆盖并修复实际问题。** 无性能缺陷则不改产品；有失败先定位/最小修复，不放宽8s/5m/数量/原容量。补充空Down/非空拒绝/缺迁移旧系统工作的实测证据。
+- [x] **Step 4：确认GREEN。** 同Step2及Task12两个旧P4b容量/旧store/learning批次；Expected：新旧容量、75路径/192schema/32responses/3security逐值PASS，原兼容检查未删。
+- [x] **Step 5：提交。** `git add backend/internal/store/feedback_capacity_test.go api/feedback-compatibility-baseline.json tools/verify/feedback-compatibility.test.mjs`；实际修复逐文件add后 `git commit -m "test: verify feedback capacity and legacy compatibility"`。
 
 ## Task 12：CI、完整回归、运维与独立整分支审查
 
 **Files:** 文件表Task12。**Interfaces:** 消费Task1—11；验收记录含完整SHA、命令/数量/耗时、截图/审查及尚未满足生产条件。
 
-- [ ] **Step 1：写feedback-ci.test.mjs失败检查。** 解析实际workflow run命令/Playwright，原14浏览器批次、新3批次、旧2/新1容量独立执行；删除旧批次或加入skip的负测必须发现。
+- [x] **Step 1：写feedback-ci.test.mjs失败检查。** 解析实际workflow run命令/Playwright，原14浏览器批次、新3批次、旧2/新1容量独立执行；删除旧批次或加入skip的负测必须发现。
 ```js
 assert.equal(oldBrowserBatches.length,14);
 assert.equal(newFeedbackBatches.length,3);
@@ -328,8 +328,8 @@ assert.equal(playwrightRetries,0);
 assert.equal(playwrightGlobalTimeout,480000);
 ```
   测试文件定义解析helper，检查每条wrapper/单次时限，不只搜无关字符串。
-- [ ] **Step 2：确认RED。** `node tools/verify/run.mjs -- node --test tools/verify/feedback-ci.test.mjs`。Expected：缺新增批次；负测捕获删改/skip。
-- [ ] **Step 3：扩充CI/运维文档。** pure组加入feedback；旧store批次skip改为 `^Test(Learning|Assessment|Feedback)`；新增feedback非capacity/capacity独立批次，原14浏览器再加3。文档明确五状态/依据/曝光/配额/缺迁移/保留四表binary回退与恢复；路线不宣称P5b/P6/P7完成。
+- [x] **Step 2：确认RED。** `node tools/verify/run.mjs -- node --test tools/verify/feedback-ci.test.mjs`。Expected：缺新增批次；负测捕获删改/skip。
+- [x] **Step 3：扩充CI/运维文档。** pure组加入feedback；旧store批次skip改为 `^Test(Learning|Assessment|Feedback)`；新增feedback非capacity/capacity独立批次，原14浏览器再加3。文档明确五状态/依据/曝光/配额/缺迁移/保留四表binary回退与恢复；路线不宣称P5b/P6/P7完成。
 - [ ] **Step 4：运行以下完整矩阵并做一次独立整分支审查。** requesting-code-review安排一位新reviewer审查最新master到完整分支实际diff/设计/计划/证据；Native实施方式保留。重要问题先失败回归/最小修复/受影响复验。Expected：旧100浏览器/135单元及全部新增/Go/容量/兼容PASS、零skip/retry；报告不把技术夹具当数学批准。
 - [ ] **Step 5：提交交付。** 明确add本任务CI/ops/计划状态/设计状态/路线，`git commit -m "test: complete feedback regression and operational acceptance"`。本机全通过后SSH普通push、创建面向最新master的实现PR并attach；最终标题描述围绕行为，四项CI核对最新完整SHA。合并/部署按届时授权，创建PR不代表合并授权。
 
@@ -399,8 +399,8 @@ node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedb
 | §10 容量/旧回归/当前SHA四项CI | Task10—12，1000工单/10000事件与受限时矩阵 |
 | §11 设计确认→计划审阅→Native实施 | 本计划状态及实施门槛 |
 
-2026-10-03自审核对：产出/消费者一致，完整Repository不提前断言，原身份/锁/曝光函数实际存在，配额在成功事务，四表不触及旧数据，五个Review Focus均有具名测试，DTO/TS/OpenAPI统一，两个原容量不合并超5m。12项都有RED/GREEN及提交；容量满足时如实首跑PASS，不伪造失败。暂无设计层阻塞；功能正确性/时延/CI仍需实施实测。
+2026-10-03自审核对：产出/消费者一致，完整Repository不提前断言，原身份/锁/曝光函数实际存在，配额在成功事务，四表不触及旧数据，五个Review Focus均有具名测试，DTO/TS/OpenAPI统一，两个原容量不合并超5m。12项都有RED/GREEN及提交；容量满足时如实首跑PASS，不伪造失败。设计层无阻塞；本机全部矩阵已经实测通过，Task12的独立审查与最终完整SHA四项CI继续作为交付门槛。
 
 ## 审阅与实施门槛
 
-请审阅12项/60步骤、文件边界、来源/曝光/配额契约和验收矩阵。设计及兼容性已批准、P4b已合并；保留Native方式。计划获书面确认后再fetch最新master/新产品分支/验证旧基线/逐项实现；本次文档交付不执行业务实现、数据库迁移或生产部署。
+用户已确认12项/60步骤，保留Native；文档PR #20已合并，从最新master 20a68fa6f087e5e78561bf07c0229e072642e257建立隔离产品分支并完成旧基线、新旧完整矩阵。实施证据见[验收记录](../../operations/2026-10-03-p5a-acceptance.md)。仅本机隔离随机测试库验证，生产迁移和部署仍在P7。一次整分支独立审查与当前实现MR完整head四项CI正在执行。

@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/feedback
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/frontend
+
+
+ Test Files  4 passed (4)
+      Tests  32 passed (32)
+   Start at  04:33:33
+   Duration  601ms (environment 51%, transform 16%, tests 15%, setup 10%, import 8%)
+
