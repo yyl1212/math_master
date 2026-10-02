@@ -14,8 +14,8 @@ async function requestPrivate<T>(path: string, kind: PrivateEndpoint, options: R
         clearTimeout(timer);
     }
 }
-export function getAuthContext(): Promise<AuthResult<AuthContext>> {
-    if (inFlight)
+export function getAuthContext(fresh = false): Promise<AuthResult<AuthContext>> {
+    if (inFlight && !fresh)
         return inFlight;
     const pending = requestPrivate<AuthContext>("/api/v1/auth/context", "context", { method: "GET", headers: { Accept: "application/json", "X-Requested-With": "MathMaster" } });
     inFlight = pending;
@@ -39,6 +39,13 @@ export async function authRequest<T>(route: PrivateRoute, input: unknown): Promi
     return requestPrivate<T>(target.path, target.kind, { method: target.method, headers: { Accept: "application/json", "Content-Type": "application/json", "X-Requested-With": "MathMaster", "X-CSRF-Token": context.data.csrfToken }, body: JSON.stringify(input) });
 }
 export function notifyAuthChanged(): void {
-    if (typeof window !== "undefined")
-        window.dispatchEvent(new Event("math-master:auth-change"));
+    if (typeof window === "undefined") return;
+    window.dispatchEvent(new Event("math-master:auth-change"));
+    // Only an ephemeral invalidation signal crosses tabs, with no user or draft data.
+    if (typeof BroadcastChannel !== "undefined") {
+        try {
+            const channel = new BroadcastChannel("math-master-auth");
+            try { channel.postMessage("changed"); } finally { channel.close(); }
+        } catch { /* Focus and command-time checks also verify identity. */ }
+    }
 }

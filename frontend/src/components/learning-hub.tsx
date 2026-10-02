@@ -29,6 +29,7 @@ export function LearningHub({ result }: { result: ApiResult<DomainList> }) {
           <Link prefetch={false} href="/knowledge" className="button">
             Explore knowledge <span aria-hidden="true">↗</span>
           </Link>
+          <p><Link prefetch={false} href="/learn">Continue your learning</Link></p>
           <p className={styles.heroNote}>
             From first principles to new frontiers.
           </p>

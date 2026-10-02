@@ -50,6 +50,7 @@ export function SiteHeader() {
         >
           Knowledge Map
         </Link>
+        <Link prefetch={false} href="/learn" aria-current={path==="/learn"?"page":undefined} data-active={path==="/learn"}>Learn</Link>
       </nav>
       <AuthStatus />
     </header>

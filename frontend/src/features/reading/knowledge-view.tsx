@@ -7,9 +7,9 @@ import { ContentState } from "@/components/content-state";
 import { SafeMarkdown, safeTextUrl } from "./safe-markdown";
 import styles from "@/styles/reading.module.css";
 export function KnowledgeView({
-  result,
+  result, personal,
 }: {
-  result: ApiResult<KnowledgeData>;
+  result: ApiResult<KnowledgeData>;personal?:React.ReactNode;
 }) {
   if (!result.ok)
     return (
@@ -52,6 +52,7 @@ export function KnowledgeView({
           Read the idea, understand its conditions, and follow the connections.
         </p>
       </header>
+      {personal}
       <div className={styles.lessonLayout}>
         <nav className={styles.lessonNav} aria-label="On this page">
           <p className="eyebrow">ON THIS PAGE</p>

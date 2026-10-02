@@ -15,6 +15,7 @@ export function AuthStatus() {
   }, [path]);
   return <div className={styles.status} aria-live="polite">{!state ? <span>Checking account…</span> : !state.ok ? <Link prefetch={false} href="/account">Accounts unavailable</Link> : state.data.user ? <>
     <Link prefetch={false} href="/account">{state.data.user.username}</Link>
+    {!state.data.user.mustChangePassword&&state.data.user.roles.includes("learner")&&<><Link prefetch={false} href="/learn">My learning</Link><Link prefetch={false} href="/learning-history">Learning history</Link></>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor">Edit content</Link>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review">Review content</Link>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/publications">Publish content</Link>}

@@ -8653,6 +8653,2045 @@
           }
         }
       }
+    },
+    "/api/v1/learning/overview": {
+      "get": {
+        "operationId": "learning_readOverview",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningOverview"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/knowledge": {
+      "get": {
+        "operationId": "learning_listKnowledge",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningKnowledgePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/knowledge/{id}": {
+      "get": {
+        "operationId": "learning_readKnowledge",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+              "maxLength": 64
+            }
+          },
+          {
+            "name": "version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2147483647
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningKnowledgeDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/knowledge/{id}/start": {
+      "post": {
+        "operationId": "learning_startKnowledge",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+              "maxLength": 64
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningKnowledgeState"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningStartInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/knowledge/{id}/complete": {
+      "post": {
+        "operationId": "learning_completeKnowledge",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+              "maxLength": 64
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningKnowledgeState"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningCompleteInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/paths/{id}/enroll": {
+      "post": {
+        "operationId": "learning_enrollPath",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+              "maxLength": 64
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPathView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningEnrollInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/paths": {
+      "get": {
+        "operationId": "learning_listPaths",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPathsPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/paths/{id}": {
+      "get": {
+        "operationId": "learning_readPath",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPathView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/paths/{id}/nodes": {
+      "get": {
+        "operationId": "learning_listPathNodes",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPathNodesPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/practice": {
+      "post": {
+        "operationId": "learning_createPractice",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPracticeView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningPracticeCreateInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/practice/{id}": {
+      "get": {
+        "operationId": "learning_readPractice",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPracticeView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/practice/{id}/answer": {
+      "post": {
+        "operationId": "learning_answerPractice",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPracticeView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningPracticeAnswerInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/practice/{id}/reveal": {
+      "post": {
+        "operationId": "learning_revealPractice",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPracticeView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningEmptyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/practice/{id}/abandon": {
+      "post": {
+        "operationId": "learning_abandonPractice",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningPracticeView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningEmptyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/assessments": {
+      "post": {
+        "operationId": "learning_createAssessment",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningAttemptView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningCreateInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/assessments/{id}": {
+      "get": {
+        "operationId": "learning_readAssessment",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningAttemptView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/assessments/{id}/submit": {
+      "post": {
+        "operationId": "learning_submitAssessment",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningResultView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningSubmitInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/assessments/{id}/abandon": {
+      "post": {
+        "operationId": "learning_abandonAssessment",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "用户、动作及准确输入；超时后仅主动使用原键和原字节重试。"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningAttemptView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LearningEmptyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/learning/assessments/{id}/result": {
+      "get": {
+        "operationId": "learning_readAssessmentResult",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningResultView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/history": {
+      "get": {
+        "operationId": "learning_listHistory",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningHistoryPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
+    },
+    "/api/v1/learning/assets/{attemptId}/{sha}": {
+      "get": {
+        "operationId": "learning_readAsset",
+        "description": "私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "attemptId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "sha",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人固定题目引用的原创安全 SVG，最多 1048576 字节。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              },
+              "Content-Security-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "sandbox; default-src 'none'"
+                }
+              }
+            },
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/LearningError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/LearningError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/LearningError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/LearningError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/LearningError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/LearningError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/LearningError413"
+          },
+          "428": {
+            "$ref": "#/components/responses/LearningError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/LearningError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/LearningError503"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -15878,6 +17917,2631 @@
             ]
           }
         ]
+      },
+      "LearningIdentity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+            "maxLength": 64
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "sha256"
+        ]
+      },
+      "LearningRestrictionReason": {
+        "type": "string",
+        "enum": [
+          "knowledge-updated",
+          "knowledge-withdrawn",
+          "unit-withdrawn",
+          "asset-withdrawn",
+          "template-withdrawn",
+          "instance-withdrawn",
+          "blueprint-withdrawn",
+          "exposed-after-creation"
+        ]
+      },
+      "LearningValidity": {
+        "type": "string",
+        "enum": [
+          "effective",
+          "restricted",
+          "stale"
+        ]
+      },
+      "LearningQualificationView": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "diagnostic"
+            ]
+          },
+          "evidenceAttemptId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "completedEventId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validity": {
+            "type": "string",
+            "enum": [
+              "effective"
+            ]
+          }
+        },
+        "required": [
+          "knowledge",
+          "kind",
+          "evidenceAttemptId",
+          "completedEventId",
+          "validity"
+        ]
+      },
+      "LearningPrerequisiteState": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "qualified": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "knowledge-updated",
+                "knowledge-withdrawn",
+                "unit-withdrawn",
+                "asset-withdrawn",
+                "template-withdrawn",
+                "instance-withdrawn",
+                "blueprint-withdrawn",
+                "exposed-after-creation"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "knowledge",
+          "qualified",
+          "reasons"
+        ]
+      },
+      "LearningKnowledgeState": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleZh": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "unlearned",
+              "learning",
+              "learned",
+              "needs-review",
+              "mastered"
+            ]
+          },
+          "canEnter": {
+            "type": "boolean"
+          },
+          "everUnlocked": {
+            "type": "boolean"
+          },
+          "completionValid": {
+            "type": "boolean"
+          },
+          "startedAt": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "completedAt": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "qualification": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningQualificationView"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "prerequisites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningPrerequisiteState"
+            },
+            "minItems": 0,
+            "maxItems": 1000
+          }
+        },
+        "required": [
+          "knowledge",
+          "title",
+          "titleZh",
+          "state",
+          "canEnter",
+          "everUnlocked",
+          "completionValid",
+          "startedAt",
+          "completedAt",
+          "qualification",
+          "prerequisites"
+        ]
+      },
+      "LearningBlueprintOption": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "blueprint": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "coreObjectiveIndices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 1,
+            "maxItems": 8
+          },
+          "ready": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "no-blueprint",
+                "no-instances",
+                "insufficient-coverage",
+                "exposure-cooldown",
+                "recent-assessment-exclusion"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 5
+          },
+          "retryAt": {
+            "oneOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "blueprint",
+          "coreObjectiveIndices",
+          "ready",
+          "reasons",
+          "retryAt"
+        ]
+      },
+      "LearningAttemptSummary": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "practice"
+                ]
+              },
+              "knowledge": {
+                "$ref": "#/components/schemas/LearningIdentity"
+              },
+              "mode": {
+                "type": "null"
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "answered",
+                  "revealed",
+                  "abandoned",
+                  "expired"
+                ]
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expiresAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "submittedAt": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "knowledge",
+              "mode",
+              "state",
+              "createdAt",
+              "expiresAt",
+              "submittedAt"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "assessment"
+                ]
+              },
+              "knowledge": {
+                "$ref": "#/components/schemas/LearningIdentity"
+              },
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "node",
+                  "diagnostic",
+                  "review"
+                ]
+              },
+              "state": {
+                "type": "string",
+                "enum": [
+                  "active",
+                  "submitted",
+                  "abandoned",
+                  "expired"
+                ]
+              },
+              "createdAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expiresAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "submittedAt": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "knowledge",
+              "mode",
+              "state",
+              "createdAt",
+              "expiresAt",
+              "submittedAt"
+            ]
+          }
+        ]
+      },
+      "LearningKnowledgeDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "questionHead": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "state": {
+            "$ref": "#/components/schemas/LearningKnowledgeState"
+          },
+          "objectives": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 0
+          },
+          "blueprints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningBlueprintOption"
+            },
+            "minItems": 0,
+            "maxItems": 1000
+          },
+          "activeAssessment": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningAttemptSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "knowledgeHead",
+          "questionHead",
+          "state",
+          "objectives",
+          "blueprints",
+          "activeAssessment"
+        ]
+      },
+      "LearningStartInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "expectedKnowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "knowledge",
+          "expectedKnowledgeHead"
+        ]
+      },
+      "LearningCompleteInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "expectedKnowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "knowledge",
+          "expectedKnowledgeHead"
+        ]
+      },
+      "LearningEnrollInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "expectedKnowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "path",
+          "expectedKnowledgeHead"
+        ]
+      },
+      "LearningPathSummary": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "path": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleZh": {
+            "type": "string"
+          },
+          "knowledgePublicationId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "totalNodes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "completedNodes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "passedNodes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "unlockedNodes": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "newVersionAvailable": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "path",
+          "title",
+          "titleZh",
+          "knowledgePublicationId",
+          "totalNodes",
+          "completedNodes",
+          "passedNodes",
+          "unlockedNodes",
+          "newVersionAvailable",
+          "createdAt"
+        ]
+      },
+      "LearningPathNode": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleZh": {
+            "type": "string"
+          },
+          "state": {
+            "$ref": "#/components/schemas/LearningKnowledgeState"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "knowledge-updated",
+                "knowledge-withdrawn",
+                "unit-withdrawn",
+                "asset-withdrawn",
+                "template-withdrawn",
+                "instance-withdrawn",
+                "blueprint-withdrawn",
+                "exposed-after-creation"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "position",
+          "title",
+          "titleZh",
+          "state",
+          "available",
+          "reasons"
+        ]
+      },
+      "LearningPathView": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/LearningPathSummary"
+          }
+        },
+        "required": [
+          "summary"
+        ]
+      },
+      "LearningPublishedPathSummary": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleZh": {
+            "type": "string"
+          },
+          "totalNodes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          }
+        },
+        "required": [
+          "path",
+          "title",
+          "titleZh",
+          "totalNodes"
+        ]
+      },
+      "LearningHistoryEntry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "started",
+              "completed",
+              "practice",
+              "assessment",
+              "enrollment"
+            ]
+          },
+          "path": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "occurredAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "started",
+              "completed",
+              "active",
+              "submitted",
+              "answered",
+              "revealed",
+              "abandoned",
+              "expired",
+              "enrolled"
+            ]
+          },
+          "validity": {
+            "type": "string",
+            "enum": [
+              "effective",
+              "restricted",
+              "stale"
+            ]
+          },
+          "attemptId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "path",
+          "knowledge",
+          "occurredAt",
+          "state",
+          "validity",
+          "attemptId"
+        ]
+      },
+      "LearningOverview": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledgeHead": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "questionHead": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "availablePaths": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningPublishedPathSummary"
+            },
+            "minItems": 0,
+            "maxItems": 200
+          },
+          "startedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "completedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "effectivePassedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "historicalUnlockedCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "activePractice": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningAttemptSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "activeAssessment": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningAttemptSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recent": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningHistoryEntry"
+            },
+            "minItems": 0,
+            "maxItems": 20
+          }
+        },
+        "required": [
+          "knowledgeHead",
+          "questionHead",
+          "availablePaths",
+          "startedCount",
+          "completedCount",
+          "effectivePassedCount",
+          "historicalUnlockedCount",
+          "activePractice",
+          "activeAssessment",
+          "recent"
+        ]
+      },
+      "LearningKnowledgePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningKnowledgeState"
+            },
+            "minItems": 0,
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "LearningPathsPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningPathSummary"
+            },
+            "minItems": 0,
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "LearningPathNodesPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningPathNode"
+            },
+            "minItems": 0,
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "LearningHistoryPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningHistoryEntry"
+            },
+            "minItems": 0,
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "LearningChoice": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+            "maxLength": 64
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "text"
+        ]
+      },
+      "LearningAssetRef": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+            "maxLength": 64
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "sha256"
+        ]
+      },
+      "LearningRational": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "numerator": {
+            "type": "string",
+            "pattern": "^(0|-?[1-9][0-9]{0,255})$"
+          },
+          "denominator": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{0,255}$"
+          }
+        },
+        "required": [
+          "numerator",
+          "denominator"
+        ]
+      },
+      "LearningSafeQuestion": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "instance": {
+                "$ref": "#/components/schemas/LearningInstanceIdentity"
+              },
+              "knowledge": {
+                "$ref": "#/components/schemas/LearningIdentity"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "single_choice"
+                ]
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "choices": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearningChoice"
+                },
+                "minItems": 2
+              },
+              "answerFormat": {
+                "type": "null"
+              },
+              "assets": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearningAssetRef"
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "position",
+              "instance",
+              "knowledge",
+              "type",
+              "prompt",
+              "choices",
+              "answerFormat",
+              "assets"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "position": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              },
+              "instance": {
+                "$ref": "#/components/schemas/LearningInstanceIdentity"
+              },
+              "knowledge": {
+                "$ref": "#/components/schemas/LearningIdentity"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "numeric"
+                ]
+              },
+              "prompt": {
+                "type": "string"
+              },
+              "choices": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearningChoice"
+                },
+                "minItems": 0,
+                "maxItems": 0
+              },
+              "answerFormat": {
+                "type": "string",
+                "enum": [
+                  "rational",
+                  "percentage"
+                ]
+              },
+              "assets": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearningAssetRef"
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "position",
+              "instance",
+              "knowledge",
+              "type",
+              "prompt",
+              "choices",
+              "answerFormat",
+              "assets"
+            ]
+          }
+        ]
+      },
+      "LearningChoiceAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "choice"
+            ]
+          },
+          "choiceId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+            "maxLength": 64
+          }
+        },
+        "required": [
+          "kind",
+          "choiceId"
+        ]
+      },
+      "LearningNumericAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "numeric"
+            ]
+          },
+          "raw": {
+            "type": "string",
+            "maxLength": 128
+          }
+        },
+        "required": [
+          "kind",
+          "raw"
+        ]
+      },
+      "LearningSkippedAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "skipped"
+            ]
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "LearningAnswer": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/LearningChoiceAnswer"
+          },
+          {
+            "$ref": "#/components/schemas/LearningNumericAnswer"
+          },
+          {
+            "$ref": "#/components/schemas/LearningSkippedAnswer"
+          }
+        ]
+      },
+      "LearningPracticeAnswerInput": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/LearningChoiceAnswer"
+          },
+          {
+            "$ref": "#/components/schemas/LearningNumericAnswer"
+          }
+        ]
+      },
+      "LearningPositionAnswer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "instance": {
+            "$ref": "#/components/schemas/LearningInstanceIdentity"
+          },
+          "answer": {
+            "$ref": "#/components/schemas/LearningAnswer"
+          }
+        },
+        "required": [
+          "position",
+          "instance",
+          "answer"
+        ]
+      },
+      "LearningSubmitInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "answers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningPositionAnswer"
+            },
+            "minItems": 5,
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "answers"
+        ]
+      },
+      "LearningPracticeCreateInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "expectedKnowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "expectedQuestionHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "knowledge",
+          "expectedKnowledgeHead",
+          "expectedQuestionHead"
+        ]
+      },
+      "LearningCreateInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "blueprint": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "node",
+              "diagnostic",
+              "review"
+            ]
+          },
+          "expectedKnowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "expectedQuestionHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "knowledge",
+          "blueprint",
+          "mode",
+          "expectedKnowledgeHead",
+          "expectedQuestionHead"
+        ]
+      },
+      "LearningEmptyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "LearningAttemptView": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/LearningAttemptSummary"
+          },
+          "questions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningSafeQuestion"
+            },
+            "minItems": 5,
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "summary",
+          "questions"
+        ]
+      },
+      "LearningResultItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "$ref": "#/components/schemas/LearningSafeQuestion"
+          },
+          "answer": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningAnswer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "correct": {
+            "oneOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "correctChoiceId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "correctNumeric": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningRational"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "explanation": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "validity": {
+            "type": "string",
+            "enum": [
+              "effective",
+              "restricted",
+              "stale"
+            ]
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "knowledge-updated",
+                "knowledge-withdrawn",
+                "unit-withdrawn",
+                "asset-withdrawn",
+                "template-withdrawn",
+                "instance-withdrawn",
+                "blueprint-withdrawn",
+                "exposed-after-creation"
+              ]
+            },
+            "minItems": 0,
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "question",
+          "answer",
+          "correct",
+          "correctChoiceId",
+          "correctNumeric",
+          "explanation",
+          "validity",
+          "reasons"
+        ]
+      },
+      "LearningPracticeResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "answered",
+              "revealed"
+            ]
+          },
+          "item": {
+            "$ref": "#/components/schemas/LearningResultItem"
+          }
+        },
+        "required": [
+          "outcome",
+          "item"
+        ]
+      },
+      "LearningPracticeView": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "summary": {
+            "$ref": "#/components/schemas/LearningAttemptSummary"
+          },
+          "question": {
+            "$ref": "#/components/schemas/LearningSafeQuestion"
+          },
+          "result": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/LearningPracticeResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "summary",
+          "question",
+          "result"
+        ]
+      },
+      "LearningProgressUpdate": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/LearningIdentity"
+          },
+          "qualificationGranted": {
+            "type": "boolean"
+          },
+          "newlyUnlocked": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LearningIdentity"
+            },
+            "minItems": 0,
+            "maxItems": 1000
+          }
+        },
+        "required": [
+          "knowledge",
+          "qualificationGranted",
+          "newlyUnlocked"
+        ]
+      },
+      "LearningResultView": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "summary": {
+                "$ref": "#/components/schemas/LearningAttemptSummary"
+              },
+              "ruleVersion": {
+                "type": "integer",
+                "const": 1
+              },
+              "score": {
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 5
+              },
+              "passed": {
+                "const": true,
+                "type": "boolean"
+              },
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "passed"
+                ]
+              },
+              "validity": {
+                "type": "string",
+                "enum": [
+                  "effective",
+                  "restricted",
+                  "stale"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "knowledge-updated",
+                    "knowledge-withdrawn",
+                    "unit-withdrawn",
+                    "asset-withdrawn",
+                    "template-withdrawn",
+                    "instance-withdrawn",
+                    "blueprint-withdrawn",
+                    "exposed-after-creation"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 8
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearningResultItem"
+                },
+                "minItems": 5,
+                "maxItems": 5
+              },
+              "progress": {
+                "$ref": "#/components/schemas/LearningProgressUpdate"
+              }
+            },
+            "required": [
+              "summary",
+              "ruleVersion",
+              "score",
+              "passed",
+              "outcome",
+              "validity",
+              "reasons",
+              "items",
+              "progress"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "summary": {
+                "$ref": "#/components/schemas/LearningAttemptSummary"
+              },
+              "ruleVersion": {
+                "type": "integer",
+                "const": 1
+              },
+              "score": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3
+              },
+              "passed": {
+                "const": false,
+                "type": "boolean"
+              },
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "failed"
+                ]
+              },
+              "validity": {
+                "type": "string",
+                "enum": [
+                  "effective",
+                  "restricted",
+                  "stale"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "knowledge-updated",
+                    "knowledge-withdrawn",
+                    "unit-withdrawn",
+                    "asset-withdrawn",
+                    "template-withdrawn",
+                    "instance-withdrawn",
+                    "blueprint-withdrawn",
+                    "exposed-after-creation"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 8
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearningResultItem"
+                },
+                "minItems": 5,
+                "maxItems": 5
+              },
+              "progress": {
+                "$ref": "#/components/schemas/LearningProgressUpdate"
+              }
+            },
+            "required": [
+              "summary",
+              "ruleVersion",
+              "score",
+              "passed",
+              "outcome",
+              "validity",
+              "reasons",
+              "items",
+              "progress"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "summary": {
+                "$ref": "#/components/schemas/LearningAttemptSummary"
+              },
+              "ruleVersion": {
+                "type": "integer",
+                "const": 1
+              },
+              "score": {
+                "type": "null"
+              },
+              "passed": {
+                "type": "null"
+              },
+              "outcome": {
+                "type": "string",
+                "enum": [
+                  "affected"
+                ]
+              },
+              "validity": {
+                "type": "string",
+                "enum": [
+                  "effective",
+                  "restricted",
+                  "stale"
+                ]
+              },
+              "reasons": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "knowledge-updated",
+                    "knowledge-withdrawn",
+                    "unit-withdrawn",
+                    "asset-withdrawn",
+                    "template-withdrawn",
+                    "instance-withdrawn",
+                    "blueprint-withdrawn",
+                    "exposed-after-creation"
+                  ]
+                },
+                "minItems": 0,
+                "maxItems": 8
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LearningResultItem"
+                },
+                "minItems": 5,
+                "maxItems": 5
+              },
+              "progress": {
+                "$ref": "#/components/schemas/LearningProgressUpdate"
+              }
+            },
+            "required": [
+              "summary",
+              "ruleVersion",
+              "score",
+              "passed",
+              "outcome",
+              "validity",
+              "reasons",
+              "items",
+              "progress"
+            ]
+          }
+        ]
+      },
+      "LearningErrorCode": {
+        "type": "string",
+        "enum": [
+          "LEARNING_NOT_CONFIGURED",
+          "LEARNING_VERSION_STALE",
+          "LEARNING_PREREQUISITES_UNMET",
+          "ASSESSMENT_NOT_READY",
+          "ASSESSMENT_ACTIVE",
+          "ASSESSMENT_EXPIRED",
+          "ASSESSMENT_STATE_CONFLICT",
+          "ANSWER_FORMAT_INVALID",
+          "INVALID_REQUEST",
+          "INVALID_COOKIE",
+          "INVALID_CREDENTIALS",
+          "AUTHENTICATION_REQUIRED",
+          "CSRF_FAILED",
+          "FORBIDDEN",
+          "PASSWORD_CHANGE_REQUIRED",
+          "NOT_FOUND",
+          "METHOD_NOT_ALLOWED",
+          "IDEMPOTENCY_CONFLICT",
+          "PAYLOAD_TOO_LARGE",
+          "RATE_LIMITED",
+          "SERVICE_UNAVAILABLE",
+          "AUTH_NOT_CONFIGURED",
+          "USERNAME_UNAVAILABLE",
+          "ALREADY_AUTHENTICATED",
+          "LAST_ADMIN_REQUIRED",
+          "REAUTHENTICATION_REQUIRED"
+        ]
+      },
+      "LearningError": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "LEARNING_NOT_CONFIGURED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "LEARNING_VERSION_STALE"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "LEARNING_PREREQUISITES_UNMET"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "ASSESSMENT_NOT_READY"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  },
+                  "retryAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "ASSESSMENT_ACTIVE"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  },
+                  "activeAttempt": {
+                    "$ref": "#/components/schemas/LearningAttemptSummary"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "ASSESSMENT_EXPIRED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "ASSESSMENT_STATE_CONFLICT"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "ANSWER_FORMAT_INVALID"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  },
+                  "formatCode": {
+                    "type": "string",
+                    "enum": [
+                      "INVALID_SYNTAX",
+                      "INPUT_TOO_LONG",
+                      "ZERO_DENOMINATOR",
+                      "PERCENT_REQUIRED",
+                      "RESULT_TOO_LARGE",
+                      "INVALID_MODE"
+                    ]
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "INVALID_REQUEST"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "INVALID_COOKIE"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "INVALID_CREDENTIALS"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "AUTHENTICATION_REQUIRED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "CSRF_FAILED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "FORBIDDEN"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "PASSWORD_CHANGE_REQUIRED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "NOT_FOUND"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "METHOD_NOT_ALLOWED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "IDEMPOTENCY_CONFLICT"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "PAYLOAD_TOO_LARGE"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "RATE_LIMITED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "SERVICE_UNAVAILABLE"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "AUTH_NOT_CONFIGURED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "USERNAME_UNAVAILABLE"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "ALREADY_AUTHENTICATED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "LAST_ADMIN_REQUIRED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "type": "string",
+                    "const": "REAUTHENTICATION_REQUIRED"
+                  },
+                  "message": {
+                    "type": "string"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          }
+        ]
+      },
+      "LearningInstanceIdentity": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+                "maxLength": 64
+              },
+              {
+                "type": "string",
+                "pattern": "^qi-[0-9a-f]{64}$",
+                "maxLength": 67
+              }
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "sha256"
+        ]
       }
     },
     "securitySchemes": {
@@ -16579,6 +21243,106 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "LearningError400": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError401": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError403": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError404": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError405": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError409": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError413": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError428": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError429": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
+            }
+          }
+        }
+      },
+      "LearningError503": {
+        "description": "封闭学习错误；不包含答案、题库正文、SQL 或文件路径。",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/LearningError"
             }
           }
         }

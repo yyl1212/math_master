@@ -1,0 +1,207 @@
+{
+  "reviewedRange": {
+    "base": "1b002b8608aa87f0dfb73a442a75d14f24302400",
+    "head": "227f49288700cc2863ae476acb3f1160bd69aef6"
+  },
+  "review": {
+    "freshReviews": 1,
+    "critical": 0,
+    "importantFixed": 3,
+    "minorDeferred": 1
+  },
+  "frontend": {
+    "unitFiles": 45,
+    "unitTests": 135,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "generatedTwiceUnchanged": true,
+    "productionAuditVulnerabilities": 0
+  },
+  "browser": {
+    "viewports": [
+      "desktop",
+      "mobile"
+    ],
+    "originalAndPlannedBatches": [
+      {
+        "batch": 1,
+        "passed": 16,
+        "result": "16 passed (32.5s)"
+      },
+      {
+        "batch": 2,
+        "passed": 12,
+        "result": "12 passed (31.0s)"
+      },
+      {
+        "batch": 3,
+        "passed": 4,
+        "result": "4 passed (12.3s)"
+      },
+      {
+        "batch": 4,
+        "passed": 4,
+        "result": "4 passed (21.9s)"
+      },
+      {
+        "batch": 5,
+        "passed": 4,
+        "result": "4 passed (32.8s)"
+      },
+      {
+        "batch": 6,
+        "passed": 6,
+        "result": "6 passed (36.8s)"
+      },
+      {
+        "batch": 7,
+        "passed": 8,
+        "result": "8 passed (33.8s)"
+      },
+      {
+        "batch": 8,
+        "passed": 4,
+        "result": "4 passed (21.7s)"
+      },
+      {
+        "batch": 9,
+        "passed": 8,
+        "result": "8 passed (47.8s)"
+      },
+      {
+        "batch": 10,
+        "passed": 8,
+        "result": "8 passed (48.5s)"
+      },
+      {
+        "batch": 11,
+        "passed": 4,
+        "result": "4 passed (28.3s)"
+      },
+      {
+        "batch": 12,
+        "passed": 8,
+        "result": "8 passed (41.3s)"
+      },
+      {
+        "batch": 13,
+        "passed": 8,
+        "result": "8 passed (1.1m)"
+      }
+    ],
+    "reviewRegression": "6 passed (28.3s)",
+    "total": 100,
+    "skips": 0,
+    "retries": 0,
+    "mockSuccessResponses": 0
+  },
+  "go": {
+    "CGO_ENABLED": "0",
+    "packageDeadline": "5m",
+    "httpapiSeconds": 35.005,
+    "harnessSeconds": 95.207,
+    "learningStoreSeconds": 80.77,
+    "originalStoreSeconds": 140.258,
+    "cliSeconds": 1.408,
+    "vet": "passed",
+    "build": "passed",
+    "compatibilityTests": 13
+  },
+  "capacity": {
+    "sourceAndRoutesAlreadyPassedSeconds": 209.473,
+    "storageSQLChangedByReviewFix": false,
+    "actualMaximumHarnessRerun": true
+  },
+  "scope": {
+    "productionDeployment": false,
+    "productionMigration": false,
+    "formalCourseApproval": false,
+    "automaticRegrading": false
+  },
+  "ciPrecisionCorrection": {
+    "failedHead": "53fb3bf42585c4aed0e0fd5fcaa9a2387b782a72",
+    "failedGoPushRun": 37012415326,
+    "failedStep": "学习测评真实数据库回归",
+    "test": "TestLearningSchemaEventsAndRoutesImmutable",
+    "sqlState": "23514",
+    "constraint": "learning_events_check1",
+    "deterministicNanosecondTail": 789,
+    "fixtureUsesDatabaseClock": true,
+    "oneMicrosecondMismatchRejected": true,
+    "tenRepeatsPassedSeconds": 8.949,
+    "fullLearningStorePassedSeconds": 73.216,
+    "productionCodeChanged": false,
+    "migrationOrConstraintChanged": false
+  },
+  "ciCapacityContextCorrection": {
+    "failedHead": "112df87580d607b23aef75a1643bbf97b5031b6c",
+    "failedGoPullRequestRun": 37014940539,
+    "failedStep": "最大合法固定路线容量",
+    "failedSeconds": 240.909,
+    "setupApproximateSeconds": 124,
+    "setupBudgetSeconds": 240,
+    "wholeGoPackageBudgetSeconds": 300,
+    "eachProductActionBudgetSeconds": 8,
+    "validationDeadlineEqualsWholeGoDeadline": true,
+    "tenRepeatsPassedSeconds": 0.892,
+    "maximumRoutesPassedSeconds": 116.271,
+    "maximumSourceVolumePassedSeconds": 85.635,
+    "fullLearningStorePassedSeconds": 76.377,
+    "maximumRouteMeasuredSingleActions": 111,
+    "maximumSourceMeasuredSingleActions": 10,
+    "bothFinalSharedSlotsAndExclusiveLocksPassed": true,
+    "actualPublishedCounts": {
+      "knowledge": 1000,
+      "units": 4000,
+      "paths": 200,
+      "assets": 1000,
+      "templates": 200,
+      "instances": 10000,
+      "blueprints": 1000
+    },
+    "productionCodeChanged": false,
+    "productOrGoDeadlineIncreased": false,
+    "workflowChanged": false,
+    "migrationOrConstraintChanged": false
+  },
+  "ciSuccessorPerformanceCorrection": {
+    "failedHead": "43973da4770604e940755fb5ea947e683df117bc",
+    "failedGoPushRun": 37020233272,
+    "failedActionSeconds": 8.00295366,
+    "sameHeadGoPullRequestRun": 37020240921,
+    "sameHeadPullRequestActionSeconds": 7.708545929,
+    "sameHeadPullRequestFullRoutesSeconds": 254.61,
+    "diagnosticMacOSActionSeconds": 2.844312708,
+    "diagnosticMacOSBusinessMilliseconds": 748.165166,
+    "diagnosticMacOSCommitMilliseconds": 2091.034166,
+    "eachProductActionBudgetSeconds": 8,
+    "goPackageBudgetSeconds": 300,
+    "newTables": 0,
+    "oldMigrationsChanged": false,
+    "exactProofConditionsPreserved": true,
+    "allFourContentKindsMatchedOriginal": true,
+    "normalAndForgedCases": 16,
+    "maximumProofsComparedPerCapacityClass": 1000,
+    "maximumRoutesPassedSeconds": 118.906,
+    "maximumSourceVolumePassedSeconds": 90.482,
+    "fullLearningStorePassedSeconds": 75.578,
+    "maximumRouteActionSeconds": 2.062912208,
+    "maximumRouteActionAllocations": 32213,
+    "maximumRouteActionAllocatedBytes": 4367280,
+    "currentIdentityAndHeadReadUnderExistingSharedLock": true,
+    "qualificationMemoBoundToActorAndTransaction": true,
+    "allPrerequisitesRequired": true,
+    "onlyActualNewInsertionsReturned": true,
+    "everyRowDeferredSourceConstraintRetained": true,
+    "temporaryProfilingRemoved": true,
+    "httpapiPassedSeconds": 36.832,
+    "wholeHarnessPassedSeconds": 99.803,
+    "learningBrowserPassed": 26,
+    "learningBrowserReportedDuration": "2.7m",
+    "browserSkips": 0,
+    "browserRetries": 0,
+    "compatibilityTestsPassed": 13,
+    "vet": "passed",
+    "build": "passed"
+  }
+}
