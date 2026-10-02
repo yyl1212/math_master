@@ -484,7 +484,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** 文件表任务12组件/样式/测试；frontend/src/app/editor/questions/page.tsx、editor/questions/drafts/[id]/page.tsx、review/questions/page.tsx、review/questions/[id]/page.tsx、admin/question-publications/page.tsx、admin/question-publications/[id]/page.tsx、admin/question-withdrawals/page.tsx；auth-status导航。
 **Interfaces:** Task11数据层；draft-editor只编辑DraftInput，generation-panel只显示保存revision的ValidationReport，review-panel冻结正文＋Instance分页＋六项检查，publication-panel两个head＋差异＋显式reauth/activate，coverage-panel节点分页（发布后台与复核页分别按admin/reviewer权限调用）。pending-command保留{key,route,input,status}并仅手动同输入重试。
 
-- [ ] **Step 1：写失败测试。** DraftEditor显示三家族/精确参数/主知识目标索引及中英文目标、保存冲突保留输入、旧校验摘要不能送新revision；ReviewPanel展示全部source/authors/legacy/engine/约束排除＋所有实例页，不以首屏代替整批，六项检查与generation说明必需；PublicationPanel head跨页单取、差异分页/失效准备/重新验证不丢键；WithdrawalPanel解释影响/不足五题/分页摘要变化重预览；QuestionPendingCommand只主动同键重试，取消/未确认结果保留输入、不自动假成功；角色导航admin无editor/reviewer入口。
+- [x] **Step 1：写失败测试。** DraftEditor显示三家族/精确参数/主知识目标索引及中英文目标、保存冲突保留输入、旧校验摘要不能送新revision；ReviewPanel展示全部source/authors/legacy/engine/约束排除＋所有实例页，不以首屏代替整批，六项检查与generation说明必需；PublicationPanel head跨页单取、差异分页/失效准备/重新验证不丢键；WithdrawalPanel解释影响/不足五题/分页摘要变化重预览；QuestionPendingCommand只主动同键重试，取消/未确认结果保留输入、不自动假成功；角色导航admin无editor/reviewer入口。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -497,10 +497,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/question src/components/auth-status.test.tsx，预期新页面行为失败。
-- [ ] **Step 3：实现七页及组件。** 复用SafeMarkdown/公式/现有SHA素材接口与键盘对话框，按真实permission决定入口，加载/空状态/未配置/未就绪/来源未核实英文明确。生成结果与正式批准数量分开；可按页完整阅读，不提供“全部已看”虚假标记。取消仅结束等待，明确写入结果可能未确认，主动同键重试固定输入。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；单独npm run typecheck/build和现有reading/content/auth组件回归。1280×900与390×844检查长ID、公式、键盘焦点/对话框、无横向页面溢出；不新增产品依赖或复制外部图片。
-- [ ] **Step 5：提交。** 任务12文件，提交 feat: 增加可信题库英文管理后台。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/question src/components/auth-status.test.tsx，预期新页面行为失败。
+- [x] **Step 3：实现七页及组件。** 复用SafeMarkdown/公式/现有SHA素材接口与键盘对话框，按真实permission决定入口，加载/空状态/未配置/未就绪/来源未核实英文明确。生成结果与正式批准数量分开；可按页完整阅读，不提供“全部已看”虚假标记。取消仅结束等待，明确写入结果可能未确认，主动同键重试固定输入。
+- [x] **Step 4：验证GREEN。** 重跑Step2；单独npm run typecheck/build和现有reading/content/auth组件回归。1280×900与390×844检查长ID、公式、键盘焦点/对话框、无横向页面溢出；不新增产品依赖或复制外部图片。
+- [x] **Step 5：提交。** 任务12文件，提交 feat: 增加可信题库英文管理后台。
 
 ## Task 13：真实联调、性能预算、兼容验收与独立审查
 

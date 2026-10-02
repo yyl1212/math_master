@@ -18,6 +18,9 @@ export function AuthStatus() {
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor">Edit content</Link>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review">Review content</Link>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/publications">Publish content</Link>}
+    {!state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor/questions">Write questions</Link>}
+    {!state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review/questions">Review questions</Link>}
+    {!state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/question-publications">Publish question bank</Link>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/users">Manage users</Link>}
   </> : <Link prefetch={false} href="/login">Sign in</Link>}</div>;
 }

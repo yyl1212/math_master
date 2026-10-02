@@ -23,6 +23,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
 )
@@ -197,6 +198,15 @@ func Run(ctx context.Context, c Config) (result error) {
 		ctx, stop := context.WithTimeout(ctx, 3*time.Second)
 		defer stop()
 		switch scene {
+		case "question":
+			if err := resetQuestion(ctx, db, s, accounts, accountAdmin, root, normal); err != nil {
+				return errors.New("question fixture setup failed")
+			}
+			contentUnavailable = false
+			authUnavailable = false
+			unavailable = false
+			holdSave.Store(false)
+			return nil
 		case "content":
 			if err := resetWorkflow(ctx, db, accounts, accountAdmin); err != nil {
 				return err
@@ -293,7 +303,12 @@ func Run(ctx context.Context, c Config) (result error) {
 		return errors.New("harness control bind failed")
 	}
 	defer controlListener.Close()
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Content: &httpapi.ContentOptions{Service: publication.NewService(s), PublicOrigin: fixtureOrigin, Configured: true}})
+	contentService := publication.NewService(s)
+	questionService, err := question.NewService(s, contentService.AcquireValidation)
+	if err != nil {
+		return errors.New("question fixture service unavailable")
+	}
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()

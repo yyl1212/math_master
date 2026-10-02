@@ -1,0 +1,35 @@
+import { it, expect, vi } from "vitest";
+import { createQuestionPendingCommand } from "./pending-command";
+import { questionInput, fixtureID } from "@/lib/question/test-fixtures";
+import { questionFailure } from "@/lib/question/schemas";
+const mocks = vi.hoisted(() => ({ request: vi.fn() }));
+vi.mock("@/lib/question/client", () => ({ requestQuestion: mocks.request }));
+it("QuestionPendingCommand", async () => {
+    vi.spyOn(crypto, "randomUUID").mockReturnValue(fixtureID);
+    const input = questionInput();
+    const command = createQuestionPendingCommand({ kind: "createDraft" }, input);
+    input.questionPackage.id = "changed-after-command";
+    mocks.request.mockResolvedValue(questionFailure());
+    expect(command.status).toBe("pending");
+    expect(mocks.request).not.toHaveBeenCalled();
+    expect((await command.execute()).ok).toBe(false);
+    expect(command.status).toBe("pending");
+    expect(command.input).toMatchObject({ questionPackage: { id: "contract-fixture" } });
+    mocks.request.mockResolvedValue({ ok: true, data: { id: fixtureID } });
+    expect((await command.execute()).ok).toBe(true);
+    expect(command.status).toBe("done");
+    expect(mocks.request.mock.calls.map(a => a[2])).toEqual([fixtureID, fixtureID]);
+    expect(mocks.request.mock.calls[0][1]).toEqual(mocks.request.mock.calls[1][1]);
+    expect(crypto.randomUUID).toHaveBeenCalledTimes(1);
+    await command.execute();
+    expect(mocks.request).toHaveBeenCalledTimes(2);
+});
+it("CancelledQuestionCommandKeepsUnconfirmedInput", async () => {
+    mocks.request.mockImplementation(async (_: unknown, __: unknown, ___: unknown, signal: AbortSignal) => new Promise(resolve => signal.addEventListener("abort", () => resolve(questionFailure()))));
+    const command = createQuestionPendingCommand({ kind: "createDraft" }, questionInput());
+    const pending = command.execute();
+    command.cancel();
+    expect(await pending).toMatchObject({ ok: false, code: "SERVICE_UNAVAILABLE" });
+    expect(command.status).toBe("pending");
+    expect(command.input).toMatchObject({ questionPackage: { id: "contract-fixture" } });
+});
