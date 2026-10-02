@@ -265,3 +265,46 @@ func TestLearningSchemaMissingDependenciesRejected(t *testing.T) {
 		t.Fatal("sealed five-question evidence committed without its complete restriction index")
 	}
 }
+
+// Deferred route validation must remain closed after replacing repeated whole
+// route scans with one parent proof and exact individual child proofs.
+func TestLearningSchemaFixedRouteInvalidNodesRejected(t *testing.T) {
+	f := newLearningFixture(t)
+	path := f.publishLearningGraph()
+	owner := f.ids["learner_a"]
+	for _, name := range []string{"partial", "wrong-node", "wrong-position"} {
+		t.Run(name, func(t *testing.T) {
+			tx, e := f.db.Begin()
+			if e != nil {
+				t.Fatal(e)
+			}
+			defer tx.Rollback()
+			id := f.ID()
+			_, e = tx.Exec(`INSERT INTO learning_path_enrollments(id,owner_user_id,path_id,path_version,path_sha256,knowledge_publication_id,total_nodes) VALUES($1,$2,$3,$4,$5,$6,3)`, id, owner, path.ID, path.Version, path.SHA256, *f.KHead())
+			if e != nil {
+				t.Fatal(e)
+			}
+			_, e = tx.Exec(`INSERT INTO learning_path_nodes(enrollment_id,position,knowledge_id,knowledge_version,knowledge_sha256)
+    SELECT $1,CASE WHEN $4='wrong-position' AND pn.position=2 THEN 3 ELSE pn.position END,k.id,k.version,k.sha256
+    FROM path_nodes pn JOIN knowledge_versions k ON k.id=CASE WHEN $4='wrong-node' AND pn.position=2 THEN 'workflow-related' ELSE pn.knowledge_id END AND k.version=pn.knowledge_version
+    WHERE pn.path_id=$2 AND pn.path_version=$3 AND ($4<>'partial' OR pn.position<2)`, id, path.ID, path.Version, name)
+			if e != nil {
+				t.Fatal("invalid fixture must reach deferred proof", e)
+			}
+			if e = tx.Commit(); e == nil {
+				t.Fatal("invalid fixed route committed", name)
+			}
+		})
+	}
+	joined, e := f.repo.EnrollLearningPath(f.ctx, f.Access("learner_a", false), path.ID, learning.EnrollInput{Path: path, ExpectedKnowledgeHead: *f.KHead()})
+	if e != nil {
+		t.Fatal(e)
+	}
+	_, e = f.db.Exec(`INSERT INTO learning_path_nodes(enrollment_id,position,knowledge_id,knowledge_version,knowledge_sha256) SELECT $1,3,id,version,sha256 FROM knowledge_versions WHERE id='workflow-related' AND version=1`, joined.Summary.ID)
+	if e == nil {
+		t.Fatal("extra node appended to an immutable fixed route")
+	}
+	if got := f.count(`SELECT count(*) FROM learning_path_nodes WHERE enrollment_id=$1`, joined.Summary.ID); got != 3 {
+		t.Fatal("fixed denominator changed", got)
+	}
+}

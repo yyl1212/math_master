@@ -13,6 +13,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
+	"github.com/yyl1212/math_master/backend/internal/testutil"
 	"os"
 	"path/filepath"
 )
@@ -206,15 +207,21 @@ func resetLearning(ctx context.Context, db *sql.DB, s *store.Store, accounts *au
 	if _, e := s.ImportDraft(ctx, normal); e != nil {
 		return e
 	}
-	in, e := learningFixtureInput(root)
-	if e != nil {
-		return e
-	}
-	if e = learningPublishContent(ctx, db, s, accounts, in); e != nil {
-		return fmt.Errorf("learning content setup: %w", e)
-	}
-	if e = learningPublishQuestions(ctx, db, s, accounts, root, in.Package, scene); e != nil {
-		return fmt.Errorf("learning question setup: %w", e)
+	if scene == LearningCapacity {
+		if e := learningPublishCapacity(ctx, db, s, accounts, root); e != nil {
+			return e
+		}
+	} else {
+		in, e := learningFixtureInput(root)
+		if e != nil {
+			return e
+		}
+		if e = learningPublishContent(ctx, db, s, accounts, in); e != nil {
+			return fmt.Errorf("learning content setup: %w", e)
+		}
+		if e = learningPublishQuestions(ctx, db, s, accounts, root, in.Package, scene); e != nil {
+			return fmt.Errorf("learning question setup: %w", e)
+		}
 	}
 	v, d, e := accounts.Context(ctx, auth.Cookies{})
 	if e != nil {
@@ -245,4 +252,157 @@ func resetLearning(ctx context.Context, db *sql.DB, s *store.Store, accounts *au
 		}
 	}
 	return nil
+}
+
+// Capacity setup only writes source data through the original independent
+// author/reviewer/manager workflow. Every repository action retains its 8s bound.
+func learningPublishCapacity(ctx context.Context, db *sql.DB, s *store.Store, accounts *auth.Service, root string) error {
+	data, e := testutil.LearningCapacity(filepath.Join(root, "backend/internal/content/testdata"), filepath.Join(root, "content/catalogue/domains.json"), filepath.Join(root, "content/questions/elementary-rationals.v1.json"))
+	if e != nil {
+		return e
+	}
+	author, e := fixtureAccess(ctx, accounts, "content_editor", false)
+	if e != nil {
+		return e
+	}
+	reviewer, e := fixtureAccess(ctx, accounts, "content_reviewer", false)
+	if e != nil {
+		return e
+	}
+	manager, e := fixtureAccess(ctx, accounts, "content_admin", true)
+	if e != nil {
+		return e
+	}
+	next := func(a publication.Access) (publication.Access, error) { return nextFixtureAccess(a) }
+	submitContent := func(in publication.DraftInput) (string, error) {
+		a, e := next(author)
+		if e != nil {
+			return "", e
+		}
+		d, e := s.CreateDraft(ctx, a, in)
+		if e != nil {
+			return "", e
+		}
+		if !d.Gate.ReadyToSubmit {
+			return "", fmt.Errorf("capacity content gate rejected %s", in.Package.ID)
+		}
+		a, e = next(author)
+		if e != nil {
+			return "", e
+		}
+		sub, e := s.SubmitDraft(ctx, a, d.ID, publication.SubmitInput{ExpectedRevision: d.Revision, ExpectedDigest: d.Gate.Digest})
+		if e != nil {
+			return "", e
+		}
+		r, e := next(reviewer)
+		if e != nil {
+			return "", e
+		}
+		_, e = s.DecideReview(ctx, r, sub.ID, publication.ReviewInput{Decision: "approve", Checks: publication.ReviewChecks{Mathematics: true, Explanations: true, Relationships: true, Sources: true, Illustrations: true}, IndependenceNote: "Distinct original capacity author and reviewer.", Note: "Original technical capacity fixture, not production course content."})
+		return sub.ID, e
+	}
+	activateContent := func(ids []string) error {
+		for at := 0; at < len(ids); at += 20 {
+			end := min(at+20, len(ids))
+			var h string
+			var head *string
+			e := db.QueryRowContext(ctx, "SELECT snapshot_id FROM publication_heads").Scan(&h)
+			if e == nil {
+				head = &h
+			} else if e != sql.ErrNoRows {
+				return e
+			}
+			m, e := next(manager)
+			if e != nil {
+				return e
+			}
+			p, e := s.PrepareRelease(ctx, m, publication.PrepareInput{SubmissionIDs: ids[at:end], ExpectedHead: head, Reason: "Prepare actual maximum original learning capacity sources."})
+			if e != nil {
+				return e
+			}
+			m, e = next(manager)
+			if e != nil {
+				return e
+			}
+			if _, e = s.ActivateRelease(ctx, m, p.ID, publication.ActivateInput{ExpectedHead: head, ExpectedManifestSHA: p.ManifestSHA, Reason: "Activate actual independently reviewed capacity sources."}); e != nil {
+				return e
+			}
+		}
+		return nil
+	}
+	ids := []string{}
+	for _, in := range data.Content {
+		id, e := submitContent(in)
+		if e != nil {
+			return e
+		}
+		ids = append(ids, id)
+	}
+	if e = activateContent(ids); e != nil {
+		return e
+	}
+	id, e := submitContent(data.LongRoutes)
+	if e != nil {
+		return e
+	}
+	if e = activateContent([]string{id}); e != nil {
+		return e
+	}
+	ids = nil
+	for _, in := range data.Questions {
+		a, e := next(author)
+		if e != nil {
+			return e
+		}
+		d, e := s.CreateQuestionDraft(ctx, a, in)
+		if e != nil {
+			return e
+		}
+		a, e = next(author)
+		if e != nil {
+			return e
+		}
+		gate, e := s.ValidateQuestionDraft(ctx, a, d.ID, question.ValidateInput{ExpectedRevision: d.Revision})
+		if e != nil {
+			return e
+		}
+		if !gate.ReadyToSubmit {
+			return fmt.Errorf("capacity question gate rejected %s", in.QuestionPackage.ID)
+		}
+		a, e = next(author)
+		if e != nil {
+			return e
+		}
+		sub, e := s.SubmitQuestionDraft(ctx, a, d.ID, question.SubmitInput{ExpectedRevision: d.Revision, ExpectedDigest: gate.Digest})
+		if e != nil {
+			return e
+		}
+		r, e := next(reviewer)
+		if e != nil {
+			return e
+		}
+		_, e = s.DecideQuestionReview(ctx, r, sub.ID, question.ReviewInput{Decision: "approve", Checks: question.ReviewChecks{Mathematics: true, Explanations: true, Objectives: true, Sources: true, Illustrations: true, Generation: true}, IndependenceNote: "Different capacity author and reviewer accounts.", GenerationNote: "All finite original addition cases checked by the independent verifier.", Note: "Original capacity fixture only."})
+		if e != nil {
+			return e
+		}
+		ids = append(ids, sub.ID)
+	}
+	var kh string
+	if e = db.QueryRowContext(ctx, "SELECT snapshot_id FROM publication_heads").Scan(&kh); e != nil {
+		return e
+	}
+	m, e := next(manager)
+	if e != nil {
+		return e
+	}
+	p, e := s.PrepareQuestionRelease(ctx, m, question.PrepareInput{SubmissionIDs: ids, ExpectedKnowledgeHead: &kh, ExpectedQuestionHead: nil, Reason: "Prepare all real approved capacity question inputs."})
+	if e != nil {
+		return e
+	}
+	m, e = next(manager)
+	if e != nil {
+		return e
+	}
+	_, e = s.ActivateQuestionRelease(ctx, m, p.ID, question.ActivateInput{ExpectedKnowledgeHead: &kh, ExpectedQuestionHead: nil, ExpectedManifestSHA: p.ManifestSHA, Reason: "Activate actual capacity question publication."})
+	return e
 }

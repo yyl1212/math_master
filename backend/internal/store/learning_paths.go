@@ -25,6 +25,7 @@ func learningUnlock(ctx context.Context, tx *sql.Tx, actor string, k question.Id
 	return n == 1, e
 }
 func learningUnlockSuccessors(ctx context.Context, tx *sql.Tx, actor string, k question.Identity, kind, id string, now time.Time) ([]question.Identity, error) {
+	ctx = learningWithProjection(ctx, tx, actor)
 	out := []question.Identity{}
 	rows, e := tx.QueryContext(ctx, `SELECT DISTINCT kv.id,kv.version,kv.sha256 FROM knowledge_relations r JOIN knowledge_versions kv ON kv.id=r.source_id AND kv.version=r.source_version JOIN publication_heads h ON h.singleton JOIN publication_members m ON m.snapshot_id=h.snapshot_id AND m.kind='knowledge' AND m.id=kv.id AND m.version=kv.version AND m.availability='active' WHERE r.kind='prerequisite' AND r.target_id=$1 AND r.target_version=$2 AND NOT EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='knowledge' AND w.target_id=kv.id AND w.target_version=kv.version) ORDER BY kv.id,kv.version LIMIT 1001`, k.ID, k.Version)
 	if e != nil {
@@ -70,6 +71,7 @@ func (s *Store) EnrollLearningPath(ctx context.Context, a question.Access, id st
 		return out, auth.ErrInvalidInput
 	}
 	e := s.learningTx(ctx, a, learning.EnrollPathAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		ctx = learningWithProjection(ctx, tx, u.ID)
 		digest := workflowRequestSHA(id, in)
 		receipt, found, e := learningReplay(ctx, tx, u.ID, string(learning.EnrollPathAction), id, a.IdempotencyKey, digest)
 		if e != nil {
@@ -175,11 +177,11 @@ func learningPathSummary(ctx context.Context, tx *sql.Tx, actor, id string) (lea
 		return out, e
 	}
 	for _, k := range ks {
-		state, e := learningKnowledgeState(ctx, tx, actor, k)
+		completed, e := learningCurrentCompletion(ctx, tx, actor, k)
 		if e != nil {
 			return out, e
 		}
-		if state.CompletionValid {
+		if completed != nil {
 			out.CompletedNodes++
 		}
 		passed, e := learningEffectivePass(ctx, tx, actor, k)
@@ -189,9 +191,10 @@ func learningPathSummary(ctx context.Context, tx *sql.Tx, actor, id string) (lea
 		if passed {
 			out.PassedNodes++
 		}
-		if state.EverUnlocked {
-			out.UnlockedNodes++
-		}
 	}
+	if e = tx.QueryRowContext(ctx, `SELECT count(*) FROM learning_path_nodes n JOIN learning_unlocks u ON u.owner_user_id=$2 AND u.knowledge_id=n.knowledge_id WHERE n.enrollment_id=$1`, id, actor).Scan(&out.UnlockedNodes); e != nil {
+		return out, e
+	}
+
 	return out, nil
 }

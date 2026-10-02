@@ -216,7 +216,11 @@ func Run(ctx context.Context, c Config) (result error) {
 		if scenario, ok := learningScenario(scene); ok {
 			qcontrol.release()
 			holdLearning.Store(false)
-			setup, stop := context.WithTimeout(ctx, 40*time.Second)
+			budget := 40 * time.Second
+			if scenario == LearningCapacity {
+				budget = 4 * time.Minute
+			}
+			setup, stop := context.WithTimeout(ctx, budget)
 			defer stop()
 			if err := resetLearning(setup, db, s, accounts, accountAdmin, root, normal, scenario); err != nil {
 				return err
@@ -399,6 +403,12 @@ func Run(ctx context.Context, c Config) (result error) {
 		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
 			http.Error(w, "Unauthorized", 401)
 			return
+		}
+		if r.PathValue("scene") == "learning-capacity" {
+			if e := http.NewResponseController(w).SetWriteDeadline(time.Now().Add(4 * time.Minute)); e != nil {
+				http.Error(w, "Capacity setup unavailable", 503)
+				return
+			}
 		}
 		if e := change(r.Context(), r.PathValue("scene")); e != nil {
 			http.Error(w, "Scene change failed", 400)

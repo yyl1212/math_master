@@ -341,6 +341,14 @@ DECLARE p learning_path_enrollments;pid uuid;
 BEGIN
  IF TG_TABLE_NAME='learning_path_nodes' THEN pid:=NEW.enrollment_id;ELSE pid:=NEW.id;END IF;
  SELECT * INTO p FROM learning_path_enrollments WHERE id=pid;
+ -- Parent validates the whole immutable route once. Each deferred child proves
+ -- its own exact approved node and final count, avoiding N complete N-node scans.
+ IF TG_TABLE_NAME='learning_path_nodes' THEN
+  IF NEW.position>=p.total_nodes OR p.total_nodes<>(SELECT count(*) FROM learning_path_nodes WHERE enrollment_id=p.id)
+   OR NOT EXISTS(SELECT 1 FROM path_nodes pn WHERE pn.path_id=p.path_id AND pn.path_version=p.path_version AND pn.position=NEW.position AND pn.knowledge_id=NEW.knowledge_id AND pn.knowledge_version=NEW.knowledge_version)
+   OR NOT learning_content_approved(p.knowledge_publication_id,'knowledge',NEW.knowledge_id,NEW.knowledge_version,NEW.knowledge_sha256) THEN RAISE EXCEPTION 'fixed route node mismatch'; END IF;
+  RETURN NULL;
+ END IF;
  IF NOT learning_content_approved(p.knowledge_publication_id,'path',p.path_id,p.path_version,p.path_sha256) OR p.total_nodes<>(SELECT count(*) FROM learning_path_nodes WHERE enrollment_id=p.id) OR p.total_nodes<>(SELECT count(*) FROM path_nodes WHERE path_id=p.path_id AND path_version=p.path_version) THEN RAISE EXCEPTION 'fixed route denominator mismatch'; END IF;
  IF EXISTS(SELECT 1 FROM learning_path_nodes n WHERE n.enrollment_id=p.id AND (NOT EXISTS(SELECT 1 FROM path_nodes pn WHERE pn.path_id=p.path_id AND pn.path_version=p.path_version AND pn.position=n.position AND pn.knowledge_id=n.knowledge_id AND pn.knowledge_version=n.knowledge_version) OR NOT learning_content_approved(p.knowledge_publication_id,'knowledge',n.knowledge_id,n.knowledge_version,n.knowledge_sha256))) THEN RAISE EXCEPTION 'fixed route node mismatch'; END IF;
  RETURN NULL;

@@ -2,6 +2,7 @@ package e2etest
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
@@ -84,13 +85,39 @@ func TestLearningHarnessScenesArePrivate(t *testing.T) {
 	for _, scene := range []string{"learning-basic", "learning-diagnostic", "learning-withdrawal", "learning-exposure", "learning-history", "learning-capacity", "auth"} {
 		req, _ := http.NewRequest("POST", s.ControlURL+"/scene/"+scene, nil)
 		req.Header.Set("Authorization", "Bearer "+s.Token)
-		r, e := client.Do(req)
+		sceneClient := client
+		if scene == "learning-capacity" {
+			sceneClient = &http.Client{Timeout: 4 * time.Minute}
+		}
+		r, e := sceneClient.Do(req)
 		if e != nil {
 			t.Fatal(e)
 		}
 		r.Body.Close()
 		if r.StatusCode != 204 {
 			t.Fatal(scene, r.StatusCode)
+		}
+		if scene == "learning-capacity" {
+			req, _ := http.NewRequest("GET", s.ControlURL+"/learning/state", nil)
+			req.Header.Set("Authorization", "Bearer "+s.Token)
+			r, e := client.Do(req)
+			if e != nil {
+				t.Fatal(e)
+			}
+			var state learningDatabaseState
+			e = json.NewDecoder(r.Body).Decode(&state)
+			r.Body.Close()
+			if e != nil || r.StatusCode != 200 || len(state.Knowledge) != 1000 || len(state.Blueprints) != 1000 || state.Path.Version != 2 {
+				t.Fatalf("capacity scene is not the actual maximum published fixture: knowledge=%d blueprints=%d pathVersion=%d err=%v", len(state.Knowledge), len(state.Blueprints), state.Path.Version, e)
+			}
+			for kind, want := range map[string]int{"knowledge": 1000, "unit": 4000, "path": 200, "asset": 1000, "template": 200, "instance": 10000, "blueprint": 1000} {
+				if state.PublishedCounts[kind] != want {
+					t.Fatal("capacity scene published count", kind, state.PublishedCounts[kind], want)
+				}
+			}
+			if state.MaxPathNodes != 100 {
+				t.Fatal("unapproved maximum route size", state.MaxPathNodes)
+			}
 		}
 	}
 	for _, endpoint := range []string{s.ControlURL + "/learning/state", s.APIURL + "/learning/state"} {

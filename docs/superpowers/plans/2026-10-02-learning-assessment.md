@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 >
-> 沿用用户此前选定的 Native：superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查。本计划待用户书面审阅，任务均未开始；不重新选择执行方式，不将方案确认等同于本计划确认。
+> 沿用用户此前选定的 Native：superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查。用户已书面确认本计划，文档 PR #18 已合并；从最新 master 1b002b8608aa87f0dfb73a442a75d14f24302400 新建 codex/p4b-learning-assessment。Task1—12 已逐项完成，Task13 验收进行中；独立整分支审查、实现 PR 和 CI 交付尚未完成。
 
 **Goal:** 交付真实的阅读动作、安全练习、五题检测、诊断、资格解锁及固定路线进度，让用户准确看到已学知识并可回顾。
 
@@ -121,7 +121,7 @@ Repository采用统一learning.Service外观，函数在各任务定义；下面
 
 **Interfaces:** Consumes question.GradeChoice([]Choice,string,string)、GradeNumeric(Rational,string,string)→(GradeResult,error)。Produces ProjectQuestion(position int,i question.Instance) (SafeQuestion,error)；ValidateAnswers(items []question.Instance,in SubmitInput) error；GradeFive(items []question.Instance,in SubmitInput) (int,bool,error)；SelectFive(ctx context.Context,core []int,candidates []Candidate,seed [32]byte) ([]question.Identity,bool,error)；EarliestReady(ctx context.Context,core []int,candidates []Candidate,now time.Time,seed [32]byte) (*time.Time,error)；CanonicalSeal(Seal) ([]byte,string,error)；learning.CanonicalLearningEvent(EventSeal) ([]byte,string,error)；learning.ResolveState(StateFacts) State；EvaluateEvidence(EvidenceFacts) EvidenceView；Authorize(auth.User,Action) error；IsRead(Action) bool；IsHeavy(Action) bool；IsIdempotent(Action) bool；Rates(actor string,action Action) ([]auth.RateKey,error)。
 
-- [ ] **Step 1: 写纯函数失败测试。** 测试夹具本任务定义为五个不同choice实例，每题选项a/b、正确a；另用1/2数值题。固定断言如下：
+- [x] **Step 1: 写纯函数失败测试。** 测试夹具本任务定义为五个不同choice实例，每题选项a/b、正确a；另用1/2数值题。固定断言如下：
 ~~~go
 func TestLearningGradeFourOfFive(t *testing.T) { // fiveChoiceItems/allChoiceAnswers在此测试文件定义
   score, passed, err := GradeFive(fiveChoiceItems(), allChoiceAnswers("a","a","a","a","b"))
@@ -133,10 +133,10 @@ func TestLearningStateReviewPrecedence(t *testing.T) {
 ~~~
 增加具名表测：LearningProjection禁止全部私有字段；LearningGrade三题false、五题true、skipped计错、.5/2/4/50%精确、128/129字符、未知choice整体报错；LearningSelection以6候选证明优先未见且五题覆盖、同seed同序、重复身份拒绝、1000/1001候选与8/9核心边界。LearningRetryAt在曝光恰30分钟时可选、最近检测排除无法恢复时nil；LearningSeal用途/SHA/完整包装±1 byte；LearningPolicy完整21动作与角色/旧配额。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/assessment ./internal/learning -timeout 5m -count=1。Expected: 新接口缺失或上述特定断言失败。
-- [ ] **Step 3: 实现上述纯接口。** projection逐字段构造；先ValidateAnswers全部五项再GradeFive。selection以6×256状态DP保存最佳五项：先最大化未见数，再按见题历史和SHA256(seed＋准确身份)的固定排序决胜，不调用会重新按ID排序的P4a FiveQuestionCover。EarliestReady排除最近检测后，按曝光到期时刻二分可行性，同一覆盖算法复验，不逐毫秒/逐题展开整库。policy所有动作仅learner；createPractice/createAssessment为heavy，其余读/写按全局约束。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令，Expected: 两包PASS；安全题面JSON无私有字段，所有精确边界PASS。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/assessment backend/internal/learning；git commit -m "feat: define learning contracts and safe assessment rules"。Expected: 仅本任务文件提交。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/assessment ./internal/learning -timeout 5m -count=1。Expected: 新接口缺失或上述特定断言失败。
+- [x] **Step 3: 实现上述纯接口。** projection逐字段构造；先ValidateAnswers全部五项再GradeFive。selection以6×256状态DP保存最佳五项：先最大化未见数，再按见题历史和SHA256(seed＋准确身份)的固定排序决胜，不调用会重新按ID排序的P4a FiveQuestionCover。EarliestReady排除最近检测后，按曝光到期时刻二分可行性，同一覆盖算法复验，不逐毫秒/逐题展开整库。policy所有动作仅learner；createPractice/createAssessment为heavy，其余读/写按全局约束。
+- [x] **Step 4: 确认GREEN。** 同Step2命令，Expected: 两包PASS；安全题面JSON无私有字段，所有精确边界PASS。
+- [x] **Step 5: 提交。** Run: git add backend/internal/assessment backend/internal/learning；git commit -m "feat: define learning contracts and safe assessment rules"。Expected: 仅本任务文件提交。
 
 ### Task 2: 迁移、共享事务、配置与业务幂等
 
@@ -144,7 +144,7 @@ func TestLearningStateReviewPrecedence(t *testing.T) {
 
 **Interfaces:** Consumes task1 learning.Authorize/Rates/Receipt/Seal。Produces Store.LearningPreflight(ctx context.Context,a question.Access,action learning.Action) (auth.User,error)；Store.learningTx(ctx context.Context,a question.Access,action learning.Action,fn func(context.Context,*sql.Tx,auth.User,time.Time) error) error；learningConfigured(ctx context.Context,tx *sql.Tx) (bool,error)；learningReplay(ctx context.Context,tx *sql.Tx,actor,action,target,key,digest string) (learning.Receipt,bool,error)；learningRemember(ctx context.Context,tx *sql.Tx,actor,action,target,key,digest string,receipt learning.Receipt) error；newLearningFixture(t *testing.T) *learningFixture（仅测试）。
 
-- [ ] **Step 1: 写真实PG失败测试。** newLearningFixture扩展newQuestionFixture，在发布前将questionInput替换为一个lf-addition模板（left/right各为1、2、3、4，add、rational、无约束，全部关联workflow-fractions@1/core索引0）与一个指向该模板的五题四题蓝图，产生16个不同有限实例；实际QApproved→QPrepare→QActivate；另外两个signup账户learner_a/b只保留learner。提供准确identity/head、原db/repo/ctx/Access；需要多节点时用既有内容/题库送审发布API合成lf-root→lf-middle→lf-target，不能调用尚未实现学习命令预置通过。
+- [x] **Step 1: 写真实PG失败测试。** newLearningFixture扩展newQuestionFixture，在发布前将questionInput替换为一个lf-addition模板（left/right各为1、2、3、4，add、rational、无约束，全部关联workflow-fractions@1/core索引0）与一个指向该模板的五题四题蓝图，产生16个不同有限实例；实际QApproved→QPrepare→QActivate；另外两个signup账户learner_a/b只保留learner。提供准确identity/head、原db/repo/ctx/Access；需要多节点时用既有内容/题库送审发布API合成lf-root→lf-middle→lf-target，不能调用尚未实现学习命令预置通过。
 ~~~go
 func TestLearningSchemaActiveUnique(t *testing.T) {
   f := newLearningFixture(t)
@@ -158,10 +158,10 @@ func TestLearningSchemaTableCount(t *testing.T) {
 ~~~
 上述SQL测试helper在learning_fixture_test.go本任务定义。覆盖五项不足/位置重复/owner外键、seal bytes/JSON/SHA篡改、终态不可逆、结果nullable组合、学习/路线事件不可变、曝光序号倒退。LearningCommitProof覆盖锁后撤权、会话到期、密码变化、取消及最后幂等写失败零残留；LearningSharedLocks证明不同账户并行、管理排他竞争与固定锁序。旧迁移库原P4a成功、学习503；缺任一表不得部分启用。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(Schema|CommitProof|SharedLocks|Configured|Idempotency)' -timeout 5m -count=1。Expected: 新表/接口缺失，或SQL不变量未拒绝。
-- [ ] **Step 3: 实现迁移及上述事务接口。** 新16表严格等于设计§10；learningConfigured只有00006未曾启用且16表全不存在才返回(false,nil)；goose已标记00006或任一学习表存在但不完整时返回ErrNotConfigured，已启用系统不得静默回退为不记录曝光的旧模式；FK使用原(id,version,sha256)可用唯一键；延迟触发器证明active五个items、submitted五个answers＋唯一result、固定publication成员/approval、不可变事件与终态。首次start/completion时刻及原事件不被再次动作覆盖；完成依据更新后的显式动作可以追加证据，当前资格不用首次事件指针替代有效性核验。READ COMMITTED，先两把shared advisory lock，再managedIdentity及用户行；读取clock_timestamp，提交前重证当前会话/角色/CSRF。幂等保存动作/目标/输入摘要及Receipt，不保存答案DTO；同键不同输入冲突，旧expired键仍指向旧资源，必须新键创建。曝光身份允许在对应数学版本发布前存在，只FK拥有者；选题依准确ID/version/SHA匹配，不以同名草稿或不精确FK污染当前题源。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；另Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestQuestion(Schema|Tx|Idempotency)' -timeout 5m -count=1。Expected: 新/旧真实PG断言PASS，旧迁移文件零修改。
-- [ ] **Step 5: 提交。** Run: git add db/migrations/00006_learning_assessment.sql backend/internal/store/learning*；git commit -m "feat: persist learning invariants and shared transactions"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(Schema|CommitProof|SharedLocks|Configured|Idempotency)' -timeout 5m -count=1。Expected: 新表/接口缺失，或SQL不变量未拒绝。
+- [x] **Step 3: 实现迁移及上述事务接口。** 新16表严格等于设计§10；learningConfigured只有00006未曾启用且16表全不存在才返回(false,nil)；goose已标记00006或任一学习表存在但不完整时返回ErrNotConfigured，已启用系统不得静默回退为不记录曝光的旧模式；FK使用原(id,version,sha256)可用唯一键；延迟触发器证明active五个items、submitted五个answers＋唯一result、固定publication成员/approval、不可变事件与终态。首次start/completion时刻及原事件不被再次动作覆盖；完成依据更新后的显式动作可以追加证据，当前资格不用首次事件指针替代有效性核验。READ COMMITTED，先两把shared advisory lock，再managedIdentity及用户行；读取clock_timestamp，提交前重证当前会话/角色/CSRF。幂等保存动作/目标/输入摘要及Receipt，不保存答案DTO；同键不同输入冲突，旧expired键仍指向旧资源，必须新键创建。曝光身份允许在对应数学版本发布前存在，只FK拥有者；选题依准确ID/version/SHA匹配，不以同名草稿或不精确FK污染当前题源。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；另Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestQuestion(Schema|Tx|Idempotency)' -timeout 5m -count=1。Expected: 新/旧真实PG断言PASS，旧迁移文件零修改。
+- [x] **Step 5: 提交。** Run: git add db/migrations/00006_learning_assessment.sql backend/internal/store/learning*；git commit -m "feat: persist learning invariants and shared transactions"。
 
 ### Task 3: 定向候选、实际发布依据与固定历史题源
 
@@ -169,7 +169,7 @@ func TestLearningSchemaTableCount(t *testing.T) {
 
 **Interfaces:** Consumes task1 SourcePool/Candidate/Seal与task2 tx/fixture。Produces learningSourcePool(ctx context.Context,tx *sql.Tx,actor string,k question.Identity,bp *question.Identity,now time.Time) (assessment.SourcePool,error)；learningLoadItems(ctx context.Context,tx *sql.Tx,seal assessment.Seal) ([]question.Instance,error)；learningEvidenceRestrictions(ctx context.Context,tx *sql.Tx,dependencies []learning.EvidenceDependency) ([]assessment.RestrictionReason,error)。Test-only adapter Store.LearningSourcePoolForTest(ctx context.Context,a question.Access,k question.Identity,bp *question.Identity) (assessment.SourcePool,error) 在assessment_sources_internal_test.go定义并包装合法learningTx，不进入生产构建。
 
-- [ ] **Step 1: 写题源失败测试。**
+- [x] **Step 1: 写题源失败测试。**
 ~~~go
 func TestLearningSourcePoolExactVersion(t *testing.T) {
   f := newLearningFixture(t)
@@ -179,10 +179,10 @@ func TestLearningSourcePoolExactVersion(t *testing.T) {
 ~~~
 测试专用adapter属package store，夹具与调用测试属store_test；外部测试仅调用该exported test-only方法，避免混用两个测试包。LearningSourcePool同时测错误SHA/版本、无蓝图练习、多个蓝图、准确core索引、最近检测按账户全局排除、template曝光覆盖16个有限实例、同ID不同正文不匹配；LearningHistoricalSource普通替换后固定五题可加载，永久撤回返回限制，不能用prepared或伪造publication。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(SourcePool|HistoricalSource)' -timeout 5m -count=1。Expected: 定向接口未实现或错误来源被接受。
-- [ ] **Step 3: 实现上述题源接口。** 从当前两head、成员/来源/coverage/restriction索引按准确knowledge/blueprint一次批取≤1000身份与覆盖；关联用户曝光/见题/最近全局检测，先不载私有body。选中后仅批载1/5实例及真实review批准，逐SHA复验，禁止questionOfferable逐题调用或读全部manifest。新增覆盖/反向依赖索引只写00006。固定历史与当前可选题源分开，ordinary replacement不作为永久撤回。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；Expected: pool定向/历史断言PASS；测试统计候选正文载入为0，选中后恰1/5，不随整个题库增长。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/store/assessment_sources* backend/internal/store/assessment_evidence* db/migrations/00006_learning_assessment.sql；git commit -m "feat: query bounded published learning question sources"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(SourcePool|HistoricalSource)' -timeout 5m -count=1。Expected: 定向接口未实现或错误来源被接受。
+- [x] **Step 3: 实现上述题源接口。** 从当前两head、成员/来源/coverage/restriction索引按准确knowledge/blueprint一次批取≤1000身份与覆盖；关联用户曝光/见题/最近全局检测，先不载私有body。选中后仅批载1/5实例及真实review批准，逐SHA复验，禁止questionOfferable逐题调用或读全部manifest。新增覆盖/反向依赖索引只写00006。固定历史与当前可选题源分开，ordinary replacement不作为永久撤回。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；Expected: pool定向/历史断言PASS；测试统计候选正文载入为0，选中后恰1/5，不随整个题库增长。
+- [x] **Step 5: 提交。** Run: git add backend/internal/store/assessment_sources* backend/internal/store/assessment_evidence* db/migrations/00006_learning_assessment.sql；git commit -m "feat: query bounded published learning question sources"。
 
 ### Task 4: 所有原P4a答案交付的事务曝光
 
@@ -190,7 +190,7 @@ func TestLearningSourcePoolExactVersion(t *testing.T) {
 
 **Interfaces:** Consumes task2 learningConfigured及原questionTx/managedIdentity，task3准确数学身份。Produces learningRecordExposure(ctx context.Context,tx *sql.Tx,actor string,refs []learning.ExposureRef,now time.Time) (int64,error)；learningExposureSince(ctx context.Context,tx *sql.Tx,actor string,watermark int64,items []assessment.ItemBinding) (bool,error)；questionExposureRefs(input question.DraftInput,instances []question.Instance) ([]learning.ExposureRef,error)；questionExposeResponse(ctx context.Context,tx *sql.Tx,u auth.User,response any,now time.Time) error；Store.questionAnswerReadTx(ctx context.Context,a question.Access,action question.Action,fn func(context.Context,*sql.Tx,auth.User,time.Time) error) error。
 
-- [ ] **Step 1: 写逐入口失败测试。**
+- [x] **Step 1: 写逐入口失败测试。**
 ~~~go
 func TestLearningExposureActiveAttempt(t *testing.T) {
   f := newLearningFixture(t)
@@ -201,10 +201,10 @@ func TestLearningExposureActiveAttempt(t *testing.T) {
 ~~~
 ExposureQuestion入口表逐项覆盖read/create/save/adopt/revise draft、submit/read/decide submission、instances分页、validate生成预览及同键含答案重放；导出可编辑题包经过ReadQuestionSubmission返回冻结正文也要记录。摘要/list成员/coverage无答案不记录；曝光写失败不能返回正文、响应取消仍保守记录、发布前准确草稿预览在后续同SHA发布后仍排除、同名不同SHA不排除、模板一条映射全部有限实例、旧未配置原行为、启用后缺曝光表时管理答案拒绝交付、管理员撤回后可审准确旧正文。ExportQuestionArchive是受信CLI专用，测试不伪造个人actor。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(LearningExposure|QuestionExports)' -timeout 5m -count=1。Expected: 含答案入口未推进曝光/失败仍交付的特定断言失败。
-- [ ] **Step 3: 实现上述曝光接口并集成入口。** 原写在同一个questionTx尾部记录，不另开事务；答案GET切换READ COMMITTED可写共享锁事务并重证原角色/作者规则。questionExposureRefs从P4a CanonicalPackage规范正文与原questionCanonical("question-template-v1",template)取得准确模板SHA，固定/生成实例复用CanonicalInstance；无需另跑生成器或等待版本发布才能记曝光。原始未批准草稿以准确SHA记录，仅当选题数学身份完全相同才排除，同名不同正文不匹配；准确模板曝光记录模板而非展开全部正文。每用户序号单调、最后时刻取最大值；所有含答案重放均追加交付事实，既有私有DTO/状态/不可变body不改。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；另Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run 'Question' -timeout 5m -count=1。Expected: 入口矩阵与全部旧question回归PASS，无未覆盖HTTP答案入口。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/store/exposure* backend/internal/store/question_tx.go backend/internal/store/question_draft.go backend/internal/store/question_submission.go backend/internal/store/question_review.go backend/internal/store/question_idempotency.go backend/internal/store/question_exports_test.go；git commit -m "feat: record question answer delivery before responses"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(LearningExposure|QuestionExports)' -timeout 5m -count=1。Expected: 含答案入口未推进曝光/失败仍交付的特定断言失败。
+- [x] **Step 3: 实现上述曝光接口并集成入口。** 原写在同一个questionTx尾部记录，不另开事务；答案GET切换READ COMMITTED可写共享锁事务并重证原角色/作者规则。questionExposureRefs从P4a CanonicalPackage规范正文与原questionCanonical("question-template-v1",template)取得准确模板SHA，固定/生成实例复用CanonicalInstance；无需另跑生成器或等待版本发布才能记曝光。原始未批准草稿以准确SHA记录，仅当选题数学身份完全相同才排除，同名不同正文不匹配；准确模板曝光记录模板而非展开全部正文。每用户序号单调、最后时刻取最大值；所有含答案重放均追加交付事实，既有私有DTO/状态/不可变body不改。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；另Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run 'Question' -timeout 5m -count=1。Expected: 入口矩阵与全部旧question回归PASS，无未覆盖HTTP答案入口。
+- [x] **Step 5: 提交。** Run: git add backend/internal/store/exposure* backend/internal/store/question_tx.go backend/internal/store/question_draft.go backend/internal/store/question_submission.go backend/internal/store/question_review.go backend/internal/store/question_idempotency.go backend/internal/store/question_exports_test.go；git commit -m "feat: record question answer delivery before responses"。
 
 ### Task 5: 阅读动作、固定路线加入与有效资格
 
@@ -212,7 +212,7 @@ ExposureQuestion入口表逐项覆盖read/create/save/adopt/revise draft、submi
 
 **Interfaces:** Consumes task1 ResolveState/EvaluateEvidence、task2 tx/Receipt、task3限制。Produces Store.StartLearning(ctx context.Context,a question.Access,id string,in learning.StartInput) (learning.KnowledgeState,error)；CompleteLearning(ctx context.Context,a question.Access,id string,in learning.CompleteInput) (learning.KnowledgeState,error)；EnrollLearningPath(ctx context.Context,a question.Access,id string,in learning.EnrollInput) (learning.PathView,error)；learningApplyAssessment(ctx context.Context,tx *sql.Tx,u auth.User,now time.Time,fact assessment.AttemptFact) (assessment.ProgressUpdate,error)；learningCurrentEvidence(ctx context.Context,tx *sql.Tx,actor string,k question.Identity) (learning.EvidenceView,error)。
 
-- [ ] **Step 1: 写动作与资格失败测试。**
+- [x] **Step 1: 写动作与资格失败测试。**
 ~~~go
 func TestLearningCompleteRequiresStart(t *testing.T) {
   f := newLearningFixture(t)
@@ -222,10 +222,10 @@ func TestLearningCompleteRequiresStart(t *testing.T) {
 ~~~
 LearningActions重复start保留首次时间/事件、complete无start拒绝、旧version拒绝、GET不产生事件；LearningCompletionNewMaterial测知识版本不变而unit/asset引用更新：旧完成被限制、再次明确complete固定新依据、首次completedAt不变、相同依据重复不增加事件；LearningAlternativeEvidence用合法封存SQL夹具测试两种完成/通过顺序、诊断无完成也有资格、普通只有通过无资格、最新复习失败仍有其他通过；LearningPaths根节点、全部准确前置、诊断只被测节点、固定route顺序与分母、显式新版、撤回不删除旧节点。已通过事实夹具必须有真实批准来源、五题/答案/result约束，不用缓存passed替代；Task7再用真实命令复测。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(Actions|Complete|AlternativeEvidence|Paths|Qualification)' -timeout 5m -count=1。Expected: 动作/资格接口未实现或违规授予。
-- [ ] **Step 3: 实现上述接口。** learning_events记录不可变开始/完成及实际publication、准确unit/asset依赖；记录保留首次startedAt/completedAt及原事件；当前完成资格按所有准确版本完成事件的依赖限制择有效证据。若已发布讲解依据改变，用户再次明确complete可追加固定新unit/asset证据；相同依据重复不制造事件、时长或完成计数。显式enroll固定当前path/准确nodes≤1000/分母，根与符合条件授予。learningApplyAssessment只接受已在本事务持久化且SHA/限制重证的AttemptFact；normal/review组合准确完成，diagnostic独立。加入/开始/普通检测创建保存合法首次解锁；完成/通过仅查当前直接后继，稳定ID授予唯一、旧路线不遍历或改写。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；Expected: 阅读、两种顺序、多前置、替代证据与固定分母PASS，计数分别对应阅读/有效通过/历史解锁。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/store/learning_actions* backend/internal/store/learning_qualification* backend/internal/store/learning_paths*；git commit -m "feat: persist explicit learning and versioned qualifications"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(Actions|Complete|AlternativeEvidence|Paths|Qualification)' -timeout 5m -count=1。Expected: 动作/资格接口未实现或违规授予。
+- [x] **Step 3: 实现上述接口。** learning_events记录不可变开始/完成及实际publication、准确unit/asset依赖；记录保留首次startedAt/completedAt及原事件；当前完成资格按所有准确版本完成事件的依赖限制择有效证据。若已发布讲解依据改变，用户再次明确complete可追加固定新unit/asset证据；相同依据重复不制造事件、时长或完成计数。显式enroll固定当前path/准确nodes≤1000/分母，根与符合条件授予。learningApplyAssessment只接受已在本事务持久化且SHA/限制重证的AttemptFact；normal/review组合准确完成，diagnostic独立。加入/开始/普通检测创建保存合法首次解锁；完成/通过仅查当前直接后继，稳定ID授予唯一、旧路线不遍历或改写。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；Expected: 阅读、两种顺序、多前置、替代证据与固定分母PASS，计数分别对应阅读/有效通过/历史解锁。
+- [x] **Step 5: 提交。** Run: git add backend/internal/store/learning_actions* backend/internal/store/learning_qualification* backend/internal/store/learning_paths*；git commit -m "feat: persist explicit learning and versioned qualifications"。
 
 ### Task 6: 安全练习的创建、作答、查看与放弃
 
@@ -233,7 +233,7 @@ LearningActions重复start保留首次时间/事件、complete无start拒绝、�
 
 **Interfaces:** Consumes task1投影/GradeChoice/GradeNumeric、task2幂等、task3题源、task4曝光。Produces Store.CreatePractice(ctx context.Context,a question.Access,in assessment.PracticeCreateInput) (assessment.PracticeView,error)；ReadPractice(ctx context.Context,a question.Access,id string) (assessment.PracticeView,error)；AnswerPractice(ctx context.Context,a question.Access,id string,in assessment.Answer) (assessment.PracticeView,error)；RevealPractice(ctx context.Context,a question.Access,id string) (assessment.PracticeView,error)；AbandonPractice(ctx context.Context,a question.Access,id string) (assessment.PracticeView,error)。
 
-- [ ] **Step 1: 写真实练习失败测试。**
+- [x] **Step 1: 写真实练习失败测试。**
 ~~~go
 func TestLearningPracticeRevealNoQualification(t *testing.T) {
   f := newLearningFixture(t)
@@ -245,10 +245,10 @@ func TestLearningPracticeRevealNoQualification(t *testing.T) {
 ~~~
 LearningPractice无blueprint/未解锁仍可练习、skipped作答拒绝、优先未见、格式错误active无答案、合法错答一次终结、revealed无score、旧结果不可改、24h边界、单active并发与过期创建、同键复放旧ID、明确放弃、另用户404。若练习先创建再创建重合正式检测，answer/reveal拒绝STATE_CONFLICT；若正式检测先有五题，练习创建排除重合，不能靠旧practice ID取答案。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningPractice' -timeout 5m -count=1。Expected: 工作流未实现或提前答案/错误资格断言失败。
-- [ ] **Step 3: 实现上述接口。** 同用户锁内终结expired active后再新建；freeze一题准确来源并用ProjectQuestion返回。Answer仅合法输入一次、规范格式错误不终结；Reveal无评分。终态含答案先曝光，active检测重合先拒绝；记录题面首次/最后见题，不让刷新/同键重放增加“见过题数”；全部练习路径无qualification grant。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；Expected: 完整状态转换、无蓝图练习、所有权和曝光PASS。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/store/practice_*；git commit -m "feat: add safe single-attempt learning practice"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningPractice' -timeout 5m -count=1。Expected: 工作流未实现或提前答案/错误资格断言失败。
+- [x] **Step 3: 实现上述接口。** 同用户锁内终结expired active后再新建；freeze一题准确来源并用ProjectQuestion返回。Answer仅合法输入一次、规范格式错误不终结；Reveal无评分。终态含答案先曝光，active检测重合先拒绝；记录题面首次/最后见题，不让刷新/同键重放增加“见过题数”；全部练习路径无qualification grant。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；Expected: 完整状态转换、无蓝图练习、所有权和曝光PASS。
+- [x] **Step 5: 提交。** Run: git add backend/internal/store/practice_*；git commit -m "feat: add safe single-attempt learning practice"。
 
 ### Task 7: 五题检测、诊断、提交与并发正确性
 
@@ -256,7 +256,7 @@ LearningPractice无blueprint/未解锁仍可练习、skipped作答拒绝、优�
 
 **Interfaces:** Consumes task1 SelectFive/GradeFive/Seal、task3题源、task4曝光、task5 learningApplyAssessment。Produces Store.CreateAssessment(ctx context.Context,a question.Access,in assessment.CreateInput) (assessment.AttemptView,error)；ReadAssessment(ctx context.Context,a question.Access,id string) (assessment.AttemptView,error)；SubmitAssessment(ctx context.Context,a question.Access,id string,in assessment.SubmitInput) (assessment.ResultView,error)；AbandonAssessment(ctx context.Context,a question.Access,id string) (assessment.AttemptView,error)。
 
-- [ ] **Step 1: 写真实检测失败测试。**
+- [x] **Step 1: 写真实检测失败测试。**
 ~~~go
 func TestAssessmentFourOfFive(t *testing.T) {
   f := newLearningFixture(t)
@@ -267,10 +267,10 @@ func TestAssessmentFourOfFive(t *testing.T) {
 ~~~
 新增AssessmentNotReady（三十分钟/全局最近五题/模板/8core/1000池/多个blueprint/retryAt）、AssessmentExposureAfterCreation（editor预览及重放后affected、score/pass null；自己提交结果不自伤）、AssessmentExpiryAndRace（同用户create唯一、submit唯一、abandon对submit、锁等待跨24h、撤权/密码/取消）。AssessmentEvidence普通两种顺序、diagnostic不改祖先/阅读、review失败、替换旧题继续提交、知识新版affected、永久撤回与grant两种提交顺序、五项格式全体拒绝无局部分数。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestAssessment' -timeout 5m -count=1。Expected: 正式检测接口缺失或特定资格/竞争断言失败。
-- [ ] **Step 3: 实现上述接口。** node重证当前canEnter，diagnostic无需前置，review须该知识个人历史。创建固定两publication/准确蓝图/五题/core/rule/crypto-rand32-byte seed/当前曝光序号；active冲突返回已有摘要，过期处理与幂等顺序沿Task2。提交先一次验证五项，读取数据库当前时刻与曝光/准确知识/永久撤回；合法原输入均固定，限制或后曝为affected，无score/pass及资格；否则GradeFive→固定result→ApplyAssessment→自身答案曝光→Receipt，同事务提交。Read只派生expiry，不写学习/资格；原schema result约束不放松。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；Expected: 五题3/4/5、全部竞态及准确版本PASS，双提交只有一份原答案/result/grant。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/store/assessment_commands* backend/internal/store/assessment_read* backend/internal/store/assessment_concurrency_test.go；git commit -m "feat: submit fixed five-question assessments atomically"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestAssessment' -timeout 5m -count=1。Expected: 正式检测接口缺失或特定资格/竞争断言失败。
+- [x] **Step 3: 实现上述接口。** node重证当前canEnter，diagnostic无需前置，review须该知识个人历史。创建固定两publication/准确蓝图/五题/core/rule/crypto-rand32-byte seed/当前曝光序号；active冲突返回已有摘要，过期处理与幂等顺序沿Task2。提交先一次验证五项，读取数据库当前时刻与曝光/准确知识/永久撤回；合法原输入均固定，限制或后曝为affected，无score/pass及资格；否则GradeFive→固定result→ApplyAssessment→自身答案曝光→Receipt，同事务提交。Read只派生expiry，不写学习/资格；原schema result约束不放松。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；Expected: 五题3/4/5、全部竞态及准确版本PASS，双提交只有一份原答案/result/grant。
+- [x] **Step 5: 提交。** Run: git add backend/internal/store/assessment_commands* backend/internal/store/assessment_read* backend/internal/store/assessment_concurrency_test.go；git commit -m "feat: submit fixed five-question assessments atomically"。
 
 ### Task 8: 私有概览、固定进度、历史结果与受控素材
 
@@ -278,7 +278,7 @@ func TestAssessmentFourOfFive(t *testing.T) {
 
 **Interfaces:** Produces Store.ReadLearningOverview(ctx context.Context,a question.Access) (learning.Overview,error)；ListLearningKnowledge(ctx context.Context,a question.Access,q learning.ListQuery) (question.Page[learning.KnowledgeState],error)；ReadLearningKnowledge(ctx context.Context,a question.Access,id string,version int) (learning.KnowledgeDetail,error)；ListLearningPaths(ctx context.Context,a question.Access,q learning.ListQuery) (question.Page[learning.PathSummary],error)；ReadLearningPath(ctx context.Context,a question.Access,id string) (learning.PathView,error)；ListLearningPathNodes(ctx context.Context,a question.Access,id string,q learning.ListQuery) (question.Page[learning.PathNode],error)；ReadAssessmentResult(ctx context.Context,a question.Access,id string) (assessment.ResultView,error)；ListLearningHistory(ctx context.Context,a question.Access,q learning.ListQuery) (question.Page[learning.HistoryEntry],error)；ReadLearningAsset(ctx context.Context,a question.Access,attemptID,sha string) ([]byte,error)。Consumes task3限制/task4曝光/task5当前资格。
 
-- [ ] **Step 1: 写历史投影失败测试。**
+- [x] **Step 1: 写历史投影失败测试。**
 ~~~go
 func TestLearningReplayProjectionRestricted(t *testing.T) {
   f := newLearningFixture(t)
@@ -290,10 +290,10 @@ func TestLearningReplayProjectionRestricted(t *testing.T) {
 ~~~
 LearningHistoricalProjection原score不改、affected score/pass null、替代有效证据仍资格、旧版本summary与当前lecture入口分离；LearningRead 101历史分页20/100/offset100000、空目录真实0、无GET授予、三计数不混合、旧分母包含撤回。LearningAsset本人固定引用可读、他人/任意SHA/未批准/永久撤回404，MIME/SVG/bytes/headers旧边界。每次结果GET推进曝光，包括重读；摘要不曝光，不展示固定答案的页不载答案DTO。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(Read|HistoricalProjection|ReplayProjection|Asset)' -timeout 5m -count=1。Expected: 私有投影/限制未实现或越权旧素材被读取。
-- [ ] **Step 3: 实现上述读取接口。** 正常列表只载分页个人state与有界聚合，全部通过证据反连接撤回并选有效替代。旧path固定版分母，newVersionAvailable仅提示；历史非当前知识只summary，不任意载旧lecture。答案result/practice读取与含答案幂等重放在曝光事务内重构当前投影，保存原业务ID/成功状态；管理员固定历史body仍原样。素材返回[]byte，与原ReadSubmissionAsset/GetPublishedAsset一致，HTTP复用contentAsset的SVG校验、image/svg+xml、≤1048576 bytes及安全响应头；按本人practice/assessment实际fixed refs和发布/限制检验，不接任意文件路径。完整JSON包装参与4MiB预算。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；Expected: 投影、替代证据、分页和素材权限PASS，原正确结果未因普通替换被失效。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/store/learning_read* backend/internal/store/learning_history* backend/internal/store/learning_assets* backend/internal/store/practice_read.go backend/internal/store/assessment_read.go；git commit -m "feat: project private progress and restricted learning history"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearning(Read|HistoricalProjection|ReplayProjection|Asset)' -timeout 5m -count=1。Expected: 私有投影/限制未实现或越权旧素材被读取。
+- [x] **Step 3: 实现上述读取接口。** 正常列表只载分页个人state与有界聚合，全部通过证据反连接撤回并选有效替代。旧path固定版分母，newVersionAvailable仅提示；历史非当前知识只summary，不任意载旧lecture。答案result/practice读取与含答案幂等重放在曝光事务内重构当前投影，保存原业务ID/成功状态；管理员固定历史body仍原样。素材返回[]byte，与原ReadSubmissionAsset/GetPublishedAsset一致，HTTP复用contentAsset的SVG校验、image/svg+xml、≤1048576 bytes及安全响应头；按本人practice/assessment实际fixed refs和发布/限制检验，不接任意文件路径。完整JSON包装参与4MiB预算。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；Expected: 投影、替代证据、分页和素材权限PASS，原正确结果未因普通替换被失效。
+- [x] **Step 5: 提交。** Run: git add backend/internal/store/learning_read* backend/internal/store/learning_history* backend/internal/store/learning_assets* backend/internal/store/practice_read.go backend/internal/store/assessment_read.go；git commit -m "feat: project private progress and restricted learning history"。
 
 ### Task 9: 统一服务、严格Go接口、完整OpenAPI与真实联调夹具
 
@@ -301,7 +301,7 @@ LearningHistoricalProjection原score不改、affected score/pass null、替代�
 
 **Interfaces:** Consumes所有前述Store公共方法。Produces learning.Repository（方法逐项等于tasks2/5—8另加ConsumeRates(context.Context,[]auth.RateKey) error）；learning.NewService(repo Repository,acquire func(context.Context)(func(),error)) (*Service,error)；Service.Preflight(ctx context.Context,a question.Access,action Action) (auth.User,error)；Service.AcquireValidation(ctx context.Context) (func(),error)，各业务服务方法与对应Store名/签名一致；httpapi.LearningOptions={Learning:*learning.Service,PublicOrigin:string,Production:bool}，AuthOptions增加Learning *LearningOptions；DecodeLearningInput(raw []byte,action learning.Action) (any,error)。测试control LearningScenario枚举basic/diagnostic/withdrawal/exposure/history/capacity，只在loopback capability受控环境。
 
-- [ ] **Step 1: 写HTTP与夹具失败测试。**
+- [x] **Step 1: 写HTTP与夹具失败测试。**
 ~~~go
 func TestLearningHTTPFiveAnswersRequired(t *testing.T) {
   h := newLearningHTTPFixture(t) // 本文件用真实fixture+service+application handler
@@ -311,10 +311,10 @@ func TestLearningHTTPFiveAnswersRequired(t *testing.T) {
 ~~~
 LearningHTTP严格逐路径method、未知/重复/多余query、重复JSON键、NUL、整数1.0/1e0、截断/8192±1、完整响应4194304±1、错UUID/SHA/URL编码；所有权/CSRF/Origin/Fetch-Metadata、must-change、21动作rate共享、2槽真实占用/取消释放、8s含读正文。Boundary JSON每case有name/action/raw及accepted/errorCode用于Node共享；至少60个有意义用例含上述五题/numeric分支。兼容snapshot固定当前54旧paths/147schemas/22responses/3securitySchemes逐规范值摘要、00001—00005和旧数学用途；test故意改一个旧字段必须失败；测试snapshot来自46206fc基线，不能由已改OpenAPI生成新“基线”掩盖兼容变化。Harness测试同一服务真实学习流程、reset先清16新表的合法依赖，再清旧数据，不含生产入口或真实库迁移。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/learning ./internal/httpapi ./internal/e2etest -run 'Learning' -timeout 5m -count=1。Expected: route/service不存在或严格边界断言失败。
-- [ ] **Step 3: 实现上述接口与装配。** HTTP在同一8秒上下文只调用一次Service.Preflight（含Rates），heavy再调用Service.AcquireValidation并defer release，随后decode/dispatch到repo重证；Service业务包装不再次限流或申请槽。槽由既有publication.Service.AcquireValidation注入，不增加池。21个method/path逐项按设计§12（namespace根本身无业务接口）；新增8代码与旧auth/idempotency/413/404/503闭合映射，ErrStateConflict→ASSESSMENT_STATE_CONFLICT。状态/幂等头/Cookie/Retry-After/privateHeaders沿旧模式；asset单独binary受限，不误套JSON预算。OpenAPI全新具名DTO完整enum/oneOf，不增旧字段；JSON格式继续JSON.parse、canonical sort+digest做兼容快照，无新parser依赖。实际服务装配先供harness使用，再供server，harness控制不导入生产。Fixture不同author/reviewer真实批准三节点与有限题源，learner/多角色账户隔离，提前为Task11/12提供真实端到端环境。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；另逐条Run: node tools/verify/run.mjs -- node --test tools/verify/learning-compatibility.test.mjs；node tools/verify/run.mjs --cwd frontend -- npm run api:generate。Expected: HTTP/共享boundary/真fixture PASS；旧契约逐值相等，新generated类型稳定；连续第二次api:generate零差异。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/learning backend/internal/httpapi/learning* backend/internal/httpapi/application.go backend/cmd/server/main.go backend/internal/e2etest api tools/verify/learning-compatibility.test.mjs frontend/src/lib/api/generated.d.ts；git commit -m "feat: expose bounded private learning API and real test harness"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/learning ./internal/httpapi ./internal/e2etest -run 'Learning' -timeout 5m -count=1。Expected: route/service不存在或严格边界断言失败。
+- [x] **Step 3: 实现上述接口与装配。** HTTP在同一8秒上下文只调用一次Service.Preflight（含Rates），heavy再调用Service.AcquireValidation并defer release，随后decode/dispatch到repo重证；Service业务包装不再次限流或申请槽。槽由既有publication.Service.AcquireValidation注入，不增加池。21个method/path逐项按设计§12（namespace根本身无业务接口）；新增8代码与旧auth/idempotency/413/404/503闭合映射，ErrStateConflict→ASSESSMENT_STATE_CONFLICT。状态/幂等头/Cookie/Retry-After/privateHeaders沿旧模式；asset单独binary受限，不误套JSON预算。OpenAPI全新具名DTO完整enum/oneOf，不增旧字段；JSON格式继续JSON.parse、canonical sort+digest做兼容快照，无新parser依赖。实际服务装配先供harness使用，再供server，harness控制不导入生产。Fixture不同author/reviewer真实批准三节点与有限题源，learner/多角色账户隔离，提前为Task11/12提供真实端到端环境。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；另逐条Run: node tools/verify/run.mjs -- node --test tools/verify/learning-compatibility.test.mjs；node tools/verify/run.mjs --cwd frontend -- npm run api:generate。Expected: HTTP/共享boundary/真fixture PASS；旧契约逐值相等，新generated类型稳定；连续第二次api:generate零差异。
+- [x] **Step 5: 提交。** Run: git add backend/internal/learning backend/internal/httpapi/learning* backend/internal/httpapi/application.go backend/cmd/server/main.go backend/internal/e2etest api tools/verify/learning-compatibility.test.mjs frontend/src/lib/api/generated.d.ts；git commit -m "feat: expose bounded private learning API and real test harness"。
 
 ### Task 10: TypeScript契约、同源原始代理、SSR与主动重试客户端
 
@@ -322,7 +322,7 @@ LearningHTTP严格逐路径method、未知/重复/多余query、重复JSON键、
 
 **Interfaces:** Consumes Task9 OpenAPI及boundary cases。LearningAction逐项等于Go learning.Action；Produces LearningPage<T>={items:T[],total:number,limit:number,offset:number}；LearningRoute封闭联合（kind等于21个Action；id/query/sha只在需要分支存在）；LearningResult<T>={ok:true,data:T}|{ok:false,status:number,code:LearningErrorCode,message:string,requestId:string,retryAfter?:number,retryAt?:string,activeAttempt?:AttemptSummary,formatCode?:string}；requestLearning<T>(route:LearningRoute,input?:unknown,pendingKey?:string,signal?:AbortSignal):Promise<LearningResult<T>>；createLearningProxy(rawGoOrigin:string,config:{publicOrigin:string;production:boolean},fetcher:typeof fetch): (request:Request)=>Promise<Response>；getLearningClient():LearningReadClient；LearningReadClient的11个GET方法名与Go仓储一致但首字母小写（readLearningOverview/listLearningKnowledge/readLearningKnowledge/listLearningPaths/readLearningPath/listLearningPathNodes/readPractice/readAssessment/readAssessmentResult/listLearningHistory/readLearningAsset），去掉ctx/a，保留其余参数，JSON返回Promise<LearningResult<对应DTO>>，素材返回Promise<LearningResult<Uint8Array>>；cookies由原auth读取；validateLearningBytes(raw:Uint8Array,action:LearningAction):unknown。
 
-- [ ] **Step 1: 写TS边界失败测试。**
+- [x] **Step 1: 写TS边界失败测试。**
 ~~~ts
 it("active assessment rejects any answer field", () => {
   expect(attemptViewSchema.safeParse({...activeAttemptFixture, correctNumeric:{numerator:"1",denominator:"2"}}).success).toBe(false);
@@ -335,10 +335,10 @@ it("LearningClientPending reuses exact key and bytes", async () => {
 ~~~
 schemas表测全部Go共享raw JSON结果一致、额外字段/enum/正确性nullable；proxy严格method/URL/query/原始正文转发、双头、8192/4194304±1、cookies、JSON content type、受控binary素材、超时/abort含读响应、错误无raw题库。server-client未登录/不同用户no-store、active页无result。LearningClientPending不自动重试、同键手动重试、编辑新键、用户切换清内存、登录失效保留当前用户未确认状态提示。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/learning src/lib/api/learning-proxy.test.ts。Expected: 新模块缺失或unsafe DTO/raw forward断言失败。
-- [ ] **Step 3: 实现上述接口。** types复用generated具名DTO，Zod strict闭合oneOf；bytes扩展原raw-json严格解析规则，只新增学习分支而不改原question行为。proxy原Uint8Array直传，不parse/restringify规范化输入；固定白名单路径，无任意URL；总10秒覆盖context/CSRF/请求/正文读取。JSON和asset二分处理，asset保留旧受控MIME/header/bytes。SSR在server-only边界传入本用户Cookie、fetch no-store，不将私有client放全局缓存。
-- [ ] **Step 4: 确认GREEN。** 同Step2命令；另Run: node tools/verify/run.mjs --cwd frontend -- npm run typecheck。Expected: 共享边界、客户端、代理、SSR PASS，旧auth/content/question测试契约不变。
-- [ ] **Step 5: 提交。** Run: git add frontend/src/lib/learning frontend/src/lib/api/learning-proxy* frontend/src/app/api/v1/learning；git commit -m "feat: add strict learning clients and same-origin proxy"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/learning src/lib/api/learning-proxy.test.ts。Expected: 新模块缺失或unsafe DTO/raw forward断言失败。
+- [x] **Step 3: 实现上述接口。** types复用generated具名DTO，Zod strict闭合oneOf；bytes扩展原raw-json严格解析规则，只新增学习分支而不改原question行为。proxy原Uint8Array直传，不parse/restringify规范化输入；固定白名单路径，无任意URL；总10秒覆盖context/CSRF/请求/正文读取。JSON和asset二分处理，asset保留旧受控MIME/header/bytes。SSR在server-only边界传入本用户Cookie、fetch no-store，不将私有client放全局缓存。
+- [x] **Step 4: 确认GREEN。** 同Step2命令；另Run: node tools/verify/run.mjs --cwd frontend -- npm run typecheck。Expected: 共享边界、客户端、代理、SSR PASS，旧auth/content/question测试契约不变。
+- [x] **Step 5: 提交。** Run: git add frontend/src/lib/learning frontend/src/lib/api/learning-proxy* frontend/src/app/api/v1/learning；git commit -m "feat: add strict learning clients and same-origin proxy"。
 
 ### Task 11: 学习中心、知识状态、固定路线与回顾导航
 
@@ -346,7 +346,7 @@ schemas表测全部Go共享raw JSON结果一致、额外字段/enum/正确性nul
 
 **Interfaces:** Consumes requestLearning/getLearningClient及KnowledgeState/PathSummary/HistoryEntry。Produces OverviewPanel({overview:Overview})、KnowledgeControls({detail:KnowledgeDetail})、PathProgress({path:PathSummary,nodes:PathNode[]})、HistoryList({page:LearningPage<HistoryEntry>})、LearningStatus({state:KnowledgeState})，均返回React.JSX.Element；PendingLearningCommand={key:string,route:LearningRoute,input:Readonly<unknown>,actorId:string}；createPendingLearningCommand(route,input,actorId):PendingLearningCommand。UI显示状态由Go给出，无客户端资格计算；learning-helpers固定调用Task9 scenario/reset真实API，不提供假成功responses。
 
-- [ ] **Step 1: 写行为失败测试。**
+- [x] **Step 1: 写行为失败测试。**
 ~~~ts
 it("route progress keeps withdrawn node in denominator", () => {
   render(<PathProgress path={pathSummary({totalNodes:3,completedNodes:1})} nodes={nodesWithOneWithdrawn}/>);
@@ -356,10 +356,10 @@ it("route progress keeps withdrawn node in denominator", () => {
 ~~~
 LearningUI未登录/未配置/无数据/错误、可读未解锁分离、开始与完成两个动作、未完成不显示已学、GET不加入、New route version available显式选择、最新失败needs-review但历史解锁保留、分页及点击当前lecture/旧summary区分。LearningProgress E2E两测试：真实学习＋加入路线的阅读/通过/解锁三计数；新版/撤回后固定分母；两个viewport键盘可达，无横向溢出。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/learning；Expected: 组件不存在或真实数字/动作断言失败。
-- [ ] **Step 3: 实现上述组件和页面。** 原公开SSR结果保持原DTO，只另取私有状态；匿名保持原阅读。状态英文Unlearned/Learning/Learned/Needs review/Mastered及Locked/Unlocked/Unavailable；Mark as learned依据completionValid显示，不能仅凭历史completedAt隐藏重新明确完成的入口；明确按钮Start learning/Mark as learned/Join route/Review。Learn空状态提示真实起点，无演示进度/时长。使用原创CSS/SVG或已有原创受控素材，图表路径关系沿旧阅读实现；PendingCommand与Task10精确键/输入合同一致，切账户清空。
-- [ ] **Step 4: 确认GREEN。** 同Step2；另Run: node tools/verify/run.mjs --cwd frontend -- npm run typecheck；生产构建及harness构建后Run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-progress.spec.ts。Expected: 单元PASS，真实2场景×2viewport=4 PASS。
-- [ ] **Step 5: 提交。** Run: git add frontend/src/features/learning frontend/src/app/learn frontend/src/app/learning-history frontend/src/app/knowledge frontend/src/app/paths frontend/src/features/catalogue/knowledge-map.tsx frontend/src/features/reading/knowledge-view.tsx frontend/src/features/reading/path-view.tsx frontend/src/components/site-header.tsx frontend/src/components/auth-status.tsx frontend/src/components/learning-hub.tsx frontend/src/styles/learning.module.css tests/e2e/learning-helpers.ts tests/e2e/learning-progress.spec.ts；git commit -m "feat: display personal learning and fixed route progress"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/learning；Expected: 组件不存在或真实数字/动作断言失败。
+- [x] **Step 3: 实现上述组件和页面。** 原公开SSR结果保持原DTO，只另取私有状态；匿名保持原阅读。状态英文Unlearned/Learning/Learned/Needs review/Mastered及Locked/Unlocked/Unavailable；Mark as learned依据completionValid显示，不能仅凭历史completedAt隐藏重新明确完成的入口；明确按钮Start learning/Mark as learned/Join route/Review。Learn空状态提示真实起点，无演示进度/时长。使用原创CSS/SVG或已有原创受控素材，图表路径关系沿旧阅读实现；PendingCommand与Task10精确键/输入合同一致，切账户清空。
+- [x] **Step 4: 确认GREEN。** 同Step2；另Run: node tools/verify/run.mjs --cwd frontend -- npm run typecheck；生产构建及harness构建后Run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-progress.spec.ts。Expected: 单元PASS，真实2场景×2viewport=4 PASS。
+- [x] **Step 5: 提交。** Run: git add frontend/src/features/learning frontend/src/app/learn frontend/src/app/learning-history frontend/src/app/knowledge frontend/src/app/paths frontend/src/features/catalogue/knowledge-map.tsx frontend/src/features/reading/knowledge-view.tsx frontend/src/features/reading/path-view.tsx frontend/src/components/site-header.tsx frontend/src/components/auth-status.tsx frontend/src/components/learning-hub.tsx frontend/src/styles/learning.module.css tests/e2e/learning-helpers.ts tests/e2e/learning-progress.spec.ts；git commit -m "feat: display personal learning and fixed route progress"。
 
 ### Task 12: 练习、五题表单、终态结果与未确认请求
 
@@ -367,7 +367,7 @@ LearningUI未登录/未配置/无数据/错误、可读未解锁分离、开始�
 
 **Interfaces:** Consumes task10 DTO/client及task11 PendingLearningCommand。Produces AttemptAsset({attemptId:string,asset:AssetRef})；AnswerFields({attemptId:string,question:SafeQuestion,value:Answer,onChange:(answer:Answer)=>void,disabled:boolean})、PracticePanel({view:PracticeView})、AssessmentPanel({view:AttemptView})、ResultPanel({result:ResultView})，均返回React.JSX.Element。客户端只维护原输入，SubmitInput一次五项（skipped显式分支）；SSR active用AttemptView，只有终态结果页ReadAssessmentResult。
 
-- [ ] **Step 1: 写作答失败测试。**
+- [x] **Step 1: 写作答失败测试。**
 ~~~ts
 it("AssessmentUnconfirmed keeps original five answers for manual retry", async () => {
   render(<AssessmentPanel view={activeFiveQuestionFixture}/>);
@@ -380,18 +380,18 @@ it("AssessmentUnconfirmed keeps original five answers for manual retry", async (
 ~~~
 AssessmentUI四题通过/三题失败由后端DTO显示、五项format整体错误不露局部分数、数值原raw保留、多个蓝图选择目标文本、no-ready无零分、active冲突继续/明确放弃、到期英文绝对时间、刷新空未提交表单提示、不用持久存储。AttemptAsset测试正常替换后的自有历史素材仍走/api/v1/learning/assets/{attemptId}/{sha}，不回落公开SHA入口；restricted不渲染答案/解析，affected单列不判失败，复习失败不假取消历史解锁；取消/登录失效/换账号无自动写重试。新增E2E八场景：practice无蓝图揭示/非法格式后合法答题；完整五题解锁/五项格式拒绝后3题失败；diagnostic只目标资格/全局最近五题＋曝光不足；他人UUID素材拒绝/断网后同键手动重试及换账号。无route.fulfill假成功。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/practice src/features/assessment。Expected: 新表单缺失或自动重试/提前答案/原始输入丢失断言失败。
-- [ ] **Step 3: 实现上述表单和页面。** AttemptAsset复用原安全SVG显示规则，URL只由当前自有attemptId及固定AssetRef构造，不接受任意src；choice只选展示ID，numeric格式说明复用P4a并保留输入字符串；没有逐题check按钮。每个mutation先freeze PendingCommand，主动重试原bytes/key，新编辑新key；loading/abort及时可达，disabled不冒充已取消。结果呈现真实4/5规则、validity/补测说明与当前lecture回顾；明确Reveal answer终结练习。SSR及HTML序列化active页无私有答案，草稿只组件内存。
-- [ ] **Step 4: 确认GREEN。** 同Step2；另typecheck与build分别经verify/run；重建harness后分别Run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-practice.spec.ts learning-assessment.spec.ts；node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-diagnostic.spec.ts learning-security.spec.ts。Expected: 八场景×2viewport=16真实PASS，含服务端DB结果验证。
-- [ ] **Step 5: 提交。** Run: git add frontend/src/features/practice frontend/src/features/assessment frontend/src/features/learning/knowledge-controls.tsx frontend/src/features/learning/attempt-asset.tsx frontend/src/features/learning/attempt-asset.test.tsx frontend/src/app/practice frontend/src/app/assessments frontend/src/styles/assessment.module.css tests/e2e/learning-practice.spec.ts tests/e2e/learning-assessment.spec.ts tests/e2e/learning-diagnostic.spec.ts tests/e2e/learning-security.spec.ts；git commit -m "feat: deliver safe practice and five-question learning UI"。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/practice src/features/assessment。Expected: 新表单缺失或自动重试/提前答案/原始输入丢失断言失败。
+- [x] **Step 3: 实现上述表单和页面。** AttemptAsset复用原安全SVG显示规则，URL只由当前自有attemptId及固定AssetRef构造，不接受任意src；choice只选展示ID，numeric格式说明复用P4a并保留输入字符串；没有逐题check按钮。每个mutation先freeze PendingCommand，主动重试原bytes/key，新编辑新key；loading/abort及时可达，disabled不冒充已取消。结果呈现真实4/5规则、validity/补测说明与当前lecture回顾；明确Reveal answer终结练习。SSR及HTML序列化active页无私有答案，草稿只组件内存。
+- [x] **Step 4: 确认GREEN。** 同Step2；另typecheck与build分别经verify/run；重建harness后分别Run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-practice.spec.ts learning-assessment.spec.ts；node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-diagnostic.spec.ts learning-security.spec.ts。Expected: 八场景×2viewport=16真实PASS，含服务端DB结果验证。
+- [x] **Step 5: 提交。** Run: git add frontend/src/features/practice frontend/src/features/assessment frontend/src/features/learning/knowledge-controls.tsx frontend/src/features/learning/attempt-asset.tsx frontend/src/features/learning/attempt-asset.test.tsx frontend/src/app/practice frontend/src/app/assessments frontend/src/styles/assessment.module.css tests/e2e/learning-practice.spec.ts tests/e2e/learning-assessment.spec.ts tests/e2e/learning-diagnostic.spec.ts tests/e2e/learning-security.spec.ts；git commit -m "feat: deliver safe practice and five-question learning UI"。
 
 ### Task 13: 最大合法容量、完整回归、CI与中文验收
 
-**Files:** Create backend/internal/store/learning_capacity_test.go；docs/operations/learning-assessment.md、2026-10-02-p4b-acceptance.md。Modify .github/workflows/backend.yml、frontend.yml；docs/superpowers/plans/2026-09-30-development-roadmap.md、本计划任务勾选；必要优化只在前述所属文件，新增行为需重新审查。
+**Files:** Create backend/internal/store/learning_capacity_test.go、backend/internal/testutil/learning_capacity.go；docs/operations/learning-assessment.md、2026-10-02-p4b-acceptance.md。Modify .github/workflows/backend.yml、frontend.yml；docs/superpowers/plans/2026-09-30-development-roadmap.md、本计划任务勾选；共享capacity构造与场景同步修改 backend/internal/e2etest/learning_fixture.go、learning_control.go、learning_fixture_test.go、harness.go；必要优化只在前述所属文件，新增行为需重新审查。
 
 **Interfaces:** Consumes全部已实现接口与Task9共享真实harness。Produces 可复验性能记录（actual rows、EXPLAIN ANALYZE/BUFFERS、elapsed、allocs/bytes、RSS、超时/锁竞争）及完整验收矩阵；CI继续相同4次push/PR checks，不引入新配额、生产migration或兼容修改。
 
-- [ ] **Step 1: 写容量失败测试与CI门槛。**
+- [x] **Step 1: 写容量失败测试与CI门槛。**
 ~~~go
 func TestLearningCapacityMaxPool(t *testing.T) {
   f := newLearningCapacityFixture(t) // 本任务用真实发布：200模板/10000实例/1000蓝图/最大合法内容
@@ -400,12 +400,12 @@ func TestLearningCapacityMaxPool(t *testing.T) {
   if err != nil || len(got.Questions) != 5 || time.Since(started) >= 8*time.Second { t.Fatal(got,err) }
 }
 ~~~
-容量夹具复用原question/content容量构造器，选题目标1000候选/8核心/稀疏覆盖、≤1000后继、101及大量个人历史分页；1000个蓝图集中同一知识时ReadLearningKnowledge的全部安全选项也≤8秒，复用同事务相同题源/核心的可行性计算，禁止1000次展开整库。每动作8秒内。LearningCapacityExposure批量模板关联、替代通过反连接、历史asset、4MiB完整包装±1、真实2槽与不同用户shared锁/管理exclusive竞争；断言只载五题body、不访问整份bank或遍历全部enrollments。先记录可重现失败与查询计划，性能已满足的新增容量场景应因测试不存在或计量门槛缺失RED，不能伪造功能失败。
+容量范围按用户已确认的[调整方案](2026-10-02-learning-capacity-adjustment.md)：20条真实批准100节点路线与80条现有短路线验证100条路线分页；保留数据库1000节点防护及其余最大计数。共享capacity场景使用同一数据，初始化单独4分钟，其他场景40秒且所有产品动作8秒不变。容量夹具复用原question/content容量构造器，选题目标1000候选/8核心/稀疏覆盖、≤1000后继、101及大量个人历史分页；1000个蓝图集中同一知识时ReadLearningKnowledge的全部安全选项也≤8秒，复用同事务相同题源/核心的可行性计算，禁止1000次展开整库。每动作8秒内。LearningCapacityExposure批量模板关联、替代通过反连接、历史asset、4MiB完整包装±1、真实2槽与不同用户shared锁/管理exclusive竞争；断言只载五题body、不访问整份bank或遍历全部enrollments。先记录可重现失败与查询计划，性能已满足的新增容量场景应因测试不存在或计量门槛缺失RED，不能伪造功能失败。
 
-- [ ] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacity' -timeout 5m -count=1。Expected: 缺容量fixture/统计门槛或真实超限失败，记录原因。
-- [ ] **Step 3: 完成容量优化、CI覆盖和操作文档。** 若失败仅定向索引/批量查询/流式预算优化，不缩小合法输入或延长截止。backend CI纯包列表加入assessment/learning、兼容snapshot测试；frontend CI新增learning progress、practice/assessment、diagnostic/security三个≤480秒批次，保留全部74既有E2E并加入20新E2E。操作文档明确00006手动迁移、未配置恢复、保留原始作答、曝光失败拒绝答案、无P5自动重评/无生产部署；验收记录不把合成夹具当正式内容。
-- [ ] **Step 4: 确认GREEN并运行完整矩阵。** 逐条运行下方A—D，Expected: 全部PASS/退出0；old74＋new20=94真实浏览器断言（47场景×2viewports），零跳过/零重试；容量证据记录实际数值，不只写“性能通过”。
-- [ ] **Step 5: 提交。** Run: git add backend/internal/store/learning_capacity_test.go backend/internal/store/assessment_sources.go backend/internal/store/assessment_evidence.go backend/internal/store/learning_qualification.go backend/internal/store/learning_read.go db/migrations/00006_learning_assessment.sql .github/workflows/backend.yml .github/workflows/frontend.yml docs/operations/learning-assessment.md docs/operations/2026-10-02-p4b-acceptance.md docs/superpowers/plans/2026-09-30-development-roadmap.md docs/superpowers/plans/2026-10-02-learning-assessment.md；git commit -m "test: verify learning capacity compatibility and full regression"。只在完整矩阵通过后勾选Task13；独立审查和PR交付仍未完成。
+- [x] **Step 2: 确认RED。** Run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacity' -timeout 5m -count=1。Expected: 缺容量fixture/统计门槛或真实超限失败，记录原因。
+- [x] **Step 3: 完成容量优化、CI覆盖和操作文档。** 若失败仅定向索引/批量查询/流式预算优化，不缩小合法输入或延长截止。backend CI纯包列表加入assessment/learning、兼容snapshot测试；frontend CI新增learning progress、practice/assessment、diagnostic/security三个≤480秒批次，保留全部74既有E2E并加入20新E2E。操作文档明确00006手动迁移、未配置恢复、保留原始作答、曝光失败拒绝答案、无P5自动重评/无生产部署；验收记录不把合成夹具当正式内容。
+- [x] **Step 4: 确认GREEN并运行完整矩阵。** 逐条运行下方A—D，Expected: 全部PASS/退出0；old74＋new20=94真实浏览器断言（47场景×2viewports），零跳过/零重试；容量证据记录实际数值，不只写“性能通过”。
+- [x] **Step 5: 提交。** Run: git add backend/internal/store/learning_capacity_test.go backend/internal/store/assessment_sources.go backend/internal/store/assessment_evidence.go backend/internal/store/learning_qualification.go backend/internal/store/learning_read.go db/migrations/00006_learning_assessment.sql .github/workflows/backend.yml .github/workflows/frontend.yml docs/operations/learning-assessment.md docs/operations/2026-10-02-p4b-acceptance.md docs/superpowers/plans/2026-09-30-development-roadmap.md docs/superpowers/plans/2026-10-02-learning-assessment.md；git commit -m "test: verify learning capacity compatibility and full regression"。只在完整矩阵通过后勾选Task13；独立审查和PR交付仍未完成。
 
 ## 完整验证矩阵与独立交付门槛
 
@@ -423,7 +423,10 @@ node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/
 ~~~sh
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1
-node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -timeout 5m -count=1
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip '^Test(Learning|Assessment)' -timeout 5m -count=1
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Learning|Assessment)' -skip '^TestLearningCapacity' -timeout 5m -count=1
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacitySourceVolume$' -timeout 5m -count=1
+node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacityMaxPool$' -timeout 5m -count=1
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...
 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
 ~~~

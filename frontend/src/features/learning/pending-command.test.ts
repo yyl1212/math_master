@@ -11,3 +11,23 @@ vi.mock("@/lib/learning/client",()=>({requestLearning:vi.fn(),bindLearningInput:
 it("manual retry preserves the original input and key, account switch clears pending",async()=>{vi.mocked(requestLearning).mockResolvedValue(learningFailure());const hook=renderHook(()=>useLearningCommand(vi.fn()));await act(async()=>hook.result.current.run({kind:"answerPractice",id:fixtureID},{kind:"numeric",raw:" 2 / 3 "}));expect(requestLearning).toHaveBeenCalledTimes(1);const first=vi.mocked(requestLearning).mock.calls[0];await act(async()=>hook.result.current.retry());expect(requestLearning).toHaveBeenCalledTimes(2);expect(vi.mocked(requestLearning).mock.calls[1].slice(0,3)).toEqual(first.slice(0,3));act(()=>window.dispatchEvent(new Event("math-master:auth-change")));expect(hook.result.current.pending).toBeNull();await act(async()=>hook.result.current.retry());expect(requestLearning).toHaveBeenCalledTimes(2)});
 it("rapid repeated clicks create only one in-flight command",async()=>{vi.mocked(requestLearning).mockResolvedValue(learningFailure());const hook=renderHook(()=>useLearningCommand(vi.fn()));await act(async()=>{await Promise.all([hook.result.current.run({kind:"abandonPractice",id:fixtureID},{}),hook.result.current.run({kind:"abandonPractice",id:fixtureID},{})])});expect(requestLearning).toHaveBeenCalledTimes(1)});
 it("local numeric limit reports the format error without sending or losing caller input",async()=>{const hook=renderHook(()=>useLearningCommand(vi.fn()));await act(async()=>hook.result.current.run({kind:"answerPractice",id:fixtureID},{kind:"numeric",raw:"1".repeat(129)}));expect(hook.result.current.error?.code).toBe("ANSWER_FORMAT_INVALID");expect(requestLearning).not.toHaveBeenCalled()});
+
+it("the ten-second command deadline includes identity preparation and keeps an unconfirmed request for manual retry",async()=>{
+ const context=await getAuthContext();vi.useFakeTimers();
+ vi.mocked(getAuthContext).mockImplementationOnce(()=>new Promise(resolve=>setTimeout(()=>resolve(context),4000)));
+ vi.mocked(requestLearning).mockImplementation((_route,_input,_key,signal)=>new Promise(resolve=>signal!.addEventListener("abort",()=>resolve(learningFailure()),{once:true})));
+ const hook=renderHook(()=>useLearningCommand(vi.fn()));
+ try {
+  act(()=>{void hook.result.current.run({kind:"abandonPractice",id:fixtureID},{})});
+  await act(async()=>{await vi.advanceTimersByTimeAsync(4000)});
+  expect(requestLearning).toHaveBeenCalledTimes(1);expect(hook.result.current.busy).toBe(true);
+  await act(async()=>{await vi.advanceTimersByTimeAsync(5999)});expect(hook.result.current.busy).toBe(true);
+  await act(async()=>{await vi.advanceTimersByTimeAsync(1)});
+  expect(hook.result.current.busy).toBe(false);expect(hook.result.current.error?.code).toBe("SERVICE_UNAVAILABLE");expect(hook.result.current.pending).not.toBeNull();expect(requestLearning).toHaveBeenCalledTimes(1);
+ } finally {hook.unmount();vi.useRealTimers()}
+});
+it("a stalled identity proof ends within ten seconds without sending a mutation",async()=>{
+ vi.useFakeTimers();vi.mocked(getAuthContext).mockImplementationOnce(()=>new Promise(()=>{}));const hook=renderHook(()=>useLearningCommand(vi.fn()));
+ try {act(()=>{void hook.result.current.run({kind:"abandonPractice",id:fixtureID},{})});await act(async()=>{await vi.advanceTimersByTimeAsync(10000)});expect(hook.result.current.busy).toBe(false);expect(hook.result.current.error?.code).toBe("SERVICE_UNAVAILABLE");expect(hook.result.current.pending).toBeNull();expect(requestLearning).not.toHaveBeenCalled()}
+ finally {hook.unmount();vi.useRealTimers()}
+});

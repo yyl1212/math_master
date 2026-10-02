@@ -13,6 +13,34 @@ import (
 	"time"
 )
 
+// This memo exists only inside one authenticated transaction. Shared content
+// locks and the actor row lock keep these facts stable; no value survives commit.
+// It contains no historical unlock flags, which may change during enrollment.
+type learningProjectionKey struct{}
+type learningIdentityFact struct {
+	knowledge question.Identity
+	head      string
+}
+type learningProjection struct {
+	tx          *sql.Tx
+	actor       string
+	identities  map[string]learningIdentityFact
+	completions map[question.Identity]*string
+	evidence    map[question.Identity]learning.EvidenceView
+	passes      map[question.Identity]bool
+}
+
+func learningWithProjection(ctx context.Context, tx *sql.Tx, actor string) context.Context {
+	return context.WithValue(ctx, learningProjectionKey{}, &learningProjection{tx: tx, actor: actor, identities: map[string]learningIdentityFact{}, completions: map[question.Identity]*string{}, evidence: map[question.Identity]learning.EvidenceView{}, passes: map[question.Identity]bool{}})
+}
+func learningProjectionFor(ctx context.Context, tx *sql.Tx, actor string) *learningProjection {
+	p, _ := ctx.Value(learningProjectionKey{}).(*learningProjection)
+	if p == nil || p.tx != tx || (actor != "" && p.actor != actor) {
+		return nil
+	}
+	return p
+}
+
 // Only internal table aliases and constants enter this expression.
 func learningCleanEvidenceSQL(kind, id string) string {
 	return fmt.Sprintf(`NOT EXISTS(SELECT 1 FROM learning_evidence_dependencies d WHERE d.evidence_kind='%s' AND d.evidence_id=%s AND
@@ -20,9 +48,18 @@ func learningCleanEvidenceSQL(kind, id string) string {
  OR EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256)))`, kind, id)
 }
 func learningKnowledgeIdentity(ctx context.Context, tx *sql.Tx, id string) (question.Identity, string, error) {
+	projection := learningProjectionFor(ctx, tx, "")
+	if projection != nil {
+		if cached, ok := projection.identities[id]; ok {
+			return cached.knowledge, cached.head, nil
+		}
+	}
 	var k question.Identity
 	var head string
 	e := tx.QueryRowContext(ctx, `SELECT k.id,k.version,k.sha256,h.snapshot_id FROM publication_heads h JOIN publication_snapshots p ON p.id=h.snapshot_id AND p.status='published' JOIN publication_members m ON m.snapshot_id=p.id AND m.kind='knowledge' AND m.availability='active' JOIN knowledge_versions k ON k.id=m.id AND k.version=m.version WHERE h.singleton AND k.id=$1 AND NOT EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='knowledge' AND w.target_id=k.id AND w.target_version=k.version AND w.sha256=k.sha256)`, id).Scan(&k.ID, &k.Version, &k.SHA256, &head)
+	if e == nil && projection != nil {
+		projection.identities[id] = learningIdentityFact{k, head}
+	}
 	return k, head, workflowRowError(e)
 }
 func learningIsCurrent(ctx context.Context, tx *sql.Tx, k question.Identity) (bool, error) {
@@ -81,9 +118,31 @@ func learningLectureBasis(ctx context.Context, tx *sql.Tx, k question.Identity) 
 	return s, rows.Err()
 }
 func learningCurrentCompletion(ctx context.Context, tx *sql.Tx, actor string, k question.Identity) (*string, error) {
+	projection := learningProjectionFor(ctx, tx, actor)
+	if projection != nil {
+		if cached, ok := projection.completions[k]; ok {
+			return cached, nil
+		}
+	}
+	out, e := learningCurrentCompletionUncached(ctx, tx, actor, k)
+	if e == nil && projection != nil {
+		projection.completions[k] = out
+	}
+	return out, e
+}
+func learningCurrentCompletionUncached(ctx context.Context, tx *sql.Tx, actor string, k question.Identity) (*string, error) {
 	current, e := learningIsCurrent(ctx, tx, k)
 	if e != nil || !current {
 		return nil, e
+	}
+	// Most current nodes have never been completed by this actor. Do not build
+	// and prove a complete lecture basis unless an exact completion exists.
+	var hasCompletion bool
+	if e = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM learning_events WHERE owner_user_id=$1 AND knowledge_id=$2 AND knowledge_version=$3 AND knowledge_sha256=$4 AND kind='completed')`, actor, k.ID, k.Version, k.SHA256).Scan(&hasCompletion); e != nil {
+		return nil, e
+	}
+	if !hasCompletion {
+		return nil, nil
 	}
 	basis, e := learningLectureBasis(ctx, tx, k)
 	if e != nil {
@@ -100,6 +159,19 @@ func learningCurrentCompletion(ctx context.Context, tx *sql.Tx, actor string, k 
 	return &id, nil
 }
 func learningCurrentEvidence(ctx context.Context, tx *sql.Tx, actor string, k question.Identity) (learning.EvidenceView, error) {
+	projection := learningProjectionFor(ctx, tx, actor)
+	if projection != nil {
+		if cached, ok := projection.evidence[k]; ok {
+			return cached, nil
+		}
+	}
+	out, e := learningCurrentEvidenceUncached(ctx, tx, actor, k)
+	if e == nil && projection != nil {
+		projection.evidence[k] = out
+	}
+	return out, e
+}
+func learningCurrentEvidenceUncached(ctx context.Context, tx *sql.Tx, actor string, k question.Identity) (learning.EvidenceView, error) {
 	out := learning.EvidenceView{}
 	current, e := learningIsCurrent(ctx, tx, k)
 	if e != nil || !current {
@@ -125,6 +197,19 @@ func learningCurrentEvidence(ctx context.Context, tx *sql.Tx, actor string, k qu
 	return learning.EvidenceView{Qualified: true, Qualification: qual}, nil
 }
 func learningEffectivePass(ctx context.Context, tx *sql.Tx, actor string, k question.Identity) (bool, error) {
+	projection := learningProjectionFor(ctx, tx, actor)
+	if projection != nil {
+		if cached, ok := projection.passes[k]; ok {
+			return cached, nil
+		}
+	}
+	out, e := learningEffectivePassUncached(ctx, tx, actor, k)
+	if e == nil && projection != nil {
+		projection.passes[k] = out
+	}
+	return out, e
+}
+func learningEffectivePassUncached(ctx context.Context, tx *sql.Tx, actor string, k question.Identity) (bool, error) {
 	current, e := learningIsCurrent(ctx, tx, k)
 	if e != nil || !current {
 		return false, e

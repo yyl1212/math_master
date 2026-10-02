@@ -1,8 +1,8 @@
 # P4b 学习、检测与知识解锁设计
 
-日期：2026-10-02。状态：用户已书面确认功能方案及第十四节兼容性变化；独立实施计划已编写，待审阅。本文承接已确认的[总体方案](2026-09-30-math-learning-platform-design.md)、[开发路线图](../plans/2026-09-30-development-roadmap.md)和[P4a 可信题库设计](2026-10-02-question-bank-design.md)，实施任务见[独立实施计划](../plans/2026-10-02-learning-assessment.md)，本文的确认不代替实施计划审阅。
+日期：2026-10-02。状态：用户已书面确认功能方案及第十四节兼容性变化；独立实施计划已确认，文档 PR #18 已合并；产品实现 Task1—13及本机完整矩阵已通过，整分支独立审查与PR/CI交付待完成。本文承接已确认的[总体方案](2026-09-30-math-learning-platform-design.md)、[开发路线图](../plans/2026-09-30-development-roadmap.md)和[P4a 可信题库设计](2026-10-02-question-bank-design.md)，实施任务见[独立实施计划](../plans/2026-10-02-learning-assessment.md)，本文的确认不代替实施计划审阅。
 
-设计分支最初从 master 687f87a0ab7e07fb73c593055b79d5ee3eb416bc 建立，并读取 P4a 最终实现核对依赖。用户于2026-10-02确认本方案并授权合并 P4a [实现 PR #17](https://github.com/yyl1212/math_master/pull/17)，已合并到 master 46206fc31e05651dd97c49390e4fb3bee76988ed；合并后的两项CI全部通过，文档分支已同步。P4b 产品实施仍须先审阅独立计划、重新拉取最新 master，并另建实施分支。
+设计分支最初从 master 687f87a0ab7e07fb73c593055b79d5ee3eb416bc 建立，并读取 P4a 最终实现核对依赖。用户于2026-10-02确认本方案并授权合并 P4a [实现 PR #17](https://github.com/yyl1212/math_master/pull/17)，已合并到 master 46206fc31e05651dd97c49390e4fb3bee76988ed；合并后的两项CI全部通过，文档分支已同步。P4b 计划已获确认，PR #18 已合并。实施分支 codex/p4b-learning-assessment 已从最新 master 1b002b8608aa87f0dfb73a442a75d14f24302400 建立；最终容量验证、独立审查及实现 PR 交付仍待完成。
 
 ## 1. 用户目标、已确认约束与本次选择
 

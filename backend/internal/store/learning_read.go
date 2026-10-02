@@ -109,28 +109,32 @@ func learningBlueprintOptions(ctx context.Context, tx *sql.Tx, actor string, k q
 	cache := map[string]readiness{}
 	var seed [32]byte
 	for _, c := range choices {
-		refs := map[string]bool{}
-		for _, r := range c.bp.Sources {
-			refs[r.Kind+":"+r.Ref.ID+":"+body(r.Ref.Version)] = true
-		}
-		candidates := []assessment.Candidate{}
-		ids := []question.Identity{}
-		for _, v := range pool.Candidates {
-			yes := refs["instance:"+v.Identity.ID+":"+body(v.Identity.Version)]
-			if v.Template != nil {
-				yes = yes || refs["template:"+v.Template.ID+":"+body(v.Template.Version)]
-			}
-			if yes {
-				candidates = append(candidates, v)
-				ids = append(ids, v.Identity)
-			}
-		}
+		// The pool and its personal facts are fixed for this authenticated,
+		// content-locked transaction. Cache before expanding equivalent sources.
 		key := body(struct {
-			Core []int
-			IDs  []question.Identity
-		}{c.bp.CoreObjectiveIndices, ids})
+			Core    []int
+			Sources []question.BlueprintSource
+		}{c.bp.CoreObjectiveIndices, c.bp.Sources})
 		r, ok := cache[key]
 		if !ok {
+			instances, templates := map[question.Ref]bool{}, map[question.Ref]bool{}
+			for _, ref := range c.bp.Sources {
+				if ref.Kind == "instance" {
+					instances[ref.Ref] = true
+				} else {
+					templates[ref.Ref] = true
+				}
+			}
+			candidates := []assessment.Candidate{}
+			for _, v := range pool.Candidates {
+				yes := instances[question.Ref{ID: v.Identity.ID, Version: v.Identity.Version}]
+				if v.Template != nil {
+					yes = yes || templates[question.Ref{ID: v.Template.ID, Version: v.Template.Version}]
+				}
+				if yes {
+					candidates = append(candidates, v)
+				}
+			}
 			_, r.ready, e = assessment.SelectFive(ctx, c.bp.CoreObjectiveIndices, assessment.EligibleCandidates(candidates, now), seed)
 			if e != nil {
 				return out, nil, e
@@ -183,6 +187,7 @@ func (s *Store) ListLearningKnowledge(ctx context.Context, a question.Access, q 
 	}
 	out = question.Page[learning.KnowledgeState]{Items: []learning.KnowledgeState{}, Limit: q.Limit, Offset: q.Offset}
 	e = s.learningTx(ctx, a, learning.ListKnowledgeAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		ctx = learningWithProjection(ctx, tx, u.ID)
 		if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM (`+learningCurrentKnowledgeSQL+`) current`).Scan(&out.Total); e != nil {
 			return e
 		}
@@ -210,6 +215,7 @@ func (s *Store) ReadLearningKnowledge(ctx context.Context, a question.Access, id
 		return out, auth.ErrInvalidInput
 	}
 	e := s.learningTx(ctx, a, learning.ReadKnowledgeAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		ctx = learningWithProjection(ctx, tx, u.ID)
 		k := question.Identity{ID: id, Version: version}
 		if e := tx.QueryRowContext(ctx, `SELECT sha256 FROM knowledge_versions WHERE id=$1 AND version=$2`, id, version).Scan(&k.SHA256); e != nil {
 			return workflowRowError(e)
@@ -277,6 +283,7 @@ func learningAvailablePaths(ctx context.Context, tx *sql.Tx) ([]learning.Publish
 func (s *Store) ReadLearningOverview(ctx context.Context, a question.Access) (learning.Overview, error) {
 	out := learning.Overview{AvailablePaths: []learning.PublishedPathSummary{}, Recent: []learning.HistoryEntry{}}
 	e := s.learningTx(ctx, a, learning.ReadOverviewAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		ctx = learningWithProjection(ctx, tx, u.ID)
 		var khead, qhead sql.NullString
 		if e := tx.QueryRowContext(ctx, `SELECT (SELECT h.snapshot_id FROM publication_heads h JOIN publication_snapshots p ON p.id=h.snapshot_id AND p.status='published' WHERE h.singleton),(SELECT h.publication_id::text FROM question_heads h JOIN question_publications p ON p.id=h.publication_id AND p.sealed AND p.status='published' WHERE h.singleton)`).Scan(&khead, &qhead); e != nil {
 			return e
@@ -299,25 +306,23 @@ func (s *Store) ReadLearningOverview(ctx context.Context, a question.Access) (le
 		if len(ks) > 1000 {
 			return question.ErrLimitExceeded
 		}
+		// Count exact current personal facts without each node's title and
+		// prerequisite projection. Material hashes still validate completion.
+		if e = tx.QueryRowContext(ctx, `WITH current AS MATERIALIZED (`+learningCurrentKnowledgeSQL+`)
+ SELECT (SELECT count(*) FROM learning_records r JOIN current k ON k.id=r.knowledge_id AND k.version=r.knowledge_version AND k.sha256=r.knowledge_sha256 WHERE r.owner_user_id=$1),
+ (SELECT count(*) FROM current k WHERE EXISTS(SELECT 1 FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=k.id AND a.knowledge_version=k.version AND a.knowledge_sha256=k.sha256 AND a.state='submitted' AND r.outcome='passed' AND r.passed AND r.score BETWEEN 4 AND 5 AND `+learningCleanEvidenceSQL("assessment", "a.id")+`))`, u.ID).Scan(&out.StartedCount, &out.EffectivePassedCount); e != nil {
+			return e
+		}
 		for _, k := range ks {
-			state, e := learningKnowledgeState(ctx, tx, u.ID, k)
+			completed, e := learningCurrentCompletion(ctx, tx, u.ID, k)
 			if e != nil {
 				return e
 			}
-			if state.StartedAt != nil {
-				out.StartedCount++
-			}
-			if state.CompletionValid {
+			if completed != nil {
 				out.CompletedCount++
 			}
-			passed, e := learningEffectivePass(ctx, tx, u.ID, k)
-			if e != nil {
-				return e
-			}
-			if passed {
-				out.EffectivePassedCount++
-			}
 		}
+
 		if e = tx.QueryRowContext(ctx, `SELECT count(*) FROM learning_unlocks WHERE owner_user_id=$1`, u.ID).Scan(&out.HistoricalUnlockedCount); e != nil {
 			return e
 		}
@@ -349,6 +354,7 @@ func (s *Store) ListLearningPaths(ctx context.Context, a question.Access, q lear
 	}
 	out = question.Page[learning.PathSummary]{Items: []learning.PathSummary{}, Limit: q.Limit, Offset: q.Offset}
 	e = s.learningTx(ctx, a, learning.ListPathsAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		ctx = learningWithProjection(ctx, tx, u.ID)
 		if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM learning_path_enrollments WHERE owner_user_id=$1`, u.ID).Scan(&out.Total); e != nil {
 			return e
 		}
@@ -390,6 +396,7 @@ func (s *Store) ReadLearningPath(ctx context.Context, a question.Access, id stri
 		return out, auth.ErrInvalidInput
 	}
 	e := s.learningTx(ctx, a, learning.ReadPathAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		ctx = learningWithProjection(ctx, tx, u.ID)
 		var e error
 		out.Summary, e = learningPathSummary(ctx, tx, u.ID, id)
 		return e
@@ -410,6 +417,7 @@ func (s *Store) ListLearningPathNodes(ctx context.Context, a question.Access, id
 	}
 	out = question.Page[learning.PathNode]{Items: []learning.PathNode{}, Limit: q.Limit, Offset: q.Offset}
 	e = s.learningTx(ctx, a, learning.ListPathNodesAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		ctx = learningWithProjection(ctx, tx, u.ID)
 		if e := tx.QueryRowContext(ctx, `SELECT total_nodes FROM learning_path_enrollments WHERE id=$1 AND owner_user_id=$2`, id, u.ID).Scan(&out.Total); e != nil {
 			return workflowRowError(e)
 		}

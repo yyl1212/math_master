@@ -18,6 +18,15 @@ import (
 // Private instance bytes are loaded only after selection by learningLoadItems.
 const learningCandidateSQL = `WITH recent AS MATERIALIZED (
  SELECT id FROM assessment_attempts WHERE owner_user_id=$1 AND state='submitted' ORDER BY terminal_at DESC,id DESC LIMIT 1
+), available_units AS MATERIALIZED (
+ SELECT uv.id,uv.version FROM publication_members m JOIN unit_versions uv ON uv.id=m.id AND uv.version=m.version
+ WHERE m.snapshot_id=$4 AND m.kind='unit' AND m.availability='active'
+ AND NOT EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='unit' AND w.target_id=uv.id AND w.target_version=uv.version AND w.sha256=uv.sha256)
+), available_assets AS MATERIALIZED (
+ SELECT m.id,pm.asset_sha256 FROM publication_members m
+ JOIN package_members pm ON pm.package_id=m.package_id AND pm.package_version=m.package_version AND pm.kind='asset' AND pm.id=m.id
+ WHERE m.snapshot_id=$4 AND m.kind='asset' AND m.availability='active'
+ AND NOT EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='asset' AND w.sha256=pm.asset_sha256)
 ) SELECT i.id,i.version,i.sha256,i.template_id,i.template_version,i.template_sha256,
  coalesce((SELECT jsonb_agg(c.objective_index ORDER BY c.objective_index) FROM question_instance_coverage c WHERE c.instance_id=i.id AND c.instance_version=i.version AND c.knowledge_id=$2 AND c.knowledge_version=$3),'[]'),
  v.last_seen_at,ex.exposed_at,EXISTS(SELECT 1 FROM assessment_items ai JOIN recent r ON r.id=ai.attempt_id WHERE ai.instance_id=i.id AND ai.instance_version=i.version AND ai.instance_sha256=i.sha256)
@@ -37,13 +46,9 @@ const learningCandidateSQL = `WITH recent AS MATERIALIZED (
  (w.kind='template' AND w.target_id=i.template_id AND w.target_version=i.template_version AND w.sha256=i.template_sha256))
  AND (i.template_id IS NULL OR EXISTS(SELECT 1 FROM question_publication_members tm WHERE tm.publication_id=$5::uuid AND tm.kind='template' AND tm.id=i.template_id AND tm.version=i.template_version AND tm.sha256=i.template_sha256))
  AND NOT EXISTS(SELECT 1 FROM jsonb_array_elements(i.body#>'{body,body,units}') u
- LEFT JOIN unit_versions uv ON uv.id=u->>'id' AND uv.version=(u->>'version')::integer
- LEFT JOIN publication_members um ON um.snapshot_id=$4 AND um.kind='unit' AND um.id=uv.id AND um.version=uv.version AND um.availability='active'
- WHERE um.id IS NULL OR EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='unit' AND w.target_id=uv.id AND w.target_version=uv.version AND w.sha256=uv.sha256))
+ WHERE ((u->>'id',(u->>'version')::integer) IN (SELECT id,version FROM available_units)) IS NOT TRUE)
  AND NOT EXISTS(SELECT 1 FROM jsonb_array_elements(i.body#>'{body,body,assets}') a
- LEFT JOIN publication_members am ON am.snapshot_id=$4 AND am.kind='asset' AND am.id=a->>'id' AND am.availability='active'
- LEFT JOIN package_members pm ON pm.package_id=am.package_id AND pm.package_version=am.package_version AND pm.kind='asset' AND pm.id=am.id
- WHERE pm.asset_sha256 IS DISTINCT FROM a->>'sha256' OR EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='asset' AND w.sha256=a->>'sha256'))
+ WHERE ((a->>'id',a->>'sha256') IN (SELECT id,asset_sha256 FROM available_assets)) IS NOT TRUE)
  ORDER BY i.id,i.version LIMIT 1001`
 
 func learningSourcePool(ctx context.Context, tx *sql.Tx, actor string, k question.Identity, bp *question.Identity, now time.Time) (assessment.SourcePool, error) {

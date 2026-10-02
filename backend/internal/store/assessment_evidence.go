@@ -10,18 +10,20 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/question"
 )
 
-func learningLoadItems(ctx context.Context, tx *sql.Tx, seal assessment.Seal) ([]question.Instance, error) {
-	out := make([]question.Instance, 0, len(seal.Items))
-	if len(seal.Items) != 1 && len(seal.Items) != 5 {
-		return out, auth.ErrInvalidInput
-	}
-	rows, e := tx.QueryContext(ctx, `SELECT r.position,i.sha256,i.body_bytes,m.evidence FROM jsonb_to_recordset($1::jsonb) r(position integer,instance jsonb)
+const learningItemsSQL = `SELECT r.position,i.sha256,i.body_bytes,m.evidence FROM jsonb_to_recordset($1::jsonb) r(position integer,instance jsonb)
  JOIN question_instances i ON i.id=r.instance->>'id' AND i.version=(r.instance->>'version')::integer AND i.sha256=r.instance->>'sha256' AND i.sealed
  JOIN question_publication_members m ON m.publication_id=$2 AND m.kind='instance' AND m.id=i.id AND m.version=i.version AND m.sha256=i.sha256
  JOIN question_publications p ON p.id=m.publication_id AND p.sealed AND p.status='published'
  JOIN question_review_decisions rd ON rd.id=m.review_id AND rd.decision='approve'
  JOIN question_submissions s ON s.id=m.submission_id AND s.id=rd.submission_id AND s.sealed AND s.status='approved' AND s.frozen_digest=rd.frozen_digest
- JOIN question_submission_members sm ON sm.submission_id=s.id AND sm.kind='instance' AND sm.id=i.id AND sm.version=i.version AND sm.sha256=i.sha256 ORDER BY r.position`, body(seal.Items), seal.QuestionPublicationID)
+ JOIN question_submission_members sm ON sm.submission_id=s.id AND sm.kind='instance' AND sm.id=i.id AND sm.version=i.version AND sm.sha256=i.sha256 ORDER BY r.position`
+
+func learningLoadItems(ctx context.Context, tx *sql.Tx, seal assessment.Seal) ([]question.Instance, error) {
+	out := make([]question.Instance, 0, len(seal.Items))
+	if len(seal.Items) != 1 && len(seal.Items) != 5 {
+		return out, auth.ErrInvalidInput
+	}
+	rows, e := tx.QueryContext(ctx, learningItemsSQL, body(seal.Items), seal.QuestionPublicationID)
 	if e != nil {
 		return out, e
 	}
