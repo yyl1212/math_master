@@ -170,12 +170,28 @@ BEGIN
  SELECT recorded_at INTO first_time FROM feedback_events WHERE ticket_id=tid AND sequence=1;
  IF first_time IS DISTINCT FROM t.created_at THEN RAISE EXCEPTION 'feedback creation missing'; END IF;RETURN NULL;
 END $$;
+CREATE FUNCTION feedback_label(t jsonb) RETURNS text LANGUAGE plpgsql IMMUTABLE AS $$
+DECLARE label text;
+BEGIN
+ IF t->>'kind'='site' THEN RETURN 'Site · '||(t->>'area'); END IF;
+ label:=(t->>'kind')||' '||(t#>>'{identity,id}')||' · v'||(t#>>'{identity,version}');
+ IF t#>>'{part,kind}'='unit' THEN label:=label||' · unit '||(t#>>'{part,unit,id}')||' v'||(t#>>'{part,unit,version}');
+ ELSIF t#>>'{part,kind}'='asset' THEN label:=label||' · asset '||(t#>>'{part,asset,id}'); END IF;
+ RETURN label;
+END $$;
 CREATE FUNCTION feedback_receipt_guard() RETURNS trigger LANGUAGE plpgsql AS $$
 DECLARE t feedback_tickets;e feedback_events;m jsonb:=NEW.receipt->'ticket';
 BEGIN
  IF TG_OP<>'INSERT' THEN RAISE EXCEPTION 'immutable feedback receipt'; END IF;
  SELECT * INTO t FROM feedback_tickets WHERE id=NEW.ticket_id;SELECT * INTO e FROM feedback_events WHERE ticket_id=NEW.ticket_id AND sequence=NEW.event_sequence;
- IF NOT feedback_shape(NEW.receipt,ARRAY['status','ticket']) OR NOT feedback_shape(m,ARRAY['id','target','label','category','status','sequence','createdAt','updatedAt','resolutionKind','targetValidity','canHandle']) OR m->>'id'<>t.id::text OR m->'target'<>t.target OR m->>'category'<>t.category OR m->>'status'<>e.to_status OR (m->>'sequence')::bigint<>e.sequence OR (m->>'createdAt')::timestamptz<>t.created_at OR (m->>'updatedAt')::timestamptz<>e.recorded_at OR m->>'resolutionKind' IS DISTINCT FROM e.effective_resolution->>'kind' OR jsonb_typeof(m->'label')<>'string' OR jsonb_typeof(m->'canHandle')<>'boolean' OR m->>'targetValidity' NOT IN ('current','historical','withdrawn') OR NEW.actor_user_id<>e.actor_user_id OR (NEW.action='create' AND (NEW.resource<>'tickets' OR NEW.event_sequence<>1 OR NEW.receipt->>'status'<>'201')) OR (NEW.action<>'create' AND (NEW.resource<>t.id::text OR NEW.receipt->>'status'<>'200')) THEN RAISE EXCEPTION 'invalid safe feedback receipt'; END IF;
+ IF (feedback_shape(NEW.receipt,ARRAY['status','ticket']) AND feedback_shape(m,ARRAY['id','target','label','category','status','sequence','createdAt','updatedAt','resolutionKind','targetValidity','canHandle'])
+ AND m->>'id'=t.id::text AND m->'target'=t.target AND m->>'category'=t.category AND m->>'status'=e.to_status
+ AND jsonb_typeof(m->'sequence')='number' AND (m->>'sequence')::bigint=e.sequence AND (m->>'createdAt')::timestamptz=t.created_at AND (m->>'updatedAt')::timestamptz=e.recorded_at
+ AND m->'resolutionKind' IS NOT DISTINCT FROM coalesce(to_jsonb(e.effective_resolution->>'kind'),'null'::jsonb)
+ AND m->>'label'=feedback_label(t.target) AND jsonb_typeof(m->'canHandle')='boolean' AND m->>'targetValidity' IN ('current','historical','withdrawn') AND NEW.actor_user_id=e.actor_user_id
+ AND ((NEW.action='create' AND NEW.resource='tickets' AND NEW.event_sequence=1 AND e.kind='created' AND e.actor_user_id=t.owner_user_id AND NEW.receipt->'status'='201'::jsonb)
+ OR (NEW.action='reply' AND NEW.resource=t.id::text AND NEW.event_sequence>1 AND e.kind='replied' AND e.actor_user_id=t.owner_user_id AND NEW.receipt->'status'='200'::jsonb)
+ OR (NEW.action='transition' AND NEW.resource=t.id::text AND NEW.event_sequence>1 AND e.kind IN ('replied','transitioned') AND e.actor_user_id<>t.owner_user_id AND NEW.receipt->'status'='200'::jsonb))) IS NOT TRUE THEN RAISE EXCEPTION 'invalid safe feedback receipt'; END IF;
  RETURN NEW;
 END $$;
 -- +goose StatementEnd
@@ -198,4 +214,4 @@ DROP TRIGGER feedback_event_guard ON feedback_events;
 DROP TRIGGER feedback_event_projection ON feedback_events;
 DROP FUNCTION feedback_projection_guard(),feedback_event_guard(),feedback_ticket_guard(),feedback_receipt_guard(),feedback_resolution_proof(feedback_tickets,jsonb,text);
 DROP TABLE feedback_events,feedback_tickets;
-DROP FUNCTION feedback_target_proof(jsonb,jsonb,uuid,boolean),feedback_content_clean(text,jsonb),feedback_target_shape(jsonb,jsonb),feedback_text(text,integer,integer),feedback_identity(jsonb,boolean),feedback_asset(jsonb),feedback_uuid(text),feedback_shape(jsonb,text[]);
+DROP FUNCTION feedback_target_proof(jsonb,jsonb,uuid,boolean),feedback_content_clean(text,jsonb),feedback_target_shape(jsonb,jsonb),feedback_text(text,integer,integer),feedback_label(jsonb),feedback_identity(jsonb,boolean),feedback_asset(jsonb),feedback_uuid(text),feedback_shape(jsonb,text[]);

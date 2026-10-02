@@ -73,7 +73,7 @@ func (f *feedbackFixture) seedFeedbackReceipt(id string) {
 	if json.Unmarshal(raw, &m.Target) != nil {
 		f.t.Fatal("target")
 	}
-	m.Label = "Knowledge workflow-fractions · v1"
+	m.Label = "knowledge workflow-fractions · v1"
 	m.TargetValidity = "current"
 	r := feedback.Receipt{Status: 201, Ticket: m}
 	_, e = f.db.Exec(`INSERT INTO feedback_idempotency(actor_user_id,action,resource,key,request_sha256,ticket_id,event_sequence,receipt) VALUES($1,'create','tickets',$2,$3,$4,1,$5)`, f.ids["learner_a"], f.ID(), string(makeSHA('a')), id, feedbackJSON(r))
