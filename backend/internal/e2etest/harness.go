@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"github.com/yyl1212/math_master/backend/internal/content"
+	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/publication"
@@ -210,9 +211,47 @@ func Run(ctx context.Context, c Config) (result error) {
 	contentUnavailable := false
 	var holdSave atomic.Bool
 	var holdLearning atomic.Bool
+	var holdFeedback atomic.Bool
+	feedbackUnavailable := false
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
+		if scene == "feedback" {
+			setup, stop := context.WithTimeout(ctx, 40*time.Second)
+			defer stop()
+			qcontrol.release()
+			if err := resetLearning(setup, db, s, accounts, accountAdmin, root, normal, LearningBasic); err != nil {
+				return err
+			}
+			if _, err := setupFeedback(setup, s); err != nil {
+				return err
+			}
+			feedbackUnavailable = false
+			holdFeedback.Store(false)
+			unavailable = false
+			authUnavailable = false
+			contentUnavailable = false
+			return nil
+		}
+		if scene == "feedback-unavailable" {
+			feedbackUnavailable = true
+			return nil
+		}
+		if scene == "feedback-recover" {
+			feedbackUnavailable = false
+			return nil
+		}
+		if scene == "feedback-hold-next-write" {
+			holdFeedback.Store(true)
+			return nil
+		}
+		if strings.HasPrefix(scene, "feedback-") {
+			setup, stop := context.WithTimeout(ctx, 40*time.Second)
+			defer stop()
+			if handled, err := feedbackChange(setup, db, s, accounts, root, scene); handled {
+				return err
+			}
+		}
 		if scenario, ok := learningScenario(scene); ok {
 			qcontrol.release()
 			holdLearning.Store(false)
@@ -351,11 +390,15 @@ func Run(ctx context.Context, c Config) (result error) {
 	}
 	defer controlListener.Close()
 
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
+	feedbackService, err := feedback.NewService(s)
+	if err != nil {
+		return errors.New("feedback service unavailable")
+	}
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
-		if authUnavailable && (strings.HasPrefix(r.URL.Path, "/api/v1/auth/") || strings.HasPrefix(r.URL.Path, "/api/v1/admin/") || strings.HasPrefix(r.URL.Path, "/api/v1/content/")) || contentUnavailable && strings.HasPrefix(r.URL.Path, "/api/v1/content/") {
+		if feedbackUnavailable && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") || authUnavailable && (strings.HasPrefix(r.URL.Path, "/api/v1/auth/") || strings.HasPrefix(r.URL.Path, "/api/v1/admin/") || strings.HasPrefix(r.URL.Path, "/api/v1/content/")) || contentUnavailable && strings.HasPrefix(r.URL.Path, "/api/v1/content/") {
 			w.Header().Set("Content-Type", "application/json")
 			w.Header().Set("Cache-Control", "private, no-store")
 			w.Header().Set("X-Content-Type-Options", "nosniff")
@@ -374,7 +417,7 @@ func Run(ctx context.Context, c Config) (result error) {
 
 		// Commit through the real handler before dropping a delayed response. The
 		// next request must prove idempotent replay, rather than mock a success.
-		if (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
+		if (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
 			captured := httptest.NewRecorder()
 			actual.ServeHTTP(captured, r)
 			if captured.Code == http.StatusOK || captured.Code == http.StatusCreated {
@@ -433,6 +476,24 @@ func Run(ctx context.Context, c Config) (result error) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Cache-Control", "no-store")
 		_ = json.NewEncoder(w).Encode(data)
+	})
+	control.HandleFunc("GET /feedback/state", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			http.Error(w, "Unauthorized", 401)
+			return
+		}
+		mu.RLock()
+		defer mu.RUnlock()
+		ctx, stop := context.WithTimeout(r.Context(), 2*time.Second)
+		defer stop()
+		v, e := feedbackState(ctx, db)
+		if e != nil {
+			http.Error(w, "Feedback state unavailable", 503)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "no-store")
+		_ = json.NewEncoder(w).Encode(v)
 	})
 	control.HandleFunc("GET /learning/state", func(w http.ResponseWriter, r *http.Request) {
 		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {

@@ -27,4 +27,4 @@ export function feedbackSourcePath(query: Record<string, string | string[] | und
   const path = '/api/v1/feedback/contexts/' + kind + (kind === 'site' ? '' : '/' + query.id) + (params.size ? '?' + params : ''); resolveFeedbackRoute(path); return path;
 }
 export function feedbackTicketPath(id: string, review: boolean): string { if (!feedbackUUID.test(id)) throw new FeedbackRequestError('NOT_FOUND'); return '/api/v1/feedback/' + (review ? 'review/' : '') + 'tickets/' + id; }
-export function feedbackPageError(e: unknown): FeedbackRequestError { return e instanceof FeedbackRequestError ? e : new FeedbackRequestError(); }
+export function feedbackPageError(e: unknown) { const closed=e instanceof FeedbackRequestError?e:new FeedbackRequestError();return {code:closed.code,message:closed.message,...(closed.retryAt?{retryAt:closed.retryAt}:{})}; }
