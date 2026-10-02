@@ -1,0 +1,941 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-master.local/schemas/question-package.schema.json",
+  "$ref": "#/$defs/QuestionPackage",
+  "$defs": {
+    "Ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        }
+      }
+    },
+    "Source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "author",
+        "title",
+        "url",
+        "accessedAt",
+        "license",
+        "attribution"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "author": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "title": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "accessedAt": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "license": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "attribution": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        }
+      }
+    },
+    "SourceLink": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "knowledge",
+        "batchSha256",
+        "relativePath",
+        "sha256",
+        "legacyId",
+        "note"
+      ],
+      "properties": {
+        "knowledge": {
+          "$ref": "#/$defs/Ref"
+        },
+        "batchSha256": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "relativePath": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "legacyId": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "note": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        }
+      }
+    },
+    "ObjectiveCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "knowledge",
+        "objectiveIndices"
+      ],
+      "properties": {
+        "knowledge": {
+          "$ref": "#/$defs/Ref"
+        },
+        "objectiveIndices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          }
+        }
+      }
+    },
+    "Rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "numerator",
+        "denominator"
+      ],
+      "properties": {
+        "numerator": {
+          "type": "string",
+          "pattern": "^(0|-?[1-9][0-9]{0,255})$"
+        },
+        "denominator": {
+          "type": "string",
+          "pattern": "^[1-9][0-9]{0,255}$"
+        }
+      }
+    },
+    "Parameter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "values"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          }
+        }
+      }
+    },
+    "ParameterValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        }
+      }
+    },
+    "EngineSpec": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "family",
+        "operation",
+        "unknownSide",
+        "generatorVersion",
+        "verifierVersion"
+      ],
+      "properties": {
+        "family": {
+          "enum": [
+            "rational_arithmetic",
+            "rational_comparison",
+            "missing_operand"
+          ]
+        },
+        "operation": {
+          "enum": [
+            "add",
+            "subtract",
+            "multiply",
+            "divide",
+            "compare"
+          ]
+        },
+        "unknownSide": {
+          "enum": [
+            null,
+            "left",
+            "right"
+          ]
+        },
+        "generatorVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "verifierVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "family": {
+                "const": "rational_arithmetic"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation": {
+                "enum": [
+                  "add",
+                  "subtract",
+                  "multiply",
+                  "divide"
+                ]
+              },
+              "unknownSide": {
+                "enum": [
+                  null
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "family": {
+                "const": "rational_comparison"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation": {
+                "enum": [
+                  "compare"
+                ]
+              },
+              "unknownSide": {
+                "enum": [
+                  null
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "family": {
+                "const": "missing_operand"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "operation": {
+                "enum": [
+                  "add",
+                  "subtract",
+                  "multiply",
+                  "divide"
+                ]
+              },
+              "unknownSide": {
+                "enum": [
+                  "left",
+                  "right"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Choice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "text"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "text": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        }
+      }
+    },
+    "AssetRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "sha256"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        }
+      }
+    },
+    "VerificationWitness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "engine",
+        "parameters"
+      ],
+      "properties": {
+        "engine": {
+          "$ref": "#/$defs/EngineSpec"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ParameterValue"
+          }
+        }
+      }
+    },
+    "QuestionBody": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "knowledge",
+        "coverage",
+        "units",
+        "prompt",
+        "explanation",
+        "answerFormat",
+        "choices",
+        "correctChoiceId",
+        "correctNumeric",
+        "witness",
+        "assets",
+        "sources"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "single_choice",
+            "numeric"
+          ]
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Ref"
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectiveCoverage"
+          }
+        },
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          }
+        },
+        "prompt": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "explanation": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "answerFormat": {
+          "enum": [
+            null,
+            "rational",
+            "percentage"
+          ]
+        },
+        "choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Choice"
+          }
+        },
+        "correctChoiceId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[^\u0000]*$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "correctNumeric": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Rational"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "witness": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/VerificationWitness"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AssetRef"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Source"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "numeric"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "answerFormat": {
+                "enum": [
+                  "rational",
+                  "percentage"
+                ]
+              },
+              "choices": {
+                "maxItems": 0
+              },
+              "correctChoiceId": {
+                "type": "null"
+              },
+              "correctNumeric": {
+                "$ref": "#/$defs/Rational"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "single_choice"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "answerFormat": {
+                "type": "null"
+              },
+              "choices": {
+                "minItems": 1
+              },
+              "correctNumeric": {
+                "type": "null"
+              },
+              "correctChoiceId": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]{0,63}$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "knowledge",
+        "coverage",
+        "units",
+        "type",
+        "answerFormat",
+        "promptTemplate",
+        "explanationTemplate",
+        "engine",
+        "parameters",
+        "constraints",
+        "distractors",
+        "assets",
+        "sources"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Ref"
+        },
+        "coverage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ObjectiveCoverage"
+          }
+        },
+        "units": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Ref"
+          }
+        },
+        "type": {
+          "enum": [
+            "single_choice",
+            "numeric"
+          ]
+        },
+        "answerFormat": {
+          "enum": [
+            null,
+            "rational",
+            "percentage"
+          ]
+        },
+        "promptTemplate": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "explanationTemplate": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "engine": {
+          "$ref": "#/$defs/EngineSpec"
+        },
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Parameter"
+          }
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "nonzero_divisor",
+              "nonnegative_result",
+              "distinct_operands"
+            ]
+          }
+        },
+        "distractors": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "negate",
+              "plus_one",
+              "minus_one",
+              "reciprocal"
+            ]
+          }
+        },
+        "assets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AssetRef"
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Source"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "numeric"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "answerFormat": {
+                "enum": [
+                  "rational",
+                  "percentage"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "single_choice"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "answerFormat": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "engine": {
+                "properties": {
+                  "family": {
+                    "const": "rational_arithmetic"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "parameters": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "enum": [
+                        "left",
+                        "right"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "engine": {
+                "properties": {
+                  "family": {
+                    "const": "rational_comparison"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "parameters": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "enum": [
+                        "left",
+                        "right"
+                      ]
+                    }
+                  }
+                }
+              },
+              "type": {
+                "const": "single_choice"
+              },
+              "answerFormat": {
+                "type": "null"
+              },
+              "distractors": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "engine": {
+                "properties": {
+                  "family": {
+                    "const": "missing_operand"
+                  }
+                }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "parameters": {
+                "items": {
+                  "properties": {
+                    "name": {
+                      "enum": [
+                        "known",
+                        "result"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "FixedQuestion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "body"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "body": {
+          "$ref": "#/$defs/QuestionBody"
+        }
+      }
+    },
+    "BlueprintSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "ref"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "template",
+            "instance"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/Ref"
+        }
+      }
+    },
+    "Blueprint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "knowledge",
+        "coreObjectiveIndices",
+        "sources",
+        "coverageNote",
+        "ruleVersion",
+        "questionCount",
+        "passCount"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "knowledge": {
+          "$ref": "#/$defs/Ref"
+        },
+        "coreObjectiveIndices": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          }
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/BlueprintSource"
+          }
+        },
+        "coverageNote": {
+          "type": "string",
+          "pattern": "^[^\u0000]*$"
+        },
+        "ruleVersion": {
+          "const": 1
+        },
+        "questionCount": {
+          "const": 5
+        },
+        "passCount": {
+          "const": 4
+        }
+      }
+    },
+    "QuestionPackage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "schemaVersion",
+        "id",
+        "version",
+        "templates",
+        "fixedQuestions",
+        "blueprints"
+      ],
+      "properties": {
+        "kind": {
+          "const": "question-bank"
+        },
+        "schemaVersion": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "templates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Template"
+          }
+        },
+        "fixedQuestions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/FixedQuestion"
+          }
+        },
+        "blueprints": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Blueprint"
+          }
+        }
+      }
+    },
+    "DraftInput": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalogueVersion",
+        "questionPackage",
+        "sourceMap"
+      ],
+      "properties": {
+        "catalogueVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "questionPackage": {
+          "$ref": "#/$defs/QuestionPackage"
+        },
+        "sourceMap": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SourceLink"
+          }
+        }
+      }
+    }
+  }
+}

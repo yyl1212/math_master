@@ -1,0 +1,73 @@
+{
+  "kind": "question-bank",
+  "schemaVersion": 1,
+  "id": "bad-answer-fixture",
+  "version": 1,
+  "templates": [],
+  "fixedQuestions": [
+    {
+      "id": "fixture-question-0",
+      "version": 1,
+      "body": {
+        "type": "numeric",
+        "knowledge": {
+          "id": "fractions",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fractions",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [],
+        "prompt": "Calculate 1 + 1.",
+        "explanation": "Adding the two integers gives 2.",
+        "answerFormat": "rational",
+        "choices": [],
+        "correctChoiceId": null,
+        "correctNumeric": {
+          "numerator": "999",
+          "denominator": "1"
+        },
+        "witness": {
+          "engine": {
+            "family": "rational_arithmetic",
+            "operation": "add",
+            "unknownSide": null,
+            "generatorVersion": 1,
+            "verifierVersion": 1
+          },
+          "parameters": [
+            {
+              "name": "left",
+              "value": "1"
+            },
+            {
+              "name": "right",
+              "value": "1"
+            }
+          ]
+        },
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master",
+            "title": "Original negative test fixture; not independently approved teaching content",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": ""
+          }
+        ]
+      }
+    }
+  ],
+  "blueprints": []
+}

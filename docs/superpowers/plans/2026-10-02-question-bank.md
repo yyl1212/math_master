@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 >
-> 本项目沿用此前已选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后进行一次独立整分支审查。本文目前待用户审阅；实施步骤全部未开始，验收通过后才勾选。
+> 本项目沿用此前已选择的 Native：使用 superpowers:executing-plans 在当前会话逐项实现，最后进行一次独立整分支审查。用户于2026-10-02确认本执行计划（PR #16 已合并），实施基线 master 687f87a0ab7e07fb73c593055b79d5ee3eb416bc；逐项验收通过后勾选。
 
 **Goal:** 建立可追责、可复验、经独立审核的题库，让后续学习与检测可以依赖固定题目版本和精确答案。
 
@@ -10,7 +10,7 @@
 
 **Tech Stack:** Go 1.27.1、PostgreSQL 17.11、Node.js 24.17.0、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3；使用当前锁定依赖，不新增产品依赖。
 
-**Spec:** [已确认 P4a 方案](../specs/2026-10-02-question-bank-design.md)。用户于 2026-10-02 确认分期与独立契约的兼容性方案；设计通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并，计划基线 master 58a8d30b7e57e6849293dc5a8cd6281b9c59c805，分支 codex/p4a-question-bank-plan。本 PR 仅文档，不执行迁移、导入、数学批准或部署。
+**Spec:** [已确认 P4a 方案](../specs/2026-10-02-question-bank-design.md)。用户于 2026-10-02 确认分期与独立契约的兼容性方案；设计通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并，计划基线 master 58a8d30b7e57e6849293dc5a8cd6281b9c59c805，分支 codex/p4a-question-bank-plan。原设计/计划PR仅文档；本次实现通过[PR #17](https://github.com/yyl1212/math_master/pull/17)交付，随机库技术验收和最新检查见[记录](../../operations/2026-10-02-p4a-acceptance.md)，真实开发库、资料和部署边界保持。
 
 ## 全局约束（Global Constraints）
 
@@ -227,7 +227,7 @@ CLI接口RunQuestion(ctx context.Context,command string,args []string,stdout,std
 **Files:** 文件责任表任务1全部文件；不修改旧schema/model/digest。
 **Interfaces:** 产出上述所有question数据声明、Repository、Action、NewService、CanonicalPackage/CanonicalInstance，严格DecodePackage(io.Reader)(QuestionPackage,error)、DecodeDraft(io.Reader)(DraftInput,error)。模板参数/枚举的家族细节按契约表锁定。
 
-- [ ] **Step 1：写失败测试。** TestQuestionContractBoundary断言未知kind/schema、重复字段/大小写别名/尾随JSON/未配对代理项/32层＋1拒绝，4 MiB envelope/2 MiB package边界；TestQuestionCanonicalIdentity断言固定golden bytes/SHA、关系排序稳定但选项与目标顺序有语义、qi-ID长度67；TestQuestionRoleAndRates断言角色矩阵、coverage GET heavy、30/10/120原预算与未知action拒绝；TestQuestionServiceInjection断言nil repo/acquire拒绝、注入函数实际调用、不存在新槽池。旧内容mathID对67字符仍拒绝。
+- [x] **Step 1：写失败测试。** TestQuestionContractBoundary断言未知kind/schema、重复字段/大小写别名/尾随JSON/未配对代理项/32层＋1拒绝，4 MiB envelope/2 MiB package边界；TestQuestionCanonicalIdentity断言固定golden bytes/SHA、关系排序稳定但选项与目标顺序有语义、qi-ID长度67；TestQuestionRoleAndRates断言角色矩阵、coverage GET heavy、30/10/120原预算与未知action拒绝；TestQuestionServiceInjection断言nil repo/acquire拒绝、注入函数实际调用、不存在新槽池。旧内容mathID对67字符仍拒绝。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -240,10 +240,10 @@ CLI接口RunQuestion(ctx context.Context,command string,args []string,stdout,std
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'TestQuestion(ContractBoundary|CanonicalIdentity|RoleAndRates|ServiceInjection)$' -timeout 5m -count=1；预期新契约不存在或行为失败，工具故障不算RED。
-- [ ] **Step 3：实现声明与纯边界。** schema为封闭判别结构；生成器/完整仓储暂不接入生产，不添加假成功占位。包和实例SHA分别计算，稳定ID/版本规则不修改旧代码。服务测试通过测试专用recordingRepository验证分发与限流。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；追加同入口go test ./internal/content ./internal/publication -timeout 5m -count=1，确认旧digest/角色/ID用例通过。
-- [ ] **Step 5：提交。** 暂存任务1精确文件，提交 feat: 建立独立题库契约与策略。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'TestQuestion(ContractBoundary|CanonicalIdentity|RoleAndRates|ServiceInjection)$' -timeout 5m -count=1；预期新契约不存在或行为失败，工具故障不算RED。
+- [x] **Step 3：实现声明与纯边界。** schema为封闭判别结构；生成器/完整仓储暂不接入生产，不添加假成功占位。包和实例SHA分别计算，稳定ID/版本规则不修改旧代码。服务测试通过测试专用recordingRepository验证分发与限流。
+- [x] **Step 4：验证GREEN。** 重跑Step2；追加同入口go test ./internal/content ./internal/publication -timeout 5m -count=1，确认旧digest/角色/ID用例通过。
+- [x] **Step 5：提交。** 暂存任务1精确文件，提交 feat: 建立独立题库契约与策略。
 
 
 Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整性检查仍可判其未就绪，不影响结构摘要测试：
@@ -257,7 +257,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** question/{numeric,grade}.go及测试。
 **Interfaces:** 消费Rational/QuestionBody；产出ParseNumeric、GradeNumeric、GradeChoice、CanEnterAnswer、GradeResult/NumericFormatError，不增加HTTP判分端口。
 
-- [ ] **Step 1：写失败测试。** TestNumericModesAndBoundary：1/2=2/4=0.50、1/-2=-0.5、.5/1./+002/负零合法归一、分数只在slash两侧空格/制表符、裸50不能当50%、50%=1/2；128/129原始字符边界、256/257位结果、零分母、指数/表达式/NaN/Unicode数字/数字内部空白/分数百分数拒绝。TestExactGrade：未知choiceID返回格式错误；合法错误答案Correct=false；非法格式不产生判分结果。TestNumericAnswerRepresentable：rational的1/3可输入、percentage的1/3无有限百分数表达不可入库，1/2可50%，整数/分数/小数最短合法形式均超过128字符时false。
+- [x] **Step 1：写失败测试。** TestNumericModesAndBoundary：1/2=2/4=0.50、1/-2=-0.5、.5/1./+002/负零合法归一、分数只在slash两侧空格/制表符、裸50不能当50%、50%=1/2；128/129原始字符边界、256/257位结果、零分母、指数/表达式/NaN/Unicode数字/数字内部空白/分数百分数拒绝。TestExactGrade：未知choiceID返回格式错误；合法错误答案Correct=false；非法格式不产生判分结果。TestNumericAnswerRepresentable：rational的1/3可输入、percentage的1/3无有限百分数表达不可入库，1/2可50%，整数/分数/小数最短合法形式均超过128字符时false。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -269,17 +269,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(NumericModesAndBoundary|ExactGrade|NumericAnswerRepresentable)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现判分及可输入性函数。** 用big.Int构造十进制/分数，big.Rat归一比较；原始rune数先限制，trim只作用首尾。256位答案检测为内部规范Rational检查，不经128字符的用户输入解析器，二者上限不可混用。规范答案校验包括约分和正分母，不使用ParseFloat或表达式引擎。CanEnterAnswer枚举整数/规范分数/终止小数候选最短字符数，percentage先乘100再要求分母只含2/5且含百分号；数值题答案至少一种合法表示≤128字符，否则不能送审。
-- [ ] **Step 4：验证GREEN。** 重跑Step2，再单独通过入口运行question全套，预期0失败；输入判分不修改任何数据库。
-- [ ] **Step 5：提交。** 仅任务2文件，提交 feat: 增加精确数值与稳定选项判分。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(NumericModesAndBoundary|ExactGrade|NumericAnswerRepresentable)$' -timeout 5m -count=1。
+- [x] **Step 3：实现判分及可输入性函数。** 用big.Int构造十进制/分数，big.Rat归一比较；原始rune数先限制，trim只作用首尾。256位答案检测为内部规范Rational检查，不经128字符的用户输入解析器，二者上限不可混用。规范答案校验包括约分和正分母，不使用ParseFloat或表达式引擎。CanEnterAnswer枚举整数/规范分数/终止小数候选最短字符数，percentage先乘100再要求分母只含2/5且含百分号；数值题答案至少一种合法表示≤128字符，否则不能送审。
+- [x] **Step 4：验证GREEN。** 重跑Step2，再单独通过入口运行question全套，预期0失败；输入判分不修改任何数据库。
+- [x] **Step 5：提交。** 仅任务2文件，提交 feat: 增加精确数值与稳定选项判分。
 
 ## Task 3：有界生成、受控插值与独立校验
 
 **Files:** question/{generate,verify,render}.go及测试；原创content/questions/elementary-rationals.v1.json（技术草稿，不计已审核数量）。
 **Interfaces:** 消费Task1/2，产出Generate、VerifyInstance；每家族分离生成答案和Big.Int验证，不共享答案算法。
 
-- [ ] **Step 1：写失败测试。** TestGeneratorFiniteSpace：4/5参数、32/33值、1000/1001组合、精确等价参数先去重、零有效实例、未声明除零、显式排除完整计数、包级总生成量由任务4验收；TestMissingOperandUniqueSolution覆盖0*x=0多解、0*x=1无解和除法定义域；TestTemplateChoiceEquivalence拒绝1/2与2/4、干扰项等于答案；TestVerifierRejectsMutatedGeneratedAnswer在正确参数保留时把数值/choice答案变错，独立拒绝三个家族；TestControlledQuestionRender拒绝未知占位符、prompt的answer、HTML/链接注入。
+- [x] **Step 1：写失败测试。** TestGeneratorFiniteSpace：4/5参数、32/33值、1000/1001组合、精确等价参数先去重、零有效实例、未声明除零、显式排除完整计数、包级总生成量由任务4验收；TestMissingOperandUniqueSolution覆盖0*x=0多解、0*x=1无解和除法定义域；TestTemplateChoiceEquivalence拒绝1/2与2/4、干扰项等于答案；TestVerifierRejectsMutatedGeneratedAnswer在正确参数保留时把数值/choice答案变错，独立拒绝三个家族；TestControlledQuestionRender拒绝未知占位符、prompt的answer、HTML/链接注入。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -292,17 +292,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(GeneratorFiniteSpace|MissingOperandUniqueSolution|TemplateChoiceEquivalence|VerifierRejectsMutatedGeneratedAnswer|ControlledQuestionRender)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现Generate/VerifyInstance。** 先检查完整组合/字节预算再分配；按固定枚举约束检查每组合，计数完整且不吞失败；生成Rat、验证独立交叉乘积或反代/唯一性，定时检查context。三家族版本1单独登记，未知/不存在旧版本拒绝；重复身份不增加题量。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；对技术题包全部参数完整校验，验证篡改fixture确实失败，同输入重复生成字节与身份一致。不得把校验成功写成数学批准。
-- [ ] **Step 5：提交。** 仅任务3文件，提交 feat: 生成可复验实例并独立检查数学答案。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(GeneratorFiniteSpace|MissingOperandUniqueSolution|TemplateChoiceEquivalence|VerifierRejectsMutatedGeneratedAnswer|ControlledQuestionRender)$' -timeout 5m -count=1。
+- [x] **Step 3：实现Generate/VerifyInstance。** 先检查完整组合/字节预算再分配；按固定枚举约束检查每组合，计数完整且不吞失败；生成Rat、验证独立交叉乘积或反代/唯一性，定时检查context。三家族版本1单独登记，未知/不存在旧版本拒绝；重复身份不增加题量。
+- [x] **Step 4：验证GREEN。** 重跑Step2；对技术题包全部参数完整校验，验证篡改fixture确实失败，同输入重复生成字节与身份一致。不得把校验成功写成数学批准。
+- [x] **Step 5：提交。** 仅任务3文件，提交 feat: 生成可复验实例并独立检查数学答案。
 
 ## Task 4：固定引用、五题覆盖与题包封存
 
 **Files:** question/{coverage,validate}.go及测试；两个负向原创fixture。
 **Interfaces:** 消费Task3和ReferenceSnapshot；产出FiveQuestionCover、ValidateEditable、ValidateAndSeal、SealedPackage/ValidationReport。草稿结构合法可保存，送审必须完整且绑定当前公开固定引用。
 
-- [ ] **Step 1：写失败测试。** TestFiveDistinctQuestionsCoverAllCore：8/9核心、1000/1001池、重复ID不能凑5题、恰好5覆盖、并集完整但需6题才覆盖→false；最多12候选的小池以固定种子20261002生成100组，用独立穷举五组合对照可行性和返回五ID见证、不得复用可变父状态；TestQuestionFixedReferences：objectiveIndex越界、知识版本不匹配、未公开K/单元/素材、跨知识错映射、第四额外映射、蓝图题源跨包、核心缺失拒绝；TestQuestionSealLimits：50/51模板、200/201固定、100/101蓝图、1000/+1实例、4 MiB frozen、8 KiB题面解析、6/7选项、8/9素材；TestFixedNumericWitness：无适用见证或答案没有128字符内合法表示拒绝，概念单选必须列人工复核；101问题只显示100但ready=false。
+- [x] **Step 1：写失败测试。** TestFiveDistinctQuestionsCoverAllCore：8/9核心、1000/1001池、重复ID不能凑5题、恰好5覆盖、并集完整但需6题才覆盖→false；最多12候选的小池以固定种子20261002生成100组，用独立穷举五组合对照可行性和返回五ID见证、不得复用可变父状态；TestQuestionFixedReferences：objectiveIndex越界、知识版本不匹配、未公开K/单元/素材、跨知识错映射、第四额外映射、蓝图题源跨包、核心缺失拒绝；TestQuestionSealLimits：50/51模板、200/201固定、100/101蓝图、1000/+1实例、4 MiB frozen、8 KiB题面解析、6/7选项、8/9素材；TestFixedNumericWitness：无适用见证或答案没有128字符内合法表示拒绝，概念单选必须列人工复核；101问题只显示100但ready=false。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -315,17 +315,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(FiveDistinctQuestionsCoverAllCore|QuestionFixedReferences|QuestionSealLimits|FixedNumericWitness)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现完整校验与封存。** 覆盖用按候选迭代的(count≤5,mask≤255)状态，倒序数量更新防重复取同一题并记录五ID见证；非核心目标显式补充。验证题源闭包、固定引用SHA、受限Markdown和来源，再冻结完整实例字节；不因显示报告截断而跳过数学检查。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；记录最大单模板1000组合/节点1000候选在8秒内是否完成，未达标定位优化，不改限额。草稿缺公开引用时safe gate提示，不能读取其他人员知识草稿。
-- [ ] **Step 5：提交。** 仅任务4文件，提交 feat: 验证固定题包与完整五题目标覆盖。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/question -run 'Test(FiveDistinctQuestionsCoverAllCore|QuestionFixedReferences|QuestionSealLimits|FixedNumericWitness)$' -timeout 5m -count=1。
+- [x] **Step 3：实现完整校验与封存。** 覆盖用按候选迭代的(count≤5,mask≤255)状态，倒序数量更新防重复取同一题并记录五ID见证；非核心目标显式补充。验证题源闭包、固定引用SHA、受限Markdown和来源，再冻结完整实例字节；不因显示报告截断而跳过数学检查。
+- [x] **Step 4：验证GREEN。** 重跑Step2；记录最大单模板1000组合/节点1000候选在8秒内是否完成，未达标定位优化，不改限额。草稿缺公开引用时safe gate提示，不能读取其他人员知识草稿。
+- [x] **Step 5：提交。** 仅任务4文件，提交 feat: 验证固定题包与完整五题目标覆盖。
 
 ## Task 5：数据库不可变约束与共享授权事务
 
 **Files:** 00005迁移；store/{managed_identity,question_tx,question_idempotency}.go及测试、question_schema_test.go；小范围修改workflow_tx.go及原测试。
 **Interfaces:** 产出questionTx/questionReadTx/questionConfigured/managedIdentity/questionReplay/questionRemember；保留workflowIdentity/workflowTx/workflowReadTx签名、动作授权、原错误映射。
 
-- [ ] **Step 1：写失败测试。** TestQuestionSchema：设计18张领域表、FK/唯一身份/参数摘要、固定字节JSONB/SHA一致、冻结后父/子UPDATE/DELETE/额外关联拒绝、只插review或半送审提交拒绝、workspace状态窄例外、00001—00004字节和原数据SHA不变；TestQuestionSessionExpiresWhileWaiting真实屏障覆盖账户行/内容行等待后过期、提交前过期、撤权/密码版本/CSRF/5分钟边界；TestQuestionIdempotencyAtomicity：同键同输入一次结果、异输入409、撤权重放拒绝、审计失败全部回滚。
+- [x] **Step 1：写失败测试。** TestQuestionSchema：设计18张领域表、FK/唯一身份/参数摘要、固定字节JSONB/SHA一致、冻结后父/子UPDATE/DELETE/额外关联拒绝、只插review或半送审提交拒绝、workspace状态窄例外、00001—00004字节和原数据SHA不变；TestQuestionSessionExpiresWhileWaiting真实屏障覆盖账户行/内容行等待后过期、提交前过期、撤权/密码版本/CSRF/5分钟边界；TestQuestionIdempotencyAtomicity：同键同输入一次结果、异输入409、撤权重放拒绝、审计失败全部回滚。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -337,17 +337,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(Schema|SessionExpiresWhileWaiting|IdempotencyAtomicity)$' -timeout 5m -count=1，仅全新随机测试库。
-- [ ] **Step 3：追加迁移与共享证明。** 建设计列出的workspaces/authors、packages/templates/instances/blueprints、coverage/sources、submissions/authors/members、decisions、publications/members/heads、withdrawals/events/idempotency；CHECK、准确FK、唯一固定身份、延迟一致性与不可变触发器。managedIdentity返回会话和DB时钟，CSRF是否必需由wrapper指定，不允许读取动作因为共享提取变成要求CSRF。wrapper各自Authorize/reauth，先锁后取当前proof、提交前再核验；error不暴露SQL。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；独立单批运行原workflow_tx/roles/account并发和幂等全部回归。迁移只运行在随机库，questionConfigured检查缺表返回固定QUESTION_BANK_NOT_CONFIGURED，服务器不自动up。
-- [ ] **Step 5：提交。** 任务5文件，提交 feat: 增加题库固定记录与授权事务约束。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(Schema|SessionExpiresWhileWaiting|IdempotencyAtomicity)$' -timeout 5m -count=1，仅全新随机测试库。
+- [x] **Step 3：追加迁移与共享证明。** 建设计列出的workspaces/authors、packages/templates/instances/blueprints、coverage/sources、submissions/authors/members、decisions、publications/members/heads、withdrawals/events/idempotency；CHECK、准确FK、唯一固定身份、延迟一致性与不可变触发器。managedIdentity返回会话和DB时钟，CSRF是否必需由wrapper指定，不允许读取动作因为共享提取变成要求CSRF。wrapper各自Authorize/reauth，先锁后取当前proof、提交前再核验；error不暴露SQL。
+- [x] **Step 4：验证GREEN。** 重跑Step2；独立单批运行原workflow_tx/roles/account并发和幂等全部回归。迁移只运行在随机库，questionConfigured检查缺表返回固定QUESTION_BANK_NOT_CONFIGURED，服务器不自动up。
+- [x] **Step 5：提交。** 任务5文件，提交 feat: 增加题库固定记录与授权事务约束。
 
 ## Task 6：离线检查、不可变导入导出与本人草稿
 
 **Files:** store/question_{import,draft,export}.go及测试；cli/question.go/question_test.go；三个cmd/main.go。
 **Interfaces:** 产出RunQuestion、ImportQuestionDraft(ctx,Archive)(QuestionImportResult,error)、ExportQuestionArchive(ctx,id string,version int)(Archive,error)，以及Repository的draft六个方法和QuestionPreflight；QuestionImportResult含PackageID/PackageSHA/Status string、PackageVersion/ImportedInstances/DuplicateInstances int，Status固定draft。
 
-- [ ] **Step 1：写失败测试。** TestQuestionCLIArchiveRoundTrip保持包/实例SHA、引擎版本、sourceMap和可验证作者来源；同库既有作者由DB继承、外来记录不继承批准、输出只能新目录且无路径泄漏；TestQuestionDraftOwnership：本人编辑、admin只读、他人404、expectedRevision冲突、结构合法不完整可保存、private知识草稿不能读取；TestQuestionAdoptionPreservesResponsibility：10/2000及±1边界、复制原作者/legacy标记不可清空、CLI不能指定可信平台作者或review，当前认领者新增整理责任。
+- [x] **Step 1：写失败测试。** TestQuestionCLIArchiveRoundTrip保持包/实例SHA、引擎版本、sourceMap和可验证作者来源；同库既有作者由DB继承、外来记录不继承批准、输出只能新目录且无路径泄漏；TestQuestionDraftOwnership：本人编辑、admin只读、他人404、expectedRevision冲突、结构合法不完整可保存、private知识草稿不能读取；TestQuestionAdoptionPreservesResponsibility：10/2000及±1边界、复制原作者/legacy标记不可清空、CLI不能指定可信平台作者或review，当前认领者新增整理责任。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -359,17 +359,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** 分两批：node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run TestQuestionCLI -timeout 5m -count=1；同入口go test ./internal/store -run 'TestQuestion(DraftOwnership|AdoptionPreservesResponsibility)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现工具与草稿。** 导入只取既有内容锁、再核验数据库引用，不反向取admin锁；检查/导入用输入上限和8秒数学截止，不把离线references视为公开批准。保存只固定输入和revision，validate针对已保存revision实时读取公开引用/完整生成；summary不含答案/来源。不存在snapshot或已有同版本异字节时整次失败，原CLI调用接口不改。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；用临时新目录和随机库执行check→import→export→check，技术草稿始终零批准零公开；原content check/import/export回归通过。导出失败仅清理本次创建目录。
-- [ ] **Step 5：提交。** 任务6文件，提交 feat: 增加未批准题包工具与安全草稿编写。
+- [x] **Step 2：验证RED。** 分两批：node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run TestQuestionCLI -timeout 5m -count=1；同入口go test ./internal/store -run 'TestQuestion(DraftOwnership|AdoptionPreservesResponsibility)$' -timeout 5m -count=1。
+- [x] **Step 3：实现工具与草稿。** 导入只取既有内容锁、再核验数据库引用，不反向取admin锁；检查/导入用输入上限和8秒数学截止，不把离线references视为公开批准。保存只固定输入和revision，validate针对已保存revision实时读取公开引用/完整生成；summary不含答案/来源。不存在snapshot或已有同版本异字节时整次失败，原CLI调用接口不改。
+- [x] **Step 4：验证GREEN。** 重跑Step2；用临时新目录和随机库执行check→import→export→check，技术草稿始终零批准零公开；原content check/import/export回归通过。导出失败仅清理本次创建目录。
+- [x] **Step 5：提交。** 任务6文件，提交 feat: 增加未批准题包工具与安全草稿编写。
 
 ## Task 7：冻结送审、作者继承与独立复核
 
 **Files:** store/question_{submission,review}.go及测试、question_fixture_test.go；question/review.go及测试。
 **Interfaces:** 产出Submit/List/Read/ReviseQuestionSubmission、ListQuestionInstances、DecideQuestionReview；FrozenBody/Instance关联保证同一冻结摘要，分页不读取后来工作区。
 
-- [ ] **Step 1：写失败测试。** TestQuestionFrozenSubmission：expectedRevision/digest双对比、重算后来源变化、冻结完整实例/作者/来源/目标/assetSHA、原工作区/文件变化后逐字节相同；TestQuestionCopiedAuthorCannotApprove：editor+reviewer、adopt/跨题包复用同ID/version相同字节时继承作者且均不可自审，异字节VERSION_CONFLICT；TestQuestionReviewFinality：六项check和无模板说明、竞争审核仅一终态、returned原工作区revision+1、approved修订新workspace且不继承批准；TestQuestionInstancePages：全部分页可见、别送审同ID不能借页越权、实际4 MiB缩页、冻结后不得补成员。
+- [x] **Step 1：写失败测试。** TestQuestionFrozenSubmission：expectedRevision/digest双对比、重算后来源变化、冻结完整实例/作者/来源/目标/assetSHA、原工作区/文件变化后逐字节相同；TestQuestionCopiedAuthorCannotApprove：editor+reviewer、adopt/跨题包复用同ID/version相同字节时继承作者且均不可自审，异字节VERSION_CONFLICT；TestQuestionReviewFinality：六项check和无模板说明、竞争审核仅一终态、returned原工作区revision+1、approved修订新workspace且不继承批准；TestQuestionInstancePages：全部分页可见、别送审同ID不能借页越权、实际4 MiB缩页、冻结后不得补成员。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -382,17 +382,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(FrozenSubmission|CopiedAuthorCannotApprove|ReviewFinality|InstancePages)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现送审与审核事务。** 精确同版本查出原作者，锁其账户行；以全量冻结载荷规范摘要保存字节/JSONB/子表，实例页面仅读取冻结绑定。审核队列排除作者，reviewer只批准当前pending且Checks全true；author、sourceMap、engine信息不能来自当前workspace回查。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；批量实例及审核依据读取不得N+1展开每个历史送审，审计/终态错误使全事务回滚；原P3b独立复核回归保持。
-- [ ] **Step 5：提交。** 任务7文件，提交 feat: 冻结题库并要求真实独立复核。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(FrozenSubmission|CopiedAuthorCannotApprove|ReviewFinality|InstancePages)$' -timeout 5m -count=1。
+- [x] **Step 3：实现送审与审核事务。** 精确同版本查出原作者，锁其账户行；以全量冻结载荷规范摘要保存字节/JSONB/子表，实例页面仅读取冻结绑定。审核队列排除作者，reviewer只批准当前pending且Checks全true；author、sourceMap、engine信息不能来自当前workspace回查。
+- [x] **Step 4：验证GREEN。** 重跑Step2；批量实例及审核依据读取不得N+1展开每个历史送审，审计/终态错误使全事务回滚；原P3b独立复核回归保持。
+- [x] **Step 5：提交。** 任务7文件，提交 feat: 冻结题库并要求真实独立复核。
 
 ## Task 8：固定manifest、双head准备与激活
 
 **Files:** question/{manifest,release}.go及测试；store/question_{release,read}.go及测试。
 **Interfaces:** 产出BuildCandidate(ctx,BaseManifest,[]ApprovedSubmission,ReferenceSnapshot)(Candidate,error)（内部Candidate含Manifest/DiffSummary/Changes/Instances），Repository发布五个方法＋member/change分页；BaseManifest只加载一次验证，ApprovedSubmission含冻结body/instances/decision。
 
-- [ ] **Step 1：写失败测试。** TestQuestionDualHeadActivation：任何一head准备后变化409、manifestSha不符、撤权/rehash/reauth过期拒绝、审计失败head不变、重放不恢复旧head；TestQuestionEvidenceEligibility：新选reviewer已撤权拒绝、已发布继承证据可沿用、作者/原冻结digest冲突拒绝；TestQuestionReplacementPreservesHistoricalFacts：同模板新version退出旧generated实例、引用旧模板蓝图须同批批准更新、旧正文不删除、不写永久撤回；TestQuestionPublicationPagination：101历史/head不在第一页、每项summary≤4 MiB、未来published状态增字节仍可读、members/changes精确分页；TestQuestionCandidateCapacity验证200/10000/1000、32/8 MiB以及1—20送审边界。
+- [x] **Step 1：写失败测试。** TestQuestionDualHeadActivation：任何一head准备后变化409、manifestSha不符、撤权/rehash/reauth过期拒绝、审计失败head不变、重放不恢复旧head；TestQuestionEvidenceEligibility：新选reviewer已撤权拒绝、已发布继承证据可沿用、作者/原冻结digest冲突拒绝；TestQuestionReplacementPreservesHistoricalFacts：同模板新version退出旧generated实例、引用旧模板蓝图须同批批准更新、旧正文不删除、不写永久撤回；TestQuestionPublicationPagination：101历史/head不在第一页、每项summary≤4 MiB、未来published状态增字节仍可读、members/changes精确分页；TestQuestionCandidateCapacity验证200/10000/1000、32/8 MiB以及1—20送审边界。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -405,17 +405,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(DualHeadActivation|EvidenceEligibility|ReplacementPreservesHistoricalFacts|PublicationPagination|CandidateCapacity)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现固定候选与激活。** 批量校验当前准确K/unit/asset与catalogue身份，整批五题可覆盖，更新template须对应准确蓝图题源。prepare固定两个head和manifest/diff但不公开；activate同事务重新授权、5分钟验证、两head比较、黑名单/审核/容量核验，再变更head/状态/审计/幂等。PublicationSummary不携带大正文，head单独读取。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；同步屏障覆盖知识发布与题库激活竞争，只有符合实际两个head的一方可提交；原P3b发布/公开读取回归保持。
-- [ ] **Step 5：提交。** 任务8文件，提交 feat: 通过固定双head证据激活可信题库。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(DualHeadActivation|EvidenceEligibility|ReplacementPreservesHistoricalFacts|PublicationPagination|CandidateCapacity)$' -timeout 5m -count=1。
+- [x] **Step 3：实现固定候选与激活。** 批量校验当前准确K/unit/asset与catalogue身份，整批五题可覆盖，更新template须对应准确蓝图题源。prepare固定两个head和manifest/diff但不公开；activate同事务重新授权、5分钟验证、两head比较、黑名单/审核/容量核验，再变更head/状态/审计/幂等。PublicationSummary不携带大正文，head单独读取。
+- [x] **Step 4：验证GREEN。** 重跑Step2；同步屏障覆盖知识发布与题库激活竞争，只有符合实际两个head的一方可提交；原P3b发布/公开读取回归保持。
+- [x] **Step 5：提交。** 任务8文件，提交 feat: 通过固定双head证据激活可信题库。
 
 ## Task 9：永久撤回、当前覆盖与历史事实
 
 **Files:** question/{withdrawal,facts}.go及测试；store/question_{withdrawal,coverage,facts}.go及测试。
 **Interfaces:** 产出PreviewQuestionWithdrawal、WithdrawQuestionVersion、ReadQuestionCoverage、questionOfferable/questionHistoricalFacts；到此var _ question.Repository=(*Store)(nil)才加入生产编译断言。
 
-- [ ] **Step 1：写失败测试。** TestQuestionPermanentWithdrawalFacts：template移除全部关联实例/蓝图、fixed实例移除显式蓝图、单generated实例只移该实例并重新计算模板蓝图ready、blueprint不删正确讲解；TestQuestionCoverageAfterSingleInstanceWithdrawal：5→4不足、不用重复凑数/旧ready、允许撤成空库；TestQuestionKnowledgeWithdrawalStopsOffer：K/unit/asset当前不可用立即停止、无关K更新不整体停止；TestQuestionWithdrawalReplayRace：两head变化/不同键重复目标409，激活或旧送审不能带回黑名单；TestQuestionHistoricalFactSeparation：普通替换仅退出new offer，永久撤回另列固定事实，历史字节可追溯；TestQuestionCoverageCounts：distinct总量与多节点覆盖区别、固定题/模板/实例不混算。
+- [x] **Step 1：写失败测试。** TestQuestionPermanentWithdrawalFacts：template移除全部关联实例/蓝图、fixed实例移除显式蓝图、单generated实例只移该实例并重新计算模板蓝图ready、blueprint不删正确讲解；TestQuestionCoverageAfterSingleInstanceWithdrawal：5→4不足、不用重复凑数/旧ready、允许撤成空库；TestQuestionKnowledgeWithdrawalStopsOffer：K/unit/asset当前不可用立即停止、无关K更新不整体停止；TestQuestionWithdrawalReplayRace：两head变化/不同键重复目标409，激活或旧送审不能带回黑名单；TestQuestionHistoricalFactSeparation：普通替换仅退出new offer，永久撤回另列固定事实，历史字节可追溯；TestQuestionCoverageCounts：distinct总量与多节点覆盖区别、固定题/模板/实例不混算。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -428,17 +428,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(PermanentWithdrawalFacts|CoverageAfterSingleInstanceWithdrawal|KnowledgeWithdrawalStopsOffer|WithdrawalReplayRace|HistoricalFactSeparation|CoverageCounts)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现撤回闭包与分离读取。** 从当前head固定影响/ImpactDigest，按Target规则生成新manifest与黑名单/审计/幂等同事务；不把非当前成员当不存在或永久撤回。coverage repeatable-read读取两个head及固定有效性，每节点动态FiveQuestionCover，报告分页面向reviewer/admin；历史读取不套当前head存在性过滤。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；原知识/单元/素材撤回仍使用原闭包/锁且不增旧表kind；无用户assessment/learning写入。随机库记录全部新表/原表兼容回归结果。
-- [ ] **Step 5：提交。** 任务9文件，提交 feat: 永久撤回题目并区分当前可用与历史证据。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestQuestion(PermanentWithdrawalFacts|CoverageAfterSingleInstanceWithdrawal|KnowledgeWithdrawalStopsOffer|WithdrawalReplayRace|HistoricalFactSeparation|CoverageCounts)$' -timeout 5m -count=1。
+- [x] **Step 3：实现撤回闭包与分离读取。** 从当前head固定影响/ImpactDigest，按Target规则生成新manifest与黑名单/审计/幂等同事务；不把非当前成员当不存在或永久撤回。coverage repeatable-read读取两个head及固定有效性，每节点动态FiveQuestionCover，报告分页面向reviewer/admin；历史读取不套当前head存在性过滤。
+- [x] **Step 4：验证GREEN。** 重跑Step2；原知识/单元/素材撤回仍使用原闭包/锁且不增旧表kind；无用户assessment/learning写入。随机库记录全部新表/原表兼容回归结果。
+- [x] **Step 5：提交。** 任务9文件，提交 feat: 永久撤回题目并区分当前可用与历史证据。
 
 ## Task 10：Go私有HTTP、共享资源与OpenAPI
 
 **Files:** httpapi/question_{routes,json,error,dispatch}.go及测试；application.go；cmd/server/main.go；api/openapi.yaml；generated.d.ts；api/question-boundary-cases.json。
 **Interfaces:** QuestionOptions{Service *question.Service,PublicOrigin string,Production/Configured bool}，AuthOptions增加Question *QuestionOptions；QuestionReady(ctx context.Context,db *sql.DB)(bool,error)只读检查18表/迁移是否齐备。NewService注入同一个publicationService.AcquireValidation，serveQuestion固定路由，不提供学习者答案/自由判分端口。
 
-- [ ] **Step 1：写失败测试。** TestQuestionHTTPContract所有设计端口、根/额外段404、方法405/Allow、状态201/200及幂等重放、未知/重复JSON/query/原始整数词法/UTF-8/NUL/终止边界；TestQuestionPrivateScopeAndErrors：learner不可读答案、private越权404、缺迁移503与旧业务正常、error/log无题面/路径/SQL/secret；TestSharedQuestionValidationSlots：P3b+题库共用两槽、第三项立即503、取消/失败/慢body释放时机；TestSharedContentQuestionRateWindow跨后台共享30/10配额、coverage计heavy且有Retry-After；TestQuestionBodyDeadline包含body/SQL8s、超大chunked413、取消/断连无残留事务，原账户4s不改。
+- [x] **Step 1：写失败测试。** TestQuestionHTTPContract所有设计端口、根/额外段404、方法405/Allow、状态201/200及幂等重放、未知/重复JSON/query/原始整数词法/UTF-8/NUL/终止边界；TestQuestionPrivateScopeAndErrors：learner不可读答案、private越权404、缺迁移503与旧业务正常、error/log无题面/路径/SQL/secret；TestSharedQuestionValidationSlots：P3b+题库共用两槽、第三项立即503、取消/失败/慢body释放时机；TestSharedContentQuestionRateWindow跨后台共享30/10配额、coverage计heavy且有Retry-After；TestQuestionBodyDeadline包含body/SQL8s、超大chunked413、取消/断连无残留事务，原账户4s不改。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -451,17 +451,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi -run 'Test(QuestionHTTPContract|QuestionPrivateScopeAndErrors|SharedQuestionValidationSlots|SharedContentQuestionRateWindow|QuestionBodyDeadline)$' -timeout 5m -count=1。
-- [ ] **Step 3：实现固定路由与错误映射。** 严格解码前做实际账户证明和写Origin/CSRF；大正文及重操作持已有槽至实际结束。错误状态/code逐项实现设计第11节，QUESTION_*只映射新sentinel；完整业务响应实际序列化≤4 MiB、no-store，秘密证明不序列化。控制请求≤8 KiB，创建/保存4 MiB；撤回预览允许limit/offset并验证全部影响计数摘要。共享资源装配只有一个publication.Service，不再NewService两次制造独立槽。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；单批原httpapi完整回归。api:generate两次均零差异；比较master旧paths/schema结构逐项不变，仅新增题库端口/DTO。共享边界用例文件含请求原字节、路径/方法、期待status/code，两端读取同一用例。
-- [ ] **Step 5：提交。** 任务10文件，提交 feat: 接入严格私有题库API与共享资源边界。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi -run 'Test(QuestionHTTPContract|QuestionPrivateScopeAndErrors|SharedQuestionValidationSlots|SharedContentQuestionRateWindow|QuestionBodyDeadline)$' -timeout 5m -count=1。
+- [x] **Step 3：实现固定路由与错误映射。** 严格解码前做实际账户证明和写Origin/CSRF；大正文及重操作持已有槽至实际结束。错误状态/code逐项实现设计第11节，QUESTION_*只映射新sentinel；完整业务响应实际序列化≤4 MiB、no-store，秘密证明不序列化。控制请求≤8 KiB，创建/保存4 MiB；撤回预览允许limit/offset并验证全部影响计数摘要。共享资源装配只有一个publication.Service，不再NewService两次制造独立槽。
+- [x] **Step 4：验证GREEN。** 重跑Step2；单批原httpapi完整回归。api:generate两次均零差异；比较master旧paths/schema结构逐项不变，仅新增题库端口/DTO。共享边界用例文件含请求原字节、路径/方法、期待status/code，两端读取同一用例。
+- [x] **Step 5：提交。** 任务10文件，提交 feat: 接入严格私有题库API与共享资源边界。
 
 ## Task 11：TypeScript私有契约、原始代理与客户端
 
 **Files:** lib/question/{types,schemas,client,server-client}.ts及测试；lib/api/question-proxy.ts及测试；两个固定Next.js路由。
 **Interfaces:** questionRouteRequest(route QuestionRoute):{method:string,path:string}|null；readQuestionResponse(response:Response,action:QuestionAction,signal?:AbortSignal):Promise<QuestionResult<unknown>>；createQuestionProxy(rawGoOrigin:string,options:{publicOrigin:string,production:boolean},fetcher?:typeof fetch)返回(request:Request,segments:string[])=>Promise<Response>；readServerQuestion<T>(route,cookieHeader):Promise<QuestionResult<T>>；requestQuestion<T>(route,input?,pendingKey?,signal?):Promise<QuestionResult<T>>。
 
-- [ ] **Step 1：写失败测试。** TestQuestionProxyBoundary读取api共享raw用例，重复/未知键、1e0/1.0版本、unsafe int、null/遗漏字段、未知status拒绝，允许的原字节不重新stringify；TestQuestionResponseIntegrity核验status/DTO/headers、实际4 MiB、null review/head、分页缩limit、来源答案只授权角色；TestQuestionProxyCancellation body到fetch到response全程10s/信号、redirect拒绝、仅选账户cookie/CSRF、Set-Cookie不转发、SSR server-only/no-store；TestQuestionClientNoAutomaticRetry成功键生成一次、超时不猜失败/自动重写。
+- [x] **Step 1：写失败测试。** TestQuestionProxyBoundary读取api共享raw用例，重复/未知键、1e0/1.0版本、unsafe int、null/遗漏字段、未知status拒绝，允许的原字节不重新stringify；TestQuestionResponseIntegrity核验status/DTO/headers、实际4 MiB、null review/head、分页缩limit、来源答案只授权角色；TestQuestionProxyCancellation body到fetch到response全程10s/信号、redirect拒绝、仅选账户cookie/CSRF、Set-Cookie不转发、SSR server-only/no-store；TestQuestionClientNoAutomaticRetry成功键生成一次、超时不猜失败/自动重写。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -474,17 +474,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/question src/lib/api/question-proxy.test.ts，预期新行为失败。
-- [ ] **Step 3：实现封闭Zod与固定代理。** 复用现有raw-json/bytes纯读取工具但保持旧接口不变；按新的具名DTO判别输入输出，原body bytes直接转发。普通SSR不获取CSRF，写入从现有context受控取得；只允许白名单GoOrigin与明确路由，拒绝通用URL参数。客户端错误文字英文，数值算法只在Go。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；单独入口npm run typecheck和原content/auth/lib客户端单元回归。api:generate产物与Task10契约一致，所有私有fetch不进入公共缓存。
-- [ ] **Step 5：提交。** 任务11文件，提交 feat: 增加严格题库私有代理与类型客户端。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/question src/lib/api/question-proxy.test.ts，预期新行为失败。
+- [x] **Step 3：实现封闭Zod与固定代理。** 复用现有raw-json/bytes纯读取工具但保持旧接口不变；按新的具名DTO判别输入输出，原body bytes直接转发。普通SSR不获取CSRF，写入从现有context受控取得；只允许白名单GoOrigin与明确路由，拒绝通用URL参数。客户端错误文字英文，数值算法只在Go。
+- [x] **Step 4：验证GREEN。** 重跑Step2；单独入口npm run typecheck和原content/auth/lib客户端单元回归。api:generate产物与Task10契约一致，所有私有fetch不进入公共缓存。
+- [x] **Step 5：提交。** 任务11文件，提交 feat: 增加严格题库私有代理与类型客户端。
 
 ## Task 12：英文编写、审核、发布与撤回页面
 
 **Files:** 文件表任务12组件/样式/测试；frontend/src/app/editor/questions/page.tsx、editor/questions/drafts/[id]/page.tsx、review/questions/page.tsx、review/questions/[id]/page.tsx、admin/question-publications/page.tsx、admin/question-publications/[id]/page.tsx、admin/question-withdrawals/page.tsx；auth-status导航。
 **Interfaces:** Task11数据层；draft-editor只编辑DraftInput，generation-panel只显示保存revision的ValidationReport，review-panel冻结正文＋Instance分页＋六项检查，publication-panel两个head＋差异＋显式reauth/activate，coverage-panel节点分页（发布后台与复核页分别按admin/reviewer权限调用）。pending-command保留{key,route,input,status}并仅手动同输入重试。
 
-- [ ] **Step 1：写失败测试。** DraftEditor显示三家族/精确参数/主知识目标索引及中英文目标、保存冲突保留输入、旧校验摘要不能送新revision；ReviewPanel展示全部source/authors/legacy/engine/约束排除＋所有实例页，不以首屏代替整批，六项检查与generation说明必需；PublicationPanel head跨页单取、差异分页/失效准备/重新验证不丢键；WithdrawalPanel解释影响/不足五题/分页摘要变化重预览；QuestionPendingCommand只主动同键重试，取消/未确认结果保留输入、不自动假成功；角色导航admin无editor/reviewer入口。
+- [x] **Step 1：写失败测试。** DraftEditor显示三家族/精确参数/主知识目标索引及中英文目标、保存冲突保留输入、旧校验摘要不能送新revision；ReviewPanel展示全部source/authors/legacy/engine/约束排除＋所有实例页，不以首屏代替整批，六项检查与generation说明必需；PublicationPanel head跨页单取、差异分页/失效准备/重新验证不丢键；WithdrawalPanel解释影响/不足五题/分页摘要变化重预览；QuestionPendingCommand只主动同键重试，取消/未确认结果保留输入、不自动假成功；角色导航admin无editor/reviewer入口。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -497,17 +497,17 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/question src/components/auth-status.test.tsx，预期新页面行为失败。
-- [ ] **Step 3：实现七页及组件。** 复用SafeMarkdown/公式/现有SHA素材接口与键盘对话框，按真实permission决定入口，加载/空状态/未配置/未就绪/来源未核实英文明确。生成结果与正式批准数量分开；可按页完整阅读，不提供“全部已看”虚假标记。取消仅结束等待，明确写入结果可能未确认，主动同键重试固定输入。
-- [ ] **Step 4：验证GREEN。** 重跑Step2；单独npm run typecheck/build和现有reading/content/auth组件回归。1280×900与390×844检查长ID、公式、键盘焦点/对话框、无横向页面溢出；不新增产品依赖或复制外部图片。
-- [ ] **Step 5：提交。** 任务12文件，提交 feat: 增加可信题库英文管理后台。
+- [x] **Step 2：验证RED。** node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/question src/components/auth-status.test.tsx，预期新页面行为失败。
+- [x] **Step 3：实现七页及组件。** 复用SafeMarkdown/公式/现有SHA素材接口与键盘对话框，按真实permission决定入口，加载/空状态/未配置/未就绪/来源未核实英文明确。生成结果与正式批准数量分开；可按页完整阅读，不提供“全部已看”虚假标记。取消仅结束等待，明确写入结果可能未确认，主动同键重试固定输入。
+- [x] **Step 4：验证GREEN。** 重跑Step2；单独npm run typecheck/build和现有reading/content/auth组件回归。1280×900与390×844检查长ID、公式、键盘焦点/对话框、无横向页面溢出；不新增产品依赖或复制外部图片。
+- [x] **Step 5：提交。** 任务12文件，提交 feat: 增加可信题库英文管理后台。
 
 ## Task 13：真实联调、性能预算、兼容验收与独立审查
 
 **Files:** e2etest/question_fixture.go/question_control.go及测试、harness.go；tests/e2e/question-helpers.ts与四个question-*.spec.ts；现有backend.yml/frontend.yml；question-bank.md/2026-10-02-p4a-acceptance.md、README/路线图。
 **Interfaces:** Fixture只在随机库构造原创公开K/模板和真实不同账户；控制端口只有环回、随机能力令牌，生产server不能导入e2etest。浏览器走真实Next.js→Go→PostgreSQL，不伪造成功业务API。沿用harness安全启动/清理协议，不返回可供生产使用的批准。
 
-- [ ] **Step 1：写失败联调。** question-authoring：真实创建→保存→生成校验→送审、错答案/范围/冲突、CLI草稿认领；question-review：两个实际账户、作者自审拒绝、冻结完整分页、六项批准/退回/修订；question-release：真实prepare→reauth→activate→coverage→withdraw、两个head陈旧/模板替换/单实例撤回；question-security：learner/private404、缺迁移、取消/超时/同键手动重试、role撤回与共享槽/预算；分别运行两viewports，预期缺少题库装配行为失败。
+- [x] **Step 1：写失败联调。** question-authoring：真实创建→保存→生成校验→送审、错答案/范围/冲突、CLI草稿认领；question-review：两个实际账户、作者自审拒绝、冻结完整分页、六项批准/退回/修订；question-release：真实prepare→reauth→activate→coverage→withdraw、两个head陈旧/模板替换/单实例撤回；question-security：learner/private404、缺迁移、取消/超时/同键手动重试、role撤回与共享槽/预算；分别运行两viewports，预期缺少题库装配行为失败。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -520,10 +520,10 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：运行RED。** 构建隔离harness和frontend后，每场景各一次：node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts（review/release/security分别替换）；基础环境故障先定位，不能当业务RED。
-- [ ] **Step 3：补齐真实装配与CI。** harness同一个publication.Service注入题库双槽，用testutil每批新随机库；API错误/审计/manifest从真实DB断言。backend CI加入question纯逻辑与store题库测试，frontend CI新增四个独立限时场景批次；保留原所有测试、540s入口与retries=0。容量测试记录最大合法生成、送审和200/10000/1000候选的真实耗时、SQL查询计划、累计分配/最大驻留，必须在原8秒/字节预算内；失败先优化，不延长时限或缩小案例假通过。
-- [ ] **Step 4：回归GREEN并形成证据。** 各自入口go vet、go test question/auth/content/publication/httpapi/e2etest/testutil、store/cli分批、go build ./cmd/...；npm typecheck/test/build/audit、两次api:generate零差异；全部原公开/账户/内容浏览器批次＋四题库批次。留存最大容量数据、原schema/导出SHA/旧迁移零差异、随机库清理、原开发库无迁移。验收文件逐项对照设计15节12组；代码/技术fixture通过不计为20批准模板或300生产实例。
-- [ ] **Step 5：独立整分支审查与交付。** 按Native约定调用requesting-code-review，使用新上下文的独立审查覆盖本计划Review Focus、真实独立校验器、冻结作者/关联、两head/锁、替换与永久事实、错误/分页泄漏、最大预算和旧兼容。必要修复先写真实RED再GREEN；保存所有裁定/修复及验证证据，不以旧CI代替最新提交。通过SSH推送、创建并附加实现PR，等待最新SHA四项CI全部完成，按用户授权处理合并，不自动部署。
+- [x] **Step 2：运行RED。** 构建隔离harness和frontend后，每场景各一次：node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts（review/release/security分别替换）；基础环境故障先定位，不能当业务RED。
+- [x] **Step 3：补齐真实装配与CI。** harness同一个publication.Service注入题库双槽，用testutil每批新随机库；API错误/审计/manifest从真实DB断言。backend CI加入question纯逻辑与store题库测试，frontend CI新增四个独立限时场景批次；保留原所有测试、540s入口与retries=0。容量测试记录最大合法生成、送审和200/10000/1000候选的真实耗时、SQL查询计划、累计分配/最大驻留，必须在原8秒/字节预算内；失败先优化，不延长时限或缩小案例假通过。
+- [x] **Step 4：回归GREEN并形成证据。** 各自入口go vet、go test question/auth/content/publication/httpapi/e2etest/testutil、store/cli分批、go build ./cmd/...；npm typecheck/test/build/audit、两次api:generate零差异；全部原公开/账户/内容浏览器批次＋四题库批次。留存最大容量数据、原schema/导出SHA/旧迁移零差异、随机库清理、原开发库无迁移。验收文件逐项对照设计15节12组；代码/技术fixture通过不计为20批准模板或300生产实例。
+- [x] **Step 5：独立整分支审查与交付。** 按Native约定调用requesting-code-review，使用新上下文的独立审查覆盖本计划Review Focus、真实独立校验器、冻结作者/关联、两head/锁、替换与永久事实、错误/分页泄漏、最大预算和旧兼容。必要修复先写真实RED再GREEN；保存所有裁定/修复及验证证据，不以旧CI代替最新提交。通过SSH推送、创建并附加实现PR，等待最新SHA四项CI全部完成，按用户授权处理合并，不自动部署。
 
 ## 计划自查与可行性门槛
 
@@ -539,7 +539,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 | 10事务/数据库 | 任务5及6—9：18表、FK/延迟约束、锁/DB时间/幂等/审计 |
 | 11端口/具名DTO/英文页 | 完整契约表、任务10/11/12；私有404、严格原始JSON、分页与错误 |
 | 12资源/截止 | 任务3/4/8/10/13；共享槽和scope、所有字节/数量限额、最大合法实测 |
-| 13—16文件/兼容/验收/书面门槛 | 文件责任表、任务13、自查；仅方案已确认，执行计划待审阅 |
+| 13—16文件/兼容/验收/书面门槛 | 文件责任表、任务13、自查；方案与计划均已确认，十三任务完成，见P4a验收记录 |
 
 自查已覆盖契约名/类型/参数/返回值、任务消费产出、规范与冻结摘要、分页资源和具体失败测试；没有产品占位方法或开放式“稍后决定”。提交前再次检查全部引用文件、接口名称一致、旧端口/schema差异及文档链接。静态无阻塞；最大合法载荷8秒性能、真实并发、独立校验及全回归是实施中的硬验收，不能用计划自查替代。
 

@@ -23,6 +23,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
 )
@@ -186,6 +187,18 @@ func Run(ctx context.Context, c Config) (result error) {
 	if e != nil {
 		return e
 	}
+	contentService := publication.NewService(s)
+	questionService, err := question.NewService(s, contentService.AcquireValidation)
+	if err != nil {
+		return errors.New("question fixture service unavailable")
+	}
+	questionWorkURL, parseErr := url.Parse(c.TestDatabaseURL)
+	if parseErr != nil {
+		return errors.New("question fixture database unavailable")
+	}
+	questionWorkURL.Path = "/" + name
+	qcontrol := &questionControls{db: db, repo: s, accounts: accounts, admin: accountAdmin, contentService: contentService, root: root, workURL: questionWorkURL.String()}
+	defer qcontrol.release()
 	var mu sync.RWMutex
 	unavailable := false
 	authUnavailable := false
@@ -196,7 +209,21 @@ func Run(ctx context.Context, c Config) (result error) {
 		defer mu.Unlock()
 		ctx, stop := context.WithTimeout(ctx, 3*time.Second)
 		defer stop()
+		if handled, err := qcontrol.change(ctx, scene); handled {
+			return err
+		}
 		switch scene {
+		case "question":
+			qcontrol.release()
+			qcontrol.holdSave.Store(false)
+			if err := resetQuestion(ctx, db, s, accounts, accountAdmin, root, normal); err != nil {
+				return errors.New("question fixture setup failed")
+			}
+			contentUnavailable = false
+			authUnavailable = false
+			unavailable = false
+			holdSave.Store(false)
+			return nil
 		case "content":
 			if err := resetWorkflow(ctx, db, accounts, accountAdmin); err != nil {
 				return err
@@ -293,7 +320,8 @@ func Run(ctx context.Context, c Config) (result error) {
 		return errors.New("harness control bind failed")
 	}
 	defer controlListener.Close()
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Content: &httpapi.ContentOptions{Service: publication.NewService(s), PublicOrigin: fixtureOrigin, Configured: true}})
+
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
@@ -316,7 +344,7 @@ func Run(ctx context.Context, c Config) (result error) {
 
 		// Commit through the real handler before dropping a delayed response. The
 		// next request must prove idempotent replay, rather than mock a success.
-		if r.Method == "PUT" && strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) {
+		if r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
 			captured := httptest.NewRecorder()
 			actual.ServeHTTP(captured, r)
 			if captured.Code == http.StatusOK {
@@ -351,6 +379,24 @@ func Run(ctx context.Context, c Config) (result error) {
 			return
 		}
 		w.WriteHeader(204)
+	})
+	control.HandleFunc("GET /question/state", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			http.Error(w, "Unauthorized", 401)
+			return
+		}
+		mu.RLock()
+		defer mu.RUnlock()
+		ctx, stop := context.WithTimeout(r.Context(), 2*time.Second)
+		defer stop()
+		data, err := qcontrol.state(ctx)
+		if err != nil {
+			http.Error(w, "Question state unavailable", 503)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "no-store")
+		_ = json.NewEncoder(w).Encode(data)
 	})
 	state := runtimeState{APIURL: "http://" + apiListener.Addr().String(), ControlURL: "http://" + controlListener.Addr().String(), Token: token, Database: name, AssetSHA: normal.Package().Assets[0].SHA256, KnowledgeID: "equivalent-fractions", PathID: normal.Package().Paths[0].ID}
 	f, e := os.OpenFile(c.StateFile, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)

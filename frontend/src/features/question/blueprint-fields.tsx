@@ -1,0 +1,10 @@
+"use client";
+import { TextField, NumberField, RefFields, Rows, SelectField } from "@/features/content/field-controls";
+import { ObjectiveIndices, PublishedObjectives } from "./template-fields";
+import type { Blueprint } from "@/lib/question/types";
+export const newBlueprint = (): Blueprint => ({ id: "", version: 1, knowledge: { id: "", version: 1 }, coreObjectiveIndices: [], sources: [], coverageNote: "", ruleVersion: 1, questionCount: 5, passCount: 4 });
+export function BlueprintFields({ value, label, onChange }: {
+    value: Blueprint;
+    label: string;
+    onChange: (v: Blueprint) => void;
+}) { const b = value, change = (p: Partial<Blueprint>) => onChange({ ...b, ...p }); return <fieldset><legend>{label} · five distinct questions</legend><TextField label={label + " ID"} value={b.id} onChange={id => change({ id })}/><NumberField label={label + " version"} value={b.version} onChange={version => change({ version })}/><RefFields label={label + " knowledge"} value={b.knowledge} onChange={knowledge => change({ knowledge })}/><PublishedObjectives knowledge={b.knowledge}/><ObjectiveIndices label={label + " core"} value={b.coreObjectiveIndices} onChange={coreObjectiveIndices => change({ coreObjectiveIndices })}/><Rows<Blueprint["sources"][number]> label={label + " source"} items={b.sources} onChange={sources => change({ sources })} create={() => ({ kind: "template", ref: { id: "", version: 1 } })}>{(s, i, set) => <><SelectField label={`${label} source ${i + 1} kind`} value={s.kind} options={["template", "instance"]} onChange={kind => set({ ...s, kind: kind as "template" | "instance" })}/><RefFields label={`${label} source ${i + 1}`} value={s.ref} onChange={ref => set({ ...s, ref })}/></>}</Rows><p>Instance sources identify fixed questions. Generated questions enter through their exact template version.</p><TextField label={label + " coverage explanation"} value={b.coverageNote} onChange={coverageNote => change({ coverageNote })} multiline/><p>Rule version 1 · 5 questions · 4 correct answers required. Current five-question coverage is checked by Go.</p></fieldset>; }

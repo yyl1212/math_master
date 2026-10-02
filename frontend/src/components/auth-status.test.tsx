@@ -27,3 +27,7 @@ describe("TestAuthStatus", () => {
     await waitFor(() => expect(screen.getByRole("link", { name: "Sign in" })).toBeVisible());
   });
 });
+it("QuestionRoleNavigationDoesNotGrantEditorOrReviewerToAdmins",async()=>{
+ vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({data:{user:{id:"11111111-1111-4111-8111-111111111111",username:"question_admin",roles:["learner","admin"],mustChangePassword:false},csrfToken:"A".repeat(43)}})));
+ render(<AuthStatus/>);expect(await screen.findByRole("link",{name:"Publish question bank"})).toHaveAttribute("href","/admin/question-publications");expect(screen.queryByRole("link",{name:"Write questions"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Review questions"})).not.toBeInTheDocument()
+});

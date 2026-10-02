@@ -6453,6 +6453,2206 @@
           }
         }
       }
+    },
+    "/api/v1/question-bank/drafts": {
+      "get": {
+        "operationId": "question_get_drafts",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "mine",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "editing",
+                "submitted"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionDraftPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      },
+      "post": {
+        "operationId": "question_post_drafts",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 4 MiB envelope, questionPackage 2 MiB.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionDraftInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/drafts/adopt": {
+      "post": {
+        "operationId": "question_post_drafts_adopt",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionAdoptInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/drafts/{id}": {
+      "get": {
+        "operationId": "question_get_drafts_id",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      },
+      "put": {
+        "operationId": "question_put_drafts_id",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 4 MiB envelope, questionPackage 2 MiB.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionSaveDraftInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/drafts/{id}/validate": {
+      "post": {
+        "operationId": "question_post_drafts_id_validate",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionValidationReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionValidateInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/drafts/{id}/submit": {
+      "post": {
+        "operationId": "question_post_drafts_id_submit",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionSubmissionView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionSubmitInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/submissions": {
+      "get": {
+        "operationId": "question_get_submissions",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "mine",
+                "review",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "approved",
+                "returned"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionSubmissionPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/submissions/{id}": {
+      "get": {
+        "operationId": "question_get_submissions_id",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionSubmissionView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/submissions/{id}/instances": {
+      "get": {
+        "operationId": "question_get_submissions_id_instances",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionInstancePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/submissions/{id}/revision": {
+      "post": {
+        "operationId": "question_post_submissions_id_revision",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionEmptyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/submissions/{id}/decision": {
+      "post": {
+        "operationId": "question_post_submissions_id_decision",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionSubmissionView"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionReviewInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/publications": {
+      "get": {
+        "operationId": "question_get_publications",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "prepared",
+                "published"
+              ]
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionPublicationPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/publications/{id}": {
+      "get": {
+        "operationId": "question_get_publications_id",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionPublicationSummary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/publications/{id}/members": {
+      "get": {
+        "operationId": "question_get_publications_id_members",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionMemberPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/publications/{id}/changes": {
+      "get": {
+        "operationId": "question_get_publications_id_changes",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionChangePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/publications/prepare": {
+      "post": {
+        "operationId": "question_post_publications_prepare",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionPublicationSummary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionPrepareInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/publications/{id}/activate": {
+      "post": {
+        "operationId": "question_post_publications_id_activate",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionPublicationSummary"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionActivateInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/withdrawals/preview": {
+      "post": {
+        "operationId": "question_post_withdrawals_preview",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionWithdrawalPreview"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionWithdrawalPreviewInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/withdrawals": {
+      "post": {
+        "operationId": "question_post_withdrawals",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            "description": "Actor/action/exact-input UUID v4. Manual retries preserve the original key and bytes; successful replay preserves its status and result without switching a head."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionWithdrawalResult"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "description": "Original UTF-8 bytes: 8 KiB control request.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/QuestionWithdrawalInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/question-bank/coverage": {
+      "get": {
+        "operationId": "question_get_coverage",
+        "description": "Private question bank API. Strict original UTF-8 JSON, integer lexemes, closed fields, bounded paging and current session proof. Raw body, SQL and locks share an eight-second deadline. Content and question heavy work share two validation slots and rate windows. No answer projection for learners. Activation/withdrawal require recent password verification.",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "knowledgeId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9]*(-[a-z0-9]+)*$",
+              "maxLength": 64
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Complete private DTO, maximum 4 MiB, no Set-Cookie.",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionCoverageReport"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/QuestionError400"
+          },
+          "401": {
+            "$ref": "#/components/responses/QuestionError401"
+          },
+          "403": {
+            "$ref": "#/components/responses/QuestionError403"
+          },
+          "404": {
+            "$ref": "#/components/responses/QuestionError404"
+          },
+          "405": {
+            "$ref": "#/components/responses/QuestionError405"
+          },
+          "409": {
+            "$ref": "#/components/responses/QuestionError409"
+          },
+          "413": {
+            "$ref": "#/components/responses/QuestionError413"
+          },
+          "422": {
+            "$ref": "#/components/responses/QuestionError422"
+          },
+          "428": {
+            "$ref": "#/components/responses/QuestionError428"
+          },
+          "429": {
+            "$ref": "#/components/responses/QuestionError429"
+          },
+          "503": {
+            "$ref": "#/components/responses/QuestionError503"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -10374,6 +12574,3310 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {}
+      },
+      "QuestionActivateInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedKnowledgeHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expectedManifestSha": {
+            "type": "string"
+          },
+          "expectedQuestionHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "expectedKnowledgeHead",
+          "expectedManifestSha",
+          "expectedQuestionHead",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "QuestionAdoptInput": {
+        "additionalProperties": false,
+        "properties": {
+          "packageId": {
+            "type": "string"
+          },
+          "packageVersion": {
+            "type": "integer"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "packageId",
+          "packageVersion",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "QuestionAssetRef": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          }
+        }
+      },
+      "QuestionBlueprint": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "coreObjectiveIndices",
+          "coverageNote",
+          "id",
+          "knowledge",
+          "passCount",
+          "questionCount",
+          "ruleVersion",
+          "sources",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/QuestionRef"
+          },
+          "coreObjectiveIndices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionBlueprintSource"
+            }
+          },
+          "coverageNote": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "ruleVersion": {
+            "const": 1
+          },
+          "questionCount": {
+            "const": 5
+          },
+          "passCount": {
+            "const": 4
+          }
+        }
+      },
+      "QuestionBlueprintSource": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "ref"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "template",
+              "instance"
+            ]
+          },
+          "ref": {
+            "$ref": "#/components/schemas/QuestionRef"
+          }
+        }
+      },
+      "QuestionChange": {
+        "additionalProperties": false,
+        "properties": {
+          "after": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionMemberIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "before": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionMemberIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "after",
+          "before",
+          "id",
+          "kind",
+          "reason"
+        ],
+        "type": "object"
+      },
+      "QuestionChangePage": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionChange"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "manifestSha": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "publicationId": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "manifestSha",
+          "offset",
+          "publicationId",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionChoice": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "text"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "text": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          }
+        }
+      },
+      "QuestionConstraintCount": {
+        "additionalProperties": false,
+        "properties": {
+          "constraint": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "constraint",
+          "count"
+        ],
+        "type": "object"
+      },
+      "QuestionCoverageNode": {
+        "additionalProperties": false,
+        "properties": {
+          "assessmentInstances": {
+            "type": "integer"
+          },
+          "blueprint": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "coreObjectiveIndices": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "coveredObjectiveIndices": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "duplicateInstances": {
+            "type": "integer"
+          },
+          "effectiveInstances": {
+            "type": "integer"
+          },
+          "fiveQuestionFeasible": {
+            "type": "boolean"
+          },
+          "fixedInstances": {
+            "type": "integer"
+          },
+          "generatedInstances": {
+            "type": "integer"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/QuestionIdentity"
+          },
+          "ready": {
+            "type": "boolean"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionIssue"
+            },
+            "type": "array"
+          },
+          "supplementaryObjectiveIndices": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "assessmentInstances",
+          "blueprint",
+          "coreObjectiveIndices",
+          "coveredObjectiveIndices",
+          "duplicateInstances",
+          "effectiveInstances",
+          "fiveQuestionFeasible",
+          "fixedInstances",
+          "generatedInstances",
+          "knowledge",
+          "ready",
+          "reasons",
+          "supplementaryObjectiveIndices"
+        ],
+        "type": "object"
+      },
+      "QuestionCoverageReport": {
+        "additionalProperties": false,
+        "properties": {
+          "approvedTemplates": {
+            "type": "integer"
+          },
+          "duplicateInstances": {
+            "type": "integer"
+          },
+          "effectiveInstances": {
+            "type": "integer"
+          },
+          "fixedQuestions": {
+            "type": "integer"
+          },
+          "knowledgeHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nodes": {
+            "$ref": "#/components/schemas/QuestionCoverageItems"
+          },
+          "publishedKnowledge": {
+            "type": "integer"
+          },
+          "questionHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "approvedTemplates",
+          "duplicateInstances",
+          "effectiveInstances",
+          "fixedQuestions",
+          "knowledgeHead",
+          "nodes",
+          "publishedKnowledge",
+          "questionHead"
+        ],
+        "type": "object"
+      },
+      "QuestionDiffSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "added": {
+            "type": "integer"
+          },
+          "removed": {
+            "type": "integer"
+          },
+          "replaced": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "added",
+          "removed",
+          "replaced"
+        ],
+        "type": "object"
+      },
+      "QuestionDraftInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "catalogueVersion",
+          "questionPackage",
+          "sourceMap"
+        ],
+        "properties": {
+          "catalogueVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "questionPackage": {
+            "$ref": "#/components/schemas/QuestionPackage"
+          },
+          "sourceMap": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionSourceLink"
+            }
+          }
+        }
+      },
+      "QuestionDraftSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "catalogueVersion": {
+            "type": "integer"
+          },
+          "completenessTotal": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "packageId": {
+            "type": "string"
+          },
+          "packageVersion": {
+            "type": "integer"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string"
+          },
+          "structuralTotal": {
+            "type": "integer"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "catalogueVersion",
+          "completenessTotal",
+          "createdAt",
+          "id",
+          "ownerId",
+          "packageId",
+          "packageVersion",
+          "revision",
+          "status",
+          "structuralTotal",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "QuestionDraftView": {
+        "additionalProperties": false,
+        "properties": {
+          "authorIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "catalogueSha256": {
+            "type": "string"
+          },
+          "catalogueVersion": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "gate": {
+            "$ref": "#/components/schemas/QuestionValidationReport"
+          },
+          "id": {
+            "type": "string"
+          },
+          "legacyUnattributed": {
+            "type": "boolean"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "questionPackage": {
+            "$ref": "#/components/schemas/QuestionPackage"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "sourceMap": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionSourceLink"
+            },
+            "type": "array"
+          },
+          "status": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "authorIds",
+          "catalogueSha256",
+          "catalogueVersion",
+          "createdAt",
+          "gate",
+          "id",
+          "legacyUnattributed",
+          "ownerId",
+          "questionPackage",
+          "revision",
+          "sourceMap",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "QuestionEngineSpec": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "family",
+          "generatorVersion",
+          "operation",
+          "unknownSide",
+          "verifierVersion"
+        ],
+        "properties": {
+          "family": {
+            "enum": [
+              "rational_arithmetic",
+              "rational_comparison",
+              "missing_operand"
+            ]
+          },
+          "operation": {
+            "enum": [
+              "add",
+              "subtract",
+              "multiply",
+              "divide",
+              "compare"
+            ]
+          },
+          "unknownSide": {
+            "enum": [
+              null,
+              "left",
+              "right"
+            ]
+          },
+          "generatorVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "verifierVersion": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "family": {
+                  "const": "rational_arithmetic"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "operation": {
+                  "enum": [
+                    "add",
+                    "subtract",
+                    "multiply",
+                    "divide"
+                  ]
+                },
+                "unknownSide": {
+                  "enum": [
+                    null
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "family": {
+                  "const": "rational_comparison"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "operation": {
+                  "enum": [
+                    "compare"
+                  ]
+                },
+                "unknownSide": {
+                  "enum": [
+                    null
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "family": {
+                  "const": "missing_operand"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "operation": {
+                  "enum": [
+                    "add",
+                    "subtract",
+                    "multiply",
+                    "divide"
+                  ]
+                },
+                "unknownSide": {
+                  "enum": [
+                    "left",
+                    "right"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "QuestionFixedQuestion": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "body",
+          "id",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "body": {
+            "$ref": "#/components/schemas/QuestionBody"
+          }
+        }
+      },
+      "QuestionFrozenBody": {
+        "additionalProperties": false,
+        "properties": {
+          "authorIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "catalogueSha256": {
+            "type": "string"
+          },
+          "catalogueVersion": {
+            "type": "integer"
+          },
+          "coverage": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionCoverageNode"
+            },
+            "type": "array"
+          },
+          "frozenDigest": {
+            "type": "string"
+          },
+          "generation": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionGenerationReport"
+            },
+            "type": "array"
+          },
+          "generatorVersions": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "instanceIdentities": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionIdentity"
+            },
+            "type": "array"
+          },
+          "legacyUnattributed": {
+            "type": "boolean"
+          },
+          "objectives": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionResolvedObjective"
+            },
+            "type": "array"
+          },
+          "questionPackage": {
+            "$ref": "#/components/schemas/QuestionPackage"
+          },
+          "resolved": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionKnownObject"
+            },
+            "type": "array"
+          },
+          "sourceMap": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionSourceLink"
+            },
+            "type": "array"
+          },
+          "verifierVersions": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "authorIds",
+          "catalogueSha256",
+          "catalogueVersion",
+          "coverage",
+          "frozenDigest",
+          "generation",
+          "generatorVersions",
+          "instanceIdentities",
+          "legacyUnattributed",
+          "objectives",
+          "questionPackage",
+          "resolved",
+          "sourceMap",
+          "verifierVersions"
+        ],
+        "type": "object"
+      },
+      "QuestionGenerationReport": {
+        "additionalProperties": false,
+        "properties": {
+          "constraintCounts": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionConstraintCount"
+            },
+            "type": "array"
+          },
+          "excludedCombinations": {
+            "type": "integer"
+          },
+          "generatorVersion": {
+            "type": "integer"
+          },
+          "rawCombinations": {
+            "type": "integer"
+          },
+          "template": {
+            "$ref": "#/components/schemas/QuestionIdentity"
+          },
+          "validInstances": {
+            "type": "integer"
+          },
+          "verifierVersion": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "constraintCounts",
+          "excludedCombinations",
+          "generatorVersion",
+          "rawCombinations",
+          "template",
+          "validInstances",
+          "verifierVersion"
+        ],
+        "type": "object"
+      },
+      "QuestionIdentity": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "sha256",
+          "version"
+        ],
+        "type": "object"
+      },
+      "QuestionInstance": {
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "$ref": "#/components/schemas/QuestionBody"
+          },
+          "generatorVersion": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "identity": {
+            "$ref": "#/components/schemas/QuestionIdentity"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "parameters": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionParameterValue"
+            },
+            "type": "array"
+          },
+          "template": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionIdentity"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "verifierVersion": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "body",
+          "generatorVersion",
+          "identity",
+          "origin",
+          "parameters",
+          "template",
+          "verifierVersion"
+        ],
+        "type": "object"
+      },
+      "QuestionIssue": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "path"
+        ],
+        "type": "object"
+      },
+      "QuestionKnownObject": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "sha256",
+          "version"
+        ],
+        "type": "object"
+      },
+      "QuestionManifestMember": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "$ref": "#/components/schemas/QuestionMemberEvidence"
+          },
+          "identity": {
+            "$ref": "#/components/schemas/QuestionMemberIdentity"
+          }
+        },
+        "required": [
+          "evidence",
+          "identity"
+        ],
+        "type": "object"
+      },
+      "QuestionMemberEvidence": {
+        "additionalProperties": false,
+        "properties": {
+          "decisionId": {
+            "type": "string"
+          },
+          "frozenDigest": {
+            "type": "string"
+          },
+          "inheritedFrom": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "submissionId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "decisionId",
+          "frozenDigest",
+          "inheritedFrom",
+          "submissionId"
+        ],
+        "type": "object"
+      },
+      "QuestionMemberIdentity": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "packageId": {
+            "type": "string"
+          },
+          "packageVersion": {
+            "type": "integer"
+          },
+          "sha256": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "packageId",
+          "packageVersion",
+          "sha256",
+          "version"
+        ],
+        "type": "object"
+      },
+      "QuestionMemberPage": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionManifestMember"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "manifestSha": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "publicationId": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "manifestSha",
+          "offset",
+          "publicationId",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionObjectiveCoverage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "knowledge",
+          "objectiveIndices"
+        ],
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/QuestionRef"
+          },
+          "objectiveIndices": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 2147483647
+            }
+          }
+        }
+      },
+      "QuestionChangeItems": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionChange"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionCoverageItems": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionCoverageNode"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionDraftPage": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionDraftSummary"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionInstancePage": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionInstance"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionSubmissionPage": {
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionSubmissionSummary"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "items",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionParameter": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "values"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[^\u0000]*$"
+            }
+          }
+        }
+      },
+      "QuestionParameterValue": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "value"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "value": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          }
+        }
+      },
+      "QuestionPrepareInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedKnowledgeHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expectedQuestionHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "submissionIds": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "expectedKnowledgeHead",
+          "expectedQuestionHead",
+          "reason",
+          "submissionIds"
+        ],
+        "type": "object"
+      },
+      "QuestionPublicationPage": {
+        "additionalProperties": false,
+        "properties": {
+          "head": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionPublicationSummary"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "head",
+          "items",
+          "limit",
+          "offset",
+          "total"
+        ],
+        "type": "object"
+      },
+      "QuestionPublicationSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "baseKnowledgeHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "baseQuestionHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "blueprintCount": {
+            "type": "integer"
+          },
+          "catalogueSha256": {
+            "type": "string"
+          },
+          "catalogueVersion": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "diff": {
+            "$ref": "#/components/schemas/QuestionDiffSummary"
+          },
+          "id": {
+            "type": "string"
+          },
+          "instanceCount": {
+            "type": "integer"
+          },
+          "manifestSha": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "templateCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "baseKnowledgeHead",
+          "baseQuestionHead",
+          "blueprintCount",
+          "catalogueSha256",
+          "catalogueVersion",
+          "createdAt",
+          "diff",
+          "id",
+          "instanceCount",
+          "manifestSha",
+          "status",
+          "templateCount"
+        ],
+        "type": "object"
+      },
+      "QuestionBody": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "answerFormat",
+          "assets",
+          "choices",
+          "correctChoiceId",
+          "correctNumeric",
+          "coverage",
+          "explanation",
+          "knowledge",
+          "prompt",
+          "sources",
+          "type",
+          "units",
+          "witness"
+        ],
+        "properties": {
+          "type": {
+            "enum": [
+              "single_choice",
+              "numeric"
+            ]
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/QuestionRef"
+          },
+          "coverage": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionObjectiveCoverage"
+            }
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionRef"
+            }
+          },
+          "prompt": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "explanation": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "answerFormat": {
+            "enum": [
+              null,
+              "rational",
+              "percentage"
+            ]
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionChoice"
+            }
+          },
+          "correctChoiceId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[^\u0000]*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "correctNumeric": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionRational"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "witness": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionVerificationWitness"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionAssetRef"
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionSource"
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "numeric"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "answerFormat": {
+                  "enum": [
+                    "rational",
+                    "percentage"
+                  ]
+                },
+                "choices": {
+                  "maxItems": 0
+                },
+                "correctChoiceId": {
+                  "type": "null"
+                },
+                "correctNumeric": {
+                  "$ref": "#/components/schemas/QuestionRational"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "single_choice"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "answerFormat": {
+                  "type": "null"
+                },
+                "choices": {
+                  "minItems": 1
+                },
+                "correctNumeric": {
+                  "type": "null"
+                },
+                "correctChoiceId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "QuestionPackage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "blueprints",
+          "fixedQuestions",
+          "id",
+          "kind",
+          "schemaVersion",
+          "templates",
+          "version"
+        ],
+        "properties": {
+          "kind": {
+            "const": "question-bank"
+          },
+          "schemaVersion": {
+            "const": 1
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionTemplate"
+            }
+          },
+          "fixedQuestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionFixedQuestion"
+            }
+          },
+          "blueprints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionBlueprint"
+            }
+          }
+        }
+      },
+      "QuestionRational": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "denominator",
+          "numerator"
+        ],
+        "properties": {
+          "numerator": {
+            "type": "string",
+            "pattern": "^(0|-?[1-9][0-9]{0,255})$"
+          },
+          "denominator": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{0,255}$"
+          }
+        }
+      },
+      "QuestionResolvedObjective": {
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/QuestionIdentity"
+          },
+          "objectiveIndex": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "knowledge",
+          "objectiveIndex",
+          "text"
+        ],
+        "type": "object"
+      },
+      "QuestionReviewChecks": {
+        "additionalProperties": false,
+        "properties": {
+          "explanations": {
+            "type": "boolean"
+          },
+          "generation": {
+            "type": "boolean"
+          },
+          "illustrations": {
+            "type": "boolean"
+          },
+          "mathematics": {
+            "type": "boolean"
+          },
+          "objectives": {
+            "type": "boolean"
+          },
+          "sources": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "explanations",
+          "generation",
+          "illustrations",
+          "mathematics",
+          "objectives",
+          "sources"
+        ],
+        "type": "object"
+      },
+      "QuestionReviewDecision": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "$ref": "#/components/schemas/QuestionReviewChecks"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "frozenDigest": {
+            "type": "string"
+          },
+          "generationNote": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "independenceNote": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "reviewerId": {
+            "type": "string"
+          },
+          "submissionId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "checks",
+          "createdAt",
+          "decision",
+          "frozenDigest",
+          "generationNote",
+          "id",
+          "independenceNote",
+          "note",
+          "reviewerId",
+          "submissionId"
+        ],
+        "type": "object"
+      },
+      "QuestionReviewInput": {
+        "additionalProperties": false,
+        "properties": {
+          "checks": {
+            "$ref": "#/components/schemas/QuestionReviewChecks"
+          },
+          "decision": {
+            "type": "string"
+          },
+          "generationNote": {
+            "type": "string"
+          },
+          "independenceNote": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "checks",
+          "decision",
+          "generationNote",
+          "independenceNote",
+          "note"
+        ],
+        "type": "object"
+      },
+      "QuestionSaveDraftInput": {
+        "additionalProperties": false,
+        "properties": {
+          "catalogueVersion": {
+            "type": "integer"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "questionPackage": {
+            "$ref": "#/components/schemas/QuestionPackage"
+          },
+          "sourceMap": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionSourceLink"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "catalogueVersion",
+          "expectedRevision",
+          "questionPackage",
+          "sourceMap"
+        ],
+        "type": "object"
+      },
+      "QuestionSource": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "accessedAt",
+          "attribution",
+          "author",
+          "kind",
+          "license",
+          "title",
+          "url"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "author": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "title": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "accessedAt": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "license": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "attribution": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          }
+        }
+      },
+      "QuestionSourceLink": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "batchSha256",
+          "knowledge",
+          "legacyId",
+          "note",
+          "relativePath",
+          "sha256"
+        ],
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/QuestionRef"
+          },
+          "batchSha256": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "relativePath": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "legacyId": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "note": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          }
+        }
+      },
+      "QuestionSubmissionSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "catalogueVersion": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "frozenDigest": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "packageId": {
+            "type": "string"
+          },
+          "packageVersion": {
+            "type": "integer"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string"
+          },
+          "workspaceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "catalogueVersion",
+          "createdAt",
+          "frozenDigest",
+          "id",
+          "ownerId",
+          "packageId",
+          "packageVersion",
+          "revision",
+          "status",
+          "workspaceId"
+        ],
+        "type": "object"
+      },
+      "QuestionSubmissionView": {
+        "additionalProperties": false,
+        "properties": {
+          "createdAt": {
+            "type": "string"
+          },
+          "frozen": {
+            "$ref": "#/components/schemas/QuestionFrozenBody"
+          },
+          "gate": {
+            "$ref": "#/components/schemas/QuestionValidationReport"
+          },
+          "id": {
+            "type": "string"
+          },
+          "ownerId": {
+            "type": "string"
+          },
+          "review": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/QuestionReviewDecision"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string"
+          },
+          "workspaceId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "frozen",
+          "gate",
+          "id",
+          "ownerId",
+          "review",
+          "revision",
+          "status",
+          "workspaceId"
+        ],
+        "type": "object"
+      },
+      "QuestionSubmitInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedDigest": {
+            "type": "string"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "expectedDigest",
+          "expectedRevision"
+        ],
+        "type": "object"
+      },
+      "QuestionTemplate": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "answerFormat",
+          "assets",
+          "constraints",
+          "coverage",
+          "distractors",
+          "engine",
+          "explanationTemplate",
+          "id",
+          "knowledge",
+          "parameters",
+          "promptTemplate",
+          "sources",
+          "type",
+          "units",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/QuestionRef"
+          },
+          "coverage": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionObjectiveCoverage"
+            }
+          },
+          "units": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionRef"
+            }
+          },
+          "type": {
+            "enum": [
+              "single_choice",
+              "numeric"
+            ]
+          },
+          "answerFormat": {
+            "enum": [
+              null,
+              "rational",
+              "percentage"
+            ]
+          },
+          "promptTemplate": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "explanationTemplate": {
+            "type": "string",
+            "pattern": "^[^\u0000]*$"
+          },
+          "engine": {
+            "$ref": "#/components/schemas/QuestionEngineSpec"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionParameter"
+            }
+          },
+          "constraints": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "nonzero_divisor",
+                "nonnegative_result",
+                "distinct_operands"
+              ]
+            }
+          },
+          "distractors": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "negate",
+                "plus_one",
+                "minus_one",
+                "reciprocal"
+              ]
+            }
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionAssetRef"
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionSource"
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "numeric"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "answerFormat": {
+                  "enum": [
+                    "rational",
+                    "percentage"
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "single_choice"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "answerFormat": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "engine": {
+                  "properties": {
+                    "family": {
+                      "const": "rational_arithmetic"
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parameters": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "enum": [
+                          "left",
+                          "right"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "engine": {
+                  "properties": {
+                    "family": {
+                      "const": "rational_comparison"
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parameters": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "enum": [
+                          "left",
+                          "right"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "type": {
+                  "const": "single_choice"
+                },
+                "answerFormat": {
+                  "type": "null"
+                },
+                "distractors": {
+                  "maxItems": 0
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "engine": {
+                  "properties": {
+                    "family": {
+                      "const": "missing_operand"
+                    }
+                  }
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "parameters": {
+                  "items": {
+                    "properties": {
+                      "name": {
+                        "enum": [
+                          "known",
+                          "result"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "QuestionValidateInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "expectedRevision"
+        ],
+        "type": "object"
+      },
+      "QuestionValidationReport": {
+        "additionalProperties": false,
+        "properties": {
+          "completenessErrors": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionIssue"
+            },
+            "type": "array"
+          },
+          "completenessTotal": {
+            "type": "integer"
+          },
+          "coverage": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionCoverageNode"
+            },
+            "type": "array"
+          },
+          "digest": {
+            "type": "string"
+          },
+          "frozenBytes": {
+            "type": "integer"
+          },
+          "generation": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionGenerationReport"
+            },
+            "type": "array"
+          },
+          "humanReviewRequirements": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionIssue"
+            },
+            "type": "array"
+          },
+          "humanReviewTotal": {
+            "type": "integer"
+          },
+          "packageBytes": {
+            "type": "integer"
+          },
+          "readyToSubmit": {
+            "type": "boolean"
+          },
+          "structuralErrors": {
+            "items": {
+              "$ref": "#/components/schemas/QuestionIssue"
+            },
+            "type": "array"
+          },
+          "structuralTotal": {
+            "type": "integer"
+          },
+          "truncated": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "completenessErrors",
+          "completenessTotal",
+          "coverage",
+          "digest",
+          "frozenBytes",
+          "generation",
+          "humanReviewRequirements",
+          "humanReviewTotal",
+          "packageBytes",
+          "readyToSubmit",
+          "structuralErrors",
+          "structuralTotal",
+          "truncated"
+        ],
+        "type": "object"
+      },
+      "QuestionVerificationWitness": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "engine",
+          "parameters"
+        ],
+        "properties": {
+          "engine": {
+            "$ref": "#/components/schemas/QuestionEngineSpec"
+          },
+          "parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuestionParameterValue"
+            }
+          }
+        }
+      },
+      "QuestionRef": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          }
+        }
+      },
+      "QuestionWithdrawalInput": {
+        "additionalProperties": false,
+        "properties": {
+          "expectedKnowledgeHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expectedQuestionHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "target": {
+            "$ref": "#/components/schemas/QuestionWithdrawalTarget"
+          }
+        },
+        "required": [
+          "expectedKnowledgeHead",
+          "expectedQuestionHead",
+          "reason",
+          "target"
+        ],
+        "type": "object"
+      },
+      "QuestionWithdrawalPreview": {
+        "additionalProperties": false,
+        "properties": {
+          "affectedBlueprints": {
+            "type": "integer"
+          },
+          "affectedInstances": {
+            "type": "integer"
+          },
+          "affectedTemplates": {
+            "type": "integer"
+          },
+          "changes": {
+            "$ref": "#/components/schemas/QuestionChangeItems"
+          },
+          "currentKnowledgeHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "currentQuestionHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "diff": {
+            "$ref": "#/components/schemas/QuestionDiffSummary"
+          },
+          "impactDigest": {
+            "type": "string"
+          },
+          "target": {
+            "$ref": "#/components/schemas/QuestionWithdrawalTarget"
+          }
+        },
+        "required": [
+          "affectedBlueprints",
+          "affectedInstances",
+          "affectedTemplates",
+          "changes",
+          "currentKnowledgeHead",
+          "currentQuestionHead",
+          "diff",
+          "impactDigest",
+          "target"
+        ],
+        "type": "object"
+      },
+      "QuestionWithdrawalPreviewInput": {
+        "additionalProperties": false,
+        "properties": {
+          "target": {
+            "$ref": "#/components/schemas/QuestionWithdrawalTarget"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "type": "object"
+      },
+      "QuestionWithdrawalResult": {
+        "additionalProperties": false,
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "previousKnowledgeHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "previousQuestionHead": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "publication": {
+            "$ref": "#/components/schemas/QuestionPublicationSummary"
+          }
+        },
+        "required": [
+          "eventId",
+          "previousKnowledgeHead",
+          "previousQuestionHead",
+          "publication"
+        ],
+        "type": "object"
+      },
+      "QuestionWithdrawalTarget": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "version"
+        ],
+        "type": "object"
+      },
+      "QuestionEmptyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "QuestionErrorCode": {
+        "type": "string",
+        "enum": [
+          "INVALID_REQUEST",
+          "INVALID_COOKIE",
+          "AUTHENTICATION_REQUIRED",
+          "CSRF_FAILED",
+          "FORBIDDEN",
+          "PASSWORD_CHANGE_REQUIRED",
+          "NOT_FOUND",
+          "METHOD_NOT_ALLOWED",
+          "QUESTION_DRAFT_CONFLICT",
+          "QUESTION_PUBLICATION_STALE",
+          "REVIEW_CONFLICT",
+          "IDEMPOTENCY_CONFLICT",
+          "IMMUTABLE_CONFLICT",
+          "VERSION_CONFLICT",
+          "PAYLOAD_TOO_LARGE",
+          "QUESTION_INVALID",
+          "QUESTION_NOT_READY",
+          "QUESTION_LIMIT_EXCEEDED",
+          "REVIEW_REQUIRED",
+          "REAUTHENTICATION_REQUIRED",
+          "RATE_LIMITED",
+          "QUESTION_BANK_NOT_CONFIGURED",
+          "AUTH_NOT_CONFIGURED",
+          "SERVICE_UNAVAILABLE"
+        ]
+      },
+      "QuestionError": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "INVALID_REQUEST"
+                  },
+                  "message": {
+                    "const": "Invalid request."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "INVALID_COOKIE"
+                  },
+                  "message": {
+                    "const": "Invalid sign-in cookie."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "AUTHENTICATION_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Please sign in to continue."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "CSRF_FAILED"
+                  },
+                  "message": {
+                    "const": "Request verification failed."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "FORBIDDEN"
+                  },
+                  "message": {
+                    "const": "You do not have permission."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "PASSWORD_CHANGE_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Change your password to continue."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "NOT_FOUND"
+                  },
+                  "message": {
+                    "const": "Resource not found."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "METHOD_NOT_ALLOWED"
+                  },
+                  "message": {
+                    "const": "Method not allowed."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "QUESTION_DRAFT_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This draft has changed. Reload before continuing."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "QUESTION_PUBLICATION_STALE"
+                  },
+                  "message": {
+                    "const": "Published snapshots changed. Prepare again."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "REVIEW_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This submission already has a final decision."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "IDEMPOTENCY_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This request key was used for different input."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "IMMUTABLE_CONFLICT"
+                  },
+                  "message": {
+                    "const": "This fixed version conflicts with saved questions."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "VERSION_CONFLICT"
+                  },
+                  "message": {
+                    "const": "Create a new version for changed questions."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "PAYLOAD_TOO_LARGE"
+                  },
+                  "message": {
+                    "const": "This request exceeds the size limit."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "QUESTION_INVALID"
+                  },
+                  "message": {
+                    "const": "Question validation failed."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "QUESTION_NOT_READY"
+                  },
+                  "message": {
+                    "const": "Complete the required questions before submitting."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "QUESTION_LIMIT_EXCEEDED"
+                  },
+                  "message": {
+                    "const": "Split this question bank into smaller reviewed batches."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "REVIEW_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Independent review is required."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "REAUTHENTICATION_REQUIRED"
+                  },
+                  "message": {
+                    "const": "Verify your password before continuing."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "RATE_LIMITED"
+                  },
+                  "message": {
+                    "const": "Too many requests. Try again later."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "QUESTION_BANK_NOT_CONFIGURED"
+                  },
+                  "message": {
+                    "const": "Question management is temporarily unavailable."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "AUTH_NOT_CONFIGURED"
+                  },
+                  "message": {
+                    "const": "Accounts are temporarily unavailable."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "error": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "code": {
+                    "const": "SERVICE_UNAVAILABLE"
+                  },
+                  "message": {
+                    "const": "Service temporarily unavailable."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                  }
+                },
+                "required": [
+                  "code",
+                  "message",
+                  "requestId"
+                ]
+              }
+            },
+            "required": [
+              "error"
+            ]
+          }
+        ]
       }
     },
     "securitySchemes": {
@@ -10734,6 +16238,347 @@
           "application/json": {
             "schema": {
               "$ref": "#/components/schemas/ContentError"
+            }
+          }
+        }
+      },
+      "QuestionError400": {
+        "description": "Question bank failure: INVALID_REQUEST, INVALID_COOKIE. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError401": {
+        "description": "Question bank failure: AUTHENTICATION_REQUIRED. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError403": {
+        "description": "Question bank failure: CSRF_FAILED, FORBIDDEN, PASSWORD_CHANGE_REQUIRED. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError404": {
+        "description": "Question bank failure: NOT_FOUND. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError405": {
+        "description": "Question bank failure: METHOD_NOT_ALLOWED. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          },
+          "Allow": {
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError409": {
+        "description": "Question bank failure: QUESTION_DRAFT_CONFLICT, QUESTION_PUBLICATION_STALE, REVIEW_CONFLICT, IDEMPOTENCY_CONFLICT, IMMUTABLE_CONFLICT, VERSION_CONFLICT. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError413": {
+        "description": "Question bank failure: PAYLOAD_TOO_LARGE. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError422": {
+        "description": "Question bank failure: QUESTION_INVALID, QUESTION_NOT_READY, QUESTION_LIMIT_EXCEEDED, REVIEW_REQUIRED. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError428": {
+        "description": "Question bank failure: REAUTHENTICATION_REQUIRED. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError429": {
+        "description": "Question bank failure: RATE_LIMITED. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          },
+          "Retry-After": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[1-9]|[1-5][0-9]|60)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
+            }
+          }
+        }
+      },
+      "QuestionError503": {
+        "description": "Question bank failure: QUESTION_BANK_NOT_CONFIGURED, AUTH_NOT_CONFIGURED, SERVICE_UNAVAILABLE. Private JSON; no question content or sign-in cookie changes.",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "private, no-store"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/QuestionError"
             }
           }
         }
