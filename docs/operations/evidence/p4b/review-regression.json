@@ -132,5 +132,36 @@
     "fullLearningStorePassedSeconds": 73.216,
     "productionCodeChanged": false,
     "migrationOrConstraintChanged": false
+  },
+  "ciCapacityContextCorrection": {
+    "failedHead": "112df87580d607b23aef75a1643bbf97b5031b6c",
+    "failedGoPullRequestRun": 37014940539,
+    "failedStep": "最大合法固定路线容量",
+    "failedSeconds": 240.909,
+    "setupApproximateSeconds": 124,
+    "setupBudgetSeconds": 240,
+    "wholeGoPackageBudgetSeconds": 300,
+    "eachProductActionBudgetSeconds": 8,
+    "validationDeadlineEqualsWholeGoDeadline": true,
+    "tenRepeatsPassedSeconds": 0.892,
+    "maximumRoutesPassedSeconds": 116.271,
+    "maximumSourceVolumePassedSeconds": 85.635,
+    "fullLearningStorePassedSeconds": 76.377,
+    "maximumRouteMeasuredSingleActions": 111,
+    "maximumSourceMeasuredSingleActions": 10,
+    "bothFinalSharedSlotsAndExclusiveLocksPassed": true,
+    "actualPublishedCounts": {
+      "knowledge": 1000,
+      "units": 4000,
+      "paths": 200,
+      "assets": 1000,
+      "templates": 200,
+      "instances": 10000,
+      "blueprints": 1000
+    },
+    "productionCodeChanged": false,
+    "productOrGoDeadlineIncreased": false,
+    "workflowChanged": false,
+    "migrationOrConstraintChanged": false
   }
 }

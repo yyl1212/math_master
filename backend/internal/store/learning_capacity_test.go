@@ -100,12 +100,23 @@ func (f *learningCapacityFixture) activateContent(ids []string) {
 		f.Activate(p, head)
 	}
 }
+func finishLearningCapacitySetup(t *testing.T, f *learningCapacityFixture, stopSetup context.CancelFunc) {
+	t.Helper()
+	deadline, bounded := t.Deadline()
+	if !bounded {
+		t.Fatal("capacity validation requires a bounded whole-Go-test deadline")
+	}
+	stopSetup()
+	validation, stopValidation := context.WithDeadline(context.Background(), deadline)
+	t.Cleanup(stopValidation)
+	f.ctx = validation
+}
 func newLearningCapacityFixture(t *testing.T, buildLong ...bool) *learningCapacityFixture {
 	t.Helper()
 	f := &learningCapacityFixture{questionFixture: &questionFixture{workflowFixture: newWorkflowFixture(t)}}
-	whole, stop := context.WithTimeout(context.Background(), 4*time.Minute)
+	setup, stop := context.WithTimeout(context.Background(), 4*time.Minute)
 	t.Cleanup(stop)
-	f.ctx = whole
+	f.ctx = setup
 	capacity, e := testutil.LearningCapacity("../content/testdata", "../../../content/catalogue/domains.json", "../../../content/questions/elementary-rationals.v1.json")
 	if e != nil {
 		t.Fatal(e)
@@ -163,6 +174,7 @@ func newLearningCapacityFixture(t *testing.T, buildLong ...bool) *learningCapaci
 		}
 	}
 	t.Logf("LEARNING_CAPACITY actual published knowledge=1000 units=4000 paths=200 assets=1000 templates=200 instances=10000 blueprints=1000 rootCandidates=1000 core=8 directSuccessors=999 actualMaxPathNodes=%d", f.count(`SELECT coalesce(max(n),0) FROM (SELECT count(*) n FROM path_nodes GROUP BY path_id,path_version) sizes`))
+	finishLearningCapacitySetup(t, f, stop)
 	return f
 }
 func learningCapacityCheckPlans(t *testing.T, plans map[string]string, candidateRows int) {
@@ -545,4 +557,21 @@ func TestLearningCapacitySourceVolume(t *testing.T) {
 	}
 	learningCapacityLocks(t, f)
 
+}
+
+func TestLearningFixturePhaseDeadlines(t *testing.T) {
+	setup, cancelSetup := context.WithCancel(context.Background())
+	f := &learningCapacityFixture{questionFixture: &questionFixture{workflowFixture: &workflowFixture{authFixture: &authFixture{ctx: setup}}}}
+	finishLearningCapacitySetup(t, f, cancelSetup)
+	if !errors.Is(setup.Err(), context.Canceled) {
+		t.Fatal("setup must be closed after publication")
+	}
+	if f.ctx.Err() != nil {
+		t.Fatal("expired setup must not cancel validation", f.ctx.Err())
+	}
+	deadline, bounded := f.ctx.Deadline()
+	wholeDeadline, boundedGo := t.Deadline()
+	if !bounded || !boundedGo || !deadline.Equal(wholeDeadline) {
+		t.Fatal("validation must stay inside the existing whole-Go-test deadline")
+	}
 }

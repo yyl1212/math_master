@@ -52,3 +52,16 @@ P3：等待期间缺少保留冻结命令的取消等待按钮。十秒截止及
 初次实现提交53fb3bf的前端push/PR两项均通过，Go两项在学习数据库回归失败；push失败日志指向TestLearningSchemaEventsAndRoutesImmutable的learning_events_check1（SQLSTATE23514）。夹具time.Now有纳秒尾数，pgx v5.11.0二进制写入按微秒截断，而JSON时间转timestamptz会舍入，二者可能相差一微秒。以固定789纳秒尾数在本机确定性复现相同RED。
 
 只修正learning_schema_test.go夹具，取数据库clock_timestamp作为封存与字段的同一依据，另加一微秒错配必须被精确CHECK拒绝的断言。产品managedIdentity/learningAction原本就使用数据库时钟，产品代码、约束、迁移和数学摘要均保持。该测试连续10次8.949秒GREEN，全部非容量学习store73.216秒GREEN；没有跳过测试或靠重跑消除失败。最新交付以[PR #19](https://github.com/yyl1212/math_master/pull/19)当前完整head的四项Go/前端push/PR检查均通过为准。
+
+## CI容量上下文修正
+
+112df875的前端push/PR及Go push三项通过；Go PR run 37014940539在最大合法固定路线容量的末尾锁验证失败，总用时240.909秒。真实内容初始化约124秒，后续100条真实路线加入、101条历史及锁验证继续共享同一初始化四分钟上下文。111个已测产品动作均低于八秒，普通通过并解锁999后继7.740590563秒，失败发生于共享初始化上下文过期后的账户核验。
+
+本次只修改backend/internal/store/learning_capacity_test.go：容量初始化结束后关闭其四分钟上下文，再为后续验证绑定Go原有五分钟总截止。该截止从整组Go测试开始计时，验证仅使用剩余时间。没有新增五分钟、放宽八秒产品预算、减少真实计数或跳过末尾锁组合。新增TestLearningFixturePhaseDeadlines断言初始化上下文已关闭、验证仍有效且Deadline严格等于Go总截止，连续10次0.892秒通过；两类实际容量分别116.271秒（路线）及85.635秒（题源）通过，非容量学习store全组76.377秒通过。两类末尾真实共享双槽及管理排他锁组合均通过；111个路线和10个题源单动作全部满足原八秒门槛，全部七类最大发布计数保持。兼容13项、vet及构建通过；产品代码、迁移、约束及CI工作流保持。
+
+```mermaid
+flowchart LR
+  Setup[真实审核与发布：初始化限4分钟] --> Close[关闭初始化上下文]
+  Close --> Verify[验证使用原Go总5分钟截止的剩余时间]
+  Verify --> Gate[每个产品动作仍限8秒，全部计数与锁检查保留]
+```
