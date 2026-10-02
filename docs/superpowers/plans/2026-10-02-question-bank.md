@@ -10,7 +10,7 @@
 
 **Tech Stack:** Go 1.27.1、PostgreSQL 17.11、Node.js 24.17.0、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3；使用当前锁定依赖，不新增产品依赖。
 
-**Spec:** [已确认 P4a 方案](../specs/2026-10-02-question-bank-design.md)。用户于 2026-10-02 确认分期与独立契约的兼容性方案；设计通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并，计划基线 master 58a8d30b7e57e6849293dc5a8cd6281b9c59c805，分支 codex/p4a-question-bank-plan。本 PR 仅文档，不执行迁移、导入、数学批准或部署。
+**Spec:** [已确认 P4a 方案](../specs/2026-10-02-question-bank-design.md)。用户于 2026-10-02 确认分期与独立契约的兼容性方案；设计通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并，计划基线 master 58a8d30b7e57e6849293dc5a8cd6281b9c59c805，分支 codex/p4a-question-bank-plan。原设计/计划PR仅文档；本次实现通过[PR #17](https://github.com/yyl1212/math_master/pull/17)交付，随机库技术验收和最新检查见[记录](../../operations/2026-10-02-p4a-acceptance.md)，真实开发库、资料和部署边界保持。
 
 ## 全局约束（Global Constraints）
 
@@ -523,7 +523,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 - [x] **Step 2：运行RED。** 构建隔离harness和frontend后，每场景各一次：node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts（review/release/security分别替换）；基础环境故障先定位，不能当业务RED。
 - [x] **Step 3：补齐真实装配与CI。** harness同一个publication.Service注入题库双槽，用testutil每批新随机库；API错误/审计/manifest从真实DB断言。backend CI加入question纯逻辑与store题库测试，frontend CI新增四个独立限时场景批次；保留原所有测试、540s入口与retries=0。容量测试记录最大合法生成、送审和200/10000/1000候选的真实耗时、SQL查询计划、累计分配/最大驻留，必须在原8秒/字节预算内；失败先优化，不延长时限或缩小案例假通过。
 - [x] **Step 4：回归GREEN并形成证据。** 各自入口go vet、go test question/auth/content/publication/httpapi/e2etest/testutil、store/cli分批、go build ./cmd/...；npm typecheck/test/build/audit、两次api:generate零差异；全部原公开/账户/内容浏览器批次＋四题库批次。留存最大容量数据、原schema/导出SHA/旧迁移零差异、随机库清理、原开发库无迁移。验收文件逐项对照设计15节12组；代码/技术fixture通过不计为20批准模板或300生产实例。
-- [ ] **Step 5：独立整分支审查与交付。** 按Native约定调用requesting-code-review，使用新上下文的独立审查覆盖本计划Review Focus、真实独立校验器、冻结作者/关联、两head/锁、替换与永久事实、错误/分页泄漏、最大预算和旧兼容。必要修复先写真实RED再GREEN；保存所有裁定/修复及验证证据，不以旧CI代替最新提交。通过SSH推送、创建并附加实现PR，等待最新SHA四项CI全部完成，按用户授权处理合并，不自动部署。
+- [x] **Step 5：独立整分支审查与交付。** 按Native约定调用requesting-code-review，使用新上下文的独立审查覆盖本计划Review Focus、真实独立校验器、冻结作者/关联、两head/锁、替换与永久事实、错误/分页泄漏、最大预算和旧兼容。必要修复先写真实RED再GREEN；保存所有裁定/修复及验证证据，不以旧CI代替最新提交。通过SSH推送、创建并附加实现PR，等待最新SHA四项CI全部完成，按用户授权处理合并，不自动部署。
 
 ## 计划自查与可行性门槛
 
@@ -539,7 +539,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 | 10事务/数据库 | 任务5及6—9：18表、FK/延迟约束、锁/DB时间/幂等/审计 |
 | 11端口/具名DTO/英文页 | 完整契约表、任务10/11/12；私有404、严格原始JSON、分页与错误 |
 | 12资源/截止 | 任务3/4/8/10/13；共享槽和scope、所有字节/数量限额、最大合法实测 |
-| 13—16文件/兼容/验收/书面门槛 | 文件责任表、任务13、自查；仅方案已确认，执行计划待审阅 |
+| 13—16文件/兼容/验收/书面门槛 | 文件责任表、任务13、自查；方案与计划均已确认，十三任务完成，见P4a验收记录 |
 
 自查已覆盖契约名/类型/参数/返回值、任务消费产出、规范与冻结摘要、分页资源和具体失败测试；没有产品占位方法或开放式“稍后决定”。提交前再次检查全部引用文件、接口名称一致、旧端口/schema差异及文档链接。静态无阻塞；最大合法载荷8秒性能、真实并发、独立校验及全回归是实施中的硬验收，不能用计划自查替代。
 

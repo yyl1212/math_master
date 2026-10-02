@@ -1,6 +1,6 @@
 # P4a 可信题库技术验收记录
 
-日期：2026-10-02。基线：master `687f87a0ab7e07fb73c593055b79d5ee3eb416bc`（PR #16），实现分支：`codex/p4a-question-bank`。用户已确认[设计](../superpowers/specs/2026-10-02-question-bank-design.md)和[13项执行计划](../superpowers/plans/2026-10-02-question-bank.md)，使用 Native 逐项实施。功能、独立整分支审查及四项重要问题修复与本机全回归完成，最新提交 CI 结果通过实现 PR 检查链接交付；此状态不能作为部署批准。
+日期：2026-10-02。基线：master `687f87a0ab7e07fb73c593055b79d5ee3eb416bc`（PR #16），实现分支：`codex/p4a-question-bank`。用户已确认[设计](../superpowers/specs/2026-10-02-question-bank-design.md)和[13项执行计划](../superpowers/plans/2026-10-02-question-bank.md)，使用 Native 逐项实施。功能、独立整分支审查及四项重要问题修复与本机全回归完成，技术提交f160c05四项CI已通过，最终文档提交结果通过实现PR最新检查链接交付；此状态不能作为部署批准。
 
 ## 交付范围与文件
 
@@ -98,7 +98,7 @@
 3. 2MiB裸包与规范SHA包装：逻辑载荷预算不变，独立计固定41 bytes用途框架；数据库和导出一致，SHA原字节不变。TestQuestionPackageExactByteBoundary真实提交/新ID实际导入/导出SHA保持、恰好上限与+1拒绝；参数规范化可能增长，TestQuestionNormalizedPackageByteBudget先观察错误ready后修复为明确限额错误。
 4. 256KiB来源：真实PG看到紧凑262144 bytes与jsonb::text262158 bytes，合法Create先503；新工作区保留规范source_map_bytes、校验JSON等价及原256KiB预算，TestQuestionSourceMapExactByteBoundary真实Create/Save与+1拒绝RED→GREEN。
 
-仅新增未交付题库迁移00005的列/约束调整；旧00001—00004及真实开发库未变。暂缓小项完整记录：新增QuestionReviewInput.decision、QuestionPublicationSummary.status的OpenAPI枚举尚不完整，内部Zod/Go封闭验证有效；后续补全新DTO枚举并生成，保持旧契约。一次修复后完整Go222/222、前端96/96、真实浏览器74/74、vet/typecheck/build及重复API生成通过；随机库残留0。最新技术提交四项CI将通过PR/check链接交付，不以设计或旧提交CI替代。正式知识/题库数量仍为0；夹具不计入P6的20批准模板/300生产实例。不部署服务器，P4b须另行设计安全题面DTO、实际publication尝试、检测证据与历史解锁。
+仅新增未交付题库迁移00005的列/约束调整；旧00001—00004及真实开发库未变。暂缓小项完整记录：新增QuestionReviewInput.decision、QuestionPublicationSummary.status的OpenAPI枚举尚不完整，内部Zod/Go封闭验证有效；后续补全新DTO枚举并生成，保持旧契约。一次修复后完整Go222/222、前端96/96、真实浏览器74/74、vet/typecheck/build及重复API生成通过；随机库残留0。技术提交f160c05的四项CI全部success，见下方运行链接；最终文档提交也要求同一PR最新四项全部成功后交付，不以设计或旧提交CI替代。正式知识/题库数量仍为0；夹具不计入P6的20批准模板/300生产实例。不部署服务器，P4b须另行设计安全题面DTO、实际publication尝试、检测证据与历史解锁。
 
 
 ## 远端CI首轮定位
@@ -111,3 +111,17 @@
 4b706f8两项Go CI成功。前端PR运行36958072381在旧content-authoring移动图片5秒解码断言失败：API请求200、诊断正常img且无失败占位；其余三个该批用例通过。未改生产图片逻辑，测试沿用reading用例的Locator稳定滚动，先等待Save结束并验证确实入视口/可见，保留原自然宽度/解码5秒和retries=0；此定位不能声称生产图片已修复，需实际重复回归与最新CI通过。
 
 旧图片同步调整后桌面/移动三个独立重复12/12通过（35.8秒，零重试），typecheck通过；同4b706f8的frontend push36958068263全套也已success，支持其PR单次场景同步竞态的定位。最终仍以新SHA四项CI为门槛。
+
+
+## 技术交付与最新检查入口
+
+13项任务均完成，一次独立整分支审查的四项重要问题已修复、唯一暂缓小项及38项裁定完整列出。技术提交`f160c05fd527b60be36ffc131f6c5582821275b4`的四项CI全部success：
+
+| 检查 | 事件 | 结果 |
+| --- | --- | --- |
+| [Go后端](https://github.com/yyl1212/math_master/actions/runs/36959237378) | PR | success |
+| [英文前端与74真实浏览器回归](https://github.com/yyl1212/math_master/actions/runs/36959237379) | PR | success |
+| [Go后端](https://github.com/yyl1212/math_master/actions/runs/36959234048) | push | success |
+| [英文前端与74真实浏览器回归](https://github.com/yyl1212/math_master/actions/runs/36959233915) | push | success |
+
+[PR #17最新检查](https://github.com/yyl1212/math_master/pull/17/checks)是最终文档提交及后续改动的当前状态入口；上述技术SHA结果不代替新提交，最终交付仅在最新四项均success后确认。保留开发分支及隔离工作区供审阅；本次创建实现PR，不自动合并或部署。下一阶段为P4b独立方案和计划，先定义安全题面、曝光/尝试、五题检测、资格、历史解锁及进度回顾。资料持续更新仍需快照、来源整理与实际数学独立复核。
