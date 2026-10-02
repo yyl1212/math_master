@@ -53,7 +53,7 @@ func feedbackLoadTicket(ctx context.Context, tx *sql.Tx, id string, lock bool) (
 }
 func feedbackTargetValidity(ctx context.Context, tx *sql.Tx, b feedback.Binding) (string, error) {
 	if b.Target.Kind == "site" {
-		return "current", nil
+		return "not_applicable", nil
 	}
 	refs := []map[string]any{}
 	add := func(kind string, i question.Identity) {
@@ -97,7 +97,7 @@ func feedbackTargetValidity(ctx context.Context, tx *sql.Tx, b feedback.Binding)
 	if current {
 		return "current", nil
 	}
-	return "historical", nil
+	return "replaced", nil
 }
 func feedbackProjectMetadata(ctx context.Context, tx *sql.Tx, u auth.User, t feedbackTicket) (feedback.Metadata, error) {
 	m := t.Metadata

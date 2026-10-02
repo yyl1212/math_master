@@ -87,9 +87,9 @@ func TestFeedbackReadAndCursorIsolation(t *testing.T) {
 		}
 		seen[m.ID] = true
 	}
-	_, e = f.repo.ListFeedbackTickets(f.ctx, f.Access("learner_b", false), false, feedback.ListQuery{Cursor: *first.Data.NextCursor})
-	if !errors.Is(e, auth.ErrInvalidInput) {
-		t.Fatal("cross actor cursor", e)
+	foreign, e := f.repo.ListFeedbackTickets(f.ctx, f.Access("learner_b", false), false, feedback.ListQuery{Cursor: *first.Data.NextCursor})
+	if e != nil || len(foreign.Data.Items) != 0 {
+		t.Fatal("cross actor cursor expanded permission", e)
 	}
 	if _, e = f.repo.ReadFeedbackTicket(f.ctx, f.Access("learner_b", false), first.Data.Items[0].ID, false); !errors.Is(e, auth.ErrNotFound) {
 		t.Fatal("foreign metadata", e)

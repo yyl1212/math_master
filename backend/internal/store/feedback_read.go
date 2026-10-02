@@ -13,14 +13,10 @@ import (
 )
 
 type feedbackCursor struct {
-	Actor     string    `json:"actor"`
-	Scope     string    `json:"scope"`
-	Resource  string    `json:"resource"`
-	Status    string    `json:"status"`
-	Category  string    `json:"category"`
-	CreatedAt time.Time `json:"createdAt"`
-	ID        string    `json:"id"`
-	Sequence  int64     `json:"sequence"`
+	Resource  string
+	CreatedAt time.Time
+	ID        string
+	Sequence  int64
 }
 
 func feedbackPageQuery(q feedback.ListQuery, actor, scope, resource string) (int, feedbackCursor, error) {
@@ -28,47 +24,67 @@ func feedbackPageQuery(q feedback.ListQuery, actor, scope, resource string) (int
 	if limit == 0 {
 		limit = 20
 	}
-	c := feedbackCursor{Actor: actor, Scope: scope, Resource: resource}
+	c := feedbackCursor{Resource: resource}
 	if limit < 1 || limit > 50 || q.Status != nil && !feedback.ValidStatus(*q.Status) || q.Category != nil && !feedback.ValidCategory(*q.Category) || (resource != "" && (q.Status != nil || q.Category != nil)) {
 		return 0, c, auth.ErrInvalidInput
-	}
-	if q.Status != nil {
-		c.Status = string(*q.Status)
-	}
-	if q.Category != nil {
-		c.Category = string(*q.Category)
 	}
 	if q.Cursor == "" {
 		return limit, c, nil
 	}
-	if len(q.Cursor) > 1024 {
+	if len(q.Cursor) > 512 {
 		return 0, c, auth.ErrInvalidInput
 	}
 	raw, e := base64.RawURLEncoding.DecodeString(q.Cursor)
 	if e != nil {
 		return 0, c, auth.ErrInvalidInput
 	}
-	var previous feedbackCursor
-	d := json.NewDecoder(bytes.NewReader(raw))
-	d.DisallowUnknownFields()
-	if d.Decode(&previous) != nil || previous.Actor != c.Actor || previous.Scope != c.Scope || previous.Resource != c.Resource || previous.Status != c.Status || previous.Category != c.Category {
-		return 0, c, auth.ErrInvalidInput
+	var canonical []byte
+	if resource == "" {
+		var v struct {
+			Version   int       `json:"version"`
+			CreatedAt time.Time `json:"createdAt"`
+			ID        string    `json:"id"`
+		}
+		d := json.NewDecoder(bytes.NewReader(raw))
+		d.DisallowUnknownFields()
+		if d.Decode(&v) != nil || v.Version != 1 || !question.ValidID(v.ID) || v.CreatedAt.IsZero() {
+			return 0, c, auth.ErrInvalidInput
+		}
+		canonical, _ = json.Marshal(v)
+		c.CreatedAt = v.CreatedAt
+		c.ID = v.ID
+	} else {
+		var v struct {
+			Version  int   `json:"version"`
+			Sequence int64 `json:"sequence"`
+		}
+		d := json.NewDecoder(bytes.NewReader(raw))
+		d.DisallowUnknownFields()
+		if d.Decode(&v) != nil || v.Version != 1 || v.Sequence < 1 || v.Sequence > feedback.MaxSequence {
+			return 0, c, auth.ErrInvalidInput
+		}
+		canonical, _ = json.Marshal(v)
+		c.Sequence = v.Sequence
 	}
-	canonical, _ := json.Marshal(previous)
 	if !bytes.Equal(raw, canonical) {
 		return 0, c, auth.ErrInvalidInput
 	}
-	if resource == "" {
-		if !question.ValidID(previous.ID) || previous.CreatedAt.IsZero() || previous.Sequence != 0 {
-			return 0, c, auth.ErrInvalidInput
-		}
-	} else if previous.Sequence < 1 || previous.Sequence > feedback.MaxSequence || previous.ID != "" || !previous.CreatedAt.IsZero() {
-		return 0, c, auth.ErrInvalidInput
-	}
-	return limit, previous, nil
+	return limit, c, nil
 }
 func feedbackNextCursor(c feedbackCursor) *string {
-	raw, _ := json.Marshal(c)
+	var raw []byte
+	if c.Resource == "" {
+		raw, _ = json.Marshal(struct {
+			Version   int       `json:"version"`
+			CreatedAt time.Time `json:"createdAt"`
+			ID        string    `json:"id"`
+		}{1, c.CreatedAt, c.ID})
+	} else {
+		raw, _ = json.Marshal(struct {
+			Version  int   `json:"version"`
+			Sequence int64 `json:"sequence"`
+		}{1, c.Sequence})
+	}
 	s := base64.RawURLEncoding.EncodeToString(raw)
 	return &s
 }
@@ -111,6 +127,9 @@ func (s *Store) ListFeedbackTickets(ctx context.Context, a question.Access, revi
 	var out feedback.Envelope[feedback.Page[feedback.Metadata]]
 	action := feedbackReadAction(review, feedback.ListOwnAction, feedback.ListReviewAction)
 	e := s.feedbackTx(ctx, a, action, nil, func(ctx context.Context, tx *sql.Tx, u auth.User, _ time.Time) error {
+		if !review && (q.Status != nil || q.Category != nil) {
+			return auth.ErrInvalidInput
+		}
 		limit, c, e := feedbackPageQuery(q, u.ID, feedbackReadScope(review), "")
 		if e != nil {
 			return e
@@ -120,7 +139,7 @@ func (s *Store) ListFeedbackTickets(ctx context.Context, a question.Access, revi
 			cutTime = c.CreatedAt
 			cutID = c.ID
 		}
-		rows, e := tx.QueryContext(ctx, `SELECT id::text FROM feedback_tickets WHERE ($1::boolean OR owner_user_id=$2) AND ($3='' OR status=$3) AND ($4='' OR category=$4) AND ($5::timestamptz IS NULL OR (created_at,id)<($5::timestamptz,$6::uuid)) ORDER BY created_at DESC,id DESC LIMIT $7`, review, u.ID, c.Status, c.Category, cutTime, cutID, limit+1)
+		rows, e := tx.QueryContext(ctx, `SELECT id::text FROM feedback_tickets WHERE ($1::boolean OR owner_user_id=$2) AND ($3='' OR status=$3) AND ($4='' OR category=$4) AND ($5::timestamptz IS NULL OR (created_at,id)<($5::timestamptz,$6::uuid)) ORDER BY created_at DESC,id DESC LIMIT $7`, review, u.ID, feedbackQueryStatus(q), feedbackQueryCategory(q), cutTime, cutID, limit+1)
 		if e != nil {
 			return e
 		}
@@ -242,4 +261,17 @@ func (s *Store) ReadFeedbackEvents(ctx context.Context, a question.Access, id st
 		return feedback.Envelope[feedback.DiscussionPage]{}, e
 	}
 	return out, nil
+}
+
+func feedbackQueryStatus(q feedback.ListQuery) string {
+	if q.Status == nil {
+		return ""
+	}
+	return string(*q.Status)
+}
+func feedbackQueryCategory(q feedback.ListQuery) string {
+	if q.Category == nil {
+		return ""
+	}
+	return string(*q.Category)
 }

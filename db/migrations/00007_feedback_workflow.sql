@@ -188,7 +188,7 @@ BEGIN
  AND m->>'id'=t.id::text AND m->'target'=t.target AND m->>'category'=t.category AND m->>'status'=e.to_status
  AND jsonb_typeof(m->'sequence')='number' AND (m->>'sequence')::bigint=e.sequence AND (m->>'createdAt')::timestamptz=t.created_at AND (m->>'updatedAt')::timestamptz=e.recorded_at
  AND m->'resolutionKind' IS NOT DISTINCT FROM coalesce(to_jsonb(e.effective_resolution->>'kind'),'null'::jsonb)
- AND m->>'label'=feedback_label(t.target) AND jsonb_typeof(m->'canHandle')='boolean' AND m->>'targetValidity' IN ('current','historical','withdrawn') AND NEW.actor_user_id=e.actor_user_id
+ AND m->>'label'=feedback_label(t.target) AND jsonb_typeof(m->'canHandle')='boolean' AND m->>'targetValidity' IN ('current','replaced','withdrawn','not_applicable') AND NEW.actor_user_id=e.actor_user_id
  AND ((NEW.action='create' AND NEW.resource='tickets' AND NEW.event_sequence=1 AND e.kind='created' AND e.actor_user_id=t.owner_user_id AND NEW.receipt->'status'='201'::jsonb)
  OR (NEW.action='reply' AND NEW.resource=t.id::text AND NEW.event_sequence>1 AND e.kind='replied' AND e.actor_user_id=t.owner_user_id AND NEW.receipt->'status'='200'::jsonb)
  OR (NEW.action='transition' AND NEW.resource=t.id::text AND NEW.event_sequence>1 AND e.kind IN ('replied','transitioned') AND e.actor_user_id<>t.owner_user_id AND NEW.receipt->'status'='200'::jsonb))) IS NOT TRUE THEN RAISE EXCEPTION 'invalid safe feedback receipt'; END IF;
