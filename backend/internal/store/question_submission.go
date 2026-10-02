@@ -253,10 +253,13 @@ func (s *Store) ReadQuestionSubmission(ctx context.Context, a question.Access, i
 	if !question.ValidID(id) {
 		return out, auth.ErrInvalidInput
 	}
-	err := s.questionReadTx(ctx, a, question.ReadSubmissionAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+	err := s.questionAnswerReadTx(ctx, a, question.ReadSubmissionAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
 		var e error
 		out, _, e = s.readQuestionSubmission(ctx, tx, u, id, false)
-		return e
+		if e != nil {
+			return e
+		}
+		return questionExposeResponse(ctx, tx, u, out, now)
 	})
 	return out, err
 }
@@ -271,7 +274,7 @@ func (s *Store) ListQuestionInstances(ctx context.Context, a question.Access, id
 	}
 	out.Limit = pq.Limit
 	out.Offset = pq.Offset
-	err = s.questionReadTx(ctx, a, question.ListInstancesAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+	err = s.questionAnswerReadTx(ctx, a, question.ListInstancesAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
 		_, instances, e := s.readQuestionSubmission(ctx, tx, u, id, false)
 		if e != nil {
 			return e
@@ -286,7 +289,10 @@ func (s *Store) ListQuestionInstances(ctx context.Context, a question.Access, id
 			end = out.Total
 		}
 		out.Items = instances[start:end]
-		return questionFitPage(&out)
+		if e := questionFitPage(&out); e != nil {
+			return e
+		}
+		return questionExposeResponse(ctx, tx, u, out, now)
 	})
 	return out, err
 }
@@ -297,7 +303,12 @@ func (s *Store) ReviseQuestionSubmission(ctx context.Context, a question.Access,
 	if !question.ValidID(id) {
 		return out, auth.ErrInvalidInput
 	}
-	sub, err := s.ReadQuestionSubmission(ctx, a, id)
+	var sub question.SubmissionView
+	err := s.questionReadTx(ctx, a, question.ReviseSubmissionAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+		var e error
+		sub, _, e = s.readQuestionSubmission(ctx, tx, u, id, true)
+		return e
+	})
 	if err != nil {
 		return out, err
 	}
