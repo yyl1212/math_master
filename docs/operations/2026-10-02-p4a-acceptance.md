@@ -42,7 +42,7 @@
 | Activate完整候选 | 0.931903 s | 697,872,640 | 141,808,208 | 259,391,488 |
 | 动态coverage完整题库 | 0.684789 s | 750,839,712 | 103,256,024 | 259,522,560 |
 
-最终修复后全Go回归中的实际每个动作断言<8秒。累计分配代表GC周转量，不能当作驻留；Darwin getrusage.maxrss单位bytes，Linux测试记录KiB换算后的bytes。这里是本机单进程样本，P7仍需实际服务器并发/容量/恢复验收。
+6ff0a3b一次审查修复后本机全Go回归样本的实际每个动作断言<8秒。累计分配代表GC周转量，不能当作驻留；Darwin getrusage.maxrss单位bytes，Linux测试记录KiB换算后的bytes。这里是本机单进程样本，P7仍需实际服务器并发/容量/恢复验收。
 
 真实EXPLAIN ANALYZE BUFFERS：成员分页使用question_publication_members_pkey Bitmap Index/Heap Scan后top-N heapsort，读取11,200成员，返回100，执行2.444 ms、937共享命中/0磁盘读取/0临时写；按ID读取sealed当前发布使用question_publications_pkey Index Scan，执行0.005 ms、2共享命中。新历史/changes/正文筛选索引另由实际store行为回归覆盖，未修改旧表索引。
 
@@ -86,6 +86,7 @@
 34. Final: Ruling: 审查暂置的sourceMap紧凑JSON与jsonb::text边界提升为Important并纳入同一修复批次 — 真实随机PostgreSQL已复现恰好256KiB合法来源创建返回503，合理用户需要校验可保存；保存规范来源字节并强制JSON等价与同一256KiB上限 — 若错误，新工作区增加一个规范字节列及维护成本，不能扩大来源预算。
 35. Final: Ruling: P4b学员尝试、资格与解锁继续按原分期留待独立设计 — 本次没有用户学习端口，不能由P4a题库技术通过声称学习闭环完成 — 若错误，学习功能仍需后续实现及独立验收。
 36. Final: Ruling: 生产部署、实际主机负载与恢复保持P7范围，最新实现CI必须本次独立验证 — 本机容量不是生产承诺，审查未检查远端CI不能当交付通过 — 若错误，生产规模及恢复风险仍需部署前验证。
+37. Task 13: Ruling: 最大容量测试用独立4分钟整体装配上下文，沿用原内容最大容量测试的同一做法；每个业务命令8秒、每动作实测断言8秒、Go单批5分钟及wrapper540秒保持 — CI真实RED在第七批30.17秒父ctx到期，每批已完成3.28—3.69秒，故障不是动作超预算；30秒通用夹具不适合十批完整工作流，不能缩小案例 — 若错误，容量测试整体生命周期增长，但业务截止和单批上限不变，仍需最新Linux CI证实。
 
 ## 独立审查、CI与保留事项
 
@@ -97,3 +98,10 @@
 4. 256KiB来源：真实PG看到紧凑262144 bytes与jsonb::text262158 bytes，合法Create先503；新工作区保留规范source_map_bytes、校验JSON等价及原256KiB预算，TestQuestionSourceMapExactByteBoundary真实Create/Save与+1拒绝RED→GREEN。
 
 仅新增未交付题库迁移00005的列/约束调整；旧00001—00004及真实开发库未变。暂缓小项完整记录：新增QuestionReviewInput.decision、QuestionPublicationSummary.status的OpenAPI枚举尚不完整，内部Zod/Go封闭验证有效；后续补全新DTO枚举并生成，保持旧契约。一次修复后完整Go222/222、前端96/96、真实浏览器74/74、vet/typecheck/build及重复API生成通过；随机库残留0。最新技术提交四项CI将通过PR/check链接交付，不以设计或旧提交CI替代。正式知识/题库数量仍为0；夹具不计入P6的20批准模板/300生产实例。不部署服务器，P4b须另行设计安全题面DTO、实际publication尝试、检测证据与历史解锁。
+
+
+## 远端CI首轮定位
+
+[实现PR #17](https://github.com/yyl1212/math_master/pull/17)。6ff0a3b首轮后端在真实PG集成的最大容量测试失败：30.17秒第七批报账户服务不可用；之前各批3.28—3.69秒，没有超过单动作8秒。代码追踪确认通用setup的30秒父context到期，而该测试包含十批逐次完整工作流。只为最大容量测试设置独立4分钟整体上下文（沿用已有内容最大容量夹具），保留Go操作8秒、动作测量8秒、单批5分钟、wrapper540秒和全部200/10000/1000、31.53MiB案例。同步把Linux原始getrusage KiB转换为日志bytes，显式单位。修复后需最新SHA四项CI全部成功后交付，不能用旧提交或本机代替。
+
+装配修复本机最大工作流24.18秒、store/cli完整131.647/1.040秒通过；首轮前端push及PR两项均成功。后端修复必须在新SHA重新验证，首轮失败不隐去。

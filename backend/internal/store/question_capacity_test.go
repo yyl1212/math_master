@@ -1,6 +1,7 @@
 package store_test
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/content"
@@ -24,13 +25,22 @@ func capacityMeasure(t *testing.T, name string, fn func()) {
 	runtime.ReadMemStats(&after)
 	var usage syscall.Rusage
 	_ = syscall.Getrusage(syscall.RUSAGE_SELF, &usage)
-	t.Logf("CAPACITY %s duration=%s allocated=%d heap=%d maxRSS=%d GOOS=%s", name, elapsed, after.TotalAlloc-before.TotalAlloc, after.HeapAlloc, usage.Maxrss, runtime.GOOS)
+	rssBytes := usage.Maxrss
+	if runtime.GOOS == "linux" {
+		rssBytes *= 1024
+	}
+	t.Logf("CAPACITY %s duration=%s allocated=%d heap=%d maxRSS=%d maxRSSUnit=bytes GOOS=%s", name, elapsed, after.TotalAlloc-before.TotalAlloc, after.HeapAlloc, rssBytes, runtime.GOOS)
 	if elapsed >= 8*time.Second {
 		t.Fatalf("%s exceeded the unchanged 8s budget", name)
 	}
 }
 func TestQuestionMaximumLegalWorkflow(t *testing.T) {
 	f := newQuestionFixture(t)
+	// Many sequential, individually bounded commands need their own overall fixture
+	// lifecycle, just like TestWorkflowCapacityEnvelope. Never widen a command.
+	whole, stop := context.WithTimeout(context.Background(), 4*time.Minute)
+	defer stop()
+	f.ctx = whole
 	learning := f.Input()
 	learning.Package.ID = "capacity-learning-package"
 	for n := 1; n < 10; n++ {
