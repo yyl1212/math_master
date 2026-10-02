@@ -1,0 +1,730 @@
+[
+  {
+    "name": "startKnowledge valid",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "startKnowledge missing head",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge unknown field",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge null head",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":null}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge bad head",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"other\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge version 0",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge version -1",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":-1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge version 1.0",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1.0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge version 1e0",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1e0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge version 2147483648",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":2147483648,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge version \"1\"",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":\"1\",\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "startKnowledge version null",
+    "action": "startKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":null,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge valid",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "completeKnowledge missing head",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge unknown field",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge null head",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":null}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge bad head",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"other\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge version 0",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge version -1",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":-1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge version 1.0",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1.0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge version 1e0",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1e0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge version 2147483648",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":2147483648,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge version \"1\"",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":\"1\",\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "completeKnowledge version null",
+    "action": "completeKnowledge",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":null,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath valid",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "enrollPath missing head",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath unknown field",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath null head",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":null}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath bad head",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"other\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath version 0",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath version -1",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":-1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath version 1.0",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":1.0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath version 1e0",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":1e0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath version 2147483648",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":2147483648,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath version \"1\"",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":\"1\",\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "enrollPath version null",
+    "action": "enrollPath",
+    "raw": "{\"path\":{\"id\":\"route\",\"version\":null,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice valid",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "createPractice missing head",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice unknown field",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice null head",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":null,\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice bad head",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"other\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice version 0",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice version -1",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":-1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice version 1.0",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1.0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice version 1e0",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1e0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice version 2147483648",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":2147483648,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice version \"1\"",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":\"1\",\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createPractice version null",
+    "action": "createPractice",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":null,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment valid",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "createAssessment missing head",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment unknown field",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\",\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment null head",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":null,\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment bad head",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"other\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment version 0",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment version -1",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":-1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":-1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment version 1.0",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1.0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":1.0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment version 1e0",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":1e0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":1e0,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment version 2147483648",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":2147483648,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":2147483648,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment version \"1\"",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":\"1\",\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":\"1\",\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "createAssessment version null",
+    "action": "createAssessment",
+    "raw": "{\"knowledge\":{\"id\":\"math-root\",\"version\":null,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"expectedKnowledgeHead\":\"11111111-1111-4111-8111-111111111111\",\"expectedQuestionHead\":\"11111111-1111-4111-8111-111111111111\",\"blueprint\":{\"id\":\"five\",\"version\":null,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"mode\":\"diagnostic\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "choice valid",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"choice\",\"choiceId\":\"a\"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "choice extra",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"choice\",\"choiceId\":\"a\",\"extra\":true}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "choice null",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"choice\",\"choiceId\":null}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "choice missing",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"choice\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "choice wrong branch",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"choice\",\"raw\":\"2\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "numeric valid",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\" 2 / 3 \"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "numeric extra",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\" 2 / 3 \",\"extra\":true}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "numeric null",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":null}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "numeric missing",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "numeric wrong branch",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"choiceId\":\"a\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "practice skipped",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"skipped\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "unknown kind",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"other\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "numeric 128 unicode",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\"界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界\"}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "numeric 129 unicode",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\"界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界界\"}",
+    "accepted": false,
+    "errorCode": "ANSWER_FORMAT_INVALID"
+  },
+  {
+    "name": "numeric nul",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\"1\\u0000\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "submit five skips",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "submit length 0",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "submit length 1",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "submit length 4",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "submit length 6",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "duplicate position",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":1,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "duplicate identity",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "position zero",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":0,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "position six",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":6,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "answer extra",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\",\"raw\":\"1\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "identity missing SHA",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"instance-1\",\"version\":1},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "revealPractice empty",
+    "action": "revealPractice",
+    "raw": "{}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "revealPractice extra",
+    "action": "revealPractice",
+    "raw": "{\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "abandonPractice empty",
+    "action": "abandonPractice",
+    "raw": "{}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "abandonPractice extra",
+    "action": "abandonPractice",
+    "raw": "{\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "abandonAssessment empty",
+    "action": "abandonAssessment",
+    "raw": "{}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "abandonAssessment extra",
+    "action": "abandonAssessment",
+    "raw": "{\"owner\":\"11111111-1111-4111-8111-111111111111\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "duplicate key",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"kind\":\"numeric\",\"raw\":\"1\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "case alias",
+    "action": "answerPractice",
+    "raw": "{\"Kind\":\"numeric\",\"raw\":\"1\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "truncated",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\"1\"",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "trailing",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\"1\"} {}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "surrogate",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\"\\ud800\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "null body",
+    "action": "answerPractice",
+    "raw": "null",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "array body",
+    "action": "answerPractice",
+    "raw": "[]",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "8191 bytes",
+    "action": "revealPractice",
+    "raw": "{}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "8192 bytes",
+    "action": "revealPractice",
+    "raw": "{}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              ",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "8193 bytes",
+    "action": "revealPractice",
+    "raw": "{}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ",
+    "accepted": false,
+    "errorCode": "PAYLOAD_TOO_LARGE"
+  },
+  {
+    "name": "submit actual generated instance ID",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"qi-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": true,
+    "errorCode": null
+  },
+  {
+    "name": "submit invalid generated instance ID",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"qi-zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  }
+]

@@ -919,6 +919,363 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/learning/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_readOverview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/knowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_listKnowledge"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/knowledge/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_readKnowledge"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/knowledge/{id}/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_startKnowledge"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/knowledge/{id}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_completeKnowledge"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/paths/{id}/enroll": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_enrollPath"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/paths": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_listPaths"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/paths/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_readPath"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/paths/{id}/nodes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_listPathNodes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/practice": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_createPractice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/practice/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_readPractice"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/practice/{id}/answer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_answerPractice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/practice/{id}/reveal": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_revealPractice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/practice/{id}/abandon": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_abandonPractice"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/assessments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_createAssessment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/assessments/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_readAssessment"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/assessments/{id}/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_submitAssessment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/assessments/{id}/abandon": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        post: operations["learning_abandonAssessment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/assessments/{id}/result": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_readAssessmentResult"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_listHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/learning/assets/{attemptId}/{sha}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 私有学习接口：有效 learner 会话、严格原始 JSON、八秒总期限；重证所有权和准确版本。创建共用原两槽验证池及限流。检测提交前仅安全题面，结果读取重新投影限制并记录曝光。 */
+        get: operations["learning_readAsset"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -2377,6 +2734,518 @@ export interface components {
                 requestId: string;
             };
         };
+        LearningIdentity: {
+            id: string;
+            version: number;
+            sha256: string;
+        };
+        /** @enum {string} */
+        LearningRestrictionReason: "knowledge-updated" | "knowledge-withdrawn" | "unit-withdrawn" | "asset-withdrawn" | "template-withdrawn" | "instance-withdrawn" | "blueprint-withdrawn" | "exposed-after-creation";
+        /** @enum {string} */
+        LearningValidity: "effective" | "restricted" | "stale";
+        LearningQualificationView: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            /** @enum {string} */
+            kind: "normal" | "diagnostic";
+            evidenceAttemptId: string;
+            completedEventId: string | null;
+            /** @enum {string} */
+            validity: "effective";
+        };
+        LearningPrerequisiteState: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            qualified: boolean;
+            reasons: ("knowledge-updated" | "knowledge-withdrawn" | "unit-withdrawn" | "asset-withdrawn" | "template-withdrawn" | "instance-withdrawn" | "blueprint-withdrawn" | "exposed-after-creation")[];
+        };
+        LearningKnowledgeState: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            title: string;
+            titleZh: string;
+            /** @enum {string} */
+            state: "unlearned" | "learning" | "learned" | "needs-review" | "mastered";
+            canEnter: boolean;
+            everUnlocked: boolean;
+            completionValid: boolean;
+            startedAt: string | null;
+            completedAt: string | null;
+            qualification: components["schemas"]["LearningQualificationView"] | null;
+            prerequisites: components["schemas"]["LearningPrerequisiteState"][];
+        };
+        LearningBlueprintOption: {
+            blueprint: components["schemas"]["LearningIdentity"];
+            coreObjectiveIndices: number[];
+            ready: boolean;
+            reasons: ("no-blueprint" | "no-instances" | "insufficient-coverage" | "exposure-cooldown" | "recent-assessment-exclusion")[];
+            retryAt: string | null;
+        };
+        LearningAttemptSummary: {
+            id: string;
+            /** @enum {string} */
+            kind: "practice";
+            knowledge: components["schemas"]["LearningIdentity"];
+            mode: null;
+            /** @enum {string} */
+            state: "active" | "answered" | "revealed" | "abandoned" | "expired";
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            expiresAt: string;
+            submittedAt: string | null;
+        } | {
+            id: string;
+            /** @enum {string} */
+            kind: "assessment";
+            knowledge: components["schemas"]["LearningIdentity"];
+            /** @enum {string} */
+            mode: "node" | "diagnostic" | "review";
+            /** @enum {string} */
+            state: "active" | "submitted" | "abandoned" | "expired";
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            expiresAt: string;
+            submittedAt: string | null;
+        };
+        LearningKnowledgeDetail: {
+            knowledgeHead: string;
+            questionHead: string | null;
+            state: components["schemas"]["LearningKnowledgeState"];
+            objectives: string[];
+            blueprints: components["schemas"]["LearningBlueprintOption"][];
+            activeAssessment: components["schemas"]["LearningAttemptSummary"] | null;
+        };
+        LearningStartInput: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            expectedKnowledgeHead: string;
+        };
+        LearningCompleteInput: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            expectedKnowledgeHead: string;
+        };
+        LearningEnrollInput: {
+            path: components["schemas"]["LearningIdentity"];
+            expectedKnowledgeHead: string;
+        };
+        LearningPathSummary: {
+            id: string;
+            path: components["schemas"]["LearningIdentity"];
+            title: string;
+            titleZh: string;
+            knowledgePublicationId: string;
+            totalNodes: number;
+            completedNodes: number;
+            passedNodes: number;
+            unlockedNodes: number;
+            newVersionAvailable: boolean;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        LearningPathNode: {
+            position: number;
+            title: string;
+            titleZh: string;
+            state: components["schemas"]["LearningKnowledgeState"];
+            available: boolean;
+            reasons: ("knowledge-updated" | "knowledge-withdrawn" | "unit-withdrawn" | "asset-withdrawn" | "template-withdrawn" | "instance-withdrawn" | "blueprint-withdrawn" | "exposed-after-creation")[];
+        };
+        LearningPathView: {
+            summary: components["schemas"]["LearningPathSummary"];
+        };
+        LearningPublishedPathSummary: {
+            path: components["schemas"]["LearningIdentity"];
+            title: string;
+            titleZh: string;
+            totalNodes: number;
+        };
+        LearningHistoryEntry: {
+            id: string;
+            /** @enum {string} */
+            kind: "started" | "completed" | "practice" | "assessment" | "enrollment";
+            path: components["schemas"]["LearningIdentity"] | null;
+            knowledge: components["schemas"]["LearningIdentity"];
+            /** Format: date-time */
+            occurredAt: string;
+            /** @enum {string} */
+            state: "started" | "completed" | "active" | "submitted" | "answered" | "revealed" | "abandoned" | "expired" | "enrolled";
+            /** @enum {string} */
+            validity: "effective" | "restricted" | "stale";
+            attemptId: string | null;
+        };
+        LearningOverview: {
+            knowledgeHead: string | null;
+            questionHead: string | null;
+            availablePaths: components["schemas"]["LearningPublishedPathSummary"][];
+            startedCount: number;
+            completedCount: number;
+            effectivePassedCount: number;
+            historicalUnlockedCount: number;
+            activePractice: components["schemas"]["LearningAttemptSummary"] | null;
+            activeAssessment: components["schemas"]["LearningAttemptSummary"] | null;
+            recent: components["schemas"]["LearningHistoryEntry"][];
+        };
+        LearningKnowledgePage: {
+            items: components["schemas"]["LearningKnowledgeState"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        LearningPathsPage: {
+            items: components["schemas"]["LearningPathSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        LearningPathNodesPage: {
+            items: components["schemas"]["LearningPathNode"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        LearningHistoryPage: {
+            items: components["schemas"]["LearningHistoryEntry"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        LearningChoice: {
+            id: string;
+            text: string;
+        };
+        LearningAssetRef: {
+            id: string;
+            sha256: string;
+        };
+        LearningRational: {
+            numerator: string;
+            denominator: string;
+        };
+        LearningSafeQuestion: {
+            position: number;
+            instance: components["schemas"]["LearningInstanceIdentity"];
+            knowledge: components["schemas"]["LearningIdentity"];
+            /** @enum {string} */
+            type: "single_choice";
+            prompt: string;
+            choices: components["schemas"]["LearningChoice"][];
+            answerFormat: null;
+            assets: components["schemas"]["LearningAssetRef"][];
+        } | {
+            position: number;
+            instance: components["schemas"]["LearningInstanceIdentity"];
+            knowledge: components["schemas"]["LearningIdentity"];
+            /** @enum {string} */
+            type: "numeric";
+            prompt: string;
+            choices: components["schemas"]["LearningChoice"][];
+            /** @enum {string} */
+            answerFormat: "rational" | "percentage";
+            assets: components["schemas"]["LearningAssetRef"][];
+        };
+        LearningChoiceAnswer: {
+            /** @enum {string} */
+            kind: "choice";
+            choiceId: string;
+        };
+        LearningNumericAnswer: {
+            /** @enum {string} */
+            kind: "numeric";
+            raw: string;
+        };
+        LearningSkippedAnswer: {
+            /** @enum {string} */
+            kind: "skipped";
+        };
+        LearningAnswer: components["schemas"]["LearningChoiceAnswer"] | components["schemas"]["LearningNumericAnswer"] | components["schemas"]["LearningSkippedAnswer"];
+        LearningPracticeAnswerInput: components["schemas"]["LearningChoiceAnswer"] | components["schemas"]["LearningNumericAnswer"];
+        LearningPositionAnswer: {
+            position: number;
+            instance: components["schemas"]["LearningInstanceIdentity"];
+            answer: components["schemas"]["LearningAnswer"];
+        };
+        LearningSubmitInput: {
+            answers: components["schemas"]["LearningPositionAnswer"][];
+        };
+        LearningPracticeCreateInput: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            expectedKnowledgeHead: string;
+            expectedQuestionHead: string;
+        };
+        LearningCreateInput: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            blueprint: components["schemas"]["LearningIdentity"];
+            /** @enum {string} */
+            mode: "node" | "diagnostic" | "review";
+            expectedKnowledgeHead: string;
+            expectedQuestionHead: string;
+        };
+        LearningEmptyInput: Record<string, never>;
+        LearningAttemptView: {
+            summary: components["schemas"]["LearningAttemptSummary"];
+            questions: components["schemas"]["LearningSafeQuestion"][];
+        };
+        LearningResultItem: {
+            question: components["schemas"]["LearningSafeQuestion"];
+            answer: components["schemas"]["LearningAnswer"] | null;
+            correct: boolean | null;
+            correctChoiceId: string | null;
+            correctNumeric: components["schemas"]["LearningRational"] | null;
+            explanation: string | null;
+            /** @enum {string} */
+            validity: "effective" | "restricted" | "stale";
+            reasons: ("knowledge-updated" | "knowledge-withdrawn" | "unit-withdrawn" | "asset-withdrawn" | "template-withdrawn" | "instance-withdrawn" | "blueprint-withdrawn" | "exposed-after-creation")[];
+        };
+        LearningPracticeResult: {
+            /** @enum {string} */
+            outcome: "answered" | "revealed";
+            item: components["schemas"]["LearningResultItem"];
+        };
+        LearningPracticeView: {
+            summary: components["schemas"]["LearningAttemptSummary"];
+            question: components["schemas"]["LearningSafeQuestion"];
+            result: components["schemas"]["LearningPracticeResult"] | null;
+        };
+        LearningProgressUpdate: {
+            knowledge: components["schemas"]["LearningIdentity"];
+            qualificationGranted: boolean;
+            newlyUnlocked: components["schemas"]["LearningIdentity"][];
+        };
+        LearningResultView: {
+            summary: components["schemas"]["LearningAttemptSummary"];
+            /** @constant */
+            ruleVersion: 1;
+            score: number;
+            /** @constant */
+            passed: true;
+            /** @enum {string} */
+            outcome: "passed";
+            /** @enum {string} */
+            validity: "effective" | "restricted" | "stale";
+            reasons: ("knowledge-updated" | "knowledge-withdrawn" | "unit-withdrawn" | "asset-withdrawn" | "template-withdrawn" | "instance-withdrawn" | "blueprint-withdrawn" | "exposed-after-creation")[];
+            items: components["schemas"]["LearningResultItem"][];
+            progress: components["schemas"]["LearningProgressUpdate"];
+        } | {
+            summary: components["schemas"]["LearningAttemptSummary"];
+            /** @constant */
+            ruleVersion: 1;
+            score: number;
+            /** @constant */
+            passed: false;
+            /** @enum {string} */
+            outcome: "failed";
+            /** @enum {string} */
+            validity: "effective" | "restricted" | "stale";
+            reasons: ("knowledge-updated" | "knowledge-withdrawn" | "unit-withdrawn" | "asset-withdrawn" | "template-withdrawn" | "instance-withdrawn" | "blueprint-withdrawn" | "exposed-after-creation")[];
+            items: components["schemas"]["LearningResultItem"][];
+            progress: components["schemas"]["LearningProgressUpdate"];
+        } | {
+            summary: components["schemas"]["LearningAttemptSummary"];
+            /** @constant */
+            ruleVersion: 1;
+            score: null;
+            passed: null;
+            /** @enum {string} */
+            outcome: "affected";
+            /** @enum {string} */
+            validity: "effective" | "restricted" | "stale";
+            reasons: ("knowledge-updated" | "knowledge-withdrawn" | "unit-withdrawn" | "asset-withdrawn" | "template-withdrawn" | "instance-withdrawn" | "blueprint-withdrawn" | "exposed-after-creation")[];
+            items: components["schemas"]["LearningResultItem"][];
+            progress: components["schemas"]["LearningProgressUpdate"];
+        };
+        /** @enum {string} */
+        LearningErrorCode: "LEARNING_NOT_CONFIGURED" | "LEARNING_VERSION_STALE" | "LEARNING_PREREQUISITES_UNMET" | "ASSESSMENT_NOT_READY" | "ASSESSMENT_ACTIVE" | "ASSESSMENT_EXPIRED" | "ASSESSMENT_STATE_CONFLICT" | "ANSWER_FORMAT_INVALID" | "INVALID_REQUEST" | "INVALID_COOKIE" | "INVALID_CREDENTIALS" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "IDEMPOTENCY_CONFLICT" | "PAYLOAD_TOO_LARGE" | "RATE_LIMITED" | "SERVICE_UNAVAILABLE" | "AUTH_NOT_CONFIGURED" | "USERNAME_UNAVAILABLE" | "ALREADY_AUTHENTICATED" | "LAST_ADMIN_REQUIRED" | "REAUTHENTICATION_REQUIRED";
+        LearningError: {
+            error: {
+                /** @constant */
+                code: "LEARNING_NOT_CONFIGURED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "LEARNING_VERSION_STALE";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "LEARNING_PREREQUISITES_UNMET";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "ASSESSMENT_NOT_READY";
+                message: string;
+                requestId: string;
+                /** Format: date-time */
+                retryAt?: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "ASSESSMENT_ACTIVE";
+                message: string;
+                requestId: string;
+                activeAttempt?: components["schemas"]["LearningAttemptSummary"];
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "ASSESSMENT_EXPIRED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "ASSESSMENT_STATE_CONFLICT";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "ANSWER_FORMAT_INVALID";
+                message: string;
+                requestId: string;
+                /** @enum {string} */
+                formatCode?: "INVALID_SYNTAX" | "INPUT_TOO_LONG" | "ZERO_DENOMINATOR" | "PERCENT_REQUIRED" | "RESULT_TOO_LARGE" | "INVALID_MODE";
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "INVALID_REQUEST";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "INVALID_COOKIE";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "INVALID_CREDENTIALS";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "AUTHENTICATION_REQUIRED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "CSRF_FAILED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "FORBIDDEN";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "PASSWORD_CHANGE_REQUIRED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "NOT_FOUND";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "METHOD_NOT_ALLOWED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "IDEMPOTENCY_CONFLICT";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "PAYLOAD_TOO_LARGE";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "RATE_LIMITED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "SERVICE_UNAVAILABLE";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "AUTH_NOT_CONFIGURED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "USERNAME_UNAVAILABLE";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "ALREADY_AUTHENTICATED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "LAST_ADMIN_REQUIRED";
+                message: string;
+                requestId: string;
+            };
+        } | {
+            error: {
+                /** @constant */
+                code: "REAUTHENTICATION_REQUIRED";
+                message: string;
+                requestId: string;
+            };
+        };
+        LearningInstanceIdentity: {
+            id: string;
+            version: number;
+            sha256: string;
+        };
     };
     responses: {
         /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */
@@ -2645,6 +3514,96 @@ export interface components {
             };
             content: {
                 "application/json": components["schemas"]["QuestionError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError400: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError401: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError403: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError404: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError405: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError409: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError413: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError428: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError429: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
+            };
+        };
+        /** @description 封闭学习错误；不包含答案、题库正文、SQL 或文件路径。 */
+        LearningError503: {
+            headers: {
+                [name: string]: unknown;
+            };
+            content: {
+                "application/json": components["schemas"]["LearningError"];
             };
         };
     };
@@ -6240,6 +7199,825 @@ export interface operations {
             428: components["responses"]["QuestionError428"];
             429: components["responses"]["QuestionError429"];
             503: components["responses"]["QuestionError503"];
+        };
+    };
+    learning_readOverview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningOverview"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_listKnowledge: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningKnowledgePage"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_readKnowledge: {
+        parameters: {
+            query: {
+                version: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningKnowledgeDetail"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_startKnowledge: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningStartInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningKnowledgeState"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_completeKnowledge: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningCompleteInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningKnowledgeState"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_enrollPath: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningEnrollInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPathView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_listPaths: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPathsPage"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_readPath: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPathView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_listPathNodes: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPathNodesPage"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_createPractice: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningPracticeCreateInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPracticeView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_readPractice: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPracticeView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_answerPractice: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningPracticeAnswerInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPracticeView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_revealPractice: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningEmptyInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPracticeView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_abandonPractice: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningEmptyInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningPracticeView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_createAssessment: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningCreateInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningAttemptView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_readAssessment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningAttemptView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_submitAssessment: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningSubmitInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningResultView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_abandonAssessment: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 用户、动作及准确输入；超时后仅主动使用原键和原字节重试。 */
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description 原始 UTF-8 字节最多 8192；拒绝重复键、NUL、非法整数词法和未知字段。 */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["LearningEmptyInput"];
+            };
+        };
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningAttemptView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_readAssessmentResult: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningResultView"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_listHistory: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人私有投影；完整 JSON 最多 4194304 字节；无 Set-Cookie。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningHistoryPage"];
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
+        };
+    };
+    learning_readAsset: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                attemptId: string;
+                sha: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人固定题目引用的原创安全 SVG，最多 1048576 字节。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    "Content-Security-Policy"?: "sandbox; default-src 'none'";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "image/svg+xml": string;
+                };
+            };
+            400: components["responses"]["LearningError400"];
+            401: components["responses"]["LearningError401"];
+            403: components["responses"]["LearningError403"];
+            404: components["responses"]["LearningError404"];
+            405: components["responses"]["LearningError405"];
+            409: components["responses"]["LearningError409"];
+            413: components["responses"]["LearningError413"];
+            428: components["responses"]["LearningError428"];
+            429: components["responses"]["LearningError429"];
+            503: components["responses"]["LearningError503"];
         };
     };
 }
