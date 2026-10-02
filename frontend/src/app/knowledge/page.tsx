@@ -1,3 +1,7 @@
+import {learningActor} from "@/features/learning/page-data";
+import {getLearningClient} from "@/lib/learning/server-client";
+import {LearningBoundary,LearningNotice} from "@/features/learning/learning-status";
+import {KnowledgeList} from "@/features/learning/knowledge-list";
 import Link from "next/link";
 import { parseCatalogueQuery } from "@/features/catalogue/query";
 import { KnowledgeMap } from "@/features/catalogue/knowledge-map";
@@ -25,5 +29,6 @@ export default async function Page({
     limit: 100,
     offset: 0,
   });
-  return <KnowledgeMap result={result} q={query.q} status={query.status} />;
+  const actor=await learningActor();const states=actor.ok?await getLearningClient().listLearningKnowledge({limit:20,offset:0}):null;const personal=actor.ok&&states?<LearningBoundary actorId={actor.id}>{states.ok?<KnowledgeList page={states.data} paginate={false}/>:<LearningNotice result={states}/>}</LearningBoundary>:undefined;
+  return <KnowledgeMap result={result} q={query.q} status={query.status} personal={personal} />;
 }

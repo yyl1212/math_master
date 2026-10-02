@@ -89,6 +89,16 @@ func CanonicalPackage(p QuestionPackage) ([]byte, string, error) {
 	}
 	return canonical("question-package-v1", p)
 }
+
+// CanonicalTemplate uses the same normalization and existing purpose as approved
+// generation. It identifies equivalent draft spellings without generating instances.
+func CanonicalTemplate(t Template) ([]byte, string, error) {
+	normalized, _, err := normalizeTemplate(t)
+	if err != nil {
+		return nil, "", err
+	}
+	return canonical("question-template-v1", normalized)
+}
 func CanonicalInstance(i Instance) ([]byte, string, error) {
 	return canonical("question-instance-body-v1", struct {
 		Identity         Ref              `json:"identity"`

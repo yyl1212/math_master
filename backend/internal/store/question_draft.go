@@ -24,9 +24,15 @@ func questionJSONReplay[T any](s *Store, ctx context.Context, tx *sql.Tx, u auth
 	if json.Unmarshal(raw, &out) != nil {
 		return out, false, auth.ErrUnavailable
 	}
+	if err = questionExposeNow(ctx, tx, u, out); err != nil {
+		return out, false, err
+	}
 	return out, true, nil
 }
 func questionJSONRemember[T any](s *Store, ctx context.Context, tx *sql.Tx, u auth.User, a question.Access, action question.Action, id string, input any, out T) error {
+	if err := questionExposeNow(ctx, tx, u, out); err != nil {
+		return err
+	}
 	raw, err := json.Marshal(out)
 	if err != nil {
 		return err
@@ -309,10 +315,13 @@ func (s *Store) ReadQuestionDraft(ctx context.Context, a question.Access, id str
 	if !question.ValidID(id) {
 		return out, auth.ErrInvalidInput
 	}
-	err := s.questionReadTx(ctx, a, question.ReadDraftAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+	err := s.questionAnswerReadTx(ctx, a, question.ReadDraftAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
 		var err error
 		out, _, err = s.readQuestionDraft(ctx, tx, u, id, false)
-		return err
+		if err != nil {
+			return err
+		}
+		return questionExposeResponse(ctx, tx, u, out, now)
 	})
 	return out, err
 }
@@ -422,7 +431,7 @@ func (s *Store) ValidateQuestionDraft(ctx context.Context, a question.Access, id
 	if !question.ValidID(id) || input.ExpectedRevision < 1 {
 		return out, auth.ErrInvalidInput
 	}
-	err := s.questionReadTx(ctx, a, question.ValidateDraftAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+	err := s.questionAnswerReadTx(ctx, a, question.ValidateDraftAction, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
 		d, _, err := s.readQuestionDraft(ctx, tx, u, id, true)
 		if err != nil {
 			return err
@@ -431,7 +440,10 @@ func (s *Store) ValidateQuestionDraft(ctx context.Context, a question.Access, id
 			return question.ErrDraftConflict
 		}
 		_, out, _, err = questionCheckDraft(ctx, tx, d)
-		return err
+		if err != nil {
+			return err
+		}
+		return questionExposeResponse(ctx, tx, u, d, now)
 	})
 	return out, err
 }

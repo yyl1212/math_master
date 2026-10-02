@@ -22,6 +22,7 @@ import (
 
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
+	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
@@ -192,6 +193,10 @@ func Run(ctx context.Context, c Config) (result error) {
 	if err != nil {
 		return errors.New("question fixture service unavailable")
 	}
+	learningService, learningErr := learning.NewService(s, contentService.AcquireValidation)
+	if learningErr != nil {
+		return errors.New("learning fixture service unavailable")
+	}
 	questionWorkURL, parseErr := url.Parse(c.TestDatabaseURL)
 	if parseErr != nil {
 		return errors.New("question fixture database unavailable")
@@ -204,11 +209,36 @@ func Run(ctx context.Context, c Config) (result error) {
 	authUnavailable := false
 	contentUnavailable := false
 	var holdSave atomic.Bool
+	var holdLearning atomic.Bool
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
+		if scenario, ok := learningScenario(scene); ok {
+			qcontrol.release()
+			holdLearning.Store(false)
+			budget := 40 * time.Second
+			if scenario == LearningCapacity {
+				budget = 4 * time.Minute
+			}
+			setup, stop := context.WithTimeout(ctx, budget)
+			defer stop()
+			if err := resetLearning(setup, db, s, accounts, accountAdmin, root, normal, scenario); err != nil {
+				return err
+			}
+			contentUnavailable = false
+			authUnavailable = false
+			unavailable = false
+			return nil
+		}
+		if scene == "learning-hold-next-write" {
+			holdLearning.Store(true)
+			return nil
+		}
 		ctx, stop := context.WithTimeout(ctx, 3*time.Second)
 		defer stop()
+		if handled, err := learningChange(ctx, db, s, accounts, root, scene); handled {
+			return err
+		}
 		if handled, err := qcontrol.change(ctx, scene); handled {
 			return err
 		}
@@ -321,7 +351,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	}
 	defer controlListener.Close()
 
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
@@ -344,10 +374,10 @@ func Run(ctx context.Context, c Config) (result error) {
 
 		// Commit through the real handler before dropping a delayed response. The
 		// next request must prove idempotent replay, rather than mock a success.
-		if r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
+		if (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
 			captured := httptest.NewRecorder()
 			actual.ServeHTTP(captured, r)
-			if captured.Code == http.StatusOK {
+			if captured.Code == http.StatusOK || captured.Code == http.StatusCreated {
 				timer := time.NewTimer(11 * time.Second)
 				defer timer.Stop()
 				select {
@@ -374,6 +404,12 @@ func Run(ctx context.Context, c Config) (result error) {
 			http.Error(w, "Unauthorized", 401)
 			return
 		}
+		if r.PathValue("scene") == "learning-capacity" {
+			if e := http.NewResponseController(w).SetWriteDeadline(time.Now().Add(4 * time.Minute)); e != nil {
+				http.Error(w, "Capacity setup unavailable", 503)
+				return
+			}
+		}
 		if e := change(r.Context(), r.PathValue("scene")); e != nil {
 			http.Error(w, "Scene change failed", 400)
 			return
@@ -397,6 +433,24 @@ func Run(ctx context.Context, c Config) (result error) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Cache-Control", "no-store")
 		_ = json.NewEncoder(w).Encode(data)
+	})
+	control.HandleFunc("GET /learning/state", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			http.Error(w, "Unauthorized", 401)
+			return
+		}
+		mu.RLock()
+		defer mu.RUnlock()
+		ctx, stop := context.WithTimeout(r.Context(), 2*time.Second)
+		defer stop()
+		v, err := learningState(ctx, db)
+		if err != nil {
+			http.Error(w, "Learning state unavailable", 503)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "no-store")
+		_ = json.NewEncoder(w).Encode(v)
 	})
 	state := runtimeState{APIURL: "http://" + apiListener.Addr().String(), ControlURL: "http://" + controlListener.Addr().String(), Token: token, Database: name, AssetSHA: normal.Package().Assets[0].SHA256, KnowledgeID: "equivalent-fractions", PathID: normal.Package().Paths[0].ID}
 	f, e := os.OpenFile(c.StateFile, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
