@@ -50,7 +50,7 @@ BEGIN
   RETURN learning_content_approved(kp,'asset',p#>>'{asset,id}',1,p#>>'{asset,sha256}') AND (NOT creating OR feedback_content_clean('asset',p->'asset')) AND EXISTS(SELECT 1 FROM publication_members m JOIN imported_packages ip ON ip.id=m.package_id AND ip.version=m.package_version CROSS JOIN LATERAL jsonb_array_elements(ip.body->'assets') a WHERE m.snapshot_id=kp AND m.kind='asset' AND m.id=p#>>'{asset,id}' AND a->>'id'=m.id AND a->>'sha256'=p#>>'{asset,sha256}' AND a#>>'{knowledge,id}'=t#>>'{identity,id}' AND a#>>'{knowledge,version}'=v::text);
  END IF;
  IF s->>'kind'='practice' THEN
-  SELECT seal#>'{body,items,0}',seal#>'{body,knowledge}',knowledge_publication_id,question_publication_id INTO item,k,kp,qp FROM practice_attempts WHERE id=(s->>'attemptId')::uuid AND owner_user_id=owner AND sealed;
+  SELECT seal#>'{body,items,0}',seal#>'{body,knowledge}',knowledge_publication_id,question_publication_id INTO item,k,kp,qp FROM practice_attempts WHERE id=(s->>'attemptId')::uuid AND owner_user_id=owner;
  ELSE
   SELECT i.binding,a.seal#>'{body,knowledge}',a.knowledge_publication_id,a.question_publication_id INTO item,k,kp,qp FROM assessment_attempts a JOIN assessment_items i ON i.attempt_id=a.id AND i.position=(s->>'position')::integer WHERE a.id=(s->>'attemptId')::uuid AND a.owner_user_id=owner AND a.sealed;
  END IF;
