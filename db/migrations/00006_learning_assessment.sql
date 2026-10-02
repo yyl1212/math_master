@@ -15,7 +15,11 @@ CREATE FUNCTION learning_content_approved(snap text,k text,object_id text,v inte
  SELECT EXISTS(
   SELECT 1 FROM publication_members m JOIN publication_snapshots p ON p.id=m.snapshot_id AND p.status='published'
   JOIN content_publication_manifests cm ON cm.snapshot_id=p.id
-  CROSS JOIN LATERAL jsonb_array_elements(cm.manifest->'members') entry
+  -- Filter inside PostgreSQL before materializing SQL rows. The original proof
+  -- below still checks every exact field; unusual IDs remain for its rejection.
+  CROSS JOIN LATERAL jsonb_path_query(cm.manifest->'members',
+   'strict $[*] ? (@.identity.id.type() == "array" || @.identity.id.type() == "object" || @.identity.id.string() == $object_id)',
+   jsonb_build_object('object_id',object_id)) entry
   JOIN content_review_decisions r ON r.id::text=entry#>>'{evidence,decisionId}' AND r.decision='approve'
   JOIN content_submissions s ON s.id=r.submission_id AND s.sealed AND s.status='approved' AND s.frozen_digest=r.frozen_digest
   JOIN content_submission_members sm ON sm.submission_id=s.id AND sm.kind=m.kind AND sm.id=m.id AND sm.version=m.version AND sm.sha256=h

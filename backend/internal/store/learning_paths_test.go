@@ -178,3 +178,35 @@ func TestLearningPathsCountsReadingAndPassSeparately(t *testing.T) {
 		t.Fatal("valid pass was confused with completion or latest review state", joined, e)
 	}
 }
+
+func TestLearningSuccessorBatchAllPrerequisitesAndOnlyNewRows(t *testing.T) {
+	f := newLearningFixture(t)
+	f.publishLearningGraph()
+	root := f.passedFixture("learner_a", assessment.ModeDiagnostic)
+	progress, err := f.repo.LearningApplyForTest(f.ctx, f.Access("learner_a", false), root)
+	if err != nil || len(progress.NewlyUnlocked) != 2 || progress.NewlyUnlocked[0] != f.knowledge || progress.NewlyUnlocked[1].ID != "workflow-dependent" {
+		t.Fatal("root must unlock only its eligible direct child", progress, err)
+	}
+	again, err := f.repo.LearningApplyForTest(f.ctx, f.Access("learner_a", false), root)
+	if err != nil || len(again.NewlyUnlocked) != 0 {
+		t.Fatal("existing unlocks must not be returned as new", again, err)
+	}
+	if n := f.count(`SELECT count(*) FROM learning_unlocks WHERE owner_user_id=$1`, f.ids["learner_b"]); n != 0 {
+		t.Fatal("other actor inherited unlocks", n)
+	}
+	f.setLearningTarget("workflow-dependent", "lf-workflow-dependent-five", 0)
+	middle := f.passedFixture("learner_a", assessment.ModeDiagnostic)
+	progress, err = f.repo.LearningApplyForTest(f.ctx, f.Access("learner_a", false), middle)
+	if err != nil || len(progress.NewlyUnlocked) != 1 || progress.NewlyUnlocked[0].ID != "lf-target" {
+		t.Fatal("all exact prerequisites must now unlock target", progress, err)
+	}
+	f.setLearningTarget("workflow-fractions", "lf-five", 0)
+	other := f.passedFixture("learner_b", assessment.ModeDiagnostic)
+	progress, err = f.repo.LearningApplyForTest(f.ctx, f.Access("learner_b", false), other)
+	if err != nil || len(progress.NewlyUnlocked) != 2 {
+		t.Fatal("other actor must prove both parents independently", progress, err)
+	}
+	if n := f.count(`SELECT count(*) FROM learning_unlocks WHERE owner_user_id=$1 AND knowledge_id='lf-target'`, f.ids["learner_b"]); n != 0 {
+		t.Fatal("another actor's prerequisite satisfied target", n)
+	}
+}

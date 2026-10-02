@@ -100,6 +100,25 @@ func (f *learningCapacityFixture) activateContent(ids []string) {
 		f.Activate(p, head)
 	}
 }
+func learningCapacityCompareApproval(t *testing.T, f *learningCapacityFixture) {
+	t.Helper()
+	if _, e := f.db.ExecContext(f.ctx, learningApprovalReference); e != nil {
+		t.Fatal(e)
+	}
+	var count int
+	var equal, approved bool
+	e := f.db.QueryRowContext(f.ctx, `WITH proofs AS MATERIALIZED (
+ SELECT learning_content_approved($1,'knowledge',k.id,k.version,k.sha256) actual,
+ learning_approval_reference($1,'knowledge',k.id,k.version,k.sha256) original
+ FROM publication_members m JOIN knowledge_versions k ON k.id=m.id AND k.version=m.version
+ WHERE m.snapshot_id=$1 AND m.kind='knowledge' AND m.availability='active'
+ ) SELECT count(*),bool_and(actual=original),bool_and(actual AND original) FROM proofs`, *f.KHead()).Scan(&count, &equal, &approved)
+	if e != nil || count != 1000 || !equal || !approved {
+		t.Fatal("maximum exact approval proof changed", count, equal, approved, e)
+	}
+	t.Logf("LEARNING_CAPACITY approvalProofDifferential=1000 allEqual=true allApproved=true")
+}
+
 func finishLearningCapacitySetup(t *testing.T, f *learningCapacityFixture, stopSetup context.CancelFunc) {
 	t.Helper()
 	deadline, bounded := t.Deadline()
@@ -174,6 +193,7 @@ func newLearningCapacityFixture(t *testing.T, buildLong ...bool) *learningCapaci
 		}
 	}
 	t.Logf("LEARNING_CAPACITY actual published knowledge=1000 units=4000 paths=200 assets=1000 templates=200 instances=10000 blueprints=1000 rootCandidates=1000 core=8 directSuccessors=999 actualMaxPathNodes=%d", f.count(`SELECT coalesce(max(n),0) FROM (SELECT count(*) n FROM path_nodes GROUP BY path_id,path_version) sizes`))
+	learningCapacityCompareApproval(t, f)
 	finishLearningCapacitySetup(t, f, stop)
 	return f
 }

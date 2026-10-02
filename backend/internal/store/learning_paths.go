@@ -27,14 +27,15 @@ func learningUnlock(ctx context.Context, tx *sql.Tx, actor string, k question.Id
 func learningUnlockSuccessors(ctx context.Context, tx *sql.Tx, actor string, k question.Identity, kind, id string, now time.Time) ([]question.Identity, error) {
 	ctx = learningWithProjection(ctx, tx, actor)
 	out := []question.Identity{}
-	rows, e := tx.QueryContext(ctx, `SELECT DISTINCT kv.id,kv.version,kv.sha256 FROM knowledge_relations r JOIN knowledge_versions kv ON kv.id=r.source_id AND kv.version=r.source_version JOIN publication_heads h ON h.singleton JOIN publication_members m ON m.snapshot_id=h.snapshot_id AND m.kind='knowledge' AND m.id=kv.id AND m.version=kv.version AND m.availability='active' WHERE r.kind='prerequisite' AND r.target_id=$1 AND r.target_version=$2 AND NOT EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='knowledge' AND w.target_id=kv.id AND w.target_version=kv.version) ORDER BY kv.id,kv.version LIMIT 1001`, k.ID, k.Version)
+	rows, e := tx.QueryContext(ctx, `SELECT DISTINCT kv.id,kv.version,kv.sha256,h.snapshot_id FROM knowledge_relations r JOIN knowledge_versions kv ON kv.id=r.source_id AND kv.version=r.source_version JOIN publication_heads h ON h.singleton JOIN publication_members m ON m.snapshot_id=h.snapshot_id AND m.kind='knowledge' AND m.id=kv.id AND m.version=kv.version AND m.availability='active' WHERE r.kind='prerequisite' AND r.target_id=$1 AND r.target_version=$2 AND NOT EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='knowledge' AND w.target_id=kv.id AND w.target_version=kv.version) ORDER BY kv.id,kv.version LIMIT 1001`, k.ID, k.Version)
 	if e != nil {
 		return out, e
 	}
 	ks := []question.Identity{}
+	var head string
 	for rows.Next() {
 		var v question.Identity
-		if e = rows.Scan(&v.ID, &v.Version, &v.SHA256); e != nil {
+		if e = rows.Scan(&v.ID, &v.Version, &v.SHA256, &head); e != nil {
 			rows.Close()
 			return out, e
 		}
@@ -48,22 +49,78 @@ func learningUnlockSuccessors(ctx context.Context, tx *sql.Tx, actor string, k q
 	if len(ks) > 1000 {
 		return out, question.ErrLimitExceeded
 	}
+	if len(ks) == 0 {
+		return out, nil
+	}
+	prerequisites, e := learningSuccessorPrerequisites(ctx, tx, ks)
+	if e != nil {
+		return out, e
+	}
+	eligible := []question.Identity{}
 	for _, v := range ks {
-		_, all, e := learningPrerequisites(ctx, tx, actor, v)
-		if e != nil {
-			return out, e
-		}
-		if all {
-			added, e := learningUnlock(ctx, tx, actor, v, kind, id, now)
+		all := true
+		for _, prerequisite := range prerequisites[v] {
+			evidence, e := learningCurrentEvidence(ctx, tx, actor, prerequisite)
 			if e != nil {
 				return out, e
 			}
-			if added {
-				out = append(out, v)
+			if !evidence.Qualified {
+				all = false
 			}
 		}
+		if all {
+			eligible = append(eligible, v)
+		}
 	}
-	return out, nil
+	// The current identities and head came from one read under the shared content
+	// lock. All original owner and approval constraints still run on every row.
+	return learningUnlockMany(ctx, tx, actor, eligible, head, kind, id, now)
+}
+
+func learningSuccessorPrerequisites(ctx context.Context, tx *sql.Tx, ks []question.Identity) (map[question.Identity][]question.Identity, error) {
+	out := map[question.Identity][]question.Identity{}
+	rows, e := tx.QueryContext(ctx, `SELECT source.id,source.version,source.sha256,k.id,k.version,k.sha256
+ FROM jsonb_to_recordset($1::jsonb) source(id text,version integer,sha256 text)
+ JOIN knowledge_relations r ON r.source_id=source.id AND r.source_version=source.version AND r.kind='prerequisite'
+ JOIN knowledge_versions k ON k.id=r.target_id AND k.version=r.target_version
+ ORDER BY source.id,source.version,k.id,k.version`, body(ks))
+	if e != nil {
+		return out, e
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var source, target question.Identity
+		if e = rows.Scan(&source.ID, &source.Version, &source.SHA256, &target.ID, &target.Version, &target.SHA256); e != nil {
+			return out, e
+		}
+		out[source] = append(out[source], target)
+	}
+	return out, rows.Err()
+}
+
+func learningUnlockMany(ctx context.Context, tx *sql.Tx, actor string, ks []question.Identity, head, kind, id string, now time.Time) ([]question.Identity, error) {
+	out := []question.Identity{}
+	if len(ks) == 0 {
+		return out, nil
+	}
+	rows, e := tx.QueryContext(ctx, `WITH inserted AS (
+ INSERT INTO learning_unlocks(owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,knowledge_publication_id,source_kind,source_id,created_at)
+ SELECT $1,k.id,k.version,k.sha256,$3,$4,$5,$6 FROM jsonb_to_recordset($2::jsonb) k(id text,version integer,sha256 text)
+ ON CONFLICT(owner_user_id,knowledge_id) DO NOTHING
+ RETURNING knowledge_id,knowledge_version,knowledge_sha256
+ ) SELECT knowledge_id,knowledge_version,knowledge_sha256 FROM inserted ORDER BY knowledge_id,knowledge_version`, actor, body(ks), head, kind, id, now)
+	if e != nil {
+		return out, e
+	}
+	defer rows.Close()
+	for rows.Next() {
+		var k question.Identity
+		if e = rows.Scan(&k.ID, &k.Version, &k.SHA256); e != nil {
+			return out, e
+		}
+		out = append(out, k)
+	}
+	return out, rows.Err()
 }
 func (s *Store) EnrollLearningPath(ctx context.Context, a question.Access, id string, in learning.EnrollInput) (learning.PathView, error) {
 	var out learning.PathView
