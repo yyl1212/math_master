@@ -117,5 +117,20 @@
     "productionMigration": false,
     "formalCourseApproval": false,
     "automaticRegrading": false
+  },
+  "ciPrecisionCorrection": {
+    "failedHead": "53fb3bf42585c4aed0e0fd5fcaa9a2387b782a72",
+    "failedGoPushRun": 37012415326,
+    "failedStep": "学习测评真实数据库回归",
+    "test": "TestLearningSchemaEventsAndRoutesImmutable",
+    "sqlState": "23514",
+    "constraint": "learning_events_check1",
+    "deterministicNanosecondTail": 789,
+    "fixtureUsesDatabaseClock": true,
+    "oneMicrosecondMismatchRejected": true,
+    "tenRepeatsPassedSeconds": 8.949,
+    "fullLearningStorePassedSeconds": 73.216,
+    "productionCodeChanged": false,
+    "migrationOrConstraintChanged": false
   }
 }

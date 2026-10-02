@@ -3,6 +3,8 @@ package store_test
 import (
 	"database/sql"
 	"encoding/json"
+	"errors"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/learning"
@@ -147,7 +149,11 @@ func TestLearningSchemaPracticeGlobalUnique(t *testing.T) {
 func TestLearningSchemaEventsAndRoutesImmutable(t *testing.T) {
 	f := newLearningFixture(t)
 	owner := f.ids["learner_a"]
-	now := time.Now().UTC()
+	// PostgreSQL stores microseconds; seal and column must use the same DB time.
+	var now time.Time
+	if e := f.db.QueryRow(`SELECT clock_timestamp()`).Scan(&now); e != nil {
+		t.Fatal(e)
+	}
 	id := f.ID()
 	event := learning.EventSeal{ID: id, ActorID: owner, Knowledge: f.knowledge, KnowledgePublicationID: *f.KHead(), Units: f.items[0].Units, Assets: f.items[0].Assets, Kind: "started", RecordedAt: now}
 	raw, sha, e := learning.CanonicalLearningEvent(event)
@@ -159,7 +165,18 @@ func TestLearningSchemaEventsAndRoutesImmutable(t *testing.T) {
 		t.Fatal(e)
 	}
 	defer tx.Rollback()
-	if _, e = tx.Exec(`INSERT INTO learning_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,knowledge_publication_id,kind,seal,seal_bytes,seal_sha256,recorded_at) VALUES($1,$2,$3,$4,$5,$6,'started',$7,$8,$9,$10)`, id, owner, f.knowledge.ID, 1, f.knowledge.SHA256, *f.KHead(), string(raw), raw, sha, now); e != nil {
+	const insertEvent = `INSERT INTO learning_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,knowledge_publication_id,kind,seal,seal_bytes,seal_sha256,recorded_at) VALUES($1,$2,$3,$4,$5,$6,'started',$7,$8,$9,$10)`
+	badTx, err := f.db.Begin()
+	if err != nil {
+		t.Fatal(err)
+	}
+	_, err = badTx.Exec(insertEvent, id, owner, f.knowledge.ID, 1, f.knowledge.SHA256, *f.KHead(), string(raw), raw, sha, now.Add(time.Microsecond))
+	badTx.Rollback()
+	var pg *pgconn.PgError
+	if !errors.As(err, &pg) || pg.Code != "23514" || pg.ConstraintName != "learning_events_check1" {
+		t.Fatal("a one-microsecond difference from the sealed event must be rejected", err)
+	}
+	if _, e = tx.Exec(insertEvent, id, owner, f.knowledge.ID, 1, f.knowledge.SHA256, *f.KHead(), string(raw), raw, sha, now); e != nil {
 		t.Fatal(e)
 	}
 	if _, e = tx.Exec(`INSERT INTO learning_records(owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,started_event_id,started_at) VALUES($1,$2,1,$3,$4,$5)`, owner, f.knowledge.ID, f.knowledge.SHA256, id, now); e != nil {

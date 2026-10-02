@@ -46,3 +46,9 @@ P3：等待期间缺少保留冻结命令的取消等待按钮。十秒截止及
 全前端45文件135项通过；原94及审查新增6项，共50场景×两视口100项真实浏览器通过，14批、零跳过/重试/假成功响应。Go全部纯逻辑、原账户/题库/HTTP和共享harness通过（HTTP35.005秒、harness95.207秒，含当前完整最大容量场景）；新store80.770秒、原store140.258秒、CLI1.408秒通过。gofmt、vet、构建、旧契约13项、API两次生成一致、类型检查和生产依赖审计0漏洞均通过。
 
 容量SQL、限制和迁移本次修复均未修改，此前真实两类209.473秒及提交后独立容量复验保留；最新共享harness再次验证全部最大计数。本次只修复三项Important，Minor未扩大到修复范围，不重复独立审查。实现PR和最新SHA CI为后续交付门槛；生产部署及迁移另属P7。
+
+## CI时间精度修正
+
+初次实现提交53fb3bf的前端push/PR两项均通过，Go两项在学习数据库回归失败；push失败日志指向TestLearningSchemaEventsAndRoutesImmutable的learning_events_check1（SQLSTATE23514）。夹具time.Now有纳秒尾数，pgx v5.11.0二进制写入按微秒截断，而JSON时间转timestamptz会舍入，二者可能相差一微秒。以固定789纳秒尾数在本机确定性复现相同RED。
+
+只修正learning_schema_test.go夹具，取数据库clock_timestamp作为封存与字段的同一依据，另加一微秒错配必须被精确CHECK拒绝的断言。产品managedIdentity/learningAction原本就使用数据库时钟，产品代码、约束、迁移和数学摘要均保持。该测试连续10次8.949秒GREEN，全部非容量学习store73.216秒GREEN；没有跳过测试或靠重跑消除失败。最新交付以[PR #19](https://github.com/yyl1212/math_master/pull/19)当前完整head的四项Go/前端push/PR检查均通过为准。
