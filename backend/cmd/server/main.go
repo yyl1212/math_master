@@ -17,6 +17,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/config"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
 )
 
@@ -65,7 +66,19 @@ func main() {
 	if contentErr != nil {
 		log.Print("content configuration check failed")
 	}
-	options.Content = &httpapi.ContentOptions{Service: publication.NewService(repo), PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production", Configured: contentConfigured}
+	publicationService := publication.NewService(repo)
+	options.Content = &httpapi.ContentOptions{Service: publicationService, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production", Configured: contentConfigured}
+	questionCtx, questionCancel := context.WithTimeout(ctx, 8*time.Second)
+	questionConfigured, questionErr := httpapi.QuestionReady(questionCtx, db)
+	questionCancel()
+	if questionErr != nil {
+		log.Print("question configuration check failed")
+	}
+	questionService, questionErr := question.NewService(repo, publicationService.AcquireValidation)
+	if questionErr != nil {
+		log.Fatal("question initialization failed")
+	}
+	options.Question = &httpapi.QuestionOptions{Service: questionService, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production", Configured: questionConfigured}
 	srv := &http.Server{Addr: c.HTTPAddr, Handler: httpapi.NewApplicationHandler(repo, db, options), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: time.Minute}
 	go func() {
 		<-ctx.Done()

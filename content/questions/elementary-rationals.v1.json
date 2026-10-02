@@ -1,0 +1,240 @@
+{
+  "kind": "question-bank",
+  "schemaVersion": 1,
+  "id": "elementary-rationals",
+  "version": 1,
+  "templates": [
+    {
+      "id": "rational-addition",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions",
+        "version": 2
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "fractions",
+            "version": 2
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "Calculate {{left}} + {{right}}.",
+      "explanationTemplate": "Using a common denominator, the sum is {{answer}}.",
+      "engine": {
+        "family": "rational_arithmetic",
+        "operation": "add",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "-1/2",
+            "1/2",
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "1",
+            "2"
+          ]
+        }
+      ],
+      "constraints": [],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master",
+          "title": "Original technical fixture; requires published fractions v2 objectives and independent review",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": ""
+        }
+      ]
+    },
+    {
+      "id": "rational-comparison",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions",
+        "version": 2
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "fractions",
+            "version": 2
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [],
+      "type": "single_choice",
+      "answerFormat": null,
+      "promptTemplate": "Choose the relation between {{left}} and {{right}}.",
+      "explanationTemplate": "Compare the two numbers: the relation is {{answer}}.",
+      "engine": {
+        "family": "rational_comparison",
+        "operation": "compare",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "-1/2",
+            "0",
+            "1/2",
+            "1"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "0",
+            "1"
+          ]
+        }
+      ],
+      "constraints": [],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master",
+          "title": "Original technical fixture; requires published fractions v2 objectives and independent review",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": ""
+        }
+      ]
+    },
+    {
+      "id": "rational-missing-addend",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions",
+        "version": 2
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "fractions",
+            "version": 2
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "Find x in {{known}} + x = {{result}}.",
+      "explanationTemplate": "Subtract the known addend from the result: x = {{answer}}.",
+      "engine": {
+        "family": "missing_operand",
+        "operation": "add",
+        "unknownSide": "right",
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "known",
+          "values": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ]
+        },
+        {
+          "name": "result",
+          "values": [
+            "1/2",
+            "5"
+          ]
+        }
+      ],
+      "constraints": [],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master",
+          "title": "Original technical fixture; requires published fractions v2 objectives and independent review",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": ""
+        }
+      ]
+    }
+  ],
+  "fixedQuestions": [],
+  "blueprints": [
+    {
+      "id": "rational-skills-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions",
+        "version": 2
+      },
+      "coreObjectiveIndices": [
+        0
+      ],
+      "sources": [
+        {
+          "kind": "template",
+          "ref": {
+            "id": "rational-addition",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "rational-comparison",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "rational-missing-addend",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Technical fixture for rational arithmetic, comparison and missing operands. Publication requires current fixed knowledge objectives and independent review.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    }
+  ]
+}

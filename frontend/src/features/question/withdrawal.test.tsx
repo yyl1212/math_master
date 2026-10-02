@@ -1,0 +1,22 @@
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { it, expect, vi } from "vitest";
+import { WithdrawalPanel } from "./withdrawal-panel";
+import { publication, fixtureID, otherID, sha } from "./test-fixtures";
+const mocks = vi.hoisted(() => ({ request: vi.fn(), content: vi.fn(), push: vi.fn(), refresh: vi.fn() }));
+vi.mock("@/lib/question/client", () => ({ requestQuestion: mocks.request }));
+vi.mock("@/lib/content/client", () => ({ contentRequest: mocks.content }));
+vi.mock("next/navigation", () => ({ useRouter: () => mocks }));
+it("WithdrawalPanel", async () => {
+    const target = { kind: "template", id: "rational-addition", version: 1 }, preview = { currentKnowledgeHead: otherID, currentQuestionHead: fixtureID, target, affectedTemplates: 1, affectedInstances: 10, affectedBlueprints: 1, diff: { added: 0, replaced: 0, removed: 12 }, changes: { items: [], total: 12, limit: 1, offset: 0 }, impactDigest: sha };
+    mocks.request.mockResolvedValue({ ok: true, data: preview });
+    render(<WithdrawalPanel initial={{ items: [publication()], head: fixtureID, total: 1, limit: 20, offset: 0 }}/>);
+    fireEvent.change(screen.getByLabelText("Target ID"), { target: { value: target.id } });
+    fireEvent.click(screen.getByRole("button", { name: "Preview withdrawal" }));
+    await screen.findByText(/Affected instances: 10/);
+    expect(screen.getByText(/five valid questions/)).toBeVisible();
+    mocks.request.mockResolvedValue({ ok: true, data: { ...preview, impactDigest: "c".repeat(64), changes: { ...preview.changes, offset: 1 } } });
+    fireEvent.click(screen.getByRole("button", { name: "Next impact changes" }));
+    await screen.findByText(/Preview changed/);
+    expect(screen.getByRole("button", { name: "Withdraw permanently" })).toBeDisabled();
+    expect(mocks.request.mock.calls.every(a => a[0].kind !== "withdrawVersion")).toBe(true);
+});

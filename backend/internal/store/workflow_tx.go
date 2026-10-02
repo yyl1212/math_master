@@ -8,7 +8,6 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/publication"
-	"sort"
 	"time"
 )
 
@@ -49,56 +48,19 @@ func workflowConfigured(ctx context.Context, tx *sql.Tx) error {
 	return nil
 }
 func workflowIdentity(ctx context.Context, tx *sql.Tx, a publication.Access, action publication.Action, lock bool, related []string) (auth.User, time.Time, error) {
-	var id string
-	err := tx.QueryRowContext(ctx, `SELECT user_id::text FROM auth_sessions WHERE token_hash=$1`, a.TokenHash[:]).Scan(&id)
-	if errors.Is(err, sql.ErrNoRows) {
-		return auth.User{}, time.Time{}, auth.ErrAuthenticationRequired
-	}
+	user, session, now, err := managedIdentity(ctx, tx, a, !publication.IsRead(action), lock, related)
 	if err != nil {
-		return auth.User{}, time.Time{}, err
+		return user, now, err
 	}
-	if lock {
-		ids := append(append([]string{}, related...), id)
-		sort.Strings(ids)
-		for i, userID := range ids {
-			if !publication.ValidID(userID) {
-				return auth.User{}, time.Time{}, auth.ErrInvalidInput
-			}
-			if i > 0 && ids[i-1] == userID {
-				continue
-			}
-			if _, err = readAccount(ctx, tx, userID, true); err != nil {
-				return auth.User{}, time.Time{}, err
-			}
-		}
-	}
-	row, err := readSessionRow(ctx, tx, a.TokenHash, lock)
-	if err != nil {
-		return auth.User{}, time.Time{}, err
-	}
-	account, err := readAccount(ctx, tx, id, false)
-	if err != nil {
-		return auth.User{}, time.Time{}, err
-	}
-	now, err := dbClock(ctx, tx)
-	if err != nil {
-		return auth.User{}, now, err
-	}
-	if row.UserID != id || !validSession(row, account.Version, now) {
-		return auth.User{}, now, auth.ErrAuthenticationRequired
-	}
-	if !publication.IsRead(action) && !auth.EqualSecret(a.CSRF, row.CSRF) {
-		return auth.User{}, now, auth.ErrCSRF
-	}
-	if err = publication.Authorize(account.User, action); err != nil {
-		return auth.User{}, now, err
+	if err = publication.Authorize(user, action); err != nil {
+		return user, now, err
 	}
 	if action == publication.ActivateReleaseAction || action == publication.WithdrawVersionAction {
-		if !row.Reauth.Valid || now.Before(row.Reauth.Time) || !now.Before(row.Reauth.Time.Add(5*time.Minute)) {
-			return auth.User{}, now, auth.ErrReauthRequired
+		if err = managedReauth(session, now); err != nil {
+			return user, now, err
 		}
 	}
-	return account.User, now, nil
+	return user, now, nil
 }
 func (s *Store) workflowTx(ctx context.Context, a publication.Access, action publication.Action, related []string, fn func(context.Context, *sql.Tx, auth.User, time.Time) error) error {
 	ctx, cancel := context.WithTimeout(ctx, workflowTimeout)
