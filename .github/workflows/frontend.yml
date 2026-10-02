@@ -1,4 +1,4 @@
-name: 英文网站与账户验证
+name: 英文网站账户与题库验证
 on:
   push:
     branches: [master, 'codex/**']
@@ -69,6 +69,14 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-release.spec.ts
       - name: 真实内容权限与超时回归
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-security.spec.ts
+      - name: 真实题库编写与CLI认领回归
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts
+      - name: 真实题库独立复核回归
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-review.spec.ts
+      - name: 真实题库双快照发布与撤回回归
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-release.spec.ts
+      - name: 真实题库权限预算与未确认写入回归
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-security.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

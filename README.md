@@ -4,7 +4,7 @@
 
 P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/math_master/pull/5) 合并到 master，已完成独立审查及回归；提供 Go 服务、正式目录、严格校验、PostgreSQL 版本存储及草稿导入导出。P2 英文只读前端已实现五页面与安全数学阅读，已完成独立代码审查问题修复及本机回归，CI 结果见 PR；P3a 已实现账户、会话与角色管理，已完成独立审查与本机回归，功能交付见 [PR #10](https://github.com/yyl1212/math_master/pull/10) 及其最新提交 CI；P3b 内容工作流已按十项任务实现，已完成整分支回归、独立审查及三项问题修复，通过 [PR #14](https://github.com/yyl1212/math_master/pull/14) 交付，技术提交的四项 CI 全部通过，详见 [技术验收记录](docs/operations/2026-10-01-p3b-acceptance.md)；学习记录和部署继续按后续阶段开发。技术方案采用 Go 业务后端、Next.js / TypeScript 前端和 PostgreSQL；首版先建立 16 个学习板块的方向地图，做扎实初等数学学习路线。
 
-P3b 已于 2026-10-01 通过 PR #14 合并，master 086ed7a 的后端和前端 CI 均通过。P4 已确认分为“可信题库”和“学习检测”两次交付；[P4a 可信题库设计](docs/superpowers/specs/2026-10-02-question-bank-design.md)已获用户书面确认，通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并。[13 项执行计划](docs/superpowers/plans/2026-10-02-question-bank.md)已编写待审，沿用 Native，明确文件、接口、测试与兼容验收；尚未实现 P4 业务。
+P3b 已于 2026-10-01 通过 PR #14 合并，master 086ed7a 的后端和前端 CI 均通过。P4 已确认分为“可信题库”和“学习检测”两次交付；[P4a 可信题库设计](docs/superpowers/specs/2026-10-02-question-bank-design.md)已获用户书面确认，通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并。[13 项执行计划](docs/superpowers/plans/2026-10-02-question-bank.md)已确认并通过 PR #16 合并，沿用 Native。P4a 可信题库已实现，全部本机回归与容量验证通过，正在完成独立审查及实现 PR 的最新 CI；详见[技术验收记录](docs/operations/2026-10-02-p4a-acceptance.md)。个人练习、检测、解锁与进度继续在 P4b。
 
 ## 设计文档
 
@@ -62,6 +62,10 @@ npm run start -- --hostname 127.0.0.1 --port 3000
 ```
 
 启动前按操作说明设置仅供服务端使用的 `GO_API_INTERNAL_URL` 并启动 Go 服务。匿名阅读不创建学习记录，个人解锁与进度属于 P4。
+
+## P4a 可信题库入口
+
+详见[题库操作说明](docs/operations/question-bank.md)。英文编辑、独立六项复核、双head发布、覆盖与永久撤回后台接入 Go/PostgreSQL；三项 CLI 只检查与导入导出草稿。新迁移00005须操作者显式启用，本次保留开发库和持续更新的资料。技术夹具不计入正式题量。
 
 ## P3b 内容工作流入口
 
