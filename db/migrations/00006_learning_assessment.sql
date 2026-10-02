@@ -394,7 +394,7 @@ $$;
 -- +goose StatementEnd
 
 -- +goose StatementBegin
-CREATE FUNCTION learning_seal_dependencies(s jsonb,is_event boolean) RETURNS TABLE(kind text,id text,version integer,sha256 text) LANGUAGE sql IMMUTABLE STRICT AS $$
+CREATE FUNCTION learning_seal_dependencies(s jsonb,is_event boolean) RETURNS TABLE(kind text,id text,version integer,sha256 text) LANGUAGE sql STABLE STRICT AS $$
  WITH b AS(SELECT s->'body' v), items AS(SELECT item FROM b CROSS JOIN LATERAL jsonb_array_elements(CASE WHEN is_event THEN '[]'::jsonb ELSE v->'items' END) item),
  units AS(SELECT u FROM b CROSS JOIN LATERAL jsonb_array_elements(CASE WHEN is_event THEN v->'units' ELSE '[]'::jsonb END) u UNION SELECT u FROM items CROSS JOIN LATERAL jsonb_array_elements(item->'units') u),
  assets AS(SELECT a FROM b CROSS JOIN LATERAL jsonb_array_elements(CASE WHEN is_event THEN v->'assets' ELSE '[]'::jsonb END) a UNION SELECT a FROM items CROSS JOIN LATERAL jsonb_array_elements(item->'assets') a)
@@ -403,7 +403,10 @@ CREATE FUNCTION learning_seal_dependencies(s jsonb,is_event boolean) RETURNS TAB
  UNION SELECT 'instance',item#>>'{instance,id}',(item#>>'{instance,version}')::integer,item#>>'{instance,sha256}' FROM items
  UNION SELECT 'template',item#>>'{template,id}',(item#>>'{template,version}')::integer,item#>>'{template,sha256}' FROM items WHERE item#>>'{template,id}' IS NOT NULL
  UNION SELECT 'unit',u->>'id',(u->>'version')::integer,u->>'sha256' FROM units
- UNION SELECT 'asset',a->>'id',NULL::integer,a->>'sha256' FROM assets;
+ UNION SELECT 'asset',a->>'id',NULL::integer,a->>'sha256' FROM assets
+ UNION SELECT 'asset',b.asset_id,NULL::integer,b.asset_sha256 FROM units x
+ JOIN unit_versions uv ON uv.id=x.u->>'id' AND uv.version=(x.u->>'version')::integer AND uv.sha256=x.u->>'sha256'
+ JOIN unit_asset_bindings b ON b.unit_id=uv.id AND b.unit_version=uv.version;
 $$;
 CREATE FUNCTION learning_dependencies_match(ek text,eid uuid,uid uuid,s jsonb,is_event boolean) RETURNS boolean LANGUAGE sql STABLE AS $$
  SELECT NOT EXISTS((SELECT * FROM learning_seal_dependencies(s,is_event)) EXCEPT (SELECT kind,id,version,sha256 FROM learning_evidence_dependencies WHERE evidence_kind=ek AND evidence_id=eid AND owner_user_id=uid))

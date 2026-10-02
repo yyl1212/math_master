@@ -71,7 +71,10 @@ func learningEvidenceRestrictions(ctx context.Context, tx *sql.Tx, deps []learni
 	for _, d := range deps {
 		input = append(input, map[string]any{"kind": d.Kind, "id": d.ID, "version": d.Version, "sha256": d.SHA256})
 	}
-	rows, e := tx.QueryContext(ctx, `WITH d AS (SELECT * FROM jsonb_to_recordset($1::jsonb) r(kind text,id text,version integer,sha256 text))
+	rows, e := tx.QueryContext(ctx, `WITH input AS (SELECT * FROM jsonb_to_recordset($1::jsonb) r(kind text,id text,version integer,sha256 text)),
+ d AS (SELECT * FROM input UNION SELECT 'asset',b.asset_id,NULL::integer,b.asset_sha256 FROM input i
+ JOIN unit_versions uv ON i.kind='unit' AND uv.id=i.id AND uv.version=i.version AND uv.sha256=i.sha256
+ JOIN unit_asset_bindings b ON b.unit_id=uv.id AND b.unit_version=uv.version)
  SELECT DISTINCT d.kind||'-withdrawn' FROM d WHERE
  EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind=d.kind AND w.sha256=d.sha256 AND ((d.kind='asset') OR (w.target_id=d.id AND w.target_version=d.version)))
  OR EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256) ORDER BY 1`, body(input))

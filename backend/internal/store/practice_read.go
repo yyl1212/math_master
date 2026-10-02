@@ -109,12 +109,19 @@ func learningPracticeView(ctx context.Context, tx *sql.Tx, actor string, p pract
 		if e != nil {
 			return out, e
 		}
+		current, e := learningIsCurrent(ctx, tx, p.Seal.Knowledge)
+		if e != nil {
+			return out, e
+		}
 		if len(item.Reasons) > 0 {
 			item.Validity = assessment.Restricted
 			item.Correct = nil
 			item.CorrectChoiceID = nil
 			item.CorrectNumeric = nil
 			item.Explanation = nil
+		} else if !current {
+			item.Validity = assessment.Stale
+			item.Reasons = []assessment.RestrictionReason{assessment.KnowledgeUpdated}
 		}
 		out.Result = &assessment.PracticeResult{Outcome: assessment.PracticeState(p.Summary.State), Item: item}
 		refs := []learning.ExposureRef{{Kind: "instance", Identity: out.Question.Instance}}
