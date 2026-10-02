@@ -726,5 +726,19 @@
     "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"qi-zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":2,\"instance\":{\"id\":\"instance-2\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":3,\"instance\":{\"id\":\"instance-3\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":4,\"instance\":{\"id\":\"instance-4\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}},{\"position\":5,\"instance\":{\"id\":\"instance-5\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"skipped\"}}]}",
     "accepted": false,
     "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "overlong numeric with unknown field",
+    "action": "answerPractice",
+    "raw": "{\"kind\":\"numeric\",\"raw\":\"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\",\"owner\":\"private\"}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
+  },
+  {
+    "name": "overlong numeric in one-answer submission",
+    "action": "submitAssessment",
+    "raw": "{\"answers\":[{\"position\":1,\"instance\":{\"id\":\"math-root\",\"version\":1,\"sha256\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"answer\":{\"kind\":\"numeric\",\"raw\":\"111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\"}}]}",
+    "accepted": false,
+    "errorCode": "INVALID_REQUEST"
   }
 ]
