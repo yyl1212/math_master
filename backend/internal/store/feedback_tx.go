@@ -94,3 +94,5 @@ func (s *Store) FeedbackPreflight(ctx context.Context, a question.Access, action
 	e := s.feedbackTx(ctx, a, action, nil, func(_ context.Context, _ *sql.Tx, u auth.User, _ time.Time) error { user = u; return nil })
 	return user, e
 }
+
+var _ feedback.Repository = (*Store)(nil)

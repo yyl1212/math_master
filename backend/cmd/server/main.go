@@ -15,6 +15,7 @@ import (
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/config"
+	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/publication"
@@ -85,6 +86,11 @@ func main() {
 		log.Fatal("learning initialization failed")
 	}
 	options.Learning = &httpapi.LearningOptions{Learning: learningService, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
+	feedbackService, feedbackErr := feedback.NewService(repo)
+	if feedbackErr != nil {
+		log.Fatal("feedback initialization failed")
+	}
+	options.Feedback = &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
 	srv := &http.Server{Addr: c.HTTPAddr, Handler: httpapi.NewApplicationHandler(repo, db, options), ReadHeaderTimeout: 5 * time.Second, ReadTimeout: 15 * time.Second, WriteTimeout: 15 * time.Second, IdleTimeout: time.Minute}
 	go func() {
 		<-ctx.Done()

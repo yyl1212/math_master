@@ -10692,6 +10692,4802 @@
           }
         }
       }
+    },
+    "/api/v1/feedback/contexts/site": {
+      "get": {
+        "operationId": "readFeedbackSiteContext",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "area",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "home",
+                "knowledge_map",
+                "learning_center",
+                "account",
+                "review",
+                "other"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackContextEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/contexts/knowledge/{id}": {
+      "get": {
+        "operationId": "readFeedbackKnowledgeContext",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          },
+          {
+            "name": "partKind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "unit",
+                "asset"
+              ]
+            }
+          },
+          {
+            "name": "partId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackContextEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/contexts/path/{id}": {
+      "get": {
+        "operationId": "readFeedbackPathContext",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackContextEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/contexts/practice/{id}": {
+      "get": {
+        "operationId": "readFeedbackPracticeContext",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "partKind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "const": "asset"
+            }
+          },
+          {
+            "name": "partId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackContextEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/contexts/assessment/{id}": {
+      "get": {
+        "operationId": "readFeedbackAssessmentContext",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "position",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            }
+          },
+          {
+            "name": "partKind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "const": "asset"
+            }
+          },
+          {
+            "name": "partId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackContextEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/tickets": {
+      "get": {
+        "operationId": "listOwnFeedback",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createFeedback",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackReceiptEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackCreateInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/tickets/{id}": {
+      "get": {
+        "operationId": "readOwnFeedback",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackMetadataEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/tickets/{id}/events": {
+      "get": {
+        "operationId": "readOwnFeedbackDiscussion",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackDiscussionPageEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/tickets/{id}/reply": {
+      "post": {
+        "operationId": "replyFeedback",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackReceiptEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackReplyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/review/tickets": {
+      "get": {
+        "operationId": "listReviewFeedback",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "new",
+                "processing",
+                "waiting_details",
+                "resolved",
+                "closed"
+              ]
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "math_error",
+                "unclear_explanation",
+                "typo",
+                "accessibility",
+                "technical_issue",
+                "suggestion"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/review/tickets/{id}": {
+      "get": {
+        "operationId": "readReviewFeedback",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackMetadataEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/review/tickets/{id}/events": {
+      "get": {
+        "operationId": "readReviewFeedbackDiscussion",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "default": 20
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 512,
+              "pattern": "^[A-Za-z0-9_-]+$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackDiscussionPageEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/feedback/review/tickets/{id}/transition": {
+      "post": {
+        "operationId": "transitionFeedback",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。",
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackReceiptEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackTransitionInput"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -20542,6 +25338,1404 @@
           "version",
           "sha256"
         ]
+      },
+      "FeedbackUUID": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      },
+      "FeedbackIdentity": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      },
+      "FeedbackInstanceIdentity": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?:[a-z][a-z0-9-]{0,63}|qi-[0-9a-f]{64})$"
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2147483647
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      },
+      "FeedbackAssetRef": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "sha256"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      },
+      "FeedbackUnitPart": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "unit",
+          "asset"
+        ],
+        "properties": {
+          "kind": {
+            "const": "unit"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/FeedbackIdentity"
+          },
+          "asset": {
+            "type": "null"
+          }
+        }
+      },
+      "FeedbackAssetPart": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "unit",
+          "asset"
+        ],
+        "properties": {
+          "kind": {
+            "const": "asset"
+          },
+          "unit": {
+            "type": "null"
+          },
+          "asset": {
+            "$ref": "#/components/schemas/FeedbackAssetRef"
+          }
+        }
+      },
+      "FeedbackPart": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FeedbackUnitPart"
+          },
+          {
+            "$ref": "#/components/schemas/FeedbackAssetPart"
+          }
+        ]
+      },
+      "FeedbackTarget": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "identity",
+              "area",
+              "part"
+            ],
+            "properties": {
+              "kind": {
+                "const": "site"
+              },
+              "identity": {
+                "type": "null"
+              },
+              "area": {
+                "type": "string",
+                "enum": [
+                  "home",
+                  "knowledge_map",
+                  "learning_center",
+                  "account",
+                  "review",
+                  "other"
+                ]
+              },
+              "part": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "identity",
+              "area",
+              "part"
+            ],
+            "properties": {
+              "kind": {
+                "const": "knowledge"
+              },
+              "identity": {
+                "$ref": "#/components/schemas/FeedbackIdentity"
+              },
+              "area": {
+                "type": "null"
+              },
+              "part": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/FeedbackPart"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "identity",
+              "area",
+              "part"
+            ],
+            "properties": {
+              "kind": {
+                "const": "path"
+              },
+              "identity": {
+                "$ref": "#/components/schemas/FeedbackIdentity"
+              },
+              "area": {
+                "type": "null"
+              },
+              "part": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "identity",
+              "area",
+              "part"
+            ],
+            "properties": {
+              "kind": {
+                "const": "instance"
+              },
+              "identity": {
+                "$ref": "#/components/schemas/FeedbackInstanceIdentity"
+              },
+              "area": {
+                "type": "null"
+              },
+              "part": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/FeedbackAssetPart"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FeedbackSource": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "publicationId",
+              "attemptId",
+              "position"
+            ],
+            "properties": {
+              "kind": {
+                "const": "site"
+              },
+              "publicationId": {
+                "type": "null"
+              },
+              "attemptId": {
+                "type": "null"
+              },
+              "position": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "publicationId",
+              "attemptId",
+              "position"
+            ],
+            "properties": {
+              "kind": {
+                "const": "publication"
+              },
+              "publicationId": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              "attemptId": {
+                "type": "null"
+              },
+              "position": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "publicationId",
+              "attemptId",
+              "position"
+            ],
+            "properties": {
+              "kind": {
+                "const": "practice"
+              },
+              "publicationId": {
+                "type": "null"
+              },
+              "attemptId": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              "position": {
+                "type": "integer",
+                "const": 1
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "publicationId",
+              "attemptId",
+              "position"
+            ],
+            "properties": {
+              "kind": {
+                "const": "assessment"
+              },
+              "publicationId": {
+                "type": "null"
+              },
+              "attemptId": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              "position": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5
+              }
+            }
+          }
+        ]
+      },
+      "FeedbackContext": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "source",
+          "label"
+        ],
+        "properties": {
+          "target": {
+            "$ref": "#/components/schemas/FeedbackTarget"
+          },
+          "source": {
+            "$ref": "#/components/schemas/FeedbackSource"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 512
+          }
+        }
+      },
+      "FeedbackCreateInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target",
+          "source",
+          "category",
+          "title",
+          "message",
+          "location"
+        ],
+        "properties": {
+          "target": {
+            "$ref": "#/components/schemas/FeedbackTarget"
+          },
+          "source": {
+            "$ref": "#/components/schemas/FeedbackSource"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "math_error",
+              "unclear_explanation",
+              "typo",
+              "accessibility",
+              "technical_issue",
+              "suggestion"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          },
+          "location": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 400,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          }
+        }
+      },
+      "FeedbackReplyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expectedSequence",
+          "message"
+        ],
+        "properties": {
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          }
+        }
+      },
+      "FeedbackWithdrawalRef": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "space",
+          "id"
+        ],
+        "properties": {
+          "space": {
+            "type": "string",
+            "enum": [
+              "content",
+              "question"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        }
+      },
+      "FeedbackReplacement": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "identity",
+              "asset",
+              "publicationId"
+            ],
+            "properties": {
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "knowledge",
+                  "path",
+                  "unit"
+                ]
+              },
+              "identity": {
+                "$ref": "#/components/schemas/FeedbackIdentity"
+              },
+              "asset": {
+                "type": "null"
+              },
+              "publicationId": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "identity",
+              "asset",
+              "publicationId"
+            ],
+            "properties": {
+              "kind": {
+                "const": "instance"
+              },
+              "identity": {
+                "$ref": "#/components/schemas/FeedbackInstanceIdentity"
+              },
+              "asset": {
+                "type": "null"
+              },
+              "publicationId": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "identity",
+              "asset",
+              "publicationId"
+            ],
+            "properties": {
+              "kind": {
+                "const": "asset"
+              },
+              "identity": {
+                "type": "null"
+              },
+              "asset": {
+                "$ref": "#/components/schemas/FeedbackAssetRef"
+              },
+              "publicationId": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          }
+        ]
+      },
+      "FeedbackResolution": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "clarified"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "withdrawn"
+              },
+              "withdrawal": {
+                "$ref": "#/components/schemas/FeedbackWithdrawalRef"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "revision_published"
+              },
+              "withdrawal": {
+                "$ref": "#/components/schemas/FeedbackWithdrawalRef"
+              },
+              "replacement": {
+                "$ref": "#/components/schemas/FeedbackReplacement"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "service_fixed"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "duplicate"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "not_reproducible"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "out_of_scope"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "suggestion_recorded"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          }
+        ]
+      },
+      "FeedbackResolutionView": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "clarified"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "withdrawn"
+              },
+              "withdrawal": {
+                "$ref": "#/components/schemas/FeedbackWithdrawalRef"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "revision_published"
+              },
+              "withdrawal": {
+                "$ref": "#/components/schemas/FeedbackWithdrawalRef"
+              },
+              "replacement": {
+                "$ref": "#/components/schemas/FeedbackReplacement"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "service_fixed"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "duplicate"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "not_reproducible"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "out_of_scope"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "kind",
+              "withdrawal",
+              "replacement",
+              "duplicateOf"
+            ],
+            "properties": {
+              "kind": {
+                "const": "suggestion_recorded"
+              },
+              "withdrawal": {
+                "type": "null"
+              },
+              "replacement": {
+                "type": "null"
+              },
+              "duplicateOf": {
+                "type": "null"
+              }
+            }
+          }
+        ],
+        "description": "owner读取（含review URL）时duplicateOf始终为null；只核验既有事实，不恢复数学资格。"
+      },
+      "FeedbackTransitionInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expectedSequence",
+          "status",
+          "message",
+          "resolution"
+        ],
+        "properties": {
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "processing",
+              "waiting_details",
+              "resolved",
+              "closed"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          },
+          "resolution": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FeedbackResolution"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "FeedbackMetadata": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "target",
+          "label",
+          "category",
+          "status",
+          "sequence",
+          "createdAt",
+          "updatedAt",
+          "resolutionKind",
+          "targetValidity",
+          "canHandle"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "target": {
+            "$ref": "#/components/schemas/FeedbackTarget"
+          },
+          "label": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "math_error",
+              "unclear_explanation",
+              "typo",
+              "accessibility",
+              "technical_issue",
+              "suggestion"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "new",
+              "processing",
+              "waiting_details",
+              "resolved",
+              "closed"
+            ]
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resolutionKind": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "clarified",
+                  "withdrawn",
+                  "revision_published",
+                  "service_fixed",
+                  "duplicate",
+                  "not_reproducible",
+                  "out_of_scope",
+                  "suggestion_recorded"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "targetValidity": {
+            "type": "string",
+            "enum": [
+              "current",
+              "replaced",
+              "withdrawn",
+              "not_applicable"
+            ]
+          },
+          "canHandle": {
+            "type": "boolean"
+          }
+        },
+        "description": "仅服务端生成标签和元数据；无标题、位置、正文、预览或报告人身份。"
+      },
+      "FeedbackEventView": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sequence",
+          "kind",
+          "actor",
+          "from",
+          "to",
+          "message",
+          "resolution",
+          "recordedAt"
+        ],
+        "properties": {
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "created",
+              "replied",
+              "transitioned"
+            ]
+          },
+          "actor": {
+            "type": "string",
+            "enum": [
+              "submitter",
+              "review_team"
+            ]
+          },
+          "from": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "new",
+                  "processing",
+                  "waiting_details",
+                  "resolved",
+                  "closed"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "to": {
+            "type": "string",
+            "enum": [
+              "new",
+              "processing",
+              "waiting_details",
+              "resolved",
+              "closed"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          },
+          "resolution": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/FeedbackResolutionView"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FeedbackDiscussionPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "location",
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          },
+          "location": {
+            "type": "string",
+            "minLength": 0,
+            "maxLength": 400,
+            "description": "按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "$ref": "#/components/schemas/FeedbackEventView"
+            }
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^[A-Za-z0-9_-]+$",
+                "description": "version=1的base64url规范JSON；票据{version,createdAt,id}，事件{version,sequence}。仅作为边界，数据库权限先于分页。"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "FeedbackMetadataPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "nextCursor"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "$ref": "#/components/schemas/FeedbackMetadata"
+            }
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^[A-Za-z0-9_-]+$",
+                "description": "version=1的base64url规范JSON；票据{version,createdAt,id}，事件{version,sequence}。仅作为边界，数据库权限先于分页。"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "FeedbackReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "status",
+          "ticket"
+        ],
+        "properties": {
+          "status": {
+            "type": "integer",
+            "enum": [
+              200,
+              201
+            ]
+          },
+          "ticket": {
+            "$ref": "#/components/schemas/FeedbackMetadata"
+          }
+        }
+      },
+      "FeedbackContextEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedbackContext"
+          }
+        }
+      },
+      "FeedbackMetadataEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedbackMetadata"
+          }
+        }
+      },
+      "FeedbackMetadataPageEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedbackMetadataPage"
+          }
+        }
+      },
+      "FeedbackDiscussionPageEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedbackDiscussionPage"
+          }
+        }
+      },
+      "FeedbackReceiptEnvelope": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedbackReceipt"
+          }
+        }
+      },
+      "FeedbackError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "INVALID_REQUEST",
+                  "INVALID_COOKIE",
+                  "AUTHENTICATION_REQUIRED",
+                  "CSRF_FAILED",
+                  "FORBIDDEN",
+                  "NOT_FOUND",
+                  "METHOD_NOT_ALLOWED",
+                  "PASSWORD_CHANGE_REQUIRED",
+                  "RATE_LIMITED",
+                  "IDEMPOTENCY_CONFLICT",
+                  "SERVICE_UNAVAILABLE",
+                  "FEEDBACK_NOT_CONFIGURED",
+                  "FEEDBACK_CONFLICT",
+                  "FEEDBACK_TARGET_STALE",
+                  "FEEDBACK_ANSWER_OVERLAP"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "retryAt": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
       }
     },
     "securitySchemes": {
