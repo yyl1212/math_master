@@ -93,7 +93,7 @@ func (f *learningFixture) submitSkippedFixture(owner string) string {
 	if _, e = tx.Exec(`UPDATE assessment_results SET sealed=true WHERE attempt_id=$1`, id); e != nil {
 		f.t.Fatal(e)
 	}
-	if _, e = tx.Exec(`UPDATE assessment_attempts SET state='submitted',terminal_at=$2,submission_exposure_sequence=0 WHERE id=$1`, id, now); e != nil {
+	if _, e = tx.Exec(`UPDATE assessment_attempts SET state='submitted',terminal_at=$2,submission_exposure_sequence=creation_exposure_sequence WHERE id=$1`, id, now); e != nil {
 		f.t.Fatal(e)
 	}
 	if e = tx.Commit(); e != nil {

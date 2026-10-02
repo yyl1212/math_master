@@ -208,3 +208,14 @@ const (
 	CodeLastAdminRequired        ErrorCode = "LAST_ADMIN_REQUIRED"
 	CodeReauthenticationRequired ErrorCode = "REAUTHENTICATION_REQUIRED"
 )
+
+// Detail faults contain only safe public context; SQL and grading data stay private.
+type ActiveAttemptError struct{ Summary assessment.AttemptSummary }
+
+func (e *ActiveAttemptError) Error() string { return ErrAssessmentActive.Error() }
+func (e *ActiveAttemptError) Unwrap() error { return ErrAssessmentActive }
+
+type NotReadyError struct{ RetryAt *time.Time }
+
+func (e *NotReadyError) Error() string { return ErrAssessmentNotReady.Error() }
+func (e *NotReadyError) Unwrap() error { return ErrAssessmentNotReady }

@@ -101,7 +101,7 @@ func (f *learningFixture) insertAssessmentBase(tx *sql.Tx, id, owner string, n i
 		return e
 	}
 	now := time.Now().UTC()
-	_, e = tx.Exec(`INSERT INTO assessment_attempts(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,knowledge_publication_id,question_publication_id,blueprint_id,blueprint_version,blueprint_sha256,mode,rule_version,core,seed,seal,seal_bytes,seal_sha256,created_at,expires_at,creation_exposure_sequence) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$17,1,'[0]',$11,$12,$13,$14,$15,$16,0)`, id, owner, f.knowledge.ID, f.knowledge.Version, f.knowledge.SHA256, *f.KHead(), *f.QHead(), f.blueprint.ID, f.blueprint.Version, f.blueprint.SHA256, f.seal("assessment").Seed, string(raw), raw, h, now, now.Add(24*time.Hour), string(*f.seal("assessment").Mode))
+	_, e = tx.Exec(`INSERT INTO assessment_attempts(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,knowledge_publication_id,question_publication_id,blueprint_id,blueprint_version,blueprint_sha256,mode,rule_version,core,seed,seal,seal_bytes,seal_sha256,created_at,expires_at,creation_exposure_sequence) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$17,1,'[0]',$11,$12,$13,$14,$15,$16,coalesce((SELECT sequence FROM learner_exposure_state WHERE owner_user_id=$2),0))`, id, owner, f.knowledge.ID, f.knowledge.Version, f.knowledge.SHA256, *f.KHead(), *f.QHead(), f.blueprint.ID, f.blueprint.Version, f.blueprint.SHA256, f.seal("assessment").Seed, string(raw), raw, h, now, now.Add(24*time.Hour), string(*f.seal("assessment").Mode))
 	if e != nil {
 		return e
 	}
