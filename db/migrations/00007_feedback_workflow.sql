@@ -87,7 +87,7 @@ CREATE TABLE feedback_rate_limits (
 CREATE INDEX feedback_rate_window ON feedback_rate_limits(actor_user_id,scope,consumed_at);
 -- +goose StatementBegin
 CREATE FUNCTION feedback_resolution_proof(t feedback_tickets,r jsonb,destination text) RETURNS boolean LANGUAGE plpgsql STABLE AS $$
-DECLARE k text:=r->>'kind';root text:=t.target->>'kind';obj jsonb:=t.target->'identity';part text:=t.target#>>'{part,kind}';w jsonb:=r->'withdrawal';rep jsonb:=r->'replacement';kind text;rid jsonb;pub text;oldknowledge text;oldversion integer;knowledge_id text;knowledge_version integer;
+DECLARE k text:=r->>'kind';root text:=t.target->>'kind';obj jsonb:=t.target->'identity';part text:=t.target#>>'{part,kind}';w jsonb:=r->'withdrawal';rep jsonb:=r->'replacement';object_kind text;rid jsonb;pub text;oldknowledge text;oldversion integer;knowledge_id text;knowledge_version integer;
 BEGIN
  IF NOT feedback_shape(r,ARRAY['kind','withdrawal','replacement','duplicateOf']) THEN RETURN false; END IF;
  IF k IN ('clarified','service_fixed','not_reproducible','out_of_scope','suggestion_recorded') THEN
@@ -95,30 +95,30 @@ BEGIN
  END IF;
  IF k='duplicate' THEN RETURN destination='closed' AND r->'withdrawal'='null' AND r->'replacement'='null' AND feedback_uuid(r->>'duplicateOf') AND EXISTS(SELECT 1 FROM feedback_tickets other WHERE other.id=(r->>'duplicateOf')::uuid AND other.id<>t.id AND other.target=t.target AND other.category=t.category); END IF;
  IF k NOT IN ('withdrawn','revision_published') OR destination<>'resolved' OR r->'duplicateOf' IS DISTINCT FROM 'null'::jsonb OR NOT feedback_shape(w,ARRAY['space','id']) OR NOT feedback_uuid(w->>'id') THEN RETURN false; END IF;
- kind:=coalesce(part,root);IF part='unit' THEN obj:=t.target#>'{part,unit}';ELSIF part='asset' THEN obj:=t.target#>'{part,asset}';END IF;
+ object_kind:=coalesce(part,root);IF part='unit' THEN obj:=t.target#>'{part,unit}';ELSIF part='asset' THEN obj:=t.target#>'{part,asset}';END IF;
  IF w->>'space'='content' THEN
-  IF NOT EXISTS(SELECT 1 FROM content_withdrawals WHERE id=(w->>'id')::uuid AND kind=feedback_resolution_proof.kind AND sha256=obj->>'sha256' AND (kind='asset' OR target_id=obj->>'id' AND target_version=(obj->>'version')::integer)) THEN RETURN false; END IF;
+  IF NOT EXISTS(SELECT 1 FROM content_withdrawals cw WHERE cw.id=(w->>'id')::uuid AND cw.kind=object_kind AND cw.sha256=obj->>'sha256' AND (object_kind='asset' OR cw.target_id=obj->>'id' AND cw.target_version=(obj->>'version')::integer)) THEN RETURN false; END IF;
  ELSIF w->>'space'='question' THEN
-  IF kind<>'instance' OR NOT EXISTS(SELECT 1 FROM question_withdrawals WHERE id=(w->>'id')::uuid AND kind='instance' AND target_id=obj->>'id' AND target_version=(obj->>'version')::integer AND sha256=obj->>'sha256') THEN RETURN false; END IF;
+  IF object_kind<>'instance' OR NOT EXISTS(SELECT 1 FROM question_withdrawals qw WHERE qw.id=(w->>'id')::uuid AND qw.kind='instance' AND qw.target_id=obj->>'id' AND qw.target_version=(obj->>'version')::integer AND qw.sha256=obj->>'sha256') THEN RETURN false; END IF;
  ELSE RETURN false; END IF;
  IF k='withdrawn' THEN RETURN rep='null'; END IF;
- IF NOT feedback_shape(rep,ARRAY['kind','identity','asset','publicationId']) OR rep->>'kind'<>kind OR NOT feedback_uuid(rep->>'publicationId') THEN RETURN false; END IF;
+ IF NOT feedback_shape(rep,ARRAY['kind','identity','asset','publicationId']) OR rep->>'kind'<>object_kind OR NOT feedback_uuid(rep->>'publicationId') THEN RETURN false; END IF;
  pub:=rep->>'publicationId';rid:=rep->'identity';
- IF kind='asset' THEN
+ IF object_kind='asset' THEN
   IF rep->'identity' IS DISTINCT FROM 'null'::jsonb OR NOT feedback_asset(rep->'asset') OR rep#>>'{asset,sha256}'=obj->>'sha256' OR NOT EXISTS(SELECT 1 FROM publication_heads WHERE snapshot_id=pub) OR NOT learning_content_approved(pub,'asset',rep#>>'{asset,id}',1,rep#>>'{asset,sha256}') OR NOT feedback_content_clean('asset',rep->'asset') THEN RETURN false; END IF;
  ELSE
-  IF rep->'asset' IS DISTINCT FROM 'null'::jsonb OR NOT feedback_identity(rid,kind='instance') OR rid=obj THEN RETURN false; END IF;
-  IF kind='instance' THEN
+  IF rep->'asset' IS DISTINCT FROM 'null'::jsonb OR NOT feedback_identity(rid,object_kind='instance') OR rid=obj THEN RETURN false; END IF;
+  IF object_kind='instance' THEN
    IF rid->>'id'=obj->>'id' OR NOT EXISTS(SELECT 1 FROM question_heads WHERE publication_id=pub::uuid) OR NOT EXISTS(SELECT 1 FROM question_publications WHERE id=pub::uuid AND sealed AND status='published') THEN RETURN false; END IF;
    SELECT i.knowledge_id,i.knowledge_version INTO oldknowledge,oldversion FROM question_instances i WHERE i.id=obj->>'id' AND i.version=(obj->>'version')::integer;
    RETURN EXISTS(SELECT 1 FROM question_instances i JOIN question_publication_members m ON m.publication_id=pub::uuid AND m.kind='instance' AND m.id=i.id AND m.version=i.version AND m.sha256=i.sha256 JOIN question_review_decisions d ON d.id=m.review_id AND d.decision='approve' JOIN question_submissions s ON s.id=m.submission_id AND s.sealed AND s.status='approved' AND s.frozen_digest=d.frozen_digest WHERE i.id=rid->>'id' AND i.version=(rid->>'version')::integer AND i.sha256=rid->>'sha256' AND i.sealed AND i.knowledge_id=oldknowledge AND i.knowledge_version>=oldversion AND NOT EXISTS(SELECT 1 FROM question_withdrawals qw WHERE qw.kind='instance' AND qw.target_id=i.id AND qw.target_version=i.version) AND NOT EXISTS(SELECT 1 FROM question_withdrawals qw WHERE qw.kind='template' AND qw.target_id=i.template_id AND qw.target_version=i.template_version));
   END IF;
-  IF kind IN ('knowledge','path') AND rid->>'id'<>obj->>'id' THEN RETURN false; END IF;
-  IF NOT EXISTS(SELECT 1 FROM publication_heads WHERE snapshot_id=pub) OR NOT learning_content_approved(pub,kind,rid->>'id',(rid->>'version')::integer,rid->>'sha256') OR NOT feedback_content_clean(kind,rid) THEN RETURN false; END IF;
+  IF object_kind IN ('knowledge','path') AND rid->>'id'<>obj->>'id' THEN RETURN false; END IF;
+  IF NOT EXISTS(SELECT 1 FROM publication_heads WHERE snapshot_id=pub) OR NOT learning_content_approved(pub,object_kind,rid->>'id',(rid->>'version')::integer,rid->>'sha256') OR NOT feedback_content_clean(object_kind,rid) THEN RETURN false; END IF;
  END IF;
  -- Unit/asset revisions must belong to the corresponding stable knowledge identity.
- IF kind='unit' THEN RETURN EXISTS(SELECT 1 FROM unit_versions u WHERE u.id=rid->>'id' AND u.version=(rid->>'version')::integer AND u.sha256=rid->>'sha256' AND u.knowledge_id=t.target#>>'{identity,id}' AND u.knowledge_version>=(t.target#>>'{identity,version}')::integer); END IF;
- IF kind='asset' THEN
+ IF object_kind='unit' THEN RETURN EXISTS(SELECT 1 FROM unit_versions u WHERE u.id=rid->>'id' AND u.version=(rid->>'version')::integer AND u.sha256=rid->>'sha256' AND u.knowledge_id=t.target#>>'{identity,id}' AND u.knowledge_version>=(t.target#>>'{identity,version}')::integer); END IF;
+ IF object_kind='asset' THEN
   IF root='knowledge' THEN oldknowledge:=t.target#>>'{identity,id}';oldversion:=(t.target#>>'{identity,version}')::integer;ELSE SELECT i.knowledge_id,i.knowledge_version INTO oldknowledge,oldversion FROM question_instances i WHERE i.id=t.target#>>'{identity,id}' AND i.version=(t.target#>>'{identity,version}')::integer;END IF;
   RETURN EXISTS(SELECT 1 FROM publication_members m JOIN imported_packages p ON p.id=m.package_id AND p.version=m.package_version CROSS JOIN LATERAL jsonb_array_elements(p.body->'assets') a WHERE m.snapshot_id=pub AND m.kind='asset' AND m.id=rep#>>'{asset,id}' AND a->>'id'=m.id AND a->>'sha256'=rep#>>'{asset,sha256}' AND a#>>'{knowledge,id}'=oldknowledge AND (a#>>'{knowledge,version}')::integer>=oldversion);
  END IF;
