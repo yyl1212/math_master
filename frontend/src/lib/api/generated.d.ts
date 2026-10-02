@@ -1276,6 +1276,228 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/feedback/contexts/site": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readFeedbackSiteContext"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/contexts/knowledge/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readFeedbackKnowledgeContext"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/contexts/path/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readFeedbackPathContext"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/contexts/practice/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readFeedbackPracticeContext"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/contexts/assessment/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readFeedbackAssessmentContext"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/tickets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["listOwnFeedback"];
+        put?: never;
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        post: operations["createFeedback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/tickets/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readOwnFeedback"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/tickets/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readOwnFeedbackDiscussion"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/tickets/{id}/reply": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        post: operations["replyFeedback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/review/tickets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["listReviewFeedback"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/review/tickets/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readReviewFeedback"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/review/tickets/{id}/events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        get: operations["readReviewFeedbackDiscussion"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/review/tickets/{id}/transition": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description 反馈独立命名空间；请求最多65536字节，完整响应最多2097152字节。八秒事务，成功重放返回原序号，随后另读最新元数据。 */
+        post: operations["transitionFeedback"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -3245,6 +3467,320 @@ export interface components {
             id: string;
             version: number;
             sha256: string;
+        };
+        FeedbackUUID: string;
+        FeedbackIdentity: {
+            id: string;
+            version: number;
+            sha256: string;
+        };
+        FeedbackInstanceIdentity: {
+            id: string;
+            version: number;
+            sha256: string;
+        };
+        FeedbackAssetRef: {
+            id: string;
+            sha256: string;
+        };
+        FeedbackUnitPart: {
+            /** @constant */
+            kind: "unit";
+            unit: components["schemas"]["FeedbackIdentity"];
+            asset: null;
+        };
+        FeedbackAssetPart: {
+            /** @constant */
+            kind: "asset";
+            unit: null;
+            asset: components["schemas"]["FeedbackAssetRef"];
+        };
+        FeedbackPart: components["schemas"]["FeedbackUnitPart"] | components["schemas"]["FeedbackAssetPart"];
+        FeedbackTarget: {
+            /** @constant */
+            kind: "site";
+            identity: null;
+            /** @enum {string} */
+            area: "home" | "knowledge_map" | "learning_center" | "account" | "review" | "other";
+            part: null;
+        } | {
+            /** @constant */
+            kind: "knowledge";
+            identity: components["schemas"]["FeedbackIdentity"];
+            area: null;
+            part: components["schemas"]["FeedbackPart"] | null;
+        } | {
+            /** @constant */
+            kind: "path";
+            identity: components["schemas"]["FeedbackIdentity"];
+            area: null;
+            part: null;
+        } | {
+            /** @constant */
+            kind: "instance";
+            identity: components["schemas"]["FeedbackInstanceIdentity"];
+            area: null;
+            part: components["schemas"]["FeedbackAssetPart"] | null;
+        };
+        FeedbackSource: {
+            /** @constant */
+            kind: "site";
+            publicationId: null;
+            attemptId: null;
+            position: null;
+        } | {
+            /** @constant */
+            kind: "publication";
+            publicationId: string;
+            attemptId: null;
+            position: null;
+        } | {
+            /** @constant */
+            kind: "practice";
+            publicationId: null;
+            attemptId: string;
+            /** @constant */
+            position: 1;
+        } | {
+            /** @constant */
+            kind: "assessment";
+            publicationId: null;
+            attemptId: string;
+            position: number;
+        };
+        FeedbackContext: {
+            target: components["schemas"]["FeedbackTarget"];
+            source: components["schemas"]["FeedbackSource"];
+            label: string;
+        };
+        FeedbackCreateInput: {
+            target: components["schemas"]["FeedbackTarget"];
+            source: components["schemas"]["FeedbackSource"];
+            /** @enum {string} */
+            category: "math_error" | "unclear_explanation" | "typo" | "accessibility" | "technical_issue" | "suggestion";
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            title: string;
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            message: string;
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            location: string;
+        };
+        FeedbackReplyInput: {
+            expectedSequence: number;
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            message: string;
+        };
+        FeedbackWithdrawalRef: {
+            /** @enum {string} */
+            space: "content" | "question";
+            id: string;
+        };
+        FeedbackReplacement: {
+            /** @enum {string} */
+            kind: "knowledge" | "path" | "unit";
+            identity: components["schemas"]["FeedbackIdentity"];
+            asset: null;
+            publicationId: string;
+        } | {
+            /** @constant */
+            kind: "instance";
+            identity: components["schemas"]["FeedbackInstanceIdentity"];
+            asset: null;
+            publicationId: string;
+        } | {
+            /** @constant */
+            kind: "asset";
+            identity: null;
+            asset: components["schemas"]["FeedbackAssetRef"];
+            publicationId: string;
+        };
+        FeedbackResolution: {
+            /** @constant */
+            kind: "clarified";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "withdrawn";
+            withdrawal: components["schemas"]["FeedbackWithdrawalRef"];
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "revision_published";
+            withdrawal: components["schemas"]["FeedbackWithdrawalRef"];
+            replacement: components["schemas"]["FeedbackReplacement"];
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "service_fixed";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "duplicate";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: string;
+        } | {
+            /** @constant */
+            kind: "not_reproducible";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "out_of_scope";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "suggestion_recorded";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        };
+        /** @description owner读取（含review URL）时duplicateOf始终为null；只核验既有事实，不恢复数学资格。 */
+        FeedbackResolutionView: {
+            /** @constant */
+            kind: "clarified";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "withdrawn";
+            withdrawal: components["schemas"]["FeedbackWithdrawalRef"];
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "revision_published";
+            withdrawal: components["schemas"]["FeedbackWithdrawalRef"];
+            replacement: components["schemas"]["FeedbackReplacement"];
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "service_fixed";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "duplicate";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: string | null;
+        } | {
+            /** @constant */
+            kind: "not_reproducible";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "out_of_scope";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        } | {
+            /** @constant */
+            kind: "suggestion_recorded";
+            withdrawal: null;
+            replacement: null;
+            duplicateOf: null;
+        };
+        FeedbackTransitionInput: {
+            expectedSequence: number;
+            /** @enum {string} */
+            status: "new" | "processing" | "waiting_details" | "resolved" | "closed";
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            message: string;
+            resolution: components["schemas"]["FeedbackResolution"] | null;
+        };
+        /** @description 仅服务端生成标签和元数据；无标题、位置、正文、预览或报告人身份。 */
+        FeedbackMetadata: {
+            id: string;
+            target: components["schemas"]["FeedbackTarget"];
+            label: string;
+            /** @enum {string} */
+            category: "math_error" | "unclear_explanation" | "typo" | "accessibility" | "technical_issue" | "suggestion";
+            /** @enum {string} */
+            status: "new" | "processing" | "waiting_details" | "resolved" | "closed";
+            sequence: number;
+            /** Format: date-time */
+            createdAt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            resolutionKind: ("clarified" | "withdrawn" | "revision_published" | "service_fixed" | "duplicate" | "not_reproducible" | "out_of_scope" | "suggestion_recorded") | null;
+            /** @enum {string} */
+            targetValidity: "current" | "replaced" | "withdrawn" | "not_applicable";
+            canHandle: boolean;
+        };
+        FeedbackEventView: {
+            sequence: number;
+            /** @enum {string} */
+            kind: "created" | "replied" | "transitioned";
+            /** @enum {string} */
+            actor: "submitter" | "review_team";
+            from: ("new" | "processing" | "waiting_details" | "resolved" | "closed") | null;
+            /** @enum {string} */
+            to: "new" | "processing" | "waiting_details" | "resolved" | "closed";
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            message: string;
+            resolution: components["schemas"]["FeedbackResolutionView"] | null;
+            /** Format: date-time */
+            recordedAt: string;
+        };
+        FeedbackDiscussionPage: {
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            title: string;
+            /** @description 按Unicode标量计数；保留原文，拒绝NUL、孤立代理项，非空文本拒绝全空白。 */
+            location: string;
+            items: components["schemas"]["FeedbackEventView"][];
+            nextCursor: string | null;
+        };
+        FeedbackMetadataPage: {
+            items: components["schemas"]["FeedbackMetadata"][];
+            nextCursor: string | null;
+        };
+        FeedbackReceipt: {
+            /** @enum {integer} */
+            status: 200 | 201;
+            ticket: components["schemas"]["FeedbackMetadata"];
+        };
+        FeedbackContextEnvelope: {
+            actorId: string;
+            data: components["schemas"]["FeedbackContext"];
+        };
+        FeedbackMetadataEnvelope: {
+            actorId: string;
+            data: components["schemas"]["FeedbackMetadata"];
+        };
+        FeedbackMetadataPageEnvelope: {
+            actorId: string;
+            data: components["schemas"]["FeedbackMetadataPage"];
+        };
+        FeedbackDiscussionPageEnvelope: {
+            actorId: string;
+            data: components["schemas"]["FeedbackDiscussionPage"];
+        };
+        FeedbackReceiptEnvelope: {
+            actorId: string;
+            data: components["schemas"]["FeedbackReceipt"];
+        };
+        FeedbackError: {
+            error: {
+                /** @enum {string} */
+                code: "INVALID_REQUEST" | "INVALID_COOKIE" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "PASSWORD_CHANGE_REQUIRED" | "RATE_LIMITED" | "IDEMPOTENCY_CONFLICT" | "SERVICE_UNAVAILABLE" | "FEEDBACK_NOT_CONFIGURED" | "FEEDBACK_CONFLICT" | "FEEDBACK_TARGET_STALE" | "FEEDBACK_ANSWER_OVERLAP";
+                message: string;
+                requestId: string;
+                /** Format: date-time */
+                retryAt?: string;
+            };
         };
     };
     responses: {
@@ -8018,6 +8554,1904 @@ export interface operations {
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
             503: components["responses"]["LearningError503"];
+        };
+    };
+    readFeedbackSiteContext: {
+        parameters: {
+            query: {
+                area: "home" | "knowledge_map" | "learning_center" | "account" | "review" | "other";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackContextEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readFeedbackKnowledgeContext: {
+        parameters: {
+            query?: {
+                partKind?: "unit" | "asset";
+                partId?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackContextEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readFeedbackPathContext: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackContextEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readFeedbackPracticeContext: {
+        parameters: {
+            query?: {
+                partKind?: "asset";
+                partId?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackContextEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readFeedbackAssessmentContext: {
+        parameters: {
+            query: {
+                position: number;
+                partKind?: "asset";
+                partId?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackContextEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    listOwnFeedback: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    createFeedback: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FeedbackCreateInput"];
+            };
+        };
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            201: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackReceiptEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readOwnFeedback: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackMetadataEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readOwnFeedbackDiscussion: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackDiscussionPageEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    replyFeedback: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FeedbackReplyInput"];
+            };
+        };
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackReceiptEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    listReviewFeedback: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+                status?: "new" | "processing" | "waiting_details" | "resolved" | "closed";
+                category?: "math_error" | "unclear_explanation" | "typo" | "accessibility" | "technical_issue" | "suggestion";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readReviewFeedback: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackMetadataEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readReviewFeedbackDiscussion: {
+        parameters: {
+            query?: {
+                limit?: number;
+                cursor?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackDiscussionPageEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    transitionFeedback: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["FeedbackTransitionInput"];
+            };
+        };
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackReceiptEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
         };
     };
 }

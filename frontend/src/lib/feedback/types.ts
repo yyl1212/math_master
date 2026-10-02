@@ -1,0 +1,22 @@
+import type { components } from '../api/generated';
+export type Identity=components['schemas']['FeedbackIdentity'];
+export type Target=components['schemas']['FeedbackTarget'];
+export type Source=components['schemas']['FeedbackSource'];
+export type Context=components['schemas']['FeedbackContext'];
+export type CreateInput=components['schemas']['FeedbackCreateInput'];
+export type ReplyInput=components['schemas']['FeedbackReplyInput'];
+export type TransitionInput=components['schemas']['FeedbackTransitionInput'];
+export type Resolution=components['schemas']['FeedbackResolution'];
+export type Metadata=components['schemas']['FeedbackMetadata'];
+export type Receipt=components['schemas']['FeedbackReceipt'];
+export type DiscussionPage=components['schemas']['FeedbackDiscussionPage'];
+export type MetadataPage=components['schemas']['FeedbackMetadataPage'];
+export type FeedbackErrorCode=components['schemas']['FeedbackError']['error']['code'];
+export type Envelope<T>={actorId:string;data:T};
+export type FeedbackAction='readContext'|'create'|'reply'|'transition'|'listOwn'|'readOwn'|'discussOwn'|'listReview'|'readReview'|'discussReview';
+export type ContextQuery={kind:'site'|'knowledge'|'path'|'practice'|'assessment';id?:string;area?:'home'|'knowledge_map'|'learning_center'|'account'|'review'|'other';position?:number;partKind?:'unit'|'asset';partId?:string};
+export type FeedbackCommand=({route:'/api/v1/feedback/tickets';input:CreateInput}|{route:`/api/v1/feedback/tickets/${string}/reply`;input:ReplyInput}|{route:`/api/v1/feedback/review/tickets/${string}/transition`;input:TransitionInput})&{actorId:string;key:string};
+export type FeedbackRoute={path:string;method:'GET'|'POST';action:FeedbackAction;kind?:ContextQuery['kind'];id?:string;query:URLSearchParams};
+const policies:Record<FeedbackErrorCode,[number,string]>={INVALID_REQUEST:[400,'Invalid request.'],INVALID_COOKIE:[400,'Invalid sign-in cookie.'],AUTHENTICATION_REQUIRED:[401,'Sign in before continuing.'],CSRF_FAILED:[403,'Refresh your sign-in before continuing.'],FORBIDDEN:[403,'You do not have permission for this action.'],NOT_FOUND:[404,'This report or source is unavailable.'],METHOD_NOT_ALLOWED:[405,'This action is unavailable.'],PASSWORD_CHANGE_REQUIRED:[428,'Change your password before continuing.'],RATE_LIMITED:[429,'Too many requests. Try again later.'],IDEMPOTENCY_CONFLICT:[409,'This request key was used for different input.'],SERVICE_UNAVAILABLE:[503,'Service temporarily unavailable.'],FEEDBACK_NOT_CONFIGURED:[503,'Feedback is temporarily unavailable.'],FEEDBACK_CONFLICT:[409,'This report changed. Reload before continuing.'],FEEDBACK_TARGET_STALE:[409,'This source changed. Reload before reporting.'],FEEDBACK_ANSWER_OVERLAP:[409,'Finish or leave the overlapping assessment before reading this discussion.']};
+export class FeedbackRequestError extends Error{readonly status:number;constructor(public readonly code:FeedbackErrorCode='SERVICE_UNAVAILABLE',public readonly requestId='unavailable',public readonly retryAt?:string){super(policies[code][1]);this.name='FeedbackRequestError';this.status=policies[code][0]}}
+export const feedbackPolicies=policies;
