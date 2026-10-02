@@ -1,0 +1,121 @@
+{
+  "reviewedRange": {
+    "base": "1b002b8608aa87f0dfb73a442a75d14f24302400",
+    "head": "227f49288700cc2863ae476acb3f1160bd69aef6"
+  },
+  "review": {
+    "freshReviews": 1,
+    "critical": 0,
+    "importantFixed": 3,
+    "minorDeferred": 1
+  },
+  "frontend": {
+    "unitFiles": 45,
+    "unitTests": 135,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "generatedTwiceUnchanged": true,
+    "productionAuditVulnerabilities": 0
+  },
+  "browser": {
+    "viewports": [
+      "desktop",
+      "mobile"
+    ],
+    "originalAndPlannedBatches": [
+      {
+        "batch": 1,
+        "passed": 16,
+        "result": "16 passed (32.5s)"
+      },
+      {
+        "batch": 2,
+        "passed": 12,
+        "result": "12 passed (31.0s)"
+      },
+      {
+        "batch": 3,
+        "passed": 4,
+        "result": "4 passed (12.3s)"
+      },
+      {
+        "batch": 4,
+        "passed": 4,
+        "result": "4 passed (21.9s)"
+      },
+      {
+        "batch": 5,
+        "passed": 4,
+        "result": "4 passed (32.8s)"
+      },
+      {
+        "batch": 6,
+        "passed": 6,
+        "result": "6 passed (36.8s)"
+      },
+      {
+        "batch": 7,
+        "passed": 8,
+        "result": "8 passed (33.8s)"
+      },
+      {
+        "batch": 8,
+        "passed": 4,
+        "result": "4 passed (21.7s)"
+      },
+      {
+        "batch": 9,
+        "passed": 8,
+        "result": "8 passed (47.8s)"
+      },
+      {
+        "batch": 10,
+        "passed": 8,
+        "result": "8 passed (48.5s)"
+      },
+      {
+        "batch": 11,
+        "passed": 4,
+        "result": "4 passed (28.3s)"
+      },
+      {
+        "batch": 12,
+        "passed": 8,
+        "result": "8 passed (41.3s)"
+      },
+      {
+        "batch": 13,
+        "passed": 8,
+        "result": "8 passed (1.1m)"
+      }
+    ],
+    "reviewRegression": "6 passed (28.3s)",
+    "total": 100,
+    "skips": 0,
+    "retries": 0,
+    "mockSuccessResponses": 0
+  },
+  "go": {
+    "CGO_ENABLED": "0",
+    "packageDeadline": "5m",
+    "httpapiSeconds": 35.005,
+    "harnessSeconds": 95.207,
+    "learningStoreSeconds": 80.77,
+    "originalStoreSeconds": 140.258,
+    "cliSeconds": 1.408,
+    "vet": "passed",
+    "build": "passed",
+    "compatibilityTests": 13
+  },
+  "capacity": {
+    "sourceAndRoutesAlreadyPassedSeconds": 209.473,
+    "storageSQLChangedByReviewFix": false,
+    "actualMaximumHarnessRerun": true
+  },
+  "scope": {
+    "productionDeployment": false,
+    "productionMigration": false,
+    "formalCourseApproval": false,
+    "automaticRegrading": false
+  }
+}

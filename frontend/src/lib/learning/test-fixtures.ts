@@ -1,3 +1,5 @@
+import { createElement, type ReactNode } from "react";
+import { LearningAccountContext } from "@/features/learning/learning-account";
 import type { Identity, AttemptSummary, AttemptView, PracticeView, ResultView, SafeQuestion, Overview, KnowledgeState, KnowledgeDetail, PathSummary, PathNode } from "./types";
 export const fixtureID = "11111111-1111-4111-8111-111111111111", otherID = "22222222-2222-4222-8222-222222222222", token = "A".repeat(43);
 export const identity = (id = "math-root"): Identity => ({ id, version: 1, sha256: "a".repeat(64) });
@@ -12,3 +14,7 @@ export const overview = (): Overview => ({ knowledgeHead: fixtureID, questionHea
 export const pathSummary = (overrides: Partial<PathSummary> = {}): PathSummary => ({ id: fixtureID, path: identity("route"), title: "Learning route", titleZh: "学习路线", knowledgePublicationId: fixtureID, totalNodes: 3, completedNodes: 1, passedNodes: 0, unlockedNodes: 1, newVersionAvailable: false, createdAt: "2026-10-02T00:00:00Z", ...overrides });
 export const pathNodes = (): PathNode[] => [0, 1, 2].map(position => ({ position, title: "Knowledge " + position, titleZh: "知识", state: state(), available: position !== 2, reasons: position === 2 ? ["knowledge-withdrawn"] : [] }));
 export function learningJSON(v: unknown, status = 200, extra: HeadersInit = {}): Response { return Response.json(v, { status, headers: { "Content-Type": "application/json", "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff", "X-Request-ID": "a".repeat(32), ...extra } }); }
+
+export function LearningTestAccount({ children }: { children: ReactNode }) {
+ return createElement(LearningAccountContext.Provider, { value: { actorId: fixtureID, invalidate: () => {} } }, children);
+}

@@ -1,0 +1,63 @@
+import { beforeEach, it, expect, vi } from "vitest";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { LearningBoundary } from "./learning-status";
+import { KnowledgeControls } from "./knowledge-controls";
+import { AssessmentPanel } from "@/features/assessment/assessment-panel";
+import { detail, attempt, fixtureID, otherID } from "@/lib/learning/test-fixtures";
+import { learningFailure } from "@/lib/learning/schemas";
+import { getAuthContext } from "@/lib/auth/client";
+import { requestLearning } from "@/lib/learning/client";
+const router = vi.hoisted(() => ({ refresh: vi.fn(), push: vi.fn() }));
+vi.mock("next/navigation", () => ({ useRouter: () => router }));
+vi.mock("@/lib/auth/client", () => ({ getAuthContext: vi.fn() }));
+vi.mock("@/lib/learning/client", () => ({ requestLearning: vi.fn(), bindLearningInput: vi.fn() }));
+const context = (id = fixtureID) => ({ ok: true as const, data: { user: { id, username: "learner", roles: ["learner" as const], mustChangePassword: false }, csrfToken: "A".repeat(43) } });
+beforeEach(() => { vi.mocked(getAuthContext).mockResolvedValue(context()); vi.mocked(requestLearning).mockResolvedValue(learningFailure()); });
+it("an old page cannot create a new command for an account changed in another tab", async () => {
+ render(<LearningBoundary actorId={fixtureID}><KnowledgeControls detail={detail()} /></LearningBoundary>);
+ const start = await screen.findByRole("button", { name: /^Start learning$/ });
+ vi.mocked(getAuthContext).mockResolvedValue(context(otherID));
+ fireEvent.click(start);
+ await waitFor(() => expect(screen.queryByText("Saving…")).toBeNull());
+ expect(requestLearning).not.toHaveBeenCalled();
+ expect(screen.queryByRole("region", { name: "Personal knowledge record" })).toBeNull();
+ expect(router.refresh).toHaveBeenCalled();
+});
+it("an old pending command cannot retry after a silent cross-tab account change", async () => {
+ render(<LearningBoundary actorId={fixtureID}><KnowledgeControls detail={detail()} /></LearningBoundary>);
+ fireEvent.click(await screen.findByRole("button", { name: /^Start learning$/ }));
+ const retry = await screen.findByRole("button", { name: "Retry same request" });
+ expect(requestLearning).toHaveBeenCalledTimes(1);
+ vi.mocked(getAuthContext).mockResolvedValue(context(otherID));
+ fireEvent.click(retry);
+ await waitFor(() => expect(screen.queryByText("Saving…")).toBeNull());
+ expect(requestLearning).toHaveBeenCalledTimes(1);
+ expect(screen.queryByRole("region", { name: "Personal knowledge record" })).toBeNull();
+});
+it("an unlocked unread lesson offers a normal learning check before completion", async () => {
+ render(<LearningBoundary actorId={fixtureID}><KnowledgeControls detail={detail()} /></LearningBoundary>);
+ const mode = await screen.findByLabelText("Assessment mode");
+ expect(mode).toHaveValue("node");
+ expect(screen.getByRole("option", { name: "Learning check" })).not.toBeDisabled();
+ expect(screen.getByRole("button", { name: "Start five-question assessment" })).not.toBeDisabled();
+ expect(requestLearning).not.toHaveBeenCalled();
+});
+it("refocusing preserves an unsent answer for the same account", async () => {
+ render(<LearningBoundary actorId={fixtureID}><AssessmentPanel view={attempt()} /></LearningBoundary>);
+ const input = await screen.findByLabelText("Answer for question 1");
+ fireEvent.change(input, { target: { value: " 2 / 1 " } });
+ const calls = vi.mocked(getAuthContext).mock.calls.length;
+ fireEvent.focus(window);
+ await waitFor(() => expect(getAuthContext).toHaveBeenCalledTimes(calls + 1));
+ expect(await screen.findByLabelText("Answer for question 1")).toHaveValue(" 2 / 1 ");
+ expect(requestLearning).not.toHaveBeenCalled();
+});
+it("refocusing after an account change clears the old five-answer draft", async () => {
+ render(<LearningBoundary actorId={fixtureID}><AssessmentPanel view={attempt()} /></LearningBoundary>);
+ fireEvent.change(await screen.findByLabelText("Answer for question 1"), { target: { value: "private old draft" } });
+ vi.mocked(getAuthContext).mockResolvedValue(context(otherID));
+ fireEvent.focus(window);
+ await waitFor(() => expect(screen.queryByLabelText("Answer for question 1")).toBeNull());
+ expect(router.refresh).toHaveBeenCalled();
+ expect(requestLearning).not.toHaveBeenCalled();
+});

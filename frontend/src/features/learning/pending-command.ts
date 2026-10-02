@@ -1,5 +1,6 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { LearningAccountContext } from "./learning-account";
 import { getAuthContext } from "@/lib/auth/client";
 import { requestLearning, bindLearningInput } from "@/lib/learning/client";
 import { learningAwait, validateLearningBytes, LearningInputError } from "@/lib/learning/bytes";
@@ -25,6 +26,7 @@ export function createPendingLearningCommand(route: LearningRoute, input: unknow
 export const pendingForActor = (command: PendingLearningCommand | null, actorId: string | null) => command?.actorId === actorId ? command : null;
 
 export function useLearningCommand<T>(onSuccess: (value: T) => void) {
+    const account = useContext(LearningAccountContext);
     const [pending, setPending] = useState<PendingLearningCommand | null>(null);
     const [error, setError] = useState<Extract<LearningResult<never>, { ok: false }> | null>(null);
     const [busy, setBusy] = useState(false);
@@ -68,6 +70,18 @@ export function useLearningCommand<T>(onSuccess: (value: T) => void) {
             }
         }
     };
+    const verifyActor = async (g: number, signal: AbortSignal) => {
+        if (!account) { setError(learningFailure("FORBIDDEN")); return false; }
+        const context = await learningAwait(getAuthContext(true), signal);
+        if (!active(g)) return false;
+        if (!context.ok) { setError(learningFailure(context.code)); return false; }
+        if (context.data.user?.id !== account.actorId || context.data.user.mustChangePassword) {
+            clear();
+            account.invalidate();
+            return false;
+        }
+        return true;
+    };
     const send = async (command: PendingLearningCommand, g: number, signal: AbortSignal) => {
         if (!active(g)) return;
         setPending(command);
@@ -77,31 +91,34 @@ export function useLearningCommand<T>(onSuccess: (value: T) => void) {
         if (result.ok) {
             setPending(null);
             success.current(result.data);
-        } else setError(result);
+        } else {
+            if (result.code === "FORBIDDEN" && !await verifyActor(g, signal)) return;
+            if (result.code === "AUTHENTICATION_REQUIRED" || result.code === "PASSWORD_CHANGE_REQUIRED") {
+                clear(); account?.invalidate(); return;
+            }
+            if (active(g)) setError(result);
+        }
     };
     const run = async (route: LearningRoute, input: unknown) => {
         if (inFlight.current) return;
+        if (!account) { setError(learningFailure("FORBIDDEN")); return; }
         inFlight.current = true;
         const g = ++generation.current;
         setBusy(true);
         setError(null);
         await perform(g, async signal => {
-            const context = await learningAwait(getAuthContext(), signal);
-            if (!active(g)) return;
-            if (!context.ok || context.data.user === null) {
-                setError(learningFailure(context.ok ? "AUTHENTICATION_REQUIRED" : context.code));
-                return;
-            }
-            await send(createPendingLearningCommand(route, input, context.data.user.id), g, signal);
+            if (!await verifyActor(g, signal)) return;
+            await send(createPendingLearningCommand(route, input, account.actorId), g, signal);
         });
     };
     const retry = async () => {
         if (!pending || inFlight.current) return;
         const command = pending;
+        if (!account || command.actorId !== account.actorId) { clear(); account?.invalidate(); return; }
         inFlight.current = true;
         setBusy(true);
         const g = ++generation.current;
-        await perform(g, signal => send(command, g, signal));
+        await perform(g, async signal => { if (await verifyActor(g, signal)) await send(command, g, signal); });
     };
     return { run, retry, clear, busy, pending, error };
 }

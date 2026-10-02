@@ -29,7 +29,7 @@ func TestLearningProjectionWhitelistAndOwnedSlices(t *testing.T) {
 			t.Fatal("private value", string(raw))
 		}
 	}
-	if out.Type != "choice" || out.Position != 1 || out.Knowledge.ID != "fractions" || out.Assets == nil || out.Choices == nil {
+	if out.Type != "single_choice" || out.Position != 1 || out.Knowledge.ID != "fractions" || out.Assets == nil || out.Choices == nil {
 		t.Fatal(out)
 	}
 	out.Choices[0].Text = "changed"

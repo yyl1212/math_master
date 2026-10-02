@@ -82,7 +82,7 @@ func learningSkipped(v assessment.AttemptView) assessment.SubmitInput {
 func TestLearningHarnessScenesArePrivate(t *testing.T) {
 	s, _, _, _ := startHarness(t)
 	client := &http.Client{Timeout: 40 * time.Second}
-	for _, scene := range []string{"learning-basic", "learning-diagnostic", "learning-withdrawal", "learning-exposure", "learning-history", "learning-capacity", "auth"} {
+	for _, scene := range []string{"learning-basic", "learning-choice", "learning-diagnostic", "learning-withdrawal", "learning-exposure", "learning-history", "learning-capacity", "auth"} {
 		req, _ := http.NewRequest("POST", s.ControlURL+"/scene/"+scene, nil)
 		req.Header.Set("Authorization", "Bearer "+s.Token)
 		sceneClient := client
@@ -129,5 +129,66 @@ func TestLearningHarnessScenesArePrivate(t *testing.T) {
 		if r.StatusCode != 401 && r.StatusCode != 404 {
 			t.Fatal(endpoint, r.StatusCode)
 		}
+	}
+}
+
+func TestLearningChoiceFixtureUsesActualPublishedQuestions(t *testing.T) {
+	db := testutil.Database(t)
+	ctx, cancel := context.WithTimeout(context.Background(), 40*time.Second)
+	defer cancel()
+	root, e := rootDir()
+	if e != nil {
+		t.Fatal(e)
+	}
+	if e = store.Up(ctx, db, root+"/db/migrations"); e != nil {
+		t.Fatal(e)
+	}
+	s := store.New(db)
+	accounts, admin, e := fixtureAccounts(s)
+	if e != nil {
+		t.Fatal(e)
+	}
+	normal, e := loadFixture(root, false)
+	if e != nil {
+		t.Fatal(e)
+	}
+	if e = resetLearning(ctx, db, s, accounts, admin, root, normal, LearningChoice); e != nil {
+		t.Fatal(e)
+	}
+	a, e := fixtureAccess(ctx, accounts, "auth_learner", false)
+	if e != nil {
+		t.Fatal(e)
+	}
+	d, e := s.ReadLearningKnowledge(ctx, a, "learning-root", 1)
+	if e != nil {
+		t.Fatal(e)
+	}
+	v, e := s.CreateAssessment(ctx, a, assessment.CreateInput{Knowledge: d.State.Knowledge, Blueprint: d.Blueprints[0].Blueprint, Mode: assessment.ModeNode, ExpectedKnowledgeHead: d.KnowledgeHead, ExpectedQuestionHead: *d.QuestionHead})
+	if e != nil || len(v.Questions) != 5 {
+		t.Fatal(v, e)
+	}
+	choices, numeric := 0, 0
+	for _, q := range v.Questions {
+		if q.Type == "single_choice" {
+			choices++
+		} else if q.Type == "numeric" {
+			numeric++
+		}
+	}
+	if choices != 1 || numeric != 4 {
+		t.Fatal("actual mixed safe types", choices, numeric, v)
+	}
+	a, _ = nextFixtureAccess(a)
+	if _, e = s.AbandonAssessment(ctx, a, v.Summary.ID); e != nil {
+		t.Fatal(e)
+	}
+	d, e = s.ReadLearningKnowledge(ctx, a, "learning-practice-only", 1)
+	if e != nil {
+		t.Fatal(e)
+	}
+	a, _ = nextFixtureAccess(a)
+	p, e := s.CreatePractice(ctx, a, assessment.PracticeCreateInput{Knowledge: d.State.Knowledge, ExpectedKnowledgeHead: d.KnowledgeHead, ExpectedQuestionHead: *d.QuestionHead})
+	if e != nil || p.Question.Type != "single_choice" {
+		t.Fatal(p, e)
 	}
 }

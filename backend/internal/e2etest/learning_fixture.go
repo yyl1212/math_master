@@ -22,6 +22,7 @@ type LearningScenario string
 
 const (
 	LearningBasic      LearningScenario = "basic"
+	LearningChoice     LearningScenario = "choice"
 	LearningDiagnostic LearningScenario = "diagnostic"
 	LearningWithdrawal LearningScenario = "withdrawal"
 	LearningExposure   LearningScenario = "exposure"
@@ -30,7 +31,7 @@ const (
 )
 
 func learningScenario(s string) (LearningScenario, bool) {
-	for _, a := range []LearningScenario{LearningBasic, LearningDiagnostic, LearningWithdrawal, LearningExposure, LearningHistory, LearningCapacity} {
+	for _, a := range []LearningScenario{LearningBasic, LearningChoice, LearningDiagnostic, LearningWithdrawal, LearningExposure, LearningHistory, LearningCapacity} {
 		if s == "learning-"+string(a) {
 			return a, true
 		}
@@ -145,6 +146,22 @@ func learningPublishQuestions(ctx context.Context, db *sql.DB, s *store.Store, a
 		if index == 0 {
 			t.Assets = []question.AssetRef{{ID: p.Assets[0].ID, SHA256: p.Assets[0].SHA256}}
 		}
+		if len(scenes) > 0 && scenes[0] == LearningChoice && (index == 0 || index == 3) {
+			count := 5
+			if index == 3 {
+				count = 1
+			}
+			sources := []question.BlueprintSource{}
+			for n := 0; n < count; n++ {
+				fixed := learningChoiceFixed(t, n+1, n == 0)
+				in.QuestionPackage.FixedQuestions = append(in.QuestionPackage.FixedQuestions, fixed)
+				sources = append(sources, question.BlueprintSource{Kind: "instance", Ref: question.Ref{ID: fixed.ID, Version: fixed.Version}})
+			}
+			if index == 0 {
+				in.QuestionPackage.Blueprints = append(in.QuestionPackage.Blueprints, question.Blueprint{ID: k.ID + "-five", Version: 1, Knowledge: t.Knowledge, CoreObjectiveIndices: []int{0}, Sources: sources, CoverageNote: "Original independently verified single choice and four numeric questions.", RuleVersion: 1, QuestionCount: 5, PassCount: 4})
+			}
+			continue
+		}
 		in.QuestionPackage.Templates = append(in.QuestionPackage.Templates, t)
 		if index != 3 {
 			in.QuestionPackage.Blueprints = append(in.QuestionPackage.Blueprints, question.Blueprint{ID: k.ID + "-five", Version: 1, Knowledge: t.Knowledge, CoreObjectiveIndices: []int{0}, Sources: []question.BlueprintSource{{Kind: "template", Ref: question.Ref{ID: t.ID, Version: 1}}}, CoverageNote: "Original finite addition cases cover the declared objective.", RuleVersion: 1, QuestionCount: 5, PassCount: 4})
@@ -197,6 +214,21 @@ func learningPublishQuestions(ctx context.Context, db *sql.DB, s *store.Store, a
 	_, e = s.ActivateQuestionRelease(ctx, manager, pub.ID, question.ActivateInput{ExpectedKnowledgeHead: &kh, ExpectedQuestionHead: nil, ExpectedManifestSHA: pub.ManifestSHA, Reason: "Activate original approved learning question fixture."})
 	return e
 }
+
+// These original fixed questions go through the same mathematical verifier,
+// independent author/reviewer, and publication workflow as all other fixtures.
+func learningChoiceFixed(t question.Template, left int, choice bool) question.FixedQuestion {
+	format, correctID := "rational", "sum"
+	body := question.QuestionBody{Type: "numeric", Knowledge: t.Knowledge, Coverage: t.Coverage, Units: t.Units, Prompt: fmt.Sprintf("Calculate %d + 1.", left), Explanation: fmt.Sprintf("Adding one to %d gives %d.", left, left+1), AnswerFormat: &format, Choices: []question.Choice{}, CorrectNumeric: &question.Rational{Numerator: fmt.Sprint(left + 1), Denominator: "1"}, Witness: &question.VerificationWitness{Engine: t.Engine, Parameters: []question.ParameterValue{{Name: "left", Value: fmt.Sprint(left)}, {Name: "right", Value: "1"}}}, Assets: t.Assets, Sources: t.Sources}
+	if choice {
+		body.Type = "single_choice"
+		body.AnswerFormat, body.CorrectNumeric = nil, nil
+		body.CorrectChoiceID = &correctID
+		body.Choices = []question.Choice{{ID: "sum", Text: fmt.Sprint(left + 1)}, {ID: "other", Text: fmt.Sprint(left + 2)}}
+	}
+	return question.FixedQuestion{ID: fmt.Sprintf("%s-fixed-%d", t.Knowledge.ID, left), Version: 1, Body: body}
+}
+
 func resetLearning(ctx context.Context, db *sql.DB, s *store.Store, accounts *auth.Service, admin *auth.AdminService, root string, normal content.ValidatedPackage, scene LearningScenario) error {
 	if _, ok := learningScenario("learning-" + string(scene)); !ok {
 		return errors.New("unknown learning scenario")

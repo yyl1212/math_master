@@ -11,7 +11,7 @@ func ProjectQuestion(position int, i question.Instance) (SafeQuestion, error) {
 	out := SafeQuestion{Position: position, Instance: i.Identity, Knowledge: question.Identity{ID: i.Body.Knowledge.ID, Version: i.Body.Knowledge.Version}, Prompt: i.Body.Prompt, Choices: append([]question.Choice{}, i.Body.Choices...), Assets: append([]question.AssetRef{}, i.Body.Assets...)}
 	switch i.Body.Type {
 	case "single_choice":
-		out.Type = "choice"
+		out.Type = "single_choice"
 	case "numeric":
 		out.Type = "numeric"
 		if i.Body.AnswerFormat == nil || (*i.Body.AnswerFormat != "rational" && *i.Body.AnswerFormat != "percentage") {

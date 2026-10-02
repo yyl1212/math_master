@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (- [ ]) syntax for tracking.
 >
-> 沿用用户此前选定的 Native：superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查。用户已书面确认本计划，文档 PR #18 已合并；从最新 master 1b002b8608aa87f0dfb73a442a75d14f24302400 新建 codex/p4b-learning-assessment。Task1—13 已逐项完成，本机完整矩阵和提交后容量复验通过；独立整分支审查、实现 PR 和 CI 交付尚未完成。
+> 沿用用户此前选定的 Native：superpowers:executing-plans 在当前会话逐项实现，最后一次独立整分支审查。用户已书面确认本计划，文档 PR #18 已合并；从最新 master 1b002b8608aa87f0dfb73a442a75d14f24302400 新建 codex/p4b-learning-assessment。Task1—13 已逐项完成，本机完整矩阵和提交后容量复验通过；一次独立整分支审查及三项重要修复已完成，最新100真实浏览器/135单元及完整影响回归通过；实现 PR 和 CI 交付待完成。
 
 **Goal:** 交付真实的阅读动作、安全练习、五题检测、诊断、资格解锁及固定路线进度，让用户准确看到已学知识并可回顾。
 
@@ -466,3 +466,7 @@ Task1—13完成且A—D通过后，Native安排一次不同上下文独立整�
 作者自查：17节均有任务；65个步骤按失败测试→RED→实现→GREEN→提交；跨任务public DTO/内部fact及仓储方法统一；Review Focus五类均绑定具名测试；代码块只定义必要断言/验证命令，不代写函数体。最大容量、锁竞争与94个真实浏览器回归仍是实施后的运行门槛，本计划没有宣称已测通过。
 
 本计划书面确认并完成文档PR合并后，重新SSH fetch origin master，确认干净工作区，通过using-git-worktrees从最新origin/master另建 codex/p4b-learning-assessment 实施分支；实施前运行基线A—D中已有测试（不调用尚不存在的新包/新用例），确认旧74 E2E基线。不得在文档分支或主工作区开始产品代码。若新master包含影响契约或方案的改动，先核对并更新计划，兼容性变化单独送审；其余按本计划Native逐项执行。
+
+## 独立审查后的实际交付验证
+
+一次fresh整分支独立审查发现3项Important，原实现者以RED→GREEN校准单选题type、固定页面账户命令归属与跨tab清除、允许未阅读时普通检测。详见[完整审查记录](../../operations/2026-10-02-p4b-final-review.md)。计划原94项浏览器全部保留并再次通过，增加6项真实链路回归，共100项，前端135项单元通过；CI增加一个有界审查回归批次。此为修复已有确认行为，未新增公开契约、旧迁移变化或生产操作；一项等待取消按钮Minor明确暂缓。

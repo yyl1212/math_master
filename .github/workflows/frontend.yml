@@ -83,6 +83,8 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-practice.spec.ts learning-assessment.spec.ts
       - name: 真实诊断曝光权限与手动重试回归
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-diagnostic.spec.ts learning-security.spec.ts
+      - name: 真实单选混合检测与跨标签页账户回归
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-review-regressions.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
