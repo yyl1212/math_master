@@ -1,10 +1,10 @@
 # P4a 可信题库技术验收记录
 
-日期：2026-10-02。基线：master `687f87a0ab7e07fb73c593055b79d5ee3eb416bc`（PR #16），实现分支：`codex/p4a-question-bank`。用户已确认[设计](../superpowers/specs/2026-10-02-question-bank-design.md)和[13项执行计划](../superpowers/plans/2026-10-02-question-bank.md)，使用 Native 逐项实施。功能与本机回归完成，独立审查和最新提交 CI 结果在本记录末尾补充；此状态不能作为部署批准。
+日期：2026-10-02。基线：master `687f87a0ab7e07fb73c593055b79d5ee3eb416bc`（PR #16），实现分支：`codex/p4a-question-bank`。用户已确认[设计](../superpowers/specs/2026-10-02-question-bank-design.md)和[13项执行计划](../superpowers/plans/2026-10-02-question-bank.md)，使用 Native 逐项实施。功能、独立整分支审查及四项重要问题修复与本机全回归完成，最新提交 CI 结果通过实现 PR 检查链接交付；此状态不能作为部署批准。
 
 ## 交付范围与文件
 
-新建独立 question-bank schema、Go `internal/question`、store题库事务、三项CLI、新迁移00005、私有Go端口、OpenAPI具名DTO及Next代理/数据层、八个英文后台页面和真实联调。原ContentPackage、schemaVersion=1、内容摘要/迁移与公开API保留。文件责任与架构见[批准设计](../superpowers/specs/2026-10-02-question-bank-design.md)和[操作说明](question-bank.md)。题库编写、完整有限生成、独立核验、冻结送审、作者隔离、六项复核、双head发布、当前覆盖和永久撤回已实现。P4b练习、五题检测、资格、个人解锁/进度尚未实现。
+新建独立 question-bank schema、Go `internal/question`、store题库事务、三项CLI、新迁移00005、私有Go端口、OpenAPI具名DTO及Next代理/数据层、七个英文后台页面和真实联调。原ContentPackage、schemaVersion=1、内容摘要/迁移与公开API保留。文件责任与架构见[批准设计](../superpowers/specs/2026-10-02-question-bank-design.md)和[操作说明](question-bank.md)。题库编写、完整有限生成、独立核验、冻结送审、作者隔离、六项复核、双head发布、当前覆盖和永久撤回已实现。P4b练习、五题检测、资格、个人解锁/进度尚未实现。
 
 ## 设计第15节的12组验收
 
@@ -18,15 +18,15 @@
 | 6 | 双head及提交时有效身份 | TestQuestionDualHeadActivation、TestQuestionEvidenceEligibility、TestQuestionSessionExpiresWhileWaiting、TestQuestionIdempotencyAtomicity：等待后重新核验会话/资格，失配整体回滚 |
 | 7 | 正常替换与永久事实 | TestQuestionReplacementPreservesHistoricalFacts、TestQuestionPermanentWithdrawalFacts、TestQuestionWithdrawalReplayRace和release场景：旧实例退场不伪造撤回，黑名单不经旧批准/重放复活 |
 | 8 | 当前可用与历史分离/缺迁移 | TestQuestionHistoricalFactSeparation、TestQuestionCoverageAfterSingleInstanceWithdrawal、TestQuestionKnowledgeWithdrawalStopsOffer、TestQuestionReadinessDoesNotMigrate：动态重算，缺配置固定503、旧公开知识正常 |
-| 9 | Go/Node严格边界与隐私 | question_http_boundary.json同源用例、QuestionHTTPContract、QuestionPrivateScopeAndErrors、代理单测/security E2E：原字节、整数/UTF8/重复/未知字段、4MiB/8KiB、Cookie/CSRF/取消/超时、角色撤回通过；学习者无答案读取端口 |
+| 9 | Go/Node严格边界与隐私 | api/question-boundary-cases.json同源用例、QuestionHTTPContract、QuestionPrivateScopeAndErrors、代理单测/security E2E：原字节、整数/UTF8/重复/未知字段、4MiB/8KiB、Cookie/CSRF/取消/超时、角色撤回通过；学习者无答案读取端口 |
 | 10 | 大快照/分页/共享资源 | TestQuestionMaximumLegalWorkflow、TestQuestionPublicationPagination、TestQuestionWrappedPageBudget、TestSharedQuestionValidationSlots、TestSharedContentQuestionRateWindow：101历史、实际返回limit、当前head独立定位，实际同两个槽和既有限流窗口 |
 | 11 | 真实全流程浏览器 | authoring 8、review 4、release 8、security 8共28条；1280×900/390×844、键盘Tab/Shift+Tab/Escape及焦点、冲突输入保留、实际提交后超时同键手动重试；真实Next→Go→随机PG，无成功API伪造 |
 | 12 | 原功能与兼容契约 | 原公开/阅读16、账户12、内容四批18共46浏览器用例；全部Go与前端原测试保留；原API深相等、原schema/导出摘要/旧迁移未改，两次api:generate零差异 |
 
 ## 回归与环境保护
 
-- Go核心8包116顶层测试通过，store/cli103顶层测试通过，共219；store/cli最长整批129.565秒。`go vet ./...`、`go build ./cmd/...`通过，均CGO_ENABLED=0、GOTOOLCHAIN=go1.27.1。
-- 前端33文件92测试、typecheck、生产build通过；`npm audit --omit=dev`为0漏洞。工具/资料快照9测试通过。浏览器74真实用例通过，一worker、retries=0，单批最长49.7秒。所有命令经540秒wrapper，Go5分钟内部deadline；没有延长预算或缩小最大容量以假通过。
+- Go核心8包116顶层测试通过，store/cli修复前103、修复后106顶层测试通过，修复前共219；修复后新增三个真实边界用例，共222；store/cli最长整批131.924秒。`go vet ./...`、`go build ./cmd/...`通过，均CGO_ENABLED=0、GOTOOLCHAIN=go1.27.1。
+- 前端35文件96测试、typecheck、生产build通过；`npm audit --omit=dev`为0漏洞。工具/资料快照9测试通过。浏览器74真实用例通过，一worker、retries=0，单批最长49.7秒。所有命令经540秒wrapper，Go5分钟内部deadline；没有延长预算或缩小最大容量以假通过。
 - 基线原35路径、83schemas、11responses、3securitySchemes及全局security逐项深相等；00001—00004、原content/catalogue schema及content/digest无差异，原导出往返与摘要测试通过。生成两次API文件无Git差异。
 - 只读确认真实开发库：`math_master|2|t`，即迁移版本2且question_packages不存在。本次不自动升级、初始化账户或发布真实数学内容。随机16位后缀测试库残留0，runtime.local.json不存在；原Knowledge_JSON未写入，资料快照保持独立。
 
@@ -36,13 +36,13 @@
 
 | 操作 | 最终本机耗时 | 累计分配bytes | 操作后堆bytes | 进程峰值驻留bytes |
 | --- | --- | --- | --- | --- |
-| 单模板最大可组成合法992实例 | 51.074 ms | 112,808,640 | 10,951,904 | 103,743,488 |
-| 单批1000实例创建+验证+双次核验送审 | 1.8076—1.963727 s | 609,622,688—664,620,872 | 约38—43 MB | ≤105,857,024 |
-| Prepare 200/10000/1000 | 1.560131 s | 1,329,877,240 | 103,244,456 | 271,089,664 |
-| Activate完整候选 | 0.915208 s | 671,266,984 | 153,151,712 | 272,105,472 |
-| 动态coverage完整题库 | 0.678419 s | 750,968,832 | 129,206,136 | 272,285,696 |
+| 单模板最大可组成合法992实例 | 54.166 ms | 113,795,080 | 6,667,104 | 171,884,544 |
+| 单批1000实例创建+验证+双次核验送审 | 1.8327—1.961773 s | 629,266,568—672,615,432 | 约38—43 MB | ≤173,080,576 |
+| Prepare 200/10000/1000 | 1.546087 s | 1,328,771,672 | 178,071,072 | 258,637,824 |
+| Activate完整候选 | 0.931903 s | 697,872,640 | 141,808,208 | 259,391,488 |
+| 动态coverage完整题库 | 0.684789 s | 750,839,712 | 103,256,024 | 259,522,560 |
 
-实际每个动作断言<8秒。累计分配代表GC周转量，不能当作驻留；Darwin getrusage.maxrss单位bytes，Linux测试记录KiB换算后的bytes。这里是本机单进程样本，P7仍需实际服务器并发/容量/恢复验收。
+最终修复后全Go回归中的实际每个动作断言<8秒。累计分配代表GC周转量，不能当作驻留；Darwin getrusage.maxrss单位bytes，Linux测试记录KiB换算后的bytes。这里是本机单进程样本，P7仍需实际服务器并发/容量/恢复验收。
 
 真实EXPLAIN ANALYZE BUFFERS：成员分页使用question_publication_members_pkey Bitmap Index/Heap Scan后top-N heapsort，读取11,200成员，返回100，执行2.444 ms、937共享命中/0磁盘读取/0临时写；按ID读取sealed当前发布使用question_publications_pkey Index Scan，执行0.005 ms、2共享命中。新历史/changes/正文筛选索引另由实际store行为回归覆盖，未修改旧表索引。
 
@@ -82,7 +82,18 @@
 30. Task 12: Ruling: 文件表列出的八个实际页面全部实现，另增question-state.tsx及command-controls.tsx复用状态与手动重试对话框 — 任务标题写七页但具体路径为八个，按明确路径执行；共享助手避免权限错误状态及重试逻辑复制 — 若错误，会增加两个内部组件的维护范围。
 31. Task 12: Ruling: 提前实现任务13的question_fixture.go及harness题库共享服务装配，先观察场景400失败再修复 — 任务12真实尺寸和键盘检查需可用的真实Next→Go→随机PG题库流程，不能伪造业务成功 — 若错误，会让任务13部分装配验证前移，后续仍必须运行全部四类浏览器回归。
 32. Task 13: Ruling: 在任务13 Step5完成实现后先执行一次独立整分支审查，最终完成行延后到SSH PR及最新SHA CI真正完成 — 任务13本身包含审查/交付，而执行技能流程把审查放在全部任务完成行之后；优先满足实质审查与完成契约，不提前标记交付完成 — 若错误，机械记账顺序偏离技能流程，但不减少审查或验证。
+33. Task 13: Ruling: 更正任务12账本的八页计数为七个实际路由，保留原裁定记录并明确纠正，question-state/command-controls两个共享助手仍保留 — 重新逐项核对计划Files和文件责任表均为七页，原八页冲突是执行者计数错误；没有遗漏路由也不增加产品范围 — 若错误，会造成文档与用户对页面数量的误解，应以列出的实际路径为准。
+34. Final: Ruling: 审查暂置的sourceMap紧凑JSON与jsonb::text边界提升为Important并纳入同一修复批次 — 真实随机PostgreSQL已复现恰好256KiB合法来源创建返回503，合理用户需要校验可保存；保存规范来源字节并强制JSON等价与同一256KiB上限 — 若错误，新工作区增加一个规范字节列及维护成本，不能扩大来源预算。
+35. Final: Ruling: P4b学员尝试、资格与解锁继续按原分期留待独立设计 — 本次没有用户学习端口，不能由P4a题库技术通过声称学习闭环完成 — 若错误，学习功能仍需后续实现及独立验收。
+36. Final: Ruling: 生产部署、实际主机负载与恢复保持P7范围，最新实现CI必须本次独立验证 — 本机容量不是生产承诺，审查未检查远端CI不能当交付通过 — 若错误，生产规模及恢复风险仍需部署前验证。
 
 ## 独立审查、CI与保留事项
 
-待整分支独立审查后填入结论、修复和全部暂缓小项。最新技术提交四项CI将通过PR/check链接交付，不以设计或旧提交CI替代。正式知识/题库数量仍为0；夹具不计入P6的20批准模板/300生产实例。不部署服务器，P4b须另行设计安全题面DTO、实际publication尝试、检测证据与历史解锁。
+一次新上下文gpt-6-astra/xhigh整分支只读审查完成，覆盖687f87a…f88cc2b，无Critical、3项Important、1项Minor；不进行第二轮独立审查。执行者按实际效果保留3项Important，并将审查暂置的来源映射边界经真实PG复现后提升为第四项Important，统一一次修复：
+
+1. 空generationNote的合法模板批准：输入允许为空，无模板批准在拥有冻结上下文时强制有效说明；持久化记录、SSR、代理和页面与Go规则一致。ApprovedTemplateWithEmptyGenerationNoteRemainsReadable及TemplateApprovalAllowsEmptyGenerationStatement均RED→GREEN，固定题无说明仍拒绝。真实浏览器留空批准后重载SSR及代理读取200，增强复核四用例21.5秒通过。
+2. 差异/成员旧分页覆盖新快照：所有分页与当前controller绑定，切换/卸载取消，旧成功/错误/finally不更新新状态。OldlistChangesPageCannotOverwriteSelectedSnapshot和OldlistMembersPageCannotOverwriteSelectedSnapshot均RED→GREEN。
+3. 2MiB裸包与规范SHA包装：逻辑载荷预算不变，独立计固定41 bytes用途框架；数据库和导出一致，SHA原字节不变。TestQuestionPackageExactByteBoundary真实提交/新ID实际导入/导出SHA保持、恰好上限与+1拒绝；参数规范化可能增长，TestQuestionNormalizedPackageByteBudget先观察错误ready后修复为明确限额错误。
+4. 256KiB来源：真实PG看到紧凑262144 bytes与jsonb::text262158 bytes，合法Create先503；新工作区保留规范source_map_bytes、校验JSON等价及原256KiB预算，TestQuestionSourceMapExactByteBoundary真实Create/Save与+1拒绝RED→GREEN。
+
+仅新增未交付题库迁移00005的列/约束调整；旧00001—00004及真实开发库未变。暂缓小项完整记录：新增QuestionReviewInput.decision、QuestionPublicationSummary.status的OpenAPI枚举尚不完整，内部Zod/Go封闭验证有效；后续补全新DTO枚举并生成，保持旧契约。一次修复后完整Go222/222、前端96/96、真实浏览器74/74、vet/typecheck/build及重复API生成通过；随机库残留0。最新技术提交四项CI将通过PR/check链接交付，不以设计或旧提交CI替代。正式知识/题库数量仍为0；夹具不计入P6的20批准模板/300生产实例。不部署服务器，P4b须另行设计安全题面DTO、实际publication尝试、检测证据与历史解锁。

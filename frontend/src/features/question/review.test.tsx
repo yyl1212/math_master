@@ -27,3 +27,12 @@ it("ReviewPanel", async () => {
     fireEvent.change(screen.getByLabelText("Generation review statement"), { target: { value: "No templates are present; generation does not apply." } });
     await waitFor(() => expect(screen.getByRole("button", { name: "Approve submission" })).toBeEnabled());
 });
+
+it("TemplateApprovalAllowsEmptyGenerationStatement", async () => {
+ const sub = componentSubmission(); sub.frozen.questionPackage.templates = (await import("./test-fixtures")).componentDraft().questionPackage.templates;
+ render(<ReviewPanel submission={sub} initialInstances={{ items: [], total: 0, limit: 1, offset: 0 }} user={{ id: fixtureID, username: "reviewer", roles: ["learner", "reviewer"], mustChangePassword: false }}/>);
+ screen.getAllByRole("checkbox").forEach(c => fireEvent.click(c));
+ fireEvent.change(screen.getByLabelText("Independence statement"), { target: { value: "Independently checked all authors and generated questions." } });
+ fireEvent.change(screen.getByLabelText("Review note"), { target: { value: "All six checks cover every finite generated instance." } });
+ expect(screen.getByRole("button", { name: "Approve submission" })).toBeEnabled();
+});

@@ -656,9 +656,16 @@ func validatePackage(ctx context.Context, input DraftInput, refs ReferenceSnapsh
 		}
 		return a.ObjectiveIndex < b.ObjectiveIndex
 	})
-	_, packageSHA, e := CanonicalPackage(p)
+	packageRaw, packageSHA, e := CanonicalPackage(p)
 	if e != nil {
 		return empty, v.finish(), e
+	}
+	// Normalized parameter text may grow. The logical payload remains 2 MiB;
+	// the fixed purpose framing is counted independently and never changes SHA.
+	normalizedBytes := len(packageRaw) - PackageCanonicalOverhead
+	if normalizedBytes > MaxPackageBytes {
+		v.limitAt("/questionPackage")
+		return empty, v.finish(), ErrLimitExceeded
 	}
 	sealed := SealedPackage{Package: p, PackageSHA: packageSHA, Instances: allInstances, Generation: v.report.Generation, Resolved: resolved, Objectives: objectives, ReferenceSnapshot: v.refs}
 	identities := []Identity{}

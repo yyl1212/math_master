@@ -3,7 +3,9 @@
 CREATE TABLE question_workspaces (
  id uuid PRIMARY KEY CHECK((id::text ~ '^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$') IS TRUE),owner_user_id uuid NOT NULL REFERENCES auth_users(id),
  catalogue_version integer NOT NULL REFERENCES catalogue_versions(version),package jsonb NOT NULL CHECK((jsonb_typeof(package)='object' AND octet_length(package::text)<=4194304) IS TRUE),
- source_map jsonb NOT NULL DEFAULT '[]' CHECK((jsonb_typeof(source_map)='array' AND octet_length(source_map::text)<=262144) IS TRUE),
+ source_map jsonb NOT NULL DEFAULT '[]' CHECK((jsonb_typeof(source_map)='array') IS TRUE),
+ source_map_bytes bytea NOT NULL DEFAULT convert_to('[]','UTF8') CHECK((octet_length(source_map_bytes)<=262144) IS TRUE),
+ CHECK((convert_from(source_map_bytes,'UTF8')::jsonb=source_map) IS TRUE),
  legacy_unattributed boolean NOT NULL DEFAULT false,base_submission_id uuid,
  revision bigint NOT NULL CHECK((revision>=1) IS TRUE),status text NOT NULL DEFAULT 'editing' CHECK((status IN ('editing','submitted')) IS TRUE),
  gate jsonb NOT NULL DEFAULT '{}',created_at timestamptz NOT NULL DEFAULT clock_timestamp(),updated_at timestamptz NOT NULL DEFAULT clock_timestamp()
@@ -18,7 +20,8 @@ CREATE TABLE question_packages (
  author_ids jsonb NOT NULL DEFAULT '[]' CHECK((jsonb_typeof(author_ids)='array') IS TRUE),legacy_unattributed boolean NOT NULL DEFAULT true,
  sealed boolean NOT NULL DEFAULT false,created_at timestamptz NOT NULL DEFAULT clock_timestamp(),
  PRIMARY KEY(id,version),UNIQUE(id,version,sha256),FOREIGN KEY(catalogue_version,catalogue_sha256) REFERENCES catalogue_versions(version,sha256),
- CHECK((octet_length(body_bytes)<=2097152) IS TRUE),CHECK((body->>'purpose'='question-package-v1') IS TRUE),
+ -- 2 MiB逻辑正文加固定41 bytes摘要用途包装；不改变正文预算或SHA。
+ CHECK((octet_length(body_bytes)<=2097193) IS TRUE),CHECK((body->>'purpose'='question-package-v1') IS TRUE),
  CHECK((jsonb_typeof(body#>'{body,templates}')='array' AND jsonb_typeof(body#>'{body,fixedQuestions}')='array' AND jsonb_typeof(body#>'{body,blueprints}')='array') IS TRUE),
  CHECK((body->'body'->>'kind'='question-bank' AND body->'body'->>'schemaVersion'='1') IS TRUE),
  CHECK((body->'body'->>'id'=id AND (body->'body'->>'version')::integer=version) IS TRUE)

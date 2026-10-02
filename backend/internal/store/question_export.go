@@ -16,7 +16,7 @@ func questionExportTx(ctx context.Context, tx *sql.Tx, id string, version int) (
 	if err != nil {
 		return archive, workflowRowError(err)
 	}
-	if size > question.MaxPackageBytes {
+	if size > question.MaxCanonicalPackageBytes {
 		return archive, question.ErrLimitExceeded
 	}
 	var wrapped struct {

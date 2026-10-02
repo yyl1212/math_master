@@ -15,6 +15,10 @@ import (
 
 const MaxEnvelopeBytes = 4 * 1024 * 1024
 const MaxPackageBytes = 2 * 1024 * 1024
+
+// SHA purpose framing is metadata, separate from the 2 MiB logical package payload.
+const PackageCanonicalOverhead = len(`{"purpose":"question-package-v1","body":}`)
+const MaxCanonicalPackageBytes = MaxPackageBytes + PackageCanonicalOverhead
 const MaxResponseBytes = 4 * 1024 * 1024
 
 var integerLexeme = regexp.MustCompile(`^-?(0|[1-9][0-9]*)$`)

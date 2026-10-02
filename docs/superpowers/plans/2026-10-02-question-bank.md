@@ -507,7 +507,7 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 **Files:** e2etest/question_fixture.go/question_control.go及测试、harness.go；tests/e2e/question-helpers.ts与四个question-*.spec.ts；现有backend.yml/frontend.yml；question-bank.md/2026-10-02-p4a-acceptance.md、README/路线图。
 **Interfaces:** Fixture只在随机库构造原创公开K/模板和真实不同账户；控制端口只有环回、随机能力令牌，生产server不能导入e2etest。浏览器走真实Next.js→Go→PostgreSQL，不伪造成功业务API。沿用harness安全启动/清理协议，不返回可供生产使用的批准。
 
-- [ ] **Step 1：写失败联调。** question-authoring：真实创建→保存→生成校验→送审、错答案/范围/冲突、CLI草稿认领；question-review：两个实际账户、作者自审拒绝、冻结完整分页、六项批准/退回/修订；question-release：真实prepare→reauth→activate→coverage→withdraw、两个head陈旧/模板替换/单实例撤回；question-security：learner/private404、缺迁移、取消/超时/同键手动重试、role撤回与共享槽/预算；分别运行两viewports，预期缺少题库装配行为失败。
+- [x] **Step 1：写失败联调。** question-authoring：真实创建→保存→生成校验→送审、错答案/范围/冲突、CLI草稿认领；question-review：两个实际账户、作者自审拒绝、冻结完整分页、六项批准/退回/修订；question-release：真实prepare→reauth→activate→coverage→withdraw、两个head陈旧/模板替换/单实例撤回；question-security：learner/private404、缺迁移、取消/超时/同键手动重试、role撤回与共享槽/预算；分别运行两viewports，预期缺少题库装配行为失败。
 
 断言数据（测试须逐项断言；下列对象不作为产品配置）：
 
@@ -520,9 +520,9 @@ Task1空数组结构夹具的规范字节（不含代码围栏换行）；完整
 ]
 ~~~
 
-- [ ] **Step 2：运行RED。** 构建隔离harness和frontend后，每场景各一次：node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts（review/release/security分别替换）；基础环境故障先定位，不能当业务RED。
-- [ ] **Step 3：补齐真实装配与CI。** harness同一个publication.Service注入题库双槽，用testutil每批新随机库；API错误/审计/manifest从真实DB断言。backend CI加入question纯逻辑与store题库测试，frontend CI新增四个独立限时场景批次；保留原所有测试、540s入口与retries=0。容量测试记录最大合法生成、送审和200/10000/1000候选的真实耗时、SQL查询计划、累计分配/最大驻留，必须在原8秒/字节预算内；失败先优化，不延长时限或缩小案例假通过。
-- [ ] **Step 4：回归GREEN并形成证据。** 各自入口go vet、go test question/auth/content/publication/httpapi/e2etest/testutil、store/cli分批、go build ./cmd/...；npm typecheck/test/build/audit、两次api:generate零差异；全部原公开/账户/内容浏览器批次＋四题库批次。留存最大容量数据、原schema/导出SHA/旧迁移零差异、随机库清理、原开发库无迁移。验收文件逐项对照设计15节12组；代码/技术fixture通过不计为20批准模板或300生产实例。
+- [x] **Step 2：运行RED。** 构建隔离harness和frontend后，每场景各一次：node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts（review/release/security分别替换）；基础环境故障先定位，不能当业务RED。
+- [x] **Step 3：补齐真实装配与CI。** harness同一个publication.Service注入题库双槽，用testutil每批新随机库；API错误/审计/manifest从真实DB断言。backend CI加入question纯逻辑与store题库测试，frontend CI新增四个独立限时场景批次；保留原所有测试、540s入口与retries=0。容量测试记录最大合法生成、送审和200/10000/1000候选的真实耗时、SQL查询计划、累计分配/最大驻留，必须在原8秒/字节预算内；失败先优化，不延长时限或缩小案例假通过。
+- [x] **Step 4：回归GREEN并形成证据。** 各自入口go vet、go test question/auth/content/publication/httpapi/e2etest/testutil、store/cli分批、go build ./cmd/...；npm typecheck/test/build/audit、两次api:generate零差异；全部原公开/账户/内容浏览器批次＋四题库批次。留存最大容量数据、原schema/导出SHA/旧迁移零差异、随机库清理、原开发库无迁移。验收文件逐项对照设计15节12组；代码/技术fixture通过不计为20批准模板或300生产实例。
 - [ ] **Step 5：独立整分支审查与交付。** 按Native约定调用requesting-code-review，使用新上下文的独立审查覆盖本计划Review Focus、真实独立校验器、冻结作者/关联、两head/锁、替换与永久事实、错误/分页泄漏、最大预算和旧兼容。必要修复先写真实RED再GREEN；保存所有裁定/修复及验证证据，不以旧CI代替最新提交。通过SSH推送、创建并附加实现PR，等待最新SHA四项CI全部完成，按用户授权处理合并，不自动部署。
 
 ## 计划自查与可行性门槛

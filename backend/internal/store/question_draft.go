@@ -261,7 +261,7 @@ func (s *Store) createQuestionDraft(ctx context.Context, tx *sql.Tx, u auth.User
 	if err != nil {
 		return d, err
 	}
-	_, err = tx.ExecContext(ctx, `INSERT INTO question_workspaces(id,owner_user_id,catalogue_version,package,source_map,legacy_unattributed,base_submission_id,revision,gate,created_at,updated_at) VALUES($1,$2,$3,$4,$5,$6,$7,1,$8,$9,$9)`, id, u.ID, input.CatalogueVersion, body(input.QuestionPackage), body(input.SourceMap), responsible.LegacyUnattributed, workflowNullableID(base), body(gate), now)
+	_, err = tx.ExecContext(ctx, `INSERT INTO question_workspaces(id,owner_user_id,catalogue_version,package,source_map,legacy_unattributed,base_submission_id,revision,gate,created_at,updated_at,source_map_bytes) VALUES($1,$2,$3,$4,$5,$6,$7,1,$8,$9,$9,$10)`, id, u.ID, input.CatalogueVersion, body(input.QuestionPackage), body(input.SourceMap), responsible.LegacyUnattributed, workflowNullableID(base), body(gate), now, []byte(body(input.SourceMap)))
 	if err != nil {
 		return d, err
 	}
@@ -368,7 +368,7 @@ func (s *Store) SaveQuestionDraft(ctx context.Context, a question.Access, id str
 		out.Gate = gate
 		out.Revision++
 		out.UpdatedAt = now.UTC().Format(time.RFC3339)
-		if _, err = tx.ExecContext(ctx, `UPDATE question_workspaces SET catalogue_version=$2,package=$3,source_map=$4,legacy_unattributed=$5,gate=$6,revision=revision+1,updated_at=$7 WHERE id=$1`, id, out.CatalogueVersion, body(out.QuestionPackage), body(out.SourceMap), out.LegacyUnattributed, body(gate), now); err != nil {
+		if _, err = tx.ExecContext(ctx, `UPDATE question_workspaces SET catalogue_version=$2,package=$3,source_map=$4,legacy_unattributed=$5,gate=$6,revision=revision+1,updated_at=$7,source_map_bytes=$8 WHERE id=$1`, id, out.CatalogueVersion, body(out.QuestionPackage), body(out.SourceMap), out.LegacyUnattributed, body(gate), now, []byte(body(out.SourceMap))); err != nil {
 			return err
 		}
 		for _, author := range out.AuthorIDs {
