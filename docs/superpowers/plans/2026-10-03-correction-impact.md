@@ -412,3 +412,7 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 | 15 | tools/verify/correction-compatibility.mjs | 精确逆向批准JSON pointers，旧完整schema hash继续核验 |
 | 15 | store/{import,auth_fixture,workflow_fixture,question_fixture,learning_fixture,feedback_fixture,feedback_capacity}_test.go | 旧missing-feedback场景从UpTo(7)建立真实从未启用库，不清永久标记，不变原数量/锁/断言 |
 | 16 | 原foundation批加入 ./cmd/server | server退出回归不能被CI漏跑；原11包及两个新包仍全部运行 |
+
+## Task16 独立审查的一次必要修复
+
+只安排一位fresh reviewer，最终原结论With fixes；三项按用户影响均为Important。按[修复方案](../../operations/2026-10-03-p5b-review-fixes.md)及[审查记录](../../operations/2026-10-03-p5b-final-review.md)先正式RED，后最小修复和完整矩阵。补充store/correction_assets.go、correction_review_regression_test.go；修改第八迁移批准链守卫、correction repository/service、HTTP route/dispatch与测试、OpenAPI/generated、纠错SVG proxy及types/schemas、结果配图组件和admin入口能力、隔离harness及双视口图片测试。兼容性审查结论无阻塞：仅增加本人有效结果私有SVG路径/操作，原16路径/19操作继续保留，实际共17路径/20操作；原88路径及旧schema/response/security完整保护，不改旧七迁移、摘要目的、数学五题门槛或生产数据。

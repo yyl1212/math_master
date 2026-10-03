@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/correction"
+	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
 )
 
@@ -63,6 +64,21 @@ func correctionChange(ctx context.Context, db *sql.DB, s *store.Store, accounts 
 	switch scene {
 	case "correction-withdraw-instance":
 		return learningChange(ctx, db, s, accounts, root, "learning-withdraw-first-assessed")
+	case "correction-withdraw-template", "correction-withdraw-replacement":
+		version := 1
+		if scene == "correction-withdraw-replacement" {
+			version = 2
+		}
+		a, e := fixtureAccess(ctx, accounts, "content_admin", true)
+		if e != nil {
+			return true, e
+		}
+		var kh, qh string
+		if e = db.QueryRowContext(ctx, `SELECT (SELECT snapshot_id::text FROM publication_heads),(SELECT publication_id::text FROM question_heads)`).Scan(&kh, &qh); e != nil {
+			return true, e
+		}
+		_, e = s.WithdrawQuestionVersion(ctx, a, question.WithdrawalInput{Target: question.WithdrawalTarget{Kind: "template", ID: "learning-root-addition", Version: version}, ExpectedKnowledgeHead: &kh, ExpectedQuestionHead: &qh, Reason: "Real original technical illustration authorization regression."})
+		return true, e
 	case "correction-publish-equivalent":
 		return true, publishCorrectionEquivalent(ctx, db, s, accounts, root)
 	case "correction-rule-case":

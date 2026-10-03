@@ -9,6 +9,10 @@ import (
 )
 
 func dispatchCorrection(ctx context.Context, r *http.Request, route correctionRoute, a question.Access, q correction.Query, evidence correction.EvidenceRef, s *correction.Service) (any, int, error) {
+	if route.SHA != "" {
+		v, e := s.ReadOwnCorrectionAsset(ctx, a, route.ID, route.SHA)
+		return v, 200, e
+	}
 	ref := correction.PlanRef{ID: route.ID, Version: route.Version}
 	switch route.Action {
 	case correction.ListCasesAction:

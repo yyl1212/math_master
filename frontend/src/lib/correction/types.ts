@@ -41,7 +41,7 @@ export type CommandAccess = {
     key: string;
     signal?: AbortSignal;
 };
-export type CorrectionAction = 'createCase' | 'createPlan' | 'updatePlan' | 'submitPlan' | 'decidePlan' | 'retryJob' | 'listCases' | 'readCase' | 'listPlans' | 'readPlan' | 'readPlanDetail' | 'listJobs' | 'listOwn' | 'readOwn' | 'readOwnDetail';
+export type CorrectionAction = 'createCase' | 'createPlan' | 'updatePlan' | 'submitPlan' | 'decidePlan' | 'retryJob' | 'listCases' | 'readCase' | 'listPlans' | 'readPlan' | 'readPlanDetail' | 'listJobs' | 'listOwn' | 'readOwn' | 'readOwnDetail' | 'readOwnAsset';
 export type CorrectionRoute = {
     path: string;
     method: 'GET' | 'POST' | 'PUT';

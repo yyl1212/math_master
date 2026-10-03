@@ -167,6 +167,8 @@ export function resolveCorrectionRoute(path: string, method = 'GET'): Correction
     }
     else if (p[0] === 'evidence' && p.length === 1)
         action = 'listOwn';
+    else if (p[0] === 'results' && correctionUUID.test(p[1] ?? '') && p.length === 4 && p[2] === 'assets' && /^[0-9a-f]{64}$/.test(p[3] ?? ''))
+        action = 'readOwnAsset';
     else if (p[0] === 'results' && correctionUUID.test(p[1] ?? '') && p.length === 2)
         action = 'readOwn';
     else if (p[0] === 'results' && correctionUUID.test(p[1] ?? '') && p.length === 3 && p[2] === 'detail')
@@ -194,6 +196,7 @@ function responseSchema(action: CorrectionRoute['action']) { switch (action) {
     case 'listOwn': return resultPageSchema;
     case 'readOwn': return resultMetadataViewSchema;
     case 'readOwnDetail': return resultDetailSchema;
+    case 'readOwnAsset': throw new CorrectionRequestError('INVALID_REQUEST');
 } }
 const errorCodes = ['INVALID_REQUEST', 'INVALID_COOKIE', 'AUTHENTICATION_REQUIRED', 'CSRF_FAILED', 'FORBIDDEN', 'NOT_FOUND', 'METHOD_NOT_ALLOWED', 'PASSWORD_CHANGE_REQUIRED', 'RATE_LIMITED', 'IDEMPOTENCY_CONFLICT', 'SERVICE_UNAVAILABLE', 'REAUTHENTICATION_REQUIRED', 'CORRECTION_NOT_CONFIGURED', 'CORRECTION_CONFLICT', 'CORRECTION_SOURCE_STALE', 'CORRECTION_ANSWER_OVERLAP', 'CORRECTION_LEASE_LOST'] as const;
 const errorSchema = z.object({ error: z.object({ code: z.enum(errorCodes), message: text, requestId: z.string().regex(/^(?:[0-9a-f]{32}|unavailable)$/), retryAt: timeSchema.optional() }).strict() }).strict();

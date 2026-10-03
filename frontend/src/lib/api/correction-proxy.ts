@@ -1,4 +1,6 @@
 import 'server-only';
+import {validateContentSVG} from '../content/svg';
+import {readPrivateCorrectionJSON} from '../correction/schemas';
 import { getGoOrigin } from './server-config';
 import { getAuthConfig, AuthNotConfiguredError } from '../auth/config';
 import { selectAuthCookies } from '../auth/cookies';
@@ -25,7 +27,7 @@ export async function proxyPrivateCorrection(request: Request, segments: readonl
             throw e;
         } const origin = getGoOrigin(), write = route.method !== 'GET'; if (request.headers.get('Sec-Fetch-Site') === 'cross-site' || (write || request.headers.has('Origin')) && request.headers.get('Origin') !== config.publicOrigin || request.headers.get('X-CSRF-Token')?.includes(',') || write && !secretPattern.test(request.headers.get('X-CSRF-Token') ?? ''))
             throw new CorrectionRequestError('CSRF_FAILED'); if (request.headers.get('Idempotency-Key')?.includes(',') || write && !correctionUUID.test(request.headers.get('Idempotency-Key') ?? ''))
-            throw new CorrectionRequestError('INVALID_REQUEST'); const headers = new Headers({ Accept: 'application/json' }), cookie = selectAuthCookies(request.headers.get('Cookie') ?? '', config.production, true); if (cookie)
+            throw new CorrectionRequestError('INVALID_REQUEST'); const asset = route.action === 'readOwnAsset'; const headers = new Headers({ Accept: asset ? 'image/svg+xml' : 'application/json' }), cookie = selectAuthCookies(request.headers.get('Cookie') ?? '', config.production, true); if (cookie)
             headers.set('Cookie', cookie); for (const name of ['Origin', 'X-CSRF-Token', 'Sec-Fetch-Site']) {
             const v = request.headers.get(name);
             if (v !== null)
@@ -48,7 +50,13 @@ export async function proxyPrivateCorrection(request: Request, segments: readonl
             headers.set('Idempotency-Key', request.headers.get('Idempotency-Key')!);
         }
         else if (request.body !== null || request.headers.has('Transfer-Encoding') || Number(request.headers.get('Content-Length') ?? '0') !== 0)
-            throw new CorrectionRequestError('INVALID_REQUEST'); const response = await correctionAwait(fetch(origin + path, { method: route.method, cache: 'no-store', redirect: 'error', signal: active, headers, ...(body === undefined ? {} : { body }) }), active); const result = await correctionAwait(read(response, path, active, route.method), active); return Response.json(result, { status: response.status, headers: correctionPrivateHeaders(response.headers.get('X-Request-ID')!) }); });
+            throw new CorrectionRequestError('INVALID_REQUEST'); const response = await correctionAwait(fetch(origin + path, { method: route.method, cache: 'no-store', redirect: 'error', signal: active, headers, ...(body === undefined ? {} : { body }) }), active); if(asset){
+            if(response.status>=400){await readPrivateCorrectionJSON(response,active);throw new CorrectionRequestError()}
+            const rid=response.headers.get('X-Request-ID'),sha=url.pathname.split('/').at(-1)!;
+            if(response.status!==200||response.redirected||response.headers.has('Set-Cookie')||response.headers.get('Cache-Control')!=='private, no-store'||response.headers.get('X-Content-Type-Options')!=='nosniff'||response.headers.get('Content-Security-Policy')!=="sandbox; default-src 'none'"||!rid||!/^(?:[0-9a-f]{32}|unavailable)$/.test(rid)||!/^image\/svg\+xml(?:;\s*charset=(?:utf-8|"utf-8"))?$/i.test(response.headers.get('Content-Type')??''))throw new CorrectionRequestError();
+            const bytes=await readCorrectionBytes(response,1048576,active);if(!validateContentSVG(bytes,sha)||active.aborted)throw new CorrectionRequestError();
+            const out=correctionPrivateHeaders(rid);out.set('Content-Type','image/svg+xml');out.set('Content-Security-Policy',"sandbox; default-src 'none'");out.set('Content-Length',String(bytes.byteLength));const copy=new Uint8Array(bytes.byteLength);copy.set(bytes);return new Response(copy.buffer,{status:200,headers:out});
+        } const result = await correctionAwait(read(response, path, active, route.method), active); return Response.json(result, { status: response.status, headers: correctionPrivateHeaders(response.headers.get('X-Request-ID')!) }); });
     }
     catch (e) {
         return correctionProxyError(e instanceof CorrectionRequestError ? e : new CorrectionRequestError());

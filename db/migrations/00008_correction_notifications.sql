@@ -188,17 +188,31 @@ END $$;
 CREATE FUNCTION correction_equivalent_json(a jsonb,b jsonb) RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
  SELECT coalesce((a#>'{body,knowledge}')=(b#>'{body,knowledge}') AND a->'parameters'=b->'parameters' AND ((a->'body')-'correctChoiceId'-'correctNumeric'-'explanation')=((b->'body')-'correctChoiceId'-'correctNumeric'-'explanation'),false)
 $$;
-CREATE FUNCTION correction_replacement_authorized(b jsonb,pos integer) RETURNS boolean LANGUAGE sql STABLE AS $$
- SELECT (b#>ARRAY['originalItems',pos::text,'identity'])=(b#>ARRAY['effectiveItems',pos::text,'identity']) OR EXISTS(
-  SELECT 1 FROM jsonb_array_elements(b->'planRefs') ref JOIN correction_plans p ON p.id=(ref->>'id')::uuid AND p.version=(ref->>'version')::integer AND p.status='approved' AND p.algorithm_version=1
-  CROSS JOIN LATERAL jsonb_array_elements(p.frozen_body#>'{body,proof,mappings}') m
-  WHERE m#>'{replacement,identity}'=b#>ARRAY['effectiveItems',pos::text,'identity'] AND (
-   m#>'{original,identity}'=b#>ARRAY['originalItems',pos::text,'identity'] OR EXISTS(
-    SELECT 1 FROM jsonb_array_elements_text(b->'parentResultIds') pid JOIN correction_results r ON r.id=pid::uuid AND r.sealed
-    WHERE r.basis#>ARRAY['body','effectiveItems',pos::text,'identity']=m#>'{original,identity}'
-   ))
- )
-$$;
+CREATE FUNCTION correction_replacement_authorized(b jsonb,pos integer) RETURNS boolean LANGUAGE plpgsql STABLE AS $$
+DECLARE original_id jsonb:=b#>ARRAY['originalItems',pos::text,'identity'];effective_id jsonb:=b#>ARRAY['effectiveItems',pos::text,'identity'];
+BEGIN
+ IF jsonb_typeof(b->'planRefs') IS DISTINCT FROM 'array' OR jsonb_array_length(b->'planRefs')>100 THEN RETURN false; END IF;
+ IF original_id=effective_id THEN RETURN true; END IF;
+ -- Resolve actual independently approved facts, without requiring a worker to
+ -- have materialized an intermediate result. All paths remain bounded.
+ RETURN (WITH RECURSIVE refs AS MATERIALIZED (
+  SELECT value ref FROM jsonb_array_elements(b->'planRefs')
+ ),approved AS MATERIALIZED (
+  SELECT p.frozen_body FROM refs JOIN correction_plans p ON p.id=(ref->>'id')::uuid AND p.version=(ref->>'version')::integer
+  WHERE p.sealed AND p.status='approved' AND p.algorithm_version=1 AND b->'handledCaseIds' @> jsonb_build_array(p.case_id::text)
+   AND EXISTS(SELECT 1 FROM correction_events e WHERE e.subject_kind='plan' AND e.subject_id=p.id AND e.subject_version=p.version AND e.case_id=p.case_id AND e.sequence=p.sequence AND e.kind='plan_approved')
+ ),edges AS MATERIALIZED (
+  SELECT DISTINCT m#>'{original,identity}' src,m#>'{replacement,identity}' dst FROM approved CROSS JOIN LATERAL jsonb_array_elements(frozen_body#>'{body,proof,mappings}') m
+  WHERE m#>'{original,identity}' IS DISTINCT FROM m#>'{replacement,identity}'
+ ),conflicts AS MATERIALIZED (
+  SELECT src FROM edges GROUP BY src HAVING count(DISTINCT dst)>1
+ ),walk(identity,visited,depth) AS (
+  SELECT original_id,ARRAY[original_id],0
+  UNION ALL SELECT e.dst,w.visited||ARRAY[e.dst],w.depth+1 FROM walk w JOIN edges e ON e.src=w.identity
+  WHERE w.depth<100 AND NOT e.dst=ANY(w.visited) AND NOT EXISTS(SELECT 1 FROM conflicts)
+ ) SELECT (SELECT count(*) FROM approved)=(SELECT count(*) FROM refs) AND NOT EXISTS(SELECT 1 FROM conflicts)
+  AND EXISTS(SELECT 1 FROM walk w WHERE w.identity=effective_id AND NOT EXISTS(SELECT 1 FROM edges e WHERE e.src=w.identity)));
+END $$;
 CREATE FUNCTION correction_case_applies(cid uuid,ek text,eid uuid,uid uuid) RETURNS boolean LANGUAGE sql STABLE AS $$
  WITH evidence AS (SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed
  UNION ALL SELECT 'practice',id,owner_user_id,created_at,knowledge_id,knowledge_version,knowledge_sha256,(seal#>>'{body,ruleVersion}')::integer,state='answered' FROM practice_attempts

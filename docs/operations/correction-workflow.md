@@ -82,3 +82,7 @@ P5a 旧二进制不识别判分案件。若后续必须回退，保留 P5b 数�
 ## 验收入口
 
 [实施计划](../superpowers/plans/2026-10-03-correction-impact.md)保留完整原批次和新增批次；[本机验收](2026-10-03-p5b-acceptance.md)记录实际 SHA、命令、退出码、耗时、数量和脱敏截图；[一次独立审查](2026-10-03-p5b-final-review.md)记录分级、裁定及修复。产品 PR 只交付 draft，最新完整 head 的 Go/前端 push/PR 四个 workflow runs 及全部 jobs 成功后才报告远端验证完成。
+
+## 纠错结果配图
+
+`GET /api/v1/corrections/results/{id}/assets/{sha256}` 使用本人准确且当前有效纠错结果的题目和有效依赖授权；历史原attempt素材接口保持原封存来源撤回保护。替代来源再次撤回或结果失效时立即404。SVG最多1MiB，校验准确SHA与安全标记，私有no-store、sandbox/nosniff；账户当前状态、活跃答案重叠、30分钟曝光和提交前身份核验在同事务完成，代理总截止仍10秒。已批准的连续实例映射不再依赖worker提前生成中间结果；数据库按最多100引用/100链边、无冲突/无环的真实独立批准事实验证。

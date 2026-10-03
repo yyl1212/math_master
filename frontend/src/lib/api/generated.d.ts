@@ -1773,6 +1773,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/corrections/results/{id}/assets/{sha256}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 本人准确有效纠错结果绑定的原始 SVG；替代来源撤回立即禁止。账户、有效依据、答案重叠及30分钟曝光同事务；最多1 MiB、8秒服务端截止。原attempt资源接口保持撤回保护。 */
+        get: operations["readOwnCorrectionAsset"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -13772,6 +13789,142 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["NotificationError"];
+                };
+            };
+        };
+    };
+    readOwnCorrectionAsset: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                sha256: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人有效纠错题目引用的安全原 SVG，保持准确 SHA。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    "Content-Security-Policy"?: "sandbox; default-src 'none'";
+                    "Content-Length"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "image/svg+xml": string;
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
                 };
             };
         };

@@ -33,3 +33,31 @@ it('shows six honest correction dispositions and loads protected details only on
 it('delivers original answers and corrected explanations only through the protected read', async () => { vi.mocked(correctionClient.readOwnDetail).mockResolvedValue({ actorId: id, data: resultDetail() }); render(<ResultPanel initial={{ result: resultMetadata(), items: [], planReason: null }}/>, { wrapper }); expect(screen.queryByText('Adding one to one gives two.')).toBeNull(); fireEvent.click(screen.getByRole('button', { name: 'Review corrected answers' })); expect((await screen.findAllByText('Adding one to one gives two.')).length).toBe(5); expect(screen.getByRole('link', { name: 'Original result' })).toHaveAttribute('href', '/assessments/' + id + '/result'); });
 it('CorrectionSSRActorSwitch removes all old private content before verifying a changed SSR actor', async () => { vi.mocked(getAuthContext).mockResolvedValue({ ...context(), ok: true, data: { ...context().data, user: { ...context().data.user, username: 'test', roles: ['admin'] } } }); const v = render(<CorrectionAccountProvider actorId={id}><p>A private content</p></CorrectionAccountProvider>); await screen.findByText('A private content'); vi.mocked(getAuthContext).mockReturnValueOnce(new Promise(() => { })); v.rerender(<CorrectionAccountProvider actorId={otherId}><p>B private content</p></CorrectionAccountProvider>); expect(screen.queryByText('A private content')).toBeNull(); expect(screen.queryByText('B private content')).toBeNull(); expect(screen.getByRole('status')).toHaveTextContent('Checking'); });
 it('CorrectionActorDeadline covers the account boundary identity that never returns', async () => { vi.useFakeTimers(); vi.mocked(getAuthContext).mockReturnValue(new Promise(() => { })); render(<CorrectionAccountProvider actorId={id}><p>private</p></CorrectionAccountProvider>); await act(async () => vi.advanceTimersByTimeAsync(10001)); expect(screen.getByRole('alert')).toHaveTextContent('temporarily unavailable'); expect(screen.queryByText('private')).toBeNull(); });
+
+it('CorrectionEffectiveAssets bind illustrations to the exact correction result', async () => {
+ const d=resultDetail();d.result={...d.result,id:otherId};d.items[0].assets=[{id:'original-svg',sha256:'a'.repeat(64)}];
+ vi.mocked(correctionClient.readOwnDetail).mockResolvedValue({actorId:id,data:d});
+ render(<ResultPanel initial={{result:d.result,items:[],planReason:null}}/>,{wrapper});fireEvent.click(screen.getByRole('button',{name:'Review corrected answers'}));await screen.findByRole('img');
+ expect(screen.getByRole('img')).toHaveAttribute('src',`/api/v1/corrections/results/${otherId}/assets/${'a'.repeat(64)}`);
+});
+
+it('CorrectionEditorCapabilities preserve plan editing without administrator commands', async () => {
+ const {CasePanel}=await import('./case-panel');
+ const editor=({children}:{children:React.ReactNode})=><CorrectionAccountContext.Provider value={{actorId:id,roles:['editor'],checking:false,invalidate}}>{children}</CorrectionAccountContext.Provider>;
+ const list=render(<CaseList initial={{items:[],nextCursor:null}}/>,{wrapper:editor});
+ expect(screen.queryByRole('button',{name:'Register correction case'})).toBeNull();list.unmount();
+ const job={id,caseId:id,plan:null,type:'approved_plan' as const,state:'failed' as const,sequence:1,epoch:1,attempt:8,nextRunAt:null,processedCount:0,errorClass:'database' as const};
+ render(<CasePanel initial={{case:caseMetadata(),plans:{items:[],nextCursor:null},jobs:{items:[job],nextCursor:null}}}/>,{wrapper:editor});
+ fireEvent.change(screen.getByLabelText('Plan reason'),{target:{value:'My independent editor draft'}});
+ expect(screen.getByRole('button',{name:'Create correction plan'})).toBeVisible();
+ expect(screen.queryByRole('button',{name:'Retry processing'})).toBeNull();
+ expect(screen.getByLabelText('Plan reason')).toHaveValue('My independent editor draft');
+ expect(invalidate).not.toHaveBeenCalled();
+});
+
+it('CorrectionEditorHasNoAdminRetry while keeping an unsent plan draft', async () => {
+ const {CasePanel}=await import('./case-panel'),job={id,caseId:id,plan:null,type:'approved_plan' as const,state:'failed' as const,sequence:1,epoch:1,attempt:8,nextRunAt:null,processedCount:0,errorClass:'database' as const};
+ const editor=({children}:{children:React.ReactNode})=><CorrectionAccountContext.Provider value={{actorId:id,roles:['editor'],checking:false,invalidate}}>{children}</CorrectionAccountContext.Provider>;
+ render(<CasePanel initial={{case:caseMetadata(),plans:{items:[],nextCursor:null},jobs:{items:[job],nextCursor:null}}}/>,{wrapper:editor});fireEvent.change(screen.getByLabelText('Plan reason'),{target:{value:'My unsent editor draft'}});
+ expect(screen.queryByRole('button',{name:'Retry processing'})).toBeNull();expect(screen.getByLabelText('Plan reason')).toHaveValue('My unsent editor draft');expect(screen.getByRole('button',{name:'Create correction plan'})).toBeVisible();
+});

@@ -2,8 +2,10 @@ package httpapi
 
 import (
 	"context"
+	"crypto/sha256"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/question"
@@ -222,5 +224,44 @@ func TestCorrectionHTTPBodyPhysicalLimit(t *testing.T) {
 		if (w.Code == 201) != (n == 65536) {
 			t.Fatal("byte limit", n, w.Code)
 		}
+	}
+}
+
+type correctionAssetHTTPRepo struct {
+	correctionHTTPRepo
+	data []byte
+}
+
+func (r *correctionAssetHTTPRepo) ReadOwnCorrectionAsset(context.Context, question.Access, string, string) ([]byte, error) {
+	return r.data, nil
+}
+func TestCorrectionHTTPPrivateAsset(t *testing.T) {
+	data := []byte(`<svg xmlns="http://www.w3.org/2000/svg"><title>Original private correction</title></svg>`)
+	digest := fmt.Sprintf("%x", sha256.Sum256(data))
+	repo := &correctionAssetHTTPRepo{data: data}
+	svc, e := correction.NewService(repo)
+	if e != nil {
+		t.Fatal(e)
+	}
+	h := questionHTTPFixture(t, &httpQuestionRepo{}, nil, func(o *AuthOptions) { o.Correction = &CorrectionOptions{Service: svc, PublicOrigin: privateOrigin} })
+	path := "/api/v1/corrections/results/" + contentFixtureID + "/assets/" + digest
+	w := privateRequest(h, "GET", path, "", contentHeaders())
+	if w.Code != 200 || w.Body.String() != string(data) || w.Header().Get("Content-Type") != "image/svg+xml" || w.Header().Get("Content-Security-Policy") != "sandbox; default-src 'none'" || w.Header().Get("Cache-Control") != "private, no-store" || w.Header().Get("X-Content-Type-Options") != "nosniff" {
+		t.Fatal("private corrected SVG route", w.Code, w.Body.String())
+	}
+	for _, p := range []string{path + "?owner=" + contentFixtureID, path + "?limit=1", path + "?", strings.Replace(path, digest, strings.ToUpper(digest), 1)} {
+		if v := privateRequest(h, "GET", p, "", contentHeaders()); v.Code < 400 {
+			t.Fatal("invalid private asset route accepted", p)
+		}
+	}
+	if v := privateRequest(h, "POST", path, "{}", contentHeaders()); v.Code != 405 {
+		t.Fatal("asset mutation accepted", v.Code)
+	}
+	if v := privateRequest(h, "GET", path, "", nil); v.Code != 401 {
+		t.Fatal("anonymous asset exposed", v.Code)
+	}
+	repo.data = []byte("unsafe mismatch")
+	if v := privateRequest(h, "GET", path, "", contentHeaders()); v.Code < 400 {
+		t.Fatal("bad SHA exposed")
 	}
 }

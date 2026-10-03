@@ -21,6 +21,7 @@ type CorrectionOptions struct {
 type correctionRoute struct {
 	Action  correction.Action
 	ID      string
+	SHA     string
 	Version int
 	Detail  bool
 	Method  string
@@ -96,6 +97,13 @@ func routeCorrection(path, method string) (correctionRoute, error) {
 		r.Method = "POST"
 	case len(p) == 1 && p[0] == "evidence":
 		r.Action = correction.ListOwnAction
+	case len(p) == 4 && p[0] == "results" && p[2] == "assets":
+		r.ID = p[1]
+		r.SHA = p[3]
+		r.Action = correction.ReadOwnDetailAction
+		if !question.ValidSHA(r.SHA) {
+			return r, auth.ErrInvalidInput
+		}
 	case (len(p) == 2 || len(p) == 3) && p[0] == "results":
 		r.ID = p[1]
 		r.Action = correction.ReadOwnAction
@@ -261,6 +269,10 @@ func serveCorrection(w http.ResponseWriter, r *http.Request, o CorrectionOptions
 	}
 	if ctx.Err() != nil {
 		fail(auth.ErrUnavailable)
+		return
+	}
+	if route.SHA != "" {
+		contentAsset(w, r, route.SHA, v.([]byte), nil)
 		return
 	}
 	correctionResponse(w, r, status, v)

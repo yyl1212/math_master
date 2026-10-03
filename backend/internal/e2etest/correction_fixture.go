@@ -64,7 +64,7 @@ func setupCorrection(ctx context.Context, db *sql.DB, s *store.Store, accounts *
 	return e
 }
 func correctionMappings(ctx context.Context, db *sql.DB) ([]correction.Mapping, error) {
-	rows, e := db.QueryContext(ctx, `SELECT i.instance_id,i.instance_version,i.instance_sha256,a.question_publication_id,m.id,m.version,m.sha256,m.publication_id FROM assessment_items i JOIN assessment_attempts a ON a.id=i.attempt_id JOIN question_instances original ON original.id=i.instance_id AND original.version=i.instance_version JOIN question_instances replacement ON replacement.template_id='learning-root-addition' AND replacement.template_version=2 AND replacement.body#>'{body,parameters}'=original.body#>'{body,parameters}' JOIN question_publication_members m ON m.id=replacement.id AND m.version=replacement.version AND m.kind='instance' AND m.publication_id=(SELECT publication_id FROM question_heads) WHERE a.state='submitted' AND EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.kind='instance' AND w.target_id=i.instance_id AND w.target_version=i.instance_version AND w.sha256=i.instance_sha256) ORDER BY i.position`)
+	rows, e := db.QueryContext(ctx, `SELECT i.instance_id,i.instance_version,i.instance_sha256,a.question_publication_id,m.id,m.version,m.sha256,m.publication_id FROM assessment_items i JOIN assessment_attempts a ON a.id=i.attempt_id JOIN question_instances original ON original.id=i.instance_id AND original.version=i.instance_version JOIN question_instances replacement ON replacement.template_id='learning-root-addition' AND replacement.template_version=2 AND replacement.body#>'{body,parameters}'=original.body#>'{body,parameters}' JOIN question_publication_members m ON m.id=replacement.id AND m.version=replacement.version AND m.kind='instance' AND m.publication_id=(SELECT publication_id FROM question_heads) WHERE a.state='submitted' AND EXISTS(SELECT 1 FROM question_withdrawals w WHERE (w.kind='instance' AND w.target_id=i.instance_id AND w.target_version=i.instance_version AND w.sha256=i.instance_sha256) OR (w.kind='template' AND w.target_id=original.template_id AND w.target_version=original.template_version AND w.sha256=original.template_sha256)) ORDER BY i.position`)
 	if e != nil {
 		return nil, e
 	}
@@ -91,7 +91,7 @@ func correctionApprove(ctx context.Context, db *sql.DB, s *store.Store, accounts
 		if e != nil {
 			return e
 		}
-		if len(m) != 1 {
+		if len(m) != 1 && len(m) != 5 {
 			return errors.New("exact withdrawn instance mapping required")
 		}
 	}

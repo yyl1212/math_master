@@ -56,3 +56,7 @@ func (s *Service) ListOwnCorrections(ctx context.Context, a question.Access, ref
 func (s *Service) ReadOwnCorrection(ctx context.Context, a question.Access, id string, detail bool) (Envelope[ResultDetail], error) {
 	return s.repo.ReadOwnCorrection(ctx, a, id, detail)
 }
+
+func (s *Service) ReadOwnCorrectionAsset(ctx context.Context, a question.Access, id, sha string) ([]byte, error) {
+	return s.repo.ReadOwnCorrectionAsset(ctx, a, id, sha)
+}

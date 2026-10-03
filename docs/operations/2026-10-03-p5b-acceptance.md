@@ -1,12 +1,12 @@
 # P5b 本机验收记录
 
-2026-10-04，用户已确认16项/80步 Native 执行。产品基线为文档 [PR #22](https://github.com/yyl1212/math_master/pull/22) 合并后的 master `dad438d13b37d1053e3bf42e7c32e3829e4518a6`，隔离分支 `codex/p5b-correction-workflow`。完整本机受验产品/CI提交为 `d6f8c743a9385aeacf97644b2f5f6d6f1b729f60`；后续证据文档提交没有产品行为变化。一次独立整分支审查及SSH draft产品PR的最新四项CI仍为交付门槛，本文不预记审查或远端成功。
+2026-10-04，用户已确认16项/80步 Native 执行。产品基线为文档 [PR #22](https://github.com/yyl1212/math_master/pull/22) 合并后的 master `dad438d13b37d1053e3bf42e7c32e3829e4518a6`，隔离分支 `codex/p5b-correction-workflow`。首轮完整本机受验产品/CI提交为 `d6f8c743a9385aeacf97644b2f5f6d6f1b729f60`；后续证据文档提交没有产品行为变化。一次独立审查已完成并发现两项Important及一项因草稿丢失升级的Important；同一次修复已定向GREEN，修复后完整矩阵及SSH draft产品PR最新四项CI仍为交付门槛，本文不预记最终成功。
 
 ## 已实现行为
 
 真实撤回/判分案件即时限制，准确已发布实例方案独立批准，原答案累计重判，六种处置、当前资格统一投影、持久租约/断点/有限补扫和站内通知已落地。英文私有页面提供本人纠错回顾、独立处理和通知，既有结果/知识/历史可进入纠错记录。关闭worker仍限制；永久启用标记和健康核验使损坏数据库拒绝个人学习。Original result、原回执字节和历史解锁保留，不能用新结果覆盖旧分数。
 
-## 完整本机矩阵
+## 首轮完整本机矩阵（审查前）
 
 | 检查 | 实际结果 |
 | --- | --- |
@@ -49,3 +49,7 @@ RED→GREEN包括缺check/FK/unique/function、触发器错表/错函数/禁用�
 - [手机原3/5失败结果](evidence/p5b/mobile-original-assessment-result.png)、[手机原练习](evidence/p5b/mobile-original-practice-revealed.png)
 
 未改Knowledge_JSON，未批准或发布正式数学内容，未访问生产服务器、运行生产迁移或部署。技术夹具不计P6内容数量。恢复边界见[操作说明](correction-workflow.md)，审查结论将在[一次整分支审查记录](2026-10-03-p5b-final-review.md)保存；产品合并与生产部署需另行授权。
+
+## 审查修复后的完整矩阵
+
+[独立审查](2026-10-03-p5b-final-review.md)及[一次修复方案](2026-10-03-p5b-review-fixes.md)保留实际问题、分级和RED→GREEN。目前定向Go、HTTP、UI/proxy、旧契约和类型全部GREEN，修复后44条完整矩阵尚待运行，不能把上表的审查前SHA当成新代码验收。新增真实模板撤回/有效纠错配图/替代再次撤回的双视口场景；最终数量和精确SHA按实际输出补记。

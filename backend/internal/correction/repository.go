@@ -21,4 +21,5 @@ type Repository interface {
 	ListCorrectionJobs(ctx context.Context, a question.Access, id string, q Query) (Envelope[Page[JobMetadata]], error)
 	ListOwnCorrections(ctx context.Context, a question.Access, ref EvidenceRef, q Query) (Envelope[Page[ResultMetadata]], error)
 	ReadOwnCorrection(ctx context.Context, a question.Access, id string, detail bool) (Envelope[ResultDetail], error)
+	ReadOwnCorrectionAsset(ctx context.Context, a question.Access, id, sha string) ([]byte, error)
 }

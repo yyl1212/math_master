@@ -21972,6 +21972,356 @@
           }
         }
       }
+    },
+    "/api/v1/corrections/results/{id}/assets/{sha256}": {
+      "get": {
+        "operationId": "readOwnCorrectionAsset",
+        "tags": [
+          "Correction"
+        ],
+        "description": "本人准确有效纠错结果绑定的原始 SVG；替代来源撤回立即禁止。账户、有效依据、答案重叠及30分钟曝光同事务；最多1 MiB、8秒服务端截止。原attempt资源接口保持撤回保护。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "sha256",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "本人有效纠错题目引用的安全原 SVG，保持准确 SHA。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              },
+              "Content-Security-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "sandbox; default-src 'none'"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1048576
+                }
+              }
+            },
+            "content": {
+              "image/svg+xml": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合安全错误，不回显请求、答案、来源正文或数据库错误。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

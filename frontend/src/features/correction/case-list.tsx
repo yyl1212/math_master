@@ -24,7 +24,7 @@ export function CaseList({ initial }: {
         setPage(v => ({ ...v, items: [latest.data, ...v.items.filter(i => i.id !== latest.data.id)] }));
     });
     const input = caseInputSchema.safeParse(kind === 'withdrawal' ? { kind, withdrawal: { space, id: withdrawalId }, rule: null } : { kind, withdrawal: null, rule: scope === 'all' ? { ruleVersion: 1, kind: scope, knowledge: null } : { ruleVersion: 1, kind: scope, knowledge: { id: knowledgeId, version, sha256: sha } } });
-    const locked = command.busy || !!command.pending || !!account?.checking, canEdit = account?.roles.some(r => r === 'editor' || r === 'admin');
+    const locked = command.busy || !!command.pending || !!account?.checking, canEdit = account?.roles.includes('admin');
     const reload = async () => {
         if (loading)
             return;
