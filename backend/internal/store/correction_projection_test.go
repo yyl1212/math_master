@@ -117,7 +117,7 @@ func TestCorrectionProjectionSupersededPassNotFallback(t *testing.T) {
 
 // This models an immutable historical grading defect: four mathematically
 // correct original answers, but the legacy writer recorded three, hence failed.
-func (f *correctionFixture) cLegacyFailedFour() (string, correction.Basis) {
+func (f *correctionFixture) cLegacyFailedFour(correctCount ...int) (string, correction.Basis) {
 	f.t.Helper()
 	seal := f.seal("assessment")
 	items, e := f.repo.LearningLoadItemsForTest(f.ctx, f.Access("learner_a", false), seal)
@@ -136,7 +136,11 @@ func (f *correctionFixture) cLegacyFailedFour() (string, correction.Basis) {
 	for pos, i := range items {
 		raw := i.Body.CorrectNumeric.Numerator + "/" + i.Body.CorrectNumeric.Denominator
 		a := assessment.Answer{Kind: "numeric", Raw: &raw}
-		if pos == 4 {
+		n := 4
+		if len(correctCount) > 0 {
+			n = correctCount[0]
+		}
+		if pos >= n {
 			a = assessment.Answer{Kind: "skipped"}
 		}
 		if _, e = tx.Exec(`INSERT INTO assessment_answers(attempt_id,owner_user_id,position,instance_id,instance_version,instance_sha256,answer) VALUES($1,$2,$3,$4,$5,$6,$7)`, id, f.ids["learner_a"], pos+1, i.Identity.ID, i.Identity.Version, i.Identity.SHA256, corrJSON(a)); e != nil {

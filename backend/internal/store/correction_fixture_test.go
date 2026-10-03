@@ -211,7 +211,11 @@ func (f *correctionFixture) cResult(evidenceID, owner, caseID string, p correcti
 	}
 	defer tx.Rollback()
 	jobID := f.ID()
-	_, e = tx.Exec(`INSERT INTO correction_jobs(id,source_key,case_id,plan_id,plan_version,type) VALUES($1,$2,$3,$4,$5,'approved_plan')`, jobID, source, caseID, p.ID, p.Version)
+	if len(omitKnowledge) > 1 && omitKnowledge[1] {
+		_, e = tx.Exec(`INSERT INTO correction_jobs(id,source_key,case_id,type,evidence_kind,evidence_id,owner_user_id) VALUES($1,$2,$3,'attempt_terminal','assessment',$4,$5)`, jobID, source, caseID, evidenceID, owner)
+	} else {
+		_, e = tx.Exec(`INSERT INTO correction_jobs(id,source_key,case_id,plan_id,plan_version,type) VALUES($1,$2,$3,$4,$5,'approved_plan')`, jobID, source, caseID, p.ID, p.Version)
+	}
 	if e != nil {
 		return id, e
 	}
@@ -234,7 +238,7 @@ func (f *correctionFixture) cResult(evidenceID, owner, caseID string, p correcti
 		kv = nil
 		kh = nil
 	}
-	_, e = tx.Exec(`INSERT INTO correction_results(id,owner_user_id,case_id,plan_id,plan_version,evidence_kind,evidence_id,knowledge_id,knowledge_version,knowledge_sha256,status,reason,score,passed,correctness,handled_case_ids,basis,basis_bytes,basis_digest,source_key) VALUES($1,$2,$3,$4,$5,'assessment',$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)`, id, owner, caseID, p.ID, p.Version, evidenceID, kid, kv, kh, verdict.Status, verdict.Reason, verdict.Score, verdict.Passed, corrJSON(verdict.Correct), corrJSON(b.HandledCaseIDs), string(raw), raw, h, source)
+	_, e = tx.Exec(`INSERT INTO correction_results(id,owner_user_id,case_id,plan_id,plan_version,evidence_kind,evidence_id,knowledge_id,knowledge_version,knowledge_sha256,status,reason,score,passed,correctness,handled_case_ids,basis,basis_bytes,basis_digest,source_key,parent_result_id) VALUES($1,$2,$3,$4,$5,'assessment',$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)`, id, owner, caseID, p.ID, p.Version, evidenceID, kid, kv, kh, verdict.Status, verdict.Reason, verdict.Score, verdict.Passed, corrJSON(verdict.Correct), corrJSON(b.HandledCaseIDs), string(raw), raw, h, source, b.ParentResultID)
 	if e != nil {
 		return id, e
 	}
