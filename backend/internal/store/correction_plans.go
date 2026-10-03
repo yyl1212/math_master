@@ -20,9 +20,13 @@ type correctionPlanRecord struct {
 }
 
 func correctionLockCase(ctx context.Context, tx *sql.Tx, id string) error {
-	var found string
-	e := tx.QueryRowContext(ctx, `SELECT id::text FROM correction_cases WHERE id=$1 AND sealed FOR UPDATE`, id).Scan(&found)
-	return workflowRowError(e)
+	_, e := correctionLockCaseKind(ctx, tx, id)
+	return e
+}
+func correctionLockCaseKind(ctx context.Context, tx *sql.Tx, id string) (correction.CaseKind, error) {
+	var kind correction.CaseKind
+	e := tx.QueryRowContext(ctx, `SELECT kind FROM correction_cases WHERE id=$1 AND sealed FOR UPDATE`, id).Scan(&kind)
+	return kind, workflowRowError(e)
 }
 func correctionPlanResource(ref correction.PlanRef) string {
 	return fmt.Sprintf("plans:%s:%d", ref.ID, ref.Version)

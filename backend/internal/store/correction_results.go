@@ -129,33 +129,41 @@ func correctionInstanceDeps(ctx context.Context, tx *sql.Tx, i question.Instance
 	if i.Template != nil {
 		out = append(out, correction.Dependency{Kind: "template", ID: i.Template.ID, Version: v(i.Template.Version), SHA256: i.Template.SHA256})
 	}
-	var h string
-	if e := tx.QueryRowContext(ctx, `SELECT sha256 FROM knowledge_versions WHERE id=$1 AND version=$2`, i.Body.Knowledge.ID, i.Body.Knowledge.Version).Scan(&h); e != nil {
+	// Read exactly the same actual versions and unit asset bindings together.
+	// Missing required knowledge/unit rows remain an error, never a shorter set.
+	units := i.Body.Units
+	if units == nil {
+		units = []question.Ref{}
+	}
+	rows, e := tx.QueryContext(ctx, `WITH units AS MATERIALIZED (SELECT id,version FROM jsonb_to_recordset($3::jsonb) u(id text,version integer))
+ SELECT 'knowledge'::text,k.id,k.version,k.sha256 FROM knowledge_versions k WHERE k.id=$1 AND k.version=$2
+ UNION ALL SELECT 'unit',u.id,u.version,v.sha256 FROM units u LEFT JOIN unit_versions v ON v.id=u.id AND v.version=u.version
+ UNION ALL SELECT 'asset',a.asset_id,NULL::integer,a.asset_sha256 FROM units u JOIN unit_asset_bindings a ON a.unit_id=u.id AND a.unit_version=u.version`, i.Body.Knowledge.ID, i.Body.Knowledge.Version, body(units))
+	if e != nil {
 		return out, e
 	}
-	out = append(out, correction.Dependency{Kind: "knowledge", ID: i.Body.Knowledge.ID, Version: v(i.Body.Knowledge.Version), SHA256: h})
-	for _, u := range i.Body.Units {
-		if e := tx.QueryRowContext(ctx, `SELECT sha256 FROM unit_versions WHERE id=$1 AND version=$2`, u.ID, u.Version).Scan(&h); e != nil {
+	defer rows.Close()
+	knowledgeFound := false
+	for rows.Next() {
+		var d correction.Dependency
+		var h *string
+		if e = rows.Scan(&d.Kind, &d.ID, &d.Version, &h); e != nil {
 			return out, e
 		}
-		out = append(out, correction.Dependency{Kind: "unit", ID: u.ID, Version: v(u.Version), SHA256: h})
-		rows, e := tx.QueryContext(ctx, `SELECT asset_id,asset_sha256 FROM unit_asset_bindings WHERE unit_id=$1 AND unit_version=$2`, u.ID, u.Version)
-		if e != nil {
-			return out, e
+		if h == nil {
+			return out, sql.ErrNoRows
 		}
-		for rows.Next() {
-			d := correction.Dependency{Kind: "asset"}
-			if e = rows.Scan(&d.ID, &d.SHA256); e != nil {
-				rows.Close()
-				return out, e
-			}
-			out = append(out, d)
+		d.SHA256 = *h
+		if d.Kind == "knowledge" {
+			knowledgeFound = true
 		}
-		e = rows.Err()
-		rows.Close()
-		if e != nil {
-			return out, e
-		}
+		out = append(out, d)
+	}
+	if e = rows.Err(); e != nil {
+		return out, e
+	}
+	if !knowledgeFound {
+		return out, sql.ErrNoRows
 	}
 	for _, a := range i.Body.Assets {
 		out = append(out, correction.Dependency{Kind: "asset", ID: a.ID, SHA256: a.SHA256})
@@ -176,6 +184,13 @@ func correctionBuildBasis(ctx context.Context, tx *sql.Tx, caseID string, plan *
 	if e != nil {
 		return correctionEmptyBasis(), e
 	}
+	return correctionBuildBasisMetadata(ctx, tx, caseID, plan, meta)
+}
+
+// Process already read this terminal record's immutable owner/knowledge/ref.
+// Reuse it only in the current fenced transaction; readers still load normally.
+func correctionBuildBasisMetadata(ctx context.Context, tx *sql.Tx, caseID string, plan *correction.PlanRef, meta correctionEvidenceMetadata) (correction.Basis, error) {
+	ref := meta.Ref
 	base, e := correctionOriginalBasis(ctx, tx, meta)
 	if e != nil {
 		return base, e

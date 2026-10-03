@@ -12,11 +12,7 @@ import (
 )
 
 func correctionAdvanceCursor(ctx context.Context, tx *sql.Tx, l correction.Lease, ref correction.EvidenceRef) error {
-	j, e := correctionReadJob(ctx, tx, l.JobID, true)
-	if e != nil {
-		return e
-	}
-	now, e := dbClock(ctx, tx)
+	j, now, e := correctionReadJobTime(ctx, tx, l.JobID)
 	if e != nil {
 		return e
 	}
@@ -59,7 +55,8 @@ func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lea
 		return e
 	}
 	ctx = learningWithProjection(ctx, tx, meta.Owner)
-	if e = correctionLockCase(ctx, tx, j.Meta.CaseID); e != nil {
+	caseKind, e := correctionLockCaseKind(ctx, tx, j.Meta.CaseID)
+	if e != nil {
 		return e
 	}
 	ctx = context.WithValue(ctx, correctionProcessingKey{}, j)
@@ -79,7 +76,7 @@ func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lea
 			return e
 		}
 	}
-	b, buildError := correctionBuildBasis(ctx, tx, j.Meta.CaseID, plan, ref)
+	b, buildError := correctionBuildBasisMetadata(ctx, tx, j.Meta.CaseID, plan, meta)
 	v := correction.Evaluation{Status: correction.AwaitingReview, Reason: correction.NoApprovedBasis, Correct: []bool{}}
 	if ref.Kind == correction.LearningEventEvidence || ref.Kind == correction.EnrollmentEvidence {
 		v.Status = correction.ReviewMaterial
@@ -103,9 +100,7 @@ func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lea
 		if e != nil {
 			return e
 		}
-		if c, e := correctionReadCase(ctx, tx, j.Meta.CaseID); e != nil {
-			return e
-		} else if c.Kind == correction.GradingRuleCase && v.Status != correction.RetakeRequired && v.Status != correction.AwaitingReview {
+		if caseKind == correction.GradingRuleCase && v.Status != correction.RetakeRequired && v.Status != correction.AwaitingReview {
 			v.Reason = correction.RuleRegraded
 		}
 		deps := []learning.EvidenceDependency{}

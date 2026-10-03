@@ -18,7 +18,7 @@ func (s *Store) correctionSystemTx(ctx context.Context, locks bool, fn func(cont
 		return correctionError(e)
 	}
 	defer tx.Rollback()
-	on, e := correctionConfigured(ctx, tx)
+	on, e := correctionSystemConfigured(ctx, tx)
 	if e != nil {
 		return correctionError(e)
 	}
@@ -26,25 +26,7 @@ func (s *Store) correctionSystemTx(ctx context.Context, locks bool, fn func(cont
 		return correction.ErrNeverEnabled
 	}
 	ctx = correctionWithConfig(ctx, true)
-	learningOn, e := learningConfigured(ctx, tx)
-	if e != nil || !learningOn {
-		return correction.ErrNotConfigured
-	}
-	if e = questionConfigured(ctx, tx); e != nil {
-		return correction.ErrNotConfigured
-	}
-	if _, e = tx.ExecContext(ctx, `SET LOCAL lock_timeout='1s'`); e != nil {
-		return correctionError(e)
-	}
-	if locks {
-		if e = learningLocks(ctx, tx); e != nil {
-			return correctionError(e)
-		}
-		if e = correctionRegistrationFence(ctx, tx, false); e != nil {
-			return correctionError(e)
-		}
-	}
-	now, e := dbClock(ctx, tx)
+	now, e := correctionSystemEnter(ctx, tx, locks)
 	if e != nil {
 		return correctionError(e)
 	}
@@ -136,11 +118,13 @@ type correctionJobRecord struct {
 
 const correctionJobColumns = `id::text,case_id::text,plan_id::text,plan_version,type,state,sequence,epoch,attempt,next_run_at,processed_count,error_class,source_key,owner_user_id::text,evidence_kind,evidence_id::text,cursor_kind,cursor_id::text,lease_token,lease_until`
 
-func correctionScanJob(row interface{ Scan(...any) error }) (correctionJobRecord, error) {
+func correctionScanJob(row interface{ Scan(...any) error }, extra ...any) (correctionJobRecord, error) {
 	var j correctionJobRecord
 	var pid, kind, id, ck, ci sql.NullString
 	var pv sql.NullInt64
-	e := row.Scan(&j.Meta.ID, &j.Meta.CaseID, &pid, &pv, &j.Meta.Type, &j.Meta.State, &j.Meta.Sequence, &j.Meta.Epoch, &j.Meta.Attempt, &j.Meta.NextRunAt, &j.Meta.ProcessedCount, &j.Meta.ErrorClass, &j.Source, &j.Owner, &kind, &id, &ck, &ci, &j.Token, &j.Until)
+	args := []any{&j.Meta.ID, &j.Meta.CaseID, &pid, &pv, &j.Meta.Type, &j.Meta.State, &j.Meta.Sequence, &j.Meta.Epoch, &j.Meta.Attempt, &j.Meta.NextRunAt, &j.Meta.ProcessedCount, &j.Meta.ErrorClass, &j.Source, &j.Owner, &kind, &id, &ck, &ci, &j.Token, &j.Until}
+	args = append(args, extra...)
+	e := row.Scan(args...)
 	if e != nil {
 		return j, e
 	}
@@ -375,3 +359,11 @@ func (s *Store) RetryCorrectionJob(ctx context.Context, a question.Access, id st
 }
 
 var _ correction.WorkerRepository = (*Store)(nil)
+
+// The clock is outside the materialized row-lock producer, so it cannot be
+// sampled before a wait for the current job/lease row has completed.
+func correctionReadJobTime(ctx context.Context, tx *sql.Tx, id string) (correctionJobRecord, time.Time, error) {
+	var now time.Time
+	j, e := correctionScanJob(tx.QueryRowContext(ctx, `WITH locked_job AS MATERIALIZED (SELECT `+correctionJobColumns+` FROM correction_jobs WHERE id=$1 FOR UPDATE) SELECT locked_job.*,clock_timestamp() FROM locked_job`, id), &now)
+	return j, now, workflowRowError(e)
+}

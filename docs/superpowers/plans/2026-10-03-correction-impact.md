@@ -416,3 +416,5 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 ## Task16 独立审查的一次必要修复
 
 只安排一位fresh reviewer，最终原结论With fixes；三项按用户影响均为Important。按[修复方案](../../operations/2026-10-03-p5b-review-fixes.md)及[审查记录](../../operations/2026-10-03-p5b-final-review.md)先正式RED，后最小修复和完整矩阵。补充store/correction_assets.go、correction_review_regression_test.go；修改第八迁移批准链守卫、correction repository/service、HTTP route/dispatch与测试、OpenAPI/generated、纠错SVG proxy及types/schemas、结果配图组件和admin入口能力、隔离harness及双视口图片测试。兼容性审查结论无阻塞：仅增加本人有效结果私有SVG路径/操作，原16路径/19操作继续保留，实际共17路径/20操作；原88路径及旧schema/response/security完整保护，不改旧七迁移、摘要目的、数学五题门槛或生产数据。
+
+Task16交付的同一次CI性能修复继续按[事务往返结构审核](../../operations/2026-10-03-p5b-ci-query-fix.md)执行；只合并实时准确SQL往返，保留全部任务/数据/校验/独立证据事务/截止和四run门槛。未完成旧head矩阵不作为验收。
