@@ -1,0 +1,20 @@
+import { it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { NotificationAccountProvider } from './notification-account';
+import { CorrectionAccountContext } from '../correction/correction-account';
+import { Inbox } from './inbox';
+import { notificationClient } from '@/lib/notification/client';
+import { getAuthContext } from '@/lib/auth/client';
+import { CorrectionRequestError } from '@/lib/correction/types';
+import { id, otherId, metadata, context } from '@/lib/notification/test-fixtures';
+vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: vi.fn() }) }));
+vi.mock('@/lib/auth/client', () => ({ getAuthContext: vi.fn(), notifyAuthChanged: vi.fn() }));
+vi.mock('@/lib/notification/client', () => ({ notificationClient: { list: vi.fn(), count: vi.fn(), read: vi.fn(), markRead: vi.fn() } }));
+afterEach(() => vi.resetAllMocks());
+const wrapper = ({ children }: {
+    children: React.ReactNode;
+}) => <CorrectionAccountContext.Provider value={{ actorId: id, roles: ['learner'], checking: false, invalidate: vi.fn() }}>{children}</CorrectionAccountContext.Provider>;
+function proof(actor = id) { vi.mocked(getAuthContext).mockResolvedValue({ ...context(actor), ok: true, data: { ...context(actor).data, user: { ...context(actor).data.user, username: 'test', roles: ['learner'] } } }); }
+it('NotificationReadPending retains a committed read key when refreshing the unread count fails', async () => { proof(); vi.mocked(notificationClient.markRead).mockResolvedValue({ actorId: id, data: { status: 200, notificationId: id, readAt: metadata().createdAt } }); vi.mocked(notificationClient.count).mockRejectedValue(new CorrectionRequestError()); render(<Inbox initial={{ items: [metadata()], nextCursor: null }} count={1}/>, { wrapper }); fireEvent.click(screen.getByRole('button', { name: 'Mark as read' })); await screen.findByText(/Your change was saved/); const original = vi.mocked(notificationClient.markRead).mock.calls[0]; fireEvent.click(screen.getByRole('button', { name: 'Retry same request' })); await waitFor(() => expect(notificationClient.markRead).toHaveBeenCalledTimes(2)); expect(vi.mocked(notificationClient.markRead).mock.calls[1]?.[0]).toBe(original[0]); expect(vi.mocked(notificationClient.markRead).mock.calls[1]?.[1]).toMatchObject({ actorId: original[1].actorId, key: original[1].key }); expect(screen.getByRole('button', { name: 'Mark as read' })).toBeDisabled(); });
+it('keeps a failed read unconfirmed and allows same-key manual retry', async () => { proof(); vi.mocked(notificationClient.markRead).mockRejectedValue(new CorrectionRequestError()); render(<Inbox initial={{ items: [metadata()], nextCursor: null }} count={1}/>, { wrapper }); fireEvent.click(screen.getByRole('button', { name: 'Mark as read' })); await screen.findByRole('alert'); expect(screen.queryByText(/Your change was saved/)).toBeNull(); fireEvent.click(screen.getByRole('button', { name: 'Retry same request' })); await waitFor(() => expect(notificationClient.markRead).toHaveBeenCalledTimes(2)); const original = vi.mocked(notificationClient.markRead).mock.calls[0]; expect(vi.mocked(notificationClient.markRead).mock.calls[1]?.[0]).toBe(original[0]); expect(vi.mocked(notificationClient.markRead).mock.calls[1]?.[1]).toMatchObject({ actorId: original[1].actorId, key: original[1].key }); });
+it('uses static owned notification text and removes it on a silent SSR actor switch', async () => { proof(); const v = render(<NotificationAccountProvider actorId={id}><Inbox initial={{ items: [{ ...metadata(), resultId: id }], nextCursor: null }} count={1}/></NotificationAccountProvider>); expect(await screen.findByRole('link', { name: 'View correction' })).toHaveAttribute('href', '/corrections/' + id); proof(otherId); v.rerender(<NotificationAccountProvider actorId={otherId}><Inbox initial={{ items: [], nextCursor: null }} count={0}/></NotificationAccountProvider>); expect(screen.queryByText('Your learning evidence is being checked.')).toBeNull(); });
