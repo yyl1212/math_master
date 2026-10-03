@@ -1,0 +1,11 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts feedback-user.spec.ts --grep temporary client identity
+
+
+Running 2 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (3.0s)
+  ✓  2 [mobile] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (2.9s)
+
+  2 passed (7.4s)

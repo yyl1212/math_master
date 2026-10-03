@@ -1,0 +1,33 @@
+node:fs:441
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open '/Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/api/feedback-compatibility-baseline.json'
+    at readFileSync (node:fs:441:20)
+    at read (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-compatibility.test.mjs:6:19)
+    at file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-compatibility.test.mjs:7:29
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:633:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/api/feedback-compatibility-baseline.json'
+}
+
+Node.js v24.17.0
+✖ tools/verify/feedback-compatibility.test.mjs (23.060833ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 25.909375
+
+✖ failing tests:
+
+test at tools/verify/feedback-compatibility.test.mjs:1:1
+✖ tools/verify/feedback-compatibility.test.mjs (23.060833ms)
+  'test failed'

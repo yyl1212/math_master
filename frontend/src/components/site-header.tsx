@@ -33,7 +33,7 @@ export function SiteHeader() {
           Math Master<small>A WORLD OF IDEAS</small>
         </span>
       </Link>
-      <nav aria-label="Main navigation">
+      <nav aria-label="Main navigation" style={{flexWrap:"wrap",minWidth:0}}>
         <Link
           prefetch={false}
           href="/"
@@ -51,7 +51,7 @@ export function SiteHeader() {
           Knowledge Map
         </Link>
         <Link prefetch={false} href="/learn" aria-current={path==="/learn"?"page":undefined} data-active={path==="/learn"}>Learn</Link>
-      </nav>
+      <Link prefetch={false} href="/feedback" data-active={path.startsWith('/feedback')}>My reports</Link><Link prefetch={false} href="/review/feedback" data-active={path.startsWith('/review/feedback')}>Feedback review</Link><Link prefetch={false} href="/feedback/new?kind=site&area=other">Website feedback</Link></nav>
       <AuthStatus />
     </header>
   );

@@ -1,0 +1,44 @@
+import {it,expect,vi,afterEach} from 'vitest';
+import {renderHook,act} from '@testing-library/react';
+import {createElement} from 'react';
+import {createPendingFeedbackCommand,useFeedbackCommand} from './pending-command';
+import {FeedbackAccountContext} from './feedback-account';
+import {id,otherId,metadata} from '@/lib/feedback/test-fixtures';
+import {FeedbackRequestError} from '@/lib/feedback/types';
+import {getAuthContext} from '@/lib/auth/client';
+import {sendFeedback} from '@/lib/feedback/client';
+vi.mock('@/lib/auth/client',()=>({getAuthContext:vi.fn(),notifyAuthChanged:vi.fn()}));
+vi.mock('@/lib/feedback/client',()=>({sendFeedback:vi.fn()}));
+const input=()=>({route:`/api/v1/feedback/tickets/${id}/reply` as const,input:{expectedSequence:1,message:'中\n<img src="x">'}});
+const proof=()=>({ok:true as const,data:{user:{id,username:'learner',roles:['learner' as const],mustChangePassword:false},csrfToken:'A'.repeat(43)}});
+const invalidate=vi.fn();const wrapper=({children}:{children:React.ReactNode})=>createElement(FeedbackAccountContext.Provider,{value:{actorId:id,invalidate}},children);
+afterEach(()=>{vi.resetAllMocks();vi.useRealTimers()});
+it('freezes the original input and makes a new v4 key only for new input',()=>{const value=input(),first=createPendingFeedbackCommand(id,value);value.input.message='changed';expect(first.input.message).toContain('<img');expect(Object.isFrozen(first.input)).toBe(true);expect(createPendingFeedbackCommand(id,value).key).not.toBe(first.key)});
+it('manual retry preserves the command after an unconfirmed response',async()=>{vi.mocked(getAuthContext).mockResolvedValue(proof());vi.mocked(sendFeedback).mockRejectedValue(new FeedbackRequestError());const h=renderHook(()=>useFeedbackCommand(id,vi.fn()),{wrapper});await act(async()=>h.result.current.run(input()));const first=h.result.current.pending;expect(first).not.toBeNull();expect(sendFeedback).toHaveBeenCalledTimes(1);await act(async()=>h.result.current.retry());expect(vi.mocked(sendFeedback).mock.calls[1][0]).toEqual(first);expect(sendFeedback).toHaveBeenCalledTimes(2);act(()=>window.dispatchEvent(new Event('math-master:auth-change')));expect(h.result.current.pending).toBeNull();await act(async()=>h.result.current.retry());expect(sendFeedback).toHaveBeenCalledTimes(2);h.unmount()});
+it('FeedbackPendingIdentityDeadline stops a never-returning identity without sending',async()=>{vi.useFakeTimers();vi.mocked(getAuthContext).mockReturnValue(new Promise(()=>{}));const h=renderHook(()=>useFeedbackCommand(id,vi.fn()),{wrapper});act(()=>{void h.result.current.run(input())});await act(async()=>vi.advanceTimersByTimeAsync(10000));expect(h.result.current.busy).toBe(false);expect(h.result.current.error?.code).toBe('SERVICE_UNAVAILABLE');expect(sendFeedback).not.toHaveBeenCalled();h.unmount()});
+it('the click budget includes slow identity and an abort-ignoring mutation',async()=>{vi.useFakeTimers();vi.mocked(getAuthContext).mockImplementation(()=>new Promise(resolve=>setTimeout(()=>resolve(proof()),4000)));vi.mocked(sendFeedback).mockReturnValue(new Promise(()=>{}));const h=renderHook(()=>useFeedbackCommand(id,vi.fn()),{wrapper});act(()=>{void h.result.current.run(input())});await act(async()=>vi.advanceTimersByTimeAsync(4000));expect(sendFeedback).toHaveBeenCalledTimes(1);await act(async()=>vi.advanceTimersByTimeAsync(6000));expect(h.result.current.busy).toBe(false);expect(h.result.current.pending).not.toBeNull();expect(sendFeedback).toHaveBeenCalledTimes(1);h.unmount()});
+it.each(['account','password'] as const)('invalidates %s changes before sending',async kind=>{const v=proof();if(kind==='account')v.data.user.id=otherId;else v.data.user.mustChangePassword=true;vi.mocked(getAuthContext).mockResolvedValue(v);const h=renderHook(()=>useFeedbackCommand(id,vi.fn()),{wrapper});await act(async()=>h.result.current.run(input()));expect(sendFeedback).not.toHaveBeenCalled();expect(invalidate).toHaveBeenCalled();h.unmount()});
+it('delivers the original replay receipt for a separate metadata refresh',async()=>{vi.mocked(getAuthContext).mockResolvedValue(proof());vi.mocked(sendFeedback).mockResolvedValue({actorId:id,data:{status:200,ticket:metadata()}});const success=vi.fn(async()=>{});const h=renderHook(()=>useFeedbackCommand(id,success),{wrapper});await act(async()=>h.result.current.run(input()));expect(success).toHaveBeenCalledWith({status:200,ticket:metadata()},expect.any(AbortSignal));expect(h.result.current.pending).toBeNull();h.unmount()});
+it('does not deliver a late response after unmount',async()=>{vi.mocked(getAuthContext).mockResolvedValue(proof());let resolve!:(v:Awaited<ReturnType<typeof sendFeedback>>)=>void;vi.mocked(sendFeedback).mockReturnValue(new Promise(r=>resolve=r));const success=vi.fn(async()=>{});const h=renderHook(()=>useFeedbackCommand(id,success),{wrapper});act(()=>{void h.result.current.run(input())});await act(async()=>Promise.resolve());h.unmount();await act(async()=>resolve({actorId:id,data:{status:200,ticket:metadata()}}));expect(success).not.toHaveBeenCalled()});
+
+it.each(['error', 'deadline'] as const)('keeps the confirmed original command when latest-view refresh fails by %s', async failure => {
+ if (failure === 'deadline') vi.useFakeTimers();
+ vi.mocked(getAuthContext).mockResolvedValue(proof());
+ vi.mocked(sendFeedback).mockResolvedValue({ actorId: id, data: { status: 200, ticket: metadata() } });
+ const success = vi.fn().mockImplementationOnce(() => failure === 'error' ? Promise.reject(new FeedbackRequestError()) : new Promise(() => {})).mockResolvedValue(undefined);
+ const h = renderHook(() => useFeedbackCommand(id, success), { wrapper });
+ if (failure === 'deadline') {
+  act(() => { void h.result.current.run(input()); });
+  await act(async () => vi.advanceTimersByTimeAsync(10000));
+ } else await act(async () => h.result.current.run(input()));
+ const original = vi.mocked(sendFeedback).mock.calls[0][0];
+ expect(h.result.current.pending).toEqual(original);
+ expect(h.result.current.confirmed).toBe(true);
+ expect(h.result.current.error?.code).toBe('SERVICE_UNAVAILABLE');
+ expect(h.result.current.busy).toBe(false);
+ await act(async () => h.result.current.run(input()));
+ expect(sendFeedback).toHaveBeenCalledTimes(1);
+ await act(async () => h.result.current.retry());
+ expect(vi.mocked(sendFeedback).mock.calls[1][0]).toEqual(original);
+ expect(h.result.current.pending).toBeNull(); h.unmount();
+});

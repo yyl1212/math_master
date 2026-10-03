@@ -1,0 +1,42 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/feedback/review-regressions.test.tsx
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/frontend
+
+ ❯ src/features/feedback/review-regressions.test.tsx (8 tests | 1 failed) 160ms
+   × ignores a latest-metadata response arriving after the confirmed command deadline 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > ignores a latest-metadata response arriving after the confirmed command deadline
+AssertionError: expected "vi.fn()" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st vi.fn() call:
+
+    Array [
+      "/feedback/11111111-1111-4111-8111-111111111111",
+    ]
+
+
+Number of calls: 1
+
+ ❯ src/features/feedback/review-regressions.test.tsx:149:30
+    147|  expect(screen.queryByRole('button', { name: 'Edit as a new request' }…
+    148|  await act(async () => resolve({ actorId: id, data: metadata() }));
+    149|  expect(navigation.push).not.toHaveBeenCalled();
+       |                              ^
+    150|  expect(screen.getByRole('button', { name: 'Retry same request' })).to…
+    151| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 7 passed (8)
+   Start at  05:04:31
+   Duration  521ms (environment 39%, tests 34%, transform 14%, setup 7%, import 6%)
+

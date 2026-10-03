@@ -1,0 +1,197 @@
+✖ actual CI preserves old batches and executes every new feedback batch within original limits (2.203625ms)
+✔ deleting an original browser batch is detected (0.452792ms)
+✖ adding browser skip selection or retries is detected (0.313042ms)
+✖ deleting a capacity batch or skipping extra old store tests is detected (0.296208ms)
+✔ no browser suite or case is silently skipped, focused or retried (0.857666ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 2
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 35.579875
+
+✖ failing tests:
+
+test at tools/verify/feedback-ci.test.mjs:80:1
+✖ actual CI preserves old batches and executes every new feedback batch within original limits (2.203625ms)
+  AssertionError [ERR_ASSERTION]: browser batches
+  + actual - expected
+  ... Skipped lines
+  
+    [
+      [
+        'catalogue.spec.ts',
+        'reading.spec.ts'
+      ],
+  ...
+      ],
+  -   [
+  -     'feedback-user.spec.ts'
+  -   ],
+  -   [
+  -     'feedback-review.spec.ts'
+  -   ],
+  -   [
+  -     'feedback-security.spec.ts'
+  -   ]
+    ]
+  
+      at validate (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:60:9)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:80:105)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ [ 'catalogue.spec.ts', 'reading.spec.ts' ], [ 'auth.spec.ts', 'auth-security.spec.ts' ], [ 'content-authoring.spec.ts' ], [ 'content-review.spec.ts' ], [ 'content-release.spec.ts' ], [ 'content-security.spec.ts' ], [ 'question-authoring.spec.ts' ], [ 'question-review.spec.ts' ], [ 'question-release.spec.ts' ], [ 'question-security.spec.ts' ], [ 'learning-progress.spec.ts' ], [ 'learning-practice.spec.ts', 'learning-assessment.spec.ts' ], [ 'learning-diagnostic.spec.ts', 'learning-security.spec.ts' ], [ 'learning-review-regressions.spec.ts' ] ],
+    expected: [ [ 'catalogue.spec.ts', 'reading.spec.ts' ], [ 'auth.spec.ts', 'auth-security.spec.ts' ], [ 'content-authoring.spec.ts' ], [ 'content-review.spec.ts' ], [ 'content-release.spec.ts' ], [ 'content-security.spec.ts' ], [ 'question-authoring.spec.ts' ], [ 'question-review.spec.ts' ], [ 'question-release.spec.ts' ], [ 'question-security.spec.ts' ], [ 'learning-progress.spec.ts' ], [ 'learning-practice.spec.ts', 'learning-assessment.spec.ts' ], [ 'learning-diagnostic.spec.ts', 'learning-security.spec.ts' ], [ 'learning-review-regressions.spec.ts' ], [ 'feedback-user.spec.ts' ], [ 'feedback-review.spec.ts' ], [ 'feedback-security.spec.ts' ] ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tools/verify/feedback-ci.test.mjs:85:1
+✖ adding browser skip selection or retries is detected (0.313042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /browser skip/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: browser batches\n' +
+    '+ actual - expected\n' +
+    '... Skipped lines\n' +
+    '\n' +
+    '  [\n' +
+    '    [\n' +
+    "      'catalogue.spec.ts',\n" +
+    "      'reading.spec.ts'\n" +
+    '    ],\n' +
+    '...\n' +
+    '    ],\n' +
+    '-   [\n' +
+    "-     'feedback-user.spec.ts'\n" +
+    '-   ],\n' +
+    '-   [\n' +
+    "-     'feedback-review.spec.ts'\n" +
+    '-   ],\n' +
+    '-   [\n' +
+    "-     'feedback-security.spec.ts'\n" +
+    '-   ]\n' +
+    '  ]\n'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:86:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: browser batches
+    + actual - expected
+    ... Skipped lines
+    
+      [
+        [
+          'catalogue.spec.ts',
+          'reading.spec.ts'
+        ],
+    ...
+        ],
+    -   [
+    -     'feedback-user.spec.ts'
+    -   ],
+    -   [
+    -     'feedback-review.spec.ts'
+    -   ],
+    -   [
+    -     'feedback-security.spec.ts'
+    -   ]
+      ]
+    
+        at validate (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:60:9)
+        at file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:86:20
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:86:9)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /browser skip/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/feedback-ci.test.mjs:89:1
+✖ deleting a capacity batch or skipping extra old store tests is detected (0.296208ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /capacity batches/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: browser batches\n' +
+    '+ actual - expected\n' +
+    '... Skipped lines\n' +
+    '\n' +
+    '  [\n' +
+    '    [\n' +
+    "      'catalogue.spec.ts',\n" +
+    "      'reading.spec.ts'\n" +
+    '    ],\n' +
+    '...\n' +
+    '    ],\n' +
+    '-   [\n' +
+    "-     'feedback-user.spec.ts'\n" +
+    '-   ],\n' +
+    '-   [\n' +
+    "-     'feedback-review.spec.ts'\n" +
+    '-   ],\n' +
+    '-   [\n' +
+    "-     'feedback-security.spec.ts'\n" +
+    '-   ]\n' +
+    '  ]\n'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:91:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: browser batches
+    + actual - expected
+    ... Skipped lines
+    
+      [
+        [
+          'catalogue.spec.ts',
+          'reading.spec.ts'
+        ],
+    ...
+        ],
+    -   [
+    -     'feedback-user.spec.ts'
+    -   ],
+    -   [
+    -     'feedback-review.spec.ts'
+    -   ],
+    -   [
+    -     'feedback-security.spec.ts'
+    -   ]
+      ]
+    
+        at validate (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:60:9)
+        at file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:91:20
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tools/verify/feedback-ci.test.mjs:91:9)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /capacity batches/,
+    operator: 'throws',
+    diff: 'simple'
+  }

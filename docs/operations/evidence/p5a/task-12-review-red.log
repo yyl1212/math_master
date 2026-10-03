@@ -1,0 +1,662 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/feedback/review-regressions.test.tsx src/features/feedback/pending-command.test.ts
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/frontend
+
+ ❯ src/features/feedback/pending-command.test.ts (10 tests | 2 failed) 18ms
+   × keeps the confirmed original command when latest-view refresh fails by error 2ms
+   × keeps the confirmed original command when latest-view refresh fails by deadline 1ms
+ ❯ src/features/feedback/review-regressions.test.tsx (7 tests | 7 failed) 3170ms
+   × atomically removes the old private draft before a silent SSR account change is verified 27ms
+   × the offered Reload page action rechecks identity and recovers after a temporary error 1038ms
+   × successful fresh identity on focus clears a previous temporary error 1012ms
+   × a same-account SSR refresh rechecks identity without clearing an existing draft 1017ms
+   × refreshes a stale target while retaining the original text and waiting for explicit new submission 40ms
+   × manual owner status refresh retains unsubmitted details and uses the refreshed sequence 11ms
+   × conflict recovery preserves handler draft and references while an old-key retry stays frozen 26ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/feedback/pending-command.test.ts > keeps the confirmed original command when latest-view refresh fails by error
+AssertionError: expected null to deeply equal { …(4) }
+
+- Expected:
+{
+  "actorId": "11111111-1111-4111-8111-111111111111",
+  "input": {
+    "expectedSequence": 1,
+    "message": "中
+<img src=\"x\">",
+  },
+  "key": "0366c6f2-1501-4382-9c75-41c80e25de00",
+  "route": "/api/v1/feedback/tickets/11111111-1111-4111-8111-111111111111/reply",
+}
+
++ Received:
+null
+
+ ❯ src/features/feedback/pending-command.test.ts:35:35
+     33|  } else await act(async () => h.result.current.run(input()));
+     34|  const original = vi.mocked(sendFeedback).mock.calls[0][0];
+     35|  expect(h.result.current.pending).toEqual(original);
+       |                                   ^
+     36|  expect(h.result.current.confirmed).toBe(true);
+     37|  expect(h.result.current.error?.code).toBe('SERVICE_UNAVAILABLE');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  src/features/feedback/pending-command.test.ts > keeps the confirmed original command when latest-view refresh fails by deadline
+AssertionError: expected null to deeply equal { …(4) }
+
+- Expected:
+{
+  "actorId": "11111111-1111-4111-8111-111111111111",
+  "input": {
+    "expectedSequence": 1,
+    "message": "中
+<img src=\"x\">",
+  },
+  "key": "84cb1595-6602-4c84-b05d-5fbb865c8dbc",
+  "route": "/api/v1/feedback/tickets/11111111-1111-4111-8111-111111111111/reply",
+}
+
++ Received:
+null
+
+ ❯ src/features/feedback/pending-command.test.ts:35:35
+     33|  } else await act(async () => h.result.current.run(input()));
+     34|  const original = vi.mocked(sendFeedback).mock.calls[0][0];
+     35|  expect(h.result.current.pending).toEqual(original);
+       |                                   ^
+     36|  expect(h.result.current.confirmed).toBe(true);
+     37|  expect(h.result.current.error?.code).toBe('SERVICE_UNAVAILABLE');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > atomically removes the old private draft before a silent SSR account change is verified
+AssertionError: expected <input aria-label="Title" …(2)></input> to be null
+
+- Expected:
+null
+
++ Received:
+<input
+  aria-label="Title"
+  required=""
+  value="A private draft"
+/>
+
+ ❯ src/features/feedback/review-regressions.test.tsx:29:43
+     27|  vi.mocked(getAuthContext).mockReturnValueOnce(new Promise(r => { reso…
+     28|  view.rerender(<FeedbackAccountProvider actorId={otherId}><NewFeedback…
+     29|  expect(screen.queryByLabelText('Title')).toBeNull();
+       |                                           ^
+     30|  expect(screen.getByRole('status')).toHaveTextContent('Checking');
+     31|  await act(async () => resolve(proof(otherId)));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > the offered Reload page action rechecks identity and recovers after a temporary error
+TestingLibraryElementError: Unable to find an element with the text: recovered private page. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"content-state"[39m
+      [33mrole[39m=[32m"alert"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mService temporarily unavailable.[0m
+      [36m</h2>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"button secondary"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mReload page[0m
+      [36m</button>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"content-state"[39m
+      [33mrole[39m=[32m"alert"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mService temporarily unavailable.[0m
+      [36m</h2>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"button secondary"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mReload page[0m
+      [36m</button>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/feedback/review-regressions.test.tsx:48:22
+     46|  expect(await screen.findByRole('alert')).toHaveTextContent('temporari…
+     47|  fireEvent.click(screen.getByRole('button', { name: 'Reload page' }));
+     48|  expect(await screen.findByText('recovered private page')).toBeVisible…
+       |                      ^
+     49|  expect(screen.queryByRole('alert')).toBeNull();
+     50| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > successful fresh identity on focus clears a previous temporary error
+TestingLibraryElementError: Unable to find an element with the text: focus recovery. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"content-state"[39m
+      [33mrole[39m=[32m"alert"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mService temporarily unavailable.[0m
+      [36m</h2>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"button secondary"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mReload page[0m
+      [36m</button>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"content-state"[39m
+      [33mrole[39m=[32m"alert"[39m
+    [36m>[39m
+      [36m<h2>[39m
+        [0mService temporarily unavailable.[0m
+      [36m</h2>[39m
+      [36m<button[39m
+        [33mclass[39m=[32m"button secondary"[39m
+        [33mtype[39m=[32m"button"[39m
+      [36m>[39m
+        [0mReload page[0m
+      [36m</button>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/feedback/review-regressions.test.tsx:56:22
+     54|  render(<FeedbackAccountProvider actorId={id}><p>focus recovery</p></F…
+     55|  await screen.findByRole('alert'); fireEvent(window, new Event('focus'…
+     56|  expect(await screen.findByText('focus recovery')).toBeVisible();
+       |                      ^
+     57|  expect(screen.queryByRole('alert')).toBeNull();
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > a same-account SSR refresh rechecks identity without clearing an existing draft
+AssertionError: expected "vi.fn()" to be called 2 times, but got 1 times
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"_workbench_e47cba"[39m
+      [36m>[39m
+        [36m<h1>[39m
+          [0mReport a problem[0m
+        [36m</h1>[39m
+        [36m<p[39m
+          [33mclass[39m=[32m"_metadata_e47cba"[39m
+        [36m>[39m
+          [0mknowledge math-root · v2[0m
+        [36m</p>[39m
+        [36m<p>[39m
+          [0mDescribe what happened and what would help. Your original report stays in the discussion history.[0m
+        [36m</p>[39m
+        [36m<form>[39m
+          [36m<fieldset>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"_field_e47cba"[39m
+            [36m>[39m
+              [0mCategory[0m
+              [36m<select[39m
+                [33maria-label[39m=[32m"Category"[39m
+              [36m>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"math_error"[39m
+                [36m>[39m
+                  [0mmath error[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"unclear_explanation"[39m
+                [36m>[39m
+                  [0munclear explanation[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"typo"[39m
+                [36m>[39m
+                  [0mtypo[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"accessibility"[39m
+                [36m>[39m
+                  [0maccessibility[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"technical_issue"[39m
+                [36m>[39m
+                  [0mtechnical issue[0m
+                [36m</option>[39m
+                [36m<option[39m
+                  [33mvalue[39m=[32m"suggestion"[39m
+                [36m>[39m
+                  [0msuggestion[0m
+                [36m</option>[39m
+              [36m</select>[39m
+            [36m</label>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"_field_e47cba"[39m
+            [36m>[39m
+              [0mTitle[0m
+              [36m<input[39m
+                [33maria-label[39m=[32m"Title"[39m
+                [33mrequired[39m=[32m""[39m
+                [33mvalue[39m=[32m"same account draft"[39m
+              [36m/>[39m
+              [36m<small>[39m
+                [0m18[0m
+                [0m/120 characters[0m
+              [36m</small>[39m
+            [36m</label>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"_field_e47cba"[39m
+            [36m>[39m
+              [0mWhere on the page?[0m
+              [36m<textarea[39m
+                [33maria-label[39m=[32m"Where on the page?"[39m
+                [33mrows[39m=[32m"2"[39m
+              [36m/>[39m
+              [36m<small>[39m
+                [0m0[0m
+                [0m/400 characters[0m
+              [36m</small>[39m
+            [36m</label>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"_field_e47cba"[39m
+            [36m>[39m
+              [0mDetails[0m
+              [36m<textarea[39m
+                [33maria-label[39m=[32m"Details"[39m
+                [33mrequired[39m=[32m""[39m
+                [33mrows[39m=[32m"8"[39m
+              [36m/>[39m
+              [36m<small>[39m
+                [0m0[0m
+                [0m/4000 characters[0m
+              [36m</small>[39m
+            [36m</label>[39m
+          [36m</fieldset>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"button"[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [0mSubmit report[0m
+          [36m</button>[39m
+          [36m<div[39m
+            [33maria-live[39m=[32m"polite"[39m
+          [36m/>[39m
+        [36m</form>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+ ❯ src/features/feedback/review-regressions.test.tsx:65:45
+     63|  fireEvent.change(await screen.findByLabelText('Title'), { target: { v…
+     64|  view.rerender(<FeedbackAccountProvider actorId={id}><NewFeedbackForm …
+     65|  await waitFor(() => expect(getAuthContext).toHaveBeenCalledTimes(2));
+       |                                             ^
+     66|  expect(screen.getByLabelText('Title')).toHaveValue('same account draf…
+     67| });
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > refreshes a stale target while retaining the original text and waiting for explicit new submission
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "Refresh report target"
+
+Here are the accessible roles:
+
+  heading:
+
+  Name "Report a problem":
+  [36m<h1 />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"_metadata_e47cba"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  group:
+
+  Name "":
+  [36m<fieldset[39m
+    [33mdisabled[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Category":
+  [36m<select[39m
+    [33maria-label[39m=[32m"Category"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "math error":
+  [36m<option[39m
+    [33mvalue[39m=[32m"math_error"[39m
+  [36m/>[39m
+
+  Name "unclear explanation":
+  [36m<option[39m
+    [33mvalue[39m=[32m"unclear_explanation"[39m
+  [36m/>[39m
+
+  Name "typo":
+  [36m<option[39m
+    [33mvalue[39m=[32m"typo"[39m
+  [36m/>[39m
+
+  Name "accessibility":
+  [36m<option[39m
+    [33mvalue[39m=[32m"accessibility"[39m
+  [36m/>[39m
+
+  Name "technical issue":
+  [36m<option[39m
+    [33mvalue[39m=[32m"technical_issue"[39m
+  [36m/>[39m
+
+  Name "suggestion":
+  [36m<option[39m
+    [33mvalue[39m=[32m"suggestion"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  textbox:
+
+  Name "Title":
+  [36m<input[39m
+    [33maria-label[39m=[32m"Title"[39m
+    [33mrequired[39m=[32m""[39m
+    [33mvalue[39m=[32m"retained source report"[39m
+  [36m/>[39m
+
+  Name "Where on the page?":
+  [36m<textarea[39m
+    [33maria-label[39m=[32m"Where on the page?"[39m
+    [33mrows[39m=[32m"2"[39m
+  [36m/>[39m
+
+  Name "Details":
+  [36m<textarea[39m
+    [33maria-label[39m=[32m"Details"[39m
+    [33mrequired[39m=[32m""[39m
+    [33mrows[39m=[32m"8"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Submit report":
+  [36m<button[39m
+    [33mclass[39m=[32m"button"[39m
+    [33mdisabled[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "Retry same request":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Edit as a new request":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  alert:
+
+  Name "":
+  [36m<div[39m
+    [33mrole[39m=[32m"alert"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"_workbench_e47cba"[39m
+    [36m>[39m
+      [36m<h1>[39m
+        [0mReport a problem[0m
+      [36m</h1>[39m
+      [36m<p[39m
+        [33mclass[39m=[32m"_metadata_e47cba"[39m
+      [36m>[39m
+        [0mknowledge math-root · v1[0m
+      [36m</p>[39m
+      [36m<p>[39m
+        [0mDescribe what happened and what would help. Your original report stays in the discussion history.[0m
+      [36m</p>[39m
+      [36m<form>[39m
+        [36m<fieldset[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"_field_e47cba"[39m
+          [36m>[39m
+            [0mCategory[0m
+            [36m<select[39m
+              [33maria-label[39m=[32m"Category"[39m
+            [36m>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"math_error"[39m
+              [36m>[39m
+                [0mmath error[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"unclear_explanation"[39m
+              [36m>[39m
+                [0munclear explanation[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"typo"[39m
+              [36m>[39m
+                [0mtypo[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"accessibility"[39m
+              [36m>[39m
+                [0maccessibility[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"technical_issue"[39m
+              [36m>[39m
+                [0mtechnical issue[0m
+              [36m</option>[39m
+              [36m<option[39m
+                [33mvalue[39m=[32m"suggestion"[39m
+              [36m>[39m
+                [0msuggestion[0m
+              [36m</option>[39m
+            [36m</select>[39m
+          [36m</label>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"_field_e47cba"[39m
+          [36m>[39m
+            [0mTitle[0m
+            [36m<input[39m
+              [33maria-label[39m=[32m"Title"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mvalue[39m=[32m"retained source report"[39m
+            [36m/>[39m
+            [36m<small>[39m
+              [0m22[0m
+              [0m/120 characters[0m
+            [36m</small>[39m
+          [36m</label>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"_field_e47cba"[39m
+          [36m>[39m
+            [0mWhere on the page?[0m
+            [36m<textarea[39m
+              [33maria-label[39m=[32m"Where on the page?"[39m
+              [33mrows[39m=[32m"2"[39m
+            [36m/>[39m
+            [36m<small>[39m
+              [0m0[0m
+              [0m/400 characters[0m
+            [36m</small>[39m
+          [36m</label>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"_field_e47cba"[39m
+          [36m>[39m
+            [0mDetails[0m
+            [36m<textarea[39m
+              [33maria-label[39m=[32m"Details"[39m
+              [33mrequired[39m=[32m""[39m
+              [33mrows[39m=[32m"8"[39m
+            [36m>[39m
+              [0m中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中中[0m
+            [36m</textarea>[39m
+            [36m<small>[39m
+              [0m4000[0m
+              [0m/4000 characters[0m
+            [36m</small>[39m
+          [36m</label>[39m
+        [36m</fieldset>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button"[39m
+          [33mdisabled[39m=[32m""[39m
+        [36m>[39m
+          [0mSubmit report[0m
+        [36m</button>[39m
+        [36m<div[39m
+          [33maria-live[39m=[32m"polite"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mrole[39m=[32m"alert"[39m
+          [36m>[39m
+            [36m<p>[39m
+              [0mThis source changed. Reload before reporting.[0m
+            [36m</p>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"button-group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"button secondary"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mRetry same request[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"button secondary"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEdit as a new request[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</form>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/features/feedback/review-regressions.test.tsx:79:25
+     77|  await screen.findByRole('alert');
+     78|  const original = vi.mocked(sendFeedback).mock.calls[0][0];
+     79|  fireEvent.click(screen.getByRole('button', { name: 'Refresh report ta…
+       |                         ^
+     80|  expect(await screen.findByText('knowledge math-root · v2')).toBeVisib…
+     81|  expect(screen.getByLabelText('Title')).toHaveValue('retained source r…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > manual owner status refresh retains unsubmitted details and uses the refreshed sequence
+Error: expect(element).toHaveValue(unsubmitted original supplement)
+
+Expected the element to have value:
+  unsubmitted original supplement
+Received:
+
+ ❯ src/features/feedback/review-regressions.test.tsx:101:54
+     99|  fireEvent.click(screen.getByRole('button', { name: 'Reload report sta…
+    100|  expect(await screen.findByText(/Event 2/)).toBeVisible();
+    101|  expect(screen.getByLabelText('Additional details')).toHaveValue('unsu…
+       |                                                      ^
+    102|  fireEvent.click(screen.getByRole('button', { name: 'Add details' }));
+    103|  await waitFor(() => expect(sendFeedback).toHaveBeenCalledTimes(1));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  src/features/feedback/review-regressions.test.tsx > conflict recovery preserves handler draft and references while an old-key retry stays frozen
+Error: expect(element).toHaveValue(unsubmitted independent handling)
+
+Expected the element to have value:
+  unsubmitted independent handling
+Received:
+
+ ❯ src/features/feedback/review-regressions.test.tsx:121:48
+    119|  fireEvent.click(screen.getByRole('button', { name: 'Reload report sta…
+    120|  expect(await screen.findByText(/Event 2/)).toBeVisible();
+    121|  expect(screen.getByLabelText('Review reply')).toHaveValue('unsubmitte…
+       |                                                ^
+    122|  expect(screen.getByLabelText('Resolution basis')).toHaveValue('revisi…
+    123|  expect(screen.getByLabelText('Withdrawal event ID')).toHaveValue(id);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  9 failed | 8 passed (17)
+   Start at  05:01:21
+   Duration  3.56s (tests 83%, environment 10%, transform 3%, setup 2%, import 2%)
+

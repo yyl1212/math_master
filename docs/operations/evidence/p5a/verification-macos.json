@@ -1,0 +1,359 @@
+{
+  "testedProductAndCICommit": "175c61f41df6c1c1f974c0ce3e9a023c54361951",
+  "baseCommit": "20a68fa6f087e5e78561bf07c0229e072642e257",
+  "environment": "macOS，Go1.27.1/CGO_ENABLED=0，PostgreSQL17.11 loopback随机testutil库，Node24.17.0；未使用生产服务器或Knowledge_JSON",
+  "frontendUnitFiles": 54,
+  "frontendUnitTests": 283,
+  "nodeTests": 24,
+  "browserBatches": 17,
+  "browserCases": 130,
+  "oldBrowserCases": 100,
+  "newFeedbackBrowserCases": 30,
+  "skipped": 0,
+  "retries": 0,
+  "frontend": [
+    {
+      "name": "frontend-ci",
+      "command": "node tools/verify/run.mjs --cwd frontend -- npm ci",
+      "exit": 0,
+      "seconds": 6.374,
+      "log": "task-12-frontend-ci.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd frontend -- npm ci",
+      "logSha256": "2b5bca5c1928568cbf8485a689ce829fba28dfe354107381783b43abe59c17a6"
+    },
+    {
+      "name": "api-generate",
+      "command": "node tools/verify/run.mjs --cwd frontend -- npm run api:generate",
+      "exit": 0,
+      "seconds": 0.456,
+      "log": "task-12-review-frontend-api-generate.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd frontend -- npm run api:generate",
+      "logSha256": "e5f26520ebf0d7bbd7190a6c54a5bd3a25a0d41dce7c4cee2a39d484b5d65fbc"
+    },
+    {
+      "name": "typecheck",
+      "command": "node tools/verify/run.mjs --cwd frontend -- npm run typecheck",
+      "exit": 0,
+      "seconds": 0.984,
+      "log": "task-12-review-frontend-typecheck.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd frontend -- npm run typecheck",
+      "logSha256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
+    },
+    {
+      "name": "unit",
+      "command": "node tools/verify/run.mjs --cwd frontend -- npm test",
+      "exit": 0,
+      "seconds": 3.166,
+      "log": "task-12-review-frontend-unit.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd frontend -- npm test",
+      "logSha256": "70069b0240cf7a3be0fcbb3ca0aa18170981ce3e06e56e7cf7b2596e9ca75505"
+    },
+    {
+      "name": "frontend-build",
+      "command": "node tools/verify/run.mjs --cwd frontend -- npm run build",
+      "exit": 0,
+      "seconds": 3.083,
+      "log": "task-12-review-frontend-frontend-build.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd frontend -- npm run build",
+      "logSha256": "c5b6662b620108f9a15d6afdfce1c6c49c4c75c1c1718258e3c7d05311113a56"
+    },
+    {
+      "name": "audit",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env npm_config_https_proxy=http://127.0.0.1:7890 npm audit --omit=dev",
+      "exit": 0,
+      "seconds": 0.973,
+      "log": "task-12-audit-proxy.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd frontend -- env npm_config_https_proxy=http://127.0.0.1:7890 npm audit --omit=dev",
+      "logSha256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    }
+  ],
+  "backend": [
+    {
+      "name": "vet",
+      "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...",
+      "exit": 0,
+      "seconds": 0.186,
+      "log": "task-12-review-backend-vet.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "foundation",
+      "command": "/Users/wiw/.local/share/mise/installs/python/3.13.14/bin/python3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/.superpowers/sdd/2026-10-03-feedback-workflow/test-env.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1",
+      "exit": 0,
+      "seconds": 92.586,
+      "log": "task-12-review-backend-foundation.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1",
+      "logSha256": "3067650b091c358bfd1012b6b94998cac655c38cec68eef1265813b1c82070b6"
+    },
+    {
+      "name": "old-store",
+      "command": "/Users/wiw/.local/share/mise/installs/python/3.13.14/bin/python3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/.superpowers/sdd/2026-10-03-feedback-workflow/test-env.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip ^Test(Learning|Assessment|Feedback) -timeout 5m -count=1",
+      "exit": 0,
+      "seconds": 140.377,
+      "log": "task-12-review-backend-old-store.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip ^Test(Learning|Assessment|Feedback) -timeout 5m -count=1",
+      "logSha256": "71dafdba298a3b814fc45fc650b563b149e8df7eefa955ecc92d5ca27e720834"
+    },
+    {
+      "name": "learning-store",
+      "command": "/Users/wiw/.local/share/mise/installs/python/3.13.14/bin/python3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/.superpowers/sdd/2026-10-03-feedback-workflow/test-env.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^Test(Learning|Assessment) -skip ^TestLearningCapacity -timeout 5m -count=1",
+      "exit": 0,
+      "seconds": 80.007,
+      "log": "task-12-review-backend-learning-store.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^Test(Learning|Assessment) -skip ^TestLearningCapacity -timeout 5m -count=1",
+      "logSha256": "797bca121adf10fd36fc48e288d59d79e756340bae5fdfbfa6455af1dac10d50"
+    },
+    {
+      "name": "feedback-store",
+      "command": "/Users/wiw/.local/share/mise/installs/python/3.13.14/bin/python3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/.superpowers/sdd/2026-10-03-feedback-workflow/test-env.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestFeedback -skip ^TestFeedbackCapacity -timeout 5m -count=1",
+      "exit": 0,
+      "seconds": 27.802,
+      "log": "task-12-review-backend-feedback-store.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestFeedback -skip ^TestFeedbackCapacity -timeout 5m -count=1",
+      "logSha256": "2f5916c15d0a116d2b0d35d1f7c5b706184d26ef3f3b6972f4dfe73d9f68ea67"
+    },
+    {
+      "name": "feedback-capacity",
+      "command": "/Users/wiw/.local/share/mise/installs/python/3.13.14/bin/python3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/.superpowers/sdd/2026-10-03-feedback-workflow/test-env.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestFeedbackCapacity$ -timeout 5m -count=1 -v",
+      "exit": 0,
+      "seconds": 11.187,
+      "log": "task-12-review-backend-feedback-capacity.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestFeedbackCapacity$ -timeout 5m -count=1 -v",
+      "logSha256": "3d1d9a7e54fcc195a56dccfaf1159fda7702df4c39545376f80f64131ce6d678"
+    },
+    {
+      "name": "source-capacity",
+      "command": "/Users/wiw/.local/share/mise/installs/python/3.13.14/bin/python3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/.superpowers/sdd/2026-10-03-feedback-workflow/test-env.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestLearningCapacitySourceVolume$ -timeout 5m -count=1 -v",
+      "exit": 0,
+      "seconds": 232.357,
+      "log": "task-12-review-backend-source-capacity.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestLearningCapacitySourceVolume$ -timeout 5m -count=1 -v",
+      "logSha256": "d1921056bceeb67431baa3b315c3016f43c0b30a78171992c7025b48e1977192"
+    },
+    {
+      "name": "route-capacity",
+      "command": "/Users/wiw/.local/share/mise/installs/python/3.13.14/bin/python3 /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/.superpowers/sdd/2026-10-03-feedback-workflow/test-env.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestLearningCapacityMaxPool$ -timeout 5m -count=1 -v",
+      "exit": 0,
+      "seconds": 121.352,
+      "log": "task-12-review-backend-route-capacity.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run ^TestLearningCapacityMaxPool$ -timeout 5m -count=1 -v",
+      "logSha256": "31c4b54e445700cebbd3f65ac52ace00d04ea657809d52bb483d954a56133118"
+    },
+    {
+      "name": "backend-build",
+      "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...",
+      "exit": 0,
+      "seconds": 0.529,
+      "log": "task-12-review-backend-backend-build.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "harness-build",
+      "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness",
+      "exit": 0,
+      "seconds": 0.387,
+      "log": "task-12-review-backend-harness-build.log",
+      "verificationCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "node",
+      "command": "node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/content-ingest/snapshot.test.mjs",
+      "exit": 0,
+      "seconds": 5.588,
+      "log": "task-12-review-backend-node.log",
+      "verificationCommand": "node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/content-ingest/snapshot.test.mjs",
+      "logSha256": "04bb71191c83a1adc18744c081a6e5735869bac72a3b82917611a5175ad547a8"
+    }
+  ],
+  "browser": [
+    {
+      "batch": 1,
+      "name": "catalogue+reading",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- catalogue.spec.ts reading.spec.ts",
+      "exit": 0,
+      "seconds": 30.534,
+      "passed": 16,
+      "log": "task-12-review-browser-01.log",
+      "logSha256": "f3621e9cd5d155230c89ad47de99f992cb1775068d28863a5296e0a5e64e14ad"
+    },
+    {
+      "batch": 2,
+      "name": "auth+auth-security",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- auth.spec.ts auth-security.spec.ts",
+      "exit": 0,
+      "seconds": 34.482,
+      "passed": 12,
+      "log": "task-12-review-browser-02.log",
+      "logSha256": "cc69d9e980a2ccb768075d5622463ef89e3a6d9a6e980dd2a442548ca0e2b938"
+    },
+    {
+      "batch": 3,
+      "name": "content-authoring",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-authoring.spec.ts",
+      "exit": 0,
+      "seconds": 12.578,
+      "passed": 4,
+      "log": "task-12-review-browser-03.log",
+      "logSha256": "8363cb425686976f45c2effe31c0d5e56eedb5faa07645407177d9963281d942"
+    },
+    {
+      "batch": 4,
+      "name": "content-review",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-review.spec.ts",
+      "exit": 0,
+      "seconds": 20.653,
+      "passed": 4,
+      "log": "task-12-review-browser-04.log",
+      "logSha256": "e359a09eb7268816b9d65ecc9e90c8f292eb486020972ff29e93580b7a625abf"
+    },
+    {
+      "batch": 5,
+      "name": "content-release",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-release.spec.ts",
+      "exit": 0,
+      "seconds": 32.271,
+      "passed": 4,
+      "log": "task-12-review-browser-05.log",
+      "logSha256": "21b509b8ecbde5c8b8f12c6bfb57642e1f2e1b28ff0be9919549ea9e3ea67b46"
+    },
+    {
+      "batch": 6,
+      "name": "content-security",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-security.spec.ts",
+      "exit": 0,
+      "seconds": 39.246,
+      "passed": 6,
+      "log": "task-12-review-browser-06.log",
+      "logSha256": "6b11dbdfcb9e3a6a385c16742dd12a8e300288d84afb1a419c7c512ccb9d45b2"
+    },
+    {
+      "batch": 7,
+      "name": "question-authoring",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts",
+      "exit": 0,
+      "seconds": 33.437,
+      "passed": 8,
+      "log": "task-12-review-browser-07.log",
+      "logSha256": "fde8bf82adeaae65f68053f16f26cceebfe33a04926aab6a14b8b1293521c5b1"
+    },
+    {
+      "batch": 8,
+      "name": "question-review",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-review.spec.ts",
+      "exit": 0,
+      "seconds": 21.685,
+      "passed": 4,
+      "log": "task-12-review-browser-08.log",
+      "logSha256": "4e87ad6f3f2b3573bd43f3a9ec4c7448b171cd046e22baba9cb56344fade47c9"
+    },
+    {
+      "batch": 9,
+      "name": "question-release",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-release.spec.ts",
+      "exit": 0,
+      "seconds": 46.3,
+      "passed": 8,
+      "log": "task-12-review-browser-09.log",
+      "logSha256": "f28a7f3386607cc3bfd419dc7a9c70f1d8d5772fe750f46413a151a48ad0ab10"
+    },
+    {
+      "batch": 10,
+      "name": "question-security",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-security.spec.ts",
+      "exit": 0,
+      "seconds": 49.805,
+      "passed": 8,
+      "log": "task-12-review-browser-10.log",
+      "logSha256": "a6130087da8027fb4f02462500b5a461504fd0db4ba47ce70bd35cc210399559"
+    },
+    {
+      "batch": 11,
+      "name": "learning-progress",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-progress.spec.ts",
+      "exit": 0,
+      "seconds": 27.916,
+      "passed": 4,
+      "log": "task-12-review-browser-11.log",
+      "logSha256": "bb9a227ecef4ad176e4391277ae772179d95cccd0994ec86708b8db64f348383"
+    },
+    {
+      "batch": 12,
+      "name": "learning-practice+learning-assessment",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-practice.spec.ts learning-assessment.spec.ts",
+      "exit": 0,
+      "seconds": 39.144,
+      "passed": 8,
+      "log": "task-12-review-browser-12.log",
+      "logSha256": "905a19f42c0a54a82b1a708648b885152657c9172d9b16a1b8785097526faa56"
+    },
+    {
+      "batch": 13,
+      "name": "learning-diagnostic+learning-security",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-diagnostic.spec.ts learning-security.spec.ts",
+      "exit": 0,
+      "seconds": 66.263,
+      "passed": 8,
+      "log": "task-12-review-browser-13.log",
+      "logSha256": "198c5898b9f38fed2f501e4c817c3ba0d6917fec843bd28a1f5ac5c042c5291b"
+    },
+    {
+      "batch": 14,
+      "name": "learning-review-regressions",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-review-regressions.spec.ts",
+      "exit": 0,
+      "seconds": 27.162,
+      "passed": 6,
+      "log": "task-12-review-browser-14.log",
+      "logSha256": "d1e88a1987b235f077603859f98a2127fc471a785ca84c0f8e577d2d94ea35a2"
+    },
+    {
+      "batch": 15,
+      "name": "feedback-user",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-user.spec.ts",
+      "exit": 0,
+      "seconds": 74.814,
+      "passed": 14,
+      "log": "task-12-review-browser-15.log",
+      "logSha256": "16809c48f62eedc4deb46037dd8ad08dbdeb177719b59984e4aab1249d4dce71"
+    },
+    {
+      "batch": 16,
+      "name": "feedback-review",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-review.spec.ts",
+      "exit": 0,
+      "seconds": 47.502,
+      "passed": 8,
+      "log": "task-12-review-browser-16.log",
+      "logSha256": "6bfdd65886338d5f3a7032912f8fba875b29e96b431bfab7798f8e8e1bbeb57b"
+    },
+    {
+      "batch": 17,
+      "name": "feedback-security",
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-security.spec.ts",
+      "exit": 0,
+      "seconds": 64.223,
+      "passed": 8,
+      "log": "task-12-review-browser-17.log",
+      "logSha256": "61ed9486e580eb2b10a70e7ac82ea7b39199078553b6a2c88a7ec4286e2e454b"
+    }
+  ],
+  "reviewedCommit": "4a5ced873a5b76601bac373057b51a7ce80cef0c",
+  "importantFindingsFixed": 5,
+  "newReviewRegressionCases": 10,
+  "concurrency": "后端和浏览器复验可并行，各自testutil随机隔离数据库；容量指标为该实际本机测试负载下的结果",
+  "environmentFailures": [
+    {
+      "name": "initial audit TLS connection",
+      "logSha256": "eca3739911d0d836b6af9bbade90f0e6a8d24ac3adfefc820e24038ab2d7c48d",
+      "reason": "建立TLS连接前socket中断；保留既有代理并显式传给npm后0漏洞，未改变依赖"
+    },
+    {
+      "name": "initial identity browser injection",
+      "logSha256": "406b5bbfc8bef93c7f06cc614d81374baf2a407a3e16c29d7b3b6fecb0b42cd0",
+      "reason": "一次身份失败被公共导航先消耗，未形成Provider故障；按整个服务故障时段注入，恢复后显式Reload，两视口通过"
+    }
+  ]
+}

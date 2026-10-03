@@ -1,0 +1,14 @@
+✔ actual CI preserves old batches and executes every new feedback batch within original limits (2.017542ms)
+✔ deleting an original browser batch is detected (0.7615ms)
+✔ adding browser skip selection or retries is detected (0.60875ms)
+✔ deleting a capacity batch or skipping extra old store tests is detected (0.709416ms)
+✔ no browser suite or case is silently skipped, focused or retried (0.883375ms)
+✔ active command parser handles split and equals options without counting step labels (0.056167ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34.437667

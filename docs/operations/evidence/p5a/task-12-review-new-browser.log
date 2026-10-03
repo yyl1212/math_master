@@ -1,0 +1,69 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts feedback-user.spec.ts feedback-security.spec.ts --grep confirmed create|temporary client identity|real new publication
+
+
+Running 6 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/feedback-security.spec.ts:8:5 › a confirmed create with a failed metadata read keeps its original key and cannot create a second report (3.2s)
+  ✘  2 [desktop] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (7.1s)
+  ✓  3 [desktop] › ../tests/e2e/feedback-user.spec.ts:19:5 › a real new publication refreshes a stale target without losing the draft or sending automatically (3.5s)
+  ✓  4 [mobile] › ../tests/e2e/feedback-security.spec.ts:8:5 › a confirmed create with a failed metadata read keeps its original key and cannot create a second report (3.1s)
+  ✘  5 [mobile] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (7.1s)
+  ✓  6 [mobile] › ../tests/e2e/feedback-user.spec.ts:19:5 › a real new publication refreshes a stale target without losing the draft or sending automatically (3.5s)
+
+
+  1) [desktop] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#main-content').getByRole('alert')
+    Expected substring: "temporarily unavailable"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('#main-content').getByRole('alert') with timeout 5000ms
+      - waiting for locator('#main-content').getByRole('alert')
+
+
+      12 |  await scene('feedback');await actor(page,'auth_learner');let fail=true;
+      13 |  await page.route('**/api/v1/auth/context',async route=>{if(fail){fail=false;await route.abort();}else await route.continue();});
+    > 14 |  await page.goto('/feedback/new?kind=site&area=other');await expect(page.locator('#main-content').getByRole('alert')).toContainText('temporarily unavailable');
+         |                                                                                                                       ^
+      15 |  await page.getByRole('button',{name:'Reload page',exact:true}).click();await expect(page.getByLabel('Title',{exact:true})).toHaveValue('');await expect(page.locator('#main-content').getByRole('alert')).toHaveCount(0);
+      16 |  await fitsViewport(page);await safeScreenshot(page,info,'feedback-identity-recovery');
+      17 | });
+        at /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tests/e2e/feedback-user.spec.ts:14:119
+
+    Error Context: ../test-results/feedback-user-temporary-cl-b4296--offered-Reload-page-action-desktop/error-context.md
+
+  2) [mobile] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#main-content').getByRole('alert')
+    Expected substring: "temporarily unavailable"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" locator('#main-content').getByRole('alert') with timeout 5000ms
+      - waiting for locator('#main-content').getByRole('alert')
+
+
+      12 |  await scene('feedback');await actor(page,'auth_learner');let fail=true;
+      13 |  await page.route('**/api/v1/auth/context',async route=>{if(fail){fail=false;await route.abort();}else await route.continue();});
+    > 14 |  await page.goto('/feedback/new?kind=site&area=other');await expect(page.locator('#main-content').getByRole('alert')).toContainText('temporarily unavailable');
+         |                                                                                                                       ^
+      15 |  await page.getByRole('button',{name:'Reload page',exact:true}).click();await expect(page.getByLabel('Title',{exact:true})).toHaveValue('');await expect(page.locator('#main-content').getByRole('alert')).toHaveCount(0);
+      16 |  await fitsViewport(page);await safeScreenshot(page,info,'feedback-identity-recovery');
+      17 | });
+        at /Users/wiw/.codex/worktrees/p5a-feedback-workflow/math_master/tests/e2e/feedback-user.spec.ts:14:119
+
+    Error Context: ../test-results/feedback-user-temporary-cl-b4296--offered-Reload-page-action-mobile/error-context.md
+
+  2 failed
+    [desktop] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action 
+    [mobile] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action 
+  4 passed (29.4s)
