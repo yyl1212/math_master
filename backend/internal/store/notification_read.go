@@ -159,3 +159,5 @@ func (s *Store) MarkNotificationRead(ctx context.Context, a question.Access, id 
 	}
 	return out, nil
 }
+
+var _ notification.Repository = (*Store)(nil)

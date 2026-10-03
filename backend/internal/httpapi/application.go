@@ -10,6 +10,8 @@ import (
 )
 
 type AuthOptions struct {
+	Correction   *CorrectionOptions
+	Notification *NotificationOptions
 	Feedback     *FeedbackOptions
 	Learning     *LearningOptions
 	Question     *QuestionOptions
@@ -49,6 +51,29 @@ func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) ht
 	public := NewHandler(reader, pinger)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
+		if path == "/api/v1/corrections" || strings.HasPrefix(path, "/api/v1/corrections/") {
+			o := CorrectionOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
+			if options.Correction != nil {
+				o = *options.Correction
+			}
+			if options.Accounts == nil {
+				o.PublicOrigin = ""
+			}
+			serveCorrection(w, r, o)
+			return
+		}
+		if path == "/api/v1/notifications" || strings.HasPrefix(path, "/api/v1/notifications/") {
+			o := NotificationOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
+			if options.Notification != nil {
+				o = *options.Notification
+			}
+			if options.Accounts == nil {
+				o.PublicOrigin = ""
+			}
+			serveNotification(w, r, o)
+			return
+		}
+
 		if path == "/api/v1/feedback" || strings.HasPrefix(path, "/api/v1/feedback/") {
 			o := FeedbackOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
 			if options.Feedback != nil {

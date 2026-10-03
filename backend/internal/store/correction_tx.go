@@ -179,3 +179,5 @@ func (s *Store) CorrectionPreflight(ctx context.Context, a question.Access, acti
 	e := s.correctionTx(ctx, a, action, nil, func(_ context.Context, _ *sql.Tx, u auth.User, _ time.Time) error { user = u; return nil })
 	return user, e
 }
+
+var _ correction.Repository = (*Store)(nil)
