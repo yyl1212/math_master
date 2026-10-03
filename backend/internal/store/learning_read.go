@@ -175,6 +175,14 @@ func learningBlueprintOptions(ctx context.Context, tx *sql.Tx, actor string, k q
 			}
 			cache[key] = r
 		}
+		if e = correctionNewAttemptGuard(ctx, tx, actor, k, c.bp.RuleVersion, now); e != nil {
+			if !errors.Is(e, learning.ErrAssessmentNotReady) {
+				return out, nil, e
+			}
+			r.ready = false
+			r.retry = nil
+			r.reasons = append(r.reasons, learning.GradingIssue)
+		}
 		out = append(out, learning.BlueprintOption{Blueprint: c.id, CoreObjectiveIndices: append([]int{}, c.bp.CoreObjectiveIndices...), Ready: r.ready, Reasons: append([]learning.ReadinessReason{}, r.reasons...), RetryAt: r.retry})
 	}
 	return out, &head, nil
@@ -310,7 +318,7 @@ func (s *Store) ReadLearningOverview(ctx context.Context, a question.Access) (le
 		// prerequisite projection. Material hashes still validate completion.
 		if e = tx.QueryRowContext(ctx, `WITH current AS MATERIALIZED (`+learningCurrentKnowledgeSQL+`)
  SELECT (SELECT count(*) FROM learning_records r JOIN current k ON k.id=r.knowledge_id AND k.version=r.knowledge_version AND k.sha256=r.knowledge_sha256 WHERE r.owner_user_id=$1),
- (SELECT count(*) FROM current k WHERE EXISTS(SELECT 1 FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=k.id AND a.knowledge_version=k.version AND a.knowledge_sha256=k.sha256 AND a.state='submitted' AND r.outcome='passed' AND r.passed AND r.score BETWEEN 4 AND 5 AND `+learningCleanEvidenceSQL("assessment", "a.id")+`))`, u.ID).Scan(&out.StartedCount, &out.EffectivePassedCount); e != nil {
+ (SELECT count(*) FROM current k WHERE EXISTS(SELECT 1 FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=k.id AND a.knowledge_version=k.version AND a.knowledge_sha256=k.sha256 AND a.state='submitted' AND r.outcome='passed' AND r.passed AND r.score BETWEEN 4 AND 5 AND `+(learningCleanEvidenceSQL("assessment", "a.id")+` AND `+correctionOriginalEvidenceSQL(ctx, "assessment", "a.id"))+`))`, u.ID).Scan(&out.StartedCount, &out.EffectivePassedCount); e != nil {
 			return e
 		}
 		for _, k := range ks {

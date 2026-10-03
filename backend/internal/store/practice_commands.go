@@ -10,6 +10,7 @@ import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"sort"
@@ -182,6 +183,9 @@ func (s *Store) CreatePractice(ctx context.Context, a question.Access, in assess
 			out, e = learningPracticeView(ctx, tx, u.ID, p, now, nil)
 			return e
 		}
+		if e = correctionNewAttemptGuard(ctx, tx, u.ID, in.Knowledge, 1, now); e != nil {
+			return e
+		}
 		if _, e = tx.ExecContext(ctx, `UPDATE practice_attempts SET state='expired',terminal_at=$2 WHERE owner_user_id=$1 AND state='active' AND expires_at<=$2`, u.ID, now); e != nil {
 			return e
 		}
@@ -309,11 +313,7 @@ func (s *Store) practiceCommand(ctx context.Context, a question.Access, id strin
 			if e != nil {
 				return e
 			}
-			deps, e := learningEvidenceDependencies(ctx, tx, "practice", id)
-			if e != nil {
-				return e
-			}
-			rs, e := learningEvidenceRestrictions(ctx, tx, deps)
+			rs, e := correctionEvidenceGuard(ctx, tx, u.ID, correction.EvidenceRef{Kind: correction.EvidenceKind("practice"), ID: id})
 			if e != nil {
 				return e
 			}

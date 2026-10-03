@@ -23,7 +23,7 @@ func learningHistoryPage(ctx context.Context, tx *sql.Tx, actor string, q learni
 		return out, e
 	}
 	rows, e := tx.QueryContext(ctx, learningHistorySQL+` SELECT id,kind,kid,kv,kh,occurred,state,path_id,path_version,path_sha,attempt,
- CASE WHEN affected OR EXISTS(SELECT 1 FROM learning_evidence_dependencies d WHERE d.evidence_kind=e.evidence AND d.evidence_id=e.eid AND (EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind=d.kind AND w.sha256=d.sha256 AND (d.kind='asset' OR (w.target_id=d.id AND w.target_version=d.version))) OR EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256))) THEN 'restricted'
+ CASE WHEN affected OR NOT (`+correctionOriginalEvidenceSQL(ctx, "e.evidence", "e.eid")+`) OR EXISTS(SELECT 1 FROM learning_evidence_dependencies d WHERE d.evidence_kind=e.evidence AND d.evidence_id=e.eid AND (EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind=d.kind AND w.sha256=d.sha256 AND (d.kind='asset' OR (w.target_id=d.id AND w.target_version=d.version))) OR EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256))) THEN 'restricted'
  WHEN NOT EXISTS(SELECT 1 FROM publication_heads h JOIN publication_members m ON m.snapshot_id=h.snapshot_id AND m.kind='knowledge' AND m.availability='active' JOIN knowledge_versions k ON k.id=m.id AND k.version=m.version WHERE h.singleton AND k.id=e.kid AND k.version=e.kv AND k.sha256=e.kh) THEN 'stale' ELSE 'effective' END FROM entries e ORDER BY occurred DESC,id DESC LIMIT $3 OFFSET $4`, actor, now, q.Limit, q.Offset)
 	if e != nil {
 		return out, e

@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
@@ -101,11 +102,7 @@ func learningPracticeView(ctx context.Context, tx *sql.Tx, actor string, p pract
 	out.Question = qs[0]
 	if p.Summary.State == "answered" || p.Summary.State == "revealed" {
 		item := assessment.ResultItem{Question: out.Question, Answer: p.Answer, Correct: p.Correct, CorrectChoiceID: items[0].Body.CorrectChoiceID, CorrectNumeric: items[0].Body.CorrectNumeric, Explanation: &items[0].Body.Explanation, Validity: assessment.Effective, Reasons: []assessment.RestrictionReason{}}
-		deps, e := learningEvidenceDependencies(ctx, tx, "practice", p.Summary.ID)
-		if e != nil {
-			return out, e
-		}
-		item.Reasons, e = learningEvidenceRestrictions(ctx, tx, deps)
+		item.Reasons, e = correctionEvidenceGuard(ctx, tx, actor, correction.EvidenceRef{Kind: correction.EvidenceKind("practice"), ID: p.Summary.ID})
 		if e != nil {
 			return out, e
 		}

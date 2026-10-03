@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"sort"
@@ -109,11 +110,7 @@ func learningAssessmentResult(ctx context.Context, tx *sql.Tx, actor string, p a
 	if json.Unmarshal(reasons, &out.Reasons) != nil || json.Unmarshal(progress, &out.Progress) != nil {
 		return out, auth.ErrUnavailable
 	}
-	deps, e := learningEvidenceDependencies(ctx, tx, "assessment", p.Summary.ID)
-	if e != nil {
-		return out, e
-	}
-	rs, e := learningEvidenceRestrictions(ctx, tx, deps)
+	rs, e := correctionEvidenceGuard(ctx, tx, actor, correction.EvidenceRef{Kind: correction.EvidenceKind("assessment"), ID: p.Summary.ID})
 	if e != nil {
 		return out, e
 	}
@@ -182,6 +179,9 @@ func learningAssessmentResult(ctx context.Context, tx *sql.Tx, actor string, p a
 		item.Reasons, e = learningEvidenceRestrictions(ctx, tx, learningItemDependencies(p.Seal, p.Seal.Items[j]))
 		if e != nil {
 			return out, e
+		}
+		if learningHasReason(out.Reasons, assessment.GradingIssue) {
+			item.Reasons = learningUniqueReasons(append(item.Reasons, assessment.GradingIssue))
 		}
 		if len(item.Reasons) > 0 {
 			item.Validity = assessment.Restricted
