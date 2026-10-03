@@ -222,13 +222,13 @@ func TestCorrectionIndependentBoundContentAuthorWithoutMapping(t *testing.T) {
 	}
 	f.QActivate(f.QPrepare(sub.ID))
 	w := f.QWithdraw(question.WithdrawalTarget{Kind: "template", ID: p.Templates[0].ID, Version: 1})
-	registered, e := f.repo.CreateCorrectionCase(f.ctx, f.Access("admin_a", false), correction.CaseInput{Kind: correction.WithdrawalCase, Withdrawal: &correction.WithdrawalRef{Space: "question", ID: w.EventID}})
-	if e != nil {
+	var caseID string
+	if e := f.db.QueryRow(`SELECT id::text FROM correction_cases WHERE withdrawal_space='question' AND withdrawal_id=$1 AND sealed`, w.EventID).Scan(&caseID); e != nil {
 		t.Fatal(e)
 	}
-	plan := f.submitCorrectionPlan(f.createCorrectionPlan(registered.Data.Case.ID, "admin_a"), "admin_a")
+	plan := f.submitCorrectionPlan(f.createCorrectionPlan(caseID, "admin_a"), "admin_a")
 	f.exec(`INSERT INTO auth_user_roles(user_id,role) VALUES($1,'reviewer') ON CONFLICT DO NOTHING`, f.ids["author_a"])
-	if _, e = f.repo.DecideCorrectionPlan(f.ctx, f.Access("author_a", false), plan.Ref, correction.DecisionInput{ExpectedSequence: plan.Sequence, Decision: "approve", Reason: "The knowledge and unit author must not self-review their bound mathematical sources."}); !errors.Is(e, auth.ErrForbidden) {
+	if _, e := f.repo.DecideCorrectionPlan(f.ctx, f.Access("author_a", false), plan.Ref, correction.DecisionInput{ExpectedSequence: plan.Sequence, Decision: "approve", Reason: "The knowledge and unit author must not self-review their bound mathematical sources."}); !errors.Is(e, auth.ErrForbidden) {
 		t.Fatal("bound content author self-reviewed unmapped template case", e)
 	}
 }

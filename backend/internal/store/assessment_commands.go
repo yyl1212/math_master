@@ -266,6 +266,9 @@ func (s *Store) SubmitAssessment(ctx context.Context, a question.Access, id stri
 		if _, e = tx.ExecContext(ctx, `UPDATE assessment_results SET progress=$2,sealed=true WHERE attempt_id=$1`, id, body(progress)); e != nil {
 			return e
 		}
+		if e = correctionEnqueueTerminal(ctx, tx, correction.EvidenceRef{Kind: correction.AssessmentEvidence, ID: id}, u.ID, now); e != nil {
+			return e
+		}
 		p.Summary.State = "submitted"
 		t := now.UTC()
 		p.Summary.SubmittedAt = &t

@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
@@ -20,7 +21,7 @@ func questionError(err error) error {
 	if errors.Is(err, ErrImmutableConflict) {
 		return question.ErrImmutableConflict
 	}
-	for _, known := range []error{learning.ErrNotConfigured, question.ErrDraftConflict, question.ErrPublicationStale, question.ErrReviewConflict, question.ErrIdempotencyConflict, question.ErrImmutableConflict, question.ErrVersionConflict, question.ErrInvalid, question.ErrNotReady, question.ErrLimitExceeded, question.ErrReviewRequired, question.ErrNotConfigured} {
+	for _, known := range []error{correction.ErrNotConfigured, learning.ErrNotConfigured, question.ErrDraftConflict, question.ErrPublicationStale, question.ErrReviewConflict, question.ErrIdempotencyConflict, question.ErrImmutableConflict, question.ErrVersionConflict, question.ErrInvalid, question.ErrNotReady, question.ErrLimitExceeded, question.ErrReviewRequired, question.ErrNotConfigured} {
 		if errors.Is(err, known) {
 			return known
 		}

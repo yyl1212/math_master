@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/correction"
-	"github.com/yyl1212/math_master/backend/internal/question"
 	"strings"
 	"testing"
 )
@@ -15,10 +14,10 @@ func TestCorrectionWithdrawalFenceRealSource(t *testing.T) {
 	if _, e := f.repo.SubmitAssessment(f.ctx, f.Access("learner_a", false), v.Summary.ID, f.answers(v, 5)); e != nil {
 		t.Fatal(e)
 	}
-	w := f.QWithdraw(question.WithdrawalTarget{Kind: "instance", ID: v.Questions[0].Instance.ID, Version: 1})
-	input := correction.CaseInput{Kind: correction.WithdrawalCase, Withdrawal: &correction.WithdrawalRef{Space: "question", ID: w.EventID}}
+	wid := f.legacyCorrectionWithdrawal(v.Questions[0].Instance)
+	input := correction.CaseInput{Kind: correction.WithdrawalCase, Withdrawal: &correction.WithdrawalRef{Space: "question", ID: wid}}
 	registered, e := f.repo.CreateCorrectionCase(f.ctx, f.Access("admin_a", false), input)
-	if e != nil || registered.Data.Case == nil || registered.Data.Case.Withdrawal.ID != w.EventID || registered.Data.Case.Cutoff != nil {
+	if e != nil || registered.Data.Case == nil || registered.Data.Case.Withdrawal.ID != wid || registered.Data.Case.Cutoff != nil {
 		t.Fatal(registered, e)
 	}
 	if _, e = f.repo.CreateCorrectionCase(f.ctx, f.Access("admin_a", false), input); !errors.Is(e, correction.ErrConflict) {

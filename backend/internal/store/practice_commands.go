@@ -342,6 +342,11 @@ func (s *Store) practiceCommand(ctx context.Context, a question.Access, id strin
 		if _, e = tx.ExecContext(ctx, `UPDATE practice_attempts SET state=$2,terminal_at=$3,answer=$4,correct=$5 WHERE id=$1`, id, state, now, answer, p.Correct); e != nil {
 			return e
 		}
+		if state == "answered" {
+			if e = correctionEnqueueTerminal(ctx, tx, correction.EvidenceRef{Kind: correction.PracticeEvidence, ID: id}, u.ID, now); e != nil {
+				return e
+			}
+		}
 		p.Summary.State = state
 		p.TerminalAt = &now
 		if state == "answered" {

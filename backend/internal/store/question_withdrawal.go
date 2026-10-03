@@ -184,6 +184,9 @@ func (s *Store) WithdrawQuestionVersion(ctx context.Context, a question.Access, 
 		if _, err = tx.ExecContext(ctx, `INSERT INTO question_withdrawals(id,kind,target_id,target_version,sha256,actor_user_id,reason,request_id,created_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`, withdrawalID, input.Target.Kind, input.Target.ID, input.Target.Version, sha, u.ID, input.Reason, a.RequestID, now); err != nil {
 			return err
 		}
+		if err = correctionEnqueueWithdrawal(ctx, tx, "question", withdrawalID, now); err != nil {
+			return err
+		}
 		published, err := questionInsertPublication(ctx, tx, u, now, c, "published")
 		if err != nil {
 			return err
