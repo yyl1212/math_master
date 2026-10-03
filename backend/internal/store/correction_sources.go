@@ -114,6 +114,9 @@ func correctionResolveSources(ctx context.Context, tx *sql.Tx, caseID string, in
 		if e != nil {
 			return p, e
 		}
+		if e = correctionMappingScope(ctx, tx, c, in.Parent, original); e != nil {
+			return p, e
+		}
 		p.Mappings = append(p.Mappings, correction.ResolvedMapping{Original: original, Replacement: replacement, OriginalPublicationID: m.OriginalPublicationID, ReplacementPublicationID: m.Replacement.PublicationID, OriginalApproval: oa, ReplacementApproval: ra})
 		for j, item := range []question.Instance{original, replacement} {
 			approval := oa
@@ -192,6 +195,19 @@ func correctionResolveSources(ctx context.Context, tx *sql.Tx, caseID string, in
 			return p, e
 		}
 	}
+
+	// A rule-only or unmapped withdrawal plan still concerns the approved
+	// knowledge, units and assets used by its question sources. Resolve their
+	// authors from immutable frozen references, including assets shared by SHA.
+	if len(questionReviews) > 0 {
+		ids := []string{}
+		for id := range questionReviews {
+			ids = append(ids, id)
+		}
+		if e = addReview(`WITH refs AS (SELECT DISTINCT x->>'kind' kind,x->>'id' id,CASE WHEN x->>'kind'='asset' THEN 1 ELSE (x->>'version')::integer END version,x->>'sha256' sha256 FROM question_review_decisions q JOIN question_submissions s ON s.id=q.submission_id AND s.sealed AND s.status='approved' AND s.frozen_digest=q.frozen_digest CROSS JOIN LATERAL jsonb_array_elements(s.frozen_body#>'{body,body,resolved}') x WHERE q.id=ANY($1::uuid[]) AND q.decision='approve') SELECT DISTINCT 'content',r.id::text,a.user_id::text FROM refs x JOIN content_submission_members m ON m.kind=x.kind AND m.sha256=x.sha256 AND (x.kind='asset' OR m.id=x.id AND m.version=x.version) JOIN content_submissions s ON s.id=m.submission_id AND s.sealed AND s.status='approved' JOIN content_review_decisions r ON r.submission_id=s.id AND r.decision='approve' AND r.frozen_digest=s.frozen_digest JOIN content_submission_authors a ON a.submission_id=s.id LIMIT 10001`, ids); e != nil {
+			return p, e
+		}
+	}
 	for id := range authors {
 		p.Authors = append(p.Authors, id)
 	}
@@ -212,4 +228,78 @@ func correctionResolveSources(ctx context.Context, tx *sql.Tx, caseID string, in
 		return p, question.ErrLimitExceeded
 	}
 	return p, nil
+}
+
+func correctionMappingScope(ctx context.Context, tx *sql.Tx, c correction.CaseMetadata, parent *correction.PlanRef, i question.Instance) error {
+	if c.Rule != nil {
+		if c.Rule.Kind == "all" {
+			return nil
+		}
+		k := c.Rule.Knowledge
+		if i.Body.Knowledge.ID == k.ID && i.Body.Knowledge.Version == k.Version {
+			var actual string
+			if e := tx.QueryRowContext(ctx, `SELECT sha256 FROM knowledge_versions WHERE id=$1 AND version=$2`, k.ID, k.Version).Scan(&actual); e != nil {
+				return e
+			}
+			if actual == k.SHA256 {
+				return nil
+			}
+		}
+		return correction.ErrSourceStale
+	}
+	var kind, id, sha string
+	var version sql.NullInt64
+	table := "question_withdrawals"
+	if c.Withdrawal.Space == "content" {
+		table = "content_withdrawals"
+	}
+	if e := tx.QueryRowContext(ctx, `SELECT kind,coalesce(target_id,''),target_version,sha256 FROM `+table+` WHERE id=$1`, c.Withdrawal.ID).Scan(&kind, &id, &version, &sha); e != nil {
+		return e
+	}
+	matches := func(ref question.Identity) bool {
+		return ref.ID == id && ref.Version == int(version.Int64) && ref.SHA256 == sha
+	}
+	if kind == "instance" && matches(i.Identity) || kind == "template" && i.Template != nil && matches(*i.Template) {
+		return nil
+	}
+	if kind == "knowledge" && i.Body.Knowledge.ID == id && i.Body.Knowledge.Version == int(version.Int64) {
+		var actual string
+		if e := tx.QueryRowContext(ctx, `SELECT sha256 FROM knowledge_versions WHERE id=$1 AND version=$2`, id, version.Int64).Scan(&actual); e == nil && actual == sha {
+			return nil
+		}
+	}
+	if kind == "unit" {
+		for _, u := range i.Body.Units {
+			if u.ID == id && u.Version == int(version.Int64) {
+				var actual string
+				if e := tx.QueryRowContext(ctx, `SELECT sha256 FROM unit_versions WHERE id=$1 AND version=$2`, id, version.Int64).Scan(&actual); e == nil && actual == sha {
+					return nil
+				}
+			}
+		}
+	}
+	if kind == "asset" {
+		for _, a := range i.Body.Assets {
+			if a.SHA256 == sha {
+				return nil
+			}
+		}
+		var bound bool
+		if e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM jsonb_to_recordset($1::jsonb) u(id text,version integer) JOIN unit_asset_bindings b ON b.unit_id=u.id AND b.unit_version=u.version WHERE b.asset_sha256=$2)`, body(i.Body.Units), sha).Scan(&bound); e != nil {
+			return e
+		}
+		if bound {
+			return nil
+		}
+	}
+	if parent != nil {
+		var allowed bool
+		if e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM correction_plans p CROSS JOIN LATERAL jsonb_array_elements(p.frozen_body#>'{body,proof,mappings}') m WHERE p.id=$1 AND p.version=$2 AND p.case_id=$3 AND p.status='approved' AND m#>'{replacement,identity}'=$4::jsonb)`, parent.ID, parent.Version, c.ID, body(i.Identity)).Scan(&allowed); e != nil {
+			return e
+		}
+		if allowed {
+			return nil
+		}
+	}
+	return correction.ErrSourceStale
 }

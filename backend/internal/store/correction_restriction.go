@@ -65,6 +65,9 @@ func correctionNewAttemptGuard(ctx context.Context, tx *sql.Tx, owner string, k 
 	if !correctionEnabled(ctx) {
 		return nil
 	}
+	if rule != 1 {
+		return &learning.NotReadyError{}
+	}
 	var blocked bool
 	e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM correction_cases c WHERE c.sealed AND c.kind='grading_rule' AND c.rule_version=$4 AND (c.scope_kind='all' OR (c.knowledge_id=$1 AND c.knowledge_version=$2 AND c.knowledge_sha256=$3)) AND NOT EXISTS(SELECT 1 FROM correction_plans p WHERE p.case_id=c.id AND p.status='approved' AND p.sealed AND p.algorithm_version=1 AND EXISTS(SELECT 1 FROM correction_events e WHERE e.case_id=c.id AND e.subject_kind='plan' AND e.subject_id=p.id AND e.subject_version=p.version AND e.sequence=p.sequence AND e.kind='plan_approved')))`, k.ID, k.Version, k.SHA256, rule).Scan(&blocked)
 	if e != nil {
