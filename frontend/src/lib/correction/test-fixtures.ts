@@ -1,0 +1,13 @@
+import type { CaseInput, CaseMetadata, PlanInput, PlanMetadata, ResultMetadata, ResultDetail, CorrectedItem } from './types';
+export const id = '11111111-1111-4111-8111-111111111111', otherId = '22222222-2222-4222-8222-222222222222', time = '2026-10-03T00:00:00Z';
+export const identity = (name = 'original') => ({ id: name, version: 1, sha256: 'a'.repeat(64) });
+export const caseInput = (): CaseInput => ({ kind: 'grading_rule', withdrawal: null, rule: { kind: 'all', ruleVersion: 1, knowledge: null } });
+export const caseMetadata = (): CaseMetadata => ({ kind: 'grading_rule', withdrawal: null, rule: { kind: 'all', ruleVersion: 1, knowledge: null }, id, cutoff: time, sequence: 1, createdAt: time, hasApprovedPlan: false });
+export const planInput = (): PlanInput => ({ expectedSequence: null, parent: null, algorithmVersion: 1, mappings: [], reason: 'Recheck the original answers with the approved exact rule.' });
+export const planMetadata = (): PlanMetadata => ({ ref: { id, version: 1 }, caseId: id, status: 'draft', sequence: 1, algorithmVersion: 1, mappingCount: 0, createdAt: time, updatedAt: time, digest: null });
+export const resultMetadata = (): ResultMetadata => ({ id, caseId: id, plan: { id, version: 1 }, parentResultId: null, evidence: { kind: 'assessment', id }, knowledge: identity(), status: 'corrected_passed', reason: 'rule_regraded', score: 4, passed: true, validity: 'effective', handledCaseIds: [id], createdAt: time });
+export const correctedItem = (position = 1): CorrectedItem => ({ position, original: identity('item-' + position), effective: identity('item-' + position), originalTemplate: null, effectiveTemplate: null, prompt: 'Calculate 1 + 1.', choices: [], answer: { kind: 'numeric', raw: '2' }, correct: position < 5, explanation: 'Adding one to one gives two.', assets: [] });
+export const resultDetail = (): ResultDetail => ({ result: resultMetadata(), items: [1, 2, 3, 4, 5].map(correctedItem), planReason: 'Approved rule repair.' });
+export const json = (data: unknown, status = 200, actorId = id, extra: HeadersInit = {}) => Response.json({ actorId, data }, { status, headers: { 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'X-Request-ID': 'a'.repeat(32), ...extra } });
+export const context = (actorId = id) => ({ ok: true, data: { user: { id: actorId, mustChangePassword: false, roles: ['learner'] }, csrfToken: 'A'.repeat(43) } });
+export const cursor = () => btoa(JSON.stringify({ version: 1, createdAt: time, id })).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '');

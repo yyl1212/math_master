@@ -2,8 +2,11 @@ package httpapi
 
 import (
 	"encoding/json"
+	"errors"
+	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/notification"
+	"net/http/httptest"
 	"os"
 	"reflect"
 	"strings"
@@ -107,6 +110,54 @@ func TestCorrectionJSONInvalidUTF8(t *testing.T) {
 	for _, raw := range [][]byte{{'{', '"', 'x', '"', ':', '"', 255, '"', '}'}, []byte(`{"kind":"grading_rule","withdrawal":null,"rule":{"ruleVersion":1,"kind":"all"}}`), []byte(`{"expectedSequence":null,"parent":null,"algorithmVersion":1,"mappings":[],"reason":"\u0000"}`)} {
 		if _, e := DecodeCorrectionInput(raw, correction.CreatePlanAction); e == nil {
 			t.Fatal("malformed JSON input accepted")
+		}
+	}
+}
+
+func TestCorrectionHTTPAuthErrorContract(t *testing.T) {
+	raw, e := os.ReadFile("../../../api/openapi.yaml")
+	if e != nil {
+		t.Fatal(e)
+	}
+	var api struct {
+		Components struct {
+			Schemas map[string]struct {
+				Properties map[string]struct {
+					Properties map[string]struct{ Enum []string }
+				}
+			}
+		}
+	}
+	if json.Unmarshal(raw, &api) != nil {
+		t.Fatal("OpenAPI")
+	}
+	for _, c := range []struct {
+		err    error
+		code   string
+		status int
+	}{{auth.ErrReauthRequired, "REAUTHENTICATION_REQUIRED", 428}, {auth.ErrPasswordChangeRequired, "PASSWORD_CHANGE_REQUIRED", 403}} {
+		for _, name := range []string{"CorrectionError", "NotificationError"} {
+			w := httptest.NewRecorder()
+			r := httptest.NewRequest("GET", "/api/v1/corrections/cases", nil)
+			r.Header.Set("X-Request-ID", strings.Repeat("a", 32))
+			if name == "CorrectionError" {
+				correctionError(w, r, c.err)
+			} else {
+				notificationError(w, r, c.err)
+			}
+			var body struct{ Error struct{ Code string } }
+			if json.Unmarshal(w.Body.Bytes(), &body) != nil || w.Code != c.status || body.Error.Code != c.code {
+				t.Fatal("auth contract", name, c.code, w.Code)
+			}
+			found := false
+			for _, code := range api.Components.Schemas[name].Properties["error"].Properties["code"].Enum {
+				if code == c.code {
+					found = true
+				}
+			}
+			if !found {
+				t.Fatal(errors.New("authentication code missing from new contract"), name, c.code)
+			}
 		}
 	}
 }
