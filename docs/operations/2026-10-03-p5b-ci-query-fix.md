@@ -73,3 +73,41 @@ flowchart TD
 精确读取兼容回归：行锁后clock原实现基线PASS2.31s；新入口及累计/schema/租约/回滚PASS74.07s。真实空依赖/缺来源测试RED2.28s发现nil单元切片会编码为JSON null；仅把nil规范为[]，与原for循环零依赖语义相同，缺知识/单元仍返回sql.ErrNoRows。
 
 往返优化提交前证据：准确读取/三级锁/行锁后clock/schema损坏/累计/断点/回滚定向PASS74.07s；空依赖及缺实际来源RED2.28s→GREEN6.13s；Node全部44项PASS5.59s。相同最大夹具真实500原子事务7.341→5.927446041s，完整原1000/1000/10000容量175.82s PASS，CORRECTION_CAPACITY cases=1000 plans=1000 affected=10000 workerBatches=200 completeSets=true heapDelta=354856 allocatedBytes=4609082512 maxBatchBytes=23127824 elapsed=2m54.980983041s。人工复核共用schema predicate与原定义相同、按事务查询无缓存，元数据仅同事务复用、实际依赖缺失报错、job时钟晚于锁等待、原身份/role读取顺序和每证据COMMIT不变；Go/API/迁移/契约输入未改动范围外文件。当前产品diffSHA256=dd1999ea9dcefa712e07dffab2b8ec79efc0a20c7c4f3c01f47fa45f04a4f4b6。这仍为提交前定向证明，提交后的完整44命令及最新四run/六job必须实际通过。
+
+b38828c真实Linux第三次容量RED：push9000条297.793s，PR9000条284.994s，均在原5m超时；夹具约95s、后段每1000条21—23s。新入口/准确读取降低一部分开销但不足。final-ci2-go的12个已完成命令PASS，影响命令2.8s由本轮自己的包装器SIGINT停止；前端9条350项PASS仍为历史证据，未运行本轮浏览器，不宣称44条或远端PASS。临时500原子事务函数统计：correction_result_complete1000次616.568ms，其中correction_case_applies1000次467.339ms；结果每INSERT+seal UPDATE各校验一次。先测写入请求合并及schema/案件函数精确计划候选，不减少数量、时限、批准来源、schema实时性或逐证据原子提交。
+
+
+## 原事务内语句批次审核
+
+第三次完整Linux head仍在5m失败。重新比较实际SQL等待和500条事务：大范围单SQL依据合并6.058s，去除重复连接后6.016s，均无收益，拒绝进入产品；保留原方案/父结果查询的较小读取5.100s；账户/角色分别执行的批次4.945s；原查询的两组只读批次4.685s，较b388原5.927s约降低21%。这些是相同1000/1000/10000夹具中的500实际独立事务，不代替完整容量或Linux验收。原无测试名称运行明确不计为回归证据。
+
+拟修改文件：新增store/correction_batch.go，只在当前sql.Tx对应的sql.Conn.Raw回调内使用既有pgx SendBatch；新增correction_inputs.go，按原SQL读取练习原记录、原依赖、所有实际匹配的批准方案和本人批准父结果，返回实际字节，沿用原累计算法。correction_jobs.go显式取得同一连接并在原8s/ReadCommitted事务结束后释放；correction_process.go保留前后账户/角色读取和末尾租约时钟，账户与角色仍为先行锁后角色的两条语句；合并同一结果依赖/审计/封存写请求，以及原job更新/断点审计请求。correction_results.go仅选择worker练习批次读取、在同一事务复用刚读且校验过的准确方案proof计算位置，并沿用原始依据优先、批准方案100项/2MiB、主方案存在、父结果100项/累计2MiB的检查顺序。practice_read.go、assessment_evidence.go、correction_plans.go只抽出原封存、原题与冻结方案纯解码器供原读取和批次共用。新增correction_batch_internal_test.go/correction_batch_test.go验证真实账户行阻塞后角色新快照及取消后连接可继续使用；更新本说明、ledger与最终证据。
+
+```mermaid
+flowchart TD
+ T[每证据原8s ReadCommitted事务/实时完整schema/原三级锁] --> C[同一sql.Conn绑定原sql.Tx]
+ C --> A[语句1账户行锁 → 语句2实时角色]
+ A --> R[只读批次1：原练习/原依赖/原批准元数据/本人父元数据]
+ R --> D[原封存与原终态解析]
+ D --> Q[只读批次2：原题审批联查/上限内方案与父字节]
+ Q --> V[原题摘要校验 → 原批准上限/解码 → 主方案存在 → 父上限/解码]
+ V --> B[原累计Compose/重判/实际依赖/撤回与当前版本]
+ B --> I[原独立结果INSERT]
+ I --> W[依赖INSERT → 封存审计INSERT → 原结果seal UPDATE]
+ W --> N[后续语句的原本人通知]
+ N --> F[原末尾账户/角色重查与job行锁后真实clock/lease]
+ F --> E[job UPDATE → 原断点审计]
+ E --> K[原每证据延迟完整性守卫COMMIT]
+```
+
+可行性与兼容性审核：既有pgx支持通过database/sql连接回调发送批次，原始driver只能在Raw回调内使用，BatchResults必须在再次使用连接之前关闭，参见[pgx stdlib](https://pkg.go.dev/github.com/jackc/pgx/v5/stdlib)、[SendBatch](https://pkg.go.dev/github.com/jackc/pgx/v5#Conn.SendBatch)、[Go Conn.Raw](https://pkg.go.dev/database/sql#Conn.Raw)。批次里的原语句保持顺序、分别执行；不把角色并入账户行锁的同一SQL快照，不合并前后身份检查。连接和facts均绑定准确sql.Tx，提交后不复用，不在回调外存放pgx连接；标准driver或非worker读者走原实现。每个批次成功、读取失败或取消都必须关闭结果后才回到SQL事务，8s与1s锁截止仍在同一物理连接生效。
+
+只读批次只提前取得当前锁保护的不可变来源，原记录的封存字节仍先解码；原题仍按原learningItemsSQL核验publication/submission/独立批准/位置/SHA。只在原批准及累计父字节上限允许时读取正文，并把解码留在原逻辑顺序中；其他evidence种类不改，源选择、cutoff、owner、101候选上限和累计算法不改。方案proof的事务内复用只省去对刚刚准确读取及校验的映射的再次请求；任何请求ref不在当前facts中继续原SQL。
+
+写请求的结果parent已由前一语句插入，依赖/事件分别插入不同表，依赖RETURNING的count强制先完成所有依赖，再由审计RETURNING驱动既有结果seal UPDATE；通知留在后续语句，以原可见性看到封存结果。cursor更新通过RETURNING驱动原事件；所有FK、逐行触发器及延迟完整性检查均保留，不能在同一命令插入后又更新同一结果行。共享语句快照及RETURNING边界依据[PostgreSQL17数据修改CTE](https://www.postgresql.org/docs/17/queries-with.html#QUERIES-WITH-MODIFYING)，全程不改迁移、PG全局/事务设置、API或公开签名。
+
+没有设计阻塞。实际GREEN仍要求新实时角色/取消负测、全部schema损坏/累计/原子性/租约回归、完整1000/1000/10000容量，以及同一新SHA全部44命令和最新四workflow/六job；不削减数量或修改5m/8m/9m/30m门槛。此为同一次必要修复轮中的Ruling24，不再派第二位reviewer，不合并、不部署。
+
+产品批次定向证据：两项真实账户行等待/角色撤销及取消后单连接池恢复，优化前基线PASS3.18s；首个错误夹具因强制learner外键失败，只修正为撤销实际editor角色，不作为产品RED。产品复制纯解码器时残留两处临时计时语句被编译/assert拒绝，已清除；产品树不存在capacityDiagnostic。真实新产品权限/三级锁/锁后时钟/累计/原子回滚/租约定向PASS33.84s，完整Node44项PASS5.58s；实际产品原1000/1000/10000容量155.99s PASS，CORRECTION_CAPACITY cases=1000 plans=1000 affected=10000 workerBatches=200 completeSets=true heapDelta=367992 allocatedBytes=4491336096 maxBatchBytes=22646592 elapsed=2m35.230718166s。纯临时候选全部纠错通知非容量122.11s及完整容量151.14s保留为诊断证据，不替代新产品完整矩阵。
+
+通知与末尾账户/角色三语句候选实测4.708s，相对4.685s没有收益，拒绝进入产品；notification_write.go未改变，通知仍在原独立后续语句。实际产品仅将原 SQL 组成准确事务内批次；不可变来源可提前只读预取，但解码和上限/主方案/父结果处置保留原顺序，批准新增仍经原案件与资格守卫及持久后续工作项处理。原角色读取为账户行等待之后的独立语句，前后权限、末尾租约DBclock和每证据COMMIT不合并、不缓存跨事务实际状态。全部44命令将冻结在同一新SHA新鲜执行，最新四run/六job仍需实际通过。

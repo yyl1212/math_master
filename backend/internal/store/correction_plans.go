@@ -62,20 +62,30 @@ func correctionReadPlan(ctx context.Context, tx *sql.Tx, ref correction.PlanRef,
 	p.Meta.CreatedAt = p.Meta.CreatedAt.UTC()
 	p.Meta.UpdatedAt = p.Meta.UpdatedAt.UTC()
 	if p.Frozen != nil {
-		var env struct {
-			Purpose string `json:"purpose"`
-			Body    struct {
-				Input correction.PlanInput `json:"input"`
-				Proof correction.PlanProof `json:"proof"`
-			} `json:"body"`
+		p.Proof, e = correctionDecodeFrozenPlan(p.Frozen, p.Input)
+		if e != nil {
+			return p, e
 		}
-		if json.Unmarshal(p.Frozen, &env) != nil || env.Purpose != "correction-plan-v1" || body(env.Body.Input) != body(p.Input) {
-			return p, auth.ErrUnavailable
-		}
-		p.Proof = env.Body.Proof
 	}
 	return p, nil
 }
+func correctionDecodeFrozenPlan(frozen []byte, input correction.PlanInput) (correction.PlanProof, error) {
+	if frozen == nil {
+		return correction.PlanProof{}, nil
+	}
+	var env struct {
+		Purpose string `json:"purpose"`
+		Body    struct {
+			Input correction.PlanInput `json:"input"`
+			Proof correction.PlanProof `json:"proof"`
+		} `json:"body"`
+	}
+	if json.Unmarshal(frozen, &env) != nil || env.Purpose != "correction-plan-v1" || body(env.Body.Input) != body(input) {
+		return correction.PlanProof{}, auth.ErrUnavailable
+	}
+	return env.Body.Proof, nil
+}
+
 func (s *Store) CreateCorrectionPlan(ctx context.Context, a question.Access, caseID string, in correction.PlanInput) (correction.Envelope[correction.Receipt], error) {
 	var out correction.Envelope[correction.Receipt]
 	if !question.ValidID(caseID) || correction.ValidatePlan(in) != nil || in.ExpectedSequence != nil {

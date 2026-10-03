@@ -12,6 +12,8 @@ import (
 	"time"
 )
 
+const learningReadPracticeSQL = `SELECT id::text,knowledge_id,knowledge_version,knowledge_sha256,state,created_at,expires_at,terminal_at,seal_bytes,answer,correct FROM practice_attempts WHERE id=$1 AND owner_user_id=$2`
+
 type practiceRecord struct {
 	Summary    assessment.AttemptSummary
 	Seal       assessment.Seal
@@ -28,10 +30,14 @@ func learningReadPractice(ctx context.Context, tx *sql.Tx, actor, id string, loc
 	if lock {
 		suffix = " FOR UPDATE"
 	}
-	e := tx.QueryRowContext(ctx, `SELECT id::text,knowledge_id,knowledge_version,knowledge_sha256,state,created_at,expires_at,terminal_at,seal_bytes,answer,correct FROM practice_attempts WHERE id=$1 AND owner_user_id=$2`+suffix, id, actor).Scan(&p.Summary.ID, &p.Summary.Knowledge.ID, &p.Summary.Knowledge.Version, &p.Summary.Knowledge.SHA256, &p.Summary.State, &p.Summary.CreatedAt, &p.Summary.ExpiresAt, &terminal, &raw, &answer, &p.Correct)
+	e := tx.QueryRowContext(ctx, learningReadPracticeSQL+suffix, id, actor).Scan(&p.Summary.ID, &p.Summary.Knowledge.ID, &p.Summary.Knowledge.Version, &p.Summary.Knowledge.SHA256, &p.Summary.State, &p.Summary.CreatedAt, &p.Summary.ExpiresAt, &terminal, &raw, &answer, &p.Correct)
 	if e != nil {
 		return p, workflowRowError(e)
 	}
+	return learningDecodePracticeRecord(p, raw, answer, terminal)
+}
+func learningDecodePracticeRecord(p practiceRecord, raw, answer []byte, terminal sql.NullTime) (practiceRecord, error) {
+	var e error
 	p.Summary.Kind = "practice"
 	p.Summary.CreatedAt = p.Summary.CreatedAt.UTC()
 	p.Summary.ExpiresAt = p.Summary.ExpiresAt.UTC()

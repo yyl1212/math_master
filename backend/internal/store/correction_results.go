@@ -12,6 +12,10 @@ import (
 	"sort"
 )
 
+var correctionApprovedPlanMetadataSQL = `WITH evidence AS MATERIALIZED (SELECT * FROM (` + correctionEvidenceRowsSQL + `) e WHERE e.kind=$1 AND e.id=$2 AND e.owner=$3), matched_cases AS MATERIALIZED (SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE c.id=$4 UNION SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE ` + correctionGradingCaseAffectsSQL + ` UNION SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE ` + correctionWithdrawalCaseAffectsSQL + `) SELECT p.id::text,p.version,p.case_id::text,p.parent_id::text,p.parent_version,p.bytes FROM matched_cases c JOIN LATERAL (SELECT p.id,p.version,p.case_id,p.parent_id,p.parent_version,octet_length(p.frozen_bytes) bytes FROM correction_plans p WHERE p.case_id=c.id AND p.sealed AND p.status='approved' AND p.algorithm_version=1 AND EXISTS(SELECT 1 FROM correction_events v WHERE v.subject_kind='plan' AND v.subject_id=p.id AND v.subject_version=p.version AND v.kind='plan_approved' OFFSET 0) OFFSET 0) p ON true ORDER BY p.id,p.version LIMIT 101`
+
+var correctionPriorMetadataSQL = `SELECT r.id::text,octet_length(r.basis_bytes) FROM correction_results r WHERE r.owner_user_id=$1 AND r.evidence_kind=$2 AND r.evidence_id=$3 AND r.source_key<>$4 AND ` + correctionApprovedResultSQL("r") + ` AND ` + correctionLeafSQL("r") + ` ORDER BY r.id LIMIT 101`
+
 type correctionProcessingKey struct{}
 type correctionEvidenceMetadata struct {
 	Ref       correction.EvidenceRef
@@ -191,7 +195,22 @@ func correctionBuildBasis(ctx context.Context, tx *sql.Tx, caseID string, plan *
 // Reuse it only in the current fenced transaction; readers still load normally.
 func correctionBuildBasisMetadata(ctx context.Context, tx *sql.Tx, caseID string, plan *correction.PlanRef, meta correctionEvidenceMetadata) (correction.Basis, error) {
 	ref := meta.Ref
-	base, e := correctionOriginalBasis(ctx, tx, meta)
+	var inputs *correctionPracticeInputs
+	var base correction.Basis
+	var e error
+	if j, ok := ctx.Value(correctionProcessingKey{}).(correctionJobRecord); ok && meta.Ref.Kind == correction.PracticeEvidence {
+		inputs, e = correctionReadPracticeInputs(ctx, tx, meta, caseID, plan, j.Source)
+		if e != nil {
+			return correctionEmptyBasis(), e
+		}
+		if inputs != nil {
+			base, e = inputs.base()
+		} else {
+			base, e = correctionOriginalBasis(ctx, tx, meta)
+		}
+	} else {
+		base, e = correctionOriginalBasis(ctx, tx, meta)
+	}
 	if e != nil {
 		return base, e
 	}
@@ -202,30 +221,36 @@ func correctionBuildBasisMetadata(ctx context.Context, tx *sql.Tx, caseID string
 	// UNION preserves every source predicate and deduplicates the main case.
 	// Separate immutable case kinds avoid charging withdrawal subplans to all
 	// grading cases, which otherwise triggers JIT as unrelated results grow.
-	rows, e := tx.QueryContext(ctx, `WITH evidence AS MATERIALIZED (SELECT * FROM (`+correctionEvidenceRowsSQL+`) e WHERE e.kind=$1 AND e.id=$2 AND e.owner=$3), matched_cases AS MATERIALIZED (SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE c.id=$4 UNION SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE `+correctionGradingCaseAffectsSQL+` UNION SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE `+correctionWithdrawalCaseAffectsSQL+`) SELECT p.id::text,p.version,p.case_id::text,p.parent_id::text,p.parent_version,p.bytes FROM matched_cases c JOIN LATERAL (SELECT p.id,p.version,p.case_id,p.parent_id,p.parent_version,octet_length(p.frozen_bytes) bytes FROM correction_plans p WHERE p.case_id=c.id AND p.sealed AND p.status='approved' AND p.algorithm_version=1 AND EXISTS(SELECT 1 FROM correction_events v WHERE v.subject_kind='plan' AND v.subject_id=p.id AND v.subject_version=p.version AND v.kind='plan_approved' OFFSET 0) OFFSET 0) p ON true ORDER BY p.id,p.version LIMIT 101`, ref.Kind, ref.ID, meta.Owner, caseID)
-	if e != nil {
-		return base, e
-	}
+	var rows *sql.Rows
 	proofs := []correctionProofRecord{}
 	total := 0
-	for rows.Next() {
-		var r correctionProofRecord
-		var pid *string
-		var pv *int
-		if e = rows.Scan(&r.Ref.ID, &r.Ref.Version, &r.CaseID, &pid, &pv, &r.Bytes); e != nil {
-			rows.Close()
+	if inputs != nil {
+		proofs = inputs.proofs
+		total = inputs.planBytes
+	} else {
+		rows, e = tx.QueryContext(ctx, correctionApprovedPlanMetadataSQL, ref.Kind, ref.ID, meta.Owner, caseID)
+		if e != nil {
 			return base, e
 		}
-		if pid != nil && pv != nil {
-			r.Parent = &correction.PlanRef{ID: *pid, Version: *pv}
+		for rows.Next() {
+			var r correctionProofRecord
+			var pid *string
+			var pv *int
+			if e = rows.Scan(&r.Ref.ID, &r.Ref.Version, &r.CaseID, &pid, &pv, &r.Bytes); e != nil {
+				rows.Close()
+				return base, e
+			}
+			if pid != nil && pv != nil {
+				r.Parent = &correction.PlanRef{ID: *pid, Version: *pv}
+			}
+			total += r.Bytes
+			proofs = append(proofs, r)
 		}
-		total += r.Bytes
-		proofs = append(proofs, r)
-	}
-	e = rows.Err()
-	rows.Close()
-	if e != nil {
-		return base, e
+		e = rows.Err()
+		rows.Close()
+		if e != nil {
+			return base, e
+		}
 	}
 	if len(proofs) > 100 || total > correction.MaxResponseBytes {
 		return base, correction.ErrConflict
@@ -236,11 +261,20 @@ func correctionBuildBasisMetadata(ctx context.Context, tx *sql.Tx, caseID string
 		if r.Ref == *plan {
 			mainFound = true
 		}
-		p, e := correctionReadPlan(ctx, tx, r.Ref, false)
+		if inputs != nil {
+			p := inputs.planInputs[r.Ref]
+			r.Proof, e = p.decode()
+		} else {
+			var p correctionPlanRecord
+			p, e = correctionReadPlan(ctx, tx, r.Ref, false)
+			r.Proof = p.Proof
+		}
 		if e != nil {
 			return base, e
 		}
-		r.Proof = p.Proof
+		if facts := correctionBasisFactsFor(ctx, tx); facts != nil {
+			facts.proofs[r.Ref] = r.Proof
+		}
 	}
 	if !mainFound {
 		return base, correction.ErrSourceStale
@@ -249,28 +283,29 @@ func correctionBuildBasisMetadata(ctx context.Context, tx *sql.Tx, caseID string
 	parents := []correction.Basis{}
 	parentIDs := []string{}
 	audit := append([]correction.Dependency{}, base.AuditDeps...)
-	rows, e = tx.QueryContext(ctx, `SELECT r.id::text,octet_length(r.basis_bytes) FROM correction_results r WHERE r.owner_user_id=$1 AND r.evidence_kind=$2 AND r.evidence_id=$3 AND r.source_key<>$4 AND `+correctionApprovedResultSQL("r")+` AND `+correctionLeafSQL("r")+` ORDER BY r.id LIMIT 101`, meta.Owner, ref.Kind, ref.ID, job.Source)
-	if e != nil {
-		return base, e
-	}
-	type prior struct {
-		id string
-		n  int
-	}
-	old := []prior{}
-	for rows.Next() {
-		var r prior
-		if e = rows.Scan(&r.id, &r.n); e != nil {
-			rows.Close()
+	old := []correctionPrior{}
+	if inputs != nil {
+		old = inputs.old
+		total += inputs.parentBytes
+	} else {
+		rows, e = tx.QueryContext(ctx, correctionPriorMetadataSQL, meta.Owner, ref.Kind, ref.ID, job.Source)
+		if e != nil {
 			return base, e
 		}
-		total += r.n
-		old = append(old, r)
-	}
-	e = rows.Err()
-	rows.Close()
-	if e != nil {
-		return base, e
+		for rows.Next() {
+			var r correctionPrior
+			if e = rows.Scan(&r.id, &r.n); e != nil {
+				rows.Close()
+				return base, e
+			}
+			total += r.n
+			old = append(old, r)
+		}
+		e = rows.Err()
+		rows.Close()
+		if e != nil {
+			return base, e
+		}
 	}
 	if len(old) > 100 || total > correction.MaxResponseBytes {
 		return base, correction.ErrConflict
@@ -280,8 +315,15 @@ func correctionBuildBasisMetadata(ctx context.Context, tx *sql.Tx, caseID string
 		var wrapped struct {
 			Body correction.Basis `json:"body"`
 		}
-		if e = tx.QueryRowContext(ctx, `SELECT basis_bytes FROM correction_results WHERE id=$1`, r.id).Scan(&raw); e != nil {
-			return base, e
+		if inputs != nil {
+			if e = inputs.parentErrors[r.id]; e != nil {
+				return base, e
+			}
+			raw = inputs.parentRaw[r.id]
+		} else {
+			if e = tx.QueryRowContext(ctx, `SELECT basis_bytes FROM correction_results WHERE id=$1`, r.id).Scan(&raw); e != nil {
+				return base, e
+			}
 		}
 		if json.Unmarshal(raw, &wrapped) != nil {
 			return base, auth.ErrUnavailable
@@ -494,17 +536,24 @@ func correctionWriteResult(ctx context.Context, tx *sql.Tx, j correctionJobRecor
 			rows = append(rows, dependencyRow{role, d.Kind, d.ID, d.Version, d.SHA256, positions})
 		}
 	}
-	// One statement keeps the same per-row FK and immutable-source checks. A
-	// failure at any dependency still rolls back the entire result transaction.
-	if len(rows) > 0 {
-		if _, e = tx.ExecContext(ctx, `INSERT INTO correction_dependencies(result_id,role,kind,id,version,sha256,positions) SELECT $1,d.role,d.kind,d.id,d.version,d.sha256,d.positions FROM jsonb_to_recordset($2::jsonb) AS d(role text,kind text,id text,version integer,sha256 text,positions integer[])`, id, body(rows)); e != nil {
-			return "", e
-		}
-	}
-	if e = correctionEvent(ctx, tx, "result", id, "result_sealed", "", j.Meta.CaseID, nil, 1, map[string]any{"digest": h}); e != nil {
+
+	eventRaw, eventHash, e := correction.Canonical("correction-command-v1", map[string]any{"digest": h})
+	if e != nil {
 		return "", e
 	}
-	_, e = tx.ExecContext(ctx, `UPDATE correction_results SET sealed=true WHERE id=$1`, id)
+	eventID, e := workflowID()
+	if e != nil {
+		return "", e
+	}
+	// The parent was inserted by the previous statement. Every row guard and
+	// deferred completeness check remains active. Producer dependencies finish
+	// the inserts before sealing; the following notice sees the sealed result.
+	_, e = tx.ExecContext(ctx, `WITH dependencies AS (
+ INSERT INTO correction_dependencies(result_id,role,kind,id,version,sha256,positions) SELECT $1,d.role,d.kind,d.id,d.version,d.sha256,d.positions FROM jsonb_to_recordset($2::jsonb) AS d(role text,kind text,id text,version integer,sha256 text,positions integer[]) RETURNING result_id
+ ),audit AS (
+ INSERT INTO correction_events(id,subject_kind,subject_id,subject_version,case_id,kind,sequence,actor_user_id,body,body_bytes,body_digest)
+ SELECT $3,'result',$1,NULL,$4,'result_sealed',1,NULL,$5,$6,$7 FROM (SELECT count(*) FROM dependencies) ready RETURNING subject_id
+ ) UPDATE correction_results SET sealed=true FROM audit WHERE correction_results.id=$1 AND audit.subject_id=correction_results.id`, id, body(rows), eventID, j.Meta.CaseID, string(eventRaw), eventRaw, eventHash)
 	return id, e
 }
 
@@ -594,27 +643,45 @@ func correctionPositionMap(ctx context.Context, tx *sql.Tx, b correction.Basis, 
 			ot, rt *question.Identity
 		}
 		links := []link{}
-		rows, e := tx.QueryContext(ctx, `SELECT m#>'{original,identity}',m#>'{replacement,identity}',m#>'{original,template}',m#>'{replacement,template}' FROM jsonb_to_recordset($1::jsonb) refs(id uuid,version integer) JOIN correction_plans p ON p.id=refs.id AND p.version=refs.version AND p.status='approved' CROSS JOIN LATERAL jsonb_array_elements(p.frozen_body#>'{body,proof,mappings}') m`, body(b.PlanRefs))
-		if e != nil {
-			return out, e
+		known := false
+		if facts := correctionBasisFactsFor(ctx, tx); facts != nil {
+			known = true
+			for _, ref := range b.PlanRefs {
+				p, ok := facts.proofs[ref]
+				if !ok {
+					known = false
+					break
+				}
+				for _, m := range p.Mappings {
+					links = append(links, link{o: m.Original.Identity, r: m.Replacement.Identity, ot: m.Original.Template, rt: m.Replacement.Template})
+				}
+			}
 		}
-		for rows.Next() {
-			var l link
-			var a, c, d, f []byte
-			if e = rows.Scan(&a, &c, &d, &f); e != nil {
-				rows.Close()
+		if !known {
+			links = []link{}
+			rows, e := tx.QueryContext(ctx, `SELECT m#>'{original,identity}',m#>'{replacement,identity}',m#>'{original,template}',m#>'{replacement,template}' FROM jsonb_to_recordset($1::jsonb) refs(id uuid,version integer) JOIN correction_plans p ON p.id=refs.id AND p.version=refs.version AND p.status='approved' CROSS JOIN LATERAL jsonb_array_elements(p.frozen_body#>'{body,proof,mappings}') m`, body(b.PlanRefs))
+			if e != nil {
 				return out, e
 			}
-			if json.Unmarshal(a, &l.o) != nil || json.Unmarshal(c, &l.r) != nil || json.Unmarshal(d, &l.ot) != nil || json.Unmarshal(f, &l.rt) != nil {
-				rows.Close()
-				return out, auth.ErrUnavailable
+			for rows.Next() {
+				var l link
+				var a, c, d, f []byte
+				if e = rows.Scan(&a, &c, &d, &f); e != nil {
+					rows.Close()
+					return out, e
+				}
+				if json.Unmarshal(a, &l.o) != nil || json.Unmarshal(c, &l.r) != nil || json.Unmarshal(d, &l.ot) != nil || json.Unmarshal(f, &l.rt) != nil {
+					rows.Close()
+					return out, auth.ErrUnavailable
+				}
+				links = append(links, l)
 			}
-			links = append(links, l)
-		}
-		e = rows.Err()
-		rows.Close()
-		if e != nil {
-			return out, e
+			e = rows.Err()
+			rows.Close()
+			if e != nil {
+				return out, e
+			}
+
 		}
 		for depth := 0; depth < 100; depth++ {
 			changed := false

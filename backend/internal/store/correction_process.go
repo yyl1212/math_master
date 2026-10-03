@@ -26,11 +26,20 @@ func correctionAdvanceCursor(ctx context.Context, tx *sql.Tx, l correction.Lease
 		return correction.ErrConflict
 	}
 	seq := j.Meta.Sequence + 1
-	_, e = tx.ExecContext(ctx, `UPDATE correction_jobs SET cursor_kind=$2,cursor_id=$3,processed_count=processed_count+1,sequence=$4 WHERE id=$1`, l.JobID, ref.Kind, ref.ID, seq)
+
+	raw, h, e := correction.Canonical("correction-command-v1", map[string]any{"cursor": correction.ScanKey{Kind: ref.Kind, ID: ref.ID}, "processedCount": j.Meta.ProcessedCount + 1})
 	if e != nil {
 		return e
 	}
-	return correctionEvent(ctx, tx, "job", l.JobID, "job_continued", "", j.Meta.CaseID, nil, seq, map[string]any{"cursor": correction.ScanKey{Kind: ref.Kind, ID: ref.ID}, "processedCount": j.Meta.ProcessedCount + 1})
+	eventID, e := workflowID()
+	if e != nil {
+		return e
+	}
+	_, e = tx.ExecContext(ctx, `WITH advanced AS (
+ UPDATE correction_jobs SET cursor_kind=$2,cursor_id=$3,processed_count=processed_count+1,sequence=$4 WHERE id=$1 RETURNING id
+ ) INSERT INTO correction_events(id,subject_kind,subject_id,subject_version,case_id,kind,sequence,actor_user_id,body,body_bytes,body_digest)
+ SELECT $5,'job',advanced.id,NULL,$6,'job_continued',$4,NULL,$7,$8,$9 FROM advanced`, l.JobID, ref.Kind, ref.ID, seq, eventID, j.Meta.CaseID, string(raw), raw, h)
+	return e
 }
 func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lease, ref correction.EvidenceRef, now time.Time) error {
 	j, e := correctionReadJob(ctx, tx, l.JobID, false)
@@ -47,7 +56,7 @@ func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lea
 	if j.Evidence != nil && (*j.Evidence != ref || j.Owner == nil || *j.Owner != meta.Owner) {
 		return auth.ErrNotFound
 	}
-	account, e := readAccount(ctx, tx, meta.Owner, true)
+	account, e := correctionReadAccount(ctx, tx, meta.Owner, true)
 	if e != nil {
 		return e
 	}
@@ -60,6 +69,7 @@ func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lea
 		return e
 	}
 	ctx = context.WithValue(ctx, correctionProcessingKey{}, j)
+	ctx = context.WithValue(ctx, correctionBasisFactsKey{}, &correctionBasisFacts{tx: tx, proofs: map[correction.PlanRef]correction.PlanProof{}})
 	if !meta.Terminal && (ref.Kind == correction.AssessmentEvidence || ref.Kind == correction.PracticeEvidence) {
 		if e = notificationAppend(ctx, tx, meta.Owner, notification.Source{DedupKey: "checking:" + j.Meta.CaseID + ":" + string(ref.Kind) + ":" + ref.ID, Type: notification.Checking, Evidence: ref, CaseID: j.Meta.CaseID}); e != nil {
 			return e
@@ -172,8 +182,8 @@ func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lea
 	if e = notificationAppend(ctx, tx, meta.Owner, notification.Source{DedupKey: "result:" + rid, Type: typ, Evidence: ref, CaseID: j.Meta.CaseID, ResultID: &rid}); e != nil {
 		return e
 	}
-	// Content and owner locks remain held through the final database-time fence.
-	account, e = readAccount(ctx, tx, meta.Owner, false)
+	// 原内容与owner锁一直持有到末尾数据库时钟和租约核验。
+	account, e = correctionReadAccount(ctx, tx, meta.Owner, false)
 	if e != nil {
 		return e
 	}

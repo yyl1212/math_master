@@ -13,11 +13,17 @@ import (
 func (s *Store) correctionSystemTx(ctx context.Context, locks bool, fn func(context.Context, *sql.Tx, time.Time) error) error {
 	ctx, cancel := context.WithTimeout(ctx, 8*time.Second)
 	defer cancel()
-	tx, e := s.db.BeginTx(ctx, &sql.TxOptions{Isolation: sql.LevelReadCommitted})
+	conn, e := s.db.Conn(ctx)
+	if e != nil {
+		return correctionError(e)
+	}
+	defer conn.Close()
+	tx, e := conn.BeginTx(ctx, &sql.TxOptions{Isolation: sql.LevelReadCommitted})
 	if e != nil {
 		return correctionError(e)
 	}
 	defer tx.Rollback()
+	ctx = context.WithValue(ctx, correctionConnectionKey{}, correctionTransactionConnection{tx: tx, conn: conn})
 	on, e := correctionSystemConfigured(ctx, tx)
 	if e != nil {
 		return correctionError(e)
