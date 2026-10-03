@@ -54,14 +54,14 @@ function wrapped(cmd){
 }
 function validate(b,f,p){
  const bc=commands(b),fc=commands(f);
- for(const source of [b,f])assert.deepEqual([...source.matchAll(/^\s+timeout-minutes:\s*(\d+)/gm)].map(m=>Number(m[1])),[30],'job timeout');
+ for(const [source,want] of [[b,[30,30]],[f,[30]]])assert.deepEqual([...source.matchAll(/^\s+timeout-minutes:\s*(\d+)/gm)].map(m=>Number(m[1])),want,'job timeout');
  const browser=fc.filter(c=>c.includes('e2e')).map(c=>{
   const child=wrapped(c);const npm=child.indexOf('npm');
   assert.deepEqual(child.slice(npm,npm+4),['npm','run','e2e','--'],'browser command');
   const files=child.slice(npm+4);assert(files.every(p=>/^[a-z-]+\.spec\.ts$/.test(p)),'browser skip/retry/selection override');return files;
  });
  assert.equal(oldBrowserBatches.length,14);assert.equal(newFeedbackBatches.length,3);
- assert.deepEqual(browser,[...oldBrowserBatches,...newFeedbackBatches],'browser batches');
+ assert.deepEqual(browser.slice(0,17),[...oldBrowserBatches,...newFeedbackBatches],'browser batches');
  for(const [key,want]of [['workers',1],['retries',0],['globalTimeout',480000]])assert.equal(Number(p.match(new RegExp('\\b'+key+'\\s*:\\s*(\\d+)'))?.[1]),want,'Playwright '+key);
  assert.deepEqual([...p.matchAll(/name:\s*"(desktop|mobile)"/g)].map(m=>m[1]),['desktop','mobile'],'both viewports');
  const tests=[...bc,...fc].filter(c=>c.includes('go')&&c[c.indexOf('go')+1]==='test');
@@ -72,14 +72,14 @@ function validate(b,f,p){
  assert.deepEqual(capacities.map(c=>option(c,'-run')).sort(),['^TestLearningCapacitySourceVolume$','^TestLearningCapacityMaxPool$','^TestFeedbackCapacity$'].sort());
  for(const c of capacities)assert.equal(c.includes('-skip'),false,'capacity skip');
  const old=store.find(c=>c.includes('./internal/cli'));assert(old,'old store batch');
- assert.equal(option(old,'-skip'),'^Test(Learning|Assessment|Feedback)','old store skip');assert.equal(old.includes('-run'),false,'old store restricted selection');
+ assert.equal(option(old,'-skip'),'^Test(Learning|Assessment|Feedback|Correction|Notification)','old store skip');assert.equal(old.includes('-run'),false,'old store restricted selection');
  const learning=store.find(c=>option(c,'-run')==='^Test(Learning|Assessment)');assert(learning,'learning batch');assert.equal(option(learning,'-skip'),'^TestLearningCapacity','learning skip');
  const feedback=store.find(c=>option(c,'-run')==='^TestFeedback');assert(feedback,'feedback noncapacity batch');assert.equal(option(feedback,'-skip'),'^TestFeedbackCapacity','feedback skip');
  const foundation=bc.find(c=>c.includes('./internal/httpapi'));assert(foundation?.includes('./internal/feedback'),'pure feedback');
  for(const p of ['assessment','learning','question','auth','content','publication','config','httpapi','e2etest','testutil'])assert(foundation.includes('./internal/'+p),'old pure package '+p);
  const node=bc.find(c=>c.includes('--test'));assert(node,'old node batch');wrapped(node);
  for(const p of ['tools/verify/run.test.mjs','tools/verify/learning-compatibility.test.mjs','tools/verify/feedback-compatibility.test.mjs','tools/verify/feedback-ci.test.mjs','tools/content-ingest/snapshot.test.mjs'])assert(node.includes(p),'node coverage '+p);
- return {oldBrowserBatches:browser.slice(0,14),newFeedbackBatches:browser.slice(14),capacityCommands:capacities};
+ return {oldBrowserBatches:browser.slice(0,14),newFeedbackBatches:browser.slice(14,17),capacityCommands:capacities};
 }
 test('actual CI preserves old batches and executes every new feedback batch within original limits',()=>validate(backend,frontend,playwright));
 test('deleting an original browser batch is detected',()=>{
@@ -93,7 +93,7 @@ test('adding browser skip selection or retries is detected',()=>{
 test('deleting a capacity batch or skipping extra old store tests is detected',()=>{
  const modified=backend.replace(/^.*run:.*-run '\^TestLearningCapacityMaxPool\$'.*\n/m,'');assert.notEqual(modified,backend);
  assert.throws(()=>validate(modified,frontend,playwright),/capacity batches/);
- assert.throws(()=>validate(backend.replace('^Test(Learning|Assessment|Feedback)','^Test(Learning|Assessment|Feedback|Question)'),frontend,playwright),/old store skip/);
+ assert.throws(()=>validate(backend.replace('^Test(Learning|Assessment|Feedback|Correction|Notification)','^Test(Learning|Assessment|Feedback|Correction|Notification|Question)'),frontend,playwright),/old store skip/);
 });
 test('no browser suite or case is silently skipped, focused or retried',()=>{
  for(const name of readdirSync(new URL('tests/e2e/',root)).filter(p=>p.endsWith('.spec.ts'))){
