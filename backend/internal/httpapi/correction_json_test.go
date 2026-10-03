@@ -62,8 +62,47 @@ func TestCorrectionHTTPNamedContracts(t *testing.T) {
 			operations += len(ops)
 		}
 	}
-	if paths != 16 || operations != 19 {
+	if paths != 17 || operations != 20 {
 		t.Fatal("fixed routes", paths, operations)
+	}
+	// The original 16 paths/19 operations are retained; the sole addition is
+	// a session-owned read with the same private boundary and bounded SVG bytes.
+	assetPath := "/api/v1/corrections/results/{id}/assets/{sha256}"
+	if len(api.Paths[assetPath]) != 1 {
+		t.Fatal("only the read-only correction image operation may be added")
+	}
+	var asset struct {
+		OperationID string                `json:"operationId"`
+		Security    []map[string][]string `json:"security"`
+		Parameters  []struct {
+			Name     string
+			In       string
+			Required bool
+			Schema   struct{ Type, Pattern string }
+		}
+		Responses map[string]struct {
+			Headers map[string]struct{ Schema map[string]any }
+			Content map[string]struct{ Schema struct{ Type, Format string } }
+		}
+	}
+	if json.Unmarshal(api.Paths[assetPath]["get"], &asset) != nil || asset.OperationID != "readOwnCorrectionAsset" || len(asset.Security) != 1 || asset.Security[0]["SessionCookie"] == nil || len(asset.Parameters) != 2 {
+		t.Fatal("private owned correction SVG contract")
+	}
+	for _, parameter := range asset.Parameters {
+		want := "^[0-9a-f]{64}$"
+		if parameter.Name == "id" {
+			want = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+		} else if parameter.Name != "sha256" {
+			t.Fatal("unexpected asset selector")
+		}
+		if parameter.In != "path" || !parameter.Required || parameter.Schema.Type != "string" || parameter.Schema.Pattern != want {
+			t.Fatal("exact owned result and SHA required")
+		}
+	}
+	success := asset.Responses["200"]
+	svg := success.Content["image/svg+xml"].Schema
+	if len(success.Content) != 1 || svg.Type != "string" || svg.Format != "binary" || success.Headers["Cache-Control"].Schema["const"] != "private, no-store" || success.Headers["X-Content-Type-Options"].Schema["const"] != "nosniff" || success.Headers["Content-Security-Policy"].Schema["const"] != "sandbox; default-src 'none'" || success.Headers["Content-Length"].Schema["maximum"] != float64(1048576) {
+		t.Fatal("private bounded SVG response contract")
 	}
 	dtos := map[string]any{"CorrectionCaseInput": correction.CaseInput{}, "CorrectionCaseMetadata": correction.CaseMetadata{}, "CorrectionWithdrawalRef": correction.WithdrawalRef{}, "CorrectionPlanInput": correction.PlanInput{}, "CorrectionPlanMetadata": correction.PlanMetadata{}, "CorrectionPlanMetadataView": correction.PlanDetail{}, "CorrectionPlanDetail": correction.PlanDetail{}, "CorrectionMapping": correction.Mapping{}, "CorrectionPublishedInstance": correction.PublishedInstance{}, "CorrectionRuleScope": correction.RuleScope{}, "CorrectionEvidenceRef": correction.EvidenceRef{}, "CorrectionPlanRef": correction.PlanRef{}, "CorrectionResultMetadata": correction.ResultMetadata{}, "CorrectionResultMetadataView": correction.ResultDetail{}, "CorrectionResultDetail": correction.ResultDetail{}, "CorrectionCorrectedItem": correction.CorrectedItem{}, "CorrectionSubmitInput": correction.SubmitInput{}, "CorrectionRetryInput": correction.RetryInput{}, "CorrectionDecisionInput": correction.DecisionInput{}, "CorrectionJobMetadata": correction.JobMetadata{}, "CorrectionReceipt": correction.Receipt{}, "NotificationMetadata": notification.Metadata{}, "NotificationUnreadCount": notification.UnreadCount{}, "NotificationReadReceipt": notification.ReadReceipt{}}
 	var assertShape func(string, json.RawMessage, map[string]bool)
