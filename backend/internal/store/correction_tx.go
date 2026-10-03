@@ -39,17 +39,20 @@ func correctionConfigured(ctx context.Context, tx *sql.Tx) (bool, error) {
 	if n != len(correctionTables) || !ever || !version {
 		return false, correction.ErrNotConfigured
 	}
+	// Keep exact catalog lookups correlated: flattening them into anti joins
+	// deparses unrelated constraints and scans every catalog column per item.
+	// OFFSET 0 changes only planning; all definitions are checked on each tx.
 	var intact bool
 	if e := tx.QueryRowContext(ctx, `SELECT
  NOT EXISTS(SELECT 1 FROM jsonb_each_text($1::jsonb) g WHERE NOT EXISTS(
   SELECT 1 FROM pg_constraint c
-  WHERE c.conrelid=to_regclass('public.'||split_part(g.key,'/',1)) AND c.conname=split_part(g.key,'/',2) AND c.convalidated AND c.contype::text||':'||md5(pg_get_constraintdef(c.oid))=g.value))
+  WHERE c.conrelid=to_regclass('public.'||split_part(g.key,'/',1)) AND c.conname=split_part(g.key,'/',2) AND c.convalidated AND c.contype::text||':'||md5(pg_get_constraintdef(c.oid))=g.value OFFSET 0))
  AND NOT EXISTS(SELECT 1 FROM jsonb_each_text($2::jsonb) g WHERE NOT EXISTS(
   SELECT 1 FROM pg_trigger t
   WHERE t.tgrelid=to_regclass('public.'||split_part(g.value,':',1)) AND t.tgfoid=to_regprocedure('public.'||split_part(g.value,':',2)||'()') AND NOT t.tgisinternal AND t.tgenabled='O' AND t.tgname=g.key AND t.tgtype::text||':'||t.tgdeferrable::text||':'||t.tginitdeferred::text=split_part(g.value,':',3)||':'||split_part(g.value,':',4)||':'||split_part(g.value,':',5)))
  AND NOT EXISTS(SELECT 1 FROM unnest($3::text[]) g WHERE to_regprocedure('public.'||g) IS NULL)
  AND NOT EXISTS(SELECT 1 FROM jsonb_each_text($4::jsonb) g WHERE NOT EXISTS(
-  SELECT 1 FROM pg_index i JOIN pg_class r ON r.oid=i.indexrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname='public' AND r.relname=g.key AND i.indisvalid AND i.indisready AND i.indisunique AND md5(pg_get_indexdef(i.indexrelid))=g.value)) AND NOT EXISTS(SELECT 1 FROM jsonb_each_text($5::jsonb) r CROSS JOIN LATERAL unnest(string_to_array(r.value,',')) c WHERE NOT EXISTS(SELECT 1 FROM pg_attribute i WHERE i.attrelid=to_regclass('public.'||r.key) AND i.attname=c AND NOT i.attisdropped))`, body(correctionConstraintGuards), body(correctionTriggerGuards), correctionFunctionGuards, body(correctionUniqueIndexGuards), body(correctionColumns)).Scan(&intact); e != nil {
+  SELECT 1 FROM pg_index i JOIN pg_class r ON r.oid=i.indexrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname='public' AND r.relname=g.key AND i.indisvalid AND i.indisready AND i.indisunique AND md5(pg_get_indexdef(i.indexrelid))=g.value)) AND NOT EXISTS(SELECT 1 FROM jsonb_each_text($5::jsonb) r CROSS JOIN LATERAL unnest(string_to_array(r.value,',')) c WHERE NOT EXISTS(SELECT 1 FROM pg_attribute i WHERE i.attrelid=to_regclass('public.'||r.key) AND i.attname=c AND NOT i.attisdropped OFFSET 0))`, body(correctionConstraintGuards), body(correctionTriggerGuards), correctionFunctionGuards, body(correctionUniqueIndexGuards), body(correctionColumns)).Scan(&intact); e != nil {
 		return false, e
 	}
 	if !intact {

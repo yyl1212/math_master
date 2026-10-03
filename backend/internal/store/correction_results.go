@@ -183,8 +183,11 @@ func correctionBuildBasis(ctx context.Context, tx *sql.Tx, caseID string, plan *
 	if plan == nil || ref.Kind != correction.AssessmentEvidence && ref.Kind != correction.PracticeEvidence {
 		return base, nil
 	}
-	// Select only applicable approved sources, returning sizes/identities first.
-	rows, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT p.id::text,p.version,p.case_id::text,p.parent_id::text,p.parent_version,octet_length(p.frozen_bytes) FROM correction_plans p JOIN correction_cases c ON c.id=p.case_id CROSS JOIN evidence e WHERE e.kind=$1 AND e.id=$2 AND e.owner=$3 AND p.sealed AND p.status='approved' AND p.algorithm_version=1 AND (c.id=$4 OR `+correctionCaseAffectsSQL+`) AND EXISTS(SELECT 1 FROM correction_events v WHERE v.subject_kind='plan' AND v.subject_id=p.id AND v.subject_version=p.version AND v.kind='plan_approved') ORDER BY p.id,p.version LIMIT 101`, ref.Kind, ref.ID, meta.Owner, caseID)
+	// Match the exact evidence and cases before reading approved plan metadata.
+	// UNION preserves every source predicate and deduplicates the main case.
+	// Separate immutable case kinds avoid charging withdrawal subplans to all
+	// grading cases, which otherwise triggers JIT as unrelated results grow.
+	rows, e := tx.QueryContext(ctx, `WITH evidence AS MATERIALIZED (SELECT * FROM (`+correctionEvidenceRowsSQL+`) e WHERE e.kind=$1 AND e.id=$2 AND e.owner=$3), matched_cases AS MATERIALIZED (SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE c.id=$4 UNION SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE `+correctionGradingCaseAffectsSQL+` UNION SELECT c.id FROM correction_cases c CROSS JOIN evidence e WHERE `+correctionWithdrawalCaseAffectsSQL+`) SELECT p.id::text,p.version,p.case_id::text,p.parent_id::text,p.parent_version,p.bytes FROM matched_cases c JOIN LATERAL (SELECT p.id,p.version,p.case_id,p.parent_id,p.parent_version,octet_length(p.frozen_bytes) bytes FROM correction_plans p WHERE p.case_id=c.id AND p.sealed AND p.status='approved' AND p.algorithm_version=1 AND EXISTS(SELECT 1 FROM correction_events v WHERE v.subject_kind='plan' AND v.subject_id=p.id AND v.subject_version=p.version AND v.kind='plan_approved' OFFSET 0) OFFSET 0) p ON true ORDER BY p.id,p.version LIMIT 101`, ref.Kind, ref.ID, meta.Owner, caseID)
 	if e != nil {
 		return base, e
 	}
