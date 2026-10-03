@@ -27,3 +27,5 @@ Deferred minors：无。唯一原Minor已升级为Important并处理，没有将
 ## 最终门槛
 
 独立原始结论为 `Ready to merge? With fixes`。三项修复已有真实失败与定向GREEN，但修复后完整本机矩阵及SSH draft PR最新完整head四项workflow/all jobs仍待完成，不能把首轮旧SHA的成功替代最终验证，也不宣称部署或自行合并。
+
+同一次链修复补充 `TestCorrectionReplacementChainIgnoresUnrelatedFork`：真实其他实例的批准分支冲突造成3.19秒RED，链守卫仅沿当前原实例的确定性边走到终点后，和当前链冲突/环及无中间结果回归一起8.17秒GREEN。其他题目无关分支不阻塞本证据；当前链分叉、环、缺边、超100引用/边仍拒绝。未完成的旧SHA矩阵已由其自身包装器安全中止，不用于最终验收；全部组将在新提交重跑。

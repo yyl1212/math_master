@@ -257,3 +257,58 @@ func TestCorrectionAssetExposureAndCooldown(t *testing.T) {
 		t.Fatal("asset bypassed 30-minute exposure cooldown", e)
 	}
 }
+
+func TestCorrectionReplacementChainIgnoresUnrelatedFork(t *testing.T) {
+	f := newCorrectionFixture(t)
+	aid, b := f.cSubmittedBasis("learner_a")
+	pub1 := *f.QHead()
+	var raw []byte
+	var unrelated question.Instance
+	if e := f.db.QueryRow(`SELECT jsonb_set(i.body->'body','{identity,sha256}',to_jsonb(i.sha256)) FROM question_instances i WHERE i.template_version=1 AND i.knowledge_id=$1 AND NOT EXISTS(SELECT 1 FROM assessment_items a WHERE a.attempt_id=$2 AND a.instance_id=i.id) ORDER BY i.id LIMIT 1`, b.OriginalSeal.Knowledge.ID, aid).Scan(&raw); e != nil {
+		t.Fatal(e)
+	}
+	if json.Unmarshal(raw, &unrelated) != nil {
+		t.Fatal("actual unrelated instance")
+	}
+	w := f.QWithdraw(question.WithdrawalTarget{Kind: "template", ID: b.OriginalItems[0].Template.ID, Version: 1})
+	f.cFinishRoots()
+	var cid string
+	if e := f.db.QueryRow(`SELECT id::text FROM correction_cases WHERE withdrawal_id=$1`, w.EventID).Scan(&cid); e != nil {
+		t.Fatal(e)
+	}
+	apply := func(ref correction.PlanRef) {
+		var data []byte
+		var maps []correction.ResolvedMapping
+		if e := f.db.QueryRow(`SELECT frozen_body#>'{body,proof,mappings}' FROM correction_plans WHERE id=$1 AND version=$2`, ref.ID, ref.Version).Scan(&data); e != nil {
+			t.Fatal(e)
+		}
+		if json.Unmarshal(data, &maps) != nil {
+			t.Fatal("actual approved mapping")
+		}
+		for i, m := range maps {
+			b.EffectiveItems[i] = m.Replacement
+		}
+	}
+	p1 := f.cReplacementPlan(cid, b, pub1, 2)
+	pub2 := *f.QHead()
+	apply(p1)
+	p2 := f.cReplacementPlan(cid, b, pub2, 3, p1)
+	apply(p2)
+	other := b
+	other.EffectiveItems = []question.Instance{unrelated}
+	p3 := f.cReplacementPlan(cid, other, pub1, 4)
+	p4 := f.cReplacementPlan(cid, other, pub1, 5)
+	b.PlanRefs = []correction.PlanRef{p1, p2, p3, p4}
+	b.HandledCaseIDs = []string{cid}
+	var allowed bool
+	if e := f.db.QueryRow(`SELECT correction_replacement_authorized($1::jsonb,0)`, corrJSON(b)).Scan(&allowed); e != nil {
+		t.Fatal(e)
+	}
+	if !allowed {
+		t.Fatal("another original instance's approved fork blocked this exact deterministic chain")
+	}
+	f.cRunAll()
+	if f.count(`SELECT count(*) FROM correction_results WHERE evidence_id=$1 AND status='corrected_passed'`, aid) != 4 {
+		t.Fatal("unrelated mappings stalled valid evidence")
+	}
+}

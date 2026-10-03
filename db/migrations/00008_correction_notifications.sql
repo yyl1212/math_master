@@ -204,13 +204,13 @@ BEGIN
  ),edges AS MATERIALIZED (
   SELECT DISTINCT m#>'{original,identity}' src,m#>'{replacement,identity}' dst FROM approved CROSS JOIN LATERAL jsonb_array_elements(frozen_body#>'{body,proof,mappings}') m
   WHERE m#>'{original,identity}' IS DISTINCT FROM m#>'{replacement,identity}'
- ),conflicts AS MATERIALIZED (
-  SELECT src FROM edges GROUP BY src HAVING count(DISTINCT dst)>1
+ ),deterministic AS MATERIALIZED (
+  SELECT src,jsonb_agg(dst)->0 dst FROM edges GROUP BY src HAVING count(*)=1
  ),walk(identity,visited,depth) AS (
   SELECT original_id,ARRAY[original_id],0
-  UNION ALL SELECT e.dst,w.visited||ARRAY[e.dst],w.depth+1 FROM walk w JOIN edges e ON e.src=w.identity
-  WHERE w.depth<100 AND NOT e.dst=ANY(w.visited) AND NOT EXISTS(SELECT 1 FROM conflicts)
- ) SELECT (SELECT count(*) FROM approved)=(SELECT count(*) FROM refs) AND NOT EXISTS(SELECT 1 FROM conflicts)
+  UNION ALL SELECT e.dst,w.visited||ARRAY[e.dst],w.depth+1 FROM walk w JOIN deterministic e ON e.src=w.identity
+  WHERE w.depth<100 AND NOT e.dst=ANY(w.visited)
+ ) SELECT (SELECT count(*) FROM approved)=(SELECT count(*) FROM refs)
   AND EXISTS(SELECT 1 FROM walk w WHERE w.identity=effective_id AND NOT EXISTS(SELECT 1 FROM edges e WHERE e.src=w.identity)));
 END $$;
 CREATE FUNCTION correction_case_applies(cid uuid,ek text,eid uuid,uid uuid) RETURNS boolean LANGUAGE sql STABLE AS $$
