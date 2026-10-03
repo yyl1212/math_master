@@ -1,0 +1,8 @@
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+--- PASS: TestCorrectionSchemaLegalResultAndAudit (0.92s)
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+    correction_schema_test.go:203: equivalent but unmapped published replacement granted a result
+--- FAIL: TestCorrectionSchemaUnmappedReplacementRejected (0.96s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.600s
+FAIL

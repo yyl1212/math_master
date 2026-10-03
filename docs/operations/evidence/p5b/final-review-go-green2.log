@@ -1,0 +1,18 @@
+=== RUN   TestCorrectionUnprocessedApprovedChain
+--- PASS: TestCorrectionUnprocessedApprovedChain (1.81s)
+=== RUN   TestCorrectionResultAssetsUseEffectiveBasis
+--- PASS: TestCorrectionResultAssetsUseEffectiveBasis (1.36s)
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle
+--- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles (3.52s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict (1.82s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle (1.70s)
+=== RUN   TestCorrectionAssetExposureAndCooldown
+--- PASS: TestCorrectionAssetExposureAndCooldown (1.05s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	8.525s
+=== RUN   TestCorrectionHTTPPrivateAsset
+--- PASS: TestCorrectionHTTPPrivateAsset (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/httpapi	0.345s

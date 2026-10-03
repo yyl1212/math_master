@@ -333,7 +333,7 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 - [x] **Step 1 — 写失败CI保护测试。** 新CorrectionCI及旧FeedbackCI扩展：删除任一原17browser/三capacity、改变原5m/8m/9m/30m、skip旧Question、将新batch只写在step名、重复/遗漏新测试分类皆FAIL；新20浏览器批次包含全部old prefix，原foundation11包保留并加入两新包，新增独立Gojob包含Correction非capacity及两新capacity，全部真实可执行。
 - [x] **Step 2 — RED。** `node tools/verify/run.mjs -- node --test tools/verify/correction-ci.test.mjs tools/verify/feedback-ci.test.mjs`。Expected：新job/新浏览器未运行，保护FAIL。
 - [x] **Step 3 — 最小实现。** backend.yml保留原verify job与三capacity，旧store skip仅扩为 `^Test(Learning|Assessment|Feedback|Correction|Notification)`；新增 correction_verify job，独立同版本PG服务/锁定Actions/CGO环境，执行新非capacity/两capacity各5m，两个job各30m。frontend只追加三browser批次，原17顺序保持。文档记录source/cutoff/六处置、审批、补扫、八次+manual恢复、关闭worker仍限制、曾启用缺表、二进制回退维护与十表非空Down拒绝，验收记录不预写PASS。
-- [ ] **Step 4 — 完整GREEN与独立审查。** 执行下列矩阵，保留精确SHA/命令/退出码/耗时/脱敏结果及双视口截图；Native完成全部功能后 requesting-code-review 安排一位新reviewer审查master→全分支实际diff/方案/计划/证据。重要问题先RED回归→最小修复→受影响复验，最后完整矩阵一次。Expected：原全部+新增测试PASS、零阻塞/重要未解决问题；交付指标为实际数量，不预承诺新增case数量。
+- [x] **Step 4 — 完整GREEN与独立审查。** 执行下列矩阵，保留精确SHA/命令/退出码/耗时/脱敏结果及双视口截图；Native完成全部功能后 requesting-code-review 安排一位新reviewer审查master→全分支实际diff/方案/计划/证据。重要问题先RED回归→最小修复→受影响复验，最后完整矩阵一次。Expected：原全部+新增测试PASS、零阻塞/重要未解决问题；交付指标为实际数量，不预承诺新增case数量。
 - [ ] **Step 5 — 交付。** `git add tools/verify/{correction,feedback}-ci.test.mjs .github/workflows/{backend,frontend}.yml docs/operations/correction-workflow.md docs/operations/2026-10-03-p5b-{acceptance,final-review}.md docs/operations/evidence/p5b docs/superpowers/specs/2026-10-03-correction-impact-design.md docs/superpowers/plans/2026-10-03-correction-impact.md docs/superpowers/plans/2026-09-30-development-roadmap.md`；`git commit -m 'test: 完成P5b回归审查与恢复证据'`。SSH正常push产品分支，`gh pr create --draft --base master --body-file <脱敏中文说明文件>`，成功后attach_artifact；读取最新完整head的四workflow runs及全部jobs，全部成功后汇报PR。不自行合并实现MR、不部署；四run验收记录必须是最新head，文档再push需再次核对。
 
 ## 完整验证矩阵
@@ -396,7 +396,7 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 | §11 批准兼容性的字段/旧事实/回退限制 | 白名单及数据决策、Task3/7/10/11/15/16 |
 | §12 用户审阅计划、Native实施及MR | 本文状态、实施前基线、Task16 |
 
-用户已确认并沿用Native；最新master隔离分支与基线预检已完成，Task1—15逐项提交。Task16的完整最终矩阵、一次独立审查及最新head四项CI尚在执行，产品合并与生产部署需另行授权。
+用户已确认并沿用Native；最新master隔离分支与基线预检已完成，Task1—15逐项提交。Task16的一次独立审查与同一次必要修复已经完成，修复后350前端/146双视口/44Node/全部Go及五容量完整矩阵通过，SSH draft与最新head四项CI尚在交付，产品合并与生产部署需另行授权。
 
 
 ## 实施中的必要文件补充

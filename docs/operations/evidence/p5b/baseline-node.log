@@ -1,0 +1,32 @@
+✔ freezes source bytes and finds changes without changing the prior snapshot (51.400584ms)
+✔ unchanged sources produce no repeated changes and never overwrite a snapshot (68.936958ms)
+✔ rejects index paths escaping the source folder (20.883459ms)
+✔ reports missing files as a review item without modifying the previous snapshot (47.812459ms)
+✔ private snapshots retain owner-only permissions under a permissive umask (24.139375ms)
+✔ actual CI preserves old batches and executes every new feedback batch within original limits (2.5235ms)
+✔ deleting an original browser batch is detected (0.852167ms)
+✔ adding browser skip selection or retries is detected (0.635833ms)
+✔ deleting a capacity batch or skipping extra old store tests is detected (0.69ms)
+✔ no browser suite or case is silently skipped, focused or retried (3.030583ms)
+✔ active command parser handles split and equals options without counting step labels (0.098917ms)
+✔ approved master preserves all 75 paths, 192 schemas, 32 responses and three security schemes (4.289458ms)
+✔ a changed original Learning field is detected (7.459584ms)
+✔ all original migrations 00001 through 00006 retain their exact bytes (0.441708ms)
+✔ changing an original migration is detected (0.147417ms)
+✔ original mathematical digest purposes retain their exact sets (1.437041ms)
+✔ all 54 old paths, 147 schemas, 22 responses and three security schemes retain exact values (3.660916ms)
+✔ one deliberately changed old field is detected (6.159375ms)
+✔ original migrations and mathematical purposes remain unchanged (1.063458ms)
+✔ all 21 learning operations have named strict contracts and fixed response bounds (0.156042ms)
+✔ keeps success and failure exit codes (81.675ms)
+✔ terminates commands on timeout (73.876333ms)
+✔ rejects timeouts above the test ceiling (19.121333ms)
+✔ kills remaining process group after its leader exits on timeout (5331.545958ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 24
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5547.335625

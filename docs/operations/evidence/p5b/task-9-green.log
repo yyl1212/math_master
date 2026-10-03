@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/store [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_read.go:97:50: invalid operation: ok && marker (mismatched types bool and correctionOwnerArgument)
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

@@ -1,0 +1,46 @@
+ok  	github.com/yyl1212/math_master/backend/cmd/server	0.544s
+ok  	github.com/yyl1212/math_master/backend/internal/correction	2.810s
+ok  	github.com/yyl1212/math_master/backend/internal/notification	3.718s
+ok  	github.com/yyl1212/math_master/backend/internal/feedback	1.696s
+ok  	github.com/yyl1212/math_master/backend/internal/assessment	4.095s
+ok  	github.com/yyl1212/math_master/backend/internal/learning	4.454s
+ok  	github.com/yyl1212/math_master/backend/internal/question	1.249s
+ok  	github.com/yyl1212/math_master/backend/internal/auth	3.421s
+ok  	github.com/yyl1212/math_master/backend/internal/content	2.331s
+ok  	github.com/yyl1212/math_master/backend/internal/publication	4.850s
+ok  	github.com/yyl1212/math_master/backend/internal/config	2.874s
+2026/10/04 03:07:16 ERROR API request failed request_id=f7a60d245ae6502362ec2d7c58e4426e error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:16 ERROR API request failed request_id=4ea6bb9a2fb28e76606839d863dd03fc error_code=INTERNAL_ERROR
+2026/10/04 03:07:16 ERROR Private API request failed request_id=25a73009cbb8fb67ed7f68ae4aa43872 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:16 ERROR Private API request failed request_id=d63bb6d0ca32d9be2807acc0204ef260 error_code=AUTH_NOT_CONFIGURED
+2026/10/04 03:07:16 ERROR API request failed request_id=4a2a1e2fff4440632822551325a16f32 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:16 ERROR API request failed request_id=3aad682630f98e33ae0e93ebda53612b error_code=INTERNAL_ERROR
+2026/10/04 03:07:16 ERROR Private API request failed request_id=86dc39567e9b53fb563768336630d860 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:17 ERROR Private API request failed request_id=f32460ceb9212cadbd24e55c7e239e87 error_code=AUTH_NOT_CONFIGURED
+2026/10/04 03:07:17 ERROR Private API request failed request_id=2bb85990aa4e0b92dfce42f84a348507 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:17 ERROR Private API request failed request_id=cc40fae87f65c040f3fdb6f5a4f59a54 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:17 ERROR Private API request failed request_id=dd11ccafc2c22f2e688a0a0ffc703377 error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestCorrectionHTTPNamedContracts (0.00s)
+    correction_json_test.go:66: fixed routes 17 20
+2026/10/04 03:07:18 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:18 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:26 ERROR Private API request failed request_id=bce1b246db99deecd0bf85d79c53c5d3 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:29 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:29 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:37 ERROR Private API request failed request_id=2de3db55ccdcba0aaddffe4627f74f05 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:39 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:39 ERROR Private API request failed request_id=8da5c9435dc37e1f6348663c228683b4 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:47 ERROR Private API request failed request_id=d727388fac7fe87448847e2f1edb7e82 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:47 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:56 ERROR Private API request failed request_id=401c5fc6981ed6d6078eecacdb2f97f6 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:57 ERROR Private API request failed request_id=b0e304a321df559cea1c3cf29b3ec228 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:57 ERROR Private API request failed request_id=14b6402e561dad23d4bb76bedf440bd2 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:57 ERROR Private API request failed request_id=be13078f30b7ca32aadc1a4736f1a9b5 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:07:57 ERROR Private API request failed request_id=92a752711b7df4c2a5d0f1f989975283 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:08:05 ERROR Private API request failed request_id=d1483e9dcbacefb9d5346ae90201e481 error_code=SERVICE_UNAVAILABLE
+2026/10/04 03:08:17 ERROR Private API request failed request_id=588a3d2c7c620ee5cc589a44f25597b4 error_code=SERVICE_UNAVAILABLE
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/httpapi	63.684s
+ok  	github.com/yyl1212/math_master/backend/internal/e2etest	107.940s
+ok  	github.com/yyl1212/math_master/backend/internal/testutil	5.222s
+FAIL

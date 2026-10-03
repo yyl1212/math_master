@@ -1,0 +1,53 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/lib/correction/schemas.test.ts
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/lib/correction/schemas.test.ts (7 tests | 2 failed) 18ms
+   × uses the existing authentication error codes and statuses for recovery 2ms
+   × corrected outcomes require an approved plan and accurate knowledge identity 0ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/correction/schemas.test.ts > uses the existing authentication error codes and statuses for recovery
+AssertionError: expected CorrectionRequestError: Service temporari… { …(4) } to match object { …(2) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "REAUTHENTICATION_REQUIRED",
+-   "status": 428,
++ CorrectionRequestError {
++   "code": "SERVICE_UNAVAILABLE",
++   "status": 503,
+  }
+
+ ❯ src/lib/correction/schemas.test.ts:13:520
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/lib/correction/schemas.test.ts > corrected outcomes require an approved plan and accurate knowledge identity
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ src/lib/correction/schemas.test.ts:14:237
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 5 passed (7)
+   Start at  00:20:43
+   Duration  356ms (environment 62%, transform 13%, setup 11%, import 7%, tests 6%)
+

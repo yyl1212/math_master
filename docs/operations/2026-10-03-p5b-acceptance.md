@@ -52,4 +52,31 @@ RED→GREEN包括缺check/FK/unique/function、触发器错表/错函数/禁用�
 
 ## 审查修复后的完整矩阵
 
-[独立审查](2026-10-03-p5b-final-review.md)及[一次修复方案](2026-10-03-p5b-review-fixes.md)保留实际问题、分级和RED→GREEN。目前定向Go、HTTP、UI/proxy、旧契约和类型全部GREEN，修复后44条完整矩阵尚待运行，不能把上表的审查前SHA当成新代码验收。新增真实模板撤回/有效纠错配图/替代再次撤回的双视口场景；最终数量和精确SHA按实际输出补记。
+一次独立reviewer完成审查，三项重要问题在同一次修复轮正式RED→GREEN后，前端/浏览器受验提交为 `ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848`，Go实际执行于 `751f45badc51feebeb3669416aedba19b4566521`（全部Go输入Git对象完全相同）。44条命令、时间、日志SHA、当前20张脱敏截图和裁定见[最终结构化证据](evidence/p5b/verification-macos.json)。首轮记录保存在[审查前证据](evidence/p5b/verification-macos-before-review.json)，不能混作最新产品验证。
+
+| 检查 | 修复后实际结果 |
+| --- | --- |
+| 全矩阵 | 44/44条独立包装器命令，加2/2新提交Node/diff复核；全部退出0，每条小于10分钟 |
+| 前端单元 | 70文件350项通过 |
+| Node保护 | 44项通过，旧完整契约及原七迁移/摘要目的保护保持 |
+| 双视口浏览器 | 20批146项；原17批130项完整保留，三新增批16项；无skip/retry |
+| 纯/HTTP/server退出/harness | 104.98s通过 |
+| 原store/CLI | 140.45s通过 |
+| 学习/检测 | 81.95s通过 |
+| 反馈 | 28.14s通过 |
+| 纠错/通知/新CLI | 120.43s通过 |
+| 原反馈容量 | 11.15s通过 |
+| 原最大题源容量 | 91.81s通过 |
+| 原最大路线容量 | 123.96s通过 |
+| 1000案件/1000批准方案/10000证据 | 250.44s通过 |
+| 10000通知及10000同源重跑 | 41.99s通过 |
+| 安装/API生成/类型/构建/harness/gofmt/vet/Go构建 | 全部通过；generated无漂移 |
+| 生产依赖审计 | 0漏洞 |
+
+新配图场景真实撤回原模板，独立批准有效等价方案，桌面/手机实际SVG全部加载；替代模板再次撤回后逐URL立即404，原答案/result摘要保持一致。已归档首轮缺陷、契约计数同步及成功回归。一次修复全部完成，零未解决Critical/Important、无deferred minor。SSH draft产品PR最新完整head四项workflow/all jobs仍待远端执行，不预写PASS。
+
+验证范围按实际SHA记录：配图CSS引用和宽图浏览器断言是Go矩阵后唯一非文档差异；backend、db、api、content、schemas、tools、workflow、依赖锁及Playwright配置Git对象逐个相等。Go不伪写为新SHA执行；Node因读取spec在新SHA额外完整44项PASS，diff复核PASS；前端9命令/浏览器20批全在新SHA执行。等价证明和逐组SHA已归档，最新远端四项CI仍须新完整head全部执行。
+
+历史步骤、基线、失败及中断日志与[历史执行索引](evidence/p5b/verification-history.jsonl)保留以供审计；它们不构成当前PASS结论。最终结论以verification-macos.json中的准确逐组SHA、命令、退出码和日志SHA为准。全部文本日志已检查无token/带密码数据库URL。
+
+已逐张查看20张桌面/手机截图：纠错配图和长依据身份在视口内，原五题结果和练习页面保留。账户/曝光/同键边界截图部分记录安全加载过渡态，未显示私有草稿或答案；功能结论依据该场景的真实浏览器/API断言，不能以过渡截图单独推断。

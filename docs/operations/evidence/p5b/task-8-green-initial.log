@@ -1,0 +1,26 @@
+=== RUN   TestCorrectionProcessAtomic
+=== RUN   TestCorrectionProcessAtomic/result
+=== RUN   TestCorrectionProcessAtomic/dependency
+=== RUN   TestCorrectionProcessAtomic/qualification
+=== RUN   TestCorrectionProcessAtomic/notification
+=== RUN   TestCorrectionProcessAtomic/cursor
+--- PASS: TestCorrectionProcessAtomic (5.15s)
+    --- PASS: TestCorrectionProcessAtomic/result (1.06s)
+    --- PASS: TestCorrectionProcessAtomic/dependency (1.04s)
+    --- PASS: TestCorrectionProcessAtomic/qualification (1.01s)
+    --- PASS: TestCorrectionProcessAtomic/notification (1.02s)
+    --- PASS: TestCorrectionProcessAtomic/cursor (1.01s)
+=== RUN   TestCorrectionStaleLeaseNoEvidenceWrites
+--- PASS: TestCorrectionStaleLeaseNoEvidenceWrites (0.92s)
+=== RUN   TestCorrectionCrashResumeCursorAndNotificationDedup
+--- PASS: TestCorrectionCrashResumeCursorAndNotificationDedup (2.48s)
+=== RUN   TestCorrectionProcessRootActiveLateTerminalAfterDone
+--- PASS: TestCorrectionProcessRootActiveLateTerminalAfterDone (1.08s)
+=== RUN   TestCorrectionCumulativeResultsOtherCaseStillRestricts
+--- PASS: TestCorrectionCumulativeResultsOtherCaseStillRestricts (1.14s)
+=== RUN   TestCorrectionProcessWithdrawalWithoutMappingRetake
+--- PASS: TestCorrectionProcessWithdrawalWithoutMappingRetake (1.01s)
+=== RUN   TestCorrectionTerminalSourceApproved
+--- PASS: TestCorrectionTerminalSourceApproved (0.88s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	13.268s

@@ -1,0 +1,4 @@
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+--- PASS: TestCorrectionSchemaUnmappedReplacementRejected (1.01s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	3.658s

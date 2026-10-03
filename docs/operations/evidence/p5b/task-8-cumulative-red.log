@@ -1,0 +1,12 @@
+=== RUN   TestCorrectionCumulativeResultsOtherCaseStillRestricts
+--- PASS: TestCorrectionCumulativeResultsOtherCaseStillRestricts (1.17s)
+=== RUN   TestCorrectionCumulativeResultsParentReplacementWithdrawn
+    correction_process_test.go:387: replacement audit positions missing
+--- FAIL: TestCorrectionCumulativeResultsParentReplacementWithdrawn (1.30s)
+=== RUN   TestCorrectionCumulativeResultsIncompatibleApprovedMappings
+--- PASS: TestCorrectionCumulativeResultsIncompatibleApprovedMappings (1.65s)
+=== RUN   TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass
+--- PASS: TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass (1.67s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	6.377s
+FAIL

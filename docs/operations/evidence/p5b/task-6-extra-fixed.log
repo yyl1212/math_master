@@ -1,0 +1,5 @@
+--- FAIL: TestCorrectionLegacyTerminalBackfillRootPlanSharedBudget (0.91s)
+    correction_backfill_test.go:129: 1 0 <nil>
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	18.496s
+FAIL

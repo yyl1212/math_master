@@ -1,0 +1,201 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/lib/correction src/lib/notification src/lib/api/correction-proxy.test.ts src/lib/api/notification-proxy.test.ts src/lib/learning/schemas.test.ts
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/lib/correction/schemas.test.ts (0 test)
+ ❯ src/lib/correction/client.test.ts (0 test)
+ ❯ src/lib/notification/client.test.ts (0 test)
+ ❯ src/lib/api/notification-proxy.test.ts (0 test)
+ ❯ src/lib/notification/server-client.test.ts (0 test)
+ ❯ src/lib/notification/schemas.test.ts (0 test)
+ ❯ src/lib/api/correction-proxy.test.ts (0 test)
+ ❯ src/lib/correction/server-client.test.ts (0 test)
+ ❯ src/lib/learning/schemas.test.ts (4 tests | 1 failed) 18ms
+   × P5b requires the nullable correction link and accepts the approved grading restriction 3ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/api/correction-proxy.test.ts [ src/lib/api/correction-proxy.test.ts ]
+Error: Failed to resolve import "./correction-proxy" from "src/lib/api/correction-proxy.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/api/correction-proxy.test.ts:2:0
+  1  |  vi.mock("server-only", () => ({}));
+  2  |  const __vi_import_0__ = await import("./correction-proxy");
+     |                                       ^
+  3  |  const __vi_import_1__ = await import("../correction/test-fixtures");
+  4  |  import { it, expect, vi, afterEach } from "vitest";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  src/lib/api/notification-proxy.test.ts [ src/lib/api/notification-proxy.test.ts ]
+Error: Failed to resolve import "./notification-proxy" from "src/lib/api/notification-proxy.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/api/notification-proxy.test.ts:2:0
+  1  |  vi.mock("server-only", () => ({}));
+  2  |  const __vi_import_0__ = await import("./notification-proxy");
+     |                                       ^
+  3  |  const __vi_import_1__ = await import("../notification/test-fixtures");
+  4  |  import { it, expect, vi, afterEach } from "vitest";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  src/lib/correction/client.test.ts [ src/lib/correction/client.test.ts ]
+Error: Failed to resolve import "./client" from "src/lib/correction/client.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/correction/client.test.ts:2:0
+  7  |  	notifyAuthChanged: auth.changed
+  8  |  }));
+  9  |  const __vi_import_0__ = await import("./client");
+     |                                       ^
+  10 |  const __vi_import_1__ = await import("./test-fixtures");
+  11 |  import { it, expect, vi, afterEach } from "vitest";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  src/lib/correction/schemas.test.ts [ src/lib/correction/schemas.test.ts ]
+Error: Failed to resolve import "./bytes" from "src/lib/correction/schemas.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/correction/schemas.test.ts:4:40
+  2  |  import { readFileSync } from "node:fs";
+  3  |  import { z } from "zod";
+  4  |  import { validateCorrectionBytes } from "./bytes";
+     |                                           ^
+  5  |  import { resolveCorrectionRoute, caseMetadataSchema, planMetadataViewSchema, planDetailSchema, resultMetadataViewSche...
+  6  |  import { id, caseMetadata, planMetadata, resultMetadata, resultDetail, json, cursor } from "./test-fixtures";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  src/lib/correction/server-client.test.ts [ src/lib/correction/server-client.test.ts ]
+Error: Failed to resolve import "./server-client" from "src/lib/correction/server-client.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/correction/server-client.test.ts:2:0
+  2  |  const jar = vi.hoisted(() => ({ cookies: vi.fn() }));
+  3  |  vi.mock("next/headers", () => ({ cookies: jar.cookies }));
+  4  |  const __vi_import_0__ = await import("./server-client");
+     |                                       ^
+  5  |  const __vi_import_1__ = await import("./test-fixtures");
+  6  |  import { it, expect, vi, afterEach } from "vitest";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  src/lib/notification/client.test.ts [ src/lib/notification/client.test.ts ]
+Error: Failed to resolve import "./client" from "src/lib/notification/client.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/notification/client.test.ts:2:0
+  7  |  	notifyAuthChanged: auth.changed
+  8  |  }));
+  9  |  const __vi_import_0__ = await import("./client");
+     |                                       ^
+  10 |  const __vi_import_1__ = await import("./test-fixtures");
+  11 |  import { it, expect, vi, afterEach } from "vitest";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  src/lib/notification/schemas.test.ts [ src/lib/notification/schemas.test.ts ]
+Error: Failed to resolve import "./bytes" from "src/lib/notification/schemas.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/notification/schemas.test.ts:4:40
+  2  |  import { readFileSync } from "node:fs";
+  3  |  import { z } from "zod";
+  4  |  import { validateNotificationBytes } from "./bytes";
+     |                                             ^
+  5  |  import { metadataSchema, resolveNotificationRoute, readNotificationResponse } from "./schemas";
+  6  |  import { metadata, id, json, cursor } from "./test-fixtures";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  src/lib/notification/server-client.test.ts [ src/lib/notification/server-client.test.ts ]
+Error: Failed to resolve import "./server-client" from "src/lib/notification/server-client.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/lib/notification/server-client.test.ts:2:0
+  2  |  const jar = vi.hoisted(() => ({ cookies: vi.fn() }));
+  3  |  vi.mock("next/headers", () => ({ cookies: jar.cookies }));
+  4  |  const __vi_import_0__ = await import("./server-client");
+     |                                       ^
+  5  |  const __vi_import_1__ = await import("./test-fixtures");
+  6  |  import { it, expect, vi, afterEach } from "vitest";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/learning/schemas.test.ts > P5b requires the nullable correction link and accepts the approved grading restriction
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/lib/learning/schemas.test.ts:32:309
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+
+ Test Files  9 failed (9)
+      Tests  1 failed | 3 passed (4)
+   Start at  00:15:03
+   Duration  909ms (environment 77%, setup 16%, transform 5%, import 1%)
+

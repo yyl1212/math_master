@@ -1,0 +1,7 @@
+=== RUN   TestCorrectionReviewCorrectedAsset
+    review_chain_test.go:43: corrected result validity=effective assets=1
+    review_chain_test.go:44: corrected page asset URL fails: account resource not found
+--- FAIL: TestCorrectionReviewCorrectedAsset (1.41s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.907s
+FAIL

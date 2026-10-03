@@ -1,0 +1,14 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_cases_test.go:19:27: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_cases_test.go:24:84: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_cases_test.go:25:19: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_cases_test.go:33:46: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_cases_test.go:34:16: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_cases_test.go:47:16: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_sources_test.go:13:23: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_sources_test.go:14:16: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_sources_test.go:15:49: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_sources_test.go:16:77: f.repo.CreateCorrectionCase undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionCase)
+internal/store/correction_sources_test.go:16:77: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

@@ -1,0 +1,26 @@
+=== RUN   TestCorrectionOwnResponseSize
+--- PASS: TestCorrectionOwnResponseSize (0.00s)
+=== RUN   TestCorrectionBroadRuleExposure
+--- PASS: TestCorrectionBroadRuleExposure (1.12s)
+=== RUN   TestCorrectionReplacementTemplateExposure
+    correction_exposure_test.go:107: replacement template overlap <nil>
+--- FAIL: TestCorrectionReplacementTemplateExposure (1.31s)
+=== RUN   TestCorrectionOwnExposureFailureClosedAndExpired
+--- PASS: TestCorrectionOwnExposureFailureClosedAndExpired (1.05s)
+=== RUN   TestCorrectionBroadCandidateQueryIsExecutable
+--- PASS: TestCorrectionBroadCandidateQueryIsExecutable (0.77s)
+=== RUN   TestCorrectionOwnPrivacy
+--- PASS: TestCorrectionOwnPrivacy (1.05s)
+=== RUN   TestCorrectionResultPagination
+--- PASS: TestCorrectionResultPagination (1.66s)
+=== RUN   TestCorrectionResultPaginationPlanVersionsShareClock
+--- PASS: TestCorrectionResultPaginationPlanVersionsShareClock (0.80s)
+=== RUN   TestNotificationCursorIsolation
+--- PASS: TestNotificationCursorIsolation (1.07s)
+=== RUN   TestNotificationReadReplay
+--- PASS: TestNotificationReadReplay (1.05s)
+=== RUN   TestNotificationRateAndRollback
+--- PASS: TestNotificationRateAndRollback (1.21s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	11.704s
+FAIL

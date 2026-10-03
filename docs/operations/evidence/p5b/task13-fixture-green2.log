@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionRealFixtureAndSharedReset
+    correction_fixture_test.go:37: unexpected original numeric fixture prompt
+--- FAIL: TestCorrectionRealFixtureAndSharedReset (1.18s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest	2.049s
+FAIL

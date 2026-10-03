@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 typecheck
+> tsc --noEmit
+
+src/features/correction/status.tsx(32,38): error TS2304: Cannot find name 'verify'.
+src/features/correction/status.tsx(32,79): error TS2304: Cannot find name 'setVerify'.
+src/features/correction/status.tsx(32,97): error TS2304: Cannot find name 'trigger'.
+src/features/correction/status.tsx(32,144): error TS2304: Cannot find name 'setVerified'.
+src/features/correction/status.tsx(32,163): error TS2304: Cannot find name 'setVerify'.
+src/features/correction/status.tsx(32,181): error TS2304: Cannot find name 'trigger'.
+src/features/correction/status.tsx(32,213): error TS2304: Cannot find name 'verified'.
+src/features/correction/status.tsx(32,805): error TS2304: Cannot find name 'trigger'.
+src/features/correction/status.tsx(32,896): error TS2304: Cannot find name 'setVerify'.

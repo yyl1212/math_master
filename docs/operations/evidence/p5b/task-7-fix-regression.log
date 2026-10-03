@@ -1,0 +1,64 @@
+=== RUN   TestCorrectionProjectionInvalidation
+--- PASS: TestCorrectionProjectionInvalidation (0.00s)
+=== RUN   TestAssessmentFourOfFive
+=== RUN   TestAssessmentFourOfFive/0
+=== RUN   TestAssessmentFourOfFive/3
+=== RUN   TestAssessmentFourOfFive/4
+=== RUN   TestAssessmentFourOfFive/5
+--- PASS: TestAssessmentFourOfFive (3.45s)
+    --- PASS: TestAssessmentFourOfFive/0 (0.90s)
+    --- PASS: TestAssessmentFourOfFive/3 (0.84s)
+    --- PASS: TestAssessmentFourOfFive/4 (0.85s)
+    --- PASS: TestAssessmentFourOfFive/5 (0.85s)
+=== RUN   TestAssessmentEvidenceBothOrders
+=== RUN   TestAssessmentEvidenceBothOrders/read-first
+=== RUN   TestAssessmentEvidenceBothOrders/pass-first
+--- PASS: TestAssessmentEvidenceBothOrders (1.94s)
+    --- PASS: TestAssessmentEvidenceBothOrders/read-first (0.97s)
+    --- PASS: TestAssessmentEvidenceBothOrders/pass-first (0.96s)
+=== RUN   TestAssessmentEvidenceLockedDiagnosticAndReview
+--- PASS: TestAssessmentEvidenceLockedDiagnosticAndReview (1.23s)
+=== RUN   TestAssessmentEvidenceOrdinaryReplacement
+--- PASS: TestAssessmentEvidenceOrdinaryReplacement (0.96s)
+=== RUN   TestAssessmentEvidenceKnowledgeUpdateAffected
+--- PASS: TestAssessmentEvidenceKnowledgeUpdateAffected (0.89s)
+=== RUN   TestAssessmentEvidenceWithdrawalBeforeAndAfterGrant
+=== RUN   TestAssessmentEvidenceWithdrawalBeforeAndAfterGrant/before
+=== RUN   TestAssessmentEvidenceWithdrawalBeforeAndAfterGrant/after
+--- PASS: TestAssessmentEvidenceWithdrawalBeforeAndAfterGrant (1.77s)
+    --- PASS: TestAssessmentEvidenceWithdrawalBeforeAndAfterGrant/before (0.87s)
+    --- PASS: TestAssessmentEvidenceWithdrawalBeforeAndAfterGrant/after (0.90s)
+=== RUN   TestAssessmentExpiryAndRaceCreate
+--- PASS: TestAssessmentExpiryAndRaceCreate (0.81s)
+=== RUN   TestAssessmentExpiryAndRaceSubmit
+--- PASS: TestAssessmentExpiryAndRaceSubmit (0.85s)
+=== RUN   TestAssessmentExpiryAndRaceAbandonSubmit
+--- PASS: TestAssessmentExpiryAndRaceAbandonSubmit (0.83s)
+=== RUN   TestAssessmentExpiryDerivedAndNewCreate
+--- PASS: TestAssessmentExpiryDerivedAndNewCreate (0.86s)
+=== RUN   TestAssessmentExpiryAfterAttemptLockWait
+--- PASS: TestAssessmentExpiryAfterAttemptLockWait (1.54s)
+=== RUN   TestAssessmentExpiryAndRaceRevocationCredentialCancellation
+=== RUN   TestAssessmentExpiryAndRaceRevocationCredentialCancellation/session
+=== RUN   TestAssessmentExpiryAndRaceRevocationCredentialCancellation/password
+=== RUN   TestAssessmentExpiryAndRaceRevocationCredentialCancellation/credential
+=== RUN   TestAssessmentExpiryAndRaceRevocationCredentialCancellation/cancel
+--- PASS: TestAssessmentExpiryAndRaceRevocationCredentialCancellation (3.31s)
+    --- PASS: TestAssessmentExpiryAndRaceRevocationCredentialCancellation/session (0.86s)
+    --- PASS: TestAssessmentExpiryAndRaceRevocationCredentialCancellation/password (0.83s)
+    --- PASS: TestAssessmentExpiryAndRaceRevocationCredentialCancellation/credential (0.82s)
+    --- PASS: TestAssessmentExpiryAndRaceRevocationCredentialCancellation/cancel (0.80s)
+=== RUN   TestCorrectionProjectionDiagnosticAllViewsOriginalBytes
+--- PASS: TestCorrectionProjectionDiagnosticAllViewsOriginalBytes (0.94s)
+=== RUN   TestCorrectionOtherCaseStillRestricts
+--- PASS: TestCorrectionOtherCaseStillRestricts (0.94s)
+=== RUN   TestCorrectionProjectionSupersededPassNotFallback
+--- PASS: TestCorrectionProjectionSupersededPassNotFallback (1.00s)
+=== RUN   TestCorrectionCompletionLaterGrantsAppendOnly
+--- PASS: TestCorrectionCompletionLaterGrantsAppendOnly (0.98s)
+=== RUN   TestCorrectionProjectionOriginalFailedFourDoesNotForgeOldQualification
+--- PASS: TestCorrectionProjectionOriginalFailedFourDoesNotForgeOldQualification (0.86s)
+=== RUN   TestCorrectionProjectionIncompatibleApprovedLeavesRestrict
+--- PASS: TestCorrectionProjectionIncompatibleApprovedLeavesRestrict (0.90s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	24.620s

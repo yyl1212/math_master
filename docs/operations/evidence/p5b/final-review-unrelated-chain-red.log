@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionReplacementChainIgnoresUnrelatedFork
+    correction_review_regression_test.go:308: another original instance's approved fork blocked this exact deterministic chain
+--- FAIL: TestCorrectionReplacementChainIgnoresUnrelatedFork (1.99s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.547s
+FAIL

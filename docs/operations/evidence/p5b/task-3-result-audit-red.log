@@ -1,0 +1,8 @@
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+    correction_schema_test.go:112: legal original-answer result rejected ERROR: column reference "case_id" is ambiguous (SQLSTATE 42702)
+--- FAIL: TestCorrectionSchemaLegalResultAndAudit (0.91s)
+=== RUN   TestCorrectionSchemaReplacementSHA
+--- PASS: TestCorrectionSchemaReplacementSHA (0.85s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.333s
+FAIL

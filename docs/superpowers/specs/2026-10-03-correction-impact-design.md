@@ -1,6 +1,6 @@
 # P5b：纠错影响、独立重算与站内通知方案
 
-日期：2026-10-03。状态：用户已书面确认本方案及第十一节兼容性变化；[16 项 / 80 步实施计划](../plans/2026-10-03-correction-impact.md)已确认，沿用Native从文档PR #22合并后的最新master `dad438d13b37d1053e3bf42e7c32e3829e4518a6` 实施。Task1—15已提交；Task16的本机完整矩阵已通过：345前端/144双视口浏览器/44Node及全部Go/五项容量；一次独立整分支审查和SSH draft产品PR最新head四项CI仍待完成，不预记最终验收通过。
+日期：2026-10-03。状态：用户已书面确认本方案及第十一节兼容性变化；[16 项 / 80 步实施计划](../plans/2026-10-03-correction-impact.md)已确认，沿用Native从文档PR #22合并后的最新master `dad438d13b37d1053e3bf42e7c32e3829e4518a6` 实施。Task1—15已提交；Task16的一次独立审查及同一次必要修复已完成，修复后完整矩阵已通过：350前端/146双视口浏览器/44Node及全部Go/五项容量；SSH draft产品PR最新head四项CI仍待远端验收，不预记最终验收通过。
 
 基线：[P5a PR #21](https://github.com/yyl1212/math_master/pull/21)已合并，master `0f2e11ab688300439c1d1ad7b6d908647be50187`。其产品完整 head `f46a9a07057ba6d100b2d83cd0ba5e12567430fb` 的四项 CI 全部通过。合并后 master 的[Go 检查](https://github.com/yyl1212/math_master/actions/runs/37092889861)与[前端检查](https://github.com/yyl1212/math_master/actions/runs/37092889897)均已通过，不用产品分支检查替代。
 

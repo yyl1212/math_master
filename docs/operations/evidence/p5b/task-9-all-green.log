@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/notification_read_test.go:151:11: cannot use "wrong" (untyped string constant) as auth.Secret value in assignment
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

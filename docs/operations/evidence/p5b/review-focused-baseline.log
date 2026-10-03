@@ -1,0 +1,46 @@
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/create
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/process
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/retry
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/notification-read
+--- PASS: TestCorrectionSlidingBoundaryAndAllScopes (0.86s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/create (0.19s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/process (0.21s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/retry (0.16s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/notification-read (0.30s)
+=== RUN   TestCorrectionLateTerminalAfterRootDone
+--- PASS: TestCorrectionLateTerminalAfterRootDone (0.92s)
+=== RUN   TestCorrectionLegacyTerminalBackfillAndStableLowKey
+--- PASS: TestCorrectionLegacyTerminalBackfillAndStableLowKey (0.92s)
+=== RUN   TestCorrectionLegacyTerminalBackfillRootPlanSharedBudget
+--- PASS: TestCorrectionLegacyTerminalBackfillRootPlanSharedBudget (0.98s)
+=== RUN   TestCorrectionReplacementTemplateExposure
+--- PASS: TestCorrectionReplacementTemplateExposure (1.33s)
+=== RUN   TestCorrectionCumulativeResultsOtherCaseStillRestricts
+--- PASS: TestCorrectionCumulativeResultsOtherCaseStillRestricts (1.14s)
+=== RUN   TestCorrectionWithdrawalCommitRace
+=== RUN   TestCorrectionWithdrawalCommitRace/withdrawal-first
+=== RUN   TestCorrectionWithdrawalCommitRace/correction-first
+--- PASS: TestCorrectionWithdrawalCommitRace (2.73s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/withdrawal-first (1.36s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/correction-first (1.38s)
+=== RUN   TestCorrectionCumulativeResultsParentReplacementWithdrawn
+--- PASS: TestCorrectionCumulativeResultsParentReplacementWithdrawn (1.74s)
+=== RUN   TestCorrectionCumulativeResultsIncompatibleApprovedMappings
+--- PASS: TestCorrectionCumulativeResultsIncompatibleApprovedMappings (1.67s)
+=== RUN   TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass
+--- PASS: TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass (1.69s)
+=== RUN   TestCorrectionOtherCaseStillRestricts
+--- PASS: TestCorrectionOtherCaseStillRestricts (0.98s)
+=== RUN   TestCorrectionWithdrawalFenceRealSource
+--- PASS: TestCorrectionWithdrawalFenceRealSource (0.93s)
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/instance
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/asset
+--- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset (1.81s)
+    --- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/instance (0.90s)
+    --- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/asset (0.91s)
+=== RUN   TestNotificationCursorIsolation
+--- PASS: TestNotificationCursorIsolation (1.08s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	19.275s

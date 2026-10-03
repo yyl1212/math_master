@@ -1,0 +1,11 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts correction-user.spec.ts --grep corrected template illustrations
+
+
+Running 2 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal (4.0s)
+  ✓  2 [mobile] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal (3.9s)
+
+  2 passed (9.7s)

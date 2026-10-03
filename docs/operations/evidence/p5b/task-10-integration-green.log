@@ -1,0 +1,8 @@
+=== RUN   TestCorrectionHTTPIntegration
+    correction_integration_test.go:166: ERROR: column "body_bytes" does not exist (SQLSTATE 42703)
+--- FAIL: TestCorrectionHTTPIntegration (0.90s)
+=== RUN   TestNotificationHTTPIntegration
+--- PASS: TestNotificationHTTPIntegration (0.98s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/httpapi	5.116s
+FAIL

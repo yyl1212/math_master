@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionRealFixtureAndSharedReset
+--- PASS: TestCorrectionRealFixtureAndSharedReset (2.67s)
+=== RUN   TestCorrectionHarnessScenesArePrivate
+--- PASS: TestCorrectionHarnessScenesArePrivate (1.25s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/e2etest	4.564s

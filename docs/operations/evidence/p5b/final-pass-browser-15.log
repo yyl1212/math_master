@@ -1,0 +1,25 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts feedback-user.spec.ts
+
+
+Running 14 tests using 1 worker
+
+[WebServer] 2026/10/04 03:51:28 ERROR Private API request failed request_id=6afb4d1575ec06ecd0e1af1f795a92a4 error_code=SERVICE_UNAVAILABLE
+  ✓   1 [desktop] › ../tests/e2e/feedback-user.spec.ts:4:5 › real lesson parts, path, own practice, fifth assessment item and site retain exact source (11.2s)
+  ✓   2 [desktop] › ../tests/e2e/feedback-user.spec.ts:5:5 › waiting details and terminal objections reopen with current metadata (8.8s)
+  ✓   3 [desktop] › ../tests/e2e/feedback-user.spec.ts:6:5 › discussion pagination stays bounded after fifty events (4.5s)
+  ✓   4 [desktop] › ../tests/e2e/feedback-user.spec.ts:7:5 › feedback outage preserves public server-rendered lesson (3.6s)
+  ✓   5 [desktop] › ../tests/e2e/feedback-user.spec.ts:9:5 › maximum Chinese body and long English title remain plain text and fit the screen (3.3s)
+  ✓   6 [desktop] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (3.0s)
+  ✓   7 [desktop] › ../tests/e2e/feedback-user.spec.ts:19:5 › a real new publication refreshes a stale target without losing the draft or sending automatically (3.5s)
+[WebServer] 2026/10/04 03:52:06 ERROR Private API request failed request_id=47d9c4ad20a71e6d8eaef4d491feaf12 error_code=SERVICE_UNAVAILABLE
+  ✓   8 [mobile] › ../tests/e2e/feedback-user.spec.ts:4:5 › real lesson parts, path, own practice, fifth assessment item and site retain exact source (11.6s)
+  ✓   9 [mobile] › ../tests/e2e/feedback-user.spec.ts:5:5 › waiting details and terminal objections reopen with current metadata (7.6s)
+  ✓  10 [mobile] › ../tests/e2e/feedback-user.spec.ts:6:5 › discussion pagination stays bounded after fifty events (4.5s)
+  ✓  11 [mobile] › ../tests/e2e/feedback-user.spec.ts:7:5 › feedback outage preserves public server-rendered lesson (3.6s)
+  ✓  12 [mobile] › ../tests/e2e/feedback-user.spec.ts:9:5 › maximum Chinese body and long English title remain plain text and fit the screen (3.1s)
+  ✓  13 [mobile] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (2.9s)
+  ✓  14 [mobile] › ../tests/e2e/feedback-user.spec.ts:19:5 › a real new publication refreshes a stale target without losing the draft or sending automatically (3.5s)
+
+  14 passed (1.3m)

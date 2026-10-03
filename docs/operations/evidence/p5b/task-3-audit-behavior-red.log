@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+    correction_schema_test.go:111: result sealed without audit event
+--- FAIL: TestCorrectionSchemaLegalResultAndAudit (0.92s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.351s
+FAIL

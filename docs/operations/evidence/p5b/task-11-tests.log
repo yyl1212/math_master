@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/lib/correction src/lib/notification src/lib/api/correction-proxy.test.ts src/lib/api/notification-proxy.test.ts src/lib/learning/schemas.test.ts
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+
+ Test Files  9 passed (9)
+      Tests  35 passed (35)
+   Start at  00:24:19
+   Duration  561ms (environment 59%, setup 15%, transform 14%, import 8%, tests 4%)
+

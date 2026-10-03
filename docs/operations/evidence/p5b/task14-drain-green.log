@@ -1,0 +1,4 @@
+ok  	github.com/yyl1212/math_master/backend/cmd/server	0.947s
+ok  	github.com/yyl1212/math_master/backend/internal/correction	0.826s
+ok  	github.com/yyl1212/math_master/backend/internal/config	1.258s
+ok  	github.com/yyl1212/math_master/backend/internal/cli	2.092s

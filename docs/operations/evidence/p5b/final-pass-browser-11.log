@@ -1,0 +1,17 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts learning-progress.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/learning-progress.spec.ts:3:5 › explicit reading and route enrollment keep read, passed and unlocked counts separate (5.6s)
+  ✓  2 [desktop] › ../tests/e2e/learning-progress.spec.ts:4:5 › new and withdrawn routes preserve each enrolled version and denominator (6.5s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  3 [mobile] › ../tests/e2e/learning-progress.spec.ts:3:5 › explicit reading and route enrollment keep read, passed and unlocked counts separate (4.9s)
+  ✓  4 [mobile] › ../tests/e2e/learning-progress.spec.ts:4:5 › new and withdrawn routes preserve each enrolled version and denominator (6.9s)
+
+  4 passed (25.2s)

@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionPlanUnknownRuleRemainsClosed
+    correction_rate_test.go:61: unregistered grading rule opened <nil>
+--- FAIL: TestCorrectionPlanUnknownRuleRemainsClosed (0.19s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	0.856s
+FAIL

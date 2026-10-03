@@ -1,0 +1,9 @@
+# github.com/yyl1212/math_master/backend/internal/e2etest [github.com/yyl1212/math_master/backend/internal/e2etest.test]
+internal/e2etest/correction_fixture_test.go:17:7: undefined: setupCorrection
+internal/e2etest/correction_fixture_test.go:18:12: undefined: correctionState
+internal/e2etest/correction_fixture_test.go:19:154: undefined: correctionChange
+internal/e2etest/correction_fixture_test.go:20:11: undefined: correctionState
+internal/e2etest/correction_fixture_test.go:22:21: undefined: correctionResetTableNames
+internal/e2etest/correction_fixture_test.go:29:209: undefined: correctionDatabaseState
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest [build failed]
+FAIL

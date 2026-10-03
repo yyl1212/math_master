@@ -1,0 +1,18 @@
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/check
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/function
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger
+--- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed (5.35s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/check (1.04s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key (0.85s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique (0.86s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/function (0.86s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table (0.87s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger (0.86s)
+=== RUN   TestCorrectionCompatibilityOriginalFailedReceiptAndRollback
+--- PASS: TestCorrectionCompatibilityOriginalFailedReceiptAndRollback (1.04s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	6.951s

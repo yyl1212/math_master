@@ -1,0 +1,374 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction src/features/notification
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/features/correction/correction.test.tsx (5 tests | 1 failed) 91ms
+   × CorrectionConfirmedPendingRefresh retains its key after committed POST and failed GET 14ms
+stderr | src/features/notification/inbox.test.tsx > uses static owned notification text and removes it on a silent SSR actor switch
+An error occurred in the <CorrectionCommandStatus> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+ ❯ src/features/notification/inbox.test.tsx (3 tests | 3 failed) 1024ms
+   × NotificationReadPending retains a committed read key when refreshing the unread count fails 20ms
+   × keeps a failed read unconfirmed and allows same-key manual retry 2ms
+   × uses static owned notification text and removes it on a silent SSR actor switch 1002ms
+stderr | src/features/correction/review-regressions.test.tsx > CorrectionPrivateDraftRefresh preserves inputs across a same-actor SSR refresh
+An error occurred in the <CorrectionCommandStatus> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+stderr | src/features/correction/review.test.tsx > requires the protected plan read before editing; status refresh preserves private draft
+An error occurred in the <CorrectionCommandStatus> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+stderr | src/features/correction/review-regressions.test.tsx > a live account change clears pending input and all private reason text
+An error occurred in the <CorrectionCommandStatus> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+ ❯ src/features/correction/review-regressions.test.tsx (8 tests | 4 failed) 2087ms
+   × CorrectionPrivateDraftRefresh preserves inputs across a same-actor SSR refresh 1011ms
+   × disables duplicate commands during identity checking and retains its key on timeout 3ms
+   × ignores a metadata response after the confirmed deadline and retries the original snapshot 2ms
+   × a live account change clears pending input and all private reason text 1005ms
+stderr | src/features/correction/review.test.tsx > presents separate independent approval/rejection and retains a frozen same-key conflict retry
+An error occurred in the <CorrectionCommandStatus> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+stderr | src/features/correction/review.test.tsx > reauthentication preserves the original command and never submits it automatically
+An error occurred in the <CorrectionCommandStatus> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+stderr | src/features/correction/review.test.tsx > same-account server metadata refresh updates sequence without erasing an open draft
+An error occurred in the <CorrectionCommandStatus> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+
+ ❯ src/features/correction/review.test.tsx (4 tests | 4 failed) 4084ms
+   × requires the protected plan read before editing; status refresh preserves private draft 1054ms
+   × presents separate independent approval/rejection and retains a frozen same-key conflict retry 1006ms
+   × reauthentication preserves the original command and never submits it automatically 1008ms
+   × same-account server metadata refresh updates sequence without erasing an open draft 1015ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/correction/correction.test.tsx > CorrectionConfirmedPendingRefresh retains its key after committed POST and failed GET
+ FAIL  src/features/correction/review-regressions.test.tsx > disables duplicate commands during identity checking and retains its key on timeout
+ FAIL  src/features/correction/review-regressions.test.tsx > ignores a metadata response after the confirmed deadline and retries the original snapshot
+ FAIL  src/features/notification/inbox.test.tsx > NotificationReadPending retains a committed read key when refreshing the unread count fails
+ FAIL  src/features/notification/inbox.test.tsx > keeps a failed read unconfirmed and allows same-key manual retry
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  src/features/correction/review-regressions.test.tsx > CorrectionPrivateDraftRefresh preserves inputs across a same-actor SSR refresh
+TestingLibraryElementError: Unable to find a label with the text of: Plan reason
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/correction/review-regressions.test.tsx:19:315
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  src/features/correction/review-regressions.test.tsx > a live account change clears pending input and all private reason text
+TestingLibraryElementError: Unable to find a label with the text of: Plan reason
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/correction/review-regressions.test.tsx:46:385
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  src/features/correction/review.test.tsx > requires the protected plan read before editing; status refresh preserves private draft
+TestingLibraryElementError: Unable to find a label with the text of: Plan reason
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/correction/review.test.tsx:18:700
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  src/features/correction/review.test.tsx > presents separate independent approval/rejection and retains a frozen same-key conflict retry
+TestingLibraryElementError: Unable to find a label with the text of: Independent review reason
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/correction/review.test.tsx:19:664
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  src/features/correction/review.test.tsx > reauthentication preserves the original command and never submits it automatically
+TestingLibraryElementError: Unable to find a label with the text of: Plan reason
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/correction/review.test.tsx:20:648
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  src/features/correction/review.test.tsx > same-account server metadata refresh updates sequence without erasing an open draft
+TestingLibraryElementError: Unable to find a label with the text of: Plan reason
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/correction/review.test.tsx:21:413
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL  src/features/notification/inbox.test.tsx > uses static owned notification text and removes it on a silent SSR actor switch
+TestingLibraryElementError: Unable to find role="link" and name "View correction"
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div />[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/notification/inbox.test.tsx:20:313
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 7 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+This error originated in "src/features/notification/inbox.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "uses static owned notification text and removes it on a silent SSR actor switch". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+This error originated in "src/features/correction/review-regressions.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "CorrectionPrivateDraftRefresh preserves inputs across a same-actor SSR refresh". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+This error originated in "src/features/correction/review.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "requires the protected plan read before editing; status refresh preserves private draft". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+This error originated in "src/features/correction/review-regressions.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "a live account change clears pending input and all private reason text". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+This error originated in "src/features/correction/review.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "presents separate independent approval/rejection and retains a frozen same-key conflict retry". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+This error originated in "src/features/correction/review.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "reauthentication preserves the original command and never submits it automatically". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+
+⎯⎯⎯⎯⎯ Uncaught Exception ⎯⎯⎯⎯⎯
+ReferenceError: verify is not defined
+ ❯ CorrectionCommandStatus src/features/correction/status.tsx:32:38
+
+ ❯ Object.react_stack_bottom_frame node_modules/react-dom/cjs/react-dom-client.development.js:28571:20
+ ❯ renderWithHooks node_modules/react-dom/cjs/react-dom-client.development.js:8030:22
+ ❯ updateFunctionComponent node_modules/react-dom/cjs/react-dom-client.development.js:10569:19
+ ❯ beginWork node_modules/react-dom/cjs/react-dom-client.development.js:12205:18
+ ❯ runWithFiberInDEV node_modules/react-dom/cjs/react-dom-client.development.js:1048:13
+ ❯ performUnitOfWork node_modules/react-dom/cjs/react-dom-client.development.js:19176:22
+ ❯ workLoopSync node_modules/react-dom/cjs/react-dom-client.development.js:19004:41
+ ❯ renderRootSync node_modules/react-dom/cjs/react-dom-client.development.js:18985:11
+ ❯ performWorkOnRoot node_modules/react-dom/cjs/react-dom-client.development.js:18094:35
+
+This error originated in "src/features/correction/review.test.tsx" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "same-account server metadata refresh updates sequence without erasing an open draft". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  4 failed | 2 passed (6)
+      Tests  12 failed | 12 passed (24)
+     Errors  7 errors
+   Start at  00:37:03
+   Duration  4.57s (tests 73%, environment 15%, transform 5%, import 3%, setup 3%)
+

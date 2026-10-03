@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+    correction_schema_test.go:201: real published replacement was not equivalent invalid account input
+--- FAIL: TestCorrectionSchemaUnmappedReplacementRejected (0.98s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.628s
+FAIL

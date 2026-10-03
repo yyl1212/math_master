@@ -1,0 +1,14 @@
+=== RUN   TestCorrectionProjectionInvalidation
+--- PASS: TestCorrectionProjectionInvalidation (0.00s)
+=== RUN   TestCorrectionProjectionDiagnosticAllViewsOriginalBytes
+--- PASS: TestCorrectionProjectionDiagnosticAllViewsOriginalBytes (0.99s)
+=== RUN   TestCorrectionOtherCaseStillRestricts
+--- PASS: TestCorrectionOtherCaseStillRestricts (0.94s)
+=== RUN   TestCorrectionProjectionSupersededPassNotFallback
+    correction_projection_test.go:107: ERROR: new row for relation "assessment_attempts" violates check constraint "assessment_attempts_check3" (SQLSTATE 23514)
+--- FAIL: TestCorrectionProjectionSupersededPassNotFallback (0.93s)
+=== RUN   TestCorrectionCompletionLaterGrantsAppendOnly
+--- PASS: TestCorrectionCompletionLaterGrantsAppendOnly (0.99s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	5.443s
+FAIL

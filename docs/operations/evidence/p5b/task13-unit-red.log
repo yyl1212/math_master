@@ -1,0 +1,58 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction/evidence-link.test.tsx src/features/correction/qualification-link.test.tsx
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/features/correction/evidence-link.test.tsx (0 test)
+ ❯ src/features/correction/qualification-link.test.tsx (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/correction/evidence-link.test.tsx [ src/features/correction/evidence-link.test.tsx ]
+Error: Failed to resolve import "./evidence-link" from "src/features/correction/evidence-link.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/correction/evidence-link.test.tsx:3:0
+  1  |  vi.mock("@/lib/correction/client", () => ({ correctionClient: { listOwn: vi.fn() } }));
+  2  |  const __vi_import_0__ = await import("@testing-library/react");
+  3  |  const __vi_import_1__ = await import("./evidence-link");
+     |                                       ^
+  4  |  const __vi_import_2__ = await import("../learning/learning-account");
+  5  |  const __vi_import_3__ = await import("@/lib/correction/client");
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/features/correction/qualification-link.test.tsx [ src/features/correction/qualification-link.test.tsx ]
+Error: Failed to resolve import "./qualification-link" from "src/features/correction/qualification-link.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/correction/qualification-link.test.tsx:3:32
+  1  |  import { it, expect } from "vitest";
+  2  |  import { render, screen } from "@testing-library/react";
+  3  |  import { QualificationLink } from "./qualification-link";
+     |                                     ^
+  4  |  import { qualification } from "@/lib/learning/test-fixtures";
+  5  |  import { id } from "@/lib/correction/test-fixtures";
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  no tests
+   Start at  00:44:46
+   Duration  341ms (environment 81%, setup 15%, transform 4%, worker 1%)
+

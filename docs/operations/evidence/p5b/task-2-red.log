@@ -1,0 +1,14 @@
+# github.com/yyl1212/math_master/backend/internal/correction [github.com/yyl1212/math_master/backend/internal/correction.test]
+internal/correction/algorithm_test.go:3: undefined: ComposeBasis
+internal/correction/algorithm_test.go:3: undefined: Evaluate
+internal/correction/algorithm_test.go:4: undefined: ComposeBasis
+internal/correction/algorithm_test.go:5:6: undefined: RegisteredAlgorithm
+internal/correction/equivalence_test.go:3:128: undefined: Equivalent
+internal/correction/equivalence_test.go:4: undefined: Equivalent
+internal/correction/evaluate_test.go:5: undefined: Evaluate
+internal/correction/evaluate_test.go:6:64: undefined: Evaluate
+internal/correction/evaluate_test.go:8:135: undefined: Evaluate
+internal/correction/evaluate_test.go:9: undefined: Evaluate
+internal/correction/evaluate_test.go:9: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/correction [build failed]
+FAIL

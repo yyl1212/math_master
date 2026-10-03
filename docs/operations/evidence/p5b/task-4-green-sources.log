@@ -1,0 +1,32 @@
+=== RUN   TestCorrectionCasesImmediateRestrictionAndReplay
+--- PASS: TestCorrectionCasesImmediateRestrictionAndReplay (1.02s)
+=== RUN   TestCorrectionCutoffLateSubmissionAndNewAttempt
+--- PASS: TestCorrectionCutoffLateSubmissionAndNewAttempt (0.87s)
+=== RUN   TestCorrectionCasesScopeAndUnknownRule
+--- PASS: TestCorrectionCasesScopeAndUnknownRule (1.15s)
+=== RUN   TestCorrectionWithdrawalFenceRealSource
+--- PASS: TestCorrectionWithdrawalFenceRealSource (0.93s)
+=== RUN   TestCorrectionCommitIdentityFreshReplay
+=== RUN   TestCorrectionCommitIdentityFreshReplay/role
+=== RUN   TestCorrectionCommitIdentityFreshReplay/credential
+=== RUN   TestCorrectionCommitIdentityFreshReplay/password
+=== RUN   TestCorrectionCommitIdentityFreshReplay/csrf
+--- PASS: TestCorrectionCommitIdentityFreshReplay (3.12s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/role (0.79s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/credential (0.77s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/password (0.78s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/csrf (0.78s)
+=== RUN   TestCorrectionPartialConfigFailsClosed
+=== RUN   TestCorrectionPartialConfigFailsClosed/table
+=== RUN   TestCorrectionPartialConfigFailsClosed/version
+=== RUN   TestCorrectionPartialConfigFailsClosed/column
+=== RUN   TestCorrectionPartialConfigFailsClosed/trigger
+=== RUN   TestCorrectionPartialConfigFailsClosed/empty-down
+--- PASS: TestCorrectionPartialConfigFailsClosed (3.82s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/table (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/version (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/column (0.77s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/trigger (0.77s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/empty-down (0.77s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	11.553s

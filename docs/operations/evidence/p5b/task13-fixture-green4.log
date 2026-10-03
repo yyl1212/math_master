@@ -1,0 +1,8 @@
+=== RUN   TestCorrectionRealFixtureAndSharedReset
+    correction_fixture_test.go:46: correction-approve-equivalent true correction source stale
+--- FAIL: TestCorrectionRealFixtureAndSharedReset (1.61s)
+=== RUN   TestCorrectionHarnessScenesArePrivate
+--- PASS: TestCorrectionHarnessScenesArePrivate (1.26s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest	3.699s
+FAIL

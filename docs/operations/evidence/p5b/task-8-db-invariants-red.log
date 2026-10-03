@@ -1,0 +1,14 @@
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope
+    correction_results_test.go:41: database accepted forged handled scope or active withdrawn pass foreign-scope
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn
+    correction_results_test.go:41: database accepted forged handled scope or active withdrawn pass withdrawn
+--- FAIL: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis (2.32s)
+    --- FAIL: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope (1.20s)
+    --- FAIL: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn (1.12s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteParentClosure
+    correction_results_test.go:60: missing transitive parent accepted
+--- FAIL: TestCorrectionProcessDatabaseRequiresCompleteParentClosure (0.91s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	4.107s
+FAIL

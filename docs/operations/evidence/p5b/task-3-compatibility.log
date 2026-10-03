@@ -1,0 +1,17 @@
+✔ approved master preserves all 75 paths, 192 schemas, 32 responses and three security schemes (4.136875ms)
+✔ a changed original Learning field is detected (6.592792ms)
+✔ all original migrations 00001 through 00006 retain their exact bytes (0.423833ms)
+✔ changing an original migration is detected (0.132209ms)
+✔ original mathematical digest purposes retain their exact sets (1.295792ms)
+✔ all 54 old paths, 147 schemas, 22 responses and three security schemes retain exact values (3.339167ms)
+✔ one deliberately changed old field is detected (5.559916ms)
+✔ original migrations and mathematical purposes remain unchanged (1.004708ms)
+✔ all 21 learning operations have named strict contracts and fixed response bounds (0.220375ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 50.349667

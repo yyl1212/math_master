@@ -1,0 +1,9 @@
+=== RUN   TestCorrectionUnprocessedApprovedChain
+    correction_review_regression_test.go:54: approved A-to-B-to-C chain rejected before any parent result exists
+--- FAIL: TestCorrectionUnprocessedApprovedChain (1.55s)
+=== RUN   TestCorrectionResultAssetsUseEffectiveBasis
+    correction_review_regression_test.go:116: private corrected asset read is missing
+--- FAIL: TestCorrectionResultAssetsUseEffectiveBasis (1.32s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	3.449s
+FAIL

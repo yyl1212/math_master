@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionBroadCandidateQueryIsExecutable
+    correction_exposure_test.go:114: ERROR: column i.knowledge_sha256 does not exist (SQLSTATE 42703)
+--- FAIL: TestCorrectionBroadCandidateQueryIsExecutable (0.82s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.416s
+FAIL
