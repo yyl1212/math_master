@@ -12,7 +12,14 @@ import (
 )
 
 func correctionAdvanceCursor(ctx context.Context, tx *sql.Tx, l correction.Lease, ref correction.EvidenceRef) error {
-	j, now, e := correctionReadJobTime(ctx, tx, l.JobID)
+	var j correctionJobRecord
+	var now time.Time
+	var e error
+	if facts, ok := ctx.Value(correctionTailFactsKey{}).(*correctionTailFacts); ok && facts != nil && facts.tx == tx && facts.j.Meta.ID == l.JobID {
+		j, now = facts.j, facts.now
+	} else {
+		j, now, e = correctionReadJobTime(ctx, tx, l.JobID)
+	}
 	if e != nil {
 		return e
 	}
@@ -42,21 +49,34 @@ func correctionAdvanceCursor(ctx context.Context, tx *sql.Tx, l correction.Lease
 	return e
 }
 func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lease, ref correction.EvidenceRef, now time.Time) error {
-	j, e := correctionReadJob(ctx, tx, l.JobID, false)
+	var j correctionJobRecord
+	var e error
+	startFacts, hasStartFacts := ctx.Value(correctionStartFactsKey{}).(*correctionStartFacts)
+	hasStartFacts = hasStartFacts && startFacts != nil && startFacts.tx == tx && startFacts.hint.job == l.JobID && startFacts.hint.ref == ref
+	if hasStartFacts {
+		j, e = startFacts.j, startFacts.jobErr
+	} else {
+		j, e = correctionReadJob(ctx, tx, l.JobID, false)
+	}
 	if e != nil {
 		return e
 	}
 	if !correctionLeaseMatches(j, l, now) {
 		return correction.ErrLeaseLost
 	}
-	meta, e := correctionReadEvidenceMetadata(ctx, tx, ref)
+	var meta correctionEvidenceMetadata
+	if hasStartFacts {
+		meta, e = startFacts.meta, startFacts.metaErr
+	} else {
+		meta, e = correctionReadEvidenceMetadata(ctx, tx, ref)
+	}
 	if e != nil {
 		return e
 	}
 	if j.Evidence != nil && (*j.Evidence != ref || j.Owner == nil || *j.Owner != meta.Owner) {
 		return auth.ErrNotFound
 	}
-	account, e := correctionReadAccount(ctx, tx, meta.Owner, true)
+	account, e := correctionReadWorkerOwner(ctx, tx, meta.Owner, true)
 	if e != nil {
 		return e
 	}
@@ -179,15 +199,8 @@ func correctionProcessEvidence(ctx context.Context, tx *sql.Tx, l correction.Lea
 			typ = notification.PathUnavailable
 		}
 	}
-	if e = notificationAppend(ctx, tx, meta.Owner, notification.Source{DedupKey: "result:" + rid, Type: typ, Evidence: ref, CaseID: j.Meta.CaseID, ResultID: &rid}); e != nil {
-		return e
-	}
-	// 原内容与owner锁一直持有到末尾数据库时钟和租约核验。
-	account, e = correctionReadAccount(ctx, tx, meta.Owner, false)
+	ctx, e = correctionNotifyAndFinish(ctx, tx, l, meta.Owner, notification.Source{DedupKey: "result:" + rid, Type: typ, Evidence: ref, CaseID: j.Meta.CaseID, ResultID: &rid})
 	if e != nil {
-		return e
-	}
-	if e = correction.Authorize(account.User, correction.ReadOwnAction); e != nil {
 		return e
 	}
 	return correctionAdvanceCursor(ctx, tx, l, ref)
@@ -251,7 +264,7 @@ func (s *Store) ProcessCorrectionJob(ctx context.Context, l correction.Lease, li
 		refs = refs[:limit]
 	}
 	for _, ref := range refs {
-		e = s.correctionSystemTx(ctx, true, func(ctx context.Context, tx *sql.Tx, now time.Time) error {
+		e = s.correctionSystemTx(correctionWithStartHint(ctx, l, ref), true, func(ctx context.Context, tx *sql.Tx, now time.Time) error {
 			return correctionProcessEvidence(ctx, tx, l, ref, now)
 		})
 		if e != nil {

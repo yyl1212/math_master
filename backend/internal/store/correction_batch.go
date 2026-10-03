@@ -77,3 +77,14 @@ func correctionReadAccount(ctx context.Context, tx *sql.Tx, id string, lock bool
 	}
 	return account, err
 }
+
+// worker本人策略只依赖ID与当前换密码状态；人员角色认证仍用原完整读。
+func correctionReadWorkerOwner(ctx context.Context, tx *sql.Tx, id string, lock bool) (accountRow, error) {
+	var a accountRow
+	q := `SELECT id::text,must_change_password FROM auth_users WHERE id=$1`
+	if lock {
+		q += ` FOR UPDATE`
+	}
+	e := tx.QueryRowContext(ctx, q, id).Scan(&a.User.ID, &a.User.MustChangePassword)
+	return a, workflowRowError(e)
+}

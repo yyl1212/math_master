@@ -24,7 +24,7 @@ func (s *Store) correctionSystemTx(ctx context.Context, locks bool, fn func(cont
 	}
 	defer tx.Rollback()
 	ctx = context.WithValue(ctx, correctionConnectionKey{}, correctionTransactionConnection{tx: tx, conn: conn})
-	on, e := correctionSystemConfigured(ctx, tx)
+	on, now, facts, e := correctionSystemStart(ctx, tx, locks)
 	if e != nil {
 		return correctionError(e)
 	}
@@ -32,9 +32,8 @@ func (s *Store) correctionSystemTx(ctx context.Context, locks bool, fn func(cont
 		return correction.ErrNeverEnabled
 	}
 	ctx = correctionWithConfig(ctx, true)
-	now, e := correctionSystemEnter(ctx, tx, locks)
-	if e != nil {
-		return correctionError(e)
+	if facts != nil {
+		ctx = context.WithValue(ctx, correctionStartFactsKey{}, facts)
 	}
 	if e = fn(ctx, tx, now); e != nil {
 		return correctionError(e)
