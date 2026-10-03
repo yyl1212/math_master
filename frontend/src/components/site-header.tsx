@@ -51,7 +51,7 @@ export function SiteHeader() {
           Knowledge Map
         </Link>
         <Link prefetch={false} href="/learn" aria-current={path==="/learn"?"page":undefined} data-active={path==="/learn"}>Learn</Link>
-      <Link prefetch={false} href="/feedback" data-active={path.startsWith('/feedback')}>My reports</Link><Link prefetch={false} href="/review/feedback" data-active={path.startsWith('/review/feedback')}>Feedback review</Link><Link prefetch={false} href="/feedback/new?kind=site&area=other">Website feedback</Link></nav>
+      <Link prefetch={false} href="/feedback" data-active={path.startsWith('/feedback')}>My reports</Link><Link prefetch={false} href="/review/feedback" data-active={path.startsWith('/review/feedback')}>Feedback review</Link><Link prefetch={false} href="/notifications" data-active={path==="/notifications"}>Notifications</Link><Link prefetch={false} href="/review/corrections" data-active={path.startsWith("/review/corrections")}>Corrections review</Link><Link prefetch={false} href="/feedback/new?kind=site&area=other">Website feedback</Link></nav>
       <AuthStatus />
     </header>
   );
