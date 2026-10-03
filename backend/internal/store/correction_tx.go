@@ -18,19 +18,18 @@ var correctionTables = []string{"correction_cases", "correction_plans", "correct
 func correctionConfigured(ctx context.Context, tx *sql.Tx) (bool, error) {
 	var n int
 	var goose, markerColumn, ever, version bool
-	if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM unnest($1::text[]) name WHERE to_regclass('public.'||name) IS NOT NULL`, correctionTables).Scan(&n); e != nil {
-		return false, e
-	}
-	if e := tx.QueryRowContext(ctx, `SELECT to_regclass('public.goose_db_version') IS NOT NULL,EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema='public' AND table_name='goose_db_version' AND column_name='correction_enabled')`).Scan(&goose, &markerColumn); e != nil {
+	if e := tx.QueryRowContext(ctx, `SELECT
+ (SELECT count(*) FROM unnest($1::text[]) name WHERE to_regclass('public.'||name) IS NOT NULL),
+ to_regclass('public.goose_db_version') IS NOT NULL,
+ EXISTS(SELECT 1 FROM pg_attribute WHERE attrelid=to_regclass('public.goose_db_version') AND attname='correction_enabled' AND NOT attisdropped)`, correctionTables).Scan(&n, &goose, &markerColumn); e != nil {
 		return false, e
 	}
 	if goose {
-		if e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=8 AND is_applied)`).Scan(&version); e != nil {
-			return false, e
+		query := `SELECT EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=8 AND is_applied),false`
+		if markerColumn {
+			query = `SELECT EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=8 AND is_applied),EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=0 AND correction_enabled)`
 		}
-	}
-	if markerColumn {
-		if e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=0 AND correction_enabled)`).Scan(&ever); e != nil {
+		if e := tx.QueryRowContext(ctx, query).Scan(&version, &ever); e != nil {
 			return false, e
 		}
 	}
@@ -41,17 +40,19 @@ func correctionConfigured(ctx context.Context, tx *sql.Tx) (bool, error) {
 		return false, correction.ErrNotConfigured
 	}
 	var intact bool
-	if e := tx.QueryRowContext(ctx, `SELECT NOT EXISTS(SELECT 1 FROM jsonb_each_text($1::jsonb) r CROSS JOIN LATERAL unnest(string_to_array(r.value,',')) c WHERE NOT EXISTS(SELECT 1 FROM information_schema.columns i WHERE i.table_schema='public' AND i.table_name=r.key AND i.column_name=c))`, body(correctionColumns)).Scan(&intact); e != nil {
+	if e := tx.QueryRowContext(ctx, `SELECT
+ NOT EXISTS(SELECT 1 FROM jsonb_each_text($1::jsonb) g WHERE NOT EXISTS(
+  SELECT 1 FROM pg_constraint c
+  WHERE c.conrelid=to_regclass('public.'||split_part(g.key,'/',1)) AND c.conname=split_part(g.key,'/',2) AND c.convalidated AND c.contype::text||':'||md5(pg_get_constraintdef(c.oid))=g.value))
+ AND NOT EXISTS(SELECT 1 FROM jsonb_each_text($2::jsonb) g WHERE NOT EXISTS(
+  SELECT 1 FROM pg_trigger t
+  WHERE t.tgrelid=to_regclass('public.'||split_part(g.value,':',1)) AND t.tgfoid=to_regprocedure('public.'||split_part(g.value,':',2)||'()') AND NOT t.tgisinternal AND t.tgenabled='O' AND t.tgname=g.key AND t.tgtype::text||':'||t.tgdeferrable::text||':'||t.tginitdeferred::text=split_part(g.value,':',3)||':'||split_part(g.value,':',4)||':'||split_part(g.value,':',5)))
+ AND NOT EXISTS(SELECT 1 FROM unnest($3::text[]) g WHERE to_regprocedure('public.'||g) IS NULL)
+ AND NOT EXISTS(SELECT 1 FROM jsonb_each_text($4::jsonb) g WHERE NOT EXISTS(
+  SELECT 1 FROM pg_index i JOIN pg_class r ON r.oid=i.indexrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname='public' AND r.relname=g.key AND i.indisvalid AND i.indisready AND i.indisunique AND md5(pg_get_indexdef(i.indexrelid))=g.value)) AND NOT EXISTS(SELECT 1 FROM jsonb_each_text($5::jsonb) r CROSS JOIN LATERAL unnest(string_to_array(r.value,',')) c WHERE NOT EXISTS(SELECT 1 FROM pg_attribute i WHERE i.attrelid=to_regclass('public.'||r.key) AND i.attname=c AND NOT i.attisdropped))`, body(correctionConstraintGuards), body(correctionTriggerGuards), correctionFunctionGuards, body(correctionUniqueIndexGuards), body(correctionColumns)).Scan(&intact); e != nil {
 		return false, e
 	}
 	if !intact {
-		return false, correction.ErrNotConfigured
-	}
-	var triggers int
-	if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM pg_trigger WHERE NOT tgisinternal AND tgenabled='O' AND tgname=ANY($1::text[])`, correctionTriggers).Scan(&triggers); e != nil {
-		return false, e
-	}
-	if triggers != len(correctionTriggers) {
 		return false, correction.ErrNotConfigured
 	}
 	return true, nil
@@ -69,7 +70,6 @@ var correctionColumns = map[string]string{
 	"notifications":           "id,owner_user_id,dedup_key,type,evidence_kind,evidence_id,case_id,result_id,created_at",
 	"notification_reads":      "owner_user_id,notification_id,read_at",
 }
-var correctionTriggers = []string{"correction_marker_immutable", "correction_case_source", "correction_case_registered", "correction_plan_freeze", "correction_plan_decision", "correction_job_advance", "correction_job_audit", "correction_result_freeze", "correction_result_basis", "correction_dependency_freeze", "correction_events_immutable", "correction_event_subject", "correction_receipts_immutable", "correction_rates_immutable", "notification_source", "notifications_immutable", "notification_reads_immutable"}
 
 type correctionConfigKey struct{}
 

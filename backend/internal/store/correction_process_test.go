@@ -51,7 +51,7 @@ func (f *correctionFixture) cRunAll() {
 	f.t.Fatal("bounded fixture did not drain")
 }
 func TestCorrectionProcessAtomic(t *testing.T) {
-	for _, point := range []string{"result", "dependency", "qualification", "notification", "cursor"} {
+	for _, point := range []string{"result", "dependency", "dependency-last", "qualification", "notification", "cursor"} {
 		t.Run(point, func(t *testing.T) {
 			f := newCorrectionFixture(t)
 			aid, _ := f.cLegacyFailedFour()
@@ -67,6 +67,9 @@ func TestCorrectionProcessAtomic(t *testing.T) {
 			event := "BEFORE INSERT"
 			condition := ""
 			switch point {
+			case "dependency-last":
+				table = "correction_dependencies"
+				condition = "WHEN (NEW.role='effective' AND NEW.kind='instance')"
 			case "dependency":
 				table = "correction_dependencies"
 			case "qualification":

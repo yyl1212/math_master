@@ -2,6 +2,7 @@ package store_test
 
 import (
 	"errors"
+	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/publication"
@@ -300,5 +301,23 @@ func TestCorrectionLeaseClaimSkipsLockedOtherJob(t *testing.T) {
 	lease, e := f.repo.ClaimCorrectionJob(f.ctx)
 	if e != nil || lease == nil || lease.JobID == locked {
 		t.Fatal("locked job blocked another claim", lease, e)
+	}
+}
+
+func TestCorrectionEnqueueWithdrawalTerminalOwnerFence(t *testing.T) {
+	f := newCorrectionFixture(t)
+	a := f.createDiagnostic("learner_a")
+	b := f.createDiagnostic("learner_b")
+	f.QWithdraw(question.WithdrawalTarget{Kind: "template", ID: f.questionInput.QuestionPackage.Templates[0].ID, Version: 1})
+	result, e := f.repo.SubmitAssessment(f.ctx, f.Access("learner_a", false), a.Summary.ID, f.answers(a, 5))
+	if e != nil || result.Outcome != assessment.Affected {
+		t.Fatal("own affected submission failed", e)
+	}
+	if f.count(`SELECT count(*) FROM correction_jobs WHERE type='attempt_terminal'`) != 1 ||
+		f.count(`SELECT count(*) FROM correction_jobs WHERE type='attempt_terminal' AND evidence_kind='assessment' AND evidence_id=$1 AND owner_user_id=$2`, a.Summary.ID, f.ids["learner_a"]) != 1 {
+		t.Fatal("terminal enqueue expanded beyond the submitted evidence and owner")
+	}
+	if f.count(`SELECT count(*) FROM assessment_attempts WHERE id=$1 AND owner_user_id=$2 AND state='active'`, b.Summary.ID, f.ids["learner_b"]) != 1 {
+		t.Fatal("another owner's active attempt changed")
 	}
 }

@@ -203,12 +203,16 @@ func (s *Store) ProcessCorrectionJob(ctx context.Context, l correction.Lease, li
 		if !correctionLeaseMatches(j, l, now) {
 			return correction.ErrLeaseLost
 		}
+		c, e := correctionReadCase(ctx, tx, j.Meta.CaseID)
+		if e != nil {
+			return e
+		}
 		var kind, id any
 		if j.Cursor != nil {
 			kind = string(j.Cursor.Kind)
 			id = j.Cursor.ID
 		}
-		rows, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT e.kind,e.id::text FROM evidence e CROSS JOIN correction_cases c WHERE c.id=$1 AND `+correctionCaseAffectsSQL+` AND ($2::text IS NULL OR (e.kind,e.id)>($2::text,$3::uuid)) AND ($4::uuid IS NULL OR e.kind=$5::text AND e.id=$4 AND e.owner=$6) ORDER BY e.kind,e.id LIMIT $7`, j.Meta.CaseID, kind, id, func() any {
+		rows, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT e.kind,e.id::text FROM evidence e CROSS JOIN correction_cases c WHERE c.id=$1 AND `+correctionCasePredicateSQL(c.Kind)+` AND ($2::text IS NULL OR (e.kind,e.id)>($2::text,$3::uuid)) AND ($4::uuid IS NULL OR e.kind=$5::text AND e.id=$4 AND e.owner=$6) ORDER BY e.kind,e.id LIMIT $7`, j.Meta.CaseID, kind, id, func() any {
 			if j.Evidence != nil {
 				return j.Evidence.ID
 			}

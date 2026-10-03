@@ -20,9 +20,9 @@ type authFixture struct {
 	ctx     context.Context
 }
 
-func newAuthFixture(t *testing.T) *authFixture {
+func newAuthFixture(t *testing.T, initialMigration ...int) *authFixture {
 	t.Helper()
-	db, repo, ctx := setup(t)
+	db, repo, ctx := setup(t, initialMigration...)
 	service, err := auth.NewService(repo, auth.NewArgon2Hasher(rand.Reader), rand.Reader)
 	if err != nil {
 		t.Fatal("auth constructor failed")

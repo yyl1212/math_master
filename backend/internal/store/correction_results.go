@@ -450,6 +450,15 @@ func correctionWriteResult(ctx context.Context, tx *sql.Tx, j correctionJobRecor
 	if e != nil {
 		return "", e
 	}
+	type dependencyRow struct {
+		Role      string `json:"role"`
+		Kind      string `json:"kind"`
+		ID        string `json:"id"`
+		Version   *int   `json:"version"`
+		SHA256    string `json:"sha256"`
+		Positions []int  `json:"positions"`
+	}
+	rows := []dependencyRow{}
 	for _, role := range []string{"audit", "effective"} {
 		deps := b.AuditDeps
 		if role == "effective" {
@@ -464,9 +473,14 @@ func correctionWriteResult(ctx context.Context, tx *sql.Tx, j correctionJobRecor
 			if positions == nil {
 				positions = []int{}
 			}
-			if _, e = tx.ExecContext(ctx, `INSERT INTO correction_dependencies(result_id,role,kind,id,version,sha256,positions) VALUES($1,$2,$3,$4,$5,$6,$7)`, id, role, d.Kind, d.ID, d.Version, d.SHA256, positions); e != nil {
-				return "", e
-			}
+			rows = append(rows, dependencyRow{role, d.Kind, d.ID, d.Version, d.SHA256, positions})
+		}
+	}
+	// One statement keeps the same per-row FK and immutable-source checks. A
+	// failure at any dependency still rolls back the entire result transaction.
+	if len(rows) > 0 {
+		if _, e = tx.ExecContext(ctx, `INSERT INTO correction_dependencies(result_id,role,kind,id,version,sha256,positions) SELECT $1,d.role,d.kind,d.id,d.version,d.sha256,d.positions FROM jsonb_to_recordset($2::jsonb) AS d(role text,kind text,id text,version integer,sha256 text,positions integer[])`, id, body(rows)); e != nil {
+			return "", e
 		}
 	}
 	if e = correctionEvent(ctx, tx, "result", id, "result_sealed", "", j.Meta.CaseID, nil, 1, map[string]any{"digest": h}); e != nil {

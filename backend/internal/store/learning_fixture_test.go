@@ -19,9 +19,9 @@ type learningFixture struct {
 	mode                 *assessment.Mode
 }
 
-func newLearningFixture(t *testing.T) *learningFixture {
+func newLearningFixture(t *testing.T, initialMigration ...int) *learningFixture {
 	t.Helper()
-	f := &learningFixture{questionFixture: newQuestionFixture(t)}
+	f := &learningFixture{questionFixture: newQuestionFixture(t, initialMigration...)}
 	template := f.questionInput.QuestionPackage.Templates[0]
 	template.ID = "lf-addition"
 	template.Parameters = []question.Parameter{{Name: "left", Values: []string{"1", "2", "3", "4"}}, {Name: "right", Values: []string{"1", "2", "3", "4"}}}

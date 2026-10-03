@@ -18,9 +18,9 @@ type workflowFixture struct {
 	access map[string]publication.Access
 }
 
-func newWorkflowFixture(t *testing.T) *workflowFixture {
+func newWorkflowFixture(t *testing.T, initialMigration ...int) *workflowFixture {
 	t.Helper()
-	f := &workflowFixture{authFixture: newAuthFixture(t), ids: map[string]string{}, access: map[string]publication.Access{}}
+	f := &workflowFixture{authFixture: newAuthFixture(t, initialMigration...), ids: map[string]string{}, access: map[string]publication.Access{}}
 	if _, err := f.repo.ImportDraft(f.ctx, input(t, nil)); err != nil {
 		t.Fatal(err)
 	}

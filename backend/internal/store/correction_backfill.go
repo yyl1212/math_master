@@ -14,11 +14,26 @@ const correctionEvidenceRowsSQL = `SELECT 'assessment'::text kind,id,owner_user_
  UNION ALL SELECT 'practice',id,owner_user_id,created_at,knowledge_id,knowledge_version,knowledge_sha256,(seal#>>'{body,ruleVersion}')::integer,state='answered' FROM practice_attempts
  UNION ALL SELECT 'learning-event',id,owner_user_id,recorded_at,knowledge_id,knowledge_version,knowledge_sha256,NULL::integer,true FROM learning_events
  UNION ALL SELECT 'enrollment',id,owner_user_id,created_at,NULL::text,NULL::integer,NULL::text,NULL::integer,true FROM learning_path_enrollments`
-const correctionCaseAffectsSQL = `c.sealed AND ((c.kind='grading_rule' AND e.kind IN ('assessment','practice') AND e.rule_version=c.rule_version AND e.created_at<=c.cutoff AND (c.scope_kind='all' OR e.kid=c.knowledge_id AND e.kv=c.knowledge_version AND e.kh=c.knowledge_sha256)) OR (c.kind='withdrawal' AND (
+const correctionGradingCaseAffectsSQL = `c.sealed AND c.kind='grading_rule' AND e.kind IN ('assessment','practice') AND e.rule_version=c.rule_version AND e.created_at<=c.cutoff AND (c.scope_kind='all' OR e.kid=c.knowledge_id AND e.kv=c.knowledge_version AND e.kh=c.knowledge_sha256)`
+const correctionWithdrawalCaseAffectsSQL = `c.sealed AND c.kind='withdrawal' AND (
  EXISTS(SELECT 1 FROM learning_evidence_dependencies d WHERE d.evidence_kind=e.kind AND d.evidence_id=e.id AND d.owner_user_id=e.owner AND ((c.withdrawal_space='content' AND EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.sha256=d.sha256 AND (d.kind='asset' OR w.target_id=d.id AND w.target_version=d.version))) OR (c.withdrawal_space='question' AND EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256))))
  OR EXISTS(SELECT 1 FROM correction_results r JOIN correction_dependencies d ON d.result_id=r.id AND d.role='effective' WHERE r.sealed AND r.owner_user_id=e.owner AND r.evidence_kind=e.kind AND r.evidence_id=e.id AND ((c.withdrawal_space='content' AND EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.sha256=d.sha256 AND (d.kind='asset' OR w.target_id=d.id AND w.target_version=d.version))) OR (c.withdrawal_space='question' AND EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256))))
  OR (e.kind='enrollment' AND c.withdrawal_space='content' AND EXISTS(SELECT 1 FROM content_withdrawals w JOIN learning_path_enrollments p ON p.id=e.id AND p.owner_user_id=e.owner WHERE w.id=c.withdrawal_id AND ((w.kind='path' AND p.path_id=w.target_id AND p.path_version=w.target_version AND p.path_sha256=w.sha256) OR (w.kind='knowledge' AND EXISTS(SELECT 1 FROM learning_path_nodes n WHERE n.enrollment_id=p.id AND n.knowledge_id=w.target_id AND n.knowledge_version=w.target_version AND n.knowledge_sha256=w.sha256)))))
- )))`
+ )`
+const correctionCaseAffectsSQL = `((` + correctionGradingCaseAffectsSQL + `) OR (` + correctionWithdrawalCaseAffectsSQL + `))`
+
+// The case kind is immutable and checked inside the transaction. Selecting its
+// exact predicate avoids planning unrelated withdrawal joins for grading scans.
+func correctionCasePredicateSQL(kind correction.CaseKind) string {
+	switch kind {
+	case correction.GradingRuleCase:
+		return correctionGradingCaseAffectsSQL
+	case correction.WithdrawalCase:
+		return correctionWithdrawalCaseAffectsSQL
+	default:
+		return `FALSE`
+	}
+}
 
 func correctionEnqueueOneTerminal(ctx context.Context, tx *sql.Tx, caseID, owner string, ref correction.EvidenceRef, now time.Time) (bool, error) {
 	id, e := workflowID()
@@ -121,7 +136,11 @@ func (s *Store) BackfillCorrections(ctx context.Context, limit int) (int, error)
 				}
 			}
 			if total < limit {
-				items, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT e.kind,e.id::text,e.owner::text FROM evidence e CROSS JOIN correction_cases c WHERE c.id=$1 AND e.terminal AND e.kind IN ('assessment','practice') AND `+correctionCaseAffectsSQL+` AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='terminal:'||c.id::text||':'||e.kind||':'||e.id::text) ORDER BY e.kind,e.id LIMIT $2`, caseID, limit-total)
+				c, e := correctionReadCase(ctx, tx, caseID)
+				if e != nil {
+					return e
+				}
+				items, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT e.kind,e.id::text,e.owner::text FROM evidence e CROSS JOIN correction_cases c WHERE c.id=$1 AND e.terminal AND e.kind IN ('assessment','practice') AND `+correctionCasePredicateSQL(c.Kind)+` AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='terminal:'||c.id::text||':'||e.kind||':'||e.id::text) ORDER BY e.kind,e.id LIMIT $2`, caseID, limit-total)
 				if e != nil {
 					return e
 				}

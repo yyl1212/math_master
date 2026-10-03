@@ -10,9 +10,9 @@ import (
 
 type feedbackFixture struct{ *learningFixture }
 
-func newFeedbackFixture(t *testing.T) *feedbackFixture {
+func newFeedbackFixture(t *testing.T, initialMigration ...int) *feedbackFixture {
 	t.Helper()
-	return &feedbackFixture{newLearningFixture(t)}
+	return &feedbackFixture{newLearningFixture(t, initialMigration...)}
 }
 func (f *feedbackFixture) feedbackInput() feedback.CreateInput {
 	head := f.KHead()
