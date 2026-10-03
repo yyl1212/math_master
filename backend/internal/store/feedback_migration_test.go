@@ -16,7 +16,7 @@ func tryDownSeven(t *testing.T, db *sql.DB) error {
 	if e != nil {
 		return e
 	}
-	_, e = p.Down(context.Background())
+	_, e = p.DownTo(context.Background(), 6)
 	return e
 }
 func TestFeedbackMigrationEmptyRoundTrip(t *testing.T) {
