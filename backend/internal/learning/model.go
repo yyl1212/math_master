@@ -37,6 +37,7 @@ var (
 )
 
 type QualificationView struct {
+	CorrectionID      *string             `json:"correctionId"`
 	Knowledge         question.Identity   `json:"knowledge"`
 	Kind              string              `json:"kind"`
 	EvidenceAttemptID string              `json:"evidenceAttemptId"`

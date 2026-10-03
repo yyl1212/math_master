@@ -137,9 +137,13 @@ func (f *correctionFixture) cSubmittedBasis(actor string) (string, correction.Ba
 	if _, e := f.repo.SubmitAssessment(f.ctx, f.Access(actor, false), v.Summary.ID, f.answers(v, 5)); e != nil {
 		f.t.Fatal(e)
 	}
+	return v.Summary.ID, f.cLoadBasis(v.Summary.ID)
+}
+func (f *correctionFixture) cLoadBasis(evidenceID string) correction.Basis {
+	f.t.Helper()
 	b := correction.Basis{OriginalAnswers: []assessment.Answer{}, OriginalItems: []question.Instance{}, EffectiveItems: []question.Instance{}, HandledCaseIDs: []string{}, ParentResultIDs: []string{}, PlanRefs: []correction.PlanRef{}, AuditDeps: []correction.Dependency{}, EffectiveDeps: []correction.Dependency{}}
 	var raw []byte
-	if e := f.db.QueryRow(`SELECT seal->'body' FROM assessment_attempts WHERE id=$1`, v.Summary.ID).Scan(&raw); e != nil {
+	if e := f.db.QueryRow(`SELECT seal->'body' FROM assessment_attempts WHERE id=$1`, evidenceID).Scan(&raw); e != nil {
 		f.t.Fatal(e)
 	}
 	if e := json.Unmarshal(raw, &b.OriginalSeal); e != nil {
@@ -157,7 +161,7 @@ func (f *correctionFixture) cSubmittedBasis(actor string) (string, correction.Ba
 		b.OriginalItems = append(b.OriginalItems, i)
 	}
 	b.EffectiveItems = append(b.EffectiveItems, b.OriginalItems...)
-	rows, e := f.db.Query(`SELECT answer FROM assessment_answers WHERE attempt_id=$1 ORDER BY position`, v.Summary.ID)
+	rows, e := f.db.Query(`SELECT answer FROM assessment_answers WHERE attempt_id=$1 ORDER BY position`, evidenceID)
 	if e != nil {
 		f.t.Fatal(e)
 	}
@@ -175,7 +179,7 @@ func (f *correctionFixture) cSubmittedBasis(actor string) (string, correction.Ba
 		f.t.Fatal(e)
 	}
 	rows.Close()
-	rows, e = f.db.Query(`SELECT kind,id,version,sha256 FROM learning_evidence_dependencies WHERE evidence_kind='assessment' AND evidence_id=$1 ORDER BY kind,id`, v.Summary.ID)
+	rows, e = f.db.Query(`SELECT kind,id,version,sha256 FROM learning_evidence_dependencies WHERE evidence_kind='assessment' AND evidence_id=$1 ORDER BY kind,id`, evidenceID)
 	if e != nil {
 		f.t.Fatal(e)
 	}
@@ -196,7 +200,7 @@ func (f *correctionFixture) cSubmittedBasis(actor string) (string, correction.Ba
 	}
 	rows.Close()
 	b.AuditDeps = append(b.AuditDeps, b.EffectiveDeps...)
-	return v.Summary.ID, b
+	return b
 }
 func (f *correctionFixture) cResult(evidenceID, owner, caseID string, p correction.PlanRef, b correction.Basis, withEvent bool, omitKnowledge ...bool) (string, error) {
 	id := f.ID()
