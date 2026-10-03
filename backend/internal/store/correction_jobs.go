@@ -23,7 +23,7 @@ func (s *Store) correctionSystemTx(ctx context.Context, locks bool, fn func(cont
 		return correctionError(e)
 	}
 	if !on {
-		return correction.ErrNotConfigured
+		return correction.ErrNeverEnabled
 	}
 	ctx = correctionWithConfig(ctx, true)
 	learningOn, e := learningConfigured(ctx, tx)
@@ -373,3 +373,5 @@ func (s *Store) RetryCorrectionJob(ctx context.Context, a question.Access, id st
 	}
 	return out, nil
 }
+
+var _ correction.WorkerRepository = (*Store)(nil)

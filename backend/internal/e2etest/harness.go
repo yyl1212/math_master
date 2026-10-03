@@ -425,6 +425,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	if err != nil {
 		return errors.New("feedback service unavailable")
 	}
+	// No resident worker here: private correction scenes explicitly run finite jobs.
 	correctionService, err := correction.NewService(s)
 	if err != nil {
 		return errors.New("correction service unavailable")
