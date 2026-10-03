@@ -29,7 +29,7 @@ CREATE TABLE correction_plans (
  parent_id uuid,parent_version integer,creator_user_id uuid NOT NULL REFERENCES auth_users(id),status text NOT NULL DEFAULT 'draft' CHECK(status IN ('draft','pending','approved','rejected')),
  sequence bigint NOT NULL DEFAULT 1 CHECK(sequence BETWEEN 1 AND 9007199254740991),algorithm_version integer NOT NULL DEFAULT 1 CHECK(algorithm_version=1),body jsonb NOT NULL,
  frozen_body jsonb,frozen_bytes bytea,frozen_digest text,sealed boolean NOT NULL DEFAULT false,
- created_at timestamptz NOT NULL DEFAULT clock_timestamp(),updated_at timestamptz NOT NULL DEFAULT clock_timestamp(),PRIMARY KEY(id,version),
+ created_at timestamptz NOT NULL DEFAULT clock_timestamp(),updated_at timestamptz NOT NULL DEFAULT clock_timestamp(),PRIMARY KEY(id,version),UNIQUE(id,created_at),
  FOREIGN KEY(parent_id,parent_version) REFERENCES correction_plans(id,version),
  CHECK((parent_id IS NULL)=(parent_version IS NULL)),CHECK(parent_id IS NULL OR parent_id=id AND parent_version<version),
  CHECK((sealed=(status<>'draft') AND ((NOT sealed AND frozen_body IS NULL AND frozen_bytes IS NULL AND frozen_digest IS NULL) OR (sealed AND frozen_body IS NOT NULL AND frozen_bytes IS NOT NULL AND frozen_digest IS NOT NULL AND frozen_digest=encode(sha256(frozen_bytes),'hex') AND convert_from(frozen_bytes,'UTF8')::jsonb=frozen_body AND frozen_body->>'purpose'='correction-plan-v1'))) IS TRUE),
@@ -129,6 +129,7 @@ BEGIN
    SELECT * INTO p FROM correction_plans WHERE id=NEW.parent_id AND version=NEW.parent_version;
    IF p.status='draft' OR p.case_id<>NEW.case_id OR p.creator_user_id<>NEW.creator_user_id OR NEW.version<>(SELECT coalesce(max(version),0)+1 FROM correction_plans WHERE id=NEW.id) THEN RAISE EXCEPTION 'invalid plan lineage'; END IF;
   ELSIF NEW.version<>1 THEN RAISE EXCEPTION 'initial version required'; END IF;
+  NEW.created_at:=greatest(NEW.created_at,(SELECT max(created_at)+interval '1 microsecond' FROM correction_plans WHERE id=NEW.id));NEW.updated_at:=greatest(NEW.updated_at,NEW.created_at);
   IF NEW.status<>'draft' OR NEW.sequence<>1 THEN RAISE EXCEPTION 'new draft required'; END IF;RETURN NEW;
  END IF;
  IF TG_OP='DELETE' OR OLD.status IN ('approved','rejected') THEN RAISE EXCEPTION 'immutable correction decision'; END IF;

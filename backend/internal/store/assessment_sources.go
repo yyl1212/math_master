@@ -106,7 +106,7 @@ func learningSourcePool(ctx context.Context, tx *sql.Tx, actor string, k questio
 		bpID = &bp.ID
 		bpV = &bp.Version
 	}
-	rows, e := tx.QueryContext(ctx, learningCandidateSQL, actor, k.ID, k.Version, out.KnowledgeHead, out.QuestionHead, bpID, bpV)
+	rows, e := tx.QueryContext(ctx, learningCorrectionCandidateSQL(ctx), actor, k.ID, k.Version, out.KnowledgeHead, out.QuestionHead, bpID, bpV)
 	if e != nil {
 		return out, e
 	}
