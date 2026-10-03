@@ -1,0 +1,412 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction/review.test.tsx src/features/correction/review-regressions.test.tsx
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/features/correction/review.test.tsx (4 tests | 2 failed) 133ms
+   × reauthentication preserves the original command and never submits it automatically 22ms
+   × same-account server metadata refresh updates sequence without erasing an open draft 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/correction/review.test.tsx > reauthentication preserves the original command and never submits it automatically
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name "Verify your password"
+
+Here are the accessible roles:
+
+  main:
+
+  Name "":
+  [36m<main[39m
+    [33mclass[39m=[32m"_workbench_e47cba"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  link:
+
+  Name "Correction case":
+  [36m<a[39m
+    [33mhref[39m=[32m"/review/corrections/11111111-1111-4111-8111-111111111111"[39m
+  [36m/>[39m
+
+  Name "Verify your password, then retry this request":
+  [36m<a[39m
+    [33mhref[39m=[32m"/account"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "Correction plan · Version 1":
+  [36m<h1 />[39m
+
+  Name "Approved basis and draft":
+  [36m<h2 />[39m
+
+  Name "Exact instance mappings":
+  [36m<h3 />[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"_metadata_e47cba"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p />[39m
+
+  Name "":
+  [36m<p />[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "Reload plan status":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Read plan details":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Add instance mapping":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Save plan draft":
+  [36m<button[39m
+    [33mclass[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Submit for independent review":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Retry same request":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Edit as a new request":
+  [36m<button[39m
+    [33mclass[39m=[32m"button secondary"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  group:
+
+  Name "":
+  [36m<fieldset[39m
+    [33mdisabled[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  textbox:
+
+  Name "Plan reason":
+  [36m<textarea[39m
+    [33maria-label[39m=[32m"Plan reason"[39m
+    [33mrequired[39m=[32m""[39m
+    [33mrows[39m=[32m"6"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  alert:
+
+  Name "":
+  [36m<div[39m
+    [33mrole[39m=[32m"alert"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"_workbench_e47cba"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mhref[39m=[32m"/review/corrections/11111111-1111-4111-8111-111111111111"[39m
+      [36m>[39m
+        [0mCorrection case[0m
+      [36m</a>[39m
+      [36m<h1>[39m
+        [0mCorrection plan · Version [0m
+        [0m1[0m
+      [36m</h1>[39m
+      [36m<p>[39m
+        [0mdraft[0m
+        [0m · [0m
+        [36m<span>[39m
+          [0mSequence [0m
+          [0m1[0m
+        [36m</span>[39m
+        [0m · [0m
+        [0m0[0m
+        [0m mappings[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33mclass[39m=[32m"_metadata_e47cba"[39m
+      [36m>[39m
+        [0mThis draft has not been sealed.[0m
+      [36m</p>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"_actions_e47cba"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mReload plan status[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRead plan details[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"_card_e47cba"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mApproved basis and draft[0m
+        [36m</h2>[39m
+        [36m<form>[39m
+          [36m<fieldset[39m
+            [33mdisabled[39m=[32m""[39m
+          [36m>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"_field_e47cba"[39m
+            [36m>[39m
+              [0mPlan reason[0m
+              [36m<textarea[39m
+                [33maria-label[39m=[32m"Plan reason"[39m
+                [33mrequired[39m=[32m""[39m
+                [33mrows[39m=[32m"6"[39m
+              [36m>[39m
+                [0mOriginal approved rationale[0m
+              [36m</textarea>[39m
+              [36m<small>[39m
+                [0m27[0m
+                [0m/4000 characters[0m
+              [36m</small>[39m
+            [36m</label>[39m
+            [36m<section>[39m
+              [36m<h3>[39m
+                [0mExact instance mappings[0m
+              [36m</h3>[39m
+              [36m<p>[39m
+                [0mKeep question meaning and parameters unchanged. Only an independently published correction to answers or explanations may replace an instance.[0m
+              [36m</p>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"button secondary"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mAdd instance mapping[0m
+              [36m</button>[39m
+            [36m</section>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"button"[39m
+            [36m>[39m
+              [0mSave plan draft[0m
+            [36m</button>[39m
+          [36m</fieldset>[39m
+        [36m</form>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mSubmit for independent review[0m
+        [36m</button>[39m
+        [36m<div[39m
+          [33maria-live[39m=[32m"polite"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mrole[39m=[32m"alert"[39m
+          [36m>[39m
+            [36m<p>[39m
+              [0mConfirm your password before continuing.[0m
+            [36m</p>[39m
+            [36m<a[39m
+              [33mhref[39m=[32m"/account"[39m
+            [36m>[39m
+              [0mVerify your password, then retry this request[0m
+            [36m</a>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"button-group"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"button secondary"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mRetry same request[0m
+              [36m</button>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"button secondary"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mEdit as a new request[0m
+              [36m</button>[39m
+            [36m</div>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</section>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/features/correction/review.test.tsx:21:848
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/features/correction/review.test.tsx > same-account server metadata refresh updates sequence without erasing an open draft
+TestingLibraryElementError: Unable to find an element with the text: Sequence 2. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<main[39m
+      [33mclass[39m=[32m"_workbench_e47cba"[39m
+    [36m>[39m
+      [36m<a[39m
+        [33mhref[39m=[32m"/review/corrections/11111111-1111-4111-8111-111111111111"[39m
+      [36m>[39m
+        [0mCorrection case[0m
+      [36m</a>[39m
+      [36m<h1>[39m
+        [0mCorrection plan · Version [0m
+        [0m1[0m
+      [36m</h1>[39m
+      [36m<p>[39m
+        [0mdraft[0m
+        [0m · [0m
+        [36m<span>[39m
+          [0mSequence [0m
+          [0m1[0m
+        [36m</span>[39m
+        [0m · [0m
+        [0m0[0m
+        [0m mappings[0m
+      [36m</p>[39m
+      [36m<p[39m
+        [33mclass[39m=[32m"_metadata_e47cba"[39m
+      [36m>[39m
+        [0mThis draft has not been sealed.[0m
+      [36m</p>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"_actions_e47cba"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mReload plan status[0m
+        [36m</button>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mRead plan details[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"_card_e47cba"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mApproved basis and draft[0m
+        [36m</h2>[39m
+        [36m<form>[39m
+          [36m<fieldset>[39m
+            [36m<label[39m
+              [33mclass[39m=[32m"_field_e47cba"[39m
+            [36m>[39m
+              [0mPlan reason[0m
+              [36m<textarea[39m
+                [33maria-label[39m=[32m"Plan reason"[39m
+                [33mrequired[39m=[32m""[39m
+                [33mrows[39m=[32m"6"[39m
+              [36m>[39m
+                [0mUnsubmitted SSR draft[0m
+              [36m</textarea>[39m
+              [36m<small>[39m
+                [0m21[0m
+                [0m/4000 characters[0m
+              [36m</small>[39m
+            [36m</label>[39m
+            [36m<section>[39m
+              [36m<h3>[39m
+                [0mExact instance mappings[0m
+              [36m</h3>[39m
+              [36m<p>[39m
+                [0mKeep question meaning and parameters unchanged. Only an independently published correction to answers or explanations may replace an instance.[0m
+              [36m</p>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"button secondary"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [0mAdd instance mapping[0m
+              [36m</button>[39m
+            [36m</section>[39m
+            [36m<button[39m
+              [33mclass[39m=[32m"button"[39m
+            [36m>[39m
+              [0mSave plan draft[0m
+            [36m</button>[39m
+          [36m</fieldset>[39m
+        [36m</form>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"button secondary"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mSubmit for independent review[0m
+        [36m</button>[39m
+        [36m<div[39m
+          [33maria-live[39m=[32m"polite"[39m
+        [36m/>[39m
+      [36m</section>[39m
+    [36m</main>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/features/correction/review.test.tsx:22:643
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 10 passed (12)
+   Start at  00:35:41
+   Duration  535ms (environment 42%, tests 26%, transform 16%, setup 8%, import 7%)
+

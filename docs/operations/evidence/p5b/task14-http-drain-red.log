@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/cmd/server [github.com/yyl1212/math_master/backend/cmd/server.test]
+cmd/server/main_test.go:12:7: undefined: newDrainingHandler
+FAIL	github.com/yyl1212/math_master/backend/cmd/server [build failed]
+FAIL

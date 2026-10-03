@@ -1,0 +1,18 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts learning-diagnostic.spec.ts learning-security.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/learning-diagnostic.spec.ts:2:5 › diagnostic qualifies only the locked target, without ancestor reading or qualification (3.7s)
+  ✓  2 [desktop] › ../tests/e2e/learning-diagnostic.spec.ts:3:5 › recent five are excluded across blueprints, preview exposure makes grading affected and next pool unavailable (7.1s)
+  ✓  3 [desktop] › ../tests/e2e/learning-security.spec.ts:2:5 › other UUIDs and fixed SVG are private; withdrawal hides answers while preserving original score (5.8s)
+  ✓  4 [desktop] › ../tests/e2e/learning-security.spec.ts:3:5 › lost committed response needs same-key manual retry; a switched account never replays an old answer (15.4s)
+  ✓  5 [mobile] › ../tests/e2e/learning-diagnostic.spec.ts:2:5 › diagnostic qualifies only the locked target, without ancestor reading or qualification (3.5s)
+  ✓  6 [mobile] › ../tests/e2e/learning-diagnostic.spec.ts:3:5 › recent five are excluded across blueprints, preview exposure makes grading affected and next pool unavailable (7.1s)
+[WebServer] 2026/10/04 02:38:26 ERROR Private API request failed request_id=e473772b094a8b2706deef8b75cd9e0b error_code=SERVICE_UNAVAILABLE
+  ✓  7 [mobile] › ../tests/e2e/learning-security.spec.ts:2:5 › other UUIDs and fixed SVG are private; withdrawal hides answers while preserving original score (5.7s)
+  ✓  8 [mobile] › ../tests/e2e/learning-security.spec.ts:3:5 › lost committed response needs same-key manual retry; a switched account never replays an old answer (15.4s)
+
+  8 passed (1.1m)

@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionEnqueueWithdrawalTerminalOwnerFence
+    correction_jobs_test.go:318: terminal enqueue expanded beyond the submitted evidence and owner
+--- FAIL: TestCorrectionEnqueueWithdrawalTerminalOwnerFence (1.04s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.603s
+FAIL

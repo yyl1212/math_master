@@ -1,0 +1,18 @@
+=== RUN   TestFeedbackCapacity
+=== RUN   TestFeedbackCapacity/missing_feedback_migration_keeps_old_learning
+--- PASS: TestFeedbackCapacity (0.88s)
+    --- PASS: TestFeedbackCapacity/missing_feedback_migration_keeps_old_learning (0.88s)
+=== RUN   TestFeedbackMigrationEmptyRoundTrip
+--- PASS: TestFeedbackMigrationEmptyRoundTrip (0.20s)
+=== RUN   TestFeedbackMigrationNonemptyGuard
+=== RUN   TestFeedbackMigrationNonemptyGuard/ticket
+=== RUN   TestFeedbackMigrationNonemptyGuard/events
+=== RUN   TestFeedbackMigrationNonemptyGuard/receipt
+=== RUN   TestFeedbackMigrationNonemptyGuard/quota
+--- PASS: TestFeedbackMigrationNonemptyGuard (3.16s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/ticket (0.80s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/events (0.80s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/receipt (0.79s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/quota (0.78s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	4.820s

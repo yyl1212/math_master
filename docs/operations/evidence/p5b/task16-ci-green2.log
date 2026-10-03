@@ -1,0 +1,23 @@
+✔ new correction CI is executable, classified once and keeps every original batch and deadline (6.363167ms)
+✔ deleting any of the 20 browser batches is rejected (4.709583ms)
+✔ step labels and echo commands cannot stand in for actual browser execution (0.487458ms)
+✔ all five capacity commands must remain executable and separate (3.73875ms)
+✔ extra skips, duplicate classification and omitted notification/CLI tests are rejected (1.842167ms)
+✔ Go, job, browser and wrapper time limits cannot be expanded or disguised with duplicate flags (0.968333ms)
+✔ new capacity names inside an echo are rejected (0.414791ms)
+✔ a second actual new test classification in the original job is rejected (0.847125ms)
+✔ required correction Go and browser steps cannot be declared but conditionally disabled (0.262125ms)
+✔ actual CI preserves old batches and executes every new feedback batch within original limits (2.226583ms)
+✔ deleting an original browser batch is detected (0.877209ms)
+✔ adding browser skip selection or retries is detected (0.614ms)
+✔ deleting a capacity batch or skipping extra old store tests is detected (1.02325ms)
+✔ no browser suite or case is silently skipped, focused or retried (1.093458ms)
+✔ active command parser handles split and equals options without counting step labels (0.083916ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 51.337209

@@ -1,0 +1,92 @@
+✔ new correction CI is executable, classified once and keeps every original batch and deadline (6.118792ms)
+✔ deleting any of the 20 browser batches is rejected (4.946666ms)
+✔ step labels and echo commands cannot stand in for actual browser execution (0.525667ms)
+✔ all five capacity commands must remain executable and separate (2.887ms)
+✖ extra skips, duplicate classification and omitted notification/CLI tests are rejected (0.915209ms)
+✔ Go, job, browser and wrapper time limits cannot be expanded or disguised with duplicate flags (0.786041ms)
+✖ new capacity names inside an echo are rejected (0.245875ms)
+✔ a second actual new test classification in the original job is rejected (1.033333ms)
+✔ actual CI preserves old batches and executes every new feedback batch within original limits (2.123625ms)
+✔ deleting an original browser batch is detected (0.868583ms)
+✔ adding browser skip selection or retries is detected (0.631458ms)
+✔ deleting a capacity batch or skipping extra old store tests is detected (0.871917ms)
+✔ no browser suite or case is silently skipped, focused or retried (0.86725ms)
+✔ active command parser handles split and equals options without counting step labels (0.083916ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 12
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 46.815166
+
+✖ failing tests:
+
+test at tools/verify/correction-ci.test.mjs:95:1
+✖ extra skips, duplicate classification and omitted notification/CLI tests are rejected (0.915209ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /skip|classification|CLI|exclusion/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: correction noncapacity\n\n0 !== 1\n'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:96:530)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: correction noncapacity
+    
+    0 !== 1
+    
+        at validate (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:79:88)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:96:541
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:96:530)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /skip|classification|CLI|exclusion/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:106:1
+✖ new capacity names inside an echo are rejected (0.245875ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /executable Go prefix/. Input:
+  
+  `AssertionError [ERR_ASSERTION]: unclosed shell quote\n\n"'" !== null\n`
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:106:187)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: unclosed shell quote
+    
+    "'" !== null
+    
+        at shellCommands (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:31:9)
+        at Array.flatMap (<anonymous>)
+        at commands (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:33:37)
+        at goTests (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:53:9)
+        at validate (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:71:46)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:106:198
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:106:187)
+        at Test.runInAsyncScope (node:async_hooks:227:14),
+    expected: /executable Go prefix/,
+    operator: 'throws',
+    diff: 'simple'
+  }

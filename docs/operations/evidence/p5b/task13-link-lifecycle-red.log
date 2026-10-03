@@ -1,0 +1,32 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction/evidence-link.test.tsx
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/features/correction/evidence-link.test.tsx (3 tests | 1 failed) 1119ms
+   × cancels a pending read when its exact evidence changes and enables the new reference 1013ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/correction/evidence-link.test.tsx > cancels a pending read when its exact evidence changes and enables the new reference
+Error: expect(element).toBeEnabled()
+
+Received element is not enabled:
+  <button
+  class="button secondary"
+  disabled=""
+  type="button"
+/>
+ ❯ src/features/correction/evidence-link.test.tsx:13:558
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed (3)
+   Start at  00:57:05
+   Duration  1.52s (tests 77%, environment 13%, transform 5%, import 2%, setup 2%)
+

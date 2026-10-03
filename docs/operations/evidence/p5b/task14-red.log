@@ -1,0 +1,31 @@
+# github.com/yyl1212/math_master/backend/internal/config [github.com/yyl1212/math_master/backend/internal/config.test]
+internal/config/config_test.go:93:20: c.CorrectionWorkerEnabled undefined (type Config has no field or method CorrectionWorkerEnabled)
+# github.com/yyl1212/math_master/backend/internal/correction [github.com/yyl1212/math_master/backend/internal/correction.test]
+internal/correction/runner_test.go:74:50: undefined: Runner
+internal/correction/runner_test.go:76:10: undefined: NewRunner
+internal/correction/runner_test.go:76:23: undefined: Options
+internal/correction/runner_test.go:223:68: undefined: ErrNeverEnabled
+internal/correction/runner_test.go:224:11: undefined: NewRunner
+internal/correction/runner_test.go:224:24: undefined: Options
+internal/correction/worker_test.go:10:13: undefined: NewRunner
+internal/correction/worker_test.go:10:28: undefined: Options
+internal/correction/worker_test.go:14:14: undefined: NewRunner
+internal/correction/worker_test.go:14:39: undefined: Options
+internal/correction/worker_test.go:14:39: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/correction [build failed]
+FAIL	github.com/yyl1212/math_master/backend/internal/config [build failed]
+# github.com/yyl1212/math_master/backend/internal/cli [github.com/yyl1212/math_master/backend/internal/cli.test]
+internal/cli/correction_test.go:18:11: undefined: RunCorrection
+internal/cli/correction_test.go:25:10: undefined: RunCorrection
+internal/cli/correction_test.go:42:10: undefined: RunCorrection
+internal/cli/correction_test.go:69:10: undefined: RunCorrection
+FAIL	github.com/yyl1212/math_master/backend/internal/cli [build failed]
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_worker_test.go:19:21: undefined: correction.NewRunner
+internal/store/correction_worker_test.go:19:50: undefined: correction.Options
+internal/store/correction_worker_test.go:43:21: undefined: correction.NewRunner
+internal/store/correction_worker_test.go:43:57: undefined: correction.Options
+internal/store/correction_worker_test.go:52:53: undefined: correction.ErrNeverEnabled
+internal/store/correction_worker_test.go:61:98: undefined: correction.ErrNeverEnabled
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL
