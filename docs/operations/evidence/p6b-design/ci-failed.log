@@ -1,0 +1,16 @@
+verify	最大合法学习题源与证据	﻿2026-10-04T09:08:44.1077275Z ##[group]Run node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacitySourceVolume$' -timeout 5m -count=1 -v
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.1077927Z ^[[36;1mnode tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacitySourceVolume$' -timeout 5m -count=1 -v^[[0m
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.1129443Z shell: /usr/bin/bash -e {0}
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.1129611Z env:
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.1129717Z   CGO_ENABLED: 0
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.1129830Z   GOTOOLCHAIN: local
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.1130223Z   TEST_DATABASE_URL: ***127.0.0.1:5432/math_master_test_ci?sslmode=disable
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.1130418Z ##[endgroup]
+verify	最大合法学习题源与证据	2026-10-04T09:08:44.4531638Z === RUN   TestLearningCapacitySourceVolume
+verify	最大合法学习题源与证据	2026-10-04T09:09:43.5672274Z     learning_capacity_test.go:455: LEARNING_CAPACITY actual published knowledge=1000 units=4000 paths=200 assets=1000 templates=200 instances=10000 blueprints=1000 rootCandidates=1000 core=8 directSuccessors=999 actualMaxPathNodes=16
+verify	最大合法学习题源与证据	2026-10-04T09:12:44.8895150Z     learning_capacity_test.go:455: maximum exact approval proof changed 0 false false timeout: context deadline exceeded
+verify	最大合法学习题源与证据	2026-10-04T09:12:45.1606150Z --- FAIL: TestLearningCapacitySourceVolume (240.71s)
+verify	最大合法学习题源与证据	2026-10-04T09:12:45.1609883Z FAIL
+verify	最大合法学习题源与证据	2026-10-04T09:12:45.1634627Z FAIL	github.com/yyl1212/math_master/backend/internal/store	240.715s
+verify	最大合法学习题源与证据	2026-10-04T09:12:45.1658929Z FAIL
+verify	最大合法学习题源与证据	2026-10-04T09:12:45.1792303Z ##[error]Process completed with exit code 1.

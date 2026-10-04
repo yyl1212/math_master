@@ -106,5 +106,18 @@
     "logSHA256": "bf29d018f7b588e939377954e3d8eacf2f620902ea242c0b9fcf41f5328a0876",
     "documentLinks": "checked",
     "productDiff": "documentation only"
+  },
+  "approvalAndPlan": {
+    "designAndCompatibilityApproved": true,
+    "implementationPlan": "../../../superpowers/plans/2026-10-04-first-content-review.md",
+    "planStage": "written_awaiting_review",
+    "executionMethod": "Native",
+    "preparationTasks": 10,
+    "preparationSteps": 50,
+    "formalConditionalTasks": 4,
+    "productImplementationStarted": false,
+    "formalApprovalOrPublicationPerformed": false,
+    "currentCIRecord": "ci-diagnosis.json",
+    "historicalFieldsPreserved": true
   }
 }
