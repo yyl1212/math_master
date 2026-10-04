@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/contentaudit"
+	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 )
 
@@ -65,3 +66,8 @@ type ReviewScope struct {
 
 func ObjectKey(o contentaudit.ObjectIdentity) string { return content.Digest(o) }
 func SourceKey(s SourceIdentity) string              { return content.Digest(s) }
+
+type Imports struct {
+	Knowledge publication.DraftInput
+	Questions []question.DraftInput
+}
