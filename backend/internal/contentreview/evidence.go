@@ -620,8 +620,9 @@ func VerifyEvidence(ctx context.Context, root string, m ReviewManifest, input Ev
 	if e = reader.decode(input.ReleaseContext, MaxFileBytes, &release); e != nil {
 		return out, e
 	}
-	if release.SchemaVersion != 1 || release.ManifestSHA256 != out.ManifestSHA256 {
-		return out, ErrInvalid
+	releaseReady, e := validateRelease(reader, m, release)
+	if e != nil {
+		return out, e
 	}
 	imports, e := readImports(reader, m)
 	if e != nil {
@@ -636,13 +637,38 @@ func VerifyEvidence(ctx context.Context, root string, m ReviewManifest, input Ev
 		return out, e
 	}
 	out.ReviewComplete = result.ready
+	learning, e := verifyLearning(reader, release, input.LearningChecks)
+	if e != nil {
+		return out, e
+	}
 	if result.returned {
 		out.Conclusion = "not_ready"
 		out.Reasons = append(out.Reasons, "REVIEW_RETURNED")
-	} else if !result.ready {
+	}
+	if !result.ready {
 		out.Reasons = append(out.Reasons, "REVIEW_PENDING")
-	} else {
+	}
+	if !releaseReady {
+		out.Reasons = append(out.Reasons, "RELEASE_PENDING")
+	}
+	if !learning.ready {
 		out.Reasons = append(out.Reasons, "LEARNING_PENDING")
 	}
+	if learning.failed {
+		out.Reasons = append(out.Reasons, "LEARNING_FAILED")
+	}
+	if result.ready && releaseReady && learning.ready {
+		out.Conclusion = "evidence_ready"
+		if learning.failed {
+			out.Conclusion = "not_ready"
+		}
+		knowledgeHead, questionHead := release.KnowledgeHead, release.QuestionHead
+		out.Evidence = &contentaudit.AcceptanceEvidence{SchemaVersion: 1, CodeSHA: release.CodeSHA, RouteSHA: release.Route.SHA256, KnowledgeHead: &knowledgeHead, QuestionHead: &questionHead, FixtureOnly: release.FixtureOnly, ReviewAttestations: result.attestations, LearningChecks: learning.checks}
+	}
+	out.Files, e = verificationFiles(ctx, out, reader)
+	if e != nil {
+		return out, e
+	}
+
 	return out, ctx.Err()
 }
