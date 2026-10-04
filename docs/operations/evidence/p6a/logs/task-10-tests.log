@@ -1,0 +1,19 @@
+✔ new audit batches and all old budgets are wired (2.423667ms)
+✔ missing new browser or audit capacity is detected (1.671334ms)
+✔ old browser deletion and budget changes are detected (0.973459ms)
+✔ complete content scene accepts one setup slower than the old five-second limit (5542.562125ms)
+✔ all legacy and unknown scenes retain the five-second request limit (0.609709ms)
+✔ content setup has a ten-second limit within the unchanged individual test budget (0.32ms)
+✔ scene failures are single-attempt and redact both transport and timeout errors (0.679875ms)
+✔ eight migrations, public contracts, old data and mathematical bytes remain unchanged (1.739625ms)
+✔ tampered migration and old mathematics fail byte protection (2.221458ms)
+✔ production endpoints never expose the audit or test harness (1.974208ms)
+✔ legacy snapshot identity and CLI explicit secret boundary persist (0.174292ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5584.788166

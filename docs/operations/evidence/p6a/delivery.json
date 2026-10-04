@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "plan": "docs/superpowers/plans/2026-10-04-first-content-preparation.md",
+  "baseCodeSHA": "8bf3c95b9833941182f4c8caa2da752e6d7838ce",
+  "implementationCodeSHA": "fca745e0b41fa9865162ace67af2da80243a4cdd",
+  "completedTasks": 10,
+  "completedSteps": 50,
+  "rulings": 15,
+  "deferredMinors": 2,
+  "nodeCases": 72,
+  "frontendCases": 350,
+  "browserCases": 162,
+  "requiredSourceHeadWorkflows": 4,
+  "requiredSourceHeadJobs": 6,
+  "sourceHeadRemoteCI": "success",
+  "finalDocumentationHeadRemoteCI": "以PR #25准确最终完整head checks及交付记录核验",
+  "implementationPR": "https://github.com/yyl1212/math_master/pull/25",
+  "formalAccepted": false,
+  "nextPhase": "P6b：真实独立人员数学复核、批准发布与正式验收；P7部署另行安排"
+}

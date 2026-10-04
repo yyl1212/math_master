@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "stage": "local_review_complete_remote_delivery_pending",
+  "stage": "implementation_evidence_archived_final_document_head_ci_recorded_in_pr",
   "baseCodeSHA": "8bf3c95b9833941182f4c8caa2da752e6d7838ce",
   "reportCodeSHA": "4d27dc8f1564bd0ed5b5fa0d4ac1a5a8c504c8ab",
   "formalAccepted": false,
@@ -25,6 +25,11 @@
       "sha256": "36f97b1669a3de14b36da0d2aef62baa867f16d722b3a71ab1bfb5247d5c2f6a"
     },
     {
+      "path": "delivery.json",
+      "bytes": 795,
+      "sha256": "16253f0cac5ac18672a7e547a33b406e732bb85693df8bc803c80433150d1872"
+    },
+    {
       "path": "draft-report.json",
       "bytes": 25176,
       "sha256": "4009d04ed91b3affa1b713eef6a1f945cce67b00ea407a4698e50ac78fd914d7"
@@ -35,9 +40,14 @@
       "sha256": "f0ba83e7ee51c6fd53a384c8fb944e44ff6787cf374e54cdda8feb32afee498d"
     },
     {
+      "path": "execution-ledger.md",
+      "bytes": 15659,
+      "sha256": "f8ccc101d0e22a290520a2e8616a64762a2acf64c158d26daf88693e5cbe4707"
+    },
+    {
       "path": "implementation.md",
-      "bytes": 6565,
-      "sha256": "de0bb3d4428dfadae5a3f5b942768022fefde867b5eccef666f5217e3206b32b"
+      "bytes": 7472,
+      "sha256": "5663792e47c0765ce8acb1997980d40cc3d3c72d142bfa7db3df85828f479d6f"
     },
     {
       "path": "logs/baseline-go-fixed.log",
@@ -335,6 +345,11 @@
       "sha256": "a718c5ce838919f9dfa503130137a7be9453558f00ae8f26f3de852e116c6e71"
     },
     {
+      "path": "logs/remote-fixed-frontend-push.log",
+      "bytes": 233304,
+      "sha256": "aaae552ea7fc445fc1105b39050593854ae5c61b2b8f947f940c26622cc0e524"
+    },
+    {
       "path": "logs/remote-frontend-failure.log",
       "bytes": 6650,
       "sha256": "d00388695340b16e9cc3f3d4b3bf9f8893cebcec50e6c0ca1f3a65d3bf159973"
@@ -443,6 +458,11 @@
       "path": "logs/task-10-selection.log",
       "bytes": 1501,
       "sha256": "0638d8eb3c4049b474016341d12aa8f7a5f9b880d0194916b464db7893682cca"
+    },
+    {
+      "path": "logs/task-10-tests.log",
+      "bytes": 1032,
+      "sha256": "98c8049549c25a734f73b97642e65c343d35598ab84444999900ffd30446c217"
     },
     {
       "path": "logs/task-2-green.log",
@@ -670,6 +690,16 @@
       "sha256": "3a10cc1f9294204eafd2c5eade5759834a97ebff8413708d4f82efa235919198"
     },
     {
+      "path": "remote-ci-fixed.json",
+      "bytes": 49298,
+      "sha256": "dc16b45954cea5ba0e9c5c71f7039ddda7e87a11943fe7517d63baf024926def"
+    },
+    {
+      "path": "remote-fixed-browser-counts.json",
+      "bytes": 982,
+      "sha256": "da385c27ebe9495a1d996c771193dbfa4bcb6855ecaf8f328bd892247886c3c0"
+    },
+    {
       "path": "review.md",
       "bytes": 4407,
       "sha256": "a9e6591d66afb235b5712998d05b9b8a88d9fcd8802205f7e3f24357ff16e8a5"
@@ -736,13 +766,18 @@
     },
     {
       "path": "self-review.md",
-      "bytes": 1786,
-      "sha256": "a1bc455734f1ceebd2bdf96a9d6bc3cf949120dd300dfe842e67caac9be1a0af"
+      "bytes": 2100,
+      "sha256": "941caec405aa3290016ffe37c08e1975841eedd3ccaf134fbbdced39e455923d"
     },
     {
       "path": "source-summary.json",
       "bytes": 460,
       "sha256": "8a9bc8be4eb1adee71ea2c6f82a1c5c4c5c548b667ee2926931cca655e0b1065"
+    },
+    {
+      "path": "steps-complete.md",
+      "bytes": 3138,
+      "sha256": "85846f5bd5e41aea201ac784a8f4a30c74cb5b2d84156f0ce7bc1d4ad9b17c3a"
     }
   ],
   "sceneSetupRegression": {
@@ -751,5 +786,15 @@
     "contentAcceptanceRequestMs": 10000,
     "automaticRetries": 0
   },
-  "implementationPR": "https://github.com/yyl1212/math_master/pull/25"
+  "implementationPR": "https://github.com/yyl1212/math_master/pull/25",
+  "implementationCodeSHA": "fca745e0b41fa9865162ace67af2da80243a4cdd",
+  "completedTasks": 10,
+  "completedSteps": 50,
+  "sourceHeadRemoteCI": {
+    "workflows": 4,
+    "jobs": 6,
+    "conclusion": "success",
+    "headSHA": "fca745e0b41fa9865162ace67af2da80243a4cdd"
+  },
+  "finalHeadRemoteCI": "PR #25 的准确当前完整head检查及交付记录；不以源代码head替代"
 }

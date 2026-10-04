@@ -232,4 +232,6 @@ CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修�
 
 P6 书面方案及兼容边界、[P6a 实施计划](2026-10-04-first-content-preparation.md)已获用户确认，按 Native 连续执行十任务/五十步骤。已完成三索引固定批次、来源定位、30知识/30单元/9原创SVG、24模板/450固定/384生成共834不同草稿实例、纯验收与只读CLI、30节点真实测评和双视口16项新联调。草稿CLI为 draft_ready，隔离发布态为 awaiting_review/fixtureOnly；正式计数为零。完整旧回归和整分支审查记录见[实施证据](../../operations/evidence/p6a/implementation.md)。P6b仍待真实独立人员数学复核、批准发布和正式验收；P7部署另行安排。
 
-GitHub Actions 的原启动限制在2026-10-04复查时已恢复；旧失败原因及恢复证据见[启动限制诊断](../../operations/2026-10-04-github-actions-start-block.md)。恢复启动不等于新实现CI通过；实现MR准确head的远端结果另核验，不放宽测试、超时或兼容保护。
+GitHub Actions 的原启动限制在2026-10-04复查时已恢复；旧失败原因及恢复证据见[启动限制诊断](../../operations/2026-10-04-github-actions-start-block.md)。恢复启动不等于新实现CI通过；[P6a 实现PR #25](https://github.com/yyl1212/math_master/pull/25)的产品修复完整head fca745e0b41fa9865162ace67af2da80243a4cdd 已核验四workflow/六job实际success；准确最终证据归档head还以PR当前检查与交付记录核验。原测试、全局截止与兼容保护保持，新的完整场景单独10秒准备预算及历史失败见实施证据。
+
+P6a 十任务/五十步骤完成记录、全部裁决与真实CI结果已[归档](../../operations/evidence/p6a/steps-complete.md)。实现PR #25已创建并保持开放，文档PR #24未合并；P6b真实独立数学复核与正式发布/验收，以及P7部署分阶段交接。
