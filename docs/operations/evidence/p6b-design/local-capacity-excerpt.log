@@ -1,0 +1,6 @@
+=== RUN   TestLearningCapacitySourceVolume
+    learning_capacity_test.go:455: LEARNING_CAPACITY actual published knowledge=1000 units=4000 paths=200 assets=1000 templates=200 instances=10000 blueprints=1000 rootCandidates=1000 core=8 directSuccessors=999 actualMaxPathNodes=16
+    learning_capacity_test.go:455: LEARNING_CAPACITY approvalProofDifferential=1000 allEqual=true allApproved=true
+--- PASS: TestLearningCapacitySourceVolume (91.81s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	92.442s
