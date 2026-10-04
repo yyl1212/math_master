@@ -11,7 +11,9 @@
   "r1_r4": [
     {
       "task": "R1",
-      "status": "not_executed"
+      "status": "in_progress",
+      "technicalEnvironment": "ready",
+      "personnelAndIndependence": "pending"
     },
     {
       "task": "R2",
@@ -41,13 +43,49 @@
     "postReviewRegression": "passed",
     "reviewFixes": "two_important_resolved_one_pass",
     "nativeTask10": "complete",
-    "draftPR": "https://github.com/yyl1212/math_master/pull/27"
+    "draftPR": "https://github.com/yyl1212/math_master/pull/27",
+    "integration": {
+      "pullRequest": "https://github.com/yyl1212/math_master/pull/27",
+      "state": "merged",
+      "mergeCommit": "58ac4ee4965f3d008b26c7909fa87b39984ed421",
+      "postMergeCI": {
+        "status": "success",
+        "workflowRuns": 2,
+        "jobs": 3,
+        "runIds": [
+          37220020601,
+          37220020602
+        ]
+      }
+    }
   },
   "remaining": [
-    "真实负责人及非生产环境用途和操作范围",
+    "实际负责人、本人正常角色账号、数学能力/独立性及全量复核分工",
     "真实独立自然人全量数学与出处许可复核",
     "正常工作流批准、双 head 发布和知情纠错演练",
     "最终八类实际文件与一致只读 accepted"
   ],
-  "productionDeployment": "not_executed"
+  "productionDeployment": "not_executed",
+  "r1TechnicalEnvironment": {
+    "recordedClientDate": "2026-10-05",
+    "location": "local_nonproduction",
+    "status": "technical_environment_ready_personnel_pending",
+    "runtimeCodeSHA": "58ac4ee4965f3d008b26c7909fa87b39984ed421",
+    "normalGoNextServicesVerified": true,
+    "appliedMigrations": 8,
+    "catalogueVersion": 1,
+    "catalogueDomainCount": 16,
+    "fullDatabaseBackups": 2,
+    "readOnlyBackupDirectoryChecks": "passed",
+    "actualRestoreExecuted": false,
+    "visibleEnglishDomainNames": 16,
+    "allPublicDomainsPlanned": true,
+    "anonymousSessionVerified": true,
+    "anonymousManagementHTTP": 401,
+    "responsibleOwnerRegistered": false,
+    "normalPersonnelAccountsVerified": false,
+    "independentMathReviewerVerified": false,
+    "formalR1Complete": false,
+    "note": "已完成已授权的本机技术环境初始化；实际负责人、本人正常角色账号、数学能力/独立性与全量复核分工仍待落实。私有连接、人员、PID、路径及备份正文不进入公共记录。"
+  }
 }
