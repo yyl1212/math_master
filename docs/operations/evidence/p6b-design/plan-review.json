@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-04T10:31:40.546471+00:00",
+  "implementationPlan": "../../../superpowers/plans/2026-10-04-first-content-review.md",
+  "designAndCompatibilityApproved": true,
+  "planApproved": false,
+  "executionMethod": "Native",
+  "preparationTasks": 10,
+  "preparationSteps": 50,
+  "formalConditionalTasks": 4,
+  "formalSteps": 20,
+  "nodeProtection": {
+    "tests": 72,
+    "passed": 72,
+    "failed": 0,
+    "skipped": 0,
+    "log": "plan-node-protection.log",
+    "logSHA256": "0fc032d46d66160efbb226eec7aba46fe36a95cda2f51bde98ec5d1413999a19"
+  },
+  "localCapacityReproduction": "ci-diagnosis.json",
+  "productChanges": false,
+  "realReviewOrPublication": false,
+  "selfReview": {
+    "specCoverage": "checked",
+    "interfacesAndTypes": "checked",
+    "fiveRiskClasses": "checked",
+    "existingContractsAndLimits": "preserved",
+    "testAndFileOwnership": "checked",
+    "humanExecutionGates": "explicit",
+    "proportionality": "ten implementation tasks with contract/security/IO detail; four short conditional operations; no implementation bodies"
+  },
+  "resolvedGaps": [
+    "single capture for digest/validation/export",
+    "private reader helpers are reused within contentaudit",
+    "SourceLink key excludes legacyId; coalesce without dropping conditions",
+    "958 subjects plus 205 source records; all checks and instances",
+    "final reviewed register is separate from immutable unreviewed export",
+    "question archive order follows frozen instance identities",
+    "incomplete human/final evidence has no acceptance-evidence file",
+    "new TestContentReview enters existing broad integration batch",
+    "historical failure and green comparisons do not claim a fix"
+  ]
+}
