@@ -71,3 +71,71 @@ type Imports struct {
 	Knowledge publication.DraftInput
 	Questions []question.DraftInput
 }
+
+type ExportFile struct {
+	Path  string
+	Bytes []byte
+}
+type FileEntry struct {
+	Path   string `json:"path"`
+	Bytes  int    `json:"bytes"`
+	SHA256 string `json:"sha256"`
+}
+type RouteIdentity struct {
+	ID      string `json:"id"`
+	Version int    `json:"version"`
+	SHA256  string `json:"sha256"`
+}
+type SubjectChecks struct {
+	Key    string   `json:"key"`
+	Checks []string `json:"checks"`
+}
+type ReviewManifest struct {
+	SchemaVersion       int                           `json:"schemaVersion"`
+	CodeSHA             string                        `json:"codeSHA"`
+	FixtureOnly         bool                          `json:"fixtureOnly"`
+	CatalogueVersion    int                           `json:"catalogueVersion"`
+	CatalogueSHA256     string                        `json:"catalogueSHA256"`
+	Route               RouteIdentity                 `json:"route"`
+	SnapshotID          string                        `json:"snapshotId"`
+	SourceReportSHA256  string                        `json:"sourceReportSHA256"`
+	SourceMapSHA256     string                        `json:"sourceMapSHA256"`
+	InputManifestSHA256 string                        `json:"inputManifestSHA256"`
+	Inputs              []FileEntry                   `json:"inputs"`
+	Objects             []contentaudit.ObjectIdentity `json:"objects"`
+	DerivedInstances    []DerivedInstance             `json:"derivedInstances"`
+	Sources             []SourceRecord                `json:"sources"`
+	RequiredChecks      []SubjectChecks               `json:"requiredChecks"`
+	Files               []FileEntry                   `json:"files"`
+}
+type Bundle struct {
+	Manifest ReviewManifest
+	Files    []ExportFile
+}
+type FileRef struct {
+	Path   string `json:"path"`
+	SHA256 string `json:"sha256"`
+}
+type ReviewCheck struct {
+	Name        string `json:"name"`
+	Status      string `json:"status"`
+	Basis       string `json:"basis"`
+	Issue       string `json:"issue"`
+	ReviewerRef string `json:"reviewerRef"`
+}
+type ReviewRow struct {
+	Key    string                       `json:"key"`
+	Object *contentaudit.ObjectIdentity `json:"object"`
+	Source *SourceIdentity              `json:"source"`
+	Checks []ReviewCheck                `json:"checks"`
+}
+type ReviewRegister struct {
+	SchemaVersion  int       `json:"schemaVersion"`
+	ManifestSHA256 string    `json:"manifestSHA256"`
+	Parts          []FileRef `json:"parts"`
+}
+type RegisterPart struct {
+	SchemaVersion  int         `json:"schemaVersion"`
+	ManifestSHA256 string      `json:"manifestSHA256"`
+	Rows           []ReviewRow `json:"rows"`
+}
