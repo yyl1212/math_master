@@ -3,6 +3,7 @@ package store
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/correction"
@@ -81,6 +82,9 @@ func (s *Store) BackfillCorrections(ctx context.Context, limit int) (int, error)
 				break
 			}
 			caseID := candidate.caseID.String
+			var lockedKind correction.CaseKind
+			var lockedPlans []correction.PlanRef
+			preloaded := false
 			if !candidate.caseID.Valid {
 				if e = correctionEnqueueWithdrawal(ctx, tx, candidate.space.String, candidate.sourceID.String, now); e != nil {
 					return e
@@ -91,17 +95,29 @@ func (s *Store) BackfillCorrections(ctx context.Context, limit int) (int, error)
 				total++
 			} else {
 				var locked string
-				e = tx.QueryRowContext(ctx, `SELECT id::text FROM correction_cases WHERE id=$1 AND sealed FOR UPDATE SKIP LOCKED`, caseID).Scan(&locked)
+				var exists bool
+				var rawPlans []byte
+				e = tx.QueryRowContext(ctx, `WITH locked AS MATERIALIZED (
+ SELECT id,kind FROM correction_cases WHERE id=$1 AND sealed FOR UPDATE SKIP LOCKED
+ ),root AS MATERIALIZED (
+ SELECT locked.*,EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='case:'||locked.id::text) present FROM locked
+ ) SELECT root.id::text,root.kind,root.present,
+ (SELECT coalesce(jsonb_agg(jsonb_build_object('id',p.id::text,'version',p.version) ORDER BY p.created_at,p.id,p.version),'[]'::jsonb) FROM (
+ SELECT p.id,p.version,p.created_at FROM correction_plans p WHERE p.case_id=root.id AND p.status='approved' AND p.sealed
+ AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='plan:'||p.id::text||':'||p.version::text)
+ ORDER BY p.created_at,p.id,p.version LIMIT greatest(0,$2::integer-CASE WHEN root.present THEN 0 ELSE 1 END)
+ ) p) FROM root`, caseID, limit-total).Scan(&locked, &lockedKind, &exists, &rawPlans)
 				if errors.Is(e, sql.ErrNoRows) {
 					continue
 				}
 				if e != nil {
 					return e
 				}
-				var exists bool
-				if e = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM correction_jobs WHERE source_key=$1)`, "case:"+caseID).Scan(&exists); e != nil {
-					return e
+				if e = json.Unmarshal(rawPlans, &lockedPlans); e != nil {
+					return auth.ErrUnavailable
 				}
+				preloaded = true
+
 				if !exists {
 					if e = correctionEnqueueCase(ctx, tx, caseID, nil, now); e != nil {
 						return e
@@ -110,24 +126,28 @@ func (s *Store) BackfillCorrections(ctx context.Context, limit int) (int, error)
 				}
 			}
 			if total < limit {
-				plans, e := tx.QueryContext(ctx, `SELECT id::text,version FROM correction_plans p WHERE case_id=$1 AND status='approved' AND sealed AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='plan:'||p.id::text||':'||p.version::text) ORDER BY created_at,id,version LIMIT $2`, caseID, limit-total)
-				if e != nil {
-					return e
-				}
-				refs := []correction.PlanRef{}
-				for plans.Next() {
-					var p correction.PlanRef
-					if e = plans.Scan(&p.ID, &p.Version); e != nil {
-						plans.Close()
+				refs := lockedPlans
+				if !preloaded {
+					refs = []correction.PlanRef{}
+					plans, e := tx.QueryContext(ctx, `SELECT id::text,version FROM correction_plans p WHERE case_id=$1 AND status='approved' AND sealed AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='plan:'||p.id::text||':'||p.version::text) ORDER BY created_at,id,version LIMIT $2`, caseID, limit-total)
+					if e != nil {
 						return e
 					}
-					refs = append(refs, p)
+					for plans.Next() {
+						var p correction.PlanRef
+						if e = plans.Scan(&p.ID, &p.Version); e != nil {
+							plans.Close()
+							return e
+						}
+						refs = append(refs, p)
+					}
+					e = plans.Err()
+					plans.Close()
+					if e != nil {
+						return e
+					}
 				}
-				e = plans.Err()
-				plans.Close()
-				if e != nil {
-					return e
-				}
+
 				for _, p := range refs {
 					if e = correctionEnqueueCase(ctx, tx, caseID, &p, now); e != nil {
 						return e
@@ -136,15 +156,20 @@ func (s *Store) BackfillCorrections(ctx context.Context, limit int) (int, error)
 				}
 			}
 			if total < limit {
-				c, e := correctionReadCase(ctx, tx, caseID)
-				if e != nil {
-					return e
+				kind := lockedKind
+				if !preloaded {
+					c, e := correctionReadCase(ctx, tx, caseID)
+					if e != nil {
+						return e
+					}
+					kind = c.Kind
 				}
+
 				// Bind the bounded evidence scan to this already locked case. After
 				// statistics change, flattening a cross join can read every practice's
 				// frozen rule before rejecting an old cutoff. Keep all source predicates,
 				// ordering and the shared remaining budget inside the parameterized scan.
-				items, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT e.kind,e.id::text,e.owner::text FROM correction_cases c CROSS JOIN LATERAL (SELECT e.kind,e.id,e.owner FROM evidence e WHERE e.terminal AND e.kind IN ('assessment','practice') AND `+correctionCasePredicateSQL(c.Kind)+` AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='terminal:'||c.id::text||':'||e.kind||':'||e.id::text) ORDER BY e.kind,e.id LIMIT $2 OFFSET 0) e WHERE c.id=$1 ORDER BY e.kind,e.id`, caseID, limit-total)
+				items, e := tx.QueryContext(ctx, correctionBackfillTerminalSQL(kind), caseID, limit-total)
 				if e != nil {
 					return e
 				}
@@ -186,4 +211,16 @@ func (s *Store) BackfillCorrections(ctx context.Context, limit int) (int, error)
 		return 0, e
 	}
 	return total, nil
+}
+
+// 最早记录晚于截止时间时，该规则范围为空；原完整匹配仍决定所有非空范围。
+func correctionBackfillTerminalSQL(kind correction.CaseKind) string {
+	evidence := correctionEvidenceRowsSQL
+	if kind == correction.GradingRuleCase {
+		evidence = `SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed
+ AND c.cutoff >= (SELECT first.created_at FROM assessment_attempts first WHERE first.rule_version=c.rule_version ORDER BY first.created_at,first.id,first.owner_user_id LIMIT 1)
+ UNION ALL SELECT 'practice',id,owner_user_id,created_at,knowledge_id,knowledge_version,knowledge_sha256,(seal#>>'{body,ruleVersion}')::integer,state='answered' FROM practice_attempts
+ WHERE c.cutoff >= (SELECT first.created_at FROM practice_attempts first WHERE (first.seal#>>'{body,ruleVersion}')::integer=c.rule_version ORDER BY first.created_at,first.id,first.owner_user_id LIMIT 1)`
+	}
+	return `SELECT e.kind,e.id::text,e.owner::text FROM correction_cases c CROSS JOIN LATERAL (WITH evidence AS (` + evidence + `) SELECT e.kind,e.id,e.owner FROM evidence e WHERE e.terminal AND e.kind IN ('assessment','practice') AND ` + correctionCasePredicateSQL(kind) + ` AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='terminal:'||c.id::text||':'||e.kind||':'||e.id::text) ORDER BY e.kind,e.id LIMIT $2 OFFSET 0) e WHERE c.id=$1 ORDER BY e.kind,e.id`
 }
