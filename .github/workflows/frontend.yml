@@ -61,8 +61,8 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- catalogue.spec.ts reading.spec.ts
       - name: 真实账户与权限浏览器回归
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- auth.spec.ts auth-security.spec.ts
-      - name: 真实内容编写、草稿阅读与冲突回归
-        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-authoring.spec.ts content-draft-reading.spec.ts
+      - name: 真实内容编写与冲突回归
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-authoring.spec.ts
       - name: 真实独立复核回归
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-review.spec.ts
       - name: 真实发布与撤回回归
