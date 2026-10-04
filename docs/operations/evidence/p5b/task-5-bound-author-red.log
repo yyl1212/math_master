@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionIndependentBoundContentAuthorWithoutMapping
+    correction_review_test.go:216: bound content author self-reviewed unmapped template case <nil>
+--- FAIL: TestCorrectionIndependentBoundContentAuthorWithoutMapping (1.00s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.388s
+FAIL

@@ -272,7 +272,11 @@ func TestFeedbackCapacity(t *testing.T) {
 		t.Logf("tickets=%d events=%d init=%s largest_operation=%s status_race_successes=%d", tickets, events, initDuration, largest, successes)
 	})
 	t.Run("missing_feedback_migration_keeps_old_learning", func(t *testing.T) {
-		f := newFeedbackFixture(t)
+		f := newFeedbackFixture(t, 7)
+		if f.count(`SELECT count(*) FROM pg_attribute WHERE attrelid=to_regclass('public.goose_db_version') AND attname='correction_enabled' AND NOT attisdropped`) != 0 ||
+			f.count(`SELECT count(*) FROM pg_tables WHERE schemaname='public' AND (tablename LIKE 'correction_%' OR tablename IN ('notifications','notification_reads'))`) != 0 {
+			t.Fatal("legacy fallback fixture must never have enabled correction")
+		}
 		if e := tryDownSeven(t, f.db); e != nil {
 			t.Fatal(e)
 		}

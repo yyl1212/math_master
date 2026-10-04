@@ -1,0 +1,24 @@
+=== RUN   TestCorrectionSystemEntryOrderedLocks
+=== RUN   TestCorrectionSystemEntryOrderedLocks/0
+=== RUN   TestCorrectionSystemEntryOrderedLocks/1
+=== RUN   TestCorrectionSystemEntryOrderedLocks/2
+--- PASS: TestCorrectionSystemEntryOrderedLocks (2.37s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/0 (0.83s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/1 (0.77s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/2 (0.77s)
+=== RUN   TestCorrectionSystemEntryWithoutContentLocks
+--- PASS: TestCorrectionSystemEntryWithoutContentLocks (0.75s)
+=== RUN   TestCorrectionJobClockAfterRowWait
+--- PASS: TestCorrectionJobClockAfterRowWait (0.78s)
+=== RUN   TestCorrectionCombinedDependenciesExactSources
+=== RUN   TestCorrectionCombinedDependenciesExactSources/nil
+=== RUN   TestCorrectionCombinedDependenciesExactSources/empty
+=== RUN   TestCorrectionCombinedDependenciesExactSources/missing-knowledge
+=== RUN   TestCorrectionCombinedDependenciesExactSources/missing-unit
+--- PASS: TestCorrectionCombinedDependenciesExactSources (0.75s)
+    --- PASS: TestCorrectionCombinedDependenciesExactSources/nil (0.00s)
+    --- PASS: TestCorrectionCombinedDependenciesExactSources/empty (0.00s)
+    --- PASS: TestCorrectionCombinedDependenciesExactSources/missing-knowledge (0.00s)
+    --- PASS: TestCorrectionCombinedDependenciesExactSources/missing-unit (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	5.249s

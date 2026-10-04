@@ -1,0 +1,15 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts content-release.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/content-release.spec.ts:4:5 › contentPublicationReauthCancelActivationAndWithdrawal (7.7s)
+[WebServer] 2026/10/04 01:07:16 ERROR Private API request failed request_id=04fe27a28c476c42b1770ca17c473b89 error_code=SERVICE_UNAVAILABLE
+  ✓  2 [desktop] › ../tests/e2e/content-release.spec.ts:6:5 › contentLargeHistoryKeepsPublicationPaginationAndWithdrawalUsable (7.7s)
+  ✓  3 [mobile] › ../tests/e2e/content-release.spec.ts:4:5 › contentPublicationReauthCancelActivationAndWithdrawal (6.9s)
+[WebServer] 2026/10/04 01:07:33 ERROR Private API request failed request_id=a4bc3cca9922cb6c26b9710264191db7 error_code=SERVICE_UNAVAILABLE
+  ✓  4 [mobile] › ../tests/e2e/content-release.spec.ts:6:5 › contentLargeHistoryKeepsPublicationPaginationAndWithdrawalUsable (9.2s)
+
+  4 passed (32.9s)

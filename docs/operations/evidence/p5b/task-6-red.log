@@ -1,0 +1,14 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_backfill_test.go:4:104: f.repo.ClaimCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ClaimCorrectionJob)
+internal/store/correction_backfill_test.go:4:175: f.repo.FinishCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method FinishCorrectionJob)
+internal/store/correction_backfill_test.go:7:14: f.repo.BackfillCorrections undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method BackfillCorrections)
+internal/store/correction_backfill_test.go:12:14: f.repo.BackfillCorrections undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method BackfillCorrections)
+internal/store/correction_backfill_test.go:16:31: f.repo.BackfillCorrections undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method BackfillCorrections)
+internal/store/correction_backfill_test.go:18:14: f.repo.BackfillCorrections undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method BackfillCorrections)
+internal/store/correction_jobs_test.go:22:158: f.repo.ClaimCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ClaimCorrectionJob)
+internal/store/correction_jobs_test.go:23:20: f.repo.RenewCorrectionLease undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method RenewCorrectionLease)
+internal/store/correction_jobs_test.go:24:49: f.repo.RenewCorrectionLease undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method RenewCorrectionLease)
+internal/store/correction_jobs_test.go:24:170: f.repo.FinishCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method FinishCorrectionJob)
+internal/store/correction_jobs_test.go:24:170: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

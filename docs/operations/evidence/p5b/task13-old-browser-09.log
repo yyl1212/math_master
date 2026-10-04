@@ -1,0 +1,25 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts question-release.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/question-release.spec.ts:5:9 › questionAtomicPermanentWithdrawal-instance (5.6s)
+  ✓  2 [desktop] › ../tests/e2e/question-release.spec.ts:5:9 › questionAtomicPermanentWithdrawal-template (4.6s)
+  ✓  3 [desktop] › ../tests/e2e/question-release.spec.ts:6:5 › questionEitherHeadMakesPreparedActivationStale (5.4s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  4 [desktop] › ../tests/e2e/question-release.spec.ts:11:5 › questionTemplateReplacementRetiresInstancesWithoutPermanentWithdrawal (7.5s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  5 [mobile] › ../tests/e2e/question-release.spec.ts:5:9 › questionAtomicPermanentWithdrawal-instance (5.4s)
+  ✓  6 [mobile] › ../tests/e2e/question-release.spec.ts:5:9 › questionAtomicPermanentWithdrawal-template (5.4s)
+  ✓  7 [mobile] › ../tests/e2e/question-release.spec.ts:6:5 › questionEitherHeadMakesPreparedActivationStale (4.7s)
+  ✓  8 [mobile] › ../tests/e2e/question-release.spec.ts:11:5 › questionTemplateReplacementRetiresInstancesWithoutPermanentWithdrawal (7.6s)
+
+  8 passed (47.4s)

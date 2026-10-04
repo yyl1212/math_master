@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts question-review.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/question-review.spec.ts:5:5 › questionRealAuthorCannotReviewAndDistinctReviewerSeesAllFrozenPages (5.4s)
+  ✓  2 [desktop] › ../tests/e2e/question-review.spec.ts:6:5 › questionReturnedWorkspaceReopensButOriginalSubmissionStaysFrozen (4.5s)
+  ✓  3 [mobile] › ../tests/e2e/question-review.spec.ts:5:5 › questionRealAuthorCannotReviewAndDistinctReviewerSeesAllFrozenPages (5.3s)
+  ✓  4 [mobile] › ../tests/e2e/question-review.spec.ts:6:5 › questionReturnedWorkspaceReopensButOriginalSubmissionStaysFrozen (4.5s)
+
+  4 passed (20.9s)

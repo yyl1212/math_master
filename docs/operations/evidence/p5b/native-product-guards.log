@@ -1,0 +1,7 @@
+# github.com/yyl1212/math_master/backend/internal/store [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/assessment_evidence.go:108:31: undefined: time
+internal/store/assessment_evidence.go:109:8: undefined: capacityDiagnosticRecord
+internal/store/correction_plans.go:28:8: undefined: capacityDiagnosticRecord
+internal/store/correction_inputs.go:10:2: "github.com/yyl1212/math_master/backend/internal/question" imported and not used
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

@@ -1,0 +1,87 @@
+=== RUN   TestCorrectionCapacityDiagnostic
+    correction_capacity_diagnostic_test.go:4: DIAG setup 32.622545917s
+    correction_capacity_diagnostic_test.go:6: DIAG real500 5.635455292s
+    correction_capacity_diagnostic_test.go:6: PHASE_PROFILE_JSON {"body":{"Calls":42620,"Nanoseconds":63600793,"MaxNanoseconds":404166},"correctionAdvanceCursor":{"Calls":500,"Nanoseconds":322179882,"MaxNanoseconds":1233875},"correctionBuildBasisMetadata":{"Calls":500,"Nanoseconds":1084693915,"MaxNanoseconds":5951708},"correctionEvent":{"Calls":20,"Nanoseconds":6227375,"MaxNanoseconds":395459},"correctionInstanceDeps":{"Calls":500,"Nanoseconds":132820703,"MaxNanoseconds":621875},"correctionLockCaseKind":{"Calls":500,"Nanoseconds":111312894,"MaxNanoseconds":383750},"correctionOriginalBasis":{"Calls":500,"Nanoseconds":419975068,"MaxNanoseconds":2827459},"correctionPositionMap":{"Calls":1000,"Nanoseconds":201018829,"MaxNanoseconds":1821417},"correctionProcessEvidence":{"Calls":500,"Nanoseconds":3718500962,"MaxNanoseconds":15381667},"correctionReadEvidenceMetadata":{"Calls":500,"Nanoseconds":122518925,"MaxNanoseconds":624834},"correctionReadJob":{"Calls":520,"Nanoseconds":127061500,"MaxNanoseconds":696083},"correctionReadJobTime":{"Calls":500,"Nanoseconds":126577497,"MaxNanoseconds":526542},"correctionSystemConfigured":{"Calls":530,"Nanoseconds":735341963,"MaxNanoseconds":2448292},"correctionSystemEnter":{"Calls":530,"Nanoseconds":126506908,"MaxNanoseconds":543375},"correctionSystemTx":{"Calls":530,"Nanoseconds":5635210449,"MaxNanoseconds":20519500},"correctionWriteResult":{"Calls":500,"Nanoseconds":1041720649,"MaxNanoseconds":4942458},"dbClock":{"Calls":20,"Nanoseconds":4623247,"MaxNanoseconds":312041},"learningEvidenceDependencies":{"Calls":500,"Nanoseconds":119905744,"MaxNanoseconds":552625},"learningLoadItems":{"Calls":500,"Nanoseconds":168392694,"MaxNanoseconds":2093667},"learningReadPractice":{"Calls":500,"Nanoseconds":130725758,"MaxNanoseconds":647833},"notificationAppend":{"Calls":500,"Nanoseconds":181237403,"MaxNanoseconds":998417},"readAccount":{"Calls":1000,"Nanoseconds":458133834,"MaxNanoseconds":845291}}
+--- PASS: TestCorrectionCapacityDiagnostic (38.27s)
+=== RUN   TestCorrectionReplacementTemplateExposure
+--- PASS: TestCorrectionReplacementTemplateExposure (1.28s)
+=== RUN   TestCorrectionCompletionLaterGrantsAppendOnly
+--- PASS: TestCorrectionCompletionLaterGrantsAppendOnly (0.96s)
+=== RUN   TestCorrectionProcessAtomic
+=== RUN   TestCorrectionProcessAtomic/result
+=== RUN   TestCorrectionProcessAtomic/dependency
+=== RUN   TestCorrectionProcessAtomic/dependency-last
+=== RUN   TestCorrectionProcessAtomic/qualification
+=== RUN   TestCorrectionProcessAtomic/notification
+=== RUN   TestCorrectionProcessAtomic/cursor
+--- PASS: TestCorrectionProcessAtomic (5.75s)
+    --- PASS: TestCorrectionProcessAtomic/result (0.98s)
+    --- PASS: TestCorrectionProcessAtomic/dependency (0.95s)
+    --- PASS: TestCorrectionProcessAtomic/dependency-last (0.95s)
+    --- PASS: TestCorrectionProcessAtomic/qualification (0.96s)
+    --- PASS: TestCorrectionProcessAtomic/notification (0.95s)
+    --- PASS: TestCorrectionProcessAtomic/cursor (0.96s)
+=== RUN   TestCorrectionStaleLeaseNoEvidenceWrites
+--- PASS: TestCorrectionStaleLeaseNoEvidenceWrites (0.88s)
+=== RUN   TestCorrectionCrashResumeCursorAndNotificationDedup
+--- PASS: TestCorrectionCrashResumeCursorAndNotificationDedup (1.71s)
+=== RUN   TestCorrectionProcessRootActiveLateTerminalAfterDone
+--- PASS: TestCorrectionProcessRootActiveLateTerminalAfterDone (0.99s)
+=== RUN   TestCorrectionCumulativeResultsOtherCaseStillRestricts
+--- PASS: TestCorrectionCumulativeResultsOtherCaseStillRestricts (1.02s)
+=== RUN   TestCorrectionProcessWithdrawalWithoutMappingRetake
+--- PASS: TestCorrectionProcessWithdrawalWithoutMappingRetake (0.96s)
+=== RUN   TestCorrectionProcessThreeOfFiveStaysFailed
+--- PASS: TestCorrectionProcessThreeOfFiveStaysFailed (0.90s)
+=== RUN   TestCorrectionStaleLeaseAtFinalCommitFence
+--- PASS: TestCorrectionStaleLeaseAtFinalCommitFence (0.93s)
+=== RUN   TestCorrectionWithdrawalCommitRace
+=== RUN   TestCorrectionWithdrawalCommitRace/withdrawal-first
+=== RUN   TestCorrectionWithdrawalCommitRace/correction-first
+--- PASS: TestCorrectionWithdrawalCommitRace (2.54s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/withdrawal-first (1.24s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/correction-first (1.30s)
+=== RUN   TestCorrectionCumulativeResultsParentReplacementWithdrawn
+--- PASS: TestCorrectionCumulativeResultsParentReplacementWithdrawn (1.60s)
+=== RUN   TestCorrectionProcessPracticeNeverGrantsQualification
+--- PASS: TestCorrectionProcessPracticeNeverGrantsQualification (0.92s)
+=== RUN   TestCorrectionProcessAwaitingApprovalHasNoScore
+--- PASS: TestCorrectionProcessAwaitingApprovalHasNoScore (0.87s)
+=== RUN   TestCorrectionProcessCurrentAccountRecheckedNoPersonnelQuota
+--- PASS: TestCorrectionProcessCurrentAccountRecheckedNoPersonnelQuota (0.93s)
+=== RUN   TestCorrectionCumulativeResultsIncompatibleApprovedMappings
+--- PASS: TestCorrectionCumulativeResultsIncompatibleApprovedMappings (1.54s)
+=== RUN   TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass
+--- PASS: TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass (1.57s)
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn
+--- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis (2.24s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope (1.14s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn (1.10s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteParentClosure
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteParentClosure (0.90s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies (1.74s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit (0.88s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective (0.86s)
+=== RUN   TestCorrectionUnprocessedApprovedChain
+--- PASS: TestCorrectionUnprocessedApprovedChain (1.59s)
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle
+--- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles (3.41s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict (1.76s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle (1.66s)
+=== RUN   TestCorrectionReplacementChainIgnoresUnrelatedFork
+--- PASS: TestCorrectionReplacementChainIgnoresUnrelatedFork (2.01s)
+=== RUN   TestCorrectionProcessMaterialAndPathStaticNotices
+=== RUN   TestCorrectionProcessMaterialAndPathStaticNotices/unit
+=== RUN   TestCorrectionProcessMaterialAndPathStaticNotices/path
+--- PASS: TestCorrectionProcessMaterialAndPathStaticNotices (1.93s)
+    --- PASS: TestCorrectionProcessMaterialAndPathStaticNotices/unit (0.84s)
+    --- PASS: TestCorrectionProcessMaterialAndPathStaticNotices/path (1.09s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	78.042s

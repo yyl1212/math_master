@@ -1,0 +1,40 @@
+=== RUN   TestLearningSchemaMigrationRoundTrip
+--- PASS: TestLearningSchemaMigrationRoundTrip (0.22s)
+=== RUN   TestCorrectionMigrationEmptyDownAndMarker
+--- PASS: TestCorrectionMigrationEmptyDownAndMarker (0.18s)
+=== RUN   TestCorrectionMigrationNonemptyDown
+--- PASS: TestCorrectionMigrationNonemptyDown (0.79s)
+=== RUN   TestCorrectionMigrationQuotaAloneProtectsDown
+--- PASS: TestCorrectionMigrationQuotaAloneProtectsDown (0.76s)
+=== RUN   TestCorrectionSchemaImmutable
+--- PASS: TestCorrectionSchemaImmutable (0.77s)
+=== RUN   TestCorrectionSchemaDirectApprovalRejected
+--- PASS: TestCorrectionSchemaDirectApprovalRejected (0.76s)
+=== RUN   TestCorrectionSchemaOwnership
+--- PASS: TestCorrectionSchemaOwnership (0.80s)
+=== RUN   TestCorrectionSchemaUnapprovedPassRejected
+--- PASS: TestCorrectionSchemaUnapprovedPassRejected (0.75s)
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+--- PASS: TestCorrectionSchemaLegalResultAndAudit (0.88s)
+=== RUN   TestCorrectionSchemaReplacementSHA
+--- PASS: TestCorrectionSchemaReplacementSHA (0.86s)
+=== RUN   TestCorrectionSchemaPassingKnowledgeRequired
+--- PASS: TestCorrectionSchemaPassingKnowledgeRequired (0.86s)
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+--- PASS: TestCorrectionSchemaUnmappedReplacementRejected (0.97s)
+=== RUN   TestFeedbackMigrationEmptyRoundTrip
+--- PASS: TestFeedbackMigrationEmptyRoundTrip (0.19s)
+=== RUN   TestFeedbackMigrationNonemptyGuard
+=== RUN   TestFeedbackMigrationNonemptyGuard/ticket
+=== RUN   TestFeedbackMigrationNonemptyGuard/events
+=== RUN   TestFeedbackMigrationNonemptyGuard/receipt
+=== RUN   TestFeedbackMigrationNonemptyGuard/quota
+--- PASS: TestFeedbackMigrationNonemptyGuard (3.08s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/ticket (0.78s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/events (0.77s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/receipt (0.77s)
+    --- PASS: TestFeedbackMigrationNonemptyGuard/quota (0.76s)
+=== RUN   TestMigrationRoundTrip
+--- PASS: TestMigrationRoundTrip (0.32s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	12.769s

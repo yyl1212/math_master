@@ -1,0 +1,106 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction/correction.test.tsx src/lib/api/correction-proxy.test.ts
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/lib/api/correction-proxy.test.ts (5 tests | 2 failed) 15ms
+   × corrected SVG uses the exact private result path and validates bytes and all security headers 2ms
+   × corrected SVG stream is cancelled within the same ten-second request deadline 1ms
+ ❯ src/features/correction/correction.test.tsx (8 tests | 3 failed) 137ms
+   × CorrectionEffectiveAssets bind illustrations to the exact correction result 9ms
+   × CorrectionEditorCapabilities preserve plan editing without administrator commands 15ms
+   × CorrectionEditorHasNoAdminRetry while keeping an unsent plan draft 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/correction/correction.test.tsx > CorrectionEffectiveAssets bind illustrations to the exact correction result
+Error: expect(element).toHaveAttribute("src", "/api/v1/corrections/results/22222222-2222-4222-8222-222222222222/assets/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") // element.getAttribute("src") === "/api/v1/corrections/results/22222222-2222-4222-8222-222222222222/assets/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+
+Expected the element to have attribute:
+  src="/api/v1/corrections/results/22222222-2222-4222-8222-222222222222/assets/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+Received:
+  src="/api/v1/learning/assets/11111111-1111-4111-8111-111111111111/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+ ❯ src/features/correction/correction.test.tsx:41:34
+     39|  vi.mocked(correctionClient.readOwnDetail).mockResolvedValue({actorId:…
+     40|  render(<ResultPanel initial={{result:d.result,items:[],planReason:nul…
+     41|  expect(screen.getByRole('img')).toHaveAttribute('src',`/api/v1/correc…
+       |                                  ^
+     42| });
+     43|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  src/features/correction/correction.test.tsx > CorrectionEditorCapabilities preserve plan editing without administrator commands
+AssertionError: expected <button class="button" disabled></button> to be null
+
+- Expected:
+null
+
++ Received:
+<button
+  class="button"
+  disabled=""
+>
+  Register correction case
+</button>
+
+ ❯ src/features/correction/correction.test.tsx:48:73
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  src/features/correction/correction.test.tsx > CorrectionEditorHasNoAdminRetry while keeping an unsent plan draft
+AssertionError: expected <button type="button" …(1)></button> to be null
+
+- Expected:
+null
+
++ Received:
+<button
+  class="button secondary"
+  type="button"
+>
+  Retry processing
+</button>
+
+ ❯ src/features/correction/correction.test.tsx:62:65
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  src/lib/api/correction-proxy.test.ts > corrected SVG uses the exact private result path and validates bytes and all security headers
+AssertionError: expected 400 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 400
+
+ ❯ src/lib/api/correction-proxy.test.ts:25:19
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  src/lib/api/correction-proxy.test.ts > corrected SVG stream is cancelled within the same ten-second request deadline
+AssertionError: expected 400 to be 503 // Object.is equality
+
+- Expected
++ Received
+
+- 503
++ 400
+
+ ❯ src/lib/api/correction-proxy.test.ts:33:172
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  5 failed | 8 passed (13)
+   Start at  02:57:55
+   Duration  611ms (environment 46%, tests 17%, transform 17%, import 12%, setup 9%)
+

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
@@ -177,22 +178,12 @@ func learningCurrentEvidenceUncached(ctx context.Context, tx *sql.Tx, actor stri
 	if e != nil || !current {
 		return out, e
 	}
-	completed, e := learningCurrentCompletion(ctx, tx, actor, k)
+	qual, e := correctionPassingEvidence(ctx, tx, actor, k)
 	if e != nil {
 		return out, e
 	}
-	var id, mode string
-	e = tx.QueryRowContext(ctx, `SELECT a.id::text,a.mode FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=$2 AND a.knowledge_version=$3 AND a.knowledge_sha256=$4 AND a.state='submitted' AND r.outcome='passed' AND r.passed AND r.score BETWEEN 4 AND 5 AND (a.mode='diagnostic' OR $5::uuid IS NOT NULL) AND `+learningCleanEvidenceSQL("assessment", "a.id")+` ORDER BY (a.mode='diagnostic') DESC,a.terminal_at DESC,a.id LIMIT 1`, actor, k.ID, k.Version, k.SHA256, completed).Scan(&id, &mode)
-	if errors.Is(e, sql.ErrNoRows) {
+	if qual == nil {
 		return out, nil
-	}
-	if e != nil {
-		return out, e
-	}
-	qual := &learning.QualificationView{Knowledge: k, Kind: "normal", EvidenceAttemptID: id, CompletedEventID: completed, Validity: assessment.Effective}
-	if mode == "diagnostic" {
-		qual.Kind = "diagnostic"
-		qual.CompletedEventID = nil
 	}
 	return learning.EvidenceView{Qualified: true, Qualification: qual}, nil
 }
@@ -215,13 +206,16 @@ func learningEffectivePassUncached(ctx context.Context, tx *sql.Tx, actor string
 		return false, e
 	}
 	var passed bool
-	e = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=$2 AND a.knowledge_version=$3 AND a.knowledge_sha256=$4 AND a.state='submitted' AND r.outcome='passed' AND r.passed AND r.score BETWEEN 4 AND 5 AND `+learningCleanEvidenceSQL("assessment", "a.id")+`)`, actor, k.ID, k.Version, k.SHA256).Scan(&passed)
+	e = tx.QueryRowContext(ctx, `WITH candidates AS (`+correctionAssessmentProjectionSQL(ctx)+`) SELECT EXISTS(SELECT 1 FROM candidates WHERE owner_user_id=$1 AND knowledge_id=$2 AND knowledge_version=$3 AND knowledge_sha256=$4 AND outcome='passed')`, actor, k.ID, k.Version, k.SHA256).Scan(&passed)
 	return passed, e
 }
 func learningGrantEvidence(ctx context.Context, tx *sql.Tx, actor string, k question.Identity, now time.Time) (bool, error) {
 	v, e := learningCurrentEvidence(ctx, tx, actor, k)
 	if e != nil || !v.Qualified {
 		return false, e
+	}
+	if v.Qualification.CorrectionID != nil {
+		return true, correctionGrantEvidence(ctx, tx, actor, k, *v.Qualification, now)
 	}
 	id, e := workflowID()
 	if e != nil {
@@ -311,7 +305,7 @@ func learningKnowledgeState(ctx context.Context, tx *sql.Tx, actor string, k que
 		return out, e
 	}
 	var had, pass, failed bool
-	e = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=$2 AND a.knowledge_version=$3 AND a.knowledge_sha256=$4 AND r.outcome='passed'), EXISTS(SELECT 1 FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=$2 AND a.knowledge_version=$3 AND a.knowledge_sha256=$4 AND r.outcome='passed' AND `+learningCleanEvidenceSQL("assessment", "a.id")+`), coalesce((SELECT r.outcome='failed' FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=$2 AND a.knowledge_version=$3 AND a.knowledge_sha256=$4 AND a.mode='review' AND r.outcome IN ('passed','failed') AND `+learningCleanEvidenceSQL("assessment", "a.id")+` ORDER BY a.terminal_at DESC,a.id LIMIT 1),false)`, actor, k.ID, k.Version, k.SHA256).Scan(&had, &pass, &failed)
+	e = tx.QueryRowContext(ctx, `WITH candidates AS (`+correctionAssessmentProjectionSQL(ctx)+`) SELECT EXISTS(SELECT 1 FROM assessment_attempts a JOIN assessment_results r ON r.attempt_id=a.id WHERE a.owner_user_id=$1 AND a.knowledge_id=$2 AND a.knowledge_version=$3 AND a.knowledge_sha256=$4 AND r.outcome='passed'), EXISTS(SELECT 1 FROM candidates WHERE owner_user_id=$1 AND knowledge_id=$2 AND knowledge_version=$3 AND knowledge_sha256=$4 AND outcome='passed'),coalesce((SELECT outcome='failed' FROM candidates WHERE owner_user_id=$1 AND knowledge_id=$2 AND knowledge_version=$3 AND knowledge_sha256=$4 AND mode='review' ORDER BY terminal_at DESC,attempt_id LIMIT 1),false)`, actor, k.ID, k.Version, k.SHA256).Scan(&had, &pass, &failed)
 	if e != nil {
 		return out, e
 	}
@@ -332,11 +326,7 @@ func learningApplyAssessment(ctx context.Context, tx *sql.Tx, u auth.User, now t
 	if stored.Outcome != assessment.Passed {
 		return out, nil
 	}
-	deps, e := learningEvidenceDependencies(ctx, tx, "assessment", stored.ID)
-	if e != nil {
-		return out, e
-	}
-	rs, e := learningEvidenceRestrictions(ctx, tx, deps)
+	rs, e := correctionEvidenceGuard(ctx, tx, u.ID, correction.EvidenceRef{Kind: correction.EvidenceKind("assessment"), ID: stored.ID})
 	if e != nil {
 		return out, e
 	}

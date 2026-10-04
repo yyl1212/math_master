@@ -1,0 +1,11 @@
+
+> math-master-frontend@0.1.0 typecheck
+> tsc --noEmit
+
+src/features/correction/correction.test.tsx(20,49): error TS2322: Type '{ id: string; caseId: string; plan: { id: string; version: number; }; parentResultId: string | null; evidence: { kind: "assessment"; id: string; }; knowledge: { id: string; version: number; sha256: string; }; ... 6 more ...; createdAt: string; } | { ...; } | { ...; } | { ...; } | { ...; }' is not assignable to type '{ id: string; caseId: string; plan: { id: string; version: number; }; parentResultId: string | null; evidence: { kind: "assessment"; id: string; }; knowledge: { id: string; version: number; sha256: string; }; ... 6 more ...; createdAt: string; } | ... 6 more ... | { ...; }'.
+  Type '{ status: "corrected_failed"; score: number; passed: boolean; id: string; caseId: string; plan: components["schemas"]["CorrectionPlanRef"] | null; parentResultId: string | null; ... 5 more ...; createdAt: string; }' is not assignable to type '{ id: string; caseId: string; plan: { id: string; version: number; }; parentResultId: string | null; evidence: { kind: "assessment"; id: string; }; knowledge: { id: string; version: number; sha256: string; }; ... 6 more ...; createdAt: string; } | ... 6 more ... | { ...; }'.
+    Type '{ status: "corrected_failed"; score: number; passed: boolean; id: string; caseId: string; plan: components["schemas"]["CorrectionPlanRef"] | null; parentResultId: string | null; ... 5 more ...; createdAt: string; }' is not assignable to type '{ id: string; caseId: string; plan: { id: string; version: number; }; parentResultId: string | null; evidence: { kind: "assessment"; id: string; }; knowledge: { id: string; version: number; sha256: string; }; ... 6 more ...; createdAt: string; }'.
+      Types of property 'plan' are incompatible.
+        Type '{ id: string; version: number; } | null' is not assignable to type '{ id: string; version: number; }'.
+          Type 'null' is not assignable to type '{ id: string; version: number; }'.
+src/features/correction/status.tsx(24,613): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.

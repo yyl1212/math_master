@@ -1,0 +1,24 @@
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/check
+    correction_compatibility_test.go:31: correction ignored missing schema guard check <nil>
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key
+    correction_compatibility_test.go:31: correction ignored missing schema guard foreign-key <nil>
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique
+    correction_compatibility_test.go:31: correction ignored missing schema guard unique <nil>
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/function
+    correction_compatibility_test.go:31: correction ignored missing schema guard function <nil>
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table
+    correction_compatibility_test.go:31: correction ignored missing schema guard trigger-table <nil>
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger
+--- FAIL: TestCorrectionCompatibilityRequiredGuardsFailClosed (4.83s)
+    --- FAIL: TestCorrectionCompatibilityRequiredGuardsFailClosed/check (0.84s)
+    --- FAIL: TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key (0.80s)
+    --- FAIL: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique (0.79s)
+    --- FAIL: TestCorrectionCompatibilityRequiredGuardsFailClosed/function (0.79s)
+    --- FAIL: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table (0.79s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger (0.81s)
+=== RUN   TestCorrectionCompatibilityOriginalFailedReceiptAndRollback
+--- PASS: TestCorrectionCompatibilityOriginalFailedReceiptAndRollback (1.02s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	6.052s
+FAIL

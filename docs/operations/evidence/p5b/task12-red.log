@@ -1,0 +1,140 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction src/features/notification
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/features/correction/correction.test.tsx (0 test)
+ ❯ src/features/correction/pending-command.test.ts (0 test)
+ ❯ src/features/notification/inbox.test.tsx (0 test)
+ ❯ src/features/correction/review-regressions.test.tsx (0 test)
+ ❯ src/features/correction/review.test.tsx (0 test)
+ ❯ src/features/notification/pending-command.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/correction/correction.test.tsx [ src/features/correction/correction.test.tsx ]
+Error: Failed to resolve import "./correction-account" from "src/features/correction/correction.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/correction/correction.test.tsx:3:0
+  18 |  });
+  19 |  const __vi_import_0__ = await import("@testing-library/react");
+  20 |  const __vi_import_1__ = await import("./correction-account");
+     |                                       ^
+  21 |  const __vi_import_2__ = await import("./case-list");
+  22 |  const __vi_import_3__ = await import("./result-panel");
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL  src/features/correction/pending-command.test.ts [ src/features/correction/pending-command.test.ts ]
+Error: Failed to resolve import "./pending-command" from "src/features/correction/pending-command.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/correction/pending-command.test.ts:2:45
+  1  |  import { it, expect, vi, afterEach } from "vitest";
+  2  |  import { createPendingCorrectionCommand } from "./pending-command";
+     |                                                  ^
+  3  |  import { id, otherId, planInput } from "@/lib/correction/test-fixtures";
+  4  |  afterEach(() => vi.unstubAllGlobals());
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  src/features/correction/review-regressions.test.tsx [ src/features/correction/review-regressions.test.tsx ]
+Error: Failed to resolve import "./correction-account" from "src/features/correction/review-regressions.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/correction/review-regressions.test.tsx:3:0
+  18 |  });
+  19 |  const __vi_import_0__ = await import("@testing-library/react");
+  20 |  const __vi_import_1__ = await import("./correction-account");
+     |                                       ^
+  21 |  const __vi_import_2__ = await import("./case-panel");
+  22 |  const __vi_import_3__ = await import("./plan-editor");
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL  src/features/correction/review.test.tsx [ src/features/correction/review.test.tsx ]
+Error: Failed to resolve import "./correction-account" from "src/features/correction/review.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/correction/review.test.tsx:3:0
+  19 |  });
+  20 |  const __vi_import_0__ = await import("@testing-library/react");
+  21 |  const __vi_import_1__ = await import("./correction-account");
+     |                                       ^
+  22 |  const __vi_import_2__ = await import("./plan-editor");
+  23 |  const __vi_import_3__ = await import("@/lib/correction/client");
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL  src/features/notification/inbox.test.tsx [ src/features/notification/inbox.test.tsx ]
+Error: Failed to resolve import "./notification-account" from "src/features/notification/inbox.test.tsx". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/notification/inbox.test.tsx:3:0
+  10 |  } }));
+  11 |  const __vi_import_0__ = await import("@testing-library/react");
+  12 |  const __vi_import_1__ = await import("./notification-account");
+     |                                       ^
+  13 |  const __vi_import_2__ = await import("../correction/correction-account");
+  14 |  const __vi_import_3__ = await import("./inbox");
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL  src/features/notification/pending-command.test.ts [ src/features/notification/pending-command.test.ts ]
+Error: Failed to resolve import "./pending-command" from "src/features/notification/pending-command.test.ts". Does the file exist?
+  Plugin: vite:import-analysis
+  File: /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend/src/features/notification/pending-command.test.ts:2:47
+  1  |  import { it, expect } from "vitest";
+  2  |  import { createPendingNotificationCommand } from "./pending-command";
+     |                                                    ^
+  3  |  import { id, otherId } from "@/lib/correction/test-fixtures";
+  4  |  it("freezes an owned read command with a reusable key and empty input", () => {
+ ❯ TransformPluginContext._formatLog node_modules/vite/dist/node/chunks/node.js:8736:39
+ ❯ TransformPluginContext.error node_modules/vite/dist/node/chunks/node.js:8733:14
+ ❯ normalizeUrl node_modules/vite/dist/node/chunks/node.js:26423:18
+ ❯ node_modules/vite/dist/node/chunks/node.js:26493:30
+ ❯ TransformPluginContext.transform node_modules/vite/dist/node/chunks/node.js:26459:4
+ ❯ EnvironmentPluginContainer.transform node_modules/vite/dist/node/chunks/node.js:8515:14
+ ❯ loadAndTransform node_modules/vite/dist/node/chunks/node.js:19998:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  6 failed (6)
+      Tests  no tests
+   Start at  00:27:40
+   Duration  482ms (environment 81%, setup 15%, transform 3%, worker 1%)
+

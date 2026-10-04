@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionTerminalSourceApproved
+    correction_results_test.go:3: owned terminal job must accept independently approved actual basis ERROR: owned sealed correction source required (SQLSTATE P0001)
+--- FAIL: TestCorrectionTerminalSourceApproved (0.93s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.775s
+FAIL

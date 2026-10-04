@@ -1,0 +1,106 @@
+=== RUN   TestFeedbackCapacity
+=== RUN   TestFeedbackCapacity/historical_volume
+    feedback_capacity_test.go:132: list learner_a: 166.453875ms, 24015 bytes
+    feedback_capacity_test.go:132: list learner_a: 159.250792ms, 24015 bytes
+    feedback_capacity_test.go:132: list learner_a: 158.0085ms, 24013 bytes
+    feedback_capacity_test.go:132: list learner_a: 155.937958ms, 24012 bytes
+    feedback_capacity_test.go:132: list learner_a: 157.477958ms, 24012 bytes
+    feedback_capacity_test.go:132: list learner_a: 161.104833ms, 24014 bytes
+    feedback_capacity_test.go:132: list learner_a: 157.142375ms, 24012 bytes
+    feedback_capacity_test.go:132: list learner_a: 159.371542ms, 24013 bytes
+    feedback_capacity_test.go:132: list learner_a: 159.447542ms, 24008 bytes
+    feedback_capacity_test.go:132: list learner_a: 155.678917ms, 23882 bytes
+    feedback_capacity_test.go:132: list learner_b: 159.310417ms, 24014 bytes
+    feedback_capacity_test.go:132: list learner_b: 163.509333ms, 24012 bytes
+    feedback_capacity_test.go:132: list learner_b: 159.730875ms, 24014 bytes
+    feedback_capacity_test.go:132: list learner_b: 158.534417ms, 24010 bytes
+    feedback_capacity_test.go:132: list learner_b: 160.462625ms, 24010 bytes
+    feedback_capacity_test.go:132: list learner_b: 158.868958ms, 24011 bytes
+    feedback_capacity_test.go:132: list learner_b: 159.975958ms, 24014 bytes
+    feedback_capacity_test.go:132: list learner_b: 157.623042ms, 24014 bytes
+    feedback_capacity_test.go:132: list learner_b: 155.463167ms, 24014 bytes
+    feedback_capacity_test.go:132: list learner_b: 156.218792ms, 23882 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 161.782333ms, 23966 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 157.526ms, 23963 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 157.036959ms, 23964 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 158.961208ms, 23963 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 161.498875ms, 23964 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 156.071208ms, 23963 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 156.97625ms, 23957 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 160.681334ms, 23966 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 217.944792ms, 23961 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 166.186459ms, 23960 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 163.165792ms, 23962 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 161.738542ms, 23963 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 163.582584ms, 23965 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 161.944ms, 23961 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 161.151333ms, 23963 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 157.956667ms, 23964 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 168.358875ms, 23961 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 157.811375ms, 23962 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 158.433333ms, 23959 bytes
+    feedback_capacity_test.go:132: list reviewer_a: 157.377458ms, 23834 bytes
+    feedback_capacity_test.go:156: cross-actor boundary: 155.590875ms, 24012 bytes
+    feedback_capacity_test.go:168: discussion: 10.501625ms, 607731 bytes
+    feedback_capacity_test.go:168: discussion: 9.994791ms, 607708 bytes
+    feedback_capacity_test.go:191: reply beyond 50: 12.558666ms, 558 bytes
+    feedback_capacity_test.go:213: concurrent transition: 19.486625ms, 2 bytes
+    feedback_capacity_test.go:219: resolve long thread: 24.939875ms, 569 bytes
+    feedback_capacity_test.go:222: reopen: 11.351875ms, 565 bytes
+    feedback_capacity_test.go:226: original receipt after advancement: 5.127875ms, 558 bytes
+    feedback_capacity_test.go:235: close long thread: 16.7505ms, 577 bytes
+    feedback_capacity_test.go:240: private discussion with committed exposure: 11.556542ms, 342 bytes
+    feedback_capacity_test.go:261: owner plan: Limit  (cost=4.98..201.60 rows=51 width=40) (actual time=0.105..0.562 rows=51 loops=1)
+    feedback_capacity_test.go:261: owner plan:   Buffers: shared hit=1142
+    feedback_capacity_test.go:261: owner plan:   ->  Incremental Sort  (cost=4.98..317.26 rows=81 width=40) (actual time=0.105..0.560 rows=51 loops=1)
+    feedback_capacity_test.go:261: owner plan:         Sort Key: created_at DESC, ((id)::text) DESC
+    feedback_capacity_test.go:261: owner plan:         Presorted Key: created_at
+    feedback_capacity_test.go:261: owner plan:         Full-sort Groups: 1  Sort Method: quicksort  Average Memory: 29kB  Peak Memory: 29kB
+    feedback_capacity_test.go:261: owner plan:         Pre-sorted Groups: 2  Sort Methods: top-N heapsort, quicksort  Average Memory: 25kB  Peak Memory: 25kB
+    feedback_capacity_test.go:261: owner plan:         Buffers: shared hit=1142
+    feedback_capacity_test.go:261: owner plan:         ->  Index Only Scan using feedback_owner_list on feedback_tickets  (cost=0.29..314.11 rows=81 width=40) (actual time=0.008..0.502 rows=501 loops=1)
+    feedback_capacity_test.go:261: owner plan:               Index Cond: (owner_user_id = '8b24488f-dbbd-4a85-99ab-3fe2b5a386f6'::uuid)
+    feedback_capacity_test.go:261: owner plan:               Heap Fetches: 1134
+    feedback_capacity_test.go:261: owner plan:               Buffers: shared hit=1139
+    feedback_capacity_test.go:261: owner plan: Planning:
+    feedback_capacity_test.go:261: owner plan:   Buffers: shared hit=5
+    feedback_capacity_test.go:261: owner plan: Planning Time: 0.024 ms
+    feedback_capacity_test.go:261: owner plan: Execution Time: 0.567 ms
+    feedback_capacity_test.go:261: review plan: Limit  (cost=8.32..8.37 rows=2 width=40) (actual time=0.038..0.533 rows=51 loops=1)
+    feedback_capacity_test.go:261: review plan:   Buffers: shared hit=2521
+    feedback_capacity_test.go:261: review plan:   ->  Incremental Sort  (cost=8.32..8.37 rows=2 width=40) (actual time=0.038..0.531 rows=51 loops=1)
+    feedback_capacity_test.go:261: review plan:         Sort Key: created_at DESC, ((id)::text) DESC
+    feedback_capacity_test.go:261: review plan:         Presorted Key: created_at
+    feedback_capacity_test.go:261: review plan:         Full-sort Groups: 1  Sort Method: quicksort  Average Memory: 29kB  Peak Memory: 29kB
+    feedback_capacity_test.go:261: review plan:         Pre-sorted Groups: 2  Sort Methods: top-N heapsort, quicksort  Average Memory: 25kB  Peak Memory: 25kB
+    feedback_capacity_test.go:261: review plan:         Buffers: shared hit=2521
+    feedback_capacity_test.go:261: review plan:         ->  Index Only Scan using feedback_queue_list on feedback_tickets  (cost=0.29..8.31 rows=1 width=40) (actual time=0.007..0.448 rows=1000 loops=1)
+    feedback_capacity_test.go:261: review plan:               Index Cond: ((status = 'new'::text) AND (category = 'math_error'::text))
+    feedback_capacity_test.go:261: review plan:               Heap Fetches: 2507
+    feedback_capacity_test.go:261: review plan:               Buffers: shared hit=2521
+    feedback_capacity_test.go:261: review plan: Planning Time: 0.019 ms
+    feedback_capacity_test.go:261: review plan: Execution Time: 0.538 ms
+    feedback_capacity_test.go:261: events plan: Limit  (cost=31.62..31.64 rows=8 width=208) (actual time=0.018..0.021 rows=51 loops=1)
+    feedback_capacity_test.go:261: events plan:   Buffers: shared hit=6
+    feedback_capacity_test.go:261: events plan:   ->  Sort  (cost=31.62..31.64 rows=8 width=208) (actual time=0.018..0.019 rows=51 loops=1)
+    feedback_capacity_test.go:261: events plan:         Sort Key: sequence
+    feedback_capacity_test.go:261: events plan:         Sort Method: quicksort  Memory: 38kB
+    feedback_capacity_test.go:261: events plan:         Buffers: shared hit=6
+    feedback_capacity_test.go:261: events plan:         ->  Bitmap Heap Scan on feedback_events  (cost=4.36..31.50 rows=8 width=208) (actual time=0.007..0.013 rows=55 loops=1)
+    feedback_capacity_test.go:261: events plan:               Recheck Cond: ((ticket_id = '4349115b-bb59-4655-a0cd-88aac7ab5c15'::uuid) AND (sequence > '50'::bigint))
+    feedback_capacity_test.go:261: events plan:               Heap Blocks: exact=4
+    feedback_capacity_test.go:261: events plan:               Buffers: shared hit=6
+    feedback_capacity_test.go:261: events plan:               ->  Bitmap Index Scan on feedback_events_pkey  (cost=0.00..4.36 rows=8 width=0) (actual time=0.004..0.004 rows=55 loops=1)
+    feedback_capacity_test.go:261: events plan:                     Index Cond: ((ticket_id = '4349115b-bb59-4655-a0cd-88aac7ab5c15'::uuid) AND (sequence > '50'::bigint))
+    feedback_capacity_test.go:261: events plan:                     Buffers: shared hit=2
+    feedback_capacity_test.go:261: events plan: Planning Time: 0.013 ms
+    feedback_capacity_test.go:261: events plan: Execution Time: 0.025 ms
+    feedback_capacity_test.go:272: tickets=1000 events=10000 init=1.599358292s largest_operation=217.944792ms status_race_successes=1
+=== RUN   TestFeedbackCapacity/missing_feedback_migration_keeps_old_learning
+=== RUN   TestFeedbackCapacity/nonempty_learning_facts_unchanged
+--- PASS: TestFeedbackCapacity (10.48s)
+    --- PASS: TestFeedbackCapacity/historical_volume (8.41s)
+    --- PASS: TestFeedbackCapacity/missing_feedback_migration_keeps_old_learning (0.84s)
+    --- PASS: TestFeedbackCapacity/nonempty_learning_facts_unchanged (1.22s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	10.745s

@@ -1,0 +1,5 @@
+=== RUN   TestCorrectionCapacityNotifications
+    correction_capacity_test.go:449: CORRECTION_CAPACITY notifications=10000 sameSourceReruns=10000 completeOwnerSets=true immutableFirstReads=2 elapsed=42.117895708s
+--- PASS: TestCorrectionCapacityNotifications (42.13s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	42.728s

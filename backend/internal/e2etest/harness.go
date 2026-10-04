@@ -21,9 +21,11 @@ import (
 	"time"
 
 	"github.com/yyl1212/math_master/backend/internal/content"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
 	"github.com/yyl1212/math_master/backend/internal/learning"
+	"github.com/yyl1212/math_master/backend/internal/notification"
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
@@ -212,10 +214,39 @@ func Run(ctx context.Context, c Config) (result error) {
 	var holdSave atomic.Bool
 	var holdLearning atomic.Bool
 	var holdFeedback atomic.Bool
+	var holdCorrection atomic.Bool
 	feedbackUnavailable := false
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
+		if scene == "correction" {
+			setup, stop := context.WithTimeout(ctx, 45*time.Second)
+			defer stop()
+			qcontrol.release()
+			if err := resetLearning(setup, db, s, accounts, accountAdmin, root, normal, LearningBasic); err != nil {
+				return err
+			}
+			if err := setupCorrection(setup, db, s, accounts); err != nil {
+				return err
+			}
+			holdCorrection.Store(false)
+			feedbackUnavailable = false
+			unavailable = false
+			authUnavailable = false
+			contentUnavailable = false
+			return nil
+		}
+		if scene == "correction-hold-next-write" {
+			holdCorrection.Store(true)
+			return nil
+		}
+		if strings.HasPrefix(scene, "correction-") {
+			setup, stop := context.WithTimeout(ctx, 40*time.Second)
+			defer stop()
+			if handled, err := correctionChange(setup, db, s, accounts, root, scene); handled {
+				return err
+			}
+		}
 		if scene == "feedback" {
 			setup, stop := context.WithTimeout(ctx, 40*time.Second)
 			defer stop()
@@ -394,7 +425,16 @@ func Run(ctx context.Context, c Config) (result error) {
 	if err != nil {
 		return errors.New("feedback service unavailable")
 	}
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
+	// No resident worker here: private correction scenes explicitly run finite jobs.
+	correctionService, err := correction.NewService(s)
+	if err != nil {
+		return errors.New("correction service unavailable")
+	}
+	notificationService, err := notification.NewService(s)
+	if err != nil {
+		return errors.New("notification service unavailable")
+	}
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
@@ -417,7 +457,7 @@ func Run(ctx context.Context, c Config) (result error) {
 
 		// Commit through the real handler before dropping a delayed response. The
 		// next request must prove idempotent replay, rather than mock a success.
-		if (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
+		if ((r.Method == "POST" || r.Method == "PUT") && (strings.HasPrefix(r.URL.Path, "/api/v1/corrections/") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications/")) && holdCorrection.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
 			captured := httptest.NewRecorder()
 			actual.ServeHTTP(captured, r)
 			if captured.Code == http.StatusOK || captured.Code == http.StatusCreated {
@@ -489,6 +529,24 @@ func Run(ctx context.Context, c Config) (result error) {
 		v, e := feedbackState(ctx, db)
 		if e != nil {
 			http.Error(w, "Feedback state unavailable", 503)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "no-store")
+		_ = json.NewEncoder(w).Encode(v)
+	})
+	control.HandleFunc("GET /correction/state", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			http.Error(w, "Unauthorized", 401)
+			return
+		}
+		mu.RLock()
+		defer mu.RUnlock()
+		ctx, stop := context.WithTimeout(r.Context(), 2*time.Second)
+		defer stop()
+		v, e := correctionState(ctx, db)
+		if e != nil {
+			http.Error(w, "Correction state unavailable", 503)
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")

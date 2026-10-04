@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction/correction.test.tsx src/lib/api/correction-proxy.test.ts
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+
+ Test Files  2 passed (2)
+      Tests  13 passed (13)
+   Start at  03:01:35
+   Duration  585ms (environment 45%, transform 19%, tests 17%, import 11%, setup 8%)
+

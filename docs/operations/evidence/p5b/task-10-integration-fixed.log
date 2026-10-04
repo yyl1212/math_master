@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionHTTPIntegration
+--- PASS: TestCorrectionHTTPIntegration (1.42s)
+=== RUN   TestNotificationHTTPIntegration
+--- PASS: TestNotificationHTTPIntegration (1.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/httpapi	2.632s

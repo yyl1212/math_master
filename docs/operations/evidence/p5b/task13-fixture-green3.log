@@ -1,0 +1,9 @@
+=== RUN   TestCorrectionRealFixtureAndSharedReset
+    correction_fixture_test.go:41: {0 0 0 0 0 0 0 0 <nil> <nil> <nil> <nil> <nil> [] } ERROR: column "n" does not exist (SQLSTATE 42703)
+--- FAIL: TestCorrectionRealFixtureAndSharedReset (1.22s)
+=== RUN   TestCorrectionHarnessScenesArePrivate
+    correction_fixture_test.go:106: correction state
+--- FAIL: TestCorrectionHarnessScenesArePrivate (1.25s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest	2.956s
+FAIL

@@ -1,0 +1,5 @@
+
+> math-master-frontend@0.1.0 typecheck
+> tsc --noEmit
+
+src/features/learning/history-list.tsx(6,1181): error TS2367: This comparison appears to be unintentional because the types '"practice" | "assessment" | "enrollment" | "started" | "completed"' and '"learning-event"' have no overlap.

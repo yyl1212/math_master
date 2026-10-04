@@ -1,0 +1,28 @@
+✔ P5a product baseline retains 88 paths, 220 schemas, 32 responses and three security schemes with only approved pointers (9.238416ms)
+✔ all seven original migrations retain exact bytes (0.467833ms)
+✔ all existing mathematical digest purposes retain their exact sets (1.583958ms)
+✔ removing an old path is rejected (9.112042ms)
+✔ an unapproved field is never normalized away (9.904542ms)
+✔ changed fixed mathematics and bounds are rejected (24.204792ms)
+✔ approved fields require their exact new shape before inverse normalization (18.136041ms)
+✔ inverse normalization leaves the source document unchanged (4.528459ms)
+✔ a changed original migration fails protection (0.529ms)
+✔ a changed original purpose fails protection (0.13ms)
+✔ all result variants and additional properties survive old full-schema checks (24.087167ms)
+✔ approved master preserves all 75 paths, 192 schemas, 32 responses and three security schemes (8.341917ms)
+✔ a changed original Learning field is detected (10.628875ms)
+✔ all original migrations 00001 through 00006 retain their exact bytes (0.421ms)
+✔ changing an original migration is detected (0.135167ms)
+✔ original mathematical digest purposes retain their exact sets (1.115417ms)
+✔ all 54 old paths, 147 schemas, 22 responses and three security schemes retain exact values (3.372833ms)
+✔ one deliberately changed old field is detected (7.292667ms)
+✔ original migrations and mathematical purposes remain unchanged (0.933584ms)
+✔ all 21 learning operations have named strict contracts and fixed response bounds (0.152417ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 141.238375

@@ -1,0 +1,150 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "head": "177ed57186a662db87b2b0fd0d56384607de3936",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "commands": [
+    {
+      "name": "final-ci4-front-install",
+      "args": [
+        "npm",
+        "ci"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T23:30:42.860444+00:00",
+      "exitCode": 0,
+      "seconds": 3.9,
+      "log": "final-ci4-front-install.log",
+      "logSHA256": "42116c6035f9b549143f304beb049a9e32051fe250f0fd4c00dd3b277e79b6bf"
+    },
+    {
+      "name": "final-ci4-front-api",
+      "args": [
+        "npm",
+        "run",
+        "api:generate"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T23:30:46.757934+00:00",
+      "exitCode": 0,
+      "seconds": 0.69,
+      "log": "final-ci4-front-api.log",
+      "logSHA256": "e66e0b821ee748c01897b0857c1452d91985c6dfa6cbb573d952527c63714f76"
+    },
+    {
+      "name": "final-ci4-front-typecheck",
+      "args": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T23:30:47.448337+00:00",
+      "exitCode": 0,
+      "seconds": 6.59,
+      "log": "final-ci4-front-typecheck.log",
+      "logSHA256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
+    },
+    {
+      "name": "final-ci4-front-unit",
+      "args": [
+        "npm",
+        "test"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T23:30:54.036447+00:00",
+      "exitCode": 0,
+      "seconds": 4.23,
+      "log": "final-ci4-front-unit.log",
+      "logSHA256": "0d9e7cf1759123347797cb1b326898eec5f456c3ae3c78bf4a5ffb145c908ab3"
+    },
+    {
+      "name": "final-ci4-front-build",
+      "args": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T23:30:58.261873+00:00",
+      "exitCode": 0,
+      "seconds": 3.54,
+      "log": "final-ci4-front-build.log",
+      "logSHA256": "8b4ad2b75b215a57dec745aee36eea5300430a4ec841b17bed9bdb6adf9cd195"
+    },
+    {
+      "name": "final-ci4-front-audit",
+      "args": [
+        "npm",
+        "audit",
+        "--omit=dev"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T23:31:01.802792+00:00",
+      "exitCode": 0,
+      "seconds": 1.01,
+      "log": "final-ci4-front-audit.log",
+      "logSHA256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "name": "final-ci4-front-generated-clean",
+      "args": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "frontend/src/lib/api/generated.d.ts"
+      ],
+      "cwd": null,
+      "startedAt": "2026-10-03T23:31:02.813784+00:00",
+      "exitCode": 0,
+      "seconds": 0.04,
+      "log": "final-ci4-front-generated-clean.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-ci4-front-harness",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "build",
+        "-o",
+        "bin/e2e-harness",
+        "./cmd/e2e-harness"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T23:31:02.850468+00:00",
+      "exitCode": 0,
+      "seconds": 0.4,
+      "log": "final-ci4-front-harness.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-ci4-front-chromium",
+      "args": [
+        "npm",
+        "exec",
+        "--",
+        "playwright",
+        "install",
+        "chromium"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T23:31:03.247645+00:00",
+      "exitCode": 0,
+      "seconds": 0.52,
+      "log": "final-ci4-front-chromium.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+=== RUN   TestCorrectionLateTerminalAfterRootDone
+--- PASS: TestCorrectionLateTerminalAfterRootDone (0.94s)
+=== RUN   TestCorrectionLegacyTerminalBackfillAndStableLowKey
+--- PASS: TestCorrectionLegacyTerminalBackfillAndStableLowKey (0.89s)
+=== RUN   TestCorrectionRotatingBackfillDoesNotStarveCases
+--- PASS: TestCorrectionRotatingBackfillDoesNotStarveCases (1.00s)
+=== RUN   TestCorrectionEnqueueWithdrawalAtomicReplayAndRollback
+=== RUN   TestCorrectionEnqueueWithdrawalAtomicReplayAndRollback/question
+=== RUN   TestCorrectionEnqueueWithdrawalAtomicReplayAndRollback/content
+--- PASS: TestCorrectionEnqueueWithdrawalAtomicReplayAndRollback (2.36s)
+    --- PASS: TestCorrectionEnqueueWithdrawalAtomicReplayAndRollback/question (0.80s)
+    --- PASS: TestCorrectionEnqueueWithdrawalAtomicReplayAndRollback/content (0.79s)
+=== RUN   TestCorrectionEnqueueTerminalRollbackAndReplay
+--- PASS: TestCorrectionEnqueueTerminalRollbackAndReplay (0.90s)
+=== RUN   TestCorrectionLeaseClaimRenewAndExpiredFence
+--- PASS: TestCorrectionLeaseClaimRenewAndExpiredFence (0.84s)
+=== RUN   TestCorrectionRetryEpochEightAttemptsAndContinuation
+--- PASS: TestCorrectionRetryEpochEightAttemptsAndContinuation (0.93s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	8.074s

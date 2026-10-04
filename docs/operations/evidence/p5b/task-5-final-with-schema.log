@@ -1,0 +1,66 @@
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/create
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/process
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/retry
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/notification-read
+--- PASS: TestCorrectionSlidingBoundaryAndAllScopes (0.84s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/create (0.19s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/process (0.20s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/retry (0.16s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/notification-read (0.29s)
+=== RUN   TestCorrectionPlanUnknownRuleRemainsClosed
+--- PASS: TestCorrectionPlanUnknownRuleRemainsClosed (0.14s)
+=== RUN   TestCorrectionReplaySameKeyDifferentResourceConsumesTwice
+--- PASS: TestCorrectionReplaySameKeyDifferentResourceConsumesTwice (0.81s)
+=== RUN   TestCorrectionPlanCreateQuotaRollsBackAndReplayFree
+--- PASS: TestCorrectionPlanCreateQuotaRollsBackAndReplayFree (1.03s)
+=== RUN   TestCorrectionMigrationEmptyDownAndMarker
+--- PASS: TestCorrectionMigrationEmptyDownAndMarker (0.18s)
+=== RUN   TestCorrectionMigrationNonemptyDown
+--- PASS: TestCorrectionMigrationNonemptyDown (0.76s)
+=== RUN   TestCorrectionMigrationQuotaAloneProtectsDown
+--- PASS: TestCorrectionMigrationQuotaAloneProtectsDown (0.76s)
+=== RUN   TestCorrectionPlanVersionFreezesAndRejectCreatesChild
+--- PASS: TestCorrectionPlanVersionFreezesAndRejectCreatesChild (0.88s)
+=== RUN   TestCorrectionIndependentReviewAllSourcesAndOldCutoff
+--- PASS: TestCorrectionIndependentReviewAllSourcesAndOldCutoff (1.00s)
+=== RUN   TestCorrectionReplayAfterAdvanceOriginalReceipt
+--- PASS: TestCorrectionReplayAfterAdvanceOriginalReceipt (0.88s)
+=== RUN   TestCorrectionPlanAdminMayEditWithoutChangingCreator
+--- PASS: TestCorrectionPlanAdminMayEditWithoutChangingCreator (0.84s)
+=== RUN   TestCorrectionSourceProofExactFrozenInstances
+=== RUN   TestCorrectionSourceProofExactFrozenInstances/sha
+=== RUN   TestCorrectionSourceProofExactFrozenInstances/publication
+=== RUN   TestCorrectionSourceProofExactFrozenInstances/knowledge
+--- PASS: TestCorrectionSourceProofExactFrozenInstances (1.19s)
+    --- PASS: TestCorrectionSourceProofExactFrozenInstances/sha (0.01s)
+    --- PASS: TestCorrectionSourceProofExactFrozenInstances/publication (0.01s)
+    --- PASS: TestCorrectionSourceProofExactFrozenInstances/knowledge (0.02s)
+=== RUN   TestCorrectionIndependentRoleRevocationDuringPlanWait
+--- PASS: TestCorrectionIndependentRoleRevocationDuringPlanWait (0.85s)
+=== RUN   TestCorrectionSourceProofReplacementKeepsActualParameters
+--- PASS: TestCorrectionSourceProofReplacementKeepsActualParameters (1.07s)
+=== RUN   TestCorrectionIndependentFeedbackResolvedIsNotApproval
+--- PASS: TestCorrectionIndependentFeedbackResolvedIsNotApproval (0.88s)
+=== RUN   TestCorrectionIndependentRevokeAtCommitAfterCaseWait
+--- PASS: TestCorrectionIndependentRevokeAtCommitAfterCaseWait (0.84s)
+=== RUN   TestCorrectionIndependentBoundContentAuthorWithoutMapping
+--- PASS: TestCorrectionIndependentBoundContentAuthorWithoutMapping (0.94s)
+=== RUN   TestCorrectionSchemaImmutable
+--- PASS: TestCorrectionSchemaImmutable (0.77s)
+=== RUN   TestCorrectionSchemaDirectApprovalRejected
+--- PASS: TestCorrectionSchemaDirectApprovalRejected (0.76s)
+=== RUN   TestCorrectionSchemaOwnership
+--- PASS: TestCorrectionSchemaOwnership (0.80s)
+=== RUN   TestCorrectionSchemaUnapprovedPassRejected
+--- PASS: TestCorrectionSchemaUnapprovedPassRejected (0.76s)
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+--- PASS: TestCorrectionSchemaLegalResultAndAudit (0.90s)
+=== RUN   TestCorrectionSchemaReplacementSHA
+--- PASS: TestCorrectionSchemaReplacementSHA (0.87s)
+=== RUN   TestCorrectionSchemaPassingKnowledgeRequired
+--- PASS: TestCorrectionSchemaPassingKnowledgeRequired (0.87s)
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+--- PASS: TestCorrectionSchemaUnmappedReplacementRejected (0.99s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	23.850s

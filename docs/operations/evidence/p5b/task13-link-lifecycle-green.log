@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction/evidence-link.test.tsx
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  00:57:36
+   Duration  485ms (environment 43%, tests 25%, transform 15%, setup 8%, import 8%)
+

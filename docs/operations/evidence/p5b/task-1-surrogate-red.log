@@ -1,0 +1,5 @@
+--- FAIL: TestCorrectionValidationSurrogates (0.00s)
+    validation_test.go:63: isolated UTF16 surrogate accepted: "\ud800"
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/correction	0.513s
+FAIL

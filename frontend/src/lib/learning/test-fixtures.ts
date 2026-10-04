@@ -1,6 +1,6 @@
 import { createElement, type ReactNode } from "react";
 import { LearningAccountContext } from "@/features/learning/learning-account";
-import type { Identity, AttemptSummary, AttemptView, PracticeView, ResultView, SafeQuestion, Overview, KnowledgeState, KnowledgeDetail, PathSummary, PathNode } from "./types";
+import type { Identity, AttemptSummary, AttemptView, PracticeView, ResultView, SafeQuestion, Overview, KnowledgeState, KnowledgeDetail, PathSummary, PathNode, QualificationView } from "./types";
 export const fixtureID = "11111111-1111-4111-8111-111111111111", otherID = "22222222-2222-4222-8222-222222222222", token = "A".repeat(43);
 export const identity = (id = "math-root"): Identity => ({ id, version: 1, sha256: "a".repeat(64) });
 export const summary = (kind: "practice" | "assessment" = "assessment"): AttemptSummary => { const common = { id: fixtureID, knowledge: identity(), state: "active" as const, createdAt: "2026-10-02T00:00:00Z", expiresAt: "2026-10-03T00:00:00Z", submittedAt: null }; return kind === "practice" ? { ...common, kind: "practice", mode: null } : { ...common, kind: "assessment", mode: "diagnostic" }; };
@@ -18,3 +18,5 @@ export function learningJSON(v: unknown, status = 200, extra: HeadersInit = {}):
 export function LearningTestAccount({ children }: { children: ReactNode }) {
  return createElement(LearningAccountContext.Provider, { value: { actorId: fixtureID, invalidate: () => {} } }, children);
 }
+
+export const qualification = (): QualificationView => ({knowledge:identity(),kind:'diagnostic',evidenceAttemptId:fixtureID,completedEventId:null,correctionId:null,validity:'effective'});

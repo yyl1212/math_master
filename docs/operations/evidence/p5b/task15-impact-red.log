@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionCapacityImpact
+    correction_capacity_test.go:278: global registration bound 0 account service unavailable
+--- FAIL: TestCorrectionCapacityImpact (278.70s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	279.059s
+FAIL

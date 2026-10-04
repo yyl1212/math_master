@@ -1,0 +1,19 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts feedback-review.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/feedback-review.spec.ts:4:5 › independent handler resolves with a basis and same-state reply preserves it (6.9s)
+  ✓  2 [desktop] › ../tests/e2e/feedback-review.spec.ts:5:5 › actual withdrawal and new generated identity are references without learning regrading (6.9s)
+[WebServer] 2026/10/03 20:46:01 ERROR Private API request failed request_id=035de99f65003cb0b56beb3e8f020e4f error_code=SERVICE_UNAVAILABLE
+  ✓  3 [desktop] › ../tests/e2e/feedback-review.spec.ts:6:5 › duplicate reference remains hidden to report owner even through the review URL (4.3s)
+  ✓  4 [desktop] › ../tests/e2e/feedback-review.spec.ts:7:5 › review filters replace visible rows through client navigation and browser back (5.1s)
+  ✓  5 [mobile] › ../tests/e2e/feedback-review.spec.ts:4:5 › independent handler resolves with a basis and same-state reply preserves it (6.9s)
+  ✓  6 [mobile] › ../tests/e2e/feedback-review.spec.ts:5:5 › actual withdrawal and new generated identity are references without learning regrading (6.7s)
+[WebServer] 2026/10/03 20:46:25 ERROR Private API request failed request_id=ff2fdcfa0ef0912b370a14d163167641 error_code=SERVICE_UNAVAILABLE
+  ✓  7 [mobile] › ../tests/e2e/feedback-review.spec.ts:6:5 › duplicate reference remains hidden to report owner even through the review URL (5.1s)
+  ✓  8 [mobile] › ../tests/e2e/feedback-review.spec.ts:7:5 › review filters replace visible rows through client navigation and browser back (5.0s)
+
+  8 passed (48.3s)

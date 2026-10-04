@@ -16,8 +16,8 @@ type questionFixture struct {
 	sourceFile    string
 }
 
-func newQuestionFixture(t *testing.T) *questionFixture {
-	f := &questionFixture{workflowFixture: newWorkflowFixture(t)}
+func newQuestionFixture(t *testing.T, initialMigration ...int) *questionFixture {
+	f := &questionFixture{workflowFixture: newWorkflowFixture(t, initialMigration...)}
 	f.Activate(f.Prepare(f.Approved("author_a", "reviewer_a"), nil), nil)
 	f.questionInput = questionDraftInput(t)
 	p := f.Input().Package

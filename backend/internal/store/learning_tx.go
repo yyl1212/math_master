@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
@@ -54,7 +55,7 @@ func learningError(err error) error {
 	if err == nil {
 		return nil
 	}
-	for _, known := range []error{learning.ErrNotConfigured, learning.ErrVersionStale, learning.ErrPrerequisitesUnmet, learning.ErrAssessmentNotReady, learning.ErrAssessmentActive, learning.ErrAssessmentExpired, learning.ErrStateConflict, learning.ErrAnswerFormatInvalid, question.ErrIdempotencyConflict, question.ErrInvalid, question.ErrLimitExceeded, question.ErrImmutableConflict} {
+	for _, known := range []error{correction.ErrNotConfigured, learning.ErrNotConfigured, learning.ErrVersionStale, learning.ErrPrerequisitesUnmet, learning.ErrAssessmentNotReady, learning.ErrAssessmentActive, learning.ErrAssessmentExpired, learning.ErrStateConflict, learning.ErrAnswerFormatInvalid, question.ErrIdempotencyConflict, question.ErrInvalid, question.ErrLimitExceeded, question.ErrImmutableConflict} {
 		if errors.Is(err, known) {
 			return err
 		}
@@ -116,7 +117,15 @@ func (s *Store) learningTx(ctx context.Context, a question.Access, action learni
 	if err = questionConfigured(ctx, tx); err != nil {
 		return learning.ErrNotConfigured
 	}
+	correctionOn, err := correctionConfigured(ctx, tx)
+	if err != nil {
+		return learningError(err)
+	}
+	ctx = correctionWithConfig(ctx, correctionOn)
 	if err = learningLocks(ctx, tx); err != nil {
+		return learningError(err)
+	}
+	if err = correctionRegistrationFence(ctx, tx, false); err != nil {
 		return learningError(err)
 	}
 	u, now, err := learningIdentity(ctx, tx, a, action, true)
@@ -154,6 +163,14 @@ func (s *Store) LearningPreflight(ctx context.Context, a question.Access, action
 		return auth.User{}, learning.ErrNotConfigured
 	}
 	if err = learningLocks(ctx, tx); err != nil {
+		return auth.User{}, learningError(err)
+	}
+	correctionOn, err := correctionConfigured(ctx, tx)
+	if err != nil {
+		return auth.User{}, learningError(err)
+	}
+	ctx = correctionWithConfig(ctx, correctionOn)
+	if err = correctionRegistrationFence(ctx, tx, false); err != nil {
 		return auth.User{}, learningError(err)
 	}
 	u, _, err := learningIdentity(ctx, tx, a, action, false)

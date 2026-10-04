@@ -1,0 +1,193 @@
+=== RUN   TestCorrectionCumulativeConflict
+--- PASS: TestCorrectionCumulativeConflict (0.00s)
+=== RUN   TestCorrectionCumulativeTemplateDependencies
+--- PASS: TestCorrectionCumulativeTemplateDependencies (0.00s)
+=== RUN   TestCorrectionDigest
+--- PASS: TestCorrectionDigest (0.00s)
+=== RUN   TestCorrectionEquivalentGenerated
+=== RUN   TestCorrectionEquivalentGenerated/choice-order
+=== RUN   TestCorrectionEquivalentGenerated/prompt
+=== RUN   TestCorrectionEquivalentGenerated/format
+=== RUN   TestCorrectionEquivalentGenerated/parameters
+=== RUN   TestCorrectionEquivalentGenerated/assets
+--- PASS: TestCorrectionEquivalentGenerated (0.00s)
+    --- PASS: TestCorrectionEquivalentGenerated/choice-order (0.00s)
+    --- PASS: TestCorrectionEquivalentGenerated/prompt (0.00s)
+    --- PASS: TestCorrectionEquivalentGenerated/format (0.00s)
+    --- PASS: TestCorrectionEquivalentGenerated/parameters (0.00s)
+    --- PASS: TestCorrectionEquivalentGenerated/assets (0.00s)
+=== RUN   TestCorrectionFiveOriginalAnswers
+=== RUN   TestCorrectionFiveOriginalAnswers/5
+=== RUN   TestCorrectionFiveOriginalAnswers/4
+=== RUN   TestCorrectionFiveOriginalAnswers/3
+--- PASS: TestCorrectionFiveOriginalAnswers (0.00s)
+    --- PASS: TestCorrectionFiveOriginalAnswers/5 (0.00s)
+    --- PASS: TestCorrectionFiveOriginalAnswers/4 (0.00s)
+    --- PASS: TestCorrectionFiveOriginalAnswers/3 (0.00s)
+=== RUN   TestCorrectionFixedCoverage
+--- PASS: TestCorrectionFixedCoverage (0.00s)
+=== RUN   TestCorrectionPracticeOnly
+--- PASS: TestCorrectionPracticeOnly (0.00s)
+=== RUN   TestCorrectionFiveChoiceAndExactRational
+--- PASS: TestCorrectionFiveChoiceAndExactRational (0.00s)
+=== RUN   TestCorrectionFixedUnapprovedAndUnknownRule
+--- PASS: TestCorrectionFixedUnapprovedAndUnknownRule (0.00s)
+=== RUN   TestCorrectionPolicy
+--- PASS: TestCorrectionPolicy (0.00s)
+=== RUN   TestCorrectionService
+--- PASS: TestCorrectionService (0.00s)
+=== RUN   TestCorrectionState
+--- PASS: TestCorrectionState (0.00s)
+=== RUN   TestCorrectionValidation
+=== RUN   TestCorrectionValidation/bad-withdrawal
+=== RUN   TestCorrectionValidation/unknown
+=== RUN   TestCorrectionValidation/valid
+=== RUN   TestCorrectionValidation/wrong-null
+=== RUN   TestCorrectionValidation/all-with-knowledge
+=== RUN   TestCorrectionValidation/zero-rule
+=== RUN   TestCorrectionValidation/valid#01
+=== RUN   TestCorrectionValidation/unknown-algorithm
+=== RUN   TestCorrectionValidation/unsafe-sequence
+=== RUN   TestCorrectionValidation/empty
+=== RUN   TestCorrectionValidation/blank
+=== RUN   TestCorrectionValidation/nul
+=== RUN   TestCorrectionValidation/utf8
+=== RUN   TestCorrectionValidation/too-long
+=== RUN   TestCorrectionValidation/too-many-mappings
+=== RUN   TestCorrectionValidation/bad-parent
+--- PASS: TestCorrectionValidation (0.00s)
+    --- PASS: TestCorrectionValidation/bad-withdrawal (0.00s)
+    --- PASS: TestCorrectionValidation/unknown (0.00s)
+    --- PASS: TestCorrectionValidation/valid (0.00s)
+    --- PASS: TestCorrectionValidation/wrong-null (0.00s)
+    --- PASS: TestCorrectionValidation/all-with-knowledge (0.00s)
+    --- PASS: TestCorrectionValidation/zero-rule (0.00s)
+    --- PASS: TestCorrectionValidation/valid#01 (0.00s)
+    --- PASS: TestCorrectionValidation/unknown-algorithm (0.00s)
+    --- PASS: TestCorrectionValidation/unsafe-sequence (0.00s)
+    --- PASS: TestCorrectionValidation/empty (0.00s)
+    --- PASS: TestCorrectionValidation/blank (0.00s)
+    --- PASS: TestCorrectionValidation/nul (0.00s)
+    --- PASS: TestCorrectionValidation/utf8 (0.00s)
+    --- PASS: TestCorrectionValidation/too-long (0.00s)
+    --- PASS: TestCorrectionValidation/too-many-mappings (0.00s)
+    --- PASS: TestCorrectionValidation/bad-parent (0.00s)
+=== RUN   TestCorrectionValidationSurrogates
+--- PASS: TestCorrectionValidationSurrogates (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/correction	1.802s
+=== RUN   TestNotificationPolicy
+--- PASS: TestNotificationPolicy (0.00s)
+=== RUN   TestNotificationService
+--- PASS: TestNotificationService (0.00s)
+=== RUN   TestNotificationValidation
+--- PASS: TestNotificationValidation (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/notification	2.186s
+=== RUN   TestCorrectionJSONSharedBoundaries
+=== RUN   TestCorrectionJSONSharedBoundaries/createCase_valid
+=== RUN   TestCorrectionJSONSharedBoundaries/createCase_extra
+=== RUN   TestCorrectionJSONSharedBoundaries/createCase_missing
+=== RUN   TestCorrectionJSONSharedBoundaries/createCase_duplicate
+=== RUN   TestCorrectionJSONSharedBoundaries/createCase_NUL
+=== RUN   TestCorrectionJSONSharedBoundaries/createPlan_valid
+=== RUN   TestCorrectionJSONSharedBoundaries/createPlan_extra
+=== RUN   TestCorrectionJSONSharedBoundaries/createPlan_missing
+=== RUN   TestCorrectionJSONSharedBoundaries/createPlan_duplicate
+=== RUN   TestCorrectionJSONSharedBoundaries/createPlan_NUL
+=== RUN   TestCorrectionJSONSharedBoundaries/submitPlan_valid
+=== RUN   TestCorrectionJSONSharedBoundaries/submitPlan_extra
+=== RUN   TestCorrectionJSONSharedBoundaries/submitPlan_missing
+=== RUN   TestCorrectionJSONSharedBoundaries/submitPlan_duplicate
+=== RUN   TestCorrectionJSONSharedBoundaries/submitPlan_NUL
+=== RUN   TestCorrectionJSONSharedBoundaries/decidePlan_valid
+=== RUN   TestCorrectionJSONSharedBoundaries/decidePlan_extra
+=== RUN   TestCorrectionJSONSharedBoundaries/decidePlan_missing
+=== RUN   TestCorrectionJSONSharedBoundaries/decidePlan_duplicate
+=== RUN   TestCorrectionJSONSharedBoundaries/decidePlan_NUL
+=== RUN   TestCorrectionJSONSharedBoundaries/retryJob_valid
+=== RUN   TestCorrectionJSONSharedBoundaries/retryJob_extra
+=== RUN   TestCorrectionJSONSharedBoundaries/retryJob_missing
+=== RUN   TestCorrectionJSONSharedBoundaries/retryJob_duplicate
+=== RUN   TestCorrectionJSONSharedBoundaries/retryJob_NUL
+=== RUN   TestCorrectionJSONSharedBoundaries/update_valid
+=== RUN   TestCorrectionJSONSharedBoundaries/unicode
+=== RUN   TestCorrectionJSONSharedBoundaries/too_long
+=== RUN   TestCorrectionJSONSharedBoundaries/blank
+=== RUN   TestCorrectionJSONSharedBoundaries/astral
+=== RUN   TestCorrectionJSONSharedBoundaries/surrogate
+=== RUN   TestCorrectionJSONSharedBoundaries/casefold
+=== RUN   TestCorrectionJSONSharedBoundaries/null_rule
+=== RUN   TestCorrectionJSONSharedBoundaries/max_request
+=== RUN   TestCorrectionJSONSharedBoundaries/oversize_request
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_empty
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_extra
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_null
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_array
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_duplicate
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_trailing
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_case_folded
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_max
+=== RUN   TestCorrectionJSONSharedBoundaries/notification_oversize
+--- PASS: TestCorrectionJSONSharedBoundaries (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createCase_valid (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createCase_extra (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createCase_missing (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createCase_duplicate (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createCase_NUL (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createPlan_valid (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createPlan_extra (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createPlan_missing (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createPlan_duplicate (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/createPlan_NUL (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/submitPlan_valid (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/submitPlan_extra (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/submitPlan_missing (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/submitPlan_duplicate (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/submitPlan_NUL (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/decidePlan_valid (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/decidePlan_extra (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/decidePlan_missing (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/decidePlan_duplicate (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/decidePlan_NUL (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/retryJob_valid (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/retryJob_extra (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/retryJob_missing (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/retryJob_duplicate (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/retryJob_NUL (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/update_valid (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/unicode (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/too_long (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/blank (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/astral (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/surrogate (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/casefold (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/null_rule (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/max_request (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/oversize_request (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_empty (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_extra (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_null (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_array (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_duplicate (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_trailing (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_case_folded (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_max (0.00s)
+    --- PASS: TestCorrectionJSONSharedBoundaries/notification_oversize (0.00s)
+=== RUN   TestCorrectionHTTPRoutesAndDispatch
+--- PASS: TestCorrectionHTTPRoutesAndDispatch (0.00s)
+=== RUN   TestCorrectionHTTPPrivateBoundaries
+--- PASS: TestCorrectionHTTPPrivateBoundaries (0.00s)
+=== RUN   TestCorrectionHTTPErrorAndResponseBudget
+2026/10/03 23:57:08 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/03 23:57:08 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+--- PASS: TestCorrectionHTTPErrorAndResponseBudget (0.01s)
+=== RUN   TestCorrectionHTTPDeadlineIncludesBody
+2026/10/03 23:57:16 ERROR Private API request failed request_id=2ac425afcfd8024d48e7cf08452f9d78 error_code=SERVICE_UNAVAILABLE
+--- PASS: TestCorrectionHTTPDeadlineIncludesBody (8.51s)
+=== RUN   TestCorrectionHTTPBodyPhysicalLimit
+--- PASS: TestCorrectionHTTPBodyPhysicalLimit (0.00s)
+=== RUN   TestNotificationHTTP
+--- PASS: TestNotificationHTTP (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/httpapi	10.631s

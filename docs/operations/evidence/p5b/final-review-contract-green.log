@@ -1,0 +1,4 @@
+=== RUN   TestCorrectionHTTPNamedContracts
+--- PASS: TestCorrectionHTTPNamedContracts (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/httpapi	0.582s

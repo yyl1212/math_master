@@ -1,0 +1,21 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts question-review.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/question-review.spec.ts:5:5 › questionRealAuthorCannotReviewAndDistinctReviewerSeesAllFrozenPages (5.2s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  2 [desktop] › ../tests/e2e/question-review.spec.ts:6:5 › questionReturnedWorkspaceReopensButOriginalSubmissionStaysFrozen (5.7s)
+  ✓  3 [mobile] › ../tests/e2e/question-review.spec.ts:5:5 › questionRealAuthorCannotReviewAndDistinctReviewerSeesAllFrozenPages (4.9s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  4 [mobile] › ../tests/e2e/question-review.spec.ts:6:5 › questionReturnedWorkspaceReopensButOriginalSubmissionStaysFrozen (5.1s)
+
+  4 passed (22.3s)

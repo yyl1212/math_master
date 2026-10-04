@@ -11,15 +11,26 @@ import (
 )
 
 type Config struct {
-	AppEnv          string
-	PublicOrigin    string
-	HTTPAddr        string
-	DatabaseURL     string
-	ShutdownTimeout time.Duration
+	CorrectionWorkerEnabled bool
+	AppEnv                  string
+	PublicOrigin            string
+	HTTPAddr                string
+	DatabaseURL             string
+	ShutdownTimeout         time.Duration
 }
 
 func Load() (Config, error) {
 	c := Config{HTTPAddr: os.Getenv("HTTP_ADDR"), DatabaseURL: os.Getenv("DATABASE_URL"), ShutdownTimeout: 5 * time.Second}
+	c.CorrectionWorkerEnabled = true
+	if value := os.Getenv("CORRECTION_WORKER_ENABLED"); value != "" {
+		switch value {
+		case "true":
+		case "false":
+			c.CorrectionWorkerEnabled = false
+		default:
+			return Config{}, errors.New("invalid CORRECTION_WORKER_ENABLED")
+		}
+	}
 	c.AppEnv = os.Getenv("APP_ENV")
 	if c.AppEnv == "" {
 		c.AppEnv = "development"

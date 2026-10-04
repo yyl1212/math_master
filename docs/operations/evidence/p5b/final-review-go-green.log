@@ -1,0 +1,12 @@
+=== RUN   TestCorrectionUnprocessedApprovedChain
+    correction_review_regression_test.go:64: duplicate or missing qualification
+--- FAIL: TestCorrectionUnprocessedApprovedChain (1.72s)
+=== RUN   TestCorrectionResultAssetsUseEffectiveBasis
+--- PASS: TestCorrectionResultAssetsUseEffectiveBasis (1.37s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	4.139s
+=== RUN   TestCorrectionHTTPPrivateAsset
+--- PASS: TestCorrectionHTTPPrivateAsset (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/httpapi	0.606s
+FAIL

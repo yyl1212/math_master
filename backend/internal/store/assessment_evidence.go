@@ -10,6 +10,8 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/question"
 )
 
+const learningEvidenceDependenciesSQL = `SELECT kind,id,version,sha256 FROM learning_evidence_dependencies WHERE evidence_kind=$1 AND evidence_id=$2 ORDER BY kind,id,version,sha256`
+
 const learningItemsSQL = `SELECT r.position,i.sha256,i.body_bytes,m.evidence FROM jsonb_to_recordset($1::jsonb) r(position integer,instance jsonb)
  JOIN question_instances i ON i.id=r.instance->>'id' AND i.version=(r.instance->>'version')::integer AND i.sha256=r.instance->>'sha256' AND i.sealed
  JOIN question_publication_members m ON m.publication_id=$2 AND m.kind='instance' AND m.id=i.id AND m.version=i.version AND m.sha256=i.sha256
@@ -35,23 +37,11 @@ func learningLoadItems(ctx context.Context, tx *sql.Tx, seal assessment.Seal) ([
 		if e = rows.Scan(&pos, &sha, &raw, &proof); e != nil {
 			return out, e
 		}
-		var env struct {
-			Purpose string            `json:"purpose"`
-			Body    question.Instance `json:"body"`
+		i, e := learningDecodeBoundItem(seal, pos, sha, raw, proof)
+		if e != nil {
+			return out, e
 		}
-		var approval question.MemberEvidence
-		if pos < 1 || pos > len(seal.Items) || json.Unmarshal(raw, &env) != nil || env.Purpose != "question-instance-body-v1" || json.Unmarshal(proof, &approval) != nil {
-			return out, auth.ErrUnavailable
-		}
-		env.Body.Identity.SHA256 = sha
-		_, actual, e := question.CanonicalInstance(env.Body)
-		if e != nil || actual != sha || env.Body.Identity != seal.Items[pos-1].Instance || body(approval) != body(seal.Items[pos-1].Approval) {
-			return out, auth.ErrUnavailable
-		}
-		if env.Body.Body.Knowledge.ID != seal.Knowledge.ID || env.Body.Body.Knowledge.Version != seal.Knowledge.Version {
-			return out, auth.ErrUnavailable
-		}
-		out = append(out, env.Body)
+		out = append(out, i)
 	}
 	if e = rows.Err(); e != nil {
 		return out, e
@@ -60,6 +50,26 @@ func learningLoadItems(ctx context.Context, tx *sql.Tx, seal assessment.Seal) ([
 		return out, auth.ErrNotFound
 	}
 	return out, nil
+}
+
+func learningDecodeBoundItem(seal assessment.Seal, pos int, sha string, raw, proof []byte) (question.Instance, error) {
+	var env struct {
+		Purpose string            `json:"purpose"`
+		Body    question.Instance `json:"body"`
+	}
+	var approval question.MemberEvidence
+	if pos < 1 || pos > len(seal.Items) || json.Unmarshal(raw, &env) != nil || env.Purpose != "question-instance-body-v1" || json.Unmarshal(proof, &approval) != nil {
+		return question.Instance{}, auth.ErrUnavailable
+	}
+	env.Body.Identity.SHA256 = sha
+	_, actual, e := question.CanonicalInstance(env.Body)
+	if e != nil || actual != sha || env.Body.Identity != seal.Items[pos-1].Instance || body(approval) != body(seal.Items[pos-1].Approval) {
+		return question.Instance{}, auth.ErrUnavailable
+	}
+	if env.Body.Body.Knowledge.ID != seal.Knowledge.ID || env.Body.Body.Knowledge.Version != seal.Knowledge.Version {
+		return question.Instance{}, auth.ErrUnavailable
+	}
+	return env.Body, nil
 }
 
 // Fixed evidence is restricted only by permanent accurate withdrawals. Ordinary
@@ -96,7 +106,7 @@ func learningEvidenceRestrictions(ctx context.Context, tx *sql.Tx, deps []learni
 
 func learningEvidenceDependencies(ctx context.Context, tx *sql.Tx, kind, id string) ([]learning.EvidenceDependency, error) {
 	out := []learning.EvidenceDependency{}
-	rows, e := tx.QueryContext(ctx, `SELECT kind,id,version,sha256 FROM learning_evidence_dependencies WHERE evidence_kind=$1 AND evidence_id=$2 ORDER BY kind,id,version,sha256`, kind, id)
+	rows, e := tx.QueryContext(ctx, learningEvidenceDependenciesSQL, kind, id)
 	if e != nil {
 		return out, e
 	}

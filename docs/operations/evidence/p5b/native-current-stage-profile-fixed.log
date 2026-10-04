@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/store [github.com/yyl1212/math_master/backend/internal/store.test]
+/private/tmp/p5b_capacity_diagnostic_internal_test.go:7:14: correctionApprovedPlanMetadataSQL (variable of type string) is not constant
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

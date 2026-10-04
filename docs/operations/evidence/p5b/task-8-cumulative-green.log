@@ -1,0 +1,10 @@
+=== RUN   TestCorrectionCumulativeResultsOtherCaseStillRestricts
+--- PASS: TestCorrectionCumulativeResultsOtherCaseStillRestricts (1.17s)
+=== RUN   TestCorrectionCumulativeResultsParentReplacementWithdrawn
+--- PASS: TestCorrectionCumulativeResultsParentReplacementWithdrawn (1.70s)
+=== RUN   TestCorrectionCumulativeResultsIncompatibleApprovedMappings
+--- PASS: TestCorrectionCumulativeResultsIncompatibleApprovedMappings (1.76s)
+=== RUN   TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass
+--- PASS: TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass (1.68s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	8.520s

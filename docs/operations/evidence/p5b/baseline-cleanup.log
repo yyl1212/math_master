@@ -1,0 +1,6 @@
+=== RUN   TestHarnessCleanupWaitsOnEarlyExit
+=== RUN   TestHarnessCleanupWaitsOnEarlyExit/early-return
+--- PASS: TestHarnessCleanupWaitsOnEarlyExit (1.33s)
+    --- PASS: TestHarnessCleanupWaitsOnEarlyExit/early-return (1.29s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/e2etest	2.209s

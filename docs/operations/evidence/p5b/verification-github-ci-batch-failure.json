@@ -1,0 +1,1302 @@
+{
+  "head": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+  "checkedAt": "2026-10-03T23:18:44.395121+00:00",
+  "runs": [
+    {
+      "id": 37159901911,
+      "name": "Go 内容账户与题库验证",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "push",
+      "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+      "head_branch": "codex/p5b-correction-workflow",
+      "path": ".github/workflows/backend.yml",
+      "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159901911",
+      "run_attempt": 1,
+      "created_at": "2026-10-03T22:52:36Z",
+      "updated_at": "2026-10-03T23:03:54Z",
+      "jobs": [
+        {
+          "id": 111310999040,
+          "name": "correction_verify",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+          "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159901911/job/111310999040",
+          "started_at": "2026-10-03T22:52:39Z",
+          "completed_at": "2026-10-03T23:00:10Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-03T22:52:39Z",
+              "completed_at": "2026-10-03T22:52:41Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-03T22:52:41Z",
+              "completed_at": "2026-10-03T22:53:01Z"
+            },
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-03T22:53:01Z",
+              "completed_at": "2026-10-03T22:53:02Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-03T22:53:02Z",
+              "completed_at": "2026-10-03T22:53:13Z"
+            },
+            {
+              "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-03T22:53:13Z",
+              "completed_at": "2026-10-03T22:53:22Z"
+            },
+            {
+              "name": "纠错通知与有限CLI真实数据库回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-03T22:53:22Z",
+              "completed_at": "2026-10-03T22:55:47Z"
+            },
+            {
+              "name": "千案件万证据完整影响处理",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-03T22:55:47Z",
+              "completed_at": "2026-10-03T22:59:06Z"
+            },
+            {
+              "name": "万通知与万次同源重跑",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-03T22:59:06Z",
+              "completed_at": "2026-10-03T23:00:06Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-03T23:00:06Z",
+              "completed_at": "2026-10-03T23:00:06Z"
+            },
+            {
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-10-03T23:00:06Z",
+              "completed_at": "2026-10-03T23:00:06Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-10-03T23:00:06Z",
+              "completed_at": "2026-10-03T23:00:06Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-10-03T23:00:06Z",
+              "completed_at": "2026-10-03T23:00:07Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-10-03T23:00:07Z",
+              "completed_at": "2026-10-03T23:00:07Z"
+            }
+          ]
+        },
+        {
+          "id": 111310999134,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+          "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159901911/job/111310999134",
+          "started_at": "2026-10-03T22:52:39Z",
+          "completed_at": "2026-10-03T23:03:53Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-03T22:52:40Z",
+              "completed_at": "2026-10-03T22:52:41Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-03T22:52:41Z",
+              "completed_at": "2026-10-03T22:52:54Z"
+            },
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-03T22:52:54Z",
+              "completed_at": "2026-10-03T22:52:56Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-03T22:52:56Z",
+              "completed_at": "2026-10-03T22:53:08Z"
+            },
+            {
+              "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-03T22:53:08Z",
+              "completed_at": "2026-10-03T22:53:19Z"
+            },
+            {
+              "name": "格式检查",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-03T22:53:19Z",
+              "completed_at": "2026-10-03T22:53:19Z"
+            },
+            {
+              "name": "验证入口与资料快照",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-03T22:53:19Z",
+              "completed_at": "2026-10-03T22:53:26Z"
+            },
+            {
+              "name": "Go 静态检查",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-03T22:53:26Z",
+              "completed_at": "2026-10-03T22:53:31Z"
+            },
+            {
+              "name": "内容与 HTTP 校验",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-03T22:53:31Z",
+              "completed_at": "2026-10-03T22:55:21Z"
+            },
+            {
+              "name": "真实 PostgreSQL 集成验证",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-03T22:55:21Z",
+              "completed_at": "2026-10-03T22:57:46Z"
+            },
+            {
+              "name": "学习测评真实数据库回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-03T22:57:46Z",
+              "completed_at": "2026-10-03T22:59:07Z"
+            },
+            {
+              "name": "反馈真实数据库回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-03T22:59:07Z",
+              "completed_at": "2026-10-03T22:59:36Z"
+            },
+            {
+              "name": "反馈历史容量与长期处理",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-03T22:59:36Z",
+              "completed_at": "2026-10-03T22:59:48Z"
+            },
+            {
+              "name": "最大合法学习题源与证据",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-10-03T22:59:48Z",
+              "completed_at": "2026-10-03T23:01:30Z"
+            },
+            {
+              "name": "最大合法固定路线容量",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-10-03T23:01:30Z",
+              "completed_at": "2026-10-03T23:03:44Z"
+            },
+            {
+              "name": "构建",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-10-03T23:03:44Z",
+              "completed_at": "2026-10-03T23:03:47Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-10-03T23:03:47Z",
+              "completed_at": "2026-10-03T23:03:47Z"
+            },
+            {
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-10-03T23:03:47Z",
+              "completed_at": "2026-10-03T23:03:47Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-10-03T23:03:47Z",
+              "completed_at": "2026-10-03T23:03:48Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 32,
+              "started_at": "2026-10-03T23:03:48Z",
+              "completed_at": "2026-10-03T23:03:48Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-10-03T23:03:48Z",
+              "completed_at": "2026-10-03T23:03:48Z"
+            }
+          ]
+        }
+      ],
+      "expectedJobs": [
+        "correction_verify",
+        "verify"
+      ],
+      "allJobsPresent": true,
+      "allJobsSuccess": true
+    },
+    {
+      "id": 37159903779,
+      "name": "Go 内容账户与题库验证",
+      "status": "completed",
+      "conclusion": "failure",
+      "event": "pull_request",
+      "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+      "head_branch": "codex/p5b-correction-workflow",
+      "path": ".github/workflows/backend.yml",
+      "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159903779",
+      "run_attempt": 1,
+      "created_at": "2026-10-03T22:52:39Z",
+      "updated_at": "2026-10-03T23:11:00Z",
+      "jobs": [
+        {
+          "id": 111311004230,
+          "name": "correction_verify",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+          "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159903779/job/111311004230",
+          "started_at": "2026-10-03T22:52:41Z",
+          "completed_at": "2026-10-03T23:01:51Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-03T22:52:42Z",
+              "completed_at": "2026-10-03T22:52:43Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-03T22:52:43Z",
+              "completed_at": "2026-10-03T22:52:54Z"
+            },
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-03T22:52:54Z",
+              "completed_at": "2026-10-03T22:52:55Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-03T22:52:55Z",
+              "completed_at": "2026-10-03T22:53:08Z"
+            },
+            {
+              "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-03T22:53:08Z",
+              "completed_at": "2026-10-03T22:53:14Z"
+            },
+            {
+              "name": "纠错通知与有限CLI真实数据库回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-03T22:53:14Z",
+              "completed_at": "2026-10-03T22:56:47Z"
+            },
+            {
+              "name": "千案件万证据完整影响处理",
+              "status": "completed",
+              "conclusion": "failure",
+              "number": 7,
+              "started_at": "2026-10-03T22:56:47Z",
+              "completed_at": "2026-10-03T23:01:48Z"
+            },
+            {
+              "name": "万通知与万次同源重跑",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 8,
+              "started_at": "2026-10-03T23:01:48Z",
+              "completed_at": "2026-10-03T23:01:48Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 13,
+              "started_at": "2026-10-03T23:01:48Z",
+              "completed_at": "2026-10-03T23:01:48Z"
+            },
+            {
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 14,
+              "started_at": "2026-10-03T23:01:48Z",
+              "completed_at": "2026-10-03T23:01:48Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-10-03T23:01:48Z",
+              "completed_at": "2026-10-03T23:01:48Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-10-03T23:01:48Z",
+              "completed_at": "2026-10-03T23:01:49Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-10-03T23:01:49Z",
+              "completed_at": "2026-10-03T23:01:49Z"
+            }
+          ]
+        },
+        {
+          "id": 111311004384,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+          "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159903779/job/111311004384",
+          "started_at": "2026-10-03T22:52:41Z",
+          "completed_at": "2026-10-03T23:10:59Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-03T22:52:42Z",
+              "completed_at": "2026-10-03T22:52:44Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-03T22:52:44Z",
+              "completed_at": "2026-10-03T22:52:57Z"
+            },
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-03T22:52:57Z",
+              "completed_at": "2026-10-03T22:52:58Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-03T22:52:58Z",
+              "completed_at": "2026-10-03T22:53:09Z"
+            },
+            {
+              "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-03T22:53:09Z",
+              "completed_at": "2026-10-03T22:53:15Z"
+            },
+            {
+              "name": "格式检查",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-03T22:53:15Z",
+              "completed_at": "2026-10-03T22:53:15Z"
+            },
+            {
+              "name": "验证入口与资料快照",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-03T22:53:15Z",
+              "completed_at": "2026-10-03T22:53:22Z"
+            },
+            {
+              "name": "Go 静态检查",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-03T22:53:22Z",
+              "completed_at": "2026-10-03T22:53:32Z"
+            },
+            {
+              "name": "内容与 HTTP 校验",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-03T22:53:32Z",
+              "completed_at": "2026-10-03T22:56:31Z"
+            },
+            {
+              "name": "真实 PostgreSQL 集成验证",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-03T22:56:31Z",
+              "completed_at": "2026-10-03T23:00:27Z"
+            },
+            {
+              "name": "学习测评真实数据库回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-03T23:00:27Z",
+              "completed_at": "2026-10-03T23:02:34Z"
+            },
+            {
+              "name": "反馈真实数据库回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-03T23:02:34Z",
+              "completed_at": "2026-10-03T23:03:18Z"
+            },
+            {
+              "name": "反馈历史容量与长期处理",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-03T23:03:18Z",
+              "completed_at": "2026-10-03T23:03:39Z"
+            },
+            {
+              "name": "最大合法学习题源与证据",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-10-03T23:03:39Z",
+              "completed_at": "2026-10-03T23:06:41Z"
+            },
+            {
+              "name": "最大合法固定路线容量",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-10-03T23:06:41Z",
+              "completed_at": "2026-10-03T23:10:50Z"
+            },
+            {
+              "name": "构建",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-10-03T23:10:50Z",
+              "completed_at": "2026-10-03T23:10:55Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-10-03T23:10:55Z",
+              "completed_at": "2026-10-03T23:10:55Z"
+            },
+            {
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-10-03T23:10:55Z",
+              "completed_at": "2026-10-03T23:10:55Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-10-03T23:10:55Z",
+              "completed_at": "2026-10-03T23:10:56Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 32,
+              "started_at": "2026-10-03T23:10:56Z",
+              "completed_at": "2026-10-03T23:10:56Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 33,
+              "started_at": "2026-10-03T23:10:56Z",
+              "completed_at": "2026-10-03T23:10:56Z"
+            }
+          ]
+        }
+      ],
+      "expectedJobs": [
+        "correction_verify",
+        "verify"
+      ],
+      "allJobsPresent": true,
+      "allJobsSuccess": false
+    },
+    {
+      "id": 37159901890,
+      "name": "英文网站账户与题库验证",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "push",
+      "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+      "head_branch": "codex/p5b-correction-workflow",
+      "path": ".github/workflows/frontend.yml",
+      "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159901890",
+      "run_attempt": 1,
+      "created_at": "2026-10-03T22:52:36Z",
+      "updated_at": "2026-10-03T23:10:26Z",
+      "jobs": [
+        {
+          "id": 111310999131,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+          "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159901890/job/111310999131",
+          "started_at": "2026-10-03T22:52:39Z",
+          "completed_at": "2026-10-03T23:10:25Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-03T22:52:40Z",
+              "completed_at": "2026-10-03T22:52:42Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-03T22:52:42Z",
+              "completed_at": "2026-10-03T22:53:03Z"
+            },
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-03T22:53:03Z",
+              "completed_at": "2026-10-03T22:53:05Z"
+            },
+            {
+              "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-03T22:53:05Z",
+              "completed_at": "2026-10-03T22:53:14Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-03T22:53:14Z",
+              "completed_at": "2026-10-03T22:53:31Z"
+            },
+            {
+              "name": "安装锁定依赖",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-03T22:53:31Z",
+              "completed_at": "2026-10-03T22:53:39Z"
+            },
+            {
+              "name": "检查公开与账户契约类型",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-03T22:53:39Z",
+              "completed_at": "2026-10-03T22:53:41Z"
+            },
+            {
+              "name": "类型与单元验证",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-03T22:53:41Z",
+              "completed_at": "2026-10-03T22:54:58Z"
+            },
+            {
+              "name": "生产构建与依赖审计",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-03T22:54:58Z",
+              "completed_at": "2026-10-03T22:55:23Z"
+            },
+            {
+              "name": "隔离联调环境验证与构建",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-03T22:55:23Z",
+              "completed_at": "2026-10-03T22:57:41Z"
+            },
+            {
+              "name": "安装锁定浏览器",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-03T22:57:41Z",
+              "completed_at": "2026-10-03T22:58:07Z"
+            },
+            {
+              "name": "真实公共目录与阅读浏览器回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-03T22:58:07Z",
+              "completed_at": "2026-10-03T22:58:44Z"
+            },
+            {
+              "name": "真实账户与权限浏览器回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-03T22:58:44Z",
+              "completed_at": "2026-10-03T22:59:06Z"
+            },
+            {
+              "name": "真实内容编写与冲突回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-10-03T22:59:06Z",
+              "completed_at": "2026-10-03T22:59:21Z"
+            },
+            {
+              "name": "真实独立复核回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-10-03T22:59:21Z",
+              "completed_at": "2026-10-03T22:59:41Z"
+            },
+            {
+              "name": "真实发布与撤回回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-10-03T22:59:41Z",
+              "completed_at": "2026-10-03T23:00:21Z"
+            },
+            {
+              "name": "真实内容权限与超时回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-10-03T23:00:21Z",
+              "completed_at": "2026-10-03T23:01:00Z"
+            },
+            {
+              "name": "真实题库编写与CLI认领回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-10-03T23:01:00Z",
+              "completed_at": "2026-10-03T23:01:35Z"
+            },
+            {
+              "name": "真实题库独立复核回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-10-03T23:01:35Z",
+              "completed_at": "2026-10-03T23:02:00Z"
+            },
+            {
+              "name": "真实题库双快照发布与撤回回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-10-03T23:02:00Z",
+              "completed_at": "2026-10-03T23:02:53Z"
+            },
+            {
+              "name": "真实题库权限预算与未确认写入回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-10-03T23:02:53Z",
+              "completed_at": "2026-10-03T23:03:39Z"
+            },
+            {
+              "name": "真实学习进度与固定路线回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-10-03T23:03:39Z",
+              "completed_at": "2026-10-03T23:04:07Z"
+            },
+            {
+              "name": "真实练习与五题整体提交回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-10-03T23:04:07Z",
+              "completed_at": "2026-10-03T23:04:44Z"
+            },
+            {
+              "name": "真实诊断曝光权限与手动重试回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-10-03T23:04:44Z",
+              "completed_at": "2026-10-03T23:05:44Z"
+            },
+            {
+              "name": "真实单选混合检测与跨标签页账户回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-10-03T23:05:44Z",
+              "completed_at": "2026-10-03T23:06:10Z"
+            },
+            {
+              "name": "真实反馈来源补充与分页回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-10-03T23:06:10Z",
+              "completed_at": "2026-10-03T23:07:09Z"
+            },
+            {
+              "name": "真实独立处理撤回与修订回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-10-03T23:07:09Z",
+              "completed_at": "2026-10-03T23:07:48Z"
+            },
+            {
+              "name": "真实反馈权限曝光与同键重试回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 28,
+              "started_at": "2026-10-03T23:07:48Z",
+              "completed_at": "2026-10-03T23:08:49Z"
+            },
+            {
+              "name": "真实纠错通过重测与通知回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-10-03T23:08:49Z",
+              "completed_at": "2026-10-03T23:09:16Z"
+            },
+            {
+              "name": "真实独立纠错批准与同键恢复回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-10-03T23:09:16Z",
+              "completed_at": "2026-10-03T23:09:34Z"
+            },
+            {
+              "name": "真实通知归属曝光边界与手动重试回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-10-03T23:09:34Z",
+              "completed_at": "2026-10-03T23:10:20Z"
+            },
+            {
+              "name": "保留失败诊断",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 32,
+              "started_at": "2026-10-03T23:10:20Z",
+              "completed_at": "2026-10-03T23:10:20Z"
+            },
+            {
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 61,
+              "started_at": "2026-10-03T23:10:20Z",
+              "completed_at": "2026-10-03T23:10:20Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 62,
+              "started_at": "2026-10-03T23:10:20Z",
+              "completed_at": "2026-10-03T23:10:21Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 63,
+              "started_at": "2026-10-03T23:10:21Z",
+              "completed_at": "2026-10-03T23:10:21Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 64,
+              "started_at": "2026-10-03T23:10:21Z",
+              "completed_at": "2026-10-03T23:10:21Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 65,
+              "started_at": "2026-10-03T23:10:21Z",
+              "completed_at": "2026-10-03T23:10:21Z"
+            }
+          ]
+        }
+      ],
+      "expectedJobs": [
+        "verify"
+      ],
+      "allJobsPresent": true,
+      "allJobsSuccess": true
+    },
+    {
+      "id": 37159903776,
+      "name": "英文网站账户与题库验证",
+      "status": "completed",
+      "conclusion": "success",
+      "event": "pull_request",
+      "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+      "head_branch": "codex/p5b-correction-workflow",
+      "path": ".github/workflows/frontend.yml",
+      "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159903776",
+      "run_attempt": 1,
+      "created_at": "2026-10-03T22:52:39Z",
+      "updated_at": "2026-10-03T23:13:04Z",
+      "jobs": [
+        {
+          "id": 111311004113,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
+          "html_url": "https://github.com/yyl1212/math_master/actions/runs/37159903776/job/111311004113",
+          "started_at": "2026-10-03T22:52:41Z",
+          "completed_at": "2026-10-03T23:13:03Z",
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 1,
+              "started_at": "2026-10-03T22:52:42Z",
+              "completed_at": "2026-10-03T22:52:43Z"
+            },
+            {
+              "name": "Initialize containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 2,
+              "started_at": "2026-10-03T22:52:43Z",
+              "completed_at": "2026-10-03T22:52:56Z"
+            },
+            {
+              "name": "Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 3,
+              "started_at": "2026-10-03T22:52:56Z",
+              "completed_at": "2026-10-03T22:52:57Z"
+            },
+            {
+              "name": "Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 4,
+              "started_at": "2026-10-03T22:52:57Z",
+              "completed_at": "2026-10-03T22:53:04Z"
+            },
+            {
+              "name": "Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 5,
+              "started_at": "2026-10-03T22:53:04Z",
+              "completed_at": "2026-10-03T22:53:16Z"
+            },
+            {
+              "name": "安装锁定依赖",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 6,
+              "started_at": "2026-10-03T22:53:16Z",
+              "completed_at": "2026-10-03T22:53:28Z"
+            },
+            {
+              "name": "检查公开与账户契约类型",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 7,
+              "started_at": "2026-10-03T22:53:28Z",
+              "completed_at": "2026-10-03T22:53:30Z"
+            },
+            {
+              "name": "类型与单元验证",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 8,
+              "started_at": "2026-10-03T22:53:30Z",
+              "completed_at": "2026-10-03T22:55:09Z"
+            },
+            {
+              "name": "生产构建与依赖审计",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 9,
+              "started_at": "2026-10-03T22:55:09Z",
+              "completed_at": "2026-10-03T22:55:39Z"
+            },
+            {
+              "name": "隔离联调环境验证与构建",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 10,
+              "started_at": "2026-10-03T22:55:39Z",
+              "completed_at": "2026-10-03T22:58:49Z"
+            },
+            {
+              "name": "安装锁定浏览器",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 11,
+              "started_at": "2026-10-03T22:58:49Z",
+              "completed_at": "2026-10-03T22:59:15Z"
+            },
+            {
+              "name": "真实公共目录与阅读浏览器回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 12,
+              "started_at": "2026-10-03T22:59:15Z",
+              "completed_at": "2026-10-03T22:59:52Z"
+            },
+            {
+              "name": "真实账户与权限浏览器回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 13,
+              "started_at": "2026-10-03T22:59:52Z",
+              "completed_at": "2026-10-03T23:00:17Z"
+            },
+            {
+              "name": "真实内容编写与冲突回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 14,
+              "started_at": "2026-10-03T23:00:17Z",
+              "completed_at": "2026-10-03T23:00:33Z"
+            },
+            {
+              "name": "真实独立复核回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 15,
+              "started_at": "2026-10-03T23:00:33Z",
+              "completed_at": "2026-10-03T23:00:57Z"
+            },
+            {
+              "name": "真实发布与撤回回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 16,
+              "started_at": "2026-10-03T23:00:57Z",
+              "completed_at": "2026-10-03T23:01:46Z"
+            },
+            {
+              "name": "真实内容权限与超时回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 17,
+              "started_at": "2026-10-03T23:01:46Z",
+              "completed_at": "2026-10-03T23:02:29Z"
+            },
+            {
+              "name": "真实题库编写与CLI认领回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 18,
+              "started_at": "2026-10-03T23:02:29Z",
+              "completed_at": "2026-10-03T23:03:06Z"
+            },
+            {
+              "name": "真实题库独立复核回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 19,
+              "started_at": "2026-10-03T23:03:06Z",
+              "completed_at": "2026-10-03T23:03:35Z"
+            },
+            {
+              "name": "真实题库双快照发布与撤回回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 20,
+              "started_at": "2026-10-03T23:03:35Z",
+              "completed_at": "2026-10-03T23:04:35Z"
+            },
+            {
+              "name": "真实题库权限预算与未确认写入回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 21,
+              "started_at": "2026-10-03T23:04:35Z",
+              "completed_at": "2026-10-03T23:05:26Z"
+            },
+            {
+              "name": "真实学习进度与固定路线回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 22,
+              "started_at": "2026-10-03T23:05:26Z",
+              "completed_at": "2026-10-03T23:05:56Z"
+            },
+            {
+              "name": "真实练习与五题整体提交回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 23,
+              "started_at": "2026-10-03T23:05:56Z",
+              "completed_at": "2026-10-03T23:06:36Z"
+            },
+            {
+              "name": "真实诊断曝光权限与手动重试回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 24,
+              "started_at": "2026-10-03T23:06:36Z",
+              "completed_at": "2026-10-03T23:07:41Z"
+            },
+            {
+              "name": "真实单选混合检测与跨标签页账户回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 25,
+              "started_at": "2026-10-03T23:07:41Z",
+              "completed_at": "2026-10-03T23:08:12Z"
+            },
+            {
+              "name": "真实反馈来源补充与分页回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 26,
+              "started_at": "2026-10-03T23:08:12Z",
+              "completed_at": "2026-10-03T23:09:25Z"
+            },
+            {
+              "name": "真实独立处理撤回与修订回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 27,
+              "started_at": "2026-10-03T23:09:25Z",
+              "completed_at": "2026-10-03T23:10:10Z"
+            },
+            {
+              "name": "真实反馈权限曝光与同键重试回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 28,
+              "started_at": "2026-10-03T23:10:10Z",
+              "completed_at": "2026-10-03T23:11:12Z"
+            },
+            {
+              "name": "真实纠错通过重测与通知回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 29,
+              "started_at": "2026-10-03T23:11:12Z",
+              "completed_at": "2026-10-03T23:11:45Z"
+            },
+            {
+              "name": "真实独立纠错批准与同键恢复回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 30,
+              "started_at": "2026-10-03T23:11:45Z",
+              "completed_at": "2026-10-03T23:12:06Z"
+            },
+            {
+              "name": "真实通知归属曝光边界与手动重试回归",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 31,
+              "started_at": "2026-10-03T23:12:06Z",
+              "completed_at": "2026-10-03T23:13:00Z"
+            },
+            {
+              "name": "保留失败诊断",
+              "status": "completed",
+              "conclusion": "skipped",
+              "number": 32,
+              "started_at": "2026-10-03T23:13:00Z",
+              "completed_at": "2026-10-03T23:13:00Z"
+            },
+            {
+              "name": "Post Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 61,
+              "started_at": "2026-10-03T23:13:00Z",
+              "completed_at": "2026-10-03T23:13:00Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 62,
+              "started_at": "2026-10-03T23:13:00Z",
+              "completed_at": "2026-10-03T23:13:00Z"
+            },
+            {
+              "name": "Post Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 63,
+              "started_at": "2026-10-03T23:13:00Z",
+              "completed_at": "2026-10-03T23:13:00Z"
+            },
+            {
+              "name": "Stop containers",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 64,
+              "started_at": "2026-10-03T23:13:00Z",
+              "completed_at": "2026-10-03T23:13:01Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "number": 65,
+              "started_at": "2026-10-03T23:13:01Z",
+              "completed_at": "2026-10-03T23:13:01Z"
+            }
+          ]
+        }
+      ],
+      "expectedJobs": [
+        "verify"
+      ],
+      "allJobsPresent": true,
+      "allJobsSuccess": true
+    }
+  ],
+  "missing": [],
+  "allSuccess": false
+}

@@ -1,0 +1,22 @@
+# github.com/yyl1212/math_master/backend/internal/notification [github.com/yyl1212/math_master/backend/internal/notification.test]
+internal/notification/service_test.go:3:25: undefined: Repository
+internal/notification/service_test.go:5:52: undefined: NewService
+# github.com/yyl1212/math_master/backend/internal/correction [github.com/yyl1212/math_master/backend/internal/correction.test]
+internal/correction/service_test.go:3:25: undefined: Repository
+internal/correction/service_test.go:6:50: undefined: NewService
+FAIL	github.com/yyl1212/math_master/backend/internal/correction [build failed]
+FAIL	github.com/yyl1212/math_master/backend/internal/notification [build failed]
+# github.com/yyl1212/math_master/backend/internal/httpapi [github.com/yyl1212/math_master/backend/internal/httpapi.test]
+internal/httpapi/correction_test.go:3:43: undefined: correction.Repository
+internal/httpapi/correction_test.go:19:108: undefined: correction.NewService
+internal/httpapi/correction_test.go:19:223: o.Correction undefined (type *AuthOptions has no field or method Correction)
+internal/httpapi/correction_test.go:19:235: undefined: CorrectionOptions
+internal/httpapi/correction_test.go:34:195: undefined: correctionResponse
+internal/httpapi/correction_test.go:35: undefined: correctionError
+internal/httpapi/notification_test.go:3:47: undefined: notification.Repository
+internal/httpapi/notification_test.go:9:100: undefined: notification.NewService
+internal/httpapi/correction_json_test.go:3: undefined: DecodeNotificationInput
+internal/httpapi/correction_json_test.go:3: undefined: DecodeCorrectionInput
+internal/httpapi/notification_test.go:9:100: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/httpapi [build failed]
+FAIL

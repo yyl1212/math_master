@@ -1,0 +1,17 @@
+=== RUN   TestCorrectionCapacityImpact
+    correction_capacity_test.go:238: capacity worker processed=1000 elapsed=44.014127583s
+    correction_capacity_test.go:238: capacity worker processed=2000 elapsed=52.691100083s
+    correction_capacity_test.go:238: capacity worker processed=3000 elapsed=1m1.22716325s
+    correction_capacity_test.go:238: capacity worker processed=4000 elapsed=1m10.380440167s
+    correction_capacity_test.go:238: capacity worker processed=5000 elapsed=1m19.096670167s
+    correction_capacity_test.go:238: capacity worker processed=6000 elapsed=1m27.819082208s
+    correction_capacity_test.go:238: capacity worker processed=7000 elapsed=1m36.46071275s
+    correction_capacity_test.go:238: capacity worker processed=8000 elapsed=1m45.189969667s
+    correction_capacity_test.go:238: capacity worker processed=9000 elapsed=1m53.8896945s
+    correction_capacity_test.go:238: capacity worker processed=10000 elapsed=2m2.6467975s
+    correction_capacity_test.go:264: capacity worker complete elapsed=2m2.687121542s
+    correction_capacity_test.go:293: capacity metadata complete elapsed=2m9.417735167s
+    correction_capacity_test.go:312: CORRECTION_CAPACITY cases=1000 plans=1000 affected=10000 workerBatches=200 completeSets=true heapDelta=313728 allocatedBytes=4537006568 maxBatchBytes=22826488 elapsed=2m17.739368042s
+--- PASS: TestCorrectionCapacityImpact (137.76s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	138.155s

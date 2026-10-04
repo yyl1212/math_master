@@ -41,6 +41,7 @@ const (
 	InstanceWithdrawn    RestrictionReason = "instance-withdrawn"
 	BlueprintWithdrawn   RestrictionReason = "blueprint-withdrawn"
 	ExposedAfterCreation RestrictionReason = "exposed-after-creation"
+	GradingIssue         RestrictionReason = "grading-issue"
 )
 
 type SafeQuestion struct {

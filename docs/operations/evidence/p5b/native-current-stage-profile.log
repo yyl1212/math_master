@@ -1,0 +1,24 @@
+# github.com/yyl1212/math_master/backend/internal/store [github.com/yyl1212/math_master/backend/internal/store.test]
+/private/tmp/p5b_capacity_account_batch.go:3:6: correctionConnectionKey redeclared in this block
+	internal/store/correction_batch.go:12:6: other declaration of correctionConnectionKey
+/private/tmp/p5b_capacity_account_batch.go:4:6: correctionTransactionConnection redeclared in this block
+	internal/store/correction_batch.go:13:6: other declaration of correctionTransactionConnection
+/private/tmp/p5b_capacity_account_batch.go:5:6: correctionReadAccount redeclared in this block
+	internal/store/correction_batch.go:43:6: other declaration of correctionReadAccount
+internal/store/correction_inputs.go:12:6: correctionBasisFactsKey redeclared in this block
+	/private/tmp/p5b_capacity_source_bundle.go:3:6: other declaration of correctionBasisFactsKey
+internal/store/correction_inputs.go:13:6: correctionBasisFacts redeclared in this block
+	/private/tmp/p5b_capacity_source_bundle.go:4:6: other declaration of correctionBasisFacts
+internal/store/correction_inputs.go:18:6: correctionBasisFactsFor redeclared in this block
+	/private/tmp/p5b_capacity_source_bundle.go:5:6: other declaration of correctionBasisFactsFor
+internal/store/correction_inputs.go:26:6: correctionPrior redeclared in this block
+	/private/tmp/p5b_capacity_source_bundle.go:6:6: other declaration of correctionPrior
+internal/store/correction_inputs.go:30:6: correctionInputItem redeclared in this block
+	/private/tmp/p5b_capacity_source_bundle.go:8:6: other declaration of correctionInputItem
+internal/store/correction_inputs.go:35:6: correctionInputPlan redeclared in this block
+	/private/tmp/p5b_capacity_source_bundle.go:9:6: other declaration of correctionInputPlan
+internal/store/correction_inputs.go:51:6: correctionPracticeInputs redeclared in this block
+	/private/tmp/p5b_capacity_source_bundle.go:7:6: other declaration of correctionPracticeInputs
+internal/store/correction_inputs.go:51:6: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

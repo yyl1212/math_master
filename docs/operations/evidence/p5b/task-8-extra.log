@@ -1,0 +1,57 @@
+=== RUN   TestCorrectionProcessAtomic
+=== RUN   TestCorrectionProcessAtomic/result
+=== RUN   TestCorrectionProcessAtomic/dependency
+=== RUN   TestCorrectionProcessAtomic/qualification
+=== RUN   TestCorrectionProcessAtomic/notification
+=== RUN   TestCorrectionProcessAtomic/cursor
+--- PASS: TestCorrectionProcessAtomic (5.11s)
+    --- PASS: TestCorrectionProcessAtomic/result (1.05s)
+    --- PASS: TestCorrectionProcessAtomic/dependency (1.01s)
+    --- PASS: TestCorrectionProcessAtomic/qualification (1.01s)
+    --- PASS: TestCorrectionProcessAtomic/notification (1.01s)
+    --- PASS: TestCorrectionProcessAtomic/cursor (1.03s)
+=== RUN   TestCorrectionStaleLeaseNoEvidenceWrites
+--- PASS: TestCorrectionStaleLeaseNoEvidenceWrites (0.91s)
+=== RUN   TestCorrectionCrashResumeCursorAndNotificationDedup
+--- PASS: TestCorrectionCrashResumeCursorAndNotificationDedup (2.48s)
+=== RUN   TestCorrectionProcessRootActiveLateTerminalAfterDone
+--- PASS: TestCorrectionProcessRootActiveLateTerminalAfterDone (1.07s)
+=== RUN   TestCorrectionCumulativeResultsOtherCaseStillRestricts
+--- PASS: TestCorrectionCumulativeResultsOtherCaseStillRestricts (1.12s)
+=== RUN   TestCorrectionProcessWithdrawalWithoutMappingRetake
+--- PASS: TestCorrectionProcessWithdrawalWithoutMappingRetake (1.01s)
+=== RUN   TestCorrectionProcessThreeOfFiveStaysFailed
+--- PASS: TestCorrectionProcessThreeOfFiveStaysFailed (0.97s)
+=== RUN   TestCorrectionStaleLeaseAtFinalCommitFence
+--- PASS: TestCorrectionStaleLeaseAtFinalCommitFence (1.00s)
+=== RUN   TestCorrectionWithdrawalCommitRace
+=== RUN   TestCorrectionWithdrawalCommitRace/withdrawal-first
+=== RUN   TestCorrectionWithdrawalCommitRace/correction-first
+--- PASS: TestCorrectionWithdrawalCommitRace (2.70s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/withdrawal-first (1.30s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/correction-first (1.40s)
+=== RUN   TestCorrectionCumulativeResultsParentReplacementWithdrawn
+--- PASS: TestCorrectionCumulativeResultsParentReplacementWithdrawn (1.72s)
+=== RUN   TestCorrectionProcessMaterialAndPathStaticNotices
+=== RUN   TestCorrectionProcessMaterialAndPathStaticNotices/unit
+=== RUN   TestCorrectionProcessMaterialAndPathStaticNotices/path
+--- FAIL: TestCorrectionProcessMaterialAndPathStaticNotices (1.63s)
+    --- PASS: TestCorrectionProcessMaterialAndPathStaticNotices/unit (0.87s)
+    --- FAIL: TestCorrectionProcessMaterialAndPathStaticNotices/path (0.75s)
+panic: runtime error: index out of range [0] with length 0 [recovered, repanicked]
+
+goroutine 24808 [running]:
+testing.tRunner.func1.2({0x103012680, 0x18ba1301e210})
+	/Users/wiw/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.1.darwin-arm64/src/testing/testing.go:2123 +0x1a0
+testing.tRunner.func1()
+	/Users/wiw/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.1.darwin-arm64/src/testing/testing.go:2126 +0x2c8
+panic({0x103012680?, 0x18ba1301e210?})
+	/Users/wiw/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.1.darwin-arm64/src/runtime/panic.go:859 +0x120
+github.com/yyl1212/math_master/backend/internal/store_test.TestCorrectionProcessMaterialAndPathStaticNotices.func1(0x18ba12eee008)
+	/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/backend/internal/store/notification_write_test.go:20 +0x698
+testing.tRunner(0x18ba12eee008, 0x18ba13870318)
+	/Users/wiw/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.1.darwin-arm64/src/testing/testing.go:2193 +0xc4
+created by testing.(*T).Run in goroutine 23785
+	/Users/wiw/go/pkg/mod/golang.org/toolchain@v0.0.1-go1.27.1.darwin-arm64/src/testing/testing.go:2258 +0x3b8
+FAIL	github.com/yyl1212/math_master/backend/internal/store	20.298s
+FAIL

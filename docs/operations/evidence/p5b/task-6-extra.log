@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_sources_test.go:7:2: "github.com/yyl1212/math_master/backend/internal/question" imported and not used
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

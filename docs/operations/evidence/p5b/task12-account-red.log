@@ -1,0 +1,65 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/features/correction/review-regressions.test.tsx
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/features/correction/review-regressions.test.tsx (9 tests | 1 failed) 1118ms
+   × a fresh same-actor SSR snapshot recovers an invalidated boundary without reviving its old draft 1012ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/correction/review-regressions.test.tsx > a fresh same-actor SSR snapshot recovers an invalidated boundary without reviving its old draft
+TestingLibraryElementError: Unable to find a label with the text of: Plan reason
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"content-state"[39m
+      [33mrole[39m=[32m"alert"[39m
+    [36m>[39m
+      [36m<p>[39m
+        [0mSign in before continuing.[0m
+      [36m</p>[39m
+      [36m<a[39m
+        [33mhref[39m=[32m"/login"[39m
+      [36m>[39m
+        [0mSign in[0m
+      [36m</a>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"content-state"[39m
+      [33mrole[39m=[32m"alert"[39m
+    [36m>[39m
+      [36m<p>[39m
+        [0mSign in before continuing.[0m
+      [36m</p>[39m
+      [36m<a[39m
+        [33mhref[39m=[32m"/login"[39m
+      [36m>[39m
+        [0mSign in[0m
+      [36m</a>[39m
+    [36m</section>[39m
+  [36m</div>[39m
+[36m</body>[39m
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/correction/review-regressions.test.tsx:58:754
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 8 passed (9)
+   Start at  00:38:59
+   Duration  1.51s (tests 77%, environment 13%, transform 6%, import 2%, setup 2%)
+

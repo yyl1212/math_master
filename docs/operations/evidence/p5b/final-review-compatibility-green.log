@@ -1,0 +1,34 @@
+✔ new correction CI is executable, classified once and keeps every original batch and deadline (6.500208ms)
+✔ deleting any of the 20 browser batches is rejected (4.767917ms)
+✔ step labels and echo commands cannot stand in for actual browser execution (0.467459ms)
+✔ all five capacity commands must remain executable and separate (3.712959ms)
+✔ extra skips, duplicate classification and omitted notification/CLI tests are rejected (1.769459ms)
+✔ Go, job, browser and wrapper time limits cannot be expanded or disguised with duplicate flags (0.986125ms)
+✔ new capacity names inside an echo are rejected (0.436167ms)
+✔ a second actual new test classification in the original job is rejected (0.889375ms)
+✔ required correction Go and browser steps cannot be declared but conditionally disabled (0.281625ms)
+✔ P5a product baseline retains 88 paths, 220 schemas, 32 responses and three security schemes with only approved pointers (9.2115ms)
+✔ all seven original migrations retain exact bytes (0.500166ms)
+✔ all existing mathematical digest purposes retain their exact sets (1.359625ms)
+✔ removing an old path is rejected (8.499ms)
+✔ an unapproved field is never normalized away (9.7625ms)
+✔ changed fixed mathematics and bounds are rejected (23.806041ms)
+✔ approved fields require their exact new shape before inverse normalization (17.419125ms)
+✔ inverse normalization leaves the source document unchanged (4.340416ms)
+✔ a changed original migration fails protection (0.522667ms)
+✔ a changed original purpose fails protection (0.306333ms)
+✔ all result variants and additional properties survive old full-schema checks (23.683209ms)
+✔ actual CI preserves old batches and executes every new feedback batch within original limits (2.221208ms)
+✔ deleting an original browser batch is detected (0.905834ms)
+✔ adding browser skip selection or retries is detected (0.603083ms)
+✔ deleting a capacity batch or skipping extra old store tests is detected (0.88975ms)
+✔ no browser suite or case is silently skipped, focused or retried (1.068291ms)
+✔ active command parser handles split and equals options without counting step labels (0.084084ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 26
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 138.34475

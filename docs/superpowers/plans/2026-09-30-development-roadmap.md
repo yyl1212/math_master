@@ -150,7 +150,7 @@ P4a [PR #17](https://github.com/yyl1212/math_master/pull/17)已合并，master 4
 
 #### P5a：版本化反馈方案进展（2026-10-03）
 
-用户已于2026-10-03书面确认[P5a方案](../specs/2026-10-03-feedback-workflow-design.md)及第八节兼容性变化：先交付版本化反馈、五状态处理、补充/重开和可查回执，再单独设计P5b的纠错影响任务、独立重算和站内通知。[十二项/六十步执行计划](2026-10-03-feedback-workflow.md)已编写，包含精确文件/接口、架构、真实来源与曝光、成功配额/回执、Go/Node边界、容量/兼容和完整回归矩阵；用户已确认计划并保留Native，Task1—11及Task12本机矩阵已完成：283项前端、24项Node、原100+新增30项双视口浏览器全部通过；1000反馈/10000事件与原两项最大容量通过。一次独立整分支审查及五项重要问题RED→GREEN已完成，修复后完整矩阵通过；[PR #21](https://github.com/yyl1212/math_master/pull/21)的最新完整head `f46a9a07057ba6d100b2d83cd0ba5e12567430fb` 四项CI全部通过，用户已明确授权并于2026-10-03合并，master为 `0f2e11ab688300439c1d1ad7b6d908647be50187`；合并后master的Go/前端两项检查均已通过。用户已书面确认[P5b纠错影响、独立重算与站内通知方案](../specs/2026-10-03-correction-impact-design.md)及第十一节兼容性变化；[16项/80步实施计划](2026-10-03-correction-impact.md)已编写并完成可行性自审，待用户审阅，沿用Native，产品实现尚未开始。P5a证据见[验收记录](../../operations/2026-10-03-p5a-acceptance.md)。
+用户已于2026-10-03书面确认[P5a方案](../specs/2026-10-03-feedback-workflow-design.md)及第八节兼容性变化：先交付版本化反馈、五状态处理、补充/重开和可查回执，再单独设计P5b的纠错影响任务、独立重算和站内通知。[十二项/六十步执行计划](2026-10-03-feedback-workflow.md)已编写，包含精确文件/接口、架构、真实来源与曝光、成功配额/回执、Go/Node边界、容量/兼容和完整回归矩阵；用户已确认计划并保留Native，Task1—11及Task12本机矩阵已完成：283项前端、24项Node、原100+新增30项双视口浏览器全部通过；1000反馈/10000事件与原两项最大容量通过。一次独立整分支审查及五项重要问题RED→GREEN已完成，修复后完整矩阵通过；[PR #21](https://github.com/yyl1212/math_master/pull/21)的最新完整head `f46a9a07057ba6d100b2d83cd0ba5e12567430fb` 四项CI全部通过，用户已明确授权并于2026-10-03合并，master为 `0f2e11ab688300439c1d1ad7b6d908647be50187`；合并后master的Go/前端两项检查均已通过。用户已书面确认[P5b纠错影响、独立重算与站内通知方案](../specs/2026-10-03-correction-impact-design.md)及第十一节兼容性变化；[16项/80步实施计划](2026-10-03-correction-impact.md)已由用户确认并沿用Native实施；文档[PR #22](https://github.com/yyl1212/math_master/pull/22)已通过四项CI并合并，产品从最新master `dad438d13b37d1053e3bf42e7c32e3829e4518a6` 新建隔离分支。Task1—15已提交，Task16的一次独立审查及同一次三项重要问题RED→GREEN已完成，修复后350前端/146双视口/44Node/全部Go与五容量完整矩阵通过，SSH draft [PR #23](https://github.com/yyl1212/math_master/pull/23)已交付且首次四项CI通过，最终文档head按PR说明再次核验；产品合并和生产部署另行授权。P5a证据见[验收记录](../../operations/2026-10-03-p5a-acceptance.md)。
 
 P4b [PR #19](https://github.com/yyl1212/math_master/pull/19)完整head `f919c5aa780f166fbadb718bb55830b82d4c175d` 四项CI已通过并按授权合并，master为 `8400ee56d59fd13ecf23f83d89d7685027c93c2d`。文档[PR #20](https://github.com/yyl1212/math_master/pull/20)已通过四项CI并合并；产品从最新master 20a68fa6f087e5e78561bf07c0229e072642e257新建codex/p5a-feedback-workflow隔离分支，旧基线及新旧回归均已验证。反馈处理沿用独立审核/发布/撤回，原答案、成绩、历史解锁和其他有效证据保留；P5b另审原4/5重算与不足五题重测。
 
@@ -214,3 +214,11 @@ P4b [PR #19](https://github.com/yyl1212/math_master/pull/19)完整head `f919c5aa
 ## 8. 后续扩展
 
 首版稳定后，再分别设计初等数学其余主题、高等数学基础与证明训练、进阶专题/研究入口、专业投稿/分享与讨论。每个新板块沿用知识点、版本、审核、路线和学习证据模型；不以复制预览卡片或未经审核的批量生成代替内容建设。
+
+CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修复审核](../../operations/2026-10-03-p5b-ci-query-fix.md)优化准确schema索引、案件分支估算及同事务准确前置/末尾读取往返、原事务语句批次及隔离夹具数据库时钟，不改数量/截止/守卫。全部Go、前端、20批浏览器在 `177ed57186a662db87b2b0fd0d56384607de3936` 新鲜完整复验，44命令/350前端/146浏览器/44Node/五容量PASS；首次失败和历史矩阵保留。产品草稿PR #23的最新完整head四run/全部job仍须实际核验。
+
+交付证据QA补充Ruling27：原始stdout保持逐字节及SHA，仅在人工文档空白风格检查中排除准确证据目录的*.log；所有源码、JSON及诊断脚本继续检查，未变更Git设置、CI或测试预算。准确默认RED/限定GREEN及manifest核验已归档；全部27项裁定、16任务/80步完成，最新完整文档head仍以PR说明的四run/六job验收为准。
+
+同一次必要修复轮追加Ruling28：最终文档90fd12d容量5m真实失败，仅将补扫terminal候选按当前已锁定案件参数化，保持原谓词/顺序/50预算/全部守卫；完整原容量与所有44命令在产品 `d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb` 新鲜PASS，350前端/146浏览器/44Node/五容量，完整28裁定见实施账本。一次独立reviewer及零deferred minor保持；新最终归档head的四workflow/六job必须实际成功，最新结论以PR #23说明为准。
+
+同一次必要修复轮追加Ruling29：完整head215a8ed1的PR容量5m真实失败，采用已测现有规则索引最早日期排除必空范围、锁定案件根/方案/类型有依赖元数据读取；原谓词/顺序/50预算/全部守卫和worker保持。产品 `4f0f0441e5317f1ad8c33a8a86c81c2291a17b76` 全44命令新鲜PASS，350前端/146浏览器/44Node/五容量；29裁定完整归档，一次独立reviewer、零deferred minor。最终最新head四workflow/六job仍须实际成功，以PR #23最新说明为准。

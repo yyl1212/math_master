@@ -1,0 +1,24 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts feedback-user.spec.ts
+
+
+Running 14 tests using 1 worker
+
+  ✓   1 [desktop] › ../tests/e2e/feedback-user.spec.ts:4:5 › real lesson parts, path, own practice, fifth assessment item and site retain exact source (11.5s)
+  ✓   2 [desktop] › ../tests/e2e/feedback-user.spec.ts:5:5 › waiting details and terminal objections reopen with current metadata (7.6s)
+  ✓   3 [desktop] › ../tests/e2e/feedback-user.spec.ts:6:5 › discussion pagination stays bounded after fifty events (4.5s)
+  ✓   4 [desktop] › ../tests/e2e/feedback-user.spec.ts:7:5 › feedback outage preserves public server-rendered lesson (3.6s)
+  ✓   5 [desktop] › ../tests/e2e/feedback-user.spec.ts:9:5 › maximum Chinese body and long English title remain plain text and fit the screen (3.3s)
+  ✓   6 [desktop] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (3.0s)
+  ✓   7 [desktop] › ../tests/e2e/feedback-user.spec.ts:19:5 › a real new publication refreshes a stale target without losing the draft or sending automatically (3.6s)
+[WebServer] 2026/10/04 01:14:05 ERROR Private API request failed request_id=ce3c1e3cf139813f6797d7f7b0eac922 error_code=SERVICE_UNAVAILABLE
+  ✓   8 [mobile] › ../tests/e2e/feedback-user.spec.ts:4:5 › real lesson parts, path, own practice, fifth assessment item and site retain exact source (10.9s)
+  ✓   9 [mobile] › ../tests/e2e/feedback-user.spec.ts:5:5 › waiting details and terminal objections reopen with current metadata (7.6s)
+  ✓  10 [mobile] › ../tests/e2e/feedback-user.spec.ts:6:5 › discussion pagination stays bounded after fifty events (4.5s)
+  ✓  11 [mobile] › ../tests/e2e/feedback-user.spec.ts:7:5 › feedback outage preserves public server-rendered lesson (3.6s)
+  ✓  12 [mobile] › ../tests/e2e/feedback-user.spec.ts:9:5 › maximum Chinese body and long English title remain plain text and fit the screen (3.3s)
+  ✓  13 [mobile] › ../tests/e2e/feedback-user.spec.ts:11:5 › temporary client identity failure recovers through the offered Reload page action (3.0s)
+  ✓  14 [mobile] › ../tests/e2e/feedback-user.spec.ts:19:5 › a real new publication refreshes a stale target without losing the draft or sending automatically (3.6s)
+
+  14 passed (1.2m)

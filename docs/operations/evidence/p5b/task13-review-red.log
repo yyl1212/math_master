@@ -1,0 +1,102 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts correction-review.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✘  1 [desktop] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis (70ms)
+  ✘  2 [desktop] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts (72ms)
+  ✘  3 [mobile] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis (70ms)
+  ✘  4 [mobile] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts (66ms)
+
+
+  1) [desktop] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 204
+    Received: 400
+
+       at correction-helpers.ts:9
+
+       7 | export type CorrectionState={cases:number;plans:number;jobs:number;results:number;notifications:number;reads:number;rates:number;grants:number;caseId:string|null;plan:PlanRef|null;resultId:string|null;attemptId:string|null;activeAttemptId:string|null;mappings:Mapping[];originalSha:string};
+       8 | export async function correctionState(request:APIRequestContext,runtime:Runtime):Promise<CorrectionState>{const r=await request.get(runtime.controlURL+'/correction/state',{headers:{Authorization:'Bearer '+runtime.token}});expect(r.status()).toBe(200);return r.json()}
+    >  9 | export async function correctionScene(request:APIRequestContext,runtime:Runtime,name:string){const r=await request.post(runtime.controlURL+'/scene/'+name,{headers:{Authorization:'Bearer '+runtime.token},timeout:45000});expect(r.status()).toBe(204)}
+         |                                                                                                                                                                                                                                               ^
+      10 | export async function reauthenticate(page:Page){const r=await wireContent(page,'/api/v1/auth/reauth','POST',{password:TEST_PASSWORD});expect(r.status).toBe(200)}
+      11 | export async function apiPlan(page:Page,caseId:string,mappings:Mapping[]=[]){const input:PlanInput={expectedSequence:null,parent:null,algorithmVersion:1,mappings,reason:'Original independently reviewed correction. 中'};const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/cases/'+caseId+'/plans','POST',input);expect(r.status).toBe(201);const p=r.data.data.plan;if(!p)throw Error('Missing actual plan');const sub=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+p.ref.id+'/versions/'+p.ref.version+'/submit','POST',{expectedSequence:p.sequence});expect(sub.status).toBe(200);if(!sub.data.data.plan)throw Error('Missing submitted plan');return sub.data.data.plan}
+      12 | export async function approvePlan(page:Page,ref:PlanRef,sequence:number){await reauthenticate(page);const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+ref.id+'/versions/'+ref.version+'/decision','POST',{expectedSequence:sequence,decision:'approve',reason:'Independently checked exact original answers and mathematical sources.'});expect(r.status).toBe(200);return r.data.data.plan}
+        at correctionScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-helpers.ts:9:239)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-review.spec.ts:5:152
+
+    Error Context: ../test-results/correction-review-real-pla-75dc0-r-approves-its-frozen-basis-desktop/error-context.md
+
+  2) [desktop] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 204
+    Received: 400
+
+       at correction-helpers.ts:9
+
+       7 | export type CorrectionState={cases:number;plans:number;jobs:number;results:number;notifications:number;reads:number;rates:number;grants:number;caseId:string|null;plan:PlanRef|null;resultId:string|null;attemptId:string|null;activeAttemptId:string|null;mappings:Mapping[];originalSha:string};
+       8 | export async function correctionState(request:APIRequestContext,runtime:Runtime):Promise<CorrectionState>{const r=await request.get(runtime.controlURL+'/correction/state',{headers:{Authorization:'Bearer '+runtime.token}});expect(r.status()).toBe(200);return r.json()}
+    >  9 | export async function correctionScene(request:APIRequestContext,runtime:Runtime,name:string){const r=await request.post(runtime.controlURL+'/scene/'+name,{headers:{Authorization:'Bearer '+runtime.token},timeout:45000});expect(r.status()).toBe(204)}
+         |                                                                                                                                                                                                                                               ^
+      10 | export async function reauthenticate(page:Page){const r=await wireContent(page,'/api/v1/auth/reauth','POST',{password:TEST_PASSWORD});expect(r.status).toBe(200)}
+      11 | export async function apiPlan(page:Page,caseId:string,mappings:Mapping[]=[]){const input:PlanInput={expectedSequence:null,parent:null,algorithmVersion:1,mappings,reason:'Original independently reviewed correction. 中'};const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/cases/'+caseId+'/plans','POST',input);expect(r.status).toBe(201);const p=r.data.data.plan;if(!p)throw Error('Missing actual plan');const sub=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+p.ref.id+'/versions/'+p.ref.version+'/submit','POST',{expectedSequence:p.sequence});expect(sub.status).toBe(200);if(!sub.data.data.plan)throw Error('Missing submitted plan');return sub.data.data.plan}
+      12 | export async function approvePlan(page:Page,ref:PlanRef,sequence:number){await reauthenticate(page);const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+ref.id+'/versions/'+ref.version+'/decision','POST',{expectedSequence:sequence,decision:'approve',reason:'Independently checked exact original answers and mathematical sources.'});expect(r.status).toBe(200);return r.data.data.plan}
+        at correctionScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-helpers.ts:9:239)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-review.spec.ts:6:166
+
+    Error Context: ../test-results/correction-review-confirme-ad81c-ccount-switch-clears-drafts-desktop/error-context.md
+
+  3) [mobile] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 204
+    Received: 400
+
+       at correction-helpers.ts:9
+
+       7 | export type CorrectionState={cases:number;plans:number;jobs:number;results:number;notifications:number;reads:number;rates:number;grants:number;caseId:string|null;plan:PlanRef|null;resultId:string|null;attemptId:string|null;activeAttemptId:string|null;mappings:Mapping[];originalSha:string};
+       8 | export async function correctionState(request:APIRequestContext,runtime:Runtime):Promise<CorrectionState>{const r=await request.get(runtime.controlURL+'/correction/state',{headers:{Authorization:'Bearer '+runtime.token}});expect(r.status()).toBe(200);return r.json()}
+    >  9 | export async function correctionScene(request:APIRequestContext,runtime:Runtime,name:string){const r=await request.post(runtime.controlURL+'/scene/'+name,{headers:{Authorization:'Bearer '+runtime.token},timeout:45000});expect(r.status()).toBe(204)}
+         |                                                                                                                                                                                                                                               ^
+      10 | export async function reauthenticate(page:Page){const r=await wireContent(page,'/api/v1/auth/reauth','POST',{password:TEST_PASSWORD});expect(r.status).toBe(200)}
+      11 | export async function apiPlan(page:Page,caseId:string,mappings:Mapping[]=[]){const input:PlanInput={expectedSequence:null,parent:null,algorithmVersion:1,mappings,reason:'Original independently reviewed correction. 中'};const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/cases/'+caseId+'/plans','POST',input);expect(r.status).toBe(201);const p=r.data.data.plan;if(!p)throw Error('Missing actual plan');const sub=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+p.ref.id+'/versions/'+p.ref.version+'/submit','POST',{expectedSequence:p.sequence});expect(sub.status).toBe(200);if(!sub.data.data.plan)throw Error('Missing submitted plan');return sub.data.data.plan}
+      12 | export async function approvePlan(page:Page,ref:PlanRef,sequence:number){await reauthenticate(page);const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+ref.id+'/versions/'+ref.version+'/decision','POST',{expectedSequence:sequence,decision:'approve',reason:'Independently checked exact original answers and mathematical sources.'});expect(r.status).toBe(200);return r.data.data.plan}
+        at correctionScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-helpers.ts:9:239)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-review.spec.ts:5:152
+
+    Error Context: ../test-results/correction-review-real-pla-75dc0-r-approves-its-frozen-basis-mobile/error-context.md
+
+  4) [mobile] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 204
+    Received: 400
+
+       at correction-helpers.ts:9
+
+       7 | export type CorrectionState={cases:number;plans:number;jobs:number;results:number;notifications:number;reads:number;rates:number;grants:number;caseId:string|null;plan:PlanRef|null;resultId:string|null;attemptId:string|null;activeAttemptId:string|null;mappings:Mapping[];originalSha:string};
+       8 | export async function correctionState(request:APIRequestContext,runtime:Runtime):Promise<CorrectionState>{const r=await request.get(runtime.controlURL+'/correction/state',{headers:{Authorization:'Bearer '+runtime.token}});expect(r.status()).toBe(200);return r.json()}
+    >  9 | export async function correctionScene(request:APIRequestContext,runtime:Runtime,name:string){const r=await request.post(runtime.controlURL+'/scene/'+name,{headers:{Authorization:'Bearer '+runtime.token},timeout:45000});expect(r.status()).toBe(204)}
+         |                                                                                                                                                                                                                                               ^
+      10 | export async function reauthenticate(page:Page){const r=await wireContent(page,'/api/v1/auth/reauth','POST',{password:TEST_PASSWORD});expect(r.status).toBe(200)}
+      11 | export async function apiPlan(page:Page,caseId:string,mappings:Mapping[]=[]){const input:PlanInput={expectedSequence:null,parent:null,algorithmVersion:1,mappings,reason:'Original independently reviewed correction. 中'};const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/cases/'+caseId+'/plans','POST',input);expect(r.status).toBe(201);const p=r.data.data.plan;if(!p)throw Error('Missing actual plan');const sub=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+p.ref.id+'/versions/'+p.ref.version+'/submit','POST',{expectedSequence:p.sequence});expect(sub.status).toBe(200);if(!sub.data.data.plan)throw Error('Missing submitted plan');return sub.data.data.plan}
+      12 | export async function approvePlan(page:Page,ref:PlanRef,sequence:number){await reauthenticate(page);const r=await wireCorrection<Receipt>(page,'/api/v1/corrections/plans/'+ref.id+'/versions/'+ref.version+'/decision','POST',{expectedSequence:sequence,decision:'approve',reason:'Independently checked exact original answers and mathematical sources.'});expect(r.status).toBe(200);return r.data.data.plan}
+        at correctionScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-helpers.ts:9:239)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-review.spec.ts:6:166
+
+    Error Context: ../test-results/correction-review-confirme-ad81c-ccount-switch-clears-drafts-mobile/error-context.md
+
+  4 failed
+    [desktop] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis 
+    [desktop] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts 
+    [mobile] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis 
+    [mobile] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts 

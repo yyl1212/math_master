@@ -1,0 +1,7 @@
+=== RUN   TestCorrectionHTTPPrivateAsset
+    correction_test.go:237: private corrected SVG route 404 {"error":{"code":"NOT_FOUND","message":"Resource not found.","requestId":"1cb88130e3940e1d2f73a91da2430b54"}}
+        
+--- FAIL: TestCorrectionHTTPPrivateAsset (0.00s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/httpapi	0.599s
+FAIL

@@ -1,0 +1,41 @@
+=== RUN   TestCorrectionCasesImmediateRestrictionAndReplay
+    correction_cases_test.go:31: correction not configured
+--- FAIL: TestCorrectionCasesImmediateRestrictionAndReplay (0.83s)
+=== RUN   TestCorrectionCutoffLateSubmissionAndNewAttempt
+    correction_cases_test.go:89: correction not configured
+--- FAIL: TestCorrectionCutoffLateSubmissionAndNewAttempt (0.76s)
+=== RUN   TestCorrectionCasesScopeAndUnknownRule
+    correction_cases_test.go:107: { {0 <nil> <nil> <nil>}} correction not configured
+--- FAIL: TestCorrectionCasesScopeAndUnknownRule (1.01s)
+=== RUN   TestCorrectionWithdrawalFenceRealSource
+    correction_sources_test.go:13: correction not configured
+--- FAIL: TestCorrectionWithdrawalFenceRealSource (0.77s)
+=== RUN   TestCorrectionCommitIdentityFreshReplay
+=== RUN   TestCorrectionCommitIdentityFreshReplay/role
+    correction_tx_test.go:18: correction not configured
+=== RUN   TestCorrectionCommitIdentityFreshReplay/credential
+    correction_tx_test.go:18: correction not configured
+=== RUN   TestCorrectionCommitIdentityFreshReplay/password
+    correction_tx_test.go:18: correction not configured
+=== RUN   TestCorrectionCommitIdentityFreshReplay/csrf
+    correction_tx_test.go:18: correction not configured
+--- FAIL: TestCorrectionCommitIdentityFreshReplay (3.04s)
+    --- FAIL: TestCorrectionCommitIdentityFreshReplay/role (0.76s)
+    --- FAIL: TestCorrectionCommitIdentityFreshReplay/credential (0.77s)
+    --- FAIL: TestCorrectionCommitIdentityFreshReplay/password (0.76s)
+    --- FAIL: TestCorrectionCommitIdentityFreshReplay/csrf (0.76s)
+=== RUN   TestCorrectionPartialConfigFailsClosed
+=== RUN   TestCorrectionPartialConfigFailsClosed/table
+=== RUN   TestCorrectionPartialConfigFailsClosed/version
+=== RUN   TestCorrectionPartialConfigFailsClosed/column
+=== RUN   TestCorrectionPartialConfigFailsClosed/trigger
+=== RUN   TestCorrectionPartialConfigFailsClosed/empty-down
+--- PASS: TestCorrectionPartialConfigFailsClosed (3.82s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/table (0.76s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/version (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/column (0.77s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/trigger (0.77s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/empty-down (0.77s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	10.857s
+FAIL

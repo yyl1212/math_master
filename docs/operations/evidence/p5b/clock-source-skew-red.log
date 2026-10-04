@@ -1,0 +1,9 @@
+=== RUN   TestFeedbackCapacity
+=== RUN   TestFeedbackCapacity/nonempty_learning_facts_unchanged
+    feedback_capacity_test.go:313: CLOCK_SOURCE_DIAGNOSTIC constraint=CHECK (((terminal_at IS NULL) OR (terminal_at >= created_at))) created=2026-10-03 23:04:50.493343 +0000 UTC dbNow=2026-10-03 23:04:45.507891 +0000 UTC terminal=2026-10-03 23:04:45.50626 +0000 UTC ahead=4.987083s
+    feedback_capacity_test.go:313: ERROR: new row for relation "assessment_attempts" violates check constraint "assessment_attempts_check3" (SQLSTATE 23514)
+--- FAIL: TestFeedbackCapacity (1.13s)
+    --- FAIL: TestFeedbackCapacity/nonempty_learning_facts_unchanged (1.13s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.317s
+FAIL

@@ -77,3 +77,27 @@ func TestAuthConfigBrowserCanonicalOrigin(t *testing.T) {
 		}
 	}
 }
+
+func TestCorrectionWorkerConfig(t *testing.T) {
+	t.Setenv("DATABASE_URL", "postgres://test:fixture@127.0.0.1/math_master_test_config")
+	t.Setenv("APP_ENV", "development")
+	t.Setenv("HTTP_ADDR", "")
+	t.Setenv("AUTH_PUBLIC_ORIGIN", "")
+	t.Setenv("SHUTDOWN_TIMEOUT", "")
+	for _, v := range []struct {
+		raw  string
+		want bool
+	}{{"", true}, {"true", true}, {"false", false}} {
+		t.Setenv("CORRECTION_WORKER_ENABLED", v.raw)
+		c, e := Load()
+		if e != nil || c.CorrectionWorkerEnabled != v.want {
+			t.Fatal(v, e)
+		}
+	}
+	for _, v := range []string{"1", "0", "True", "FALSE", " true ", "yes"} {
+		t.Setenv("CORRECTION_WORKER_ENABLED", v)
+		if _, e := Load(); e == nil {
+			t.Fatal("non-literal bool accepted", v)
+		}
+	}
+}

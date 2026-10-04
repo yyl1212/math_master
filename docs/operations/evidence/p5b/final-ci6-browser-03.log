@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts content-authoring.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/content-authoring.spec.ts:4:5 › contentStructuredAuthoringPreviewExportAndFrozenSubmission (3.2s)
+  ✓  2 [desktop] › ../tests/e2e/content-authoring.spec.ts:6:5 › contentSaveConflictRetainsUnsavedInput (2.5s)
+  ✓  3 [mobile] › ../tests/e2e/content-authoring.spec.ts:4:5 › contentStructuredAuthoringPreviewExportAndFrozenSubmission (3.0s)
+  ✓  4 [mobile] › ../tests/e2e/content-authoring.spec.ts:6:5 › contentSaveConflictRetainsUnsavedInput (2.4s)
+
+  4 passed (12.4s)

@@ -1,0 +1,4 @@
+=== RUN   TestCorrectionJobClockAfterRowWait
+--- PASS: TestCorrectionJobClockAfterRowWait (0.87s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	1.436s

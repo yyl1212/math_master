@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/store [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_review.go:11:61: undefined: question
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

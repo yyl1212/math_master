@@ -1,0 +1,398 @@
+[
+  {
+    "query": "WITH evidence AS MATERIALIZED (SELECT * FROM (SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed",
+    "calls": 60,
+    "totalMs": 1476.05,
+    "maxMs": 26.245
+  },
+  {
+    "query": "NOT correction_case_applies(handled_id::uuid,r.evidence_kind,r.evidence_id,r.owner_user_id) OR NOT EXISTS(SELECT 1 FROM jsonb_array_elements(b->'planRefs') ref JOIN correction_plans p ON p.id=(ref->>'id')::uuid AND p.version=(ref->>'version')::integer WHERE p.case_id=handled_id::uuid AND p.sealed AND p.status='approved' AND p.algorithm_version=1)",
+    "calls": 100,
+    "totalMs": 63.47,
+    "maxMs": 0.927
+  },
+  {
+    "query": "SELECT",
+    "calls": 126,
+    "totalMs": 48.06,
+    "maxMs": 1.273
+  },
+  {
+    "query": "INSERT INTO correction_dependencies(result_id,role,kind,id,version,sha256,positions) SELECT $1,d.role,d.kind,d.id,d.version,d.sha256,d.positions FROM jsonb_to_recordset($2::jsonb) AS d(role text,kind text,id text,version integer,sha256 text,positions integer[])",
+    "calls": 50,
+    "totalMs": 34.9,
+    "maxMs": 1.287
+  },
+  {
+    "query": "EXPLAIN (ANALYZE, BUFFERS) WITH evidence AS MATERIALIZED (SELECT * FROM (SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed",
+    "calls": 1,
+    "totalMs": 23.89,
+    "maxMs": 23.887
+  },
+  {
+    "query": "INSERT INTO correction_results(id,owner_user_id,case_id,plan_id,plan_version,parent_result_id,evidence_kind,evidence_id,knowledge_id,knowledge_version,knowledge_sha256,status,reason,score,passed,correctness,handled_case_ids,basis,basis_bytes,basis_digest,source_key) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) ON CONFLICT(source_key,evidence_kind,evidence_id,basis_digest) DO NOTHING RETURNING id::text",
+    "calls": 50,
+    "totalMs": 14.51,
+    "maxMs": 0.424
+  },
+  {
+    "query": "UPDATE correction_results SET sealed=true WHERE id=$1",
+    "calls": 50,
+    "totalMs": 13.53,
+    "maxMs": 0.379
+  },
+  {
+    "query": "INSERT INTO correction_events(id,subject_kind,subject_id,subject_version,case_id,kind,sequence,actor_user_id,body,body_bytes,body_digest) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)",
+    "calls": 102,
+    "totalMs": 12.2,
+    "maxMs": 0.356
+  },
+  {
+    "query": "SELECT m#>'{original,identity}',m#>'{replacement,identity}',m#>'{original,template}',m#>'{replacement,template}' FROM jsonb_to_recordset($1::jsonb) refs(id uuid,version integer) JOIN correction_plans p ON p.id=refs.id AND p.version=refs.version AND p.status='approved' CROSS JOIN LATERAL jsonb_array_elements(p.frozen_body#>'{body,proof,mappings}') m",
+    "calls": 50,
+    "totalMs": 12.16,
+    "maxMs": 0.647
+  },
+  {
+    "query": "WITH evidence AS (SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed",
+    "calls": 202,
+    "totalMs": 11.5,
+    "maxMs": 9.203
+  },
+  {
+    "query": "INSERT INTO notifications(owner_user_id,dedup_key,type,evidence_kind,evidence_id,case_id,result_id) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(dedup_key) DO NOTHING",
+    "calls": 50,
+    "totalMs": 11.04,
+    "maxMs": 0.36
+  },
+  {
+    "query": "NOT r.sealed OR NOT learning_evidence_owner(r.evidence_kind,r.evidence_id,r.owner_user_id) OR NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key=r.source_key AND j.case_id=r.case_id AND (j.evidence_id IS NULL OR (j.owner_user_id=r.owner_user_id AND j.evidence_kind=r.evidence_kind AND j.evidence_id=r.evidence_id)) AND ((j.plan_id IS NOT DISTINCT FROM r.plan_id AND j.plan_version IS NOT DISTINCT FROM r.plan_version) OR (j.type='attempt_terminal' AND j.plan_id IS NULL AND r.plan_id IS NOT NULL AND EXISTS(SELECT 1 FROM correction_plans p WHERE p.id=r.plan_id AND p.version=r.plan_version AND p.case_id=r.case_id AND p.status='approved' AND p.sealed AND p.algorithm_version=1))))",
+    "calls": 100,
+    "totalMs": 8.76,
+    "maxMs": 0.159
+  },
+  {
+    "query": "NOT learning_evidence_owner(NEW.evidence_kind,NEW.evidence_id,NEW.owner_user_id) OR NEW.result_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM correction_results WHERE id=NEW.result_id AND owner_user_id=NEW.owner_user_id AND evidence_kind=NEW.evidence_kind AND evidence_id=NEW.evidence_id AND case_id=NEW.case_id AND sealed)",
+    "calls": 50,
+    "totalMs": 5.46,
+    "maxMs": 0.138
+  },
+  {
+    "query": "UPDATE correction_jobs SET cursor_kind=$2,cursor_id=$3,processed_count=processed_count+1,sequence=$4 WHERE id=$1",
+    "calls": 50,
+    "totalMs": 4.48,
+    "maxMs": 0.106
+  },
+  {
+    "query": "NOT EXISTS(SELECT 1 FROM correction_events WHERE subject_kind='job' AND subject_id=j.id AND sequence=j.sequence AND case_id=j.case_id)",
+    "calls": 52,
+    "totalMs": 3.87,
+    "maxMs": 0.132
+  },
+  {
+    "query": "EXISTS((SELECT d->>'kind',d->>'id',(d->>'version')::integer,d->>'sha256' FROM jsonb_array_elements(coalesce(b->CASE WHEN expected_role='audit' THEN 'auditDeps' ELSE 'effectiveDeps' END,'[]')) d) EXCEPT (SELECT kind,id,version,sha256 FROM correction_dependencies WHERE result_id=r.id AND role=expected_role)) OR EXISTS((SELECT kind,id,version,sha256 FROM correction_dependencies WHERE result_id=r.id AND role=expected_role) EXCEPT (SELECT d->>'kind',d->>'id',(d->>'version')::integer,d->>'sha256' FROM jsonb_array_elements(coalesce(b->CASE WHEN expected_role='audit' THEN 'auditDeps' ELSE 'effectiveDeps' END,'[]')) d))",
+    "calls": 200,
+    "totalMs": 2.21,
+    "maxMs": 0.02
+  },
+  {
+    "query": "SELECT r.position,i.sha256,i.body_bytes,m.evidence FROM jsonb_to_recordset($1::jsonb) r(position integer,instance jsonb)",
+    "calls": 60,
+    "totalMs": 1.64,
+    "maxMs": 0.047
+  },
+  {
+    "query": "EXISTS((SELECT kind,id,version,sha256 FROM learning_evidence_dependencies WHERE evidence_kind=r.evidence_kind AND evidence_id=r.evidence_id AND owner_user_id=r.owner_user_id) EXCEPT (SELECT d->>'kind',d->>'id',(d->>'version')::integer,d->>'sha256' FROM jsonb_array_elements(b->'auditDeps') d)) OR NOT ((b->'auditDeps') @> (b->'effectiveDeps'))",
+    "calls": 100,
+    "totalMs": 1.25,
+    "maxMs": 0.021
+  },
+  {
+    "query": "WITH input AS (SELECT * FROM jsonb_to_recordset($1::jsonb) r(kind text,id text,version integer,sha256 text)),",
+    "calls": 50,
+    "totalMs": 1.11,
+    "maxMs": 0.027
+  },
+  {
+    "query": "SELECT count(*) FROM unnest($1::text[]) name WHERE to_regclass('public.'||name) IS NOT NULL",
+    "calls": 126,
+    "totalMs": 1.08,
+    "maxMs": 0.029
+  },
+  {
+    "query": "SELECT k.id,k.version,k.sha256,h.snapshot_id FROM publication_heads h JOIN publication_snapshots p ON p.id=h.snapshot_id AND p.status='published' JOIN publication_members m ON m.snapshot_id=p.id AND m.kind='knowledge' AND m.availability='active' JOIN knowledge_versions k ON k.id=m.id AND k.version=m.version WHERE h.singleton AND k.id=$1 AND NOT EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind='knowledge' AND w.target_id=k.id AND w.target_version=k.version AND w.sha256=k.sha256)",
+    "calls": 50,
+    "totalMs": 0.8,
+    "maxMs": 0.025
+  },
+  {
+    "query": "TG_OP<>'INSERT' OR EXISTS(SELECT 1 FROM correction_results WHERE id=NEW.result_id AND sealed)",
+    "calls": 500,
+    "totalMs": 0.77,
+    "maxMs": 0.008
+  },
+  {
+    "query": "SELECT role FROM auth_user_roles WHERE user_id=$1 ORDER BY CASE role WHEN 'learner' THEN 1 WHEN 'editor' THEN 2 WHEN 'reviewer' THEN 3 WHEN 'admin' THEN 4 END",
+    "calls": 100,
+    "totalMs": 0.59,
+    "maxMs": 0.008
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"correction_results\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x",
+    "calls": 500,
+    "totalMs": 0.56,
+    "maxMs": 0.006
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"correction_cases\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x",
+    "calls": 252,
+    "totalMs": 0.48,
+    "maxMs": 0.01
+  },
+  {
+    "query": "UPDATE correction_jobs SET state='running',sequence=$2,attempt=$3,lease_token=$4,lease_until=$5,next_run_at=NULL WHERE id=$1",
+    "calls": 1,
+    "totalMs": 0.47,
+    "maxMs": 0.473
+  },
+  {
+    "query": "SELECT kind,id,version,sha256 FROM learning_evidence_dependencies WHERE evidence_kind=$1 AND evidence_id=$2 ORDER BY kind,id,version,sha256",
+    "calls": 60,
+    "totalMs": 0.43,
+    "maxMs": 0.015
+  },
+  {
+    "query": "SELECT CASE kind WHEN 'learning-event' THEN EXISTS(SELECT 1 FROM learning_events WHERE id=eid AND owner_user_id=uid) WHEN 'practice' THEN EXISTS(SELECT 1 FROM practice_attempts WHERE id=eid AND owner_user_id=uid) WHEN 'assessment' THEN EXISTS(SELECT 1 FROM assessment_attempts WHERE id=eid AND owner_user_id=uid) WHEN 'enrollment' THEN EXISTS(SELECT 1 FROM learning_path_enrollments WHERE id=eid AND owner_user_id=uid) ELSE false END;",
+    "calls": 150,
+    "totalMs": 0.4,
+    "maxMs": 0.007
+  },
+  {
+    "query": "SELECT seal->'body',jsonb_build_array(answer)                            FROM practice_attempts WHERE id=r.evidence_id AND state='answered'",
+    "calls": 100,
+    "totalMs": 0.36,
+    "maxMs": 0.005
+  },
+  {
+    "query": "SELECT id::text,kind,withdrawal_space,withdrawal_id::text,rule_version,scope_kind,knowledge_id,knowledge_version,knowledge_sha256,cutoff,sequence,created_at,EXISTS(SELECT 1 FROM correction_plans p WHERE p.case_id=c.id AND p.status='approved' AND p.sealed AND p.algorithm_version=1) FROM correction_cases c WHERE c.id=$1 AND c.sealed",
+    "calls": 51,
+    "totalMs": 0.34,
+    "maxMs": 0.009
+  },
+  {
+    "query": "SELECT id::text,knowledge_id,knowledge_version,knowledge_sha256,state,created_at,expires_at,terminal_at,seal_bytes,answer,correct FROM practice_attempts WHERE id=$1 AND owner_user_id=$2 FOR UPDATE",
+    "calls": 60,
+    "totalMs": 0.33,
+    "maxMs": 0.01
+  },
+  {
+    "query": "SELECT case_id::text,creator_user_id::text,status,sequence,algorithm_version,jsonb_array_length(body->'mappings'),body,frozen_bytes,frozen_digest,created_at,updated_at FROM correction_plans WHERE id=$1 AND version=$2",
+    "calls": 50,
+    "totalMs": 0.32,
+    "maxMs": 0.009
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"knowledge_versions\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 AND \"version\" OPERATOR(pg_catalog.=) $2 AND \"sha256\" OPERATOR(pg_catalog.=) $3 FOR KEY SHARE OF x",
+    "calls": 200,
+    "totalMs": 0.32,
+    "maxMs": 0.009
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"correction_jobs\" x WHERE \"source_key\" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x",
+    "calls": 100,
+    "totalMs": 0.31,
+    "maxMs": 0.005
+  },
+  {
+    "query": "NOT EXISTS(SELECT 1 FROM correction_events WHERE subject_kind='result' AND subject_id=r.id AND case_id=r.case_id AND kind='result_sealed' AND body#>>'{body,digest}'=r.basis_digest)",
+    "calls": 100,
+    "totalMs": 0.31,
+    "maxMs": 0.009
+  },
+  {
+    "query": "SELECT EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=8 AND is_applied),EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=0 AND correction_enabled)",
+    "calls": 63,
+    "totalMs": 0.29,
+    "maxMs": 0.011
+  },
+  {
+    "query": "SELECT id::text,case_id::text,plan_id::text,plan_version,type,state,sequence,epoch,attempt,next_run_at,processed_count,error_class,source_key,owner_user_id::text,evidence_kind,evidence_id::text,cursor_kind,cursor_id::text,lease_token,lease_until FROM correction_jobs WHERE id=$1",
+    "calls": 51,
+    "totalMs": 0.28,
+    "maxMs": 0.01
+  },
+  {
+    "query": "SELECT id::text,case_id::text,plan_id::text,plan_version,type,state,sequence,epoch,attempt,next_run_at,processed_count,error_class,source_key,owner_user_id::text,evidence_kind,evidence_id::text,cursor_kind,cursor_id::text,lease_token,lease_until FROM correction_jobs WHERE id=$1 FOR UPDATE",
+    "calls": 51,
+    "totalMs": 0.26,
+    "maxMs": 0.007
+  },
+  {
+    "query": "SELECT id::text,username,password_phc,credential_version,must_change_password FROM auth_users WHERE id=$1 FOR UPDATE",
+    "calls": 50,
+    "totalMs": 0.25,
+    "maxMs": 0.009
+  },
+  {
+    "query": "SELECT r.id::text,octet_length(r.basis_bytes) FROM correction_results r WHERE r.owner_user_id=$1 AND r.evidence_kind=$2 AND r.evidence_id=$3 AND r.source_key<>$4 AND r.sealed AND r.plan_id IS NOT NULL AND EXISTS(SELECT 1 FROM correction_plans p WHERE p.id=r.plan_id AND p.version=r.plan_version AND p.status='approved' AND p.sealed AND p.algorithm_version=1 AND EXISTS(SELECT 1 FROM correction_events v WHERE v.subject_kind='plan' AND v.subject_id=p.id AND v.subject_version=p.version AND v.kind='plan_approved')) AND NOT EXISTS(SELECT 1 FROM correction_results child WHERE child.owner_user_id=r.owner_user_id AND child.evidence_kind=r.evidence_kind AND child.evidence_id=r.evidence_id AND child.id<>r.id AND child.sealed AND child.plan_id IS NOT NULL AND EXISTS(SELECT 1 FROM correction_plans p WHERE p.id=child.plan_id AND p.version=child.plan_version AND p.status='approved' AND p.sealed AND p.algorithm_version=1 AND EXISTS(SELECT 1 FROM correction_events v WHERE v.subject_kind='plan' AND v.subject_id=p.id AND v.subject_version=p.version AND v.kind='plan_approved')) AND (child.parent_result_id=r.id OR child.basis#>'{body,parentResultIds}' @> jsonb_build_array(r.id::text))) ORDER BY r.id LIMIT 101",
+    "calls": 50,
+    "totalMs": 0.25,
+    "maxMs": 0.009
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"auth_users\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x",
+    "calls": 150,
+    "totalMs": 0.23,
+    "maxMs": 0.003
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"correction_plans\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 AND \"version\" OPERATOR(pg_catalog.=) $2 FOR KEY SHARE OF x",
+    "calls": 100,
+    "totalMs": 0.22,
+    "maxMs": 0.003
+  },
+  {
+    "query": "NEW.subject_kind='case' AND NOT EXISTS(SELECT 1 FROM correction_cases WHERE id=NEW.subject_id AND id=NEW.case_id) OR NEW.subject_kind='plan' AND NOT EXISTS(SELECT 1 FROM correction_plans WHERE id=NEW.subject_id AND version=NEW.subject_version AND case_id=NEW.case_id) OR NEW.subject_kind='job' AND NOT EXISTS(SELECT 1 FROM correction_jobs WHERE id=NEW.subject_id AND case_id=NEW.case_id) OR NEW.subject_kind='result' AND NOT EXISTS(SELECT 1 FROM correction_results WHERE id=NEW.subject_id AND case_id=NEW.case_id)",
+    "calls": 102,
+    "totalMs": 0.21,
+    "maxMs": 0.005
+  },
+  {
+    "query": "SELECT id::text FROM correction_cases WHERE id=$1 AND sealed FOR UPDATE",
+    "calls": 50,
+    "totalMs": 0.21,
+    "maxMs": 0.006
+  },
+  {
+    "query": "SELECT sha256 FROM knowledge_versions WHERE id=$1 AND version=$2",
+    "calls": 50,
+    "totalMs": 0.21,
+    "maxMs": 0.016
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"question_instances\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 AND \"version\" OPERATOR(pg_catalog.=) $2 AND \"sha256\" OPERATOR(pg_catalog.=) $3 FOR KEY SHARE OF x",
+    "calls": 100,
+    "totalMs": 0.21,
+    "maxMs": 0.006
+  },
+  {
+    "query": "SELECT *        FROM correction_results WHERE id=NEW.id",
+    "calls": 100,
+    "totalMs": 0.2,
+    "maxMs": 0.004
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"question_templates\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 AND \"version\" OPERATOR(pg_catalog.=) $2 AND \"sha256\" OPERATOR(pg_catalog.=) $3 FOR KEY SHARE OF x",
+    "calls": 100,
+    "totalMs": 0.17,
+    "maxMs": 0.005
+  },
+  {
+    "query": "SELECT sha256 FROM unit_versions WHERE id=$1 AND version=$2",
+    "calls": 50,
+    "totalMs": 0.16,
+    "maxMs": 0.004
+  },
+  {
+    "query": "SELECT id::text FROM correction_results WHERE owner_user_id=$1 AND case_id=$2 AND evidence_kind=$3 AND evidence_id=$4 AND plan_id IS NOT DISTINCT FROM $5::uuid AND plan_version IS NOT DISTINCT FROM $6::integer AND sealed AND status=$7 AND reason=$8 AND correctness=$9::jsonb AND basis#>'{body,effectiveItems}'=$10::jsonb AND handled_case_ids=$11::jsonb AND basis#>'{body,planRefs}'=$12::jsonb AND basis#>'{body,auditDeps}'=$13::jsonb ORDER BY id LIMIT 1",
+    "calls": 50,
+    "totalMs": 0.16,
+    "maxMs": 0.005
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"assets\" x WHERE \"sha256\" OPERATOR(pg_catalog.=) $1 FOR KEY SHARE OF x",
+    "calls": 100,
+    "totalMs": 0.16,
+    "maxMs": 0.003
+  },
+  {
+    "query": "SELECT id::text,username,password_phc,credential_version,must_change_password FROM auth_users WHERE id=$1",
+    "calls": 50,
+    "totalMs": 0.16,
+    "maxMs": 0.014
+  },
+  {
+    "query": "SELECT pg_advisory_xact_lock_shared($1)",
+    "calls": 153,
+    "totalMs": 0.15,
+    "maxMs": 0.002
+  },
+  {
+    "query": "SELECT asset_id,asset_sha256 FROM unit_asset_bindings WHERE unit_id=$1 AND unit_version=$2",
+    "calls": 50,
+    "totalMs": 0.15,
+    "maxMs": 0.004
+  },
+  {
+    "query": "SELECT jsonb_array_elements_text(r.handled_case_ids)",
+    "calls": 100,
+    "totalMs": 0.14,
+    "maxMs": 0.003
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"unit_versions\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 AND \"version\" OPERATOR(pg_catalog.=) $2 AND \"sha256\" OPERATOR(pg_catalog.=) $3 FOR KEY SHARE OF x",
+    "calls": 100,
+    "totalMs": 0.12,
+    "maxMs": 0.002
+  },
+  {
+    "query": "SELECT clock_timestamp()",
+    "calls": 105,
+    "totalMs": 0.1,
+    "maxMs": 0.001
+  },
+  {
+    "query": "SELECT *        FROM correction_jobs WHERE id=NEW.id",
+    "calls": 52,
+    "totalMs": 0.1,
+    "maxMs": 0.003
+  },
+  {
+    "query": "SELECT unnest(ARRAY['audit','effective'])",
+    "calls": 100,
+    "totalMs": 0.1,
+    "maxMs": 0.001
+  },
+  {
+    "query": "UPDATE correction_jobs SET state=$2,sequence=$3,lease_until=NULL,next_run_at=$4,error_class=NULL WHERE id=$1",
+    "calls": 1,
+    "totalMs": 0.1,
+    "maxMs": 0.096
+  },
+  {
+    "query": "j.plan_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM correction_plans WHERE id=j.plan_id AND version=j.plan_version AND case_id=j.case_id AND status='approved')",
+    "calls": 52,
+    "totalMs": 0.09,
+    "maxMs": 0.002
+  },
+  {
+    "query": "SELECT value FROM jsonb_array_elements(coalesce(b->'parentResultIds','[]'))",
+    "calls": 100,
+    "totalMs": 0.09,
+    "maxMs": 0.001
+  },
+  {
+    "query": "SELECT 1 FROM ONLY \"public\".\"correction_results\" x WHERE \"id\" OPERATOR(pg_catalog.=) $1 AND \"owner_user_id\" OPERATOR(pg_catalog.=) $2 FOR KEY SHARE OF x",
+    "calls": 50,
+    "totalMs": 0.07,
+    "maxMs": 0.003
+  },
+  {
+    "query": "SELECT id::text,case_id::text,plan_id::text,plan_version,type,state,sequence,epoch,attempt,next_run_at,processed_count,error_class,source_key,owner_user_id::text,evidence_kind,evidence_id::text,cursor_kind,cursor_id::text,lease_token,lease_until FROM correction_jobs WHERE (state IN ('queued','retry_wait') AND next_run_at<=clock_timestamp()) OR (state='running' AND lease_until<=clock_timestamp()) ORDER BY coalesce(next_run_at,lease_until),created_at,id LIMIT 1 FOR UPDATE SKIP LOCKED",
+    "calls": 1,
+    "totalMs": 0.02,
+    "maxMs": 0.017
+  },
+  {
+    "query": "SELECT pg_backend_pid()",
+    "calls": 1,
+    "totalMs": 0.0,
+    "maxMs": 0.001
+  },
+  {
+    "query": "r.parent_result_id IS NOT NULL AND NOT EXISTS(SELECT 1 FROM correction_results WHERE id=r.parent_result_id AND id<>r.id AND sealed AND owner_user_id=r.owner_user_id AND evidence_kind=r.evidence_kind AND evidence_id=r.evidence_id)",
+    "calls": 100,
+    "totalMs": 0.0,
+    "maxMs": 0.001
+  }
+]

@@ -1,0 +1,114 @@
+=== RUN   TestCorrectionCapacityDiagnostic
+    correction_capacity_diagnostic_test.go:4: DIAG setup plans 2.670707916s
+    correction_capacity_diagnostic_test.go:4: DIAG setup practices 29.081659166s
+    correction_capacity_diagnostic_test.go:4: DIAG setup 32.698464584s
+    correction_capacity_diagnostic_test.go:4: DIAG health 10=20.018125ms
+    correction_capacity_diagnostic_test.go:4: DIAG original basis 10=16.424375ms
+    correction_capacity_diagnostic_test.go:4: DIAG applicable plans 10=6.471291ms
+    correction_capacity_diagnostic_test.go:4: Limit  (cost=5803.10..5803.35 rows=101 width=124) (actual time=0.130..0.131 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:   Buffers: shared hit=84
+    correction_capacity_diagnostic_test.go:4:   CTE evidence
+    correction_capacity_diagnostic_test.go:4:     ->  Index Scan using practice_attempts_id_owner_user_id_key on practice_attempts  (cost=0.29..8.32 rows=1 width=145) (actual time=0.003..0.003 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:           Index Cond: ((id = '31d2b1b0-8f99-4881-8172-60d3267ffec6'::uuid) AND (owner_user_id = 'aed1526d-3f22-47ae-b3b3-7f1f662b88f4'::uuid))
+    correction_capacity_diagnostic_test.go:4:           Buffers: shared hit=6
+    correction_capacity_diagnostic_test.go:4:   CTE matched_cases
+    correction_capacity_diagnostic_test.go:4:     ->  HashAggregate  (cost=200.85..204.20 rows=335 width=16) (actual time=0.125..0.126 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:           Group Key: c_1.id
+    correction_capacity_diagnostic_test.go:4:           Batches: 1  Memory Usage: 37kB
+    correction_capacity_diagnostic_test.go:4:           Buffers: shared hit=78
+    correction_capacity_diagnostic_test.go:4:           ->  Append  (cost=0.28..200.01 rows=335 width=16) (actual time=0.005..0.124 rows=2 loops=1)
+    correction_capacity_diagnostic_test.go:4:                 Buffers: shared hit=78
+    correction_capacity_diagnostic_test.go:4:                 ->  Nested Loop  (cost=0.28..4.32 rows=1 width=16) (actual time=0.005..0.005 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                       Buffers: shared hit=10
+    correction_capacity_diagnostic_test.go:4:                       ->  Index Only Scan using correction_cases_pkey on correction_cases c_1  (cost=0.28..4.29 rows=1 width=16) (actual time=0.001..0.001 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                             Index Cond: (id = '15102925-2a1a-44c7-b2f3-0af16837665a'::uuid)
+    correction_capacity_diagnostic_test.go:4:                             Heap Fetches: 1
+    correction_capacity_diagnostic_test.go:4:                             Buffers: shared hit=4
+    correction_capacity_diagnostic_test.go:4:                       ->  CTE Scan on evidence e  (cost=0.00..0.02 rows=1 width=0) (actual time=0.004..0.004 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                             Buffers: shared hit=6
+    correction_capacity_diagnostic_test.go:4:                 ->  Nested Loop  (cost=0.00..68.48 rows=333 width=16) (actual time=0.078..0.078 rows=0 loops=1)
+    correction_capacity_diagnostic_test.go:4:                       Join Filter: ((e_1.created_at <= c_2.cutoff) AND (c_2.rule_version = e_1.rule_version) AND ((c_2.scope_kind = 'all'::text) OR ((e_1.kid = c_2.knowledge_id) AND (e_1.kv = c_2.knowledge_version) AND (e_1.kh = c_2.knowledge_sha256))))
+    correction_capacity_diagnostic_test.go:4:                       Rows Removed by Join Filter: 999
+    correction_capacity_diagnostic_test.go:4:                       Buffers: shared hit=31
+    correction_capacity_diagnostic_test.go:4:                       ->  CTE Scan on evidence e_1  (cost=0.00..0.02 rows=1 width=80) (actual time=0.000..0.000 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                             Filter: (kind = ANY ('{assessment,practice}'::text[]))
+    correction_capacity_diagnostic_test.go:4:                       ->  Seq Scan on correction_cases c_2  (cost=0.00..43.49 rows=999 width=100) (actual time=0.001..0.054 rows=999 loops=1)
+    correction_capacity_diagnostic_test.go:4:                             Filter: (sealed AND (kind = 'grading_rule'::text))
+    correction_capacity_diagnostic_test.go:4:                             Rows Removed by Filter: 1
+    correction_capacity_diagnostic_test.go:4:                             Buffers: shared hit=31
+    correction_capacity_diagnostic_test.go:4:                 ->  Nested Loop  (cost=0.00..125.53 rows=1 width=16) (actual time=0.007..0.040 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                       Join Filter: (EXISTS(SubPlan 5) OR EXISTS(SubPlan 9) OR ((e_2.kind = 'enrollment'::text) AND (c_3.withdrawal_space = 'content'::text) AND EXISTS(SubPlan 12)))
+    correction_capacity_diagnostic_test.go:4:                       Buffers: shared hit=37
+    correction_capacity_diagnostic_test.go:4:                       ->  Seq Scan on correction_cases c_3  (cost=0.00..43.49 rows=1 width=64) (actual time=0.002..0.035 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                             Filter: (sealed AND (kind = 'withdrawal'::text))
+    correction_capacity_diagnostic_test.go:4:                             Rows Removed by Filter: 999
+    correction_capacity_diagnostic_test.go:4:                             Buffers: shared hit=31
+    correction_capacity_diagnostic_test.go:4:                       ->  CTE Scan on evidence e_2  (cost=0.00..0.02 rows=1 width=64) (actual time=0.000..0.000 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                       SubPlan 5
+    correction_capacity_diagnostic_test.go:4:                         ->  Index Scan using learning_dependency_owner on learning_evidence_dependencies d  (cost=0.41..24.80 rows=1 width=0) (actual time=0.004..0.004 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                               Index Cond: ((owner_user_id = e_2.owner) AND (evidence_kind = e_2.kind) AND (evidence_id = e_2.id))
+    correction_capacity_diagnostic_test.go:4:                               Filter: (((c_3.withdrawal_space = 'content'::text) AND EXISTS(SubPlan 2)) OR ((c_3.withdrawal_space = 'question'::text) AND (ANY ((kind = (hashed SubPlan 4).col1) AND (id = (hashed SubPlan 4).col2) AND (version = (hashed SubPlan 4).col3) AND (sha256 = (hashed SubPlan 4).col4)))))
+    correction_capacity_diagnostic_test.go:4:                               Rows Removed by Filter: 4
+    correction_capacity_diagnostic_test.go:4:                               Buffers: shared hit=6
+    correction_capacity_diagnostic_test.go:4:                               SubPlan 2
+    correction_capacity_diagnostic_test.go:4:                                 ->  Index Scan using content_withdrawals_pkey on content_withdrawals w  (cost=0.15..8.18 rows=1 width=0) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                       Index Cond: (id = c_3.withdrawal_id)
+    correction_capacity_diagnostic_test.go:4:                                       Filter: ((kind = d.kind) AND (sha256 = d.sha256) AND ((d.kind = 'asset'::text) OR ((target_id = d.id) AND (target_version = d.version))))
+    correction_capacity_diagnostic_test.go:4:                               SubPlan 4
+    correction_capacity_diagnostic_test.go:4:                                 ->  Index Scan using question_withdrawals_pkey on question_withdrawals w_1  (cost=0.15..8.17 rows=1 width=100) (actual time=0.001..0.001 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                                       Index Cond: (id = c_3.withdrawal_id)
+    correction_capacity_diagnostic_test.go:4:                                       Buffers: shared hit=2
+    correction_capacity_diagnostic_test.go:4:                       SubPlan 9
+    correction_capacity_diagnostic_test.go:4:                         ->  Nested Loop  (cost=0.27..32.68 rows=1 width=0) (never executed)
+    correction_capacity_diagnostic_test.go:4:                               Join Filter: (r.id = d_1.result_id)
+    correction_capacity_diagnostic_test.go:4:                               ->  Index Scan using correction_result_owner_page on correction_results r  (cost=0.14..8.17 rows=1 width=16) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                     Index Cond: ((owner_user_id = e_2.owner) AND (evidence_kind = e_2.kind) AND (evidence_id = e_2.id))
+    correction_capacity_diagnostic_test.go:4:                                     Filter: sealed
+    correction_capacity_diagnostic_test.go:4:                               ->  Index Only Scan using correction_dependency_reverse on correction_dependencies d_1  (cost=0.12..24.50 rows=1 width=16) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                     Filter: (((c_3.withdrawal_space = 'content'::text) AND EXISTS(SubPlan 6)) OR ((c_3.withdrawal_space = 'question'::text) AND (ANY ((kind = (hashed SubPlan 8).col1) AND (id = (hashed SubPlan 8).col2) AND (version = (hashed SubPlan 8).col3) AND (sha256 = (hashed SubPlan 8).col4)))))
+    correction_capacity_diagnostic_test.go:4:                                     Heap Fetches: 0
+    correction_capacity_diagnostic_test.go:4:                                     SubPlan 6
+    correction_capacity_diagnostic_test.go:4:                                       ->  Index Scan using content_withdrawals_pkey on content_withdrawals w_2  (cost=0.15..8.18 rows=1 width=0) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                             Index Cond: (id = c_3.withdrawal_id)
+    correction_capacity_diagnostic_test.go:4:                                             Filter: ((kind = d_1.kind) AND (sha256 = d_1.sha256) AND ((d_1.kind = 'asset'::text) OR ((target_id = d_1.id) AND (target_version = d_1.version))))
+    correction_capacity_diagnostic_test.go:4:                                     SubPlan 8
+    correction_capacity_diagnostic_test.go:4:                                       ->  Index Scan using question_withdrawals_pkey on question_withdrawals w_3  (cost=0.15..8.17 rows=1 width=100) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                             Index Cond: (id = c_3.withdrawal_id)
+    correction_capacity_diagnostic_test.go:4:                       SubPlan 12
+    correction_capacity_diagnostic_test.go:4:                         ->  Nested Loop  (cost=0.29..24.54 rows=1 width=0) (never executed)
+    correction_capacity_diagnostic_test.go:4:                               Join Filter: (((w_4.kind = 'path'::text) AND (p_1.path_id = w_4.target_id) AND (p_1.path_version = w_4.target_version) AND (p_1.path_sha256 = w_4.sha256)) OR ((w_4.kind = 'knowledge'::text) AND EXISTS(SubPlan 10)))
+    correction_capacity_diagnostic_test.go:4:                               ->  Index Scan using content_withdrawals_pkey on content_withdrawals w_4  (cost=0.15..8.17 rows=1 width=100) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                     Index Cond: (id = c_3.withdrawal_id)
+    correction_capacity_diagnostic_test.go:4:                                     Filter: ((kind = 'path'::text) OR (kind = 'knowledge'::text))
+    correction_capacity_diagnostic_test.go:4:                               ->  Index Scan using learning_path_enrollments_id_owner_user_id_key on learning_path_enrollments p_1  (cost=0.15..8.17 rows=1 width=84) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                     Index Cond: ((id = e_2.id) AND (owner_user_id = e_2.owner))
+    correction_capacity_diagnostic_test.go:4:                               SubPlan 10
+    correction_capacity_diagnostic_test.go:4:                                 ->  Index Scan using learning_path_nodes_enrollment_id_knowledge_id_key on learning_path_nodes n  (cost=0.15..8.18 rows=1 width=0) (never executed)
+    correction_capacity_diagnostic_test.go:4:                                       Index Cond: ((enrollment_id = p_1.id) AND (knowledge_id = w_4.target_id))
+    correction_capacity_diagnostic_test.go:4:                                       Filter: ((knowledge_version = w_4.target_version) AND (knowledge_sha256 = w_4.sha256))
+    correction_capacity_diagnostic_test.go:4:   ->  Sort  (cost=5590.58..5591.42 rows=335 width=124) (actual time=0.129..0.130 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:         Sort Key: p.id, p.version
+    correction_capacity_diagnostic_test.go:4:         Sort Method: quicksort  Memory: 25kB
+    correction_capacity_diagnostic_test.go:4:         Buffers: shared hit=84
+    correction_capacity_diagnostic_test.go:4:         ->  Nested Loop  (cost=0.28..5577.75 rows=335 width=124) (actual time=0.128..0.129 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:               Buffers: shared hit=84
+    correction_capacity_diagnostic_test.go:4:               ->  CTE Scan on matched_cases c  (cost=0.00..6.70 rows=335 width=16) (actual time=0.125..0.125 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                     Buffers: shared hit=78
+    correction_capacity_diagnostic_test.go:4:               ->  Index Scan using correction_plan_case_page on correction_plans p  (cost=0.28..16.60 rows=1 width=60) (actual time=0.003..0.003 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                     Index Cond: (case_id = c.id)
+    correction_capacity_diagnostic_test.go:4:                     Filter: (sealed AND (status = 'approved'::text) AND (algorithm_version = 1) AND EXISTS(SubPlan 14))
+    correction_capacity_diagnostic_test.go:4:                     Buffers: shared hit=6
+    correction_capacity_diagnostic_test.go:4:                     SubPlan 14
+    correction_capacity_diagnostic_test.go:4:                       ->  Index Scan using correction_events_subject_kind_subject_id_subject_version_s_key on correction_events v  (cost=0.28..8.30 rows=1 width=4) (actual time=0.001..0.001 rows=1 loops=1)
+    correction_capacity_diagnostic_test.go:4:                             Index Cond: ((subject_kind = 'plan'::text) AND (subject_id = p.id) AND (subject_version = p.version))
+    correction_capacity_diagnostic_test.go:4:                             Filter: (kind = 'plan_approved'::text)
+    correction_capacity_diagnostic_test.go:4:                             Rows Removed by Filter: 2
+    correction_capacity_diagnostic_test.go:4:                             Buffers: shared hit=3
+    correction_capacity_diagnostic_test.go:4: Planning:
+    correction_capacity_diagnostic_test.go:4:   Buffers: shared hit=41
+    correction_capacity_diagnostic_test.go:4: Planning Time: 0.333 ms
+    correction_capacity_diagnostic_test.go:4: Execution Time: 0.156 ms
+    correction_capacity_diagnostic_test.go:4: DIAG real batch50 748.709875ms
+--- PASS: TestCorrectionCapacityDiagnostic (33.62s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	34.205s

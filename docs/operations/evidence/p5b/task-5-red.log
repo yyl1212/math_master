@@ -1,0 +1,14 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_plans_test.go:5:117: f.repo.CreateCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionPlan)
+internal/store/correction_plans_test.go:6:136: f.repo.SubmitCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method SubmitCorrectionPlan)
+internal/store/correction_plans_test.go:9:127: f.repo.UpdateCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method UpdateCorrectionPlan)
+internal/store/correction_plans_test.go:10:16: f.repo.UpdateCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method UpdateCorrectionPlan)
+internal/store/correction_plans_test.go:12:48: f.repo.UpdateCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method UpdateCorrectionPlan)
+internal/store/correction_plans_test.go:13:16: f.repo.DecideCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method DecideCorrectionPlan)
+internal/store/correction_plans_test.go:14:66: f.repo.CreateCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionPlan)
+internal/store/correction_plans_test.go:16:49: f.repo.CreateCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateCorrectionPlan)
+internal/store/correction_plans_test.go:21:178: f.repo.DecideCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method DecideCorrectionPlan)
+internal/store/correction_plans_test.go:23:55: f.repo.DecideCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method DecideCorrectionPlan)
+internal/store/correction_plans_test.go:23:55: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

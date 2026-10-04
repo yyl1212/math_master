@@ -1,0 +1,6 @@
+
+> math-master-frontend@0.1.0 api:generate
+> openapi-typescript ../api/openapi.yaml -o src/lib/api/generated.d.ts
+
+✨ openapi-typescript 7.13.0
+🚀 ../api/openapi.yaml → src/lib/api/generated.d.ts [226.6ms]

@@ -1,0 +1,10 @@
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+    correction_schema_test.go:127: legal original-answer result rejected ERROR: equivalent accurate instance required (SQLSTATE P0001)
+--- FAIL: TestCorrectionSchemaLegalResultAndAudit (0.92s)
+=== RUN   TestCorrectionSchemaPassingKnowledgeRequired
+--- PASS: TestCorrectionSchemaPassingKnowledgeRequired (0.85s)
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+--- PASS: TestCorrectionSchemaUnmappedReplacementRejected (0.96s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	3.382s
+FAIL

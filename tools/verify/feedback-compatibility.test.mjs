@@ -2,13 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import {inverseApprovedCorrectionChanges} from './correction-compatibility.mjs';
 const root = new URL('../../', import.meta.url);
 const read = p => readFileSync(new URL(p, root), 'utf8');
 const baseline = JSON.parse(read('api/feedback-compatibility-baseline.json'));
 const api = JSON.parse(read('api/openapi.yaml'));
 const canonical = v => Array.isArray(v) ? v.map(canonical) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, canonical(v[k])])) : v;
 const digest = v => createHash('sha256').update(JSON.stringify(canonical(v))).digest('hex');
-function compare(actual) {
+function compare(source) {
+  const actual = inverseApprovedCorrectionChanges(source);
   for (const [section, entries] of Object.entries(baseline.sections)) {
     const values = section === 'paths' ? actual.paths : actual.components[section];
     for (const [key, sha] of Object.entries(entries)) assert.equal(digest(values[key]), sha, section + ': ' + key);

@@ -137,8 +137,10 @@ func (s *Store) WithdrawVersion(ctx context.Context, a publication.Access, input
 		if _, err = tx.ExecContext(ctx, `INSERT INTO content_withdrawals(id,kind,target_id,target_version,sha256,actor_user_id,reason,request_id,created_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`, eventID, input.Target.Kind, targetID, targetVersion, sha, u.ID, input.Reason, a.RequestID, now); err != nil {
 			return err
 		}
-		// P4 eligibility checks must take this same lock. P5 can append evidence
-		// restrictions here, before the head changes, and re-evaluate asynchronously.
+		if err = correctionEnqueueWithdrawal(ctx, tx, "content", eventID, now); err != nil {
+			return err
+		}
+		// Withdrawal and its correction outbox share this transaction and content lock.
 		if err = workflowValidateCandidate(ctx, tx, candidate, false); err != nil {
 			return err
 		}

@@ -1,0 +1,12 @@
+=== RUN   TestCorrectionSystemEntryOrderedLocks
+=== RUN   TestCorrectionSystemEntryOrderedLocks/0
+=== RUN   TestCorrectionSystemEntryOrderedLocks/1
+=== RUN   TestCorrectionSystemEntryOrderedLocks/2
+--- PASS: TestCorrectionSystemEntryOrderedLocks (2.36s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/0 (0.82s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/1 (0.78s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/2 (0.77s)
+=== RUN   TestCorrectionSystemEntryWithoutContentLocks
+--- PASS: TestCorrectionSystemEntryWithoutContentLocks (0.76s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	3.743s

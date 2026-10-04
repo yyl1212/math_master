@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 >
-> 日期：2026-10-03。用户已书面确认 P5b 方案及第十一节兼容性变化；本计划待审阅。沿用 Native，由当前会话逐项实现，结束后一次独立整分支审查。本次文档 MR 不实现产品、不运行生产迁移。
+> 日期：2026-10-03。用户已书面确认 P5b 方案及第十一节兼容性变化；用户已确认实施计划，Native实施16项/80步已完成；一次独立审查与同一次三项重要修复、完整本机矩阵和首次SSH draft四项CI已通过，最终文档提交仍按最新head再次核验。产品基线为文档PR #22合并后的 `dad438d13b37d1053e3bf42e7c32e3829e4518a6`；不运行生产迁移。
 
 **Goal:** 错误依据即时限制学习证据；以独立批准的准确依据重判原答案，保留旧事实，给本人提供可查的纠错结果和站内通知。
 
@@ -210,131 +210,131 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 
 ## Task 1：纯契约、状态、权限、摘要
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionValidation/Policy/State/Digest`、`NotificationValidation/Policy` 断言：未知分支/多余字段/非null无关分支/客户端cutoff/非安全整数拒绝；无editor权限不能createPlan，reviewer不能自审，notification只本人；不同purpose相同body摘要不同；draft→pending→独立决策，送审后不可edit。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction ./internal/notification -timeout 5m -count=1`。Expected：缺少新类型/规则的编译失败或对应断言FAIL。
-- [ ] **Step 3 — 最小实现。** 按类型表实现model/policy/state/validation/digest；两个领域不import store/learning，notification的Source只携安全类型，避免循环；动作、limit/Unicode/nullable范围固定。
-- [ ] **Step 4 — GREEN。** 重跑Step2及原 `./internal/assessment ./internal/learning ./internal/feedback` 同样5m命令。Expected：全部PASS，旧purpose集合不增加。
-- [ ] **Step 5 — 提交。** `git add backend/internal/correction backend/internal/notification`；`git commit -m 'feat: 定义纠错与站内通知契约'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionValidation/Policy/State/Digest`、`NotificationValidation/Policy` 断言：未知分支/多余字段/非null无关分支/客户端cutoff/非安全整数拒绝；无editor权限不能createPlan，reviewer不能自审，notification只本人；不同purpose相同body摘要不同；draft→pending→独立决策，送审后不可edit。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction ./internal/notification -timeout 5m -count=1`。Expected：缺少新类型/规则的编译失败或对应断言FAIL。
+- [x] **Step 3 — 最小实现。** 按类型表实现model/policy/state/validation/digest；两个领域不import store/learning，notification的Source只携安全类型，避免循环；动作、limit/Unicode/nullable范围固定。
+- [x] **Step 4 — GREEN。** 重跑Step2及原 `./internal/assessment ./internal/learning ./internal/feedback` 同样5m命令。Expected：全部PASS，旧purpose集合不增加。
+- [x] **Step 5 — 提交。** `git add backend/internal/correction backend/internal/notification`；`git commit -m 'feat: 定义纠错与站内通知契约'`。
 
 ## Task 2：实际实例等价与原答案累计重判
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionFiveOriginalAnswers/EquivalentGenerated/CumulativeConflict/FixedCoverage/PracticeOnly`：corrected4/5通过、3/5失败、skipped=false；替代ID不同但其他等价可判，题意/选项顺序/格式/素材/参数/知识/核心改变不授予；缺一题必须retake；两份同位置冲突awaiting；原答案/Seal序列化前后字节相等，practice只单项不资格。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction -run '^TestCorrection(Five|Equivalent|Cumulative|Fixed|Practice)' -timeout 5m -count=1`。Expected：新判分接口缺失或对应处置断言FAIL。
-- [ ] **Step 3 — 最小实现。** 实现Equivalent/ComposeBasis/Evaluate及注册算法1，复用原数值/单选判分；ordered五位置与core并集一致，显式checked_unaffected/no_approved_basis；parents冻结其PlanRef/effective来源，不生成新题、不重新解释原输入。
-- [ ] **Step 4 — GREEN。** 重跑Step2及 `go test ./internal/correction ./internal/assessment ./internal/question -timeout 5m -count=1`（同CGO/toolchain/包装器）。Expected：新旧精确判分PASS，无数学摘要变化。
-- [ ] **Step 5 — 提交。** `git add backend/internal/correction`；`git commit -m 'feat: 实现固定依据的纠错重判'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionFiveOriginalAnswers/EquivalentGenerated/CumulativeConflict/FixedCoverage/PracticeOnly`：corrected4/5通过、3/5失败、skipped=false；替代ID不同但其他等价可判，题意/选项顺序/格式/素材/参数/知识/核心改变不授予；缺一题必须retake；两份同位置冲突awaiting；原答案/Seal序列化前后字节相等，practice只单项不资格。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction -run '^TestCorrection(Five|Equivalent|Cumulative|Fixed|Practice)' -timeout 5m -count=1`。Expected：新判分接口缺失或对应处置断言FAIL。
+- [x] **Step 3 — 最小实现。** 实现Equivalent/ComposeBasis/Evaluate及注册算法1，复用原数值/单选判分；ordered五位置与core并集一致，显式checked_unaffected/no_approved_basis；parents冻结其PlanRef/effective来源，不生成新题、不重新解释原输入。
+- [x] **Step 4 — GREEN。** 重跑Step2及 `go test ./internal/correction ./internal/assessment ./internal/question -timeout 5m -count=1`（同CGO/toolchain/包装器）。Expected：新旧精确判分PASS，无数学摘要变化。
+- [x] **Step 5 — 提交。** `git add backend/internal/correction`；`git commit -m 'feat: 实现固定依据的纠错重判'`。
 
 ## Task 3：十表迁移与数据库不变量
 
-- [ ] **Step 1 — 写失败数据库测试。** `CorrectionSchemaImmutable/DirectApprovalRejected/Ownership/Marker/Down`：直接SQL修改批准/结果/旧答案、伪造通过、foreign owner/replacement SHA、删除marker/版本8绕过均拒绝；draft正确送审及合法封存可提交；十表空Down后marker保留，任一表有事实Down失败。夹具复用真实独立发布，不禁trigger。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Schema|Migration)' -timeout 5m -count=1`。Expected：不存在十表/marker/守卫，测试FAIL。
-- [ ] **Step 3 — 最小实现。** 按数据表/索引决策写00008与correction_fixture_test；封存结果/依赖及独立决策使用延迟完整性约束，原表guard不替换。marker guard独立保留，source FK按content/question分支，不加第十一表。
-- [ ] **Step 4 — GREEN。** 重跑Step2及 `node tools/verify/run.mjs -- node --test tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs`。Expected：Up/Down和全部负测PASS、原1—7字节不变。
-- [ ] **Step 5 — 提交。** `git add db/migrations/00008_correction_notifications.sql backend/internal/store/correction_fixture_test.go backend/internal/store/correction_schema_test.go backend/internal/store/correction_migration_test.go`；`git commit -m 'feat: 增加纠错通知迁移与不可变约束'`。
+- [x] **Step 1 — 写失败数据库测试。** `CorrectionSchemaImmutable/DirectApprovalRejected/Ownership/Marker/Down`：直接SQL修改批准/结果/旧答案、伪造通过、foreign owner/replacement SHA、删除marker/版本8绕过均拒绝；draft正确送审及合法封存可提交；十表空Down后marker保留，任一表有事实Down失败。夹具复用真实独立发布，不禁trigger。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Schema|Migration)' -timeout 5m -count=1`。Expected：不存在十表/marker/守卫，测试FAIL。
+- [x] **Step 3 — 最小实现。** 按数据表/索引决策写00008与correction_fixture_test；封存结果/依赖及独立决策使用延迟完整性约束，原表guard不替换。marker guard独立保留，source FK按content/question分支，不加第十一表。
+- [x] **Step 4 — GREEN。** 重跑Step2及 `node tools/verify/run.mjs -- node --test tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs`。Expected：Up/Down和全部负测PASS、原1—7字节不变。
+- [x] **Step 5 — 提交。** `git add db/migrations/00008_correction_notifications.sql backend/internal/store/correction_fixture_test.go backend/internal/store/correction_schema_test.go backend/internal/store/correction_migration_test.go`；`git commit -m 'feat: 增加纠错通知迁移与不可变约束'`。
 
 ## Task 4：准确案件、同步限制和身份锁
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionCases/Cutoff/WithdrawalFence/CommitIdentity/PartialConfig`：worker停止时仍立即不qualify；cutoff前active晚提交仍affected，cutoff后新建被阻断；unsupported rule不恢复；知识范围不能误伤另一知识；role撤销/账户停用/缺表/删version8不能开放；withdrawal真实SHA匹配及asset摘要跨ID匹配。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Cases|Cutoff|WithdrawalFence|CommitIdentity|PartialConfig)' -timeout 5m -count=1`。Expected：CreateCorrectionCase/同步guard缺失或资格仍有效FAIL。
-- [ ] **Step 3 — 最小实现。** 实现correctionTx/Configured/sources/cases/restriction及最小idempotency/rate、root登记correctionEnqueueCase；管理员命令固定source/cutoff、同事务事件/job。学习Tx/Preflight配置guard并设置事务context，原passed SQL加correctionOriginalEvidenceSQL；never-enabled返回空SQL，不引用不存在表。原qualification/overview/history同步限制，练习answer/reveal拒绝受限判分但可abandon，检测保留原答案并终结affected。新增Go grading-issue常量与readiness；Task5扩充完整方案额度，不留未保护写入。
-- [ ] **Step 4 — GREEN。** 重跑Step2和旧learning/assessment非capacity批次（末尾矩阵）。Expected：同步负测及旧即时withdrawal限制PASS，未启用00008仍保留原学习行为。
-- [ ] **Step 5 — 提交。** `git add backend/internal/store/correction_{tx,sources,cases,restriction,idempotency,rate}.go backend/internal/store/correction_{tx,sources,cases,restriction,idempotency,rate}_test.go backend/internal/store/learning_{tx,qualification,read,history}.go backend/internal/store/assessment_{commands,read,evidence}.go backend/internal/store/practice_{commands,read}.go backend/internal/{assessment,learning}/model.go`；`git commit -m 'feat: 同步登记纠错案件与规则限制'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionCases/Cutoff/WithdrawalFence/CommitIdentity/PartialConfig`：worker停止时仍立即不qualify；cutoff前active晚提交仍affected，cutoff后新建被阻断；unsupported rule不恢复；知识范围不能误伤另一知识；role撤销/账户停用/缺表/删version8不能开放；withdrawal真实SHA匹配及asset摘要跨ID匹配。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Cases|Cutoff|WithdrawalFence|CommitIdentity|PartialConfig)' -timeout 5m -count=1`。Expected：CreateCorrectionCase/同步guard缺失或资格仍有效FAIL。
+- [x] **Step 3 — 最小实现。** 实现correctionTx/Configured/sources/cases/restriction及最小idempotency/rate、root登记correctionEnqueueCase；管理员命令固定source/cutoff、同事务事件/job。学习Tx/Preflight配置guard并设置事务context，原passed SQL加correctionOriginalEvidenceSQL；never-enabled返回空SQL，不引用不存在表。原qualification/overview/history同步限制，练习answer/reveal拒绝受限判分但可abandon，检测保留原答案并终结affected。新增Go grading-issue常量与readiness；Task5扩充完整方案额度，不留未保护写入。
+- [x] **Step 4 — GREEN。** 重跑Step2和旧learning/assessment非capacity批次（末尾矩阵）。Expected：同步负测及旧即时withdrawal限制PASS，未启用00008仍保留原学习行为。
+- [x] **Step 5 — 提交。** `git add backend/internal/store/correction_{tx,sources,cases,restriction,idempotency,rate}.go backend/internal/store/correction_{tx,sources,cases,restriction,idempotency,rate}_test.go backend/internal/store/learning_{tx,qualification,read,history}.go backend/internal/store/assessment_{commands,read,evidence}.go backend/internal/store/practice_{commands,read}.go backend/internal/{assessment,learning}/model.go`；`git commit -m 'feat: 同步登记纠错案件与规则限制'`。
 
 ## Task 5：版本化方案、独立审核、回执及成功额度
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionPlanVersion/IndependentReview/SourceProof/ReplayAfterAdvance/SlidingBoundary`：作者/创建者不能approve、撤权末尾拒绝；实例参数及原/新publication审批固定；已送审不能改正文，reject之后新版本；相同key在seq推进后原Receipt逐字节相等且event/rate只一次，异body409；左边界不计入、失败/重放不扣额度；feedback resolved不可冒充批准。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Plan|Independent|SourceProof|Replay|Sliding)' -timeout 5m -count=1`。Expected：缺方案/审核方法或保护断言FAIL。
-- [ ] **Step 3 — 最小实现。** 实现Create/Update/Submit/Decide及统一回执/rate；身份/权限→原key→seq/来源/全部数学作者→消费成功scope→事件/投影→提交前复核。送审封存实际参数/发布审核；approve同事务enqueue approved_plan；只有注册算法+独立approve允许新尝试，旧cutoff限制不解除。理由不出现在receipt。
-- [ ] **Step 4 — GREEN。** 重跑Step2和原feedback非capacity批次。Expected：独立审核、原Receipt、全部窗口负测PASS，P5a权限/额度不变。
-- [ ] **Step 5 — 提交。** `git add backend/internal/store/correction_plans.go backend/internal/store/correction_review.go backend/internal/store/correction_idempotency.go backend/internal/store/correction_rate.go`及各 *_test.go；`git commit -m 'feat: 独立批准冻结纠错方案'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionPlanVersion/IndependentReview/SourceProof/ReplayAfterAdvance/SlidingBoundary`：作者/创建者不能approve、撤权末尾拒绝；实例参数及原/新publication审批固定；已送审不能改正文，reject之后新版本；相同key在seq推进后原Receipt逐字节相等且event/rate只一次，异body409；左边界不计入、失败/重放不扣额度；feedback resolved不可冒充批准。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Plan|Independent|SourceProof|Replay|Sliding)' -timeout 5m -count=1`。Expected：缺方案/审核方法或保护断言FAIL。
+- [x] **Step 3 — 最小实现。** 实现Create/Update/Submit/Decide及统一回执/rate；身份/权限→原key→seq/来源/全部数学作者→消费成功scope→事件/投影→提交前复核。送审封存实际参数/发布审核；approve同事务enqueue approved_plan；只有注册算法+独立approve允许新尝试，旧cutoff限制不解除。理由不出现在receipt。
+- [x] **Step 4 — GREEN。** 重跑Step2和原feedback非capacity批次。Expected：独立审核、原Receipt、全部窗口负测PASS，P5a权限/额度不变。
+- [x] **Step 5 — 提交。** `git add backend/internal/store/correction_plans.go backend/internal/store/correction_review.go backend/internal/store/correction_idempotency.go backend/internal/store/correction_rate.go`及各 *_test.go；`git commit -m 'feat: 独立批准冻结纠错方案'`。
 
 ## Task 6：同事务登记、租约、重试及逐证据补扫
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionEnqueueRollback/LeaseClaim/RetryEpoch/LateTerminalAfterRootDone/LegacyTerminalBackfill/RotatingBackfill`：撤回/终结写失败任务也回滚；成功回执重放不造第二事件；两个claim只有一个，过期租约token递增；八次及准确七退避、manual epoch保留cursor/errors；rootdone后晚提交/旧二进制终结逐条补漏，多案件轮转不饿死。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Enqueue|Lease|Retry|LateTerminal|LegacyTerminal|Rotating)' -timeout 5m -count=1`。Expected：无准确outbox/lease/backfill，断言FAIL。
-- [ ] **Step 3 — 最小实现。** 实现job唯一source/DBclock短claim/SKIP LOCKED/fence/续租/Finish及最多50轮转补扫；新撤回和已作答practice/已提交assessment终结在原Tx登记，abandon/expire不假造答案/成绩，既有幂等receipt不重写。过期running重新claim先记前attempt失败；正常batch续扫不增加错误重试次数；错误才进入七次退避。稳定ScanKey存job，补扫分别查root与terminal唯一键。
-- [ ] **Step 4 — GREEN。** 重跑Step2及旧workflow/question撤回/assessment命令对应批次。Expected：无重复任务、无高水位遗漏、所有事务回滚及并发租约PASS。
-- [ ] **Step 5 — 提交。** `git add backend/internal/store/correction_{jobs,backfill}.go backend/internal/store/correction_{jobs,backfill}_test.go backend/internal/store/{workflow_withdrawal,question_withdrawal,assessment_commands,practice_commands}.go`；`git commit -m 'feat: 持久登记纠错任务与有限补扫'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionEnqueueRollback/LeaseClaim/RetryEpoch/LateTerminalAfterRootDone/LegacyTerminalBackfill/RotatingBackfill`：撤回/终结写失败任务也回滚；成功回执重放不造第二事件；两个claim只有一个，过期租约token递增；八次及准确七退避、manual epoch保留cursor/errors；rootdone后晚提交/旧二进制终结逐条补漏，多案件轮转不饿死。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Enqueue|Lease|Retry|LateTerminal|LegacyTerminal|Rotating)' -timeout 5m -count=1`。Expected：无准确outbox/lease/backfill，断言FAIL。
+- [x] **Step 3 — 最小实现。** 实现job唯一source/DBclock短claim/SKIP LOCKED/fence/续租/Finish及最多50轮转补扫；新撤回和已作答practice/已提交assessment终结在原Tx登记，abandon/expire不假造答案/成绩，既有幂等receipt不重写。过期running重新claim先记前attempt失败；正常batch续扫不增加错误重试次数；错误才进入七次退避。稳定ScanKey存job，补扫分别查root与terminal唯一键。
+- [x] **Step 4 — GREEN。** 重跑Step2及旧workflow/question撤回/assessment命令对应批次。Expected：无重复任务、无高水位遗漏、所有事务回滚及并发租约PASS。
+- [x] **Step 5 — 提交。** `git add backend/internal/store/correction_{jobs,backfill}.go backend/internal/store/correction_{jobs,backfill}_test.go backend/internal/store/{workflow_withdrawal,question_withdrawal,assessment_commands,practice_commands}.go`；`git commit -m 'feat: 持久登记纠错任务与有限补扫'`。
 
 ## Task 7：统一当前资格、进度与追加授予
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionProjection/OtherCaseStillRestricts/CompletionLater/OriginalBytes/ProjectionInvalidation/ProjectionSupersededPassNotFallback`：原failed→纠错4/5提供资格但旧qualification不变；normal需当前完成/diagnostic不造阅读；父corrected_passed被获批子failed/retake替代后不兜底，冲突分支awaiting；另一原attempt的有效pass保留；新替代withdraw即时无效；旧original/receipts/unlocks字节不变；overview/path/knowledge latest status一致，memo插入后刷新。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Projection|OtherCase|Completion|OriginalBytes)' -timeout 5m -count=1`。Expected：旧SQL只认原passed，纠错资格/计数断言FAIL。
-- [ ] **Step 3 — 最小实现。** 实现correctionPassingEvidence/Grant及memo invalidation，修改learningCurrentEvidence/EffectivePass/KnowledgeState及overview/path/history实际SQL，不逐节点装全文。Go QualificationView新增CorrectionID可空字段，原证据=null。使用新qualification_granted事件+原unlock source，全部前置共享校验；latest阅读状态按原尝试terminal排序，不能按后台完成时间抢占用户更新的检测。
-- [ ] **Step 4 — GREEN。** 重跑Step2、ProjectionInvalidation及全部旧learning/assessment非capacity批次。Expected：全部当前视图一致、旧合法pass/版本/normal/diag语义PASS；旧数据库伪造failed资格仍拒绝。
-- [ ] **Step 5 — 提交。** `git add backend/internal/store/correction_{projection,grant}.go backend/internal/store/correction_{projection,grant}_test.go backend/internal/store/learning_{qualification,read,history,paths,actions}.go backend/internal/store/assessment_read.go backend/internal/learning/model.go`；`git commit -m 'feat: 将纠错证据纳入当前学习资格'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionProjection/OtherCaseStillRestricts/CompletionLater/OriginalBytes/ProjectionInvalidation/ProjectionSupersededPassNotFallback`：原failed→纠错4/5提供资格但旧qualification不变；normal需当前完成/diagnostic不造阅读；父corrected_passed被获批子failed/retake替代后不兜底，冲突分支awaiting；另一原attempt的有效pass保留；新替代withdraw即时无效；旧original/receipts/unlocks字节不变；overview/path/knowledge latest status一致，memo插入后刷新。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Projection|OtherCase|Completion|OriginalBytes)' -timeout 5m -count=1`。Expected：旧SQL只认原passed，纠错资格/计数断言FAIL。
+- [x] **Step 3 — 最小实现。** 实现correctionPassingEvidence/Grant及memo invalidation，修改learningCurrentEvidence/EffectivePass/KnowledgeState及overview/path/history实际SQL，不逐节点装全文。Go QualificationView新增CorrectionID可空字段，原证据=null。使用新qualification_granted事件+原unlock source，全部前置共享校验；latest阅读状态按原尝试terminal排序，不能按后台完成时间抢占用户更新的检测。
+- [x] **Step 4 — GREEN。** 重跑Step2、ProjectionInvalidation及全部旧learning/assessment非capacity批次。Expected：全部当前视图一致、旧合法pass/版本/normal/diag语义PASS；旧数据库伪造failed资格仍拒绝。
+- [x] **Step 5 — 提交。** `git add backend/internal/store/correction_{projection,grant}.go backend/internal/store/correction_{projection,grant}_test.go backend/internal/store/learning_{qualification,read,history,paths,actions}.go backend/internal/store/assessment_read.go backend/internal/learning/model.go`；`git commit -m 'feat: 将纠错证据纳入当前学习资格'`。
 
 ## Task 8：原子处理、不可变结果和通知
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionProcessAtomic/WithdrawalCommitRace/CumulativeResults/StaleLease/CrashResume/NotificationDedup`：在结果/依赖/资格/通知/断点每个点故障整条回滚；lease过期或旧token不能提交；corrected4/5/3/5/awaiting/retake/review/route静态通知准确；父basis再撤回和两个case不互相掩盖，重跑100次零重复。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Process|WithdrawalCommit|CumulativeResults|StaleLease|CrashResume|NotificationDedup)' -timeout 5m -count=1`。Expected：无处理事务/结果写入或原子性断言FAIL。
-- [ ] **Step 3 — 最小实现。** 实现Process/Evidence/results/notificationAppend；每条content/account锁下重读原答案、获批累计basis和实时限制→纯Evaluate→result/deps封存→invalidate memo→新资格/后继→静态notify→提交前fence及cursor。未终结active只留terminal待检，不读未提交答案、不自动submit；awaiting记录不等同需要retake；无批准不能恢复。
-- [ ] **Step 4 — GREEN。** 重跑Step2及Task2纯判分/Task7投影批次。Expected：全部原子故障/并发PASS，八秒单条/30秒共享预算，无伪分数、无重复授予通知。
-- [ ] **Step 5 — 提交。** `git add backend/internal/store/correction_process.go backend/internal/store/correction_results.go backend/internal/store/notification_write.go`及 *_test.go；`git commit -m 'feat: 原子处理纠错证据与本人通知'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionProcessAtomic/WithdrawalCommitRace/CumulativeResults/StaleLease/CrashResume/NotificationDedup`：在结果/依赖/资格/通知/断点每个点故障整条回滚；lease过期或旧token不能提交；corrected4/5/3/5/awaiting/retake/review/route静态通知准确；父basis再撤回和两个case不互相掩盖，重跑100次零重复。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrection(Process|WithdrawalCommit|CumulativeResults|StaleLease|CrashResume|NotificationDedup)' -timeout 5m -count=1`。Expected：无处理事务/结果写入或原子性断言FAIL。
+- [x] **Step 3 — 最小实现。** 实现Process/Evidence/results/notificationAppend；每条content/account锁下重读原答案、获批累计basis和实时限制→纯Evaluate→result/deps封存→invalidate memo→新资格/后继→静态notify→提交前fence及cursor。未终结active只留terminal待检，不读未提交答案、不自动submit；awaiting记录不等同需要retake；无批准不能恢复。
+- [x] **Step 4 — GREEN。** 重跑Step2及Task2纯判分/Task7投影批次。Expected：全部原子故障/并发PASS，八秒单条/30秒共享预算，无伪分数、无重复授予通知。
+- [x] **Step 5 — 提交。** `git add backend/internal/store/correction_process.go backend/internal/store/correction_results.go backend/internal/store/notification_write.go`及 *_test.go；`git commit -m 'feat: 原子处理纠错证据与本人通知'`。
 
 ## Task 9：本人读取、来源曝光与通知已读
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionOwnPrivacy/ReplacementTemplateExposure/BroadRuleExposure/ResultPagination`、`NotificationCursorIsolation/ReadReplay/Rate`：foreign结果/notification无内容；同微秒跨页不重不漏；metadata零自由文本；新ID同template重合拒绝，过期active不误拦，曝光记账失败正文为空；宽scope读后30分钟阻断新选题；首次readAt与同keyreceipt不变且额度一次。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Correction(Own|ReplacementTemplate|BroadRule|ResultPagination)|Notification)' -timeout 5m -count=1`。Expected：缺私有读取/曝光/已读接口或越权断言FAIL。
-- [ ] **Step 3 — 最小实现。** 实现管理metadata与protected plan detail、本人纠错metadata/detail、notification四方法；先权限WHERE再cursor、响应上限先判断再曝光。原/替代模板并集及范围型detail_exposed处理；通知已读首次insert及notification独立摘要回执/rate，详情无自由理由的metadata路由不记曝光。
-- [ ] **Step 4 — GREEN。** 重跑Step2和旧assessment/private asset/feedback曝光批次。Expected：全部权限/分页/曝光/额度PASS，重放仍先重新认证、两个源都受保护。
-- [ ] **Step 5 — 提交。** `git add backend/internal/store/correction_{read,exposure}.go backend/internal/store/correction_{read,exposure}_test.go backend/internal/store/notification_{read,idempotency}.go backend/internal/store/notification_{read,idempotency}_test.go backend/internal/store/assessment_sources.go`；`git commit -m 'feat: 提供安全纠错读取与通知中心接口'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionOwnPrivacy/ReplacementTemplateExposure/BroadRuleExposure/ResultPagination`、`NotificationCursorIsolation/ReadReplay/Rate`：foreign结果/notification无内容；同微秒跨页不重不漏；metadata零自由文本；新ID同template重合拒绝，过期active不误拦，曝光记账失败正文为空；宽scope读后30分钟阻断新选题；首次readAt与同keyreceipt不变且额度一次。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Correction(Own|ReplacementTemplate|BroadRule|ResultPagination)|Notification)' -timeout 5m -count=1`。Expected：缺私有读取/曝光/已读接口或越权断言FAIL。
+- [x] **Step 3 — 最小实现。** 实现管理metadata与protected plan detail、本人纠错metadata/detail、notification四方法；先权限WHERE再cursor、响应上限先判断再曝光。原/替代模板并集及范围型detail_exposed处理；通知已读首次insert及notification独立摘要回执/rate，详情无自由理由的metadata路由不记曝光。
+- [x] **Step 4 — GREEN。** 重跑Step2和旧assessment/private asset/feedback曝光批次。Expected：全部权限/分页/曝光/额度PASS，重放仍先重新认证、两个源都受保护。
+- [x] **Step 5 — 提交。** `git add backend/internal/store/correction_{read,exposure}.go backend/internal/store/correction_{read,exposure}_test.go backend/internal/store/notification_{read,idempotency}.go backend/internal/store/notification_{read,idempotency}_test.go backend/internal/store/assessment_sources.go`；`git commit -m 'feat: 提供安全纠错读取与通知中心接口'`。
 
 ## Task 10：服务、HTTP、OpenAPI及共享边界
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionService/HTTP/JSON/Integration`、`NotificationHTTP/Integration` 使用共享JSON夹具断言19操作权限、严格query/duplicate key/额外字段、65536/65537byte、2MiB完整response、401/403/CSRF/identity末尾及所有错误；原LearningResultView score/outcome含义不变。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction ./internal/notification ./internal/httpapi -timeout 5m -count=1`。Expected：路由404、缺服务/JSON DTO或严格边界FAIL。
-- [ ] **Step 3 — 最小实现。** 声明完整Repository及Store编译断言，Service转发策略/validation，新增CorrectionOptions/NotificationOptions到application；注册精确API表，named DTO对应闭合联合分支，学习nullable correctionId/grading-issue按批准白名单更新Go/OpenAPI，来源/自由文本不进入日志。
-- [ ] **Step 4 — GREEN。** 重跑Step2和 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...`。Expected：新旧HTTP及named contracts PASS，所有handler ≤8秒、无未实现Repository方法。旧compat测试此时仅批准字段变化失败，Task15精确白名单解决，不改baseline掩盖。
-- [ ] **Step 5 — 提交。** `git add backend/internal/{correction,notification}/{repository,service}.go backend/internal/{correction,notification}/service_test.go backend/internal/httpapi/{correction,notification}_{routes,json,dispatch,error}.go backend/internal/httpapi/correction{,_json,_integration}_test.go backend/internal/httpapi/notification{,_integration}_test.go backend/internal/httpapi/application.go api/openapi.yaml api/correction-boundary-cases.json`；`git commit -m 'feat: 接入纠错通知私有HTTP契约'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionService/HTTP/JSON/Integration`、`NotificationHTTP/Integration` 使用共享JSON夹具断言19操作权限、严格query/duplicate key/额外字段、65536/65537byte、2MiB完整response、401/403/CSRF/identity末尾及所有错误；原LearningResultView score/outcome含义不变。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction ./internal/notification ./internal/httpapi -timeout 5m -count=1`。Expected：路由404、缺服务/JSON DTO或严格边界FAIL。
+- [x] **Step 3 — 最小实现。** 声明完整Repository及Store编译断言，Service转发策略/validation，新增CorrectionOptions/NotificationOptions到application；注册精确API表，named DTO对应闭合联合分支，学习nullable correctionId/grading-issue按批准白名单更新Go/OpenAPI，来源/自由文本不进入日志。
+- [x] **Step 4 — GREEN。** 重跑Step2和 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...`。Expected：新旧HTTP及named contracts PASS，所有handler ≤8秒、无未实现Repository方法。旧compat测试此时仅批准字段变化失败，Task15精确白名单解决，不改baseline掩盖。
+- [x] **Step 5 — 提交。** `git add backend/internal/{correction,notification}/{repository,service}.go backend/internal/{correction,notification}/service_test.go backend/internal/httpapi/{correction,notification}_{routes,json,dispatch,error}.go backend/internal/httpapi/correction{,_json,_integration}_test.go backend/internal/httpapi/notification{,_integration}_test.go backend/internal/httpapi/application.go api/openapi.yaml api/correction-boundary-cases.json`；`git commit -m 'feat: 接入纠错通知私有HTTP契约'`。
 
 ## Task 11：严格客户端、同源代理、响应字节与截止
 
-- [ ] **Step 1 — 写失败测试。** 两域schemas/client/server-client/proxy及learning schema断言共享boundary-cases；无null键/unknown props/孤立代理/非法cursor/版本/多query拒绝；response超限/actor不一致拒绝；identity挂起或消费流挂起总10秒终止；命令中断只保留原key，不自动重复POST。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/correction src/lib/notification src/lib/api/correction-proxy.test.ts src/lib/api/notification-proxy.test.ts src/lib/learning/schemas.test.ts`。Expected：新client/schema/代理缺失或严格边界FAIL。
-- [ ] **Step 3 — 最小实现。** 按固定方法实现types/schemas/bytes/client/server-client、Next代理及两命名空间routes；复用私有cookie/CSRF/no-store及deadline机制；metadata/完整正文严格不同schema；`npm run api:generate`更新实际 lib/api/generated.d.ts，旧learning夹具显式correctionId=null及新enum。
-- [ ] **Step 4 — GREEN。** 重跑Step2、`node tools/verify/run.mjs --cwd frontend -- npm run typecheck`、生成类型并检查只含批准/新增差异。Expected：TS/Go共享字节和严格结构一致，无any/双重断言绕过parser。
-- [ ] **Step 5 — 提交。** `git add frontend/src/lib/{correction,notification} frontend/src/lib/api/{correction,notification}-proxy.ts frontend/src/lib/api/{correction,notification}-proxy.test.ts frontend/src/app/api/v1/corrections frontend/src/app/api/v1/notifications frontend/src/lib/learning/{types,schemas,test-fixtures}.ts frontend/src/lib/learning/schemas.test.ts frontend/src/lib/api/generated.d.ts`；`git commit -m 'feat: 增加纠错通知严格客户端与代理'`。
+- [x] **Step 1 — 写失败测试。** 两域schemas/client/server-client/proxy及learning schema断言共享boundary-cases；无null键/unknown props/孤立代理/非法cursor/版本/多query拒绝；response超限/actor不一致拒绝；identity挂起或消费流挂起总10秒终止；命令中断只保留原key，不自动重复POST。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/correction src/lib/notification src/lib/api/correction-proxy.test.ts src/lib/api/notification-proxy.test.ts src/lib/learning/schemas.test.ts`。Expected：新client/schema/代理缺失或严格边界FAIL。
+- [x] **Step 3 — 最小实现。** 按固定方法实现types/schemas/bytes/client/server-client、Next代理及两命名空间routes；复用私有cookie/CSRF/no-store及deadline机制；metadata/完整正文严格不同schema；`npm run api:generate`更新实际 lib/api/generated.d.ts，旧learning夹具显式correctionId=null及新enum。
+- [x] **Step 4 — GREEN。** 重跑Step2、`node tools/verify/run.mjs --cwd frontend -- npm run typecheck`、生成类型并检查只含批准/新增差异。Expected：TS/Go共享字节和严格结构一致，无any/双重断言绕过parser。
+- [x] **Step 5 — 提交。** `git add frontend/src/lib/{correction,notification} frontend/src/lib/api/{correction,notification}-proxy.ts frontend/src/lib/api/{correction,notification}-proxy.test.ts frontend/src/app/api/v1/corrections frontend/src/app/api/v1/notifications frontend/src/lib/learning/{types,schemas,test-fixtures}.ts frontend/src/lib/learning/schemas.test.ts frontend/src/lib/api/generated.d.ts`；`git commit -m 'feat: 增加纠错通知严格客户端与代理'`。
 
 ## Task 12：英文审核、纠错结果与通知私有页面
 
-- [ ] **Step 1 — 写失败组件测试。** `CorrectionConfirmedPendingRefresh/ActorDeadline/PrivateDraftRefresh/SSRActorSwitch`、`NotificationReadPending`：POST确认后GET失败不能清key；页面refresh不清draft；身份永不返回/read与retry都10秒终止；SSR actorA/实时actorB整子树原子卸载，点击正在核验时UI禁重复；correction六状态无伪分数；已读失败允许同keymanual retry，账户切换零旧私有文本。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/correction src/features/notification`。Expected：新页面/恢复状态缺失或上述断言FAIL。
-- [ ] **Step 3 — 最小实现。** 实现文件表中的五页面和account/pending-command/page-data组件。计划操作有固定输入快照、手动retry、独立review按钮；详情与正文分开加载；结果 Original result/Corrected result/Retake required/Review material；通知静态文字链接本人结果，不生成新题或伪完成记录。
-- [ ] **Step 4 — GREEN。** 重跑Step2、全前端 `npm test` 及 `npm run typecheck`（分别包装器）。Expected：新负测及原283单元全部PASS，输入和pending仅内存，无长期私有缓存。
-- [ ] **Step 5 — 提交。** `git add frontend/src/features/{correction,notification} frontend/src/app/review/corrections frontend/src/app/corrections frontend/src/app/notifications`；`git commit -m 'feat: 增加英文纠错审核与通知页面'`。
+- [x] **Step 1 — 写失败组件测试。** `CorrectionConfirmedPendingRefresh/ActorDeadline/PrivateDraftRefresh/SSRActorSwitch`、`NotificationReadPending`：POST确认后GET失败不能清key；页面refresh不清draft；身份永不返回/read与retry都10秒终止；SSR actorA/实时actorB整子树原子卸载，点击正在核验时UI禁重复；correction六状态无伪分数；已读失败允许同keymanual retry，账户切换零旧私有文本。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/correction src/features/notification`。Expected：新页面/恢复状态缺失或上述断言FAIL。
+- [x] **Step 3 — 最小实现。** 实现文件表中的五页面和account/pending-command/page-data组件。计划操作有固定输入快照、手动retry、独立review按钮；详情与正文分开加载；结果 Original result/Corrected result/Retake required/Review material；通知静态文字链接本人结果，不生成新题或伪完成记录。
+- [x] **Step 4 — GREEN。** 重跑Step2、全前端 `npm test` 及 `npm run typecheck`（分别包装器）。Expected：新负测及原283单元全部PASS，输入和pending仅内存，无长期私有缓存。
+- [x] **Step 5 — 提交。** `git add frontend/src/features/{correction,notification} frontend/src/app/review/corrections frontend/src/app/corrections frontend/src/app/notifications`；`git commit -m 'feat: 增加英文纠错审核与通知页面'`。
 
 ## Task 13：旧页面入口与真实浏览器联调
 
-- [ ] **Step 1 — 写失败测试。** evidence/qualification link及三个浏览器文件：真实撤回→即时限制→独立approve→有限批处理→本人corrected/retake→通知首次read；原答案/result历史链接不丢；跨账户/同模板替代/宽规则/停用/revoke；POST成功GET失败和SSRA→B。每个场景1280×900与390×844。
-- [ ] **Step 2 — RED。** 逐批 `node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- correction-user.spec.ts`，然后 correction-review.spec.ts、notification-security.spec.ts，均≤8m。Expected：缺harness场景/入口或真实端到端断言FAIL。
-- [ ] **Step 3 — 最小实现。** 旧result/history/currentqual通过明确ref读取本人metadata，不在旧payload塞纠错成绩；header提供通知入口。harness使用随机testutil库及真实发布/批准/Store方法，控制接口仅loopback+随机token；新场景显式run bounded job；增加十表FK共享reset，原learning/feedback场景也重置干净，不关trigger或增加公开调试路由。
-- [ ] **Step 4 — GREEN。** 重跑三新批次、`go test ./internal/e2etest ./internal/testutil -timeout 5m -count=1`及原17浏览器批次（逐批）。Expected：原130+新增浏览器全部PASS、无skip/retry/残留跨场景通知，桌面手机布局证据可复查。
-- [ ] **Step 5 — 提交。** `git add frontend/src/features/correction/{evidence-link,qualification-link}.tsx frontend/src/features/correction/{evidence-link,qualification-link}.test.tsx frontend/src/features/assessment/result-panel.tsx frontend/src/features/learning/{history-list,overview-panel,path-progress,knowledge-controls,learning-status}.tsx frontend/src/components/site-header.tsx backend/internal/e2etest/correction_{fixture,control}.go backend/internal/e2etest/correction_fixture_test.go backend/internal/e2etest/{harness,learning_fixture,learning_control}.go tests/e2e/{correction-user,correction-review,notification-security}.spec.ts tests/e2e/correction-helpers.ts`；`git commit -m 'feat: 联通学习结果纠错入口与真实联调'`。
+- [x] **Step 1 — 写失败测试。** evidence/qualification link及三个浏览器文件：真实撤回→即时限制→独立approve→有限批处理→本人corrected/retake→通知首次read；原答案/result历史链接不丢；跨账户/同模板替代/宽规则/停用/revoke；POST成功GET失败和SSRA→B。每个场景1280×900与390×844。
+- [x] **Step 2 — RED。** 逐批 `node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- correction-user.spec.ts`，然后 correction-review.spec.ts、notification-security.spec.ts，均≤8m。Expected：缺harness场景/入口或真实端到端断言FAIL。
+- [x] **Step 3 — 最小实现。** 旧result/history/currentqual通过明确ref读取本人metadata，不在旧payload塞纠错成绩；header提供通知入口。harness使用随机testutil库及真实发布/批准/Store方法，控制接口仅loopback+随机token；新场景显式run bounded job；增加十表FK共享reset，原learning/feedback场景也重置干净，不关trigger或增加公开调试路由。
+- [x] **Step 4 — GREEN。** 重跑三新批次、`go test ./internal/e2etest ./internal/testutil -timeout 5m -count=1`及原17浏览器批次（逐批）。Expected：原130+新增浏览器全部PASS、无skip/retry/残留跨场景通知，桌面手机布局证据可复查。
+- [x] **Step 5 — 提交。** `git add frontend/src/features/correction/{evidence-link,qualification-link}.tsx frontend/src/features/correction/{evidence-link,qualification-link}.test.tsx frontend/src/features/assessment/result-panel.tsx frontend/src/features/learning/{history-list,overview-panel,path-progress,knowledge-controls,learning-status}.tsx frontend/src/components/site-header.tsx backend/internal/e2etest/correction_{fixture,control}.go backend/internal/e2etest/correction_fixture_test.go backend/internal/e2etest/{harness,learning_fixture,learning_control}.go tests/e2e/{correction-user,correction-review,notification-security}.spec.ts tests/e2e/correction-helpers.ts`；`git commit -m 'feat: 联通学习结果纠错入口与真实联调'`。
 
 ## Task 14：runner、有限维护CLI及退出连接预算
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionRunnerBudget/BackfillTick/CancelDrain/CLI`：同批总30秒、每条≤剩余时间且renew提前，worker≤2连接/池总10；关闭worker同步guard仍生效；退出等待事务后关DB；never-enabled安静idle，曾启用缺表显式错误；CLI batches1—10、limit1—50、默认1/50，非法值拒绝、无无限模式，输出无DSN/答案。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction ./internal/config ./internal/cli -timeout 5m -count=1`。Expected：无Runner/配置/CLI或预算退出断言FAIL。
-- [ ] **Step 3 — 最小实现。** WorkerRepository驱动runner，startup与每分钟Backfill，任务无可领时等待可取消ticker；CORRECTION_WORKER_ENABLED严格bool默认true，固定并发1，不提高连接池。main同步等待worker和HTTP关闭后db.Close，日志仅jobID/errorClass。维护CLI只读本地配置，最多10个30秒批次，使用相同认领/锁/算法，never-enabled退出明确未配置。
-- [ ] **Step 4 — GREEN。** 重跑Step2、`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...`，CLI test调用一次随机库批次。Expected：全部生命周期/连接预算PASS，不启动生产任务、不持有认领锁做正文。
-- [ ] **Step 5 — 提交。** `git add backend/internal/correction/{worker,runner}.go backend/internal/correction/{worker,runner}_test.go backend/internal/cli/correction.go backend/internal/cli/correction_test.go backend/cmd/correction-maintenance/main.go backend/cmd/server/main.go backend/internal/config/{config.go,config_test.go} .env.example backend/internal/e2etest/harness.go`；`git commit -m 'feat: 运行有限纠错worker与维护命令'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionRunnerBudget/BackfillTick/CancelDrain/CLI`：同批总30秒、每条≤剩余时间且renew提前，worker≤2连接/池总10；关闭worker同步guard仍生效；退出等待事务后关DB；never-enabled安静idle，曾启用缺表显式错误；CLI batches1—10、limit1—50、默认1/50，非法值拒绝、无无限模式，输出无DSN/答案。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction ./internal/config ./internal/cli -timeout 5m -count=1`。Expected：无Runner/配置/CLI或预算退出断言FAIL。
+- [x] **Step 3 — 最小实现。** WorkerRepository驱动runner，startup与每分钟Backfill，任务无可领时等待可取消ticker；CORRECTION_WORKER_ENABLED严格bool默认true，固定并发1，不提高连接池。main同步等待worker和HTTP关闭后db.Close，日志仅jobID/errorClass。维护CLI只读本地配置，最多10个30秒批次，使用相同认领/锁/算法，never-enabled退出明确未配置。
+- [x] **Step 4 — GREEN。** 重跑Step2、`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...`，CLI test调用一次随机库批次。Expected：全部生命周期/连接预算PASS，不启动生产任务、不持有认领锁做正文。
+- [x] **Step 5 — 提交。** `git add backend/internal/correction/{worker,runner}.go backend/internal/correction/{worker,runner}_test.go backend/internal/cli/correction.go backend/internal/cli/correction_test.go backend/cmd/correction-maintenance/main.go backend/cmd/server/main.go backend/internal/config/{config.go,config_test.go} .env.example backend/internal/e2etest/harness.go`；`git commit -m 'feat: 运行有限纠错worker与维护命令'`。
 
 ## Task 15：最大容量、旧契约保护与回退证明
 
-- [ ] **Step 1 — 写失败测试。** `CorrectionCapacityImpact` 保留1000案件/1000批准方案/10000受影响证据，`CorrectionCapacityNotifications` 保留10000通知/10000同源重跑；分页/批次直到全部，断言expected sets完全相等、不重不漏/正文内存不全量/无重复授予；`CorrectionCompatibility` 原failed guard、旧回执/成绩、空/非空Down、启用标记及缺表fail closed。Node负测删除旧path、超白名单字段、阈值、旧migration或purpose皆FAIL。
-- [ ] **Step 2 — RED。** 两新capacity各 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrectionCapacityImpact$' -timeout 5m -count=1 -v`（通知替换为Notifications）；`node tools/verify/run.mjs -- node --test tools/verify/correction-compatibility.test.mjs`。Expected：未优化/未保护容量或白名单FAIL，不能降低数量/延时。
-- [ ] **Step 3 — 最小实现。** 从产品基线记录88paths/220schemas/32responses/3security及1—7migration哈希/旧purpose到新baseline；旧feedback baseline文件不重写，只对精确批准JSON pointers做可逆归一化，并先断言新形状完全符合白名单。未获批准变化仍对原hash；必要索引/SQL仅限Task3决策，容量夹具复用独立审核事实且保留所有约束，不按每API请求创建1000来源。
-- [ ] **Step 4 — GREEN。** 重跑两新容量/Compatibility，旧三capacity逐批，全部Node兼容。Expected：全部数量/连续完整扫描及锁负测PASS，每批≤5m；旧字节/数学用途保护仍可复现，新增规范field明确记录。
-- [ ] **Step 5 — 提交。** `git add backend/internal/store/correction_{capacity,compatibility}_test.go api/correction-compatibility-baseline.json tools/verify/correction-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs`；若容量定位要求修改已列索引/query，另按实际文件逐个add且不得扩大范围；`git commit -m 'test: 验证纠错最大容量与契约兼容'`。
+- [x] **Step 1 — 写失败测试。** `CorrectionCapacityImpact` 保留1000案件/1000批准方案/10000受影响证据，`CorrectionCapacityNotifications` 保留10000通知/10000同源重跑；分页/批次直到全部，断言expected sets完全相等、不重不漏/正文内存不全量/无重复授予；`CorrectionCompatibility` 原failed guard、旧回执/成绩、空/非空Down、启用标记及缺表fail closed。Node负测删除旧path、超白名单字段、阈值、旧migration或purpose皆FAIL。
+- [x] **Step 2 — RED。** 两新capacity各 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrectionCapacityImpact$' -timeout 5m -count=1 -v`（通知替换为Notifications）；`node tools/verify/run.mjs -- node --test tools/verify/correction-compatibility.test.mjs`。Expected：未优化/未保护容量或白名单FAIL，不能降低数量/延时。
+- [x] **Step 3 — 最小实现。** 从产品基线记录88paths/220schemas/32responses/3security及1—7migration哈希/旧purpose到新baseline；旧feedback baseline文件不重写，只对精确批准JSON pointers做可逆归一化，并先断言新形状完全符合白名单。未获批准变化仍对原hash；必要索引/SQL仅限Task3决策，容量夹具复用独立审核事实且保留所有约束，不按每API请求创建1000来源。
+- [x] **Step 4 — GREEN。** 重跑两新容量/Compatibility，旧三capacity逐批，全部Node兼容。Expected：全部数量/连续完整扫描及锁负测PASS，每批≤5m；旧字节/数学用途保护仍可复现，新增规范field明确记录。
+- [x] **Step 5 — 提交。** `git add backend/internal/store/correction_{capacity,compatibility}_test.go api/correction-compatibility-baseline.json tools/verify/correction-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs`；若容量定位要求修改已列索引/query，另按实际文件逐个add且不得扩大范围；`git commit -m 'test: 验证纠错最大容量与契约兼容'`。
 
 ## Task 16：CI、恢复说明、完整回归与一次独立审查
 
-- [ ] **Step 1 — 写失败CI保护测试。** 新CorrectionCI及旧FeedbackCI扩展：删除任一原17browser/三capacity、改变原5m/8m/9m/30m、skip旧Question、将新batch只写在step名、重复/遗漏新测试分类皆FAIL；新20浏览器批次包含全部old prefix，原foundation11包保留并加入两新包，新增独立Gojob包含Correction非capacity及两新capacity，全部真实可执行。
-- [ ] **Step 2 — RED。** `node tools/verify/run.mjs -- node --test tools/verify/correction-ci.test.mjs tools/verify/feedback-ci.test.mjs`。Expected：新job/新浏览器未运行，保护FAIL。
-- [ ] **Step 3 — 最小实现。** backend.yml保留原verify job与三capacity，旧store skip仅扩为 `^Test(Learning|Assessment|Feedback|Correction|Notification)`；新增 correction_verify job，独立同版本PG服务/锁定Actions/CGO环境，执行新非capacity/两capacity各5m，两个job各30m。frontend只追加三browser批次，原17顺序保持。文档记录source/cutoff/六处置、审批、补扫、八次+manual恢复、关闭worker仍限制、曾启用缺表、二进制回退维护与十表非空Down拒绝，验收记录不预写PASS。
-- [ ] **Step 4 — 完整GREEN与独立审查。** 执行下列矩阵，保留精确SHA/命令/退出码/耗时/脱敏结果及双视口截图；Native完成全部功能后 requesting-code-review 安排一位新reviewer审查master→全分支实际diff/方案/计划/证据。重要问题先RED回归→最小修复→受影响复验，最后完整矩阵一次。Expected：原全部+新增测试PASS、零阻塞/重要未解决问题；交付指标为实际数量，不预承诺新增case数量。
-- [ ] **Step 5 — 交付。** `git add tools/verify/{correction,feedback}-ci.test.mjs .github/workflows/{backend,frontend}.yml docs/operations/correction-workflow.md docs/operations/2026-10-03-p5b-{acceptance,final-review}.md docs/operations/evidence/p5b docs/superpowers/specs/2026-10-03-correction-impact-design.md docs/superpowers/plans/2026-10-03-correction-impact.md docs/superpowers/plans/2026-09-30-development-roadmap.md`；`git commit -m 'test: 完成P5b回归审查与恢复证据'`。SSH正常push产品分支，`gh pr create --draft --base master --body-file <脱敏中文说明文件>`，成功后attach_artifact；读取最新完整head的四workflow runs及全部jobs，全部成功后汇报PR。不自行合并实现MR、不部署；四run验收记录必须是最新head，文档再push需再次核对。
+- [x] **Step 1 — 写失败CI保护测试。** 新CorrectionCI及旧FeedbackCI扩展：删除任一原17browser/三capacity、改变原5m/8m/9m/30m、skip旧Question、将新batch只写在step名、重复/遗漏新测试分类皆FAIL；新20浏览器批次包含全部old prefix，原foundation11包保留并加入两新包，新增独立Gojob包含Correction非capacity及两新capacity，全部真实可执行。
+- [x] **Step 2 — RED。** `node tools/verify/run.mjs -- node --test tools/verify/correction-ci.test.mjs tools/verify/feedback-ci.test.mjs`。Expected：新job/新浏览器未运行，保护FAIL。
+- [x] **Step 3 — 最小实现。** backend.yml保留原verify job与三capacity，旧store skip仅扩为 `^Test(Learning|Assessment|Feedback|Correction|Notification)`；新增 correction_verify job，独立同版本PG服务/锁定Actions/CGO环境，执行新非capacity/两capacity各5m，两个job各30m。frontend只追加三browser批次，原17顺序保持。文档记录source/cutoff/六处置、审批、补扫、八次+manual恢复、关闭worker仍限制、曾启用缺表、二进制回退维护与十表非空Down拒绝，验收记录不预写PASS。
+- [x] **Step 4 — 完整GREEN与独立审查。** 执行下列矩阵，保留精确SHA/命令/退出码/耗时/脱敏结果及双视口截图；Native完成全部功能后 requesting-code-review 安排一位新reviewer审查master→全分支实际diff/方案/计划/证据。重要问题先RED回归→最小修复→受影响复验，最后完整矩阵一次。Expected：原全部+新增测试PASS、零阻塞/重要未解决问题；交付指标为实际数量，不预承诺新增case数量。
+- [x] **Step 5 — 交付。** `git add tools/verify/{correction,feedback}-ci.test.mjs .github/workflows/{backend,frontend}.yml docs/operations/correction-workflow.md docs/operations/2026-10-03-p5b-{acceptance,final-review}.md docs/operations/evidence/p5b docs/superpowers/specs/2026-10-03-correction-impact-design.md docs/superpowers/plans/2026-10-03-correction-impact.md docs/superpowers/plans/2026-09-30-development-roadmap.md`；`git commit -m 'test: 完成P5b回归审查与恢复证据'`。SSH正常push产品分支，`gh pr create --draft --base master --body-file <脱敏中文说明文件>`，成功后attach_artifact；读取最新完整head的四workflow runs及全部jobs，全部成功后汇报PR。不自行合并实现MR、不部署；四run验收记录必须是最新head，文档再push需再次核对。
 
 ## 完整验证矩阵
 
@@ -345,7 +345,7 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 | 格式/入口 | `git diff --check`；`node tools/verify/run.mjs --cwd backend -- node -e 'const {spawnSync}=require("node:child_process");const r=spawnSync("gofmt",["-l","."],{encoding:"utf8"});process.stdout.write(r.stdout??"");process.exit(r.status!==0?1:r.stdout.trim()?1:0)'` |
 | 全部Node保护 | `node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs` |
 | Go静态 | `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...` |
-| Go纯/HTTP/harness | `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1` |
+| Go纯/HTTP/harness | `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1` |
 | 原store/CLI | `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip '^Test(Learning|Assessment|Feedback|Correction|Notification)' -timeout 5m -count=1`；CLI新Correction命名测试在新增非capacity批次包含 ./internal/cli，不能因skip遗漏 |
 | 学习/检测 | `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Learning|Assessment)' -skip '^TestLearningCapacity' -timeout 5m -count=1` |
 | 反馈 | `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback' -skip '^TestFeedbackCapacity' -timeout 5m -count=1` |
@@ -396,4 +396,37 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 | §11 批准兼容性的字段/旧事实/回退限制 | 白名单及数据决策、Task3/7/10/11/15/16 |
 | §12 用户审阅计划、Native实施及MR | 本文状态、实施前基线、Task16 |
 
-请审阅计划是否覆盖你的目标；确认后沿用 Native。实现前按最新master新建产品分支、基线通过后逐项执行，最后独立审查/回归/SSH MR。当前16项均未开始，尚无P5b产品验收结论。
+用户已确认并沿用Native；最新master隔离分支与基线预检已完成，Task1—15逐项提交。Task16的一次独立审查与同一次必要修复已经完成，修复后350前端/146双视口/44Node/全部Go及五容量完整矩阵通过，SSH draft与最新head四项CI尚在交付，产品合并与生产部署需另行授权。
+
+
+## 实施中的必要文件补充
+
+不扩展已批准的公开契约或兼容性范围；以下补充来自真实回归和容量定位，具体裁定随验收账本保存。
+
+| 任务 | 补充文件或修改 | 原因 |
+| --- | --- | --- |
+| 14 | backend/cmd/server/main_test.go；store/correction_worker_test.go | 验证停止接收后等待HTTP/worker退出，真实旧库与损坏库分支 |
+| 15 | store/correction_schema_manifest.go；correction_tx.go | 必需约束/准确触发器绑定/函数/唯一索引fail closed，同时减少catalog查询往返 |
+| 15 | store/correction_backfill.go、correction_process.go、correction_results.go | 固定kind SQL与单结果批量依赖INSERT，保留50条与全部事务/行守卫 |
+| 15 | store/correction_jobs_test.go、correction_process_test.go、correction_capacity_internal_test.go | 终结owner边界、批量末行失败原子回滚、仅测试调用生产通知append |
+| 15 | tools/verify/correction-compatibility.mjs | 精确逆向批准JSON pointers，旧完整schema hash继续核验 |
+| 15 | store/{import,auth_fixture,workflow_fixture,question_fixture,learning_fixture,feedback_fixture,feedback_capacity}_test.go | 旧missing-feedback场景从UpTo(7)建立真实从未启用库，不清永久标记，不变原数量/锁/断言 |
+| 16 | 原foundation批加入 ./cmd/server | server退出回归不能被CI漏跑；原11包及两个新包仍全部运行 |
+
+## Task16 独立审查的一次必要修复
+
+只安排一位fresh reviewer，最终原结论With fixes；三项按用户影响均为Important。按[修复方案](../../operations/2026-10-03-p5b-review-fixes.md)及[审查记录](../../operations/2026-10-03-p5b-final-review.md)先正式RED，后最小修复和完整矩阵。补充store/correction_assets.go、correction_review_regression_test.go；修改第八迁移批准链守卫、correction repository/service、HTTP route/dispatch与测试、OpenAPI/generated、纠错SVG proxy及types/schemas、结果配图组件和admin入口能力、隔离harness及双视口图片测试。兼容性审查结论无阻塞：仅增加本人有效结果私有SVG路径/操作，原16路径/19操作继续保留，实际共17路径/20操作；原88路径及旧schema/response/security完整保护，不改旧七迁移、摘要目的、数学五题门槛或生产数据。
+
+Task16交付的同一次CI性能修复继续按[事务往返结构审核](../../operations/2026-10-03-p5b-ci-query-fix.md)执行；只合并实时准确SQL往返，保留全部任务/数据/校验/独立证据事务/截止和四run门槛。未完成旧head矩阵不作为验收。
+
+CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修复审核](../../operations/2026-10-03-p5b-ci-query-fix.md)优化准确schema索引、案件分支估算及同事务准确前置/末尾读取往返、原事务语句批次及隔离夹具数据库时钟，不改数量/截止/守卫。全部Go、前端、20批浏览器在 `177ed57186a662db87b2b0fd0d56384607de3936` 新鲜完整复验，44命令/350前端/146浏览器/44Node/五容量PASS；首次失败和历史矩阵保留。产品草稿PR #23的最新完整head四run/全部job仍须实际核验。
+
+## P5b 实施交付记录
+
+16项/80步全部完成，最终逐任务账本、27项裁定及完整证据见[实施账本](../../operations/evidence/p5b/implementation-ledger.md)和[验收记录](../../operations/2026-10-03-p5b-acceptance.md)。已创建[产品草稿PR](https://github.com/yyl1212/math_master/pull/23)，首次head `177ed57186a662db87b2b0fd0d56384607de3936` 的Go/前端push及PR四workflow与六job均已通过；本归档再提交后仍再次核验最终head。不自动合并、不部署。
+
+交付证据QA补充Ruling27：原始stdout保持逐字节及SHA，仅在人工文档空白风格检查中排除准确证据目录的*.log；所有源码、JSON及诊断脚本继续检查，未变更Git设置、CI或测试预算。准确默认RED/限定GREEN及manifest核验已归档；全部27项裁定、16任务/80步完成，最新完整文档head仍以PR说明的四run/六job验收为准。
+
+同一次必要修复轮追加Ruling28：最终文档90fd12d容量5m真实失败，仅将补扫terminal候选按当前已锁定案件参数化，保持原谓词/顺序/50预算/全部守卫；完整原容量与所有44命令在产品 `d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb` 新鲜PASS，350前端/146浏览器/44Node/五容量，完整28裁定见实施账本。一次独立reviewer及零deferred minor保持；新最终归档head的四workflow/六job必须实际成功，最新结论以PR #23说明为准。
+
+同一次必要修复轮追加Ruling29：完整head215a8ed1的PR容量5m真实失败，采用已测现有规则索引最早日期排除必空范围、锁定案件根/方案/类型有依赖元数据读取；原谓词/顺序/50预算/全部守卫和worker保持。产品 `4f0f0441e5317f1ad8c33a8a86c81c2291a17b76` 全44命令新鲜PASS，350前端/146浏览器/44Node/五容量；29裁定完整归档，一次独立reviewer、零deferred minor。最终最新head四workflow/六job仍须实际成功，以PR #23最新说明为准。

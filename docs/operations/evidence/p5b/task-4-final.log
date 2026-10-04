@@ -1,0 +1,50 @@
+=== RUN   TestCorrectionCasesImmediateRestrictionAndReplay
+--- PASS: TestCorrectionCasesImmediateRestrictionAndReplay (1.01s)
+=== RUN   TestCorrectionCutoffLateSubmissionAndNewAttempt
+--- PASS: TestCorrectionCutoffLateSubmissionAndNewAttempt (0.88s)
+=== RUN   TestCorrectionCasesScopeAndUnknownRule
+--- PASS: TestCorrectionCasesScopeAndUnknownRule (1.16s)
+=== RUN   TestCorrectionCasesPracticeStopsGradingAllowsAbandon
+--- PASS: TestCorrectionCasesPracticeStopsGradingAllowsAbandon (0.88s)
+=== RUN   TestCorrectionPartialConfigNeverEnabledLegacy
+--- PASS: TestCorrectionPartialConfigNeverEnabledLegacy (0.23s)
+=== RUN   TestCorrectionCutoffRegistrationCommitFence
+=== RUN   TestCorrectionCutoffRegistrationCommitFence/registration-first
+=== RUN   TestCorrectionCutoffRegistrationCommitFence/learner-first
+--- PASS: TestCorrectionCutoffRegistrationCommitFence (1.84s)
+    --- PASS: TestCorrectionCutoffRegistrationCommitFence/registration-first (0.91s)
+    --- PASS: TestCorrectionCutoffRegistrationCommitFence/learner-first (0.93s)
+=== RUN   TestCorrectionCommitIdentityRoleRevokedDuringLockWait
+--- PASS: TestCorrectionCommitIdentityRoleRevokedDuringLockWait (0.79s)
+=== RUN   TestCorrectionWithdrawalFenceRealSource
+--- PASS: TestCorrectionWithdrawalFenceRealSource (0.92s)
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/instance
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/asset
+--- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset (1.75s)
+    --- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/instance (0.87s)
+    --- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/asset (0.88s)
+=== RUN   TestCorrectionCommitIdentityFreshReplay
+=== RUN   TestCorrectionCommitIdentityFreshReplay/role
+=== RUN   TestCorrectionCommitIdentityFreshReplay/credential
+=== RUN   TestCorrectionCommitIdentityFreshReplay/password
+=== RUN   TestCorrectionCommitIdentityFreshReplay/csrf
+--- PASS: TestCorrectionCommitIdentityFreshReplay (3.15s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/role (0.79s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/credential (0.80s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/password (0.78s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/csrf (0.78s)
+=== RUN   TestCorrectionPartialConfigFailsClosed
+=== RUN   TestCorrectionPartialConfigFailsClosed/table
+=== RUN   TestCorrectionPartialConfigFailsClosed/version
+=== RUN   TestCorrectionPartialConfigFailsClosed/column
+=== RUN   TestCorrectionPartialConfigFailsClosed/trigger
+=== RUN   TestCorrectionPartialConfigFailsClosed/empty-down
+--- PASS: TestCorrectionPartialConfigFailsClosed (3.82s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/table (0.76s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/version (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/column (0.77s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/trigger (0.77s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/empty-down (0.77s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	16.998s

@@ -1,0 +1,25 @@
+=== RUN   TestCorrectionBroadRuleExposure
+    correction_exposure_test.go:45: broad reason bypassed 30-minute selection cooldown account service unavailable
+--- FAIL: TestCorrectionBroadRuleExposure (1.12s)
+=== RUN   TestCorrectionReplacementTemplateExposure
+    correction_exposure_test.go:63: fixture must replace instance identity
+--- FAIL: TestCorrectionReplacementTemplateExposure (1.24s)
+=== RUN   TestCorrectionOwnExposureFailureClosedAndExpired
+--- PASS: TestCorrectionOwnExposureFailureClosedAndExpired (1.06s)
+=== RUN   TestCorrectionOwnPrivacy
+--- PASS: TestCorrectionOwnPrivacy (1.06s)
+=== RUN   TestCorrectionResultPagination
+    correction_read_test.go:72: account service unavailable
+--- FAIL: TestCorrectionResultPagination (0.77s)
+=== RUN   TestCorrectionResultPaginationPlanVersionsShareClock
+--- PASS: TestCorrectionResultPaginationPlanVersionsShareClock (0.78s)
+=== RUN   TestNotificationCursorIsolation
+    notification_read_test.go:24: test state mutation failed
+--- FAIL: TestNotificationCursorIsolation (0.98s)
+=== RUN   TestNotificationReadReplay
+--- PASS: TestNotificationReadReplay (1.06s)
+=== RUN   TestNotificationRateAndRollback
+--- PASS: TestNotificationRateAndRollback (1.10s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	9.725s
+FAIL

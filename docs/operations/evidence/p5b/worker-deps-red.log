@@ -1,0 +1,15 @@
+=== RUN   TestCorrectionCombinedDependenciesExactSources
+=== RUN   TestCorrectionCombinedDependenciesExactSources/nil
+    correction_system_test.go:184: no unit dependencies is valid ERROR: cannot call jsonb_to_recordset on a non-array (SQLSTATE 22023)
+=== RUN   TestCorrectionCombinedDependenciesExactSources/empty
+=== RUN   TestCorrectionCombinedDependenciesExactSources/missing-knowledge
+    correction_system_test.go:179: missing actual source must fail closed ERROR: cannot call jsonb_to_recordset on a non-array (SQLSTATE 22023)
+=== RUN   TestCorrectionCombinedDependenciesExactSources/missing-unit
+--- FAIL: TestCorrectionCombinedDependenciesExactSources (0.82s)
+    --- FAIL: TestCorrectionCombinedDependenciesExactSources/nil (0.00s)
+    --- PASS: TestCorrectionCombinedDependenciesExactSources/empty (0.00s)
+    --- FAIL: TestCorrectionCombinedDependenciesExactSources/missing-knowledge (0.00s)
+    --- PASS: TestCorrectionCombinedDependenciesExactSources/missing-unit (0.00s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.412s
+FAIL

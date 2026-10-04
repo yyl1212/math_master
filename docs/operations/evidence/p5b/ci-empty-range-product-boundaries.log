@@ -1,0 +1,18 @@
+=== RUN   TestCorrectionLegacyTerminalBackfillAndStableLowKey
+--- PASS: TestCorrectionLegacyTerminalBackfillAndStableLowKey (0.94s)
+=== RUN   TestCorrectionRotatingBackfillDoesNotStarveCases
+--- PASS: TestCorrectionRotatingBackfillDoesNotStarveCases (0.94s)
+=== RUN   TestCorrectionLegacyTerminalBackfillRootPlanSharedBudget
+--- PASS: TestCorrectionLegacyTerminalBackfillRootPlanSharedBudget (0.92s)
+=== RUN   TestCorrectionCasesScopeAndUnknownRule
+--- PASS: TestCorrectionCasesScopeAndUnknownRule (1.16s)
+=== RUN   TestCorrectionWithdrawalFenceRealSource
+--- PASS: TestCorrectionWithdrawalFenceRealSource (0.89s)
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/instance
+=== RUN   TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/asset
+--- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset (1.75s)
+    --- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/instance (0.87s)
+    --- PASS: TestCorrectionWithdrawalFenceExactSHAAndSharedAsset/asset (0.88s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	6.877s

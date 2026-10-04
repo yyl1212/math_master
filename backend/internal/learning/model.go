@@ -17,6 +17,7 @@ const (
 	Learned                   State           = "learned"
 	NeedsReview               State           = "needs-review"
 	Mastered                  State           = "mastered"
+	GradingIssue              ReadinessReason = "grading-issue"
 	NoBlueprint               ReadinessReason = "no-blueprint"
 	NoInstances               ReadinessReason = "no-instances"
 	InsufficientCoverage      ReadinessReason = "insufficient-coverage"
@@ -36,6 +37,7 @@ var (
 )
 
 type QualificationView struct {
+	CorrectionID      *string             `json:"correctionId"`
 	Knowledge         question.Identity   `json:"knowledge"`
 	Kind              string              `json:"kind"`
 	EvidenceAttemptID string              `json:"evidenceAttemptId"`

@@ -1,0 +1,400 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "head": "4f0f0441e5317f1ad8c33a8a86c81c2291a17b76",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "commands": [
+    {
+      "name": "final-ci6-browser-01",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "catalogue.spec.ts",
+        "reading.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:18:28.267205+00:00",
+      "exitCode": 0,
+      "seconds": 31.29,
+      "log": "final-ci6-browser-01.log",
+      "logSHA256": "0c4353ac3e147a832b7f5e776fa44e27049dae80890fa4b4f0b51c1c84e92756"
+    },
+    {
+      "name": "final-ci6-browser-02",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "auth.spec.ts",
+        "auth-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:18:59.562169+00:00",
+      "exitCode": 0,
+      "seconds": 30.56,
+      "log": "final-ci6-browser-02.log",
+      "logSHA256": "317439bf63a7767a54f4e51200511680e80e30cdade2774769d99f62d8ef3085"
+    },
+    {
+      "name": "final-ci6-browser-03",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-authoring.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:19:30.124125+00:00",
+      "exitCode": 0,
+      "seconds": 12.73,
+      "log": "final-ci6-browser-03.log",
+      "logSHA256": "2fc9ef7f3d2530016df8f4f7ddeea5548b4dd86dec20baad342653633ad8136e"
+    },
+    {
+      "name": "final-ci6-browser-04",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:19:42.851116+00:00",
+      "exitCode": 0,
+      "seconds": 22.12,
+      "log": "final-ci6-browser-04.log",
+      "logSHA256": "0171ea59ed8496827b46bbb199ea14ccd6d9ab287cb8ca0413884e6b03c485ab"
+    },
+    {
+      "name": "final-ci6-browser-05",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-release.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:20:04.976099+00:00",
+      "exitCode": 0,
+      "seconds": 33.88,
+      "log": "final-ci6-browser-05.log",
+      "logSHA256": "5e7959cbee896f277baa66e25b2faf4314060858ffcd70c0ec8622fbcc954b1a"
+    },
+    {
+      "name": "final-ci6-browser-06",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:20:38.853030+00:00",
+      "exitCode": 0,
+      "seconds": 40.99,
+      "log": "final-ci6-browser-06.log",
+      "logSHA256": "be9fea2ea412bdfd1cebfcaf7646e05d504b9d8a20aa0348c0a4d17fc419e3c3"
+    },
+    {
+      "name": "final-ci6-browser-07",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-authoring.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:21:19.845253+00:00",
+      "exitCode": 0,
+      "seconds": 34.52,
+      "log": "final-ci6-browser-07.log",
+      "logSHA256": "9c9f39ae311f8729eef4a82d4e245969e2adcdbb227a6dcfce48ae3e0ab6dd77"
+    },
+    {
+      "name": "final-ci6-browser-08",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:21:54.366775+00:00",
+      "exitCode": 0,
+      "seconds": 21.14,
+      "log": "final-ci6-browser-08.log",
+      "logSHA256": "17f3e687879cfb4fd43714bd288540386553f6e2de6e623d982955113df5c28f"
+    },
+    {
+      "name": "final-ci6-browser-09",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-release.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:22:15.510913+00:00",
+      "exitCode": 0,
+      "seconds": 46.88,
+      "log": "final-ci6-browser-09.log",
+      "logSHA256": "b65d74aad4b8887a70809f1b3ae60c0c8d60a508c1e965c729b443bff20b04f7"
+    },
+    {
+      "name": "final-ci6-browser-10",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:23:02.391432+00:00",
+      "exitCode": 0,
+      "seconds": 47.18,
+      "log": "final-ci6-browser-10.log",
+      "logSHA256": "9355996c294958acb77a7e8bf948297a33a1266347977d78b037578274dfc8b5"
+    },
+    {
+      "name": "final-ci6-browser-11",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-progress.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:23:49.570011+00:00",
+      "exitCode": 0,
+      "seconds": 23.46,
+      "log": "final-ci6-browser-11.log",
+      "logSHA256": "d73a1f715b13fe21cb6865001f60ba1cf7977384874ae7613977895ba16ac981"
+    },
+    {
+      "name": "final-ci6-browser-12",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-practice.spec.ts",
+        "learning-assessment.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:24:13.034821+00:00",
+      "exitCode": 0,
+      "seconds": 38.17,
+      "log": "final-ci6-browser-12.log",
+      "logSHA256": "e871efe2b0a1cf7a393fe1798061f8ce01a59167b1e67b52f514c9973672c18e"
+    },
+    {
+      "name": "final-ci6-browser-13",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-diagnostic.spec.ts",
+        "learning-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:24:51.202171+00:00",
+      "exitCode": 0,
+      "seconds": 63.15,
+      "log": "final-ci6-browser-13.log",
+      "logSHA256": "50432856ef1c4e77b0278c4993fc6c6e0eebe74b1871c8f68a4e70c53ac48fbd"
+    },
+    {
+      "name": "final-ci6-browser-14",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-review-regressions.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:25:54.350595+00:00",
+      "exitCode": 0,
+      "seconds": 25.5,
+      "log": "final-ci6-browser-14.log",
+      "logSHA256": "d0ecd8b574521704fbfb7f7843284f79ffc33ea7f3e624f32279f8f349cd3c9d"
+    },
+    {
+      "name": "final-ci6-browser-15",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "feedback-user.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:26:19.850078+00:00",
+      "exitCode": 0,
+      "seconds": 76.02,
+      "log": "final-ci6-browser-15.log",
+      "logSHA256": "46d8f33874ec240b8a0bd4a97d6dbd3357883fbc01c04c920fe37cff2c18c78e"
+    },
+    {
+      "name": "final-ci6-browser-16",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "feedback-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:27:35.873389+00:00",
+      "exitCode": 0,
+      "seconds": 45.58,
+      "log": "final-ci6-browser-16.log",
+      "logSHA256": "a4b8b81ee1053d7ff6a57270c20a865d19579f6509321ec9f8e435d0c791223b"
+    },
+    {
+      "name": "final-ci6-browser-17",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "feedback-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:28:21.451205+00:00",
+      "exitCode": 0,
+      "seconds": 63.93,
+      "log": "final-ci6-browser-17.log",
+      "logSHA256": "04c2352f01500a8425612434599a0e633606b1f081f122b5aa0677531237d330"
+    },
+    {
+      "name": "final-ci6-browser-18",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "correction-user.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:29:25.384550+00:00",
+      "exitCode": 0,
+      "seconds": 29.57,
+      "log": "final-ci6-browser-18.log",
+      "logSHA256": "071da00c0c3cb58b4c2297850c85ef09860edfbeef735baebf05eefb7e32b085"
+    },
+    {
+      "name": "final-ci6-browser-19",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "correction-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:29:54.958554+00:00",
+      "exitCode": 0,
+      "seconds": 19.16,
+      "log": "final-ci6-browser-19.log",
+      "logSHA256": "b107d708961e5a81aef8339bf61ef27d4f475bf1d6862f9a257d7b3f44fd5746"
+    },
+    {
+      "name": "final-ci6-browser-20",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "notification-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-04T01:30:14.116064+00:00",
+      "exitCode": 0,
+      "seconds": 46.92,
+      "log": "final-ci6-browser-20.log",
+      "logSHA256": "2b5829f284a8ecbfbeb32c1ab3c885c411bb191d337efc61246fc6ad0a79163e"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+=== RUN   TestCorrectionCapacityImpact
+    correction_capacity_test.go:238: capacity worker processed=1000 elapsed=44.257938209s
+    correction_capacity_test.go:238: capacity worker processed=2000 elapsed=53.009415834s
+    correction_capacity_test.go:238: capacity worker processed=3000 elapsed=1m1.336547709s
+    correction_capacity_test.go:238: capacity worker processed=4000 elapsed=1m9.714570375s
+    correction_capacity_test.go:238: capacity worker processed=5000 elapsed=1m18.899895292s
+    correction_capacity_test.go:238: capacity worker processed=6000 elapsed=1m28.331441792s
+    correction_capacity_test.go:238: capacity worker processed=7000 elapsed=1m37.501059167s
+    correction_capacity_test.go:238: capacity worker processed=8000 elapsed=1m46.204552625s
+    correction_capacity_test.go:238: capacity worker processed=9000 elapsed=1m54.617737167s
+    correction_capacity_test.go:238: capacity worker processed=10000 elapsed=2m3.41242075s
+    correction_capacity_test.go:264: capacity worker complete elapsed=2m3.448079417s
+    correction_capacity_test.go:293: capacity metadata complete elapsed=2m9.914051709s
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN Sort  (cost=2584.44..2584.56 rows=48 width=112) (actual time=0.023..0.024 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN   Sort Key: "*SELECT* 1".kind, "*SELECT* 1".id
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN   Sort Method: quicksort  Memory: 25kB
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN   Buffers: shared hit=6 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN   ->  Nested Loop  (cost=2574.00..2583.10 rows=48 width=112) (actual time=0.021..0.023 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN         Buffers: shared hit=6 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN         ->  Index Scan using correction_cases_pkey on correction_cases c  (cost=0.28..8.29 rows=1 width=114) (actual time=0.002..0.002 rows=1 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN               Index Cond: (id = 'b3b41301-cd4c-4ba8-b928-d6945c66ec54'::uuid)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN               Buffers: shared hit=3
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN         ->  Limit  (cost=2573.72..2573.84 rows=48 width=64) (actual time=0.019..0.020 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN               Buffers: shared hit=3 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN               ->  Sort  (cost=2573.72..2581.89 rows=3267 width=64) (actual time=0.019..0.020 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                     Sort Key: "*SELECT* 1".kind, "*SELECT* 1".id
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                     Sort Method: quicksort  Memory: 25kB
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                     Buffers: shared hit=3 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                     ->  Result  (cost=10.38..2466.16 rows=3267 width=64) (actual time=0.018..0.019 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                           One-Time Filter: (c.sealed AND (c.kind = 'grading_rule'::text))
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                           Buffers: shared hit=3 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                           ->  Hash Anti Join  (cost=10.38..2466.16 rows=3267 width=64) (actual time=0.017..0.018 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                 Hash Cond: (((((('terminal:'::text || (c.id)::text) || ':'::text) || "*SELECT* 1".kind) || ':'::text) || ("*SELECT* 1".id)::text) = j.source_key)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                 Buffers: shared hit=3 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                 ->  Append  (cost=8.29..2418.14 rows=3334 width=64) (actual time=0.017..0.018 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                       Buffers: shared hit=3 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                       ->  Subquery Scan on "*SELECT* 1"  (cost=8.29..16.33 rows=1 width=64) (actual time=0.002..0.002 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                             Buffers: shared hit=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                             ->  Result  (cost=8.29..16.32 rows=1 width=145) (actual time=0.002..0.002 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   One-Time Filter: (c.cutoff >= (InitPlan 1).col1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   Buffers: shared hit=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   InitPlan 1
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                     ->  Limit  (cost=0.14..8.16 rows=1 width=40) (actual time=0.001..0.001 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                           Buffers: shared hit=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                           ->  Index Only Scan using correction_assessment_scope on assessment_attempts first  (cost=0.14..8.16 rows=1 width=40) (actual time=0.001..0.001 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                                 Index Cond: (rule_version = c.rule_version)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                                 Heap Fetches: 0
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                                 Buffers: shared hit=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   ->  Index Scan using learning_recent_submission on assessment_attempts  (cost=0.12..8.15 rows=1 width=32) (never executed)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                         Filter: (sealed AND (created_at <= c.cutoff) AND (rule_version = c.rule_version) AND ((c.scope_kind = 'all'::text) OR ((knowledge_id = c.knowledge_id) AND (knowledge_version = c.knowledge_version) AND (knowledge_sha256 = c.knowledge_sha256))))
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                       ->  Subquery Scan on "*SELECT* 2"  (cost=0.81..2385.14 rows=3333 width=64) (actual time=0.015..0.015 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                             Buffers: shared hit=1 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                             ->  Result  (cost=0.81..2351.81 rows=3333 width=145) (actual time=0.015..0.015 rows=0 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   One-Time Filter: (c.cutoff >= (InitPlan 2).col1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   Buffers: shared hit=1 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   InitPlan 2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                     ->  Limit  (cost=0.29..0.81 rows=1 width=40) (actual time=0.014..0.014 rows=1 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                           Buffers: shared hit=1 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                           ->  Index Scan using correction_practice_scope on practice_attempts first_1  (cost=0.29..5240.28 rows=10000 width=40) (actual time=0.014..0.014 rows=1 loops=1)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                                 Index Cond: (((seal #>> '{body,ruleVersion}'::text[]))::integer = c.rule_version)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                                 Buffers: shared hit=1 read=2
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                   ->  Seq Scan on practice_attempts  (cost=0.00..2351.00 rows=3333 width=32) (never executed)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                                         Filter: ((created_at <= c.cutoff) AND (state = 'answered'::text) AND ((c.scope_kind = 'all'::text) OR ((knowledge_id = c.knowledge_id) AND (knowledge_version = c.knowledge_version) AND (knowledge_sha256 = c.knowledge_sha256))) AND (((seal #>> '{body,ruleVersion}'::text[]))::integer = c.rule_version))
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                 ->  Hash  (cost=2.04..2.04 rows=4 width=43) (never executed)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN                                       ->  Seq Scan on correction_jobs j  (cost=0.00..2.04 rows=4 width=43) (never executed)
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN Planning:
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN   Buffers: shared hit=45 read=1
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN Planning Time: 0.298 ms
+    correction_capacity_test.go:294: BACKFILL_POST_WORKER_PLAN Execution Time: 0.041 ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=0 count=50 duration=74.2565ms total=74.85625ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=1 count=50 duration=72.977333ms total=148.046334ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=2 count=50 duration=73.206125ms total=221.475167ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=3 count=50 duration=70.520208ms total=292.286792ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=4 count=50 duration=70.747875ms total=363.253542ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=5 count=50 duration=71.985ms total=435.450667ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=6 count=50 duration=73.901167ms total=509.584417ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=7 count=50 duration=71.863666ms total=581.687125ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=8 count=50 duration=72.780083ms total=654.71775ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=9 count=50 duration=82.326167ms total=737.292334ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=10 count=50 duration=130.969625ms total=868.917125ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=11 count=50 duration=85.281959ms total=954.50025ms
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=12 count=50 duration=86.826875ms total=1.0416695s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=13 count=50 duration=80.889667ms total=1.122871959s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=14 count=50 duration=88.09175ms total=1.211253834s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=15 count=50 duration=85.7115ms total=1.297285875s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=16 count=50 duration=85.413167ms total=1.38302725s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=17 count=50 duration=94.251875ms total=1.477597625s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=18 count=50 duration=82.438292ms total=1.560394959s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=19 count=50 duration=83.259209ms total=1.643973417s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=20 count=50 duration=84.656292ms total=1.728936959s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=21 count=50 duration=87.557541ms total=1.816806125s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=22 count=50 duration=89.526958ms total=1.906681042s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=23 count=50 duration=87.623375ms total=1.994668834s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=24 count=50 duration=89.709667ms total=2.084714542s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=25 count=50 duration=88.257917ms total=2.17332025s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=26 count=50 duration=85.098875ms total=2.258857375s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=27 count=50 duration=82.567333ms total=2.341760292s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=28 count=50 duration=82.758625ms total=2.42489s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=29 count=50 duration=83.917625ms total=2.509146709s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=30 count=50 duration=84.813584ms total=2.594307625s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=31 count=50 duration=89.155ms total=2.683799875s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=32 count=50 duration=88.383292ms total=2.772615542s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=33 count=50 duration=86.050334ms total=2.8590595s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=34 count=50 duration=91.540209ms total=2.950976375s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=35 count=50 duration=89.597167ms total=3.040953375s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=36 count=50 duration=89.12025ms total=3.1304955s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=37 count=50 duration=92.196625ms total=3.223184292s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=38 count=50 duration=89.010625ms total=3.312640417s
+    correction_capacity_test.go:299: BACKFILL_POST_WORKER step=39 count=50 duration=447.256542ms total=3.760282459s
+    correction_capacity_test.go:315: CORRECTION_CAPACITY cases=1000 plans=1000 affected=10000 workerBatches=200 completeSets=true heapDelta=335480 allocatedBytes=4521701440 maxBatchBytes=22747040 elapsed=2m17.328861792s
+--- PASS: TestCorrectionCapacityImpact (137.36s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	138.009s

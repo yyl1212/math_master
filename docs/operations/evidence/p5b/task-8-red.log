@@ -1,0 +1,8 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_process_test.go:5:177: f.repo.ProcessCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ProcessCorrectionJob)
+internal/store/correction_process_test.go:12:16: f.repo.ProcessCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ProcessCorrectionJob)
+internal/store/correction_process_test.go:15:18: f.repo.ProcessCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ProcessCorrectionJob)
+internal/store/correction_process_test.go:18: f.repo.ProcessCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ProcessCorrectionJob)
+internal/store/correction_process_test.go:22:85: f.repo.ProcessCorrectionJob undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ProcessCorrectionJob)
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

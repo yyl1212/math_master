@@ -1,0 +1,28 @@
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/check
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/function
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/weakened-check
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unvalidated-fk
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique-index
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-function
+--- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed (8.49s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/check (0.95s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key (0.84s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique (0.84s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/function (0.83s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table (0.84s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger (0.83s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/weakened-check (0.83s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unvalidated-fk (0.84s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique-index (0.85s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-function (0.84s)
+=== RUN   TestCorrectionCompatibilityOriginalFailedReceiptAndRollback
+    correction_compatibility_test.go:63: ERROR: column "resource" does not exist (SQLSTATE 42703)
+--- FAIL: TestCorrectionCompatibilityOriginalFailedReceiptAndRollback (0.96s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	10.020s
+FAIL

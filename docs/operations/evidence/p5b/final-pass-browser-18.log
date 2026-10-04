@@ -1,0 +1,17 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts correction-user.spec.ts
+
+
+Running 6 tests using 1 worker
+
+[WebServer] 2026/10/04 03:54:33 ERROR Private API request failed request_id=686cc53ebab141edc0407ecbe0809f2d error_code=SERVICE_UNAVAILABLE
+  ✓  1 [desktop] › ../tests/e2e/correction-user.spec.ts:3:5 › real withdrawal restricts immediately; approved equivalent basis restores current evidence and keeps original history (6.0s)
+  ✓  2 [desktop] › ../tests/e2e/correction-user.spec.ts:4:5 › an approved plan with no exact withdrawn mapping honestly requires retaking (3.3s)
+  ✓  3 [desktop] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal (4.2s)
+[WebServer] 2026/10/04 03:54:47 ERROR Private API request failed request_id=f479897b038ffca02d3904026a626985 error_code=SERVICE_UNAVAILABLE
+  ✓  4 [mobile] › ../tests/e2e/correction-user.spec.ts:3:5 › real withdrawal restricts immediately; approved equivalent basis restores current evidence and keeps original history (6.8s)
+  ✓  5 [mobile] › ../tests/e2e/correction-user.spec.ts:4:5 › an approved plan with no exact withdrawn mapping honestly requires retaking (3.2s)
+  ✓  6 [mobile] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal (4.2s)
+
+  6 passed (29.0s)

@@ -1,0 +1,38 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts correction-user.spec.ts --grep corrected template illustrations
+
+
+Running 2 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal (4.3s)
+  ✘  2 [mobile] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal (8.9s)
+
+
+  1) [mobile] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       at fixtures.ts:51
+
+      49 |       ),
+      50 |     )
+    > 51 |     .toBe(true);
+         |      ^
+      52 | }
+      53 |
+      54 | export const TEST_PASSWORD = "Test-only 中文数学密码 with spaces";
+        at fitsViewport (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:51:6)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/correction-user.spec.ts:13:104
+
+    Error Context: ../test-results/correction-user-corrected--d050f-fter-replacement-withdrawal-mobile/error-context.md
+
+  1 failed
+    [mobile] › ../tests/e2e/correction-user.spec.ts:6:5 › corrected template illustrations load through owned effective results and stop after replacement withdrawal 
+  1 passed (16.0s)

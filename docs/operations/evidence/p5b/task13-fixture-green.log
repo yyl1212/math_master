@@ -1,0 +1,9 @@
+=== RUN   TestCorrectionRealFixtureAndSharedReset
+    correction_fixture_test.go:34: account fixture reset failed
+--- FAIL: TestCorrectionRealFixtureAndSharedReset (0.22s)
+=== RUN   TestCorrectionHarnessScenesArePrivate
+    correction_fixture_test.go:95: correction scene 400
+--- FAIL: TestCorrectionHarnessScenesArePrivate (3.29s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest	4.356s
+FAIL

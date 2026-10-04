@@ -7,6 +7,7 @@ import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
@@ -55,6 +56,9 @@ func (s *Store) CreateAssessment(ctx context.Context, a question.Access, in asse
 				return e
 			}
 			out, e = learningAssessmentView(ctx, tx, p, now, nil)
+			return e
+		}
+		if e = correctionNewAttemptGuard(ctx, tx, u.ID, in.Knowledge, 1, now); e != nil {
 			return e
 		}
 		// Read database time after the per-user locks, never a browser deadline.
@@ -187,11 +191,7 @@ func (s *Store) SubmitAssessment(ctx context.Context, a question.Access, id stri
 		if e = assessment.ValidateAnswers(items, in); e != nil {
 			return e
 		}
-		deps, e := learningEvidenceDependencies(ctx, tx, "assessment", id)
-		if e != nil {
-			return e
-		}
-		reasons, e := learningEvidenceRestrictions(ctx, tx, deps)
+		reasons, e := correctionEvidenceGuard(ctx, tx, u.ID, correction.EvidenceRef{Kind: correction.EvidenceKind("assessment"), ID: id})
 		if e != nil {
 			return e
 		}
@@ -264,6 +264,9 @@ func (s *Store) SubmitAssessment(ctx context.Context, a question.Access, id stri
 			return e
 		}
 		if _, e = tx.ExecContext(ctx, `UPDATE assessment_results SET progress=$2,sealed=true WHERE attempt_id=$1`, id, body(progress)); e != nil {
+			return e
+		}
+		if e = correctionEnqueueTerminal(ctx, tx, correction.EvidenceRef{Kind: correction.AssessmentEvidence, ID: id}, u.ID, now); e != nil {
 			return e
 		}
 		p.Summary.State = "submitted"

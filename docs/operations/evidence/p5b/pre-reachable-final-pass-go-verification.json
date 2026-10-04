@@ -1,0 +1,256 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "head": "f5cfc76f74afdcd179db6e1e9087e0ea503963a1",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "commands": [
+    {
+      "name": "final-pass-go-diff",
+      "args": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": null,
+      "startedAt": "2026-10-03T19:10:46.377510+00:00",
+      "exitCode": 0,
+      "seconds": 0.03,
+      "log": "final-pass-go-diff.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-pass-go-format",
+      "args": [
+        "node",
+        "-e",
+        "const {spawnSync}=require(\"node:child_process\");const r=spawnSync(\"gofmt\",[\"-l\",\".\"],{encoding:\"utf8\"});process.stdout.write(r.stdout??\"\");process.stderr.write(r.stderr??\"\");process.exit(r.status!==0?1:r.stdout.trim()?1:0)"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:10:46.408563+00:00",
+      "exitCode": 0,
+      "seconds": 0.07,
+      "log": "final-pass-go-format.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-pass-go-node",
+      "args": [
+        "node",
+        "--test",
+        "tools/verify/run.test.mjs",
+        "tools/verify/learning-compatibility.test.mjs",
+        "tools/verify/feedback-compatibility.test.mjs",
+        "tools/verify/correction-compatibility.test.mjs",
+        "tools/verify/feedback-ci.test.mjs",
+        "tools/verify/correction-ci.test.mjs",
+        "tools/content-ingest/snapshot.test.mjs"
+      ],
+      "cwd": null,
+      "startedAt": "2026-10-03T19:10:46.477796+00:00",
+      "exitCode": 0,
+      "seconds": 5.6,
+      "log": "final-pass-go-node.log",
+      "logSHA256": "281480f963fa3f8e2e48f70d793945322329b81714fc79de19339083f9cba1ad"
+    },
+    {
+      "name": "final-pass-go-vet",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "vet",
+        "./..."
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:10:52.073280+00:00",
+      "exitCode": 0,
+      "seconds": 0.25,
+      "log": "final-pass-go-vet.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-pass-go-foundation",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "test",
+        "./cmd/server",
+        "./internal/correction",
+        "./internal/notification",
+        "./internal/feedback",
+        "./internal/assessment",
+        "./internal/learning",
+        "./internal/question",
+        "./internal/auth",
+        "./internal/content",
+        "./internal/publication",
+        "./internal/config",
+        "./internal/httpapi",
+        "./internal/e2etest",
+        "./internal/testutil",
+        "-timeout",
+        "5m",
+        "-count=1"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:10:52.321712+00:00",
+      "exitCode": 0,
+      "seconds": 97.96,
+      "log": "final-pass-go-foundation.log",
+      "logSHA256": "0db39253aec065e64de1c0a9233399b317a78afc12fa088f00098d4a5155e543"
+    },
+    {
+      "name": "final-pass-go-store",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "test",
+        "./internal/store",
+        "./internal/cli",
+        "-skip",
+        "^Test(Learning|Assessment|Feedback|Correction|Notification)",
+        "-timeout",
+        "5m",
+        "-count=1"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:12:30.282012+00:00",
+      "exitCode": 0,
+      "seconds": 140.32,
+      "log": "final-pass-go-store.log",
+      "logSHA256": "059860a007a5e6c30e2091efe480616c88316fe4bad3554f2f0336f360b2869e"
+    },
+    {
+      "name": "final-pass-go-learning",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "test",
+        "./internal/store",
+        "-run",
+        "^Test(Learning|Assessment)",
+        "-skip",
+        "^TestLearningCapacity",
+        "-timeout",
+        "5m",
+        "-count=1"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:14:50.599481+00:00",
+      "exitCode": 0,
+      "seconds": 82.27,
+      "log": "final-pass-go-learning.log",
+      "logSHA256": "f1d1346b44d86464bf046abcb9a83a3bab63c1a39c25126200fae6a0bdf055dd"
+    },
+    {
+      "name": "final-pass-go-feedback",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "test",
+        "./internal/store",
+        "-run",
+        "^TestFeedback",
+        "-skip",
+        "^TestFeedbackCapacity",
+        "-timeout",
+        "5m",
+        "-count=1"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:16:12.875019+00:00",
+      "exitCode": 0,
+      "seconds": 28.18,
+      "log": "final-pass-go-feedback.log",
+      "logSHA256": "4686e20fb383db240c9fc88f64c8e9cf59a4f0b8c4ed4ff7954f820fef18f14c"
+    },
+    {
+      "name": "final-pass-go-correction",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "test",
+        "./internal/store",
+        "./internal/cli",
+        "-run",
+        "^Test(Correction|Notification)",
+        "-skip",
+        "^TestCorrectionCapacity",
+        "-timeout",
+        "5m",
+        "-count=1"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:16:41.054128+00:00",
+      "exitCode": 0,
+      "seconds": 118.5,
+      "log": "final-pass-go-correction.log",
+      "logSHA256": "f868f65185d8c74f1d340384daf841e7baf10535a3e649e210b2cc3741cd70bb"
+    },
+    {
+      "name": "final-pass-go-FeedbackCapacity",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "test",
+        "./internal/store",
+        "-run",
+        "^TestFeedbackCapacity$",
+        "-timeout",
+        "5m",
+        "-count=1",
+        "-v"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:18:39.557234+00:00",
+      "exitCode": 0,
+      "seconds": 11.03,
+      "log": "final-pass-go-FeedbackCapacity.log",
+      "logSHA256": "189900681f3ccbbe50ad8a08ee0d58eb75720717f3905a465e1909f53100b473"
+    },
+    {
+      "name": "final-pass-go-LearningCapacitySourceVolume",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "test",
+        "./internal/store",
+        "-run",
+        "^TestLearningCapacitySourceVolume$",
+        "-timeout",
+        "5m",
+        "-count=1",
+        "-v"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T19:18:50.589954+00:00",
+      "exitCode": 1,
+      "seconds": 44.04,
+      "log": "final-pass-go-LearningCapacitySourceVolume.log",
+      "logSHA256": "24c081d90e25c8589d686e9250872ef5138b14e49f645f8776606fabc2ad8f58"
+    }
+  ]
+}

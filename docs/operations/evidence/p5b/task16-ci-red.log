@@ -1,0 +1,304 @@
+✖ new correction CI is executable, classified once and keeps every original batch and deadline (1.308708ms)
+✖ deleting any of the 20 browser batches is rejected (0.390042ms)
+✖ step labels and echo commands cannot stand in for actual browser execution (0.093417ms)
+✖ all five capacity commands must remain executable and separate (0.164375ms)
+✖ extra skips, duplicate classification and omitted notification/CLI tests are rejected (0.095333ms)
+✖ Go, job, browser and wrapper time limits cannot be expanded or disguised with duplicate flags (0.137ms)
+✖ new capacity names inside an echo are rejected (0.065833ms)
+✖ a second actual new test classification in the original job is rejected (0.056ms)
+✔ actual CI preserves old batches and executes every new feedback batch within original limits (1.909959ms)
+✔ deleting an original browser batch is detected (0.823417ms)
+✔ adding browser skip selection or retries is detected (0.71275ms)
+✔ deleting a capacity batch or skipping extra old store tests is detected (0.6095ms)
+✔ no browser suite or case is silently skipped, focused or retried (3.463083ms)
+✔ active command parser handles split and equals options without counting step labels (0.078417ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 6
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39.541125
+
+✖ failing tests:
+
+test at tools/verify/correction-ci.test.mjs:91:1
+✖ new correction CI is executable, classified once and keeps every original batch and deadline (1.308708ms)
+  AssertionError [ERR_ASSERTION]: independent correction job
+  + actual - expected
+  
+    [
+      'verify',
+  -   'correction_verify'
+    ]
+  
+      at validate (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:60:33)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:91:105)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'verify' ],
+    expected: [ 'verify', 'correction_verify' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:92:1
+✖ deleting any of the 20 browser batches is rejected (0.390042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /browser batches/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: independent correction job\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    '  [\n' +
+    "    'verify',\n" +
+    "-   'correction_verify'\n" +
+    '  ]\n'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:92:211)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: independent correction job
+    + actual - expected
+    
+      [
+        'verify',
+    -   'correction_verify'
+      ]
+    
+        at validate (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:60:33)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:92:222
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:92:211)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /browser batches/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:93:1
+✖ step labels and echo commands cannot stand in for actual browser execution (0.093417ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /browser|wrapper/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: mutation must apply'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:93:439)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: mutation must apply
+        at changed (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:90:78)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:93:467
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:93:439)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /browser|wrapper/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:94:1
+✖ all five capacity commands must remain executable and separate (0.164375ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /capacities|Go batches|capacity/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: independent correction job\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    '  [\n' +
+    "    'verify',\n" +
+    "-   'correction_verify'\n" +
+    '  ]\n'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:94:350)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: independent correction job
+    + actual - expected
+    
+      [
+        'verify',
+    -   'correction_verify'
+      ]
+    
+        at validate (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:60:33)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:94:361
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:94:350)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /capacities|Go batches|capacity/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:95:1
+✖ extra skips, duplicate classification and omitted notification/CLI tests are rejected (0.095333ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /skip|classification|CLI|exclusion/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: mutation must apply'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:96:530)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: mutation must apply
+        at changed (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:90:78)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:96:550
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:96:530)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /skip|classification|CLI|exclusion/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:98:1
+✖ Go, job, browser and wrapper time limits cannot be expanded or disguised with duplicate flags (0.137ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /Go timeout/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: independent correction job\n' +
+    '+ actual - expected\n' +
+    '\n' +
+    '  [\n' +
+    "    'verify',\n" +
+    "-   'correction_verify'\n" +
+    '  ]\n'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:99:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: independent correction job
+    + actual - expected
+    
+      [
+        'verify',
+    -   'correction_verify'
+      ]
+    
+        at validate (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:60:33)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:99:20
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:99:9)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /Go timeout/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:106:1
+✖ new capacity names inside an echo are rejected (0.065833ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /executable Go prefix/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: mutation must apply'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:106:187)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: mutation must apply
+        at changed (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:90:78)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:106:207
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:106:187)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /executable Go prefix/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at tools/verify/correction-ci.test.mjs:107:1
+✖ a second actual new test classification in the original job is rejected (0.056ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /classification/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: mutation must apply'
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:107:379)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: mutation must apply
+        at changed (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:90:78)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:107:399
+        at getActual (node:assert:611:5)
+        at strict.throws (node:assert:759:24)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/correction-ci.test.mjs:107:379)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /classification/,
+    operator: 'throws',
+    diff: 'simple'
+  }

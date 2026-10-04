@@ -1,0 +1,14 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_exposure_test.go:14:23: f.repo.ReadCorrectionPlan undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadCorrectionPlan)
+internal/store/correction_exposure_test.go:14:106: f.repo.ReadOwnCorrection undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadOwnCorrection)
+internal/store/correction_exposure_test.go:19:17: f.repo.ReadOwnCorrection undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadOwnCorrection)
+internal/store/correction_exposure_test.go:22:14: f.repo.CreateDiagnostic undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method CreateDiagnostic)
+internal/store/correction_exposure_test.go:22:67: f.diagnosticInput undefined (type *correctionFixture has no field or method diagnosticInput)
+internal/store/correction_exposure_test.go:31:16: f.repo.ReadOwnCorrection undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadOwnCorrection)
+internal/store/correction_exposure_test.go:34:15: f.repo.ReadOwnCorrection undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadOwnCorrection)
+internal/store/correction_exposure_test.go:39:17: f.repo.ReadOwnCorrection undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadOwnCorrection)
+internal/store/correction_exposure_test.go:41:16: f.repo.ReadOwnCorrection undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadOwnCorrection)
+internal/store/correction_exposure_test.go:44:16: f.repo.ReadOwnCorrection undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadOwnCorrection)
+internal/store/correction_exposure_test.go:44:16: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

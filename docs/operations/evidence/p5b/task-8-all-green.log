@@ -1,0 +1,67 @@
+ok  	github.com/yyl1212/math_master/backend/internal/correction	1.016s
+--- FAIL: TestCorrectionCompletionLaterGrantsAppendOnly (0.84s)
+    correction_grant_test.go:19: ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionProcessAtomic (5.02s)
+    --- FAIL: TestCorrectionProcessAtomic/result (0.99s)
+        correction_process_test.go:94: same lease could not resume rolled-back item {true 0 false running} correction not configured
+    --- FAIL: TestCorrectionProcessAtomic/dependency (0.99s)
+        correction_process_test.go:94: same lease could not resume rolled-back item {true 0 false running} correction not configured
+    --- FAIL: TestCorrectionProcessAtomic/qualification (1.00s)
+        correction_process_test.go:94: same lease could not resume rolled-back item {true 0 false running} correction not configured
+    --- FAIL: TestCorrectionProcessAtomic/notification (1.00s)
+        correction_process_test.go:94: same lease could not resume rolled-back item {true 0 false running} correction not configured
+    --- FAIL: TestCorrectionProcessAtomic/cursor (1.04s)
+        correction_process_test.go:94: same lease could not resume rolled-back item {true 0 false running} correction not configured
+--- FAIL: TestCorrectionCrashResumeCursorAndNotificationDedup (1.04s)
+    correction_process_test.go:141: first committed item not durable
+--- FAIL: TestCorrectionProcessRootActiveLateTerminalAfterDone (0.99s)
+    correction_process_test.go:175: correction not configured
+--- FAIL: TestCorrectionCumulativeResultsOtherCaseStillRestricts (0.98s)
+    correction_process_test.go:191: correction not configured
+--- FAIL: TestCorrectionProcessWithdrawalWithoutMappingRetake (1.00s)
+    correction_process_test.go:216: correction not configured
+--- FAIL: TestCorrectionProcessThreeOfFiveStaysFailed (0.96s)
+    correction_process_test.go:228: correction not configured
+--- FAIL: TestCorrectionWithdrawalCommitRace (2.73s)
+    --- FAIL: TestCorrectionWithdrawalCommitRace/withdrawal-first (1.29s)
+        correction_process_test.go:323: correction not configured
+    --- FAIL: TestCorrectionWithdrawalCommitRace/correction-first (1.44s)
+        correction_process_test.go:350: correction not configured
+--- FAIL: TestCorrectionCumulativeResultsParentReplacementWithdrawn (1.40s)
+    correction_process_test.go:377: correction not configured
+--- FAIL: TestCorrectionProcessPracticeNeverGrantsQualification (0.96s)
+    correction_process_test.go:423: correction not configured
+--- FAIL: TestCorrectionProcessAwaitingApprovalHasNoScore (0.88s)
+    correction_process_test.go:432: correction not configured
+--- FAIL: TestCorrectionProcessCurrentAccountRecheckedNoPersonnelQuota (0.97s)
+    correction_process_test.go:456: correction not configured
+--- FAIL: TestCorrectionCumulativeResultsIncompatibleApprovedMappings (1.56s)
+    correction_process_test.go:475: correction not configured
+--- FAIL: TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass (1.29s)
+    correction_process_test.go:494: correction not configured
+--- FAIL: TestCorrectionProjectionDiagnosticAllViewsOriginalBytes (0.89s)
+    correction_projection_test.go:42: ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionOtherCaseStillRestricts (0.87s)
+    correction_projection_test.go:70: ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionProjectionSupersededPassNotFallback (0.87s)
+    correction_projection_test.go:97: ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionProjectionOriginalFailedFourDoesNotForgeOldQualification (0.83s)
+    correction_projection_test.go:176: ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionProjectionIncompatibleApprovedLeavesRestrict (0.87s)
+    correction_projection_test.go:195: ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionTerminalSourceApproved (0.87s)
+    correction_results_test.go:16: owned terminal job must accept independently approved actual basis ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionProcessDatabaseRequiresCompleteParentClosure (0.88s)
+    correction_results_test.go:53: ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionSchemaLegalResultAndAudit (0.88s)
+    correction_schema_test.go:135: legal original-answer result rejected ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionSchemaUnmappedReplacementRejected (1.00s)
+    correction_schema_test.go:303: approved exact replacement result rejected ERROR: operator does not exist: boolean -> unknown (SQLSTATE 42883)
+--- FAIL: TestCorrectionProcessMaterialAndPathStaticNotices (1.95s)
+    --- FAIL: TestCorrectionProcessMaterialAndPathStaticNotices/unit (0.86s)
+        notification_write_test.go:28: correction not configured
+    --- FAIL: TestCorrectionProcessMaterialAndPathStaticNotices/path (1.09s)
+        notification_write_test.go:28: correction not configured
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	83.133s
+FAIL

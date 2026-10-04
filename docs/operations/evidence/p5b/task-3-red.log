@@ -1,0 +1,17 @@
+--- FAIL: TestCorrectionMigrationEmptyDownAndMarker (0.16s)
+    correction_migration_test.go:4: ten tables
+--- FAIL: TestCorrectionMigrationNonemptyDown (0.76s)
+    correction_migration_test.go:5: ten correction tables required
+--- FAIL: TestCorrectionMigrationQuotaAloneProtectsDown (0.72s)
+    correction_migration_test.go:6: ten correction tables required
+--- FAIL: TestCorrectionSchemaImmutable (0.71s)
+    correction_schema_test.go:3: ten correction tables required
+--- FAIL: TestCorrectionSchemaDirectApprovalRejected (0.73s)
+    correction_schema_test.go:4: ten correction tables required
+--- FAIL: TestCorrectionSchemaOwnership (0.73s)
+    correction_schema_test.go:6: ten correction tables required
+--- FAIL: TestCorrectionSchemaUnapprovedPassRejected (0.73s)
+    correction_schema_test.go:7: ten correction tables required
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	7.776s
+FAIL

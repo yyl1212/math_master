@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionSchemaPassingKnowledgeRequired
+    correction_schema_test.go:182: passing result detached from original knowledge identity
+--- FAIL: TestCorrectionSchemaPassingKnowledgeRequired (0.92s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.120s
+FAIL

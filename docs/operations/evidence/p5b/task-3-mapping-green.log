@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+--- PASS: TestCorrectionSchemaLegalResultAndAudit (0.94s)
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+--- PASS: TestCorrectionSchemaUnmappedReplacementRejected (0.97s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	2.858s

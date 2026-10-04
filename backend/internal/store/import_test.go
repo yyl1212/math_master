@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"github.com/pressly/goose/v3"
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
@@ -13,13 +14,28 @@ import (
 	"time"
 )
 
-func setup(t *testing.T) (*sql.DB, *store.Store, context.Context) {
+func setup(t *testing.T, initialMigration ...int) (*sql.DB, *store.Store, context.Context) {
 	t.Helper()
 	db := testutil.Database(t)
 	ctx, c := context.WithTimeout(context.Background(), 30*time.Second)
 	t.Cleanup(c)
-	if e := store.Up(ctx, db, "../../../db/migrations"); e != nil {
-		t.Fatal(e)
+	// The legacy feedback fallback must start from a database that has never
+	// enabled correction, rather than clearing its permanent enablement marker.
+	if len(initialMigration) == 0 {
+		if e := store.Up(ctx, db, "../../../db/migrations"); e != nil {
+			t.Fatal(e)
+		}
+	} else {
+		if len(initialMigration) != 1 || initialMigration[0] != 7 {
+			t.Fatal("only the genuine pre-correction migration fixture is supported")
+		}
+		p, e := goose.NewProvider(goose.DialectPostgres, db, os.DirFS("../../../db/migrations"))
+		if e != nil {
+			t.Fatal(e)
+		}
+		if _, e = p.UpTo(ctx, 7); e != nil {
+			t.Fatal(e)
+		}
 	}
 	var count int
 	if e := db.QueryRowContext(ctx, "SELECT count(*) FROM imported_packages").Scan(&count); e != nil {

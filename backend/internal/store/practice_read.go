@@ -6,10 +6,13 @@ import (
 	"encoding/json"
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
 )
+
+const learningReadPracticeSQL = `SELECT id::text,knowledge_id,knowledge_version,knowledge_sha256,state,created_at,expires_at,terminal_at,seal_bytes,answer,correct FROM practice_attempts WHERE id=$1 AND owner_user_id=$2`
 
 type practiceRecord struct {
 	Summary    assessment.AttemptSummary
@@ -27,10 +30,14 @@ func learningReadPractice(ctx context.Context, tx *sql.Tx, actor, id string, loc
 	if lock {
 		suffix = " FOR UPDATE"
 	}
-	e := tx.QueryRowContext(ctx, `SELECT id::text,knowledge_id,knowledge_version,knowledge_sha256,state,created_at,expires_at,terminal_at,seal_bytes,answer,correct FROM practice_attempts WHERE id=$1 AND owner_user_id=$2`+suffix, id, actor).Scan(&p.Summary.ID, &p.Summary.Knowledge.ID, &p.Summary.Knowledge.Version, &p.Summary.Knowledge.SHA256, &p.Summary.State, &p.Summary.CreatedAt, &p.Summary.ExpiresAt, &terminal, &raw, &answer, &p.Correct)
+	e := tx.QueryRowContext(ctx, learningReadPracticeSQL+suffix, id, actor).Scan(&p.Summary.ID, &p.Summary.Knowledge.ID, &p.Summary.Knowledge.Version, &p.Summary.Knowledge.SHA256, &p.Summary.State, &p.Summary.CreatedAt, &p.Summary.ExpiresAt, &terminal, &raw, &answer, &p.Correct)
 	if e != nil {
 		return p, workflowRowError(e)
 	}
+	return learningDecodePracticeRecord(p, raw, answer, terminal)
+}
+func learningDecodePracticeRecord(p practiceRecord, raw, answer []byte, terminal sql.NullTime) (practiceRecord, error) {
+	var e error
 	p.Summary.Kind = "practice"
 	p.Summary.CreatedAt = p.Summary.CreatedAt.UTC()
 	p.Summary.ExpiresAt = p.Summary.ExpiresAt.UTC()
@@ -101,11 +108,7 @@ func learningPracticeView(ctx context.Context, tx *sql.Tx, actor string, p pract
 	out.Question = qs[0]
 	if p.Summary.State == "answered" || p.Summary.State == "revealed" {
 		item := assessment.ResultItem{Question: out.Question, Answer: p.Answer, Correct: p.Correct, CorrectChoiceID: items[0].Body.CorrectChoiceID, CorrectNumeric: items[0].Body.CorrectNumeric, Explanation: &items[0].Body.Explanation, Validity: assessment.Effective, Reasons: []assessment.RestrictionReason{}}
-		deps, e := learningEvidenceDependencies(ctx, tx, "practice", p.Summary.ID)
-		if e != nil {
-			return out, e
-		}
-		item.Reasons, e = learningEvidenceRestrictions(ctx, tx, deps)
+		item.Reasons, e = correctionEvidenceGuard(ctx, tx, actor, correction.EvidenceRef{Kind: correction.EvidenceKind("practice"), ID: p.Summary.ID})
 		if e != nil {
 			return out, e
 		}

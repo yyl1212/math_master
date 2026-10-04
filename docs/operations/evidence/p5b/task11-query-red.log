@@ -1,0 +1,34 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run src/lib/correction/schemas.test.ts src/lib/notification/schemas.test.ts
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+ ❯ src/lib/notification/schemas.test.ts (5 tests | 1 failed) 12ms
+   × rejects empty raw query pairs and the noncanonical trailing slash root 1ms
+ ❯ src/lib/correction/schemas.test.ts (9 tests | 1 failed) 68ms
+   × matches Go required evidence filters and exact raw query pairs 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/lib/correction/schemas.test.ts > matches Go required evidence filters and exact raw query pairs
+AssertionError: expected [Function] to throw an error
+ ❯ src/lib/correction/schemas.test.ts:16:262
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  src/lib/notification/schemas.test.ts > rejects empty raw query pairs and the noncanonical trailing slash root
+AssertionError: expected [Function] to throw an error
+ ❯ src/lib/notification/schemas.test.ts:12:236
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 12 passed (14)
+   Start at  00:22:54
+   Duration  431ms (environment 58%, transform 13%, tests 11%, setup 11%, import 7%)
+

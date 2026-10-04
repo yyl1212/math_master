@@ -1,0 +1,12 @@
+=== RUN   TestCorrectionUnprocessedApprovedChain
+--- PASS: TestCorrectionUnprocessedApprovedChain (1.80s)
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle
+--- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles (3.53s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict (1.82s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle (1.71s)
+=== RUN   TestCorrectionReplacementChainIgnoresUnrelatedFork
+--- PASS: TestCorrectionReplacementChainIgnoresUnrelatedFork (2.16s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	7.868s

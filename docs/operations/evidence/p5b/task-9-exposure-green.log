@@ -1,0 +1,4 @@
+=== RUN   TestCorrectionReplacementTemplateExposure
+--- PASS: TestCorrectionReplacementTemplateExposure (1.38s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	2.266s

@@ -1,0 +1,16 @@
+github.com/yyl1212/math_master/backend/internal/correction: no non-test Go files in /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/backend/internal/correction
+# github.com/yyl1212/math_master/backend/internal/correction [github.com/yyl1212/math_master/backend/internal/correction.test]
+internal/correction/validation_test.go:4:18: undefined: CaseInput
+internal/correction/validation_test.go:5:18: undefined: PlanInput
+internal/correction/digest_test.go:3:81: undefined: Canonical
+internal/correction/policy_test.go:5:16: undefined: Authorize
+internal/correction/policy_test.go:5:34: undefined: CreatePlanAction
+internal/correction/policy_test.go:6:63: undefined: Authorize
+internal/correction/policy_test.go:6:80: undefined: CreatePlanAction
+internal/correction/policy_test.go:6:140: undefined: Authorize
+internal/correction/policy_test.go:6:157: undefined: CreateCaseAction
+internal/correction/policy_test.go:7:69: undefined: CanReview
+internal/correction/policy_test.go:7:69: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/correction [build failed]
+FAIL	github.com/yyl1212/math_master/backend/internal/notification [build failed]
+FAIL

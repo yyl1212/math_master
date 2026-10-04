@@ -1,0 +1,34 @@
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/create
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/process
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/retry
+=== RUN   TestCorrectionSlidingBoundaryAndAllScopes/notification-read
+--- PASS: TestCorrectionSlidingBoundaryAndAllScopes (0.85s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/create (0.19s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/process (0.21s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/retry (0.16s)
+    --- PASS: TestCorrectionSlidingBoundaryAndAllScopes/notification-read (0.29s)
+=== RUN   TestCorrectionPlanVersionFreezesAndRejectCreatesChild
+--- PASS: TestCorrectionPlanVersionFreezesAndRejectCreatesChild (0.88s)
+=== RUN   TestCorrectionIndependentReviewAllSourcesAndOldCutoff
+--- PASS: TestCorrectionIndependentReviewAllSourcesAndOldCutoff (1.00s)
+=== RUN   TestCorrectionReplayAfterAdvanceOriginalReceipt
+--- PASS: TestCorrectionReplayAfterAdvanceOriginalReceipt (0.86s)
+=== RUN   TestCorrectionSourceProofExactFrozenInstances
+=== RUN   TestCorrectionSourceProofExactFrozenInstances/sha
+=== RUN   TestCorrectionSourceProofExactFrozenInstances/publication
+=== RUN   TestCorrectionSourceProofExactFrozenInstances/knowledge
+--- PASS: TestCorrectionSourceProofExactFrozenInstances (1.19s)
+    --- PASS: TestCorrectionSourceProofExactFrozenInstances/sha (0.01s)
+    --- PASS: TestCorrectionSourceProofExactFrozenInstances/publication (0.01s)
+    --- PASS: TestCorrectionSourceProofExactFrozenInstances/knowledge (0.02s)
+=== RUN   TestCorrectionIndependentRoleRevocationDuringPlanWait
+--- PASS: TestCorrectionIndependentRoleRevocationDuringPlanWait (0.83s)
+=== RUN   TestCorrectionSourceProofReplacementKeepsActualParameters
+--- PASS: TestCorrectionSourceProofReplacementKeepsActualParameters (1.07s)
+=== RUN   TestCorrectionIndependentFeedbackResolvedIsNotApproval
+--- PASS: TestCorrectionIndependentFeedbackResolvedIsNotApproval (0.88s)
+=== RUN   TestCorrectionIndependentRevokeAtCommitAfterCaseWait
+--- PASS: TestCorrectionIndependentRevokeAtCommitAfterCaseWait (0.84s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	8.987s

@@ -1,0 +1,20 @@
+=== RUN   TestCorrectionTerminalSourceApproved
+--- PASS: TestCorrectionTerminalSourceApproved (0.94s)
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn
+--- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis (2.26s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope (1.13s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn (1.12s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteParentClosure
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteParentClosure (0.91s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies (1.75s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit (0.88s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective (0.87s)
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+--- PASS: TestCorrectionSchemaLegalResultAndAudit (0.90s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	7.703s

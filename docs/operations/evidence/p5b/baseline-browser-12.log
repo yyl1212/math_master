@@ -1,0 +1,21 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts learning-practice.spec.ts learning-assessment.spec.ts
+
+
+Running 8 tests using 1 worker
+
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  1 [desktop] › ../tests/e2e/learning-assessment.spec.ts:2:5 › four correct unlock direct successors and a failed review preserves historical unlocks (7.6s)
+  ✓  2 [desktop] › ../tests/e2e/learning-assessment.spec.ts:3:5 › invalid five-answer submission persists nothing, then three correct fail as one result (3.7s)
+  ✓  3 [desktop] › ../tests/e2e/learning-practice.spec.ts:2:5 › practice without a blueprint can be revealed but grants no qualification (4.1s)
+  ✓  4 [desktop] › ../tests/e2e/learning-practice.spec.ts:3:5 › invalid practice format keeps the attempt active and a later answer preserves raw spelling (3.8s)
+  ✓  5 [mobile] › ../tests/e2e/learning-assessment.spec.ts:2:5 › four correct unlock direct successors and a failed review preserves historical unlocks (7.8s)
+  ✓  6 [mobile] › ../tests/e2e/learning-assessment.spec.ts:3:5 › invalid five-answer submission persists nothing, then three correct fail as one result (3.7s)
+  ✓  7 [mobile] › ../tests/e2e/learning-practice.spec.ts:2:5 › practice without a blueprint can be revealed but grants no qualification (4.1s)
+  ✓  8 [mobile] › ../tests/e2e/learning-practice.spec.ts:3:5 › invalid practice format keeps the attempt active and a later answer preserves raw spelling (3.8s)
+
+  8 passed (40.0s)

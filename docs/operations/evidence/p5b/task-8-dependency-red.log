@@ -1,0 +1,11 @@
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit
+    correction_results_test.go:64: complete mathematical dependency proof omitted audit
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective
+    correction_results_test.go:64: complete mathematical dependency proof omitted effective
+--- FAIL: TestCorrectionProcessDatabaseRequiresCompleteDependencies (1.80s)
+    --- FAIL: TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit (0.93s)
+    --- FAIL: TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective (0.88s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.443s
+FAIL

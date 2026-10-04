@@ -1,0 +1,15 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts notification-security.spec.ts
+
+
+Running 6 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/notification-security.spec.ts:4:5 › other owners cannot read correction results or notifications; same-key reads keep the first timestamp (3.4s)
+  ✓  2 [desktop] › ../tests/e2e/notification-security.spec.ts:5:5 › accurate replacement template and broad grading scope both block active assessment answer exposure (5.0s)
+  ✓  3 [desktop] › ../tests/e2e/notification-security.spec.ts:6:5 › unconfirmed notification read retains its key and silent SSR owner change removes old notification text (13.5s)
+  ✓  4 [mobile] › ../tests/e2e/notification-security.spec.ts:4:5 › other owners cannot read correction results or notifications; same-key reads keep the first timestamp (4.1s)
+  ✓  5 [mobile] › ../tests/e2e/notification-security.spec.ts:5:5 › accurate replacement template and broad grading scope both block active assessment answer exposure (5.0s)
+  ✓  6 [mobile] › ../tests/e2e/notification-security.spec.ts:6:5 › unconfirmed notification read retains its key and silent SSR owner change removes old notification text (13.5s)
+
+  6 passed (45.9s)

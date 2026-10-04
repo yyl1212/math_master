@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_schema_test.go:200:213: f.questionInput.QuestionPackage.Templates[0].Explanation undefined (type question.Template has no field or method Explanation)
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

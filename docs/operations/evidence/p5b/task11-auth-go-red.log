@@ -1,0 +1,5 @@
+--- FAIL: TestCorrectionHTTPAuthErrorContract (0.00s)
+    correction_json_test.go:129: authentication code missing from new contract CorrectionError REAUTHENTICATION_REQUIRED
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/httpapi	0.825s
+FAIL

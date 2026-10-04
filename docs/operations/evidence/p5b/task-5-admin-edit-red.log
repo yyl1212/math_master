@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionPlanAdminMayEditWithoutChangingCreator
+    correction_plans_test.go:178: authorized admin edit refused forbidden
+--- FAIL: TestCorrectionPlanAdminMayEditWithoutChangingCreator (0.86s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.056s
+FAIL

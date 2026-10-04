@@ -1,0 +1,19 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts learning-review-regressions.spec.ts
+
+
+Running 6 tests using 1 worker
+
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  1 [desktop] › ../tests/e2e/learning-review-regressions.spec.ts:5:5 › a published single-choice practice renders and submits its choice through the strict contract (3.6s)
+  ✓  2 [desktop] › ../tests/e2e/learning-review-regressions.spec.ts:21:5 › an unread unlocked lesson can pass a mixed normal check before explicit reading grants qualification (4.1s)
+  ✓  3 [desktop] › ../tests/e2e/learning-review-regressions.spec.ts:52:5 › another tab changing the shared account clears the original tab's unsent private draft (3.3s)
+  ✓  4 [mobile] › ../tests/e2e/learning-review-regressions.spec.ts:5:5 › a published single-choice practice renders and submits its choice through the strict contract (4.0s)
+  ✓  5 [mobile] › ../tests/e2e/learning-review-regressions.spec.ts:21:5 › an unread unlocked lesson can pass a mixed normal check before explicit reading grants qualification (5.5s)
+  ✓  6 [mobile] › ../tests/e2e/learning-review-regressions.spec.ts:52:5 › another tab changing the shared account clears the original tab's unsent private draft (3.3s)
+
+  6 passed (25.2s)
