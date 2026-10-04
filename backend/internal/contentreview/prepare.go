@@ -29,7 +29,7 @@ func strict(raw []byte, limit int, out any) error {
 	if len(raw) > limit {
 		return ErrLimit
 	}
-	if e := question.DecodeStrictJSON(bytes.NewReader(raw), limit, out); e != nil {
+	if e := question.DecodeOperationalJSON(bytes.NewReader(raw), limit, out); e != nil {
 		return ErrInvalid
 	}
 	return nil

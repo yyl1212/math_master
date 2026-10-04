@@ -141,6 +141,7 @@ type RegisterPart struct {
 }
 
 type Verification struct {
+	ReviewComplete bool                             `json:"reviewComplete"`
 	SchemaVersion  int                              `json:"schemaVersion"`
 	Conclusion     string                           `json:"conclusion"`
 	FixtureOnly    bool                             `json:"fixtureOnly"`
@@ -148,4 +149,56 @@ type Verification struct {
 	Reasons        []string                         `json:"reasons"`
 	Evidence       *contentaudit.AcceptanceEvidence `json:"-"`
 	Files          []ExportFile                     `json:"-"`
+}
+
+type ReleaseIdentity struct {
+	CodeSHA          string            `json:"codeSHA"`
+	CatalogueVersion int               `json:"catalogueVersion"`
+	CatalogueSHA256  string            `json:"catalogueSHA256"`
+	Route            RouteIdentity     `json:"route"`
+	KnowledgeHead    contentaudit.Head `json:"knowledgeHead"`
+	QuestionHead     contentaudit.Head `json:"questionHead"`
+	ManifestSHA256   string            `json:"manifestSHA256"`
+	FixtureOnly      bool              `json:"fixtureOnly"`
+}
+type ReleaseContext struct {
+	SchemaVersion int `json:"schemaVersion"`
+	ReleaseIdentity
+	BuildRecord FileRef `json:"buildRecord"`
+	AttestedBy  string  `json:"attestedBy"`
+	Attestation FileRef `json:"attestation"`
+}
+type FrozenBinding struct {
+	Space                string   `json:"space"`
+	Submission           FileRef  `json:"submission"`
+	Archive              *FileRef `json:"archive"`
+	IndependenceVerified bool     `json:"independenceVerified"`
+	Attestation          FileRef  `json:"attestation"`
+}
+type LearningFile struct {
+	Name string  `json:"name"`
+	File FileRef `json:"file"`
+}
+type EvidenceInput struct {
+	SchemaVersion  int             `json:"schemaVersion"`
+	ReleaseContext FileRef         `json:"releaseContext"`
+	ReviewRegister FileRef         `json:"reviewRegister"`
+	Bindings       []FrozenBinding `json:"bindings"`
+	LearningChecks []LearningFile  `json:"learningChecks"`
+}
+type LearningStep struct {
+	Action   string `json:"action"`
+	Expected string `json:"expected"`
+	Observed string `json:"observed"`
+}
+type LearningRecord struct {
+	SchemaVersion int             `json:"schemaVersion"`
+	Name          string          `json:"name"`
+	Result        string          `json:"result"`
+	Context       ReleaseIdentity `json:"context"`
+	ExecutedAt    string          `json:"executedAt"`
+	Steps         []LearningStep  `json:"steps"`
+	Attachments   []FileRef       `json:"attachments"`
+	AttestedBy    string          `json:"attestedBy"`
+	Attestation   FileRef         `json:"attestation"`
 }
