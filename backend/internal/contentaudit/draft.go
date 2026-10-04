@@ -53,17 +53,20 @@ func LoadDraft(ctx context.Context, root string) (DraftInput, error) {
 	return out, nil
 }
 func CheckDraft(ctx context.Context, in DraftInput) (DraftFacts, error) {
-	var out DraftFacts
-	if e := ctx.Err(); e != nil {
-		return out, e
-	}
-	v, report := content.ValidateWorkflow(ctx, in.Catalogue, in.Content, func(ctx context.Context, a content.Asset) ([]byte, error) {
+	return checkDraftWithReader(ctx, in, func(ctx context.Context, a content.Asset) ([]byte, error) {
 		p, e := fixedPath(in.AssetsRoot, a.Path)
 		if e != nil {
 			return nil, e
 		}
 		return readBounded(ctx, p, 1<<20)
 	})
+}
+func checkDraftWithReader(ctx context.Context, in DraftInput, reader content.AssetReader) (DraftFacts, error) {
+	var out DraftFacts
+	if e := ctx.Err(); e != nil {
+		return out, e
+	}
+	v, report := content.ValidateWorkflow(ctx, in.Catalogue, in.Content, reader)
 	if e := ctx.Err(); e != nil {
 		return out, e
 	}

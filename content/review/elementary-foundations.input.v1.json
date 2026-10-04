@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "cataloguePath": "content/catalogue/domains.json",
+  "contentPath": "content/packages/elementary-foundations.v1.json",
+  "questionPaths": [
+    "content/questions/elementary-foundations-numbers.v1.json",
+    "content/questions/elementary-foundations-operations.v1.json",
+    "content/questions/elementary-foundations-fractions.v1.json",
+    "content/questions/elementary-foundations-decimals.v1.json",
+    "content/questions/elementary-foundations-ratios.v1.json"
+  ],
+  "assetsRoot": "content/assets"
+}

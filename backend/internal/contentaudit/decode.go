@@ -46,6 +46,9 @@ func readBounded(ctx context.Context, path string, limit int) ([]byte, error) {
 // The worker makes file-system operations cancellable to the caller, including open/stat.
 // Close also interrupts reads where supported. Only regular files enter the reader.
 func readRegular(ctx context.Context, path string, limit int64, declared *int64) ([]byte, error) {
+	return readRegularOpened(ctx, path, limit, declared, os.Open)
+}
+func readRegularOpened(ctx context.Context, path string, limit int64, declared *int64, open func(string) (*os.File, error)) ([]byte, error) {
 	if e := ctx.Err(); e != nil {
 		return nil, e
 	}
@@ -56,7 +59,7 @@ func readRegular(ctx context.Context, path string, limit int64, declared *int64)
 	defer cancel()
 	done := make(chan fileReadResult)
 	go func() {
-		b, e := readRegularFile(ctx, path, limit, declared)
+		b, e := readRegularFileOpened(ctx, path, limit, declared, open)
 		select {
 		case done <- fileReadResult{b, e}:
 		case <-ctx.Done():
@@ -70,6 +73,9 @@ func readRegular(ctx context.Context, path string, limit int64, declared *int64)
 	}
 }
 func readRegularFile(ctx context.Context, path string, limit int64, declared *int64) ([]byte, error) {
+	return readRegularFileOpened(ctx, path, limit, declared, os.Open)
+}
+func readRegularFileOpened(ctx context.Context, path string, limit int64, declared *int64, open func(string) (*os.File, error)) ([]byte, error) {
 	before, e := os.Lstat(path)
 	if e != nil {
 		return nil, e
@@ -86,7 +92,7 @@ func readRegularFile(ctx context.Context, path string, limit int64, declared *in
 	if e = ctx.Err(); e != nil {
 		return nil, e
 	}
-	f, e := os.Open(path)
+	f, e := open(path)
 	if e != nil {
 		return nil, e
 	}
@@ -212,6 +218,9 @@ func LoadSources(ctx context.Context, snapshotDir, reportFile, mapFile string) (
 	if e = DecodeSourceMap(bytes.NewReader(mb), &out.Mapping); e != nil {
 		return out, e
 	}
+	return loadSourcesFromDecoded(ctx, snapshotDir, rb, out)
+}
+func loadSourcesFromDecoded(ctx context.Context, snapshotDir string, rb []byte, out SourceBundle) (SourceBundle, error) {
 	out.ReportSHA = hashBytes(rb)
 	out.SnapshotID = out.Report.SnapshotID
 	r, m := out.Report, out.Mapping
