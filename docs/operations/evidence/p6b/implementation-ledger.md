@@ -29,7 +29,7 @@
 - Task 7: complete
 - Task 8: complete
 - Task 9: complete
-- Task 10: pending
+- Task 10: complete
 
 R1—R4: pending external preconditions; formalCounts=0.
 
@@ -95,3 +95,6 @@ Review I1 fix: 有效行为RED含空白/重排matching拒绝及stale接受；纯
 Review I2 fix: 四类failed+pending定向纯层13.787s、CLI11.434s GREEN；完整failed仍有失败Evidence，纯pending无证据，缺项failed主状态not_ready并保留所有理由。开始独立后审查16批Go与81Node全套日志，不覆盖原矩阵；新源集合SHA与原parent HEAD准确记录。
 Final review fix regression: 一次修复后的16/16批Go全通过，1403个pass事件/fail0/skip0；81/81Node全通过，六容量均成功（题源89.909s/最大路线121.574s/最大内容67.461s/纠错影响135.310s/通知42.153s）；新纯层115事件。原矩阵及所有新日志分开归档，共118份压缩/解压SHA已逐份复算，完整原字节私有保留。唯一审查0Critical/2Important/0新Minor，主执行者一次修复并完成全套相关回归；无第二次reviewer。Task10远端准确最终headCI与MR交付门槛仍待完成。
 Post-review fixed snapshot smoke: 当前修复提交07c79b37275f85c87f21090c14170e8d303fc072实际重建并运行，源集合6b1517bf472867ef6f7909f5a1c9e22df5b6c50821b0eee0b9290c5457d102cc与后审查完整矩阵一致；prepare0/verify3，无验收文件，正式计数0；新preparation-post-review.json与原a6df3d7烟测分别保留。SSH已读验master仍b78108d，与基线相同且本分支没有现存MR。
+Task 10: complete (commits 5e72307..0f8aa1a, tests: node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs → ℹ duration_ms 5592.958375)
+
+Task10 first integration gate: 完整head 0f8aa1ab72c857a800a4da44328f4cd4824fe6b1 的push/PR四workflow六job均completed/success；PR27保持draft/open，未合并PR26或PR27。全部50步骤实现/契约及一次整分支审查处置完成；整体P6b仍awaiting_review，R1—R4正式计数0。原SmokeG/后审查sourceSetSHA/产品CIhead分别保留，归档提交后重新检查最终完整head四/六，动态事实记录在PR说明及交接答复以避免commit自引用循环。

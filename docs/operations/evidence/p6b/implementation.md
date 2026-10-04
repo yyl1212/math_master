@@ -12,7 +12,7 @@
 
 [Go矩阵](matrix-go.json)16/16批、1376个 Test pass 结果事件（含父测试及具名子测试）、fail0/skip0；原宽入口包含新 Store/CLI 测试且 skip未扩充。六项容量均实际通过：反馈、学习题源、最大路线、最大内容、纠错影响、通知。旧题源准备超时本轮未复现，本地本次89.819秒通过；具体慢查询根因仍未证实，[旧诊断](../p6b-design/ci-diagnosis.md)保留，不宣称通过即修复。
 
-[Node矩阵](matrix-node.json)原72项+新9项=81/81；[前端矩阵](matrix-frontend.json)350/350、类型生成/检查、构建及依赖审计通过，generated.d.ts无diff。[当前harness构建](matrix-harness.json)通过；[浏览器矩阵](matrix-browser.json)原22批/162双视口全部通过，failed0/skipped0；该原矩阵完成后进行了唯一整分支审查；两项Important已一次修复并完成相关全套回归，准确最终head远端CI尚待完成。
+[Node矩阵](matrix-node.json)原72项+新9项=81/81；[前端矩阵](matrix-frontend.json)350/350、类型生成/检查、构建及依赖审计通过，generated.d.ts无diff。[当前harness构建](matrix-harness.json)通过；[浏览器矩阵](matrix-browser.json)原22批/162双视口全部通过，failed0/skipped0；该原矩阵完成后进行了唯一整分支审查；两项Important已一次修复并完成相关全套回归，准确产品head远端CI已成功，归档后的最终head按下方交付规则再核验。
 
 单批Go5m、浏览器8m、包装9m、CI job30m，原8秒操作与四分钟准备限制、数据量、workers=1、retries=0全部保留。新纯层99个结果事件包含真实256MiB读取、预算+1、64附件、取消/不覆盖/失败清理及证据缺项；不以小夹具替代原最大容量。
 
@@ -39,3 +39,9 @@
 后审查矩阵起始HEAD为 `fc0bd30c6789de70733ba467efe729dc8c4abe64`，包含未提交的修复，实际源集合SHA为 `6b1517bf472867ef6f7909f5a1c9e22df5b6c50821b0eee0b9290c5457d102cc`；记录均准确保留该时点，不以未来产品/归档HEAD改标签。日志与原矩阵分别命名，并独立复算压缩/解压摘要。
 
 [审查修复后的固定快照烟测](preparation-post-review.json)在真实修复代码提交 `07c79b37275f85c87f21090c14170e8d303fc072` 重新构建并运行，实际源集合与后审查矩阵完全一致：prepare0/verify3、无验收文件、正式计数0。原a6df3d7烟测和此记录各保留实际G，后续归档提交不改变标签。
+
+## 准备段完成与远端交付规则
+
+Native Task1—10/50步骤已闭合，契约测试再执行81项通过；唯一整分支审查及一次修复相关全套回归已完成。SSH推送并创建[草稿PR #27](https://github.com/yyl1212/math_master/pull/27)。[远端CI原始结构化事实](ci-product-head.json)准确绑定产品head `0f8aa1ab72c857a800a4da44328f4cd4824fe6b1`，push与pull_request各运行Go和前端，合计四workflow/六job全completed/success。
+
+本证据归档会产生新的提交。交付时再读取PR最新完整head，并核验新head对应四workflow/六job全部success；新SHA/运行链接保存在动态PR说明和交接答复。公共已存报告保持其实际G，不引用自身commit以免无限归档循环。PR保持draft；正式R1—R4与P7未执行，整体仍awaiting_review。

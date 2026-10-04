@@ -228,8 +228,8 @@ Consumes：九任务实现及旧 P6a 真实矩阵。Produces：准备段可审�
 - [x] **10.1 写保护测试。** 新 Node 测验证旧 API/类型/迁移/生成器/判分文件的基线摘要、原 CLI/schema 与双 head 参数；CI 正反夹具删除/改名旧批次、取消六容量、加跳过、去 CGO 或放宽截止必须失败。新纯 contentreview 必须有明确批次，原 store/cli 宽入口必须包含 TestContentReview；不得扩充 skip 正则漏掉旧测。
 - [x] **10.2 RED。** `node tools/verify/run.mjs -- node --test tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs`；在内存工作流副本中缺新批次/删除旧批次各有真实 RED，仓库实际旧工作流不删改。
 - [x] **10.3 最小配置与完整验证。** backend 工作流只追加 contentreview 纯层五分钟批次、在原 Node 命令尾追加两个新文件；新 CLI/Store 测按原宽入口执行，前端批次/依赖不变。按下节矩阵完成全部旧测与新测，收集原日志/exit/SHA/测试数，完成手册和交付状态。若再次发生现有容量慢查询，先用日志/查询计划/输入实测定位，再提交符合既有门槛的精确修复审查；不能将重复碰到一次绿色称作修复。
-- [ ] **10.4 GREEN 与整分支审查。** 新保护和完整矩阵全部通过；只在实现完成后按 using-superpowers 的 Native 流程调用一次最强模型独立整分支 reviewer，检查本计划五类重点与全部 diff，必要问题逐项裁决/修复并做相关回归，最终提交后核验完整 head 四 workflow/六 job。已有会话偏好保留；本计划编写不启动 reviewer。只有真实全部成功才标记准备段完成；无人员/正式验收时整体仍 awaiting_review。
-- [ ] **10.5 提交/MR。** stage 本任务已列文件，`git commit -m 'test: 完成离线复核工具的兼容验证与交接'`；先将具体准备输出、测试及尚未执行的正式门槛写入该临时说明文件，再通过 SSH push codex/p6b-content-review-preparation，`gh pr create --base master --head codex/p6b-content-review-preparation --draft --title 'P6b：全量内容复核准备与证据校验' --body-file /private/tmp/math-master-p6b-preparation-pr-body.md`。创建后调用 attach_artifact 附属 PR；准确最终 head 的远端 CI 状态写入说明。合并按用户后续指令，不由本计划授权。
+- [x] **10.4 GREEN 与整分支审查。** 新保护和完整矩阵全部通过；只在实现完成后按 using-superpowers 的 Native 流程调用一次最强模型独立整分支 reviewer，检查本计划五类重点与全部 diff，必要问题逐项裁决/修复并做相关回归，最终提交后核验完整 head 四 workflow/六 job。已有会话偏好保留；本计划编写不启动 reviewer。只有真实全部成功才标记准备段完成；无人员/正式验收时整体仍 awaiting_review。
+- [x] **10.5 提交/MR。** stage 本任务已列文件，`git commit -m 'test: 完成离线复核工具的兼容验证与交接'`；先将具体准备输出、测试及尚未执行的正式门槛写入该临时说明文件，再通过 SSH push codex/p6b-content-review-preparation，`gh pr create --base master --head codex/p6b-content-review-preparation --draft --title 'P6b：全量内容复核准备与证据校验' --body-file /private/tmp/math-master-p6b-preparation-pr-body.md`。创建后调用 attach_artifact 附属 PR；准确最终 head 的远端 CI 状态写入说明。合并按用户后续指令，不由本计划授权。
 
 ## 完整回归矩阵与证据规则
 
@@ -300,3 +300,5 @@ Consumes：九任务实现及旧 P6a 真实矩阵。Produces：准备段可审�
 外部执行门槛仍明确：真实人员/许可结论/环境/操作范围未落实，现有 CI 曾有一次准备查询超时且具体原因未证实；这些都不能以设计自审消除。远端准确实现 head 通过是准备段交付门槛，真实 R1—R4/accepted 是整体 P6b 门槛。
 
 本计划已获确认并沿用 Native 执行 Task 1—10；R1—R4 按实际资源和明确范围推进。计划确认不合并 PR #26、不替代真实数学批准，也不授权生产部署。
+
+准备段Task1—10/50步骤已实施；唯一整分支审查的两项Important由执行者一次修复并完整回归。准确产品head `0f8aa1ab72c857a800a4da44328f4cd4824fe6b1` 四workflow/六job已实际成功，草稿[PR #27](https://github.com/yyl1212/math_master/pull/27)已创建。该完成记录归档后，交付仍重新核验最新完整head的四/六成功；不重标历史G或让文档自引用自身提交SHA。整体P6b仍awaiting_review，R1—R4未执行。

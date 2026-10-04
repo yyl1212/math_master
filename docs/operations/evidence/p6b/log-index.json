@@ -708,6 +708,15 @@
     ]
   },
   {
+    "name": "task-10-tests.log",
+    "log": "logs/task-10-tests.log.gz",
+    "logCompression": "gzip",
+    "originalLogSHA256": "046e5b94cd7562ac2d9ea2a3cfe76e0569869063dd27c15f2692ee073c9a833d",
+    "storedUncompressedSHA256": "046e5b94cd7562ac2d9ea2a3cfe76e0569869063dd27c15f2692ee073c9a833d",
+    "storedSHA256": "ed595cd5881db89c17ef7eb53382d566f8f13b7a22223dca5961e182970e6f0e",
+    "redactions": []
+  },
+  {
     "name": "task-2-full-green.log",
     "log": "logs/task-2-full-green.log.gz",
     "logCompression": "gzip",
