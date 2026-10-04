@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/question"
-	"os"
 	"path/filepath"
 )
 
@@ -20,7 +19,7 @@ func LoadDraft(ctx context.Context, root string) (DraftInput, error) {
 		if e != nil {
 			return nil, e
 		}
-		return readBounded(p, limit)
+		return readBounded(ctx, p, limit)
 	}
 	b, e := load("content/catalogue/domains.json", content.MaxPackageBytes)
 	if e != nil {
@@ -55,7 +54,19 @@ func LoadDraft(ctx context.Context, root string) (DraftInput, error) {
 }
 func CheckDraft(ctx context.Context, in DraftInput) (DraftFacts, error) {
 	var out DraftFacts
-	v, report := content.ValidateWorkflow(ctx, in.Catalogue, in.Content, content.FileAssetReader(in.AssetsRoot))
+	if e := ctx.Err(); e != nil {
+		return out, e
+	}
+	v, report := content.ValidateWorkflow(ctx, in.Catalogue, in.Content, func(ctx context.Context, a content.Asset) ([]byte, error) {
+		p, e := fixedPath(in.AssetsRoot, a.Path)
+		if e != nil {
+			return nil, e
+		}
+		return readBounded(ctx, p, 1<<20)
+	})
+	if e := ctx.Err(); e != nil {
+		return out, e
+	}
 	if !report.ReadyToSubmit || !v.Verify() {
 		return out, fmt.Errorf("%w: content structure/completeness %d/%d", ErrInvalid, report.StructuralTotal, report.CompletenessTotal)
 	}
@@ -90,6 +101,9 @@ func CheckDraft(ctx context.Context, in DraftInput) (DraftFacts, error) {
 		}
 		seen[p.ID] = true
 		s, r, e := question.ValidateAndSeal(ctx, question.DraftInput{CatalogueVersion: in.Catalogue.Version, QuestionPackage: p, SourceMap: []question.SourceLink{}}, out.References)
+		if canceled := ctx.Err(); canceled != nil {
+			return out, canceled
+		}
 		if e != nil || !r.ReadyToSubmit {
 			return out, fmt.Errorf("%w: question %s structural/completeness %d/%d", ErrInvalid, p.ID, r.StructuralTotal, r.CompletenessTotal)
 		}
@@ -102,11 +116,10 @@ func CheckDraft(ctx context.Context, in DraftInput) (DraftFacts, error) {
 // Read-only convenience for operator evidence preparation; it never writes a source file.
 func ReadSourceMap(path string) (SourceMap, error) {
 	var m SourceMap
-	f, e := os.Open(path)
+	raw, e := readBounded(context.Background(), path, MaxSourceMapBytes)
 	if e != nil {
 		return m, e
 	}
-	defer f.Close()
-	e = DecodeSourceMap(f, &m)
+	e = DecodeSourceMap(bytes.NewReader(raw), &m)
 	return m, e
 }

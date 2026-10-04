@@ -270,7 +270,7 @@ func TestContentAuditRuleRestriction(t *testing.T) {
 		t.Fatal(e)
 	}
 	facts, e := f.repo.ReadContentAudit(f.ctx, auditRoute)
-	if e != nil || len(facts.EligibleInstances) != 0 || len(facts.Excluded) != 28 {
+	if e != nil || len(facts.EligibleInstances) != 0 || len(facts.Excluded) != 28+len(facts.Bank.Templates) {
 		t.Fatal("grading restriction omitted", e, len(facts.EligibleInstances), len(facts.Excluded))
 	}
 }

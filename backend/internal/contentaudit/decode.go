@@ -12,23 +12,132 @@ import (
 	"path/filepath"
 	"reflect"
 	"strings"
+	"time"
 )
 
 func hashBytes(b []byte) string { h := sha256.Sum256(b); return hex.EncodeToString(h[:]) }
-func readBounded(path string, limit int) ([]byte, error) {
+
+type fileReadResult struct {
+	bytes []byte
+	err   error
+}
+type contextReader struct {
+	ctx    context.Context
+	reader io.Reader
+}
+
+func (r contextReader) Read(p []byte) (int, error) {
+	if e := r.ctx.Err(); e != nil {
+		return 0, e
+	}
+	if len(p) > 32<<10 {
+		p = p[:32<<10]
+	}
+	n, e := r.reader.Read(p)
+	if canceled := r.ctx.Err(); canceled != nil {
+		return 0, canceled
+	}
+	return n, e
+}
+func readBounded(ctx context.Context, path string, limit int) ([]byte, error) {
+	return readRegular(ctx, path, int64(limit), nil)
+}
+
+// The worker makes file-system operations cancellable to the caller, including open/stat.
+// Close also interrupts reads where supported. Only regular files enter the reader.
+func readRegular(ctx context.Context, path string, limit int64, declared *int64) ([]byte, error) {
+	if e := ctx.Err(); e != nil {
+		return nil, e
+	}
+	if limit < 0 || declared != nil && (*declared < 0 || *declared > limit) {
+		return nil, ErrLimit
+	}
+	ctx, cancel := context.WithTimeout(ctx, 8*time.Second)
+	defer cancel()
+	done := make(chan fileReadResult)
+	go func() {
+		b, e := readRegularFile(ctx, path, limit, declared)
+		select {
+		case done <- fileReadResult{b, e}:
+		case <-ctx.Done():
+		}
+	}()
+	select {
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	case r := <-done:
+		return r.bytes, r.err
+	}
+}
+func readRegularFile(ctx context.Context, path string, limit int64, declared *int64) ([]byte, error) {
+	before, e := os.Lstat(path)
+	if e != nil {
+		return nil, e
+	}
+	if !before.Mode().IsRegular() {
+		return nil, ErrInvalid
+	}
+	if before.Size() > limit {
+		return nil, ErrLimit
+	}
+	if declared != nil && before.Size() != *declared {
+		return nil, ErrInvalid
+	}
+	if e = ctx.Err(); e != nil {
+		return nil, e
+	}
 	f, e := os.Open(path)
 	if e != nil {
 		return nil, e
 	}
 	defer f.Close()
-	b, e := io.ReadAll(io.LimitReader(f, int64(limit)+1))
+	stop := context.AfterFunc(ctx, func() { f.Close() })
+	defer stop()
+	opened, e := f.Stat()
 	if e != nil {
 		return nil, e
 	}
-	if len(b) > limit {
+	if !opened.Mode().IsRegular() || !os.SameFile(before, opened) || before.Size() != opened.Size() || !before.ModTime().Equal(opened.ModTime()) {
+		return nil, ErrInvalid
+	}
+	capBytes := limit
+	if declared != nil {
+		capBytes = *declared
+	}
+	b, e := io.ReadAll(io.LimitReader(contextReader{ctx, f}, capBytes+1))
+	if e != nil {
+		return nil, e
+	}
+	if int64(len(b)) > capBytes {
 		return nil, ErrLimit
 	}
-	return b, nil
+	if declared != nil && int64(len(b)) != *declared {
+		return nil, ErrInvalid
+	}
+	after, e := f.Stat()
+	if e != nil {
+		return nil, e
+	}
+	current, e := os.Lstat(path)
+	if e != nil {
+		return nil, e
+	}
+	if !current.Mode().IsRegular() || !os.SameFile(before, after) || !os.SameFile(before, current) || before.Size() != after.Size() || before.Size() != current.Size() || !before.ModTime().Equal(after.ModTime()) || !before.ModTime().Equal(current.ModTime()) {
+		return nil, ErrInvalid
+	}
+	return b, ctx.Err()
+}
+func ReadEvidence(ctx context.Context, path string) (AcceptanceEvidence, error) {
+	var evidence AcceptanceEvidence
+	raw, e := readBounded(ctx, path, MaxMetadataBytes)
+	if e != nil {
+		return evidence, e
+	}
+	e = DecodeEvidence(bytes.NewReader(raw), &evidence)
+	if e == nil {
+		e = ctx.Err()
+	}
+	return evidence, e
 }
 func DecodeSourceMap(r io.Reader, out *SourceMap) error {
 	return strictDecode(r, MaxSourceMapBytes, out)
@@ -55,13 +164,14 @@ func fixedPath(root, path string) (string, error) {
 		return "", ErrInvalid
 	}
 	current := root
-	for _, part := range append([]string{""}, strings.Split(path, "/")...) {
+	parts := append([]string{""}, strings.Split(path, "/")...)
+	for i, part := range parts {
 		current = filepath.Join(current, part)
 		s, e := os.Lstat(current)
 		if e != nil {
 			return "", e
 		}
-		if s.Mode()&os.ModeSymlink != 0 {
+		if s.Mode()&os.ModeSymlink != 0 || i < len(parts)-1 && !s.IsDir() || i == len(parts)-1 && !s.Mode().IsRegular() {
 			return "", ErrInvalid
 		}
 	}
@@ -88,14 +198,14 @@ type snapshotFile struct {
 
 func LoadSources(ctx context.Context, snapshotDir, reportFile, mapFile string) (SourceBundle, error) {
 	var out SourceBundle
-	rb, e := readBounded(reportFile, MaxMetadataBytes)
+	rb, e := readBounded(ctx, reportFile, MaxMetadataBytes)
 	if e != nil {
 		return out, e
 	}
 	if e = DecodeSourceReport(bytes.NewReader(rb), &out.Report); e != nil {
 		return out, e
 	}
-	mb, e := readBounded(mapFile, MaxSourceMapBytes)
+	mb, e := readBounded(ctx, mapFile, MaxSourceMapBytes)
 	if e != nil {
 		return out, e
 	}
@@ -112,7 +222,7 @@ func LoadSources(ctx context.Context, snapshotDir, reportFile, mapFile string) (
 	if e != nil {
 		return out, e
 	}
-	raw, e := readBounded(mp, MaxMetadataBytes)
+	raw, e := readBounded(ctx, mp, MaxMetadataBytes)
 	if e != nil {
 		return out, e
 	}
@@ -166,23 +276,15 @@ func LoadSources(ctx context.Context, snapshotDir, reportFile, mapFile string) (
 		if e != nil {
 			return out, e
 		}
-		file, e := os.Open(path)
+		raw, e := readRegular(ctx, path, MaxSourceFileBytes, &f.SizeBytes)
 		if e != nil {
 			return out, e
 		}
-		h := sha256.New()
-		size, e := io.Copy(h, file)
-		file.Close()
-		if e != nil || size != f.SizeBytes || hex.EncodeToString(h.Sum(nil)) != f.SHA256 {
+		if hashBytes(raw) != f.SHA256 {
 			return out, ErrInvalid
 		}
-		file, e = os.Open(path)
-		if e != nil {
-			return out, e
-		}
 		var c corpus
-		e = json.NewDecoder(file).Decode(&c)
-		file.Close()
+		e = json.Unmarshal(raw, &c)
 		if e != nil || c.DatasetID != s.DatasetID || len(c.Knowledge) != len(s.RecordIDs) {
 			return out, ErrInvalid
 		}

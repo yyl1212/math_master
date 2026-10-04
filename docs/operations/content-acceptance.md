@@ -39,3 +39,9 @@ JSON 与中文 Markdown 使用相同结论和数量。报告只含安全数学�
 由实际负责人核验每一批准 decision 的真实人员独立性后填写 `reviewAttestations`，每项包含 `decisionId` 与 `independenceVerified`。工具仍会核对真实工作流冻结作者集合与 reviewer 不同、摘要和审查勾选；它无法证明自然人的身份独立性，也不会自动生成这些承诺。
 
 `learningChecks` 记录八类 reading、pass、fail、prerequisites、review、practice_exposure、retake、feedback_correction，各项填写 `name`、`result`（passed/failed/not_run）及实际证据文件 `evidenceSHA256`。保存脱敏原始结果并复算摘要；不得将技术夹具改写成真实教学验证。任何 failed 都使报告 `not_ready`，缺项保持待复核。真实发布和正式 accepted 属于 P6b，生产部署另按 P7 审批。
+
+## 输入与当前可用数量的补充约束
+
+验收输入必须是普通文件；拒绝 FIFO、设备、目录及输入文件的符号链接。读取使用声明长度、前后文件身份/大小/修改时间检查和可取消读取；来源正文的 SHA 与条目解析使用同一份捕获字节，不在摘要核验后重新打开正文。原始 corpus 每文件独立上限64MiB，不能套用4MiB元数据上限；来源映射256KiB、元数据4MiB、安全SVG1MiB、报告8MiB及整条CLI8秒预算不变。未来超过64MiB的来源需要另设计流式导入，当前入口会返回预算失败。
+
+外部验收证据中的 decisionId 和八种 learningChecks 名称必须分别唯一；相同值或冲突值重复都会拒绝，未知检查名称也会拒绝。not_run 不能被后面的 passed 覆盖。发布态的模板必须存在至少一个准确模板身份下当前可用且计入有效池的实例；专属单元/素材退出当前head导致全部实例失效时，该模板不会撑高20模板门槛。来源、审核、正文与两head的原核验仍先于计数。

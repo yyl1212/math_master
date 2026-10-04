@@ -106,6 +106,13 @@ func TestContentAuditConclusions(t *testing.T) {
 		t.Fatal(r, e)
 	}
 	p := PublishedFacts{CatalogueVersion: 1, CatalogueSHA: f.References.CatalogueSHA256, Path: f.Path, PathSHA: content.Digest(f.Path), Content: f.Content, Bank: question.Candidate{Templates: f.Sealed[0].Package.Templates, Blueprints: f.Sealed[0].Package.Blueprints, Instances: f.Sealed[0].Instances}, Approvals: []ApprovalFact{}, EligibleInstances: []question.Identity{}, Excluded: []Exclusion{}}
+	for _, tpl := range p.Bank.Templates {
+		generated, _, e := question.Generate(context.Background(), tpl)
+		if e != nil {
+			t.Fatal(e)
+		}
+		p.Bank.Instances = append(p.Bank.Instances, generated...)
+	}
 	for _, i := range p.Bank.Instances {
 		p.EligibleInstances = append(p.EligibleInstances, i.Identity)
 	}

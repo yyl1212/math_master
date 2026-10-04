@@ -106,14 +106,15 @@ func RunContentAudit(ctx context.Context, args []string, stdout, stderr io.Write
 		}
 		var evidence contentaudit.AcceptanceEvidence
 		if evidenceFile != "" {
-			f, e := os.Open(evidenceFile)
+			evidence, e = contentaudit.ReadEvidence(ctx, evidenceFile)
 			if e != nil {
+				if errors.Is(e, context.Canceled) || errors.Is(e, context.DeadlineExceeded) || errors.Is(e, contentaudit.ErrLimit) {
+					return classify(e)
+				}
+				if errors.Is(e, contentaudit.ErrInvalid) || errors.Is(e, question.ErrInvalid) {
+					return fail("EVIDENCE_INVALID", 2)
+				}
 				return fail("EVIDENCE_IO", 1)
-			}
-			e = contentaudit.DecodeEvidence(f, &evidence)
-			f.Close()
-			if e != nil {
-				return fail("EVIDENCE_INVALID", 2)
 			}
 		}
 		report, e = contentaudit.EvaluatePublished(ctx, req, facts, sources, evidence)

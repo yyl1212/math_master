@@ -12,9 +12,10 @@ import (
 )
 
 const (
-	MaxMetadataBytes  = 4 << 20
-	MaxSourceMapBytes = 256 << 10
-	MaxReportBytes    = 8 << 20
+	MaxMetadataBytes   = 4 << 20
+	MaxSourceFileBytes = 64 << 20
+	MaxSourceMapBytes  = 256 << 10
+	MaxReportBytes     = 8 << 20
 )
 
 var (

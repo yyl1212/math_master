@@ -213,14 +213,29 @@ func (s *Store) ReadContentAudit(ctx context.Context, route content.VersionRef) 
 		if e != nil {
 			return out, e
 		}
+		eligibleTemplates := map[question.Identity]bool{}
 		for _, i := range out.Bank.Instances {
 			if eligible[i.Identity] {
 				out.EligibleInstances = append(out.EligibleInstances, i.Identity)
+				if i.Template != nil {
+					eligibleTemplates[*i.Template] = true
+				}
 			} else {
 				v := i.Identity.Version
 				out.Excluded = append(out.Excluded, contentaudit.Exclusion{Object: contentaudit.ObjectIdentity{Kind: "instance", ID: i.Identity.ID, Version: &v, SHA256: i.Identity.SHA256}, Code: "CURRENT_DEPENDENCY_OR_RULE_RESTRICTED"})
 			}
 		}
+		for _, t := range out.Bank.Templates {
+			_, sha, e := question.CanonicalTemplate(t)
+			if e != nil {
+				return out, e
+			}
+			if !eligibleTemplates[question.Identity{ID: t.ID, Version: t.Version, SHA256: sha}] {
+				v := t.Version
+				out.Excluded = append(out.Excluded, contentaudit.Exclusion{Object: contentaudit.ObjectIdentity{Kind: "template", ID: t.ID, Version: &v, SHA256: sha}, Code: "TEMPLATE_HAS_NO_CURRENT_ELIGIBLE_INSTANCE"})
+			}
+		}
+
 	}
 	if e = tx.Commit(); e != nil {
 		return out, readError(e)

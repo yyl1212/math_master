@@ -121,6 +121,9 @@ func EvaluateDraft(ctx context.Context, req Request, facts DraftFacts, sources S
 	return evaluate(ctx, req, p, sources, AcceptanceEvidence{}, bpHashes)
 }
 func EvaluatePublished(ctx context.Context, req Request, facts PublishedFacts, sources SourceBundle, evidence AcceptanceEvidence) (Report, error) {
+	if e := validateEvidence(evidence); e != nil {
+		return Report{}, e
+	}
 	if req.Mode != Published {
 		return Report{}, ErrInvalid
 	}
@@ -138,6 +141,33 @@ func EvaluatePublished(ctx context.Context, req Request, facts PublishedFacts, s
 		}
 	}
 	return evaluate(ctx, req, facts, sources, evidence, hashes)
+}
+
+var requiredLearningChecks = []string{"reading", "pass", "fail", "prerequisites", "review", "practice_exposure", "retake", "feedback_correction"}
+
+func validateEvidence(e AcceptanceEvidence) error {
+	if e.SchemaVersion == 0 && (len(e.ReviewAttestations) != 0 || len(e.LearningChecks) != 0) {
+		return ErrInvalid
+	}
+	seenDecisions := map[string]bool{}
+	for _, a := range e.ReviewAttestations {
+		if a.DecisionID == "" || seenDecisions[a.DecisionID] {
+			return ErrInvalid
+		}
+		seenDecisions[a.DecisionID] = true
+	}
+	allowed := map[string]bool{}
+	for _, name := range requiredLearningChecks {
+		allowed[name] = true
+	}
+	seenChecks := map[string]bool{}
+	for _, c := range e.LearningChecks {
+		if !allowed[c.Name] || seenChecks[c.Name] || !(c.Result == "passed" || c.Result == "failed" || c.Result == "not_run") || !question.ValidSHA(c.EvidenceSHA256) {
+			return ErrInvalid
+		}
+		seenChecks[c.Name] = true
+	}
+	return nil
 }
 func evaluate(ctx context.Context, req Request, p PublishedFacts, s SourceBundle, evidence AcceptanceEvidence, bpHashes map[content.VersionRef]string) (Report, error) {
 	var r Report
@@ -299,6 +329,12 @@ func evaluate(ctx context.Context, req Request, p PublishedFacts, s SourceBundle
 		n.Ready = n.EffectiveInstances >= 10 && n.AssessmentInstances >= 5 && len(n.FiveWitness) == 5 && n.AfterPracticeWitness
 		r.Nodes = append(r.Nodes, n)
 	}
+	activeTemplates := map[question.Identity]bool{}
+	for _, in := range usedInstances {
+		if in.Template != nil {
+			activeTemplates[*in.Template] = true
+		}
+	}
 	templateKeys := map[string]bool{}
 	for _, t := range p.Bank.Templates {
 		if !route[t.Knowledge] {
@@ -314,7 +350,7 @@ func evaluate(ctx context.Context, req Request, p PublishedFacts, s SourceBundle
 			continue
 		}
 		templateKeys[key] = true
-		if excluded[key] {
+		if excluded[key] || req.Mode == Published && !activeTemplates[question.Identity{ID: t.ID, Version: t.Version, SHA256: sha}] {
 			r.DraftCounts.Excluded++
 			continue
 		}
@@ -393,16 +429,13 @@ func evaluate(ctx context.Context, req Request, p PublishedFacts, s SourceBundle
 		}
 		checks := map[string]bool{}
 		for _, c := range evidence.LearningChecks {
-			if checks[c.Name] || !(c.Result == "passed" || c.Result == "failed" || c.Result == "not_run") || !question.ValidSHA(c.EvidenceSHA256) {
-				return r, ErrInvalid
-			}
 			checks[c.Name] = c.Result == "passed"
 			if c.Result == "failed" {
 				learningFailed = true
 			}
 		}
 		r.Quality.LearningComplete = true
-		for _, name := range []string{"reading", "pass", "fail", "prerequisites", "review", "practice_exposure", "retake", "feedback_correction"} {
+		for _, name := range requiredLearningChecks {
 			if !checks[name] {
 				r.Quality.LearningComplete = false
 			}
