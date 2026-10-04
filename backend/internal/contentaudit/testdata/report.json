@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "mode": "draft",
+  "fixtureOnly": true,
+  "createdAt": "2026-10-04T00:00:00Z",
+  "codeSHA": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "context": {
+    "catalogueVersion": 1,
+    "catalogueSha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "route": {
+      "id": "target",
+      "version": 1
+    },
+    "routeSha": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "knowledgeHead": null,
+    "questionHead": null
+  },
+  "source": {
+    "snapshotId": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "policyVersion": 1,
+    "reportSha": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "complete": true,
+    "unresolvedCount": 8
+  },
+  "draftCounts": {
+    "knowledge": 30,
+    "templates": 24,
+    "fixedInstances": 450,
+    "generatedInstances": 384,
+    "effectiveInstances": 834,
+    "duplicates": 0,
+    "excluded": 0
+  },
+  "formalCounts": {
+    "knowledge": 0,
+    "templates": 0,
+    "fixedInstances": 0,
+    "generatedInstances": 0,
+    "effectiveInstances": 0,
+    "duplicates": 0,
+    "excluded": 0
+  },
+  "nodes": [],
+  "quality": {
+    "twoAngles": false,
+    "examples": false,
+    "assets": false,
+    "independentReview": false,
+    "learningComplete": false
+  },
+  "conclusion": "draft_ready",
+  "reasons": []
+}

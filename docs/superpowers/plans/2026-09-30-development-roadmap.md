@@ -222,3 +222,16 @@ CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修�
 同一次必要修复轮追加Ruling28：最终文档90fd12d容量5m真实失败，仅将补扫terminal候选按当前已锁定案件参数化，保持原谓词/顺序/50预算/全部守卫；完整原容量与所有44命令在产品 `d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb` 新鲜PASS，350前端/146浏览器/44Node/五容量，完整28裁定见实施账本。一次独立reviewer及零deferred minor保持；新最终归档head的四workflow/六job必须实际成功，最新结论以PR #23说明为准。
 
 同一次必要修复轮追加Ruling29：完整head215a8ed1的PR容量5m真实失败，采用已测现有规则索引最早日期排除必空范围、锁定案件根/方案/类型有依赖元数据读取；原谓词/顺序/50预算/全部守卫和worker保持。产品 `4f0f0441e5317f1ad8c33a8a86c81c2291a17b76` 全44命令新鲜PASS，350前端/146浏览器/44Node/五容量；29裁定完整归档，一次独立reviewer、零deferred minor。最终最新head四workflow/六job仍须实际成功，以PR #23最新说明为准。
+
+
+## 2026-10-04：P5b 合并与 P6 书面设计
+
+用户已明确确认“合并 PR #23，并设计 P6”。P5b [PR #23](https://github.com/yyl1212/math_master/pull/23)合并前准确 head bea681a6d45ae9787bdb8526639ec2b01e7590d5 的四次 workflow、六个 job 全部 success，已实际合并至 master 8bf3c95b9833941182f4c8caa2da752e6d7838ce；新 master 的运行按准确提交另外核验，不以旧 head 代替。
+
+从 SSH 获取的最新 master 建立 codex/p6-content-design，仅编写[P6 首批内容与质量验收书面设计](../specs/2026-10-04-first-content-acceptance-design.md)、来源预检并更新来源清单。本方案分 P6a 准备/草稿和 P6b 独立复核/正式验收，原 30/20/300、逐节点十实例/五检测及核心五题覆盖保持。当前资料不断更新，三份索引和八项摘要差异的具体时点见[只读预检](../../content/2026-10-04-p6-source-preflight.json)；未修改用户输入、原快照或正式内容。
+
+P6 书面方案及兼容边界、[P6a 实施计划](2026-10-04-first-content-preparation.md)已获用户确认，按 Native 连续执行十任务/五十步骤。已完成三索引固定批次、来源定位、30知识/30单元/9原创SVG、24模板/450固定/384生成共834不同草稿实例、纯验收与只读CLI、30节点真实测评和双视口16项新联调。草稿CLI为 draft_ready，隔离发布态为 awaiting_review/fixtureOnly；正式计数为零。完整旧回归和整分支审查记录见[实施证据](../../operations/evidence/p6a/implementation.md)。P6b仍待真实独立人员数学复核、批准发布和正式验收；P7部署另行安排。
+
+GitHub Actions 的原启动限制在2026-10-04复查时已恢复；旧失败原因及恢复证据见[启动限制诊断](../../operations/2026-10-04-github-actions-start-block.md)。恢复启动不等于新实现CI通过；[P6a 实现PR #25](https://github.com/yyl1212/math_master/pull/25)的产品修复完整head fca745e0b41fa9865162ace67af2da80243a4cdd 已核验四workflow/六job实际success；准确最终证据归档head还以PR当前检查与交付记录核验。原测试、全局截止与兼容保护保持，新的完整场景单独10秒准备预算及历史失败见实施证据。
+
+P6a 十任务/五十步骤完成记录、全部裁决与真实CI结果已[归档](../../operations/evidence/p6a/steps-complete.md)。实现PR #25已创建并保持开放，文档PR #24未合并；P6b真实独立数学复核与正式发布/验收，以及P7部署分阶段交接。

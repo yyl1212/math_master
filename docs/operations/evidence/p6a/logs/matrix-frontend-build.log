@@ -1,0 +1,78 @@
+
+> math-master-frontend@0.1.0 build
+> next build
+
+▲ Next.js 16.3.7 (Turbopack)
+✓ Running next.config.ts took 11ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 204ms
+  Running TypeScript ...
+  Finished TypeScript in 671ms ...
+  Collecting page data using 17 workers ...
+  Generating static pages using 17 workers (0/2) ...
+✓ Generating static pages using 17 workers (2/2) in 57ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /account
+├ ƒ /admin/publications
+├ ƒ /admin/publications/[id]
+├ ƒ /admin/question-publications
+├ ƒ /admin/question-publications/[id]
+├ ƒ /admin/question-withdrawals
+├ ƒ /admin/users
+├ ƒ /admin/withdrawals
+├ ƒ /api/v1/[...segments]
+├ ƒ /api/v1/admin
+├ ƒ /api/v1/admin/[...segments]
+├ ƒ /api/v1/auth
+├ ƒ /api/v1/auth/[...segments]
+├ ƒ /api/v1/content
+├ ƒ /api/v1/content/[...segments]
+├ ƒ /api/v1/corrections
+├ ƒ /api/v1/corrections/[...segments]
+├ ƒ /api/v1/feedback
+├ ƒ /api/v1/feedback/[...segments]
+├ ƒ /api/v1/learning
+├ ƒ /api/v1/learning/[...segments]
+├ ƒ /api/v1/notifications
+├ ƒ /api/v1/notifications/[...segments]
+├ ƒ /api/v1/question-bank
+├ ƒ /api/v1/question-bank/[...segments]
+├ ƒ /assessments/[id]
+├ ƒ /assessments/[id]/result
+├ ƒ /corrections/[id]
+├ ƒ /domains/[id]
+├ ƒ /editor
+├ ƒ /editor/drafts/[id]
+├ ƒ /editor/questions
+├ ƒ /editor/questions/drafts/[id]
+├ ƒ /feedback
+├ ƒ /feedback/[id]
+├ ƒ /feedback/new
+├ ƒ /knowledge
+├ ƒ /knowledge/[id]
+├ ƒ /learn
+├ ƒ /learning-history
+├ ƒ /login
+├ ƒ /notifications
+├ ƒ /paths/[id]
+├ ƒ /practice/[id]
+├ ƒ /register
+├ ƒ /review
+├ ƒ /review/[id]
+├ ƒ /review/corrections
+├ ƒ /review/corrections/[id]
+├ ƒ /review/corrections/[id]/plans/[planId]/[version]
+├ ƒ /review/feedback
+├ ƒ /review/feedback/[id]
+├ ƒ /review/questions
+└ ƒ /review/questions/[id]
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

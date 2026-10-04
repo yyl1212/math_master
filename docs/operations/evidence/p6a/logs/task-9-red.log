@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/e2etest [github.com/yyl1212/math_master/backend/internal/e2etest.test]
+internal/e2etest/content_acceptance_fixture_test.go:19:9: c.contentAcceptanceScene undefined (type *questionControls has no field or method contentAcceptanceScene)
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest [build failed]
+FAIL

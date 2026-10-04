@@ -1,0 +1,38 @@
+{
+  "baseHeadSHA": "2c587c6df0b592b8cd74e954be2347c753f99abe",
+  "workingFilesSHA256": {
+    "tests/e2e/fixtures.ts": "47264e8f534bb07366161d1a77cd9159d8e5fbd7f2aeabcdc272ef9c0aedff67",
+    "tests/e2e/scene-control.ts": "19f3df7799546a2a4d036cf1c768260de430449e8f32f5e939702a2ddb69c39b",
+    "tools/verify/content-acceptance-ci.test.mjs": "de2fbaf73bcd7a91b9675e5a69d941ff8462f8ad83f88e2e0505d692a68b2aeb"
+  },
+  "nodeCases": 72,
+  "frontendCases": 350,
+  "typecheckExit": 0,
+  "browserCases": 32,
+  "browser": [
+    {
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- catalogue.spec.ts reading.spec.ts",
+      "exit": 0,
+      "seconds": 36.477,
+      "log": "logs/scene-browser-01.log",
+      "cases": 16
+    },
+    {
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-acceptance-reading.spec.ts",
+      "exit": 0,
+      "seconds": 40.858,
+      "log": "logs/scene-browser-21.log",
+      "cases": 8
+    },
+    {
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-acceptance-learning.spec.ts",
+      "exit": 0,
+      "seconds": 66.044,
+      "log": "logs/scene-browser-22.log",
+      "cases": 8
+    }
+  ],
+  "ordinarySceneRequestMs": 5000,
+  "completeContentSceneRequestMs": 10000,
+  "automaticRetries": 0
+}

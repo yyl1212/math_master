@@ -1,0 +1,60 @@
+✔ new audit batches and all old budgets are wired (2.320625ms)
+✔ missing new browser or audit capacity is detected (1.761875ms)
+✔ old browser deletion and budget changes are detected (0.949625ms)
+✖ complete content scene accepts one setup slower than the old five-second limit (5029.6585ms)
+✔ all legacy and unknown scenes retain the five-second request limit (0.754542ms)
+✖ content setup has a ten-second limit within the unchanged individual test budget (0.257916ms)
+✖ scene failures are single-attempt and redact both transport and timeout errors (0.658292ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 4
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5576.528167
+
+✖ failing tests:
+
+test at tools/verify/content-acceptance-ci.test.mjs:71:1
+✖ complete content scene accepts one setup slower than the old five-second limit (5029.6585ms)
+  Error: Test scene change failed
+      at changeScene (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/scene-control.ts:13:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/content-acceptance-ci.test.mjs:88:2)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tools/verify/content-acceptance-ci.test.mjs:102:1
+✖ content setup has a ten-second limit within the unchanged individual test budget (0.257916ms)
+  Error: Test scene change failed
+      at changeScene (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/scene-control.ts:13:19)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/content-acceptance-ci.test.mjs:104:2)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7)
+
+test at tools/verify/content-acceptance-ci.test.mjs:107:1
+✖ scene failures are single-attempt and redact both transport and timeout errors (0.658292ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'Test scene change failed'
+  - 'Test scene change timed out'
+                       ^
+  
+      at Object.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/content-acceptance-ci.test.mjs:116:11)
+      at expectedException (node:assert:578:17)
+      at expectsError (node:assert:703:21)
+      at strict.rejects (node:assert:769:3)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/content-acceptance-ci.test.mjs:111:3)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'Test scene change failed',
+    expected: 'Test scene change timed out',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,94 @@
+ok  	github.com/yyl1212/math_master/backend/cmd/server	2.098s
+ok  	github.com/yyl1212/math_master/backend/internal/correction	1.967s
+ok  	github.com/yyl1212/math_master/backend/internal/notification	2.848s
+ok  	github.com/yyl1212/math_master/backend/internal/feedback	1.279s
+ok  	github.com/yyl1212/math_master/backend/internal/assessment	2.483s
+ok  	github.com/yyl1212/math_master/backend/internal/learning	0.521s
+ok  	github.com/yyl1212/math_master/backend/internal/question	3.947s
+ok  	github.com/yyl1212/math_master/backend/internal/auth	1.012s
+ok  	github.com/yyl1212/math_master/backend/internal/content	4.998s
+ok  	github.com/yyl1212/math_master/backend/internal/publication	4.675s
+ok  	github.com/yyl1212/math_master/backend/internal/config	3.228s
+2026/10/04 12:50:10 ERROR API request failed request_id=137701cc306090d3fb70fefb095b5829 error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:10 ERROR API request failed request_id=4ac54200e6ead2488072a826c83cb190 error_code=INTERNAL_ERROR
+--- FAIL: TestAuthIntegration (0.00s)
+    auth_integration_test.go:16: unsafe isolated test database configuration
+2026/10/04 12:50:10 ERROR Private API request failed request_id=7c24933c377513fd66586fdf84a8456e error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:10 ERROR Private API request failed request_id=dcbe189ca7efa954b5d89c78bfdab4f6 error_code=AUTH_NOT_CONFIGURED
+2026/10/04 12:50:10 ERROR API request failed request_id=aa87d528725a4e8ef4e152563edbe23d error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:10 ERROR API request failed request_id=73732777b84437dca52d2f4b72ca9b8b error_code=INTERNAL_ERROR
+2026/10/04 12:50:10 ERROR Private API request failed request_id=dc56c1b700c4fa7b6164bd9144b4902d error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestContentHTTPWorkflow (0.00s)
+    content_integration_test.go:78: unsafe isolated test database configuration
+--- FAIL: TestContentReadinessDoesNotMigrate (0.00s)
+    content_integration_test.go:184: unsafe isolated test database configuration
+2026/10/04 12:50:10 ERROR Private API request failed request_id=94a8d44d39e0dfce5411fc40c2065a13 error_code=AUTH_NOT_CONFIGURED
+2026/10/04 12:50:10 ERROR Private API request failed request_id=e009bfe7d3b601ee3161a33a7ba3788c error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:10 ERROR Private API request failed request_id=c9b6001c4489710940a238b1d15dc165 error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:10 ERROR Private API request failed request_id=333bef447159c64c3cc627e739c55bd7 error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestCorrectionHTTPIntegration (0.00s)
+    correction_integration_test.go:39: unsafe isolated test database configuration
+2026/10/04 12:50:10 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:10 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:18 ERROR Private API request failed request_id=a047fe1e3382dcf778d97f977a7ee21d error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestFeedbackHTTPRealWorkflow (0.00s)
+    feedback_integration_test.go:23: unsafe isolated test database configuration
+2026/10/04 12:50:18 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:18 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:26 ERROR Private API request failed request_id=b8f6e6c10e7c8d0afbe921683a70f814 error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestLearningHTTPRealFiveAnswersAndOwnership (0.00s)
+    learning_integration_test.go:23: unsafe isolated test database configuration
+2026/10/04 12:50:27 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:27 ERROR Private API request failed request_id=7c5ee72d58e076588042e93ffcf9f2e3 error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:35 ERROR Private API request failed request_id=68ae06d97a27fdcbd12c78e2f4f04496 error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:35 ERROR Private API request failed request_id="" error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestNotificationHTTPIntegration (0.00s)
+    correction_integration_test.go:39: unsafe isolated test database configuration
+2026/10/04 12:50:43 ERROR Private API request failed request_id=1399b9a1f4a77f6e82ec174fd1a81ff4 error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:44 ERROR Private API request failed request_id=ffa13cdf8b2a2063b0c43a01827631db error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:44 ERROR Private API request failed request_id=cdf4f7c20b9bbd2b11b83919c31c2780 error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:44 ERROR Private API request failed request_id=2776fc3b12ff5de887ca7afd295e64ce error_code=SERVICE_UNAVAILABLE
+2026/10/04 12:50:44 ERROR Private API request failed request_id=eeb0e3f51828a98cea0f58c586b69135 error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestSharedContentQuestionRateWindow (0.00s)
+    question_test.go:291: unsafe isolated test database configuration
+2026/10/04 12:50:52 ERROR Private API request failed request_id=f99d1f19b07545734ca86f4b235d4b09 error_code=SERVICE_UNAVAILABLE
+--- FAIL: TestQuestionBodyDeadline (12.00s)
+    question_test.go:352: unsafe isolated test database configuration
+--- FAIL: TestQuestionReadinessDoesNotMigrate (0.00s)
+    question_test.go:363: unsafe isolated test database configuration
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/httpapi	51.551s
+--- FAIL: TestCorrectionRealFixtureAndSharedReset (0.00s)
+    correction_fixture_test.go:14: unsafe isolated test database configuration
+--- FAIL: TestCorrectionHarnessScenesArePrivate (0.01s)
+    correction_fixture_test.go:67: harness exited before readiness
+--- FAIL: TestFeedbackRealFixtureAndReset (0.00s)
+    feedback_fixture_test.go:16: unsafe isolated test database configuration
+--- FAIL: TestFeedbackHarnessControlsPrivate (0.01s)
+    feedback_fixture_test.go:100: harness exited before readiness
+--- FAIL: TestHarnessRequiresControlToken (0.01s)
+    harness_test.go:74: harness exited before readiness
+--- FAIL: TestHarnessCleansIsolatedDatabase (0.00s)
+    harness_test.go:132: unsafe isolated test database configuration
+--- FAIL: TestHarnessAccountsAreIsolatedAndRecoverable (0.01s)
+    harness_test.go:177: harness exited before readiness
+--- FAIL: TestHarnessCleanupWaitsOnEarlyExit (0.00s)
+    harness_test.go:227: unsafe isolated test database configuration
+--- FAIL: TestLearningRealFixtureAndReset (0.00s)
+    learning_fixture_test.go:15: unsafe isolated test database configuration
+--- FAIL: TestLearningHarnessScenesArePrivate (0.01s)
+    learning_fixture_test.go:83: harness exited before readiness
+--- FAIL: TestLearningChoiceFixtureUsesActualPublishedQuestions (0.00s)
+    learning_fixture_test.go:136: unsafe isolated test database configuration
+--- FAIL: TestHarnessQuestionSceneAndPrivateService (0.01s)
+    question_fixture_test.go:10: harness exited before readiness
+--- FAIL: TestHarnessQuestionControlStateAndCLIStayPrivate (0.01s)
+    question_fixture_test.go:41: harness exited before readiness
+--- FAIL: TestHarnessContentUsesRealAccountsAndPrivateService (0.01s)
+    workflow_fixture_test.go:12: harness exited before readiness
+--- FAIL: TestContentFixtureRoles (0.00s)
+    workflow_fixture_test.go:35: unsafe isolated test database configuration
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest	6.011s
+ok  	github.com/yyl1212/math_master/backend/internal/testutil	4.981s
+FAIL

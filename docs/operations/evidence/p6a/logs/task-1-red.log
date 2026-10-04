@@ -1,0 +1,146 @@
+✔ freezes source bytes and finds changes without changing the prior snapshot (55.342625ms)
+✔ unchanged sources produce no repeated changes and never overwrite a snapshot (69.773459ms)
+✔ rejects index paths escaping the source folder (23.025917ms)
+✔ reports missing files as a review item without modifying the previous snapshot (51.03875ms)
+✔ private snapshots retain owner-only permissions under a permissive umask (24.406291ms)
+✔ legacy manifest keeps the exact files-byte digest and field set (24.739041ms)
+✖ third index participates in capture selection and conflict mismatches (25.214291ms)
+✔ symbolic source files cannot escape capture (22.253083ms)
+✔ source-changed cleanup is deterministic across rewrite and deletion (120.734ms)
+✖ legacy one and two indices preserve primary selection and counts (0.594791ms)
+✖ third index contributes primary entries while shared declarations retain all origins (0.11275ms)
+✖ conflicting declarations retain both hashes instead of last-wins (0.082292ms)
+✖ missing digest remains a report issue without invalidating legacy capture (0.081417ms)
+✖ rejects unsafe primary and declared paths and missing base index (0.278958ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 8
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 448.2835
+
+✖ failing tests:
+
+test at tools/content-ingest/snapshot.test.mjs:62:1
+✖ third index participates in capture selection and conflict mismatches (25.214291ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  1 !== 2
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/snapshot.test.mjs:68:9)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 2,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-index.test.mjs:11:1
+✖ legacy one and two indices preserve primary selection and counts (0.594791ms)
+  AssertionError [ERR_ASSERTION]: three-index declaration reader is required
+      at read (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:8:10)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:13:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-index.test.mjs:18:1
+✖ third index contributes primary entries while shared declarations retain all origins (0.11275ms)
+  AssertionError [ERR_ASSERTION]: three-index declaration reader is required
+      at read (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:8:10)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:19:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-index.test.mjs:28:1
+✖ conflicting declarations retain both hashes instead of last-wins (0.082292ms)
+  AssertionError [ERR_ASSERTION]: three-index declaration reader is required
+      at read (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:8:10)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:29:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-index.test.mjs:33:1
+✖ missing digest remains a report issue without invalidating legacy capture (0.081417ms)
+  AssertionError [ERR_ASSERTION]: three-index declaration reader is required
+      at read (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:8:10)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:34:21)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-index.test.mjs:38:1
+✖ rejects unsafe primary and declared paths and missing base index (0.278958ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /INDEX_PATH_ESCAPE/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: three-index declaration reader is required'
+  
+      at async TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:40:3)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: three-index declaration reader is required
+        at read (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:8:10)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:40:28
+        at waitForActual (node:assert:632:21)
+        at strict.rejects (node:assert:769:31)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-index.test.mjs:40:16)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /INDEX_PATH_ESCAPE/,
+    operator: 'rejects',
+    diff: 'simple'
+  }

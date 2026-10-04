@@ -1,0 +1,5 @@
+--- FAIL: TestContentAuditReportGolden (0.00s)
+    report_test.go:3: golden md mismatch: open testdata/report.md: no such file or directory
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/contentaudit	0.138s
+FAIL

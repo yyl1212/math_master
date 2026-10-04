@@ -1,0 +1,48 @@
+verify	首批完整草稿阅读双视口验证	﻿2026-10-04T06:51:39.0779787Z ##[group]Run node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-acceptance-reading.spec.ts
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0780442Z ^[[36;1mnode tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-acceptance-reading.spec.ts^[[0m
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0837729Z shell: /usr/bin/bash -e {0}
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0837949Z env:
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0838111Z   CGO_ENABLED: 0
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0838288Z   GOTOOLCHAIN: local
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0838479Z   NEXT_TELEMETRY_DISABLED: 1
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0838986Z   TEST_DATABASE_URL: ***127.0.0.1:5432/math_master_test_ci?sslmode=disable
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.0839292Z ##[endgroup]
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.1906244Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.1906922Z > math-master-frontend@0.1.0 e2e
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.1907944Z > playwright test --config ../tests/e2e/playwright.config.ts content-acceptance-reading.spec.ts
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:39.1908548Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:41.1909168Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:41.1909922Z Running 8 tests using 1 worker
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:41.1910353Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:46.2004858Z   ✓  1 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms (4.6s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:53.8193676Z   ✓  2 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons (7.6s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:51:59.4182737Z   ✓  3 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible (5.6s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:03.6679782Z   ✓  4 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers (4.2s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:08.8244897Z   ✓  5 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms (4.7s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:14.0348392Z   ✘  6 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons (5.2s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:19.7653898Z   ✓  7 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible (5.3s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:24.8205015Z   ✓  8 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers (5.0s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0511421Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0515917Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0523358Z   1) [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0523884Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0524048Z     Error: Test scene change failed
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0524211Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0524332Z        at fixtures.ts:71
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0524461Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0525240Z       69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0526506Z       70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0527165Z     > 71 |   } catch { throw new Error("Test scene change failed"); }
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0527674Z          |                   ^
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0527945Z       72 | }
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0528175Z       73 |
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0528649Z         at changeScene (/home/runner/work/math_master/math_master/tests/e2e/fixtures.ts:71:19)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0529258Z         at change (/home/runner/work/math_master/math_master/tests/e2e/fixtures.ts:37:7)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0529912Z         at /home/runner/work/math_master/math_master/tests/e2e/content-acceptance-reading.spec.ts:5:125
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0530232Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0530697Z     Error Context: ../test-results/content-acceptance-reading-37af1-SVGs-load-in-actual-lessons-mobile/error-context.md
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0531316Z 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0531397Z   1 failed
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0532231Z     [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons 
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0532906Z   7 passed (45.5s)
+verify	首批完整草稿阅读双视口验证	2026-10-04T06:52:25.0990411Z ##[error]Process completed with exit code 1.

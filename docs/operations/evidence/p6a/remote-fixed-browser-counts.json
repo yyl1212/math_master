@@ -1,0 +1,45 @@
+[
+  {
+    "event": "pull_request",
+    "runID": 37184917311,
+    "headSHA": "fca745e0b41fa9865162ace67af2da80243a4cdd",
+    "logAvailable": false,
+    "scope": "完整head与所有必要steps success已由官方API核验；额外原始日志读取失败，不替代实际结论。"
+  },
+  {
+    "event": "push",
+    "runID": 37184914572,
+    "headSHA": "fca745e0b41fa9865162ace67af2da80243a4cdd",
+    "url": "https://github.com/yyl1212/math_master/actions/runs/37184914572",
+    "logAvailable": true,
+    "log": "logs/remote-fixed-frontend-push.log",
+    "browserBatchCases": [
+      16,
+      12,
+      4,
+      4,
+      4,
+      6,
+      8,
+      4,
+      8,
+      8,
+      4,
+      8,
+      8,
+      6,
+      14,
+      8,
+      8,
+      6,
+      4,
+      6,
+      8,
+      8
+    ],
+    "browserCases": 162,
+    "frontendCases": 350,
+    "conclusion": "success",
+    "parsingNote": "仅解析副本移除ANSI/CLI转义显示控制符，原始读取日志逐字节保留。"
+  }
+]

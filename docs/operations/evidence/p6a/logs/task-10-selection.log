@@ -1,0 +1,22 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts catalogue.spec.ts reading.spec.ts --list
+
+Listing tests:
+  [desktop] › catalogue.spec.ts:3:5 › draftCatalogueShowsSixteenDomainsAndFiftySixTopics
+  [desktop] › catalogue.spec.ts:55:5 › englishChineseSearchAndHistoryWork
+  [desktop] › catalogue.spec.ts:87:5 › emptyAndUnavailableAreDistinct
+  [desktop] › catalogue.spec.ts:110:5 › keyboardCanReachEveryDomain
+  [desktop] › reading.spec.ts:3:5 › publishedFixtureCanBeReadWithMathAndOriginalSvg
+  [desktop] › reading.spec.ts:72:5 › withdrawalStopsNewReadsAndAssetRequests
+  [desktop] › reading.spec.ts:150:5 › longNamesAndMultiPrerequisitesFitBothViewports
+  [desktop] › reading.spec.ts:183:5 › clientResponsesDoNotExposeInternalConfiguration
+  [mobile] › catalogue.spec.ts:3:5 › draftCatalogueShowsSixteenDomainsAndFiftySixTopics
+  [mobile] › catalogue.spec.ts:55:5 › englishChineseSearchAndHistoryWork
+  [mobile] › catalogue.spec.ts:87:5 › emptyAndUnavailableAreDistinct
+  [mobile] › catalogue.spec.ts:110:5 › keyboardCanReachEveryDomain
+  [mobile] › reading.spec.ts:3:5 › publishedFixtureCanBeReadWithMathAndOriginalSvg
+  [mobile] › reading.spec.ts:72:5 › withdrawalStopsNewReadsAndAssetRequests
+  [mobile] › reading.spec.ts:150:5 › longNamesAndMultiPrerequisitesFitBothViewports
+  [mobile] › reading.spec.ts:183:5 › clientResponsesDoNotExposeInternalConfiguration
+Total: 16 tests in 2 files

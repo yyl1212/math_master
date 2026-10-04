@@ -12,3 +12,4 @@
 .history time { font-size: .85rem; color: #626c5c; }
 .feedback { padding: 1rem; background: #f8eee0; border-radius: 12px; }
 @media (max-width: 600px) { .actions .button { width: 100%; text-align: center; } .metrics { align-items: stretch; flex-direction: column; } .nodes { padding-left: 1rem; } }
+.panel select { min-width: 0; max-width: 100%; }

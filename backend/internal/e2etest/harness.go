@@ -283,6 +283,21 @@ func Run(ctx context.Context, c Config) (result error) {
 				return err
 			}
 		}
+		if scene == "content-acceptance" {
+			setup, stop := context.WithTimeout(ctx, 40*time.Second)
+			defer stop()
+			if err := qcontrol.contentAcceptanceScene(setup); err != nil {
+				return err
+			}
+			contentUnavailable = false
+			authUnavailable = false
+			unavailable = false
+			feedbackUnavailable = false
+			holdLearning.Store(false)
+			holdFeedback.Store(false)
+			holdCorrection.Store(false)
+			return nil
+		}
 		if scenario, ok := learningScenario(scene); ok {
 			qcontrol.release()
 			holdLearning.Store(false)

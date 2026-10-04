@@ -1,0 +1,25 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts catalogue.spec.ts reading.spec.ts
+
+
+Running 16 tests using 1 worker
+
+  ✓   1 [desktop] › ../tests/e2e/catalogue.spec.ts:3:5 › draftCatalogueShowsSixteenDomainsAndFiftySixTopics (1.0s)
+  ✓   2 [desktop] › ../tests/e2e/catalogue.spec.ts:55:5 › englishChineseSearchAndHistoryWork (2.0s)
+  ✓   3 [desktop] › ../tests/e2e/catalogue.spec.ts:87:5 › emptyAndUnavailableAreDistinct (1.4s)
+  ✓   4 [desktop] › ../tests/e2e/catalogue.spec.ts:110:5 › keyboardCanReachEveryDomain (595ms)
+  ✓   5 [desktop] › ../tests/e2e/reading.spec.ts:3:5 › publishedFixtureCanBeReadWithMathAndOriginalSvg (1.6s)
+  ✓   6 [desktop] › ../tests/e2e/reading.spec.ts:72:5 › withdrawalStopsNewReadsAndAssetRequests (7.7s)
+  ✓   7 [desktop] › ../tests/e2e/reading.spec.ts:150:5 › longNamesAndMultiPrerequisitesFitBothViewports (1.1s)
+  ✓   8 [desktop] › ../tests/e2e/reading.spec.ts:183:5 › clientResponsesDoNotExposeInternalConfiguration (271ms)
+  ✓   9 [mobile] › ../tests/e2e/catalogue.spec.ts:3:5 › draftCatalogueShowsSixteenDomainsAndFiftySixTopics (991ms)
+  ✓  10 [mobile] › ../tests/e2e/catalogue.spec.ts:55:5 › englishChineseSearchAndHistoryWork (2.0s)
+  ✓  11 [mobile] › ../tests/e2e/catalogue.spec.ts:87:5 › emptyAndUnavailableAreDistinct (603ms)
+  ✓  12 [mobile] › ../tests/e2e/catalogue.spec.ts:110:5 › keyboardCanReachEveryDomain (599ms)
+  ✓  13 [mobile] › ../tests/e2e/reading.spec.ts:3:5 › publishedFixtureCanBeReadWithMathAndOriginalSvg (836ms)
+  ✓  14 [mobile] › ../tests/e2e/reading.spec.ts:72:5 › withdrawalStopsNewReadsAndAssetRequests (7.0s)
+  ✓  15 [mobile] › ../tests/e2e/reading.spec.ts:150:5 › longNamesAndMultiPrerequisitesFitBothViewports (280ms)
+  ✓  16 [mobile] › ../tests/e2e/reading.spec.ts:183:5 › clientResponsesDoNotExposeInternalConfiguration (275ms)
+
+  16 passed (29.8s)

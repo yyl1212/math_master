@@ -1,0 +1,130 @@
+[
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...",
+    "exit": 0,
+    "seconds": 0.471,
+    "log": "logs/matrix-go-01.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...",
+    "exit": 0,
+    "seconds": 0.262,
+    "log": "logs/matrix-go-02.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1",
+    "exit": 0,
+    "seconds": 124.535,
+    "log": "logs/matrix-go-03.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip \"^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)\" -timeout 5m -count=1",
+    "exit": 0,
+    "seconds": 146.946,
+    "log": "logs/matrix-go-04.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Learning|Assessment)' -skip '^TestLearningCapacity' -timeout 5m -count=1",
+    "exit": 0,
+    "seconds": 86.513,
+    "log": "logs/matrix-go-05.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback' -skip '^TestFeedbackCapacity' -timeout 5m -count=1",
+    "exit": 0,
+    "seconds": 29.367,
+    "log": "logs/matrix-go-06.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedbackCapacity$' -timeout 5m -count=1 -v",
+    "exit": 0,
+    "seconds": 13.675,
+    "log": "logs/matrix-go-07.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacitySourceVolume$' -timeout 5m -count=1 -v",
+    "exit": 0,
+    "seconds": 93.656,
+    "log": "logs/matrix-go-08.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacityMaxPool$' -timeout 5m -count=1 -v",
+    "exit": 0,
+    "seconds": 125.337,
+    "log": "logs/matrix-go-09.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentaudit -timeout 5m -count=1",
+    "exit": 0,
+    "seconds": 3.93,
+    "log": "logs/matrix-go-10.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^TestContentAudit' -skip '^TestContentAuditCapacity$' -timeout 5m -count=1",
+    "exit": 0,
+    "seconds": 15.086,
+    "log": "logs/matrix-go-11.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestContentAuditCapacity$' -timeout 5m -count=1 -v",
+    "exit": 0,
+    "seconds": 69.508,
+    "log": "logs/matrix-go-12.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...",
+    "exit": 0,
+    "seconds": 0.625,
+    "log": "logs/matrix-go-13.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^Test(Correction|Notification)' -skip '^TestCorrectionCapacity' -timeout 5m -count=1",
+    "exit": 0,
+    "seconds": 127.768,
+    "log": "logs/matrix-go-14.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrectionCapacityImpact$' -timeout 5m -count=1 -v",
+    "exit": 0,
+    "seconds": 141.594,
+    "log": "logs/matrix-go-15.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrectionCapacityNotifications$' -timeout 5m -count=1 -v",
+    "exit": 0,
+    "seconds": 42.849,
+    "log": "logs/matrix-go-16.log",
+    "codeHead": "9d1cd0598eeecb522781421237cf137429a57a1d",
+    "pendingPatchSHA256": "2ec61830be067967bc712e731c8f8933e42e07b8f74bb89efcc38746dc4e0fd6"
+  }
+]

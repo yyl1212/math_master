@@ -1,0 +1,2921 @@
+{
+  "schemaVersion": 1,
+  "id": "elementary-foundations",
+  "version": 1,
+  "knowledge": [
+    {
+      "id": "natural-numbers",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Natural numbers",
+      "titleZh": "自然数",
+      "statement": "N_0 = {0, 1, 2, ...} is the set of nonnegative whole numbers. A number records a quantity; a numeral is a written representation of that number.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Count and represent nonnegative whole numbers.",
+        "Distinguish a number from its numeral and state the zero convention."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "zero",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Zero",
+      "titleZh": "零",
+      "statement": "Zero is the number of objects in an empty collection and a digit that can mark an unoccupied base-ten place.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Interpret zero as an empty count.",
+        "Explain zero as a placeholder without confusing it with an absent digit."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "natural-numbers",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "place-value",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Place value",
+      "titleZh": "位值",
+      "statement": "A base-ten numeral is the sum of its digits multiplied by their place units. Ten units of one place exchange for one unit of the next place.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Evaluate a base-ten numeral by place value.",
+        "Explain exchanging ten units for one higher unit."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "natural-numbers",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "zero",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "number-line",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Number line",
+      "titleZh": "数轴",
+      "statement": "A number line locates numbers relative to an origin using a fixed unit length. Nonnegative whole numbers are equally spaced to the right of zero.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Locate nonnegative whole numbers on a uniformly spaced line.",
+        "Interpret distance from zero and equal unit intervals."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "natural-numbers",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "zero",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "comparing-numbers",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Comparing numbers",
+      "titleZh": "比较与排序",
+      "statement": "For two nonnegative whole numbers, the greater number lies farther right on a common number line. Base-ten comparison starts at the highest differing place.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Compare two nonnegative whole numbers.",
+        "Explain an ordering using place value or position."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "place-value",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "number-line",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "rounding-estimation",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Rounding estimation",
+      "titleZh": "舍入与估算",
+      "statement": "Half-up rounding of a nonnegative value selects the nearest multiple of a stated place unit; an exact midpoint selects the larger multiple.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Round a nonnegative value to a stated place using half-up rounding.",
+        "Use an estimate to judge whether a result is reasonable."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero.",
+        "Half-up rounding is used only for nonnegative inputs at an explicitly stated place."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "place-value",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "comparing-numbers",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "addition",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Addition",
+      "titleZh": "加法",
+      "statement": "Addition combines quantities measured in the same unit. On a number line, adding a nonnegative amount moves that many units to the right.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Compute the total of combined nonnegative quantities.",
+        "Model addition as directed movement on a number line."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "place-value",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "number-line",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "addition-properties",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "theorem",
+      "title": "Addition properties",
+      "titleZh": "加法性质",
+      "statement": "For nonnegative quantities, a+b=b+a and (a+b)+c=a+(b+c); adding zero leaves a quantity unchanged.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Apply commutativity and associativity of addition.",
+        "Distinguish these laws from invalid subtraction rules."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "For finite disjoint collections, the union count is independent of which collection is named first or how a union of three collections is grouped. The empty collection contributes zero. These count identities extend to nonnegative quantities in the stated arithmetic system.",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "addition",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "subtraction",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Subtraction",
+      "titleZh": "减法",
+      "statement": "Subtraction can model removing an amount from a starting quantity or finding the difference between two quantities in a common unit.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Compute the amount remaining after removal.",
+        "Interpret subtraction as the difference between two quantities."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero.",
+        "The minuend is at least the subtrahend in this nonnegative subtraction scope."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "comparing-numbers",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "addition",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "addition-subtraction-inverse",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Addition subtraction inverse",
+      "titleZh": "加减互逆",
+      "statement": "Addition and subtraction undo each other: a+x=b gives x=b-a, and x-a=b gives x=b+a, where the stated nonnegative quantities are admissible.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Find a missing addend.",
+        "Recover an unknown starting quantity from a difference."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "addition",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "subtraction",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiplication",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Multiplication",
+      "titleZh": "乘法",
+      "statement": "Multiplication models equal groups and rectangular arrays. With m groups of n items, the total is m*n; area uses the product of side lengths in consistent units.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Compute a total from equal groups.",
+        "Interpret multiplication as a rectangular array or area."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "addition",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "addition-properties",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "multiplication-properties",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "theorem",
+      "title": "Multiplication properties",
+      "titleZh": "乘法性质与分配",
+      "statement": "Multiplication of nonnegative quantities is commutative and associative, has identity 1, and distributes over addition: a*(b+c)=a*b+a*c.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Apply commutativity, associativity and identity of multiplication.",
+        "Use distributivity and recognize invalid distributive claims."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "A rectangular array has the same number of entries after row and column labels are swapped. A three-dimensional grouping gives the same product under regrouping. Splitting a rectangle into strips of widths b and c gives a*b+a*c, which is its full area a*(b+c). One group of size a contains a entries.",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "multiplication",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "division",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Division",
+      "titleZh": "除法",
+      "statement": "Division by a nonzero amount finds an equal share or the number of groups of a given size. The result is checked by multiplying by the divisor.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Find a share when a total is divided into equal groups.",
+        "Find the number of groups of a given size with a nonzero divisor."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "subtraction",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "multiplication",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "division-remainder",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Division remainder",
+      "titleZh": "有余数除法",
+      "statement": "For an integer a>=0 and integer d>0, there are unique integers q>=0 and 0<=r<d such that a=d*q+r.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Determine quotient and remainder satisfying the division identity.",
+        "Interpret a remainder in context and check its bounds."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "comparing-numbers",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "division",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "order-of-operations",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Order of operations",
+      "titleZh": "运算顺序",
+      "statement": "Evaluate parentheses first, then multiplication and division from left to right, then addition and subtraction from left to right.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Evaluate a stated expression using parentheses and operation precedence.",
+        "Identify and explain an incorrect order of evaluation."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "addition",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "subtraction",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "multiplication",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "division",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "factors",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Factors",
+      "titleZh": "因数与倍数",
+      "statement": "A positive integer d is a factor of n when n=d*k for a nonnegative integer k. A nonnegative multiple of d has this same form.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Identify positive factors and nonnegative multiples.",
+        "Explain the factor-multiple relationship using exact division."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "multiplication",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "division-remainder",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "divisibility",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "theorem",
+      "title": "Divisibility",
+      "titleZh": "整除",
+      "statement": "A nonnegative base-ten integer is divisible by 2 if its last digit is even, by 5 if it ends in 0 or 5, and by 10 if it ends in 0.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Apply divisibility tests for 2, 5 and 10.",
+        "Justify these tests from base-ten place value."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Whole-number numerals use base ten and N_0 includes zero.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "Write n=10*q+r, where q>=0 and 0<=r<10. The term 10*q is a multiple of 2, 5 and 10. Therefore divisibility by each of these divisors is equivalent to divisibility of r, yielding respectively r in {0,2,4,6,8}, r in {0,5}, or r=0.",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "place-value",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "factors",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractions",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Fractions",
+      "titleZh": "分数与整体",
+      "statement": "For b>0, a/b represents a copies of the unit fraction 1/b relative to a stated whole divided into b equal parts. The denominator is nonzero.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Interpret numerator and nonzero denominator relative to a unit whole.",
+        "Distinguish equal parts from unequal parts and changes of the whole."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive.",
+        "Fractions or percentages being compared refer to the same stated whole."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "natural-numbers",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "division",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "fraction-number-line",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Fraction number line",
+      "titleZh": "分数数轴",
+      "statement": "Locate a/b, with a>=0 and integer b>0, by splitting each unit interval into b equal subintervals and taking a subinterval steps from zero.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Locate a nonnegative fraction using equal unit subdivisions.",
+        "Interpret improper fractions on a consistent unit scale."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "number-line",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fractions",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "equivalent-fractions",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "theorem",
+      "title": "Equivalent fractions",
+      "titleZh": "等值分数",
+      "statement": "Multiplying numerator and nonzero denominator by the same nonzero factor preserves a fraction value: a/b=(a*c)/(b*c).",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Produce an equivalent fraction by a common nonzero factor.",
+        "Explain why additive changes to both entries need not preserve value."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive.",
+        "Fractions or percentages being compared refer to the same stated whole."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "For b and c nonzero, cross multiplication gives a*(b*c)=(a*c)*b. Dividing both sides by the nonzero product b*(b*c) proves equality. The equal-part model applies to positive integer scale factors.",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "multiplication",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fractions",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "simplifying-fractions",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Simplifying fractions",
+      "titleZh": "约分",
+      "statement": "Dividing numerator and denominator by a common positive factor preserves value. A fraction is reduced when the numerator and denominator have no common factor greater than one.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Reduce a fraction by common positive factors.",
+        "Justify value preservation and recognize invalid cancellation."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "factors",
+            "version": 2
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "equivalent-fractions",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "comparing-fractions",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Comparing fractions",
+      "titleZh": "分数比较",
+      "statement": "Compare fractions using a common positive denominator, an exact benchmark, or cross products with positive denominators.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Compare fractions by an exact common representation.",
+        "Explain a valid benchmark or common-unit comparison."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive.",
+        "Fractions or percentages being compared refer to the same stated whole."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fraction-number-line",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "equivalent-fractions",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractions-same-denominator",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Fractions same denominator",
+      "titleZh": "同分母加减",
+      "statement": "For a common nonzero denominator b, a/b+c/b=(a+c)/b and a/b-c/b=(a-c)/b; subtraction here keeps a>=c.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Add fractions expressed in the same unit.",
+        "Subtract such fractions and explain why the denominator is retained."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive.",
+        "The minuend is at least the subtrahend in this nonnegative subtraction scope."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "addition",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "subtraction",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fractions",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "fractions-unlike-denominator",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Fractions unlike denominator",
+      "titleZh": "异分母加减",
+      "statement": "For unlike nonzero denominators, first construct equivalent fractions in a common unit, then add or subtract their numerators.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Add fractions after constructing a common denominator.",
+        "Subtract fractions using equivalent units and explain the conversion."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive.",
+        "The minuend is at least the subtrahend in this nonnegative subtraction scope."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "factors",
+            "version": 2
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "equivalent-fractions",
+            "version": 2
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fractions-same-denominator",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "fraction-multiplication",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Fraction multiplication",
+      "titleZh": "分数乘法",
+      "statement": "Multiplying by a nonnegative fraction scales a quantity. A rectangle with fractional side lengths a/b and c/d has area (a*c)/(b*d) square units, for positive b,d.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Interpret a product as scaling a nonnegative quantity.",
+        "Interpret a product as the area of a rectangle with fractional side lengths."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "multiplication-properties",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fractions",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "fraction-division",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Fraction division",
+      "titleZh": "分数除法",
+      "statement": "Dividing by a positive fraction measures how many fractional groups fit or solves a missing factor. For b,c,d>0, (a/b)/(c/d)=(a*d)/(b*c).",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Interpret division as measuring fractional groups.",
+        "Solve a missing fractional factor and state the nonzero condition."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "division",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fraction-multiplication",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "decimal-place-value",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Decimal place value",
+      "titleZh": "小数位值",
+      "statement": "A finite base-ten decimal is a sum of digits times powers of ten, including tenths, hundredths and smaller place units. Trailing zeros after the decimal point preserve value.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Evaluate a finite decimal using powers of ten.",
+        "Explain trailing zeros and distinguish place value from digit value."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "place-value",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fractions",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "decimal-fraction-conversion",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "theorem",
+      "title": "Decimal fraction conversion",
+      "titleZh": "分数小数转换",
+      "statement": "A finite decimal with n fractional places equals an integer divided by 10^n. A reduced rational fraction has a terminating base-ten expansion exactly when its positive denominator has only prime factors 2 and 5.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Convert a finite decimal to an exact fraction.",
+        "Determine whether a reduced fraction terminates and convert terminating cases."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "If a reduced denominator contains only 2 and 5, multiply it by missing powers to obtain 10^n, so the fraction has a finite decimal. Conversely, a finite decimal equals an integer divided by 10^n; reducing cannot introduce other denominator prime factors.",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "equivalent-fractions",
+            "version": 2
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "simplifying-fractions",
+            "version": 2
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "decimal-place-value",
+            "version": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "ratios-proportions",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Ratios proportions",
+      "titleZh": "比与比例",
+      "statement": "A ratio compares quantities in a stated order. A unit rate divides one quantity by a nonzero amount of the other; proportional quantities maintain a constant ratio in consistent units.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Compute and interpret a unit rate.",
+        "Find a proportional scale factor while keeping units consistent."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive.",
+        "Use a proportional model only when the ratio is constant, with no fixed offset."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "multiplication",
+            "version": 1
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "fraction-division",
+            "version": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "percentages",
+      "version": 2,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "topicIds": [
+        "elementary-mathematics-arithmetic"
+      ],
+      "type": "definition",
+      "title": "Percentages",
+      "titleZh": "百分数",
+      "statement": "A percentage expresses a ratio per hundred: p percent means p/100 of a stated whole. A part-to-whole ratio r corresponds to 100*r percent.",
+      "scope": "First elementary foundations route: exact nonnegative arithmetic, explicitly stated conventions and units.",
+      "objectives": [
+        "Express a part-to-whole ratio as a percentage.",
+        "Compute a percentage of a stated whole and identify that whole."
+      ],
+      "conditions": [
+        "Quantities are nonnegative unless an example explicitly identifies an excluded case.",
+        "Representations use a fixed unit and consistent units.",
+        "Every divisor and denominator is nonzero; fraction denominators and divisibility divisors in this scope are positive.",
+        "Fractions or percentages being compared refer to the same stated whole."
+      ],
+      "system": "Nonnegative whole numbers and rational quantities with exact arithmetic; base-ten representation.",
+      "proof": "",
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        },
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "decimal-fraction-conversion",
+            "version": 2
+          }
+        },
+        {
+          "kind": "prerequisite",
+          "target": {
+            "id": "ratios-proportions",
+            "version": 1
+          }
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "id": "ef-natural-numbers-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "natural-numbers",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Match one marker to each object. The last count gives the number of objects; an empty collection has count zero."
+        },
+        {
+          "kind": "formal",
+          "body": "N_0 = {0, 1, 2, ...} is the set of nonnegative whole numbers. A number records a quantity; a numeral is a written representation of that number. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Count seven buttons: assign 1 through 7 once each, so there are 7. The numeral 07 still represents the number 7.",
+        "Problem decomposition and check: Choose the collection, pair markers without omissions or repetitions, then state its count and the convention."
+      ],
+      "counterexamples": [
+        "The symbol 7 is a numeral, not seven physical objects. Here natural numbers include 0; other texts may use a different convention."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-zero-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "zero",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "An empty box contributes no objects. In 305, an empty tens column still needs its position marked."
+        },
+        {
+          "kind": "formal",
+          "body": "Zero is the number of objects in an empty collection and a digit that can mark an unoccupied base-ten place. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: An empty tray has 0 counters. In 305, the 0 means zero tens, while 35 has three tens and five units.",
+        "Problem decomposition and check: Separate zero as a count from zero as a written digit, then name the place occupied by each digit."
+      ],
+      "counterexamples": [
+        "Deleting a placeholder changes place positions: 305 is not 35. A zero digit does not make the whole numeral zero."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-place-value-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "place-value",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Bundle ten single counters into one ten, and ten tens into one hundred. The amount is unchanged by rebundling. ![place value exchange](asset:ef-place-value-exchange)"
+        },
+        {
+          "kind": "formal",
+          "body": "A base-ten numeral is the sum of its digits multiplied by their place units. Ten units of one place exchange for one unit of the next place. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 305 = 3 hundreds + 0 tens + 5 units = 3*100 + 0*10 + 5*1. Ten units exchange for one ten.",
+        "Problem decomposition and check: Name the units, multiply each digit by its unit, and sum. Check by reversing one ten-to-units exchange."
+      ],
+      "counterexamples": [
+        "The digit 3 in 305 has value 300, not 3. A zero placeholder keeps the five in the units place."
+      ],
+      "assetIds": [
+        "ef-place-value-exchange"
+      ]
+    },
+    {
+      "id": "ef-number-line-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "number-line",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Lay identical tiles end to end. Tile boundaries mark 0, 1, 2, and so on; two unit steps always have the same length. ![whole number line](asset:ef-whole-number-line)"
+        },
+        {
+          "kind": "formal",
+          "body": "A number line locates numbers relative to an origin using a fixed unit length. Nonnegative whole numbers are equally spaced to the right of zero. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: With zero at the left mark and each interval one unit, the fifth mark after zero is 5 and has distance 5 from zero.",
+        "Problem decomposition and check: Fix the origin and unit first; count intervals, locate the point, and verify its distance from zero."
+      ],
+      "counterexamples": [
+        "Unequal gaps cannot represent consecutive integers on this scale. Five is five intervals after zero, not the fifth label when zero is counted as label one."
+      ],
+      "assetIds": [
+        "ef-whole-number-line"
+      ]
+    },
+    {
+      "id": "ef-comparing-numbers-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "comparing-numbers",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Compare equal-sized bundles, starting with the largest bundle size. If those match, inspect the next place."
+        },
+        {
+          "kind": "formal",
+          "body": "For two nonnegative whole numbers, the greater number lies farther right on a common number line. Base-ten comparison starts at the highest differing place. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Compare 305 and 350: hundreds match; 0 tens is less than 5 tens, so 305 < 350.",
+        "Problem decomposition and check: Align place units, find the highest unequal digit, and explain the order on a shared number-line scale."
+      ],
+      "counterexamples": [
+        "More digits alone is unsafe if leading zeros are counted: 007 equals 7. Compare numerical value after removing leading zeros."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-rounding-estimation-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "rounding-estimation",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Place the value between two neighboring rounding marks. Ask which mark is nearer, and apply the stated tie rule at the midpoint."
+        },
+        {
+          "kind": "formal",
+          "body": "Half-up rounding of a nonnegative value selects the nearest multiple of a stated place unit; an exact midpoint selects the larger multiple. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Round 2.5 to the nearest unit: it is midway between 2 and 3, so half-up gives 3. Round 247 to tens: 250 is nearer than 240.",
+        "Problem decomposition and check: State the place and tie rule, locate the two neighboring multiples, compare distances, and estimate a calculation for a reasonableness check."
+      ],
+      "counterexamples": [
+        "A rounded value is an approximation, not an exact equality. A tie convention must be stated; this lesson does not apply the rule to negative values."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-addition-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "addition",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Join two disjoint piles of equally sized counters, or walk right from the starting point by the added distance."
+        },
+        {
+          "kind": "formal",
+          "body": "Addition combines quantities measured in the same unit. On a number line, adding a nonnegative amount moves that many units to the right. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Combine 4 red counters and 3 blue counters: 4 + 3 = 7. From 4, move 3 unit steps right and arrive at 7.",
+        "Problem decomposition and check: Identify both amounts and their common unit, combine or move, and check that the nonnegative total is at least each addend."
+      ],
+      "counterexamples": [
+        "Do not combine counts of unlike units without conversion: 3 metres plus 2 centimetres is not 5 metres."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-addition-properties-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "addition-properties",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Changing the order of two piles or regrouping three piles leaves the same collection of counters."
+        },
+        {
+          "kind": "formal",
+          "body": "For nonnegative quantities, a+b=b+a and (a+b)+c=a+(b+c); adding zero leaves a quantity unchanged. Proof: For finite disjoint collections, the union count is independent of which collection is named first or how a union of three collections is grouped. The empty collection contributes zero. These count identities extend to nonnegative quantities in the stated arithmetic system."
+        }
+      ],
+      "examples": [
+        "Worked example: 3 + 5 = 5 + 3 = 8. Also (2 + 3) + 4 = 2 + (3 + 4) = 9; 9 + 0 = 9.",
+        "Problem decomposition and check: Name the law, check that the operation is addition, then reorder or regroup without changing any quantity."
+      ],
+      "counterexamples": [
+        "Subtraction does not inherit these laws: 8 - 3 is 5, while 3 - 8 is outside this nonnegative subtraction scope."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-subtraction-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "subtraction",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Remove counters from a pile, or pair two piles and count the unmatched counters in the larger pile."
+        },
+        {
+          "kind": "formal",
+          "body": "Subtraction can model removing an amount from a starting quantity or finding the difference between two quantities in a common unit. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Starting with 9 counters and removing 4 leaves 5: 9 - 4 = 5. The difference between 9 and 4 counters is also 5.",
+        "Problem decomposition and check: Identify whether the question asks remaining amount or difference, align units, subtract, and check by addition."
+      ],
+      "counterexamples": [
+        "In this lesson the start is at least the removed amount. Subtracting a larger amount needs an extended number system."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-addition-subtraction-inverse-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "addition-subtraction-inverse",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "A missing piece completes a total; a missing starting pile contains both the removed and remaining pieces."
+        },
+        {
+          "kind": "formal",
+          "body": "Addition and subtraction undo each other: a+x=b gives x=b-a, and x-a=b gives x=b+a, where the stated nonnegative quantities are admissible. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: For 7 + x = 12, subtract 7 to get x = 5. For x - 4 = 9, add 4 to get x = 13.",
+        "Problem decomposition and check: Mark the unknown as an addend or starting amount, choose the inverse operation, then substitute to verify."
+      ],
+      "counterexamples": [
+        "The unknown position matters: x - 4 = 9 is not solved by 9 - 4. Substitute the proposed value into the original relation."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-multiplication-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "multiplication",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Arrange identical counters in equal rows. A row count and a row length determine the number of counters."
+        },
+        {
+          "kind": "formal",
+          "body": "Multiplication models equal groups and rectangular arrays. With m groups of n items, the total is m*n; area uses the product of side lengths in consistent units. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Four groups of three counters contain 4*3 = 12. A rectangle 4 units by 3 units has area 12 square units.",
+        "Problem decomposition and check: Identify the group count and equal group size, or both side lengths; multiply, then check the units of the result."
+      ],
+      "counterexamples": [
+        "Unequal groups cannot be represented by one group-size product without first resolving their different sizes. Area uses square units."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-multiplication-properties-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "multiplication-properties",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Turn a rectangular array to swap row and column counts. Split a rectangle into adjacent strips to see distributivity."
+        },
+        {
+          "kind": "formal",
+          "body": "Multiplication of nonnegative quantities is commutative and associative, has identity 1, and distributes over addition: a*(b+c)=a*b+a*c. Proof: A rectangular array has the same number of entries after row and column labels are swapped. A three-dimensional grouping gives the same product under regrouping. Splitting a rectangle into strips of widths b and c gives a*b+a*c, which is its full area a*(b+c). One group of size a contains a entries."
+        }
+      ],
+      "examples": [
+        "Worked example: 3*(4 + 2) = 3*4 + 3*2 = 18. Also 5*1 = 5 and (2*3)*4 = 2*(3*4) = 24.",
+        "Problem decomposition and check: Identify the grouped sum, distribute the common factor to every term, then compute both sides as a check."
+      ],
+      "counterexamples": [
+        "a*(b+c) is not a*b+c in general: 3*(4+2)=18, whereas 3*4+2=14."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-division-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "division",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Sharing fixes the number of recipients; measuring fixes the size of each group. Both ask for the missing factor in a product."
+        },
+        {
+          "kind": "formal",
+          "body": "Division by a nonzero amount finds an equal share or the number of groups of a given size. The result is checked by multiplying by the divisor. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Share 12 litres among 3 equal containers: 12/3 = 4 litres each. At 3 litres per container, 12 litres fills 4 containers.",
+        "Problem decomposition and check: Identify the total, specify whether the divisor is a group count or group size, divide, and multiply back to check."
+      ],
+      "counterexamples": [
+        "Division by zero is undefined. A share and a count of groups may have the same numerical value but different units."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-division-remainder-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "division-remainder",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Pack as many complete equal groups as possible. The leftover is too small to make one more full group."
+        },
+        {
+          "kind": "formal",
+          "body": "For an integer a>=0 and integer d>0, there are unique integers q>=0 and 0<=r<d such that a=d*q+r. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 17 = 5*3 + 2, so dividing 17 by 5 gives quotient 3 and remainder 2. Four seats per car require 5 cars for 17 people.",
+        "Problem decomposition and check: Find full groups, compute the leftover, check a=d*q+r and 0<=r<d, then interpret what the leftover means."
+      ],
+      "counterexamples": [
+        "17 = 5*2 + 7 is true but is not a quotient-remainder result because 7 is not less than 5. Context can require rounding a group count upward."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-order-of-operations-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "order-of-operations",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "An expression describes a calculation tree. Parentheses specify which quantity is built first; equal-precedence operations retain their left-to-right order."
+        },
+        {
+          "kind": "formal",
+          "body": "Evaluate parentheses first, then multiplication and division from left to right, then addition and subtraction from left to right. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 2 + 3*4 = 2 + 12 = 14, while (2 + 3)*4 = 5*4 = 20. Also 12/3*2 = 4*2 = 8.",
+        "Problem decomposition and check: Mark parentheses, compute equal-precedence operations in order, and rewrite one step at a time without dropping a term."
+      ],
+      "counterexamples": [
+        "Multiplication does not always precede division: in 12/3*2, doing 3*2 first gives an incorrect interpretation of the unparenthesized expression."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-factors-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "factors",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "A factor gives an exact group size with no leftover; a multiple is obtained by repeating that size zero or more times."
+        },
+        {
+          "kind": "formal",
+          "body": "A positive integer d is a factor of n when n=d*k for a nonnegative integer k. A nonnegative multiple of d has this same form. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 3 is a factor of 12 because 12=3*4. Nonnegative multiples of 3 are 0, 3, 6, 9, and so on.",
+        "Problem decomposition and check: Check the divisor is positive, compute quotient and remainder, and identify the direction of the factor-multiple relation."
+      ],
+      "counterexamples": [
+        "A positive divisor is required. Zero is a multiple of every positive d, but zero is not a permitted divisor in this factor definition."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-divisibility-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "divisibility",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "The higher places form complete bundles of ten. Only the units digit can prevent division into bundles of two or five."
+        },
+        {
+          "kind": "formal",
+          "body": "A nonnegative base-ten integer is divisible by 2 if its last digit is even, by 5 if it ends in 0 or 5, and by 10 if it ends in 0. Proof: Write n=10*q+r, where q>=0 and 0<=r<10. The term 10*q is a multiple of 2, 5 and 10. Therefore divisibility by each of these divisors is equivalent to divisibility of r, yielding respectively r in {0,2,4,6,8}, r in {0,5}, or r=0."
+        }
+      ],
+      "examples": [
+        "Worked example: 305 ends in 5, so it is divisible by 5 but not 2 or 10. 120 ends in 0, so it is divisible by 2, 5 and 10.",
+        "Problem decomposition and check: Write n=10*q+r with 0<=r<10. Since 10*q is divisible by 2, 5 and 10, check the units remainder r."
+      ],
+      "counterexamples": [
+        "The last-digit rule is specific to base ten and these divisors. It is not a universal divisibility test for every divisor."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-fractions-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Partition a chosen unit whole into equal parts, then count the selected parts. Changing the whole changes the size of a part. ![equal parts](asset:ef-equal-parts)"
+        },
+        {
+          "kind": "formal",
+          "body": "For b>0, a/b represents a copies of the unit fraction 1/b relative to a stated whole divided into b equal parts. The denominator is nonzero. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Select 3 of 4 equal pieces of one unit bar: the selected quantity is 3/4 of that bar. Two unequal pieces are not two halves.",
+        "Problem decomposition and check: Identify the whole, verify equal parts and a nonzero denominator, then count the selected unit fractions."
+      ],
+      "counterexamples": [
+        "A numerator counts equal unit parts, not arbitrary pieces. One half of a small bar and one half of a large bar need not be the same amount."
+      ],
+      "assetIds": [
+        "ef-equal-parts"
+      ]
+    },
+    {
+      "id": "ef-fraction-number-line-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-number-line",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Use the same unit length across the whole line. Fraction marks subdivide each unit without changing what one means. ![fraction number line](asset:ef-fraction-number-line)"
+        },
+        {
+          "kind": "formal",
+          "body": "Locate a/b, with a>=0 and integer b>0, by splitting each unit interval into b equal subintervals and taking a subinterval steps from zero. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: To locate 5/4, take five quarter-unit steps from zero: four reach 1 and the fifth reaches 1 + 1/4.",
+        "Problem decomposition and check: Fix a unit interval, divide it equally, count a steps, and check the neighboring whole numbers."
+      ],
+      "counterexamples": [
+        "An improper fraction is a valid point beyond one. Do not compress the scale or count marks instead of intervals."
+      ],
+      "assetIds": [
+        "ef-fraction-number-line"
+      ]
+    },
+    {
+      "id": "ef-equivalent-fractions-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "equivalent-fractions",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Split every original part into the same number of smaller parts. Both selected-part count and whole-part count scale together. ![equivalent fraction strips](asset:ef-equivalent-fraction-strips)"
+        },
+        {
+          "kind": "formal",
+          "body": "Multiplying numerator and nonzero denominator by the same nonzero factor preserves a fraction value: a/b=(a*c)/(b*c). Proof: For b and c nonzero, cross multiplication gives a*(b*c)=(a*c)*b. Dividing both sides by the nonzero product b*(b*c) proves equality. The equal-part model applies to positive integer scale factors."
+        }
+      ],
+      "examples": [
+        "Worked example: 1/2 = 2/4 for the same whole: split each half into two equal quarter parts. Both bars show the same selected length.",
+        "Problem decomposition and check: State the common nonzero factor, apply it to both entries, and compare values using the same whole."
+      ],
+      "counterexamples": [
+        "Adding to numerator and denominator is not the same operation: 1/2 does not equal 2/3. A change of whole also invalidates a length comparison."
+      ],
+      "assetIds": [
+        "ef-equivalent-fraction-strips"
+      ]
+    },
+    {
+      "id": "ef-simplifying-fractions-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "simplifying-fractions",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Regroup equal small parts into larger equal parts. The selected amount stays fixed while its representation changes."
+        },
+        {
+          "kind": "formal",
+          "body": "Dividing numerator and denominator by a common positive factor preserves value. A fraction is reduced when the numerator and denominator have no common factor greater than one. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: For 6/8, the common factor 2 gives 3/4. Cross-check: 6*4 = 8*3 = 24.",
+        "Problem decomposition and check: Find common positive factors, divide both entries by the same factor, and check the resulting fraction by cross multiplication."
+      ],
+      "counterexamples": [
+        "Cancellation applies to common multiplicative factors, not separate terms in a sum: (1+2)/(1+3)=3/4, not 2/3."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-comparing-fractions-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "comparing-fractions",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Express both quantities in the same-sized pieces of the same whole. Then compare their counts of those pieces."
+        },
+        {
+          "kind": "formal",
+          "body": "Compare fractions using a common positive denominator, an exact benchmark, or cross products with positive denominators. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Compare 2/3 and 3/4 using twelfths: 8/12 < 9/12, so 2/3 < 3/4.",
+        "Problem decomposition and check: Choose a common unit or benchmark, convert exactly, compare, and explain the direction of the inequality."
+      ],
+      "counterexamples": [
+        "A larger numerator alone does not guarantee a larger fraction: 3/10 < 2/5. A shared whole and positive denominators are required."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-fractions-same-denominator-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions-same-denominator",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Add or remove equal-sized fraction pieces. The piece size does not change when their count changes."
+        },
+        {
+          "kind": "formal",
+          "body": "For a common nonzero denominator b, a/b+c/b=(a+c)/b and a/b-c/b=(a-c)/b; subtraction here keeps a>=c. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 2/7 + 3/7 = 5/7 because two seventh-parts and three seventh-parts make five seventh-parts. 5/7 - 2/7 = 3/7.",
+        "Problem decomposition and check: Verify a common unit, add or subtract the numerators, retain the denominator, and simplify if possible."
+      ],
+      "counterexamples": [
+        "Do not add denominators: 2/7+3/7 is not 5/14. The denominator names the retained unit size."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-fractions-unlike-denominator-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "fractions-unlike-denominator",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Third-parts and half-parts have different sizes. Subdivide until each becomes a whole number of equal common pieces."
+        },
+        {
+          "kind": "formal",
+          "body": "For unlike nonzero denominators, first construct equivalent fractions in a common unit, then add or subtract their numerators. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 1/2 + 1/3 = 5/6: convert to 3/6 + 2/6, then combine five sixth-parts. Also 3/4 - 1/2 = 3/4 - 2/4 = 1/4.",
+        "Problem decomposition and check: Find a common multiple of the denominators, convert each fraction exactly, combine the common units, and check with a benchmark."
+      ],
+      "counterexamples": [
+        "1/2 + 1/3 is not 2/5. Adding counts of differently sized parts without conversion is invalid."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-fraction-multiplication-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-multiplication",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Select a fraction of a fraction, or partition a unit square into rows and columns and count the overlap. ![fraction product area](asset:ef-fraction-product-area)"
+        },
+        {
+          "kind": "formal",
+          "body": "Multiplying by a nonnegative fraction scales a quantity. A rectangle with fractional side lengths a/b and c/d has area (a*c)/(b*d) square units, for positive b,d. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: Half of 3/4 is (1/2)*(3/4)=3/8. A rectangle 3/4 units wide and 1/2 units high has area 3/8 square units.",
+        "Problem decomposition and check: Name the scale factor or the two side lengths, multiply the numerators and denominators, then interpret the result and its units."
+      ],
+      "counterexamples": [
+        "Multiplication need not enlarge a quantity: scaling 3/4 by 1/2 makes it smaller. Side length and area have different units."
+      ],
+      "assetIds": [
+        "ef-fraction-product-area"
+      ]
+    },
+    {
+      "id": "ef-fraction-division-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-division",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Measure the total with a fractional scoop. The quotient counts scoops and can itself be fractional."
+        },
+        {
+          "kind": "formal",
+          "body": "Dividing by a positive fraction measures how many fractional groups fit or solves a missing factor. For b,c,d>0, (a/b)/(c/d)=(a*d)/(b*c). Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: There are 3 half-unit groups in 3/2 units, so (3/2)/(1/2)=3. Solving (2/3)*x=4/5 gives x=6/5.",
+        "Problem decomposition and check: State the group size or known factor, solve the product relation, then multiply the quotient by the original divisor to check."
+      ],
+      "counterexamples": [
+        "The divisor is nonzero. Invert the divisor, not the dividend; division by 1/2 does not mean halving the total."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-decimal-place-value-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "decimal-place-value",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Extend the place-value table to units smaller than one. Ten hundredths exchange for one tenth. ![decimal place table](asset:ef-decimal-place-table)"
+        },
+        {
+          "kind": "formal",
+          "body": "A finite base-ten decimal is a sum of digits times powers of ten, including tenths, hundredths and smaller place units. Trailing zeros after the decimal point preserve value. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 2.50 = 2.5 because 2 + 5/10 + 0/100 equals 2 + 5/10. In 0.305 the 3 denotes three tenths, not three hundredths.",
+        "Problem decomposition and check: Label each place, multiply each digit by its unit, sum exactly, and verify an equivalent decimal with a trailing zero."
+      ],
+      "counterexamples": [
+        "Trailing zeros do not change value, but moving a digit does: 0.05 is not 0.5. Digits and place values must be distinguished."
+      ],
+      "assetIds": [
+        "ef-decimal-place-table"
+      ]
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "decimal-fraction-conversion",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "A decimal records equal tenth-, hundredth- or finer units. A fraction terminates if its denominator can be scaled to a power of ten."
+        },
+        {
+          "kind": "formal",
+          "body": "A finite decimal with n fractional places equals an integer divided by 10^n. A reduced rational fraction has a terminating base-ten expansion exactly when its positive denominator has only prime factors 2 and 5. Proof: If a reduced denominator contains only 2 and 5, multiply it by missing powers to obtain 10^n, so the fraction has a finite decimal. Conversely, a finite decimal equals an integer divided by 10^n; reducing cannot introduce other denominator prime factors."
+        }
+      ],
+      "examples": [
+        "Worked example: 0.125 = 125/1000 = 1/8. Since 8=2^3, 1/8 terminates; 1/3 does not because its reduced denominator has factor 3.",
+        "Problem decomposition and check: Convert using an exact power of ten, reduce, inspect denominator factors, and verify by division only when the terminating condition holds."
+      ],
+      "counterexamples": [
+        "Check the reduced denominator: 3/6 reduces to 1/2 and terminates even though 6 contains a factor 3. Repeating and finite decimals differ."
+      ],
+      "assetIds": []
+    },
+    {
+      "id": "ef-ratios-proportions-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "ratios-proportions",
+        "version": 1
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Build matching batches. Doubling one batch quantity doubles the other only if the model is proportional. ![ratio double line](asset:ef-ratio-double-line)"
+        },
+        {
+          "kind": "formal",
+          "body": "A ratio compares quantities in a stated order. A unit rate divides one quantity by a nonzero amount of the other; proportional quantities maintain a constant ratio in consistent units. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: If 3 notebooks cost 12 currency units at a constant rate, one costs 4 and 5 cost 20. The ratio cost/notebooks has units per notebook.",
+        "Problem decomposition and check: Name and order the quantities, convert units, compute a unit rate or scale factor, and test that the model really maintains that rate."
+      ],
+      "counterexamples": [
+        "A fixed fee plus a per-item charge is not directly proportional. Reversing the ratio changes its meaning and units."
+      ],
+      "assetIds": [
+        "ef-ratio-double-line"
+      ]
+    },
+    {
+      "id": "ef-percentages-unit",
+      "version": 1,
+      "knowledge": {
+        "id": "percentages",
+        "version": 2
+      },
+      "angles": [
+        {
+          "kind": "intuitive",
+          "body": "Divide the named whole into 100 equal shares. Percentage describes how many of these shares the part occupies. ![percent grid](asset:ef-percent-grid)"
+        },
+        {
+          "kind": "formal",
+          "body": "A percentage expresses a ratio per hundred: p percent means p/100 of a stated whole. A part-to-whole ratio r corresponds to 100*r percent. Use the stated conditions before applying the representation."
+        }
+      ],
+      "examples": [
+        "Worked example: 25 percent of 200 is (25/100)*200 = 50. The same part 50 is 25 percent of 200 but 50 percent of 100: the stated whole matters.",
+        "Problem decomposition and check: Name the whole, convert percent to an exact ratio or vice versa, compute the part, then compare it with the original whole."
+      ],
+      "counterexamples": [
+        "A percentage is not an absolute amount. Adding percentages with different wholes can be misleading; identify the whole before calculation."
+      ],
+      "assetIds": [
+        "ef-percent-grid"
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "elementary-foundations",
+      "version": 1,
+      "domainIds": [
+        "elementary-mathematics"
+      ],
+      "title": "Elementary foundations",
+      "titleZh": "初等数学基础",
+      "nodes": [
+        {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        {
+          "id": "zero",
+          "version": 1
+        },
+        {
+          "id": "place-value",
+          "version": 1
+        },
+        {
+          "id": "number-line",
+          "version": 1
+        },
+        {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        {
+          "id": "addition",
+          "version": 1
+        },
+        {
+          "id": "addition-properties",
+          "version": 1
+        },
+        {
+          "id": "subtraction",
+          "version": 1
+        },
+        {
+          "id": "addition-subtraction-inverse",
+          "version": 1
+        },
+        {
+          "id": "multiplication",
+          "version": 1
+        },
+        {
+          "id": "multiplication-properties",
+          "version": 1
+        },
+        {
+          "id": "division",
+          "version": 1
+        },
+        {
+          "id": "division-remainder",
+          "version": 1
+        },
+        {
+          "id": "order-of-operations",
+          "version": 1
+        },
+        {
+          "id": "factors",
+          "version": 2
+        },
+        {
+          "id": "divisibility",
+          "version": 1
+        },
+        {
+          "id": "fractions",
+          "version": 2
+        },
+        {
+          "id": "fraction-number-line",
+          "version": 1
+        },
+        {
+          "id": "equivalent-fractions",
+          "version": 2
+        },
+        {
+          "id": "simplifying-fractions",
+          "version": 2
+        },
+        {
+          "id": "comparing-fractions",
+          "version": 2
+        },
+        {
+          "id": "fractions-same-denominator",
+          "version": 1
+        },
+        {
+          "id": "fractions-unlike-denominator",
+          "version": 1
+        },
+        {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        {
+          "id": "fraction-division",
+          "version": 1
+        },
+        {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        {
+          "id": "percentages",
+          "version": 2
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "ef-place-value-exchange",
+      "path": "elementary-foundations/place-value-exchange.svg",
+      "sha256": "90e0dd0739d8d3cf3b10e82f413c0d4210395f59a3bb1fb5748394c31af42827",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "place-value",
+        "version": 1
+      }
+    },
+    {
+      "id": "ef-whole-number-line",
+      "path": "elementary-foundations/whole-number-line.svg",
+      "sha256": "503036b151cbc3744e27c8dcb25b4880b52684d5346e62c3ac93d7d597b2f81f",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "number-line",
+        "version": 1
+      }
+    },
+    {
+      "id": "ef-equal-parts",
+      "path": "elementary-foundations/equal-parts.svg",
+      "sha256": "1addb3c59afc8218f26514db6be7a9400204c647f8c25d3571e990f0b72cf8bd",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "fractions",
+        "version": 2
+      }
+    },
+    {
+      "id": "ef-fraction-number-line",
+      "path": "elementary-foundations/fraction-number-line.svg",
+      "sha256": "6ec6851b0a96990dd682cfb09460e66102830ff55875d6d5ca49794a04a8f927",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "fraction-number-line",
+        "version": 1
+      }
+    },
+    {
+      "id": "ef-equivalent-fraction-strips",
+      "path": "elementary-foundations/equivalent-fraction-strips.svg",
+      "sha256": "4aafc418c87af0e7ff7da5c8c02e98a4df8afafb6acf72c5d4c2ecfe1a046e1b",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "equivalent-fractions",
+        "version": 2
+      }
+    },
+    {
+      "id": "ef-fraction-product-area",
+      "path": "elementary-foundations/fraction-product-area.svg",
+      "sha256": "33cc7930f3200dc804be2afa2cef2eb8318de0db405c90e0b19fa54b9a06a424",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "fraction-multiplication",
+        "version": 1
+      }
+    },
+    {
+      "id": "ef-decimal-place-table",
+      "path": "elementary-foundations/decimal-place-table.svg",
+      "sha256": "879dcf099fda8f409afa91c0a33962b4fea7ebe332247e4c043bc28899f08c1a",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "decimal-place-value",
+        "version": 2
+      }
+    },
+    {
+      "id": "ef-ratio-double-line",
+      "path": "elementary-foundations/ratio-double-line.svg",
+      "sha256": "bb90a4e08528aabd810d7ad9f36406cb1178ebd24a7f46c293a15031d1c6b3b6",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "ratios-proportions",
+        "version": 1
+      }
+    },
+    {
+      "id": "ef-percent-grid",
+      "path": "elementary-foundations/percent-grid.svg",
+      "sha256": "248636e01d55b82b4d83d58837e1381bde46c93cefc0ef906e793f2a7cdbecc0",
+      "author": "Math Master project",
+      "license": "CC0-1.0",
+      "attribution": "Original vector geometry for independent mathematical review.",
+      "knowledge": {
+        "id": "percentages",
+        "version": 2
+      }
+    }
+  ]
+}

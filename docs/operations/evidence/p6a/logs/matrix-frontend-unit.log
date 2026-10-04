@@ -1,0 +1,17 @@
+
+> math-master-frontend@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/frontend
+
+
+ Test Files  70 passed (70)
+      Tests  350 passed (350)
+   Start at  13:50:31
+   Duration  3.90s (environment 55%, tests 16%, setup 11%, transform 10%, import 7%)
+
+Environment  jsdom was created 70 times · 31.86s total, 55% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

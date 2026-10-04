@@ -1,0 +1,14 @@
+ok  	github.com/yyl1212/math_master/backend/cmd/server	0.314s
+ok  	github.com/yyl1212/math_master/backend/internal/correction	1.183s
+ok  	github.com/yyl1212/math_master/backend/internal/notification	0.740s
+ok  	github.com/yyl1212/math_master/backend/internal/feedback	0.598s
+ok  	github.com/yyl1212/math_master/backend/internal/assessment	0.458s
+ok  	github.com/yyl1212/math_master/backend/internal/learning	1.171s
+ok  	github.com/yyl1212/math_master/backend/internal/question	1.819s
+ok  	github.com/yyl1212/math_master/backend/internal/auth	1.126s
+ok  	github.com/yyl1212/math_master/backend/internal/content	2.698s
+ok  	github.com/yyl1212/math_master/backend/internal/publication	1.793s
+ok  	github.com/yyl1212/math_master/backend/internal/config	1.308s
+ok  	github.com/yyl1212/math_master/backend/internal/httpapi	62.742s
+ok  	github.com/yyl1212/math_master/backend/internal/e2etest	97.602s
+ok  	github.com/yyl1212/math_master/backend/internal/testutil	2.114s

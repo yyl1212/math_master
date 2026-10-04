@@ -72,7 +72,7 @@ function validate(b,f,p){
  assert.deepEqual(capacities.map(c=>option(c,'-run')).sort(),['^TestLearningCapacitySourceVolume$','^TestLearningCapacityMaxPool$','^TestFeedbackCapacity$'].sort());
  for(const c of capacities)assert.equal(c.includes('-skip'),false,'capacity skip');
  const old=store.find(c=>c.includes('./internal/cli'));assert(old,'old store batch');
- assert.equal(option(old,'-skip'),'^Test(Learning|Assessment|Feedback|Correction|Notification)','old store skip');assert.equal(old.includes('-run'),false,'old store restricted selection');
+ assert.equal(option(old,'-skip'),'^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)','old store skip');assert.equal(old.includes('-run'),false,'old store restricted selection');
  const learning=store.find(c=>option(c,'-run')==='^Test(Learning|Assessment)');assert(learning,'learning batch');assert.equal(option(learning,'-skip'),'^TestLearningCapacity','learning skip');
  const feedback=store.find(c=>option(c,'-run')==='^TestFeedback');assert(feedback,'feedback noncapacity batch');assert.equal(option(feedback,'-skip'),'^TestFeedbackCapacity','feedback skip');
  const foundation=bc.find(c=>c.includes('./internal/httpapi'));assert(foundation?.includes('./internal/feedback'),'pure feedback');
@@ -93,7 +93,7 @@ test('adding browser skip selection or retries is detected',()=>{
 test('deleting a capacity batch or skipping extra old store tests is detected',()=>{
  const modified=backend.replace(/^.*run:.*-run '\^TestLearningCapacityMaxPool\$'.*\n/m,'');assert.notEqual(modified,backend);
  assert.throws(()=>validate(modified,frontend,playwright),/capacity batches/);
- assert.throws(()=>validate(backend.replace('^Test(Learning|Assessment|Feedback|Correction|Notification)','^Test(Learning|Assessment|Feedback|Correction|Notification|Question)'),frontend,playwright),/old store skip/);
+ assert.throws(()=>validate(backend.replace('^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)','^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Question)'),frontend,playwright),/old store skip/);
 });
 test('no browser suite or case is silently skipped, focused or retried',()=>{
  for(const name of readdirSync(new URL('tests/e2e/',root)).filter(p=>p.endsWith('.spec.ts'))){

@@ -1,0 +1,215 @@
+=== RUN   TestContentAuditCapacity
+=== RUN   TestContentAuditCapacity/maximum-content-head
+    content_audit_capacity_test.go:180: maximum pure validation: 773.519ms, canonical=33554432 SVG=10485760
+    content_audit_capacity_test.go:226: prepare group 1: 1.080546125s
+    content_audit_capacity_test.go:226: prepare group 2: 2.194361959s
+    content_audit_capacity_test.go:226: prepare group 3: 3.353857667s
+    content_audit_capacity_test.go:226: prepare group 4: 3.517597167s
+    content_audit_capacity_test.go:245: maximum content audit: 1.721594458s; global knowledge=1000/canonical=33554432; scoped=16
+=== RUN   TestContentAuditCapacity/bank-budget-guards
+=== NAME  TestContentAuditCapacity
+    content_audit_capacity_test.go:76: CAPACITY maximum-single-template-992 duration=52.59725ms allocated=113053128 heap=8379344 maxRSS=655032320 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-0 duration=1.881282667s allocated=652702696 heap=47951456 maxRSS=655556608 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-1 duration=1.915744s allocated=642258168 heap=47240144 maxRSS=655704064 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-2 duration=1.871575916s allocated=683380064 heap=47250416 maxRSS=655835136 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-3 duration=1.887863458s allocated=662379184 heap=47801776 maxRSS=655917056 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-4 duration=1.906160917s allocated=642368408 heap=47253504 maxRSS=655982592 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-5 duration=1.9156095s allocated=661936640 heap=47259088 maxRSS=656031744 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-6 duration=1.91928725s allocated=641409656 heap=47237680 maxRSS=656080896 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-7 duration=1.935333208s allocated=661546248 heap=47428216 maxRSS=656195584 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-8 duration=1.933421958s allocated=641175952 heap=43647504 maxRSS=656244736 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:106: CAPACITY submit-1000-batch-9 duration=1.955887667s allocated=641663352 heap=47713736 maxRSS=656261120 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:119: CAPACITY prepare-200-10000-1000 duration=1.595986334s allocated=1303715376 heap=103452552 maxRSS=656556032 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:125: CAPACITY activate-200-10000-1000 duration=985.131709ms allocated=697899240 heap=136893104 maxRSS=656637952 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:126: CAPACITY coverage-200-10000-1000 duration=710.563416ms allocated=750934416 heap=129544384 maxRSS=656752640 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:132: CAPACITY audit-max-bank duration=898.646541ms allocated=725423400 heap=188602656 maxRSS=656850944 maxRSSUnit=bytes GOOS=darwin
+    content_audit_capacity_test.go:149: CAPACITY actual manifestBytes=5179825 templateInstanceBytes=33063620
+    content_audit_capacity_test.go:159: CAPACITY SQLPLAN [
+          {
+            "Plan": {
+              "Node Type": "Limit",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Startup Cost": 272.32,
+              "Total Cost": 272.55,
+              "Plan Rows": 93,
+              "Plan Width": 132,
+              "Actual Startup Time": 2.624,
+              "Actual Total Time": 2.631,
+              "Actual Rows": 100,
+              "Actual Loops": 1,
+              "Shared Hit Blocks": 937,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0,
+              "Plans": [
+                {
+                  "Node Type": "Sort",
+                  "Parent Relationship": "Outer",
+                  "Parallel Aware": false,
+                  "Async Capable": false,
+                  "Startup Cost": 272.32,
+                  "Total Cost": 272.55,
+                  "Plan Rows": 93,
+                  "Plan Width": 132,
+                  "Actual Startup Time": 2.623,
+                  "Actual Total Time": 2.626,
+                  "Actual Rows": 100,
+                  "Actual Loops": 1,
+                  "Sort Key": ["kind", "id"],
+                  "Sort Method": "top-N heapsort",
+                  "Sort Space Used": 75,
+                  "Sort Space Type": "Memory",
+                  "Shared Hit Blocks": 937,
+                  "Shared Read Blocks": 0,
+                  "Shared Dirtied Blocks": 0,
+                  "Shared Written Blocks": 0,
+                  "Local Hit Blocks": 0,
+                  "Local Read Blocks": 0,
+                  "Local Dirtied Blocks": 0,
+                  "Local Written Blocks": 0,
+                  "Temp Read Blocks": 0,
+                  "Temp Written Blocks": 0,
+                  "Plans": [
+                    {
+                      "Node Type": "Bitmap Heap Scan",
+                      "Parent Relationship": "Outer",
+                      "Parallel Aware": false,
+                      "Async Capable": false,
+                      "Relation Name": "question_publication_members",
+                      "Alias": "question_publication_members",
+                      "Startup Cost": 5.13,
+                      "Total Cost": 269.28,
+                      "Plan Rows": 93,
+                      "Plan Width": 132,
+                      "Actual Startup Time": 0.346,
+                      "Actual Total Time": 1.491,
+                      "Actual Rows": 11200,
+                      "Actual Loops": 1,
+                      "Recheck Cond": "(publication_id = '3c8dbc15-78a9-40b7-b208-2fe63b95c966'::uuid)",
+                      "Rows Removed by Index Recheck": 0,
+                      "Exact Heap Blocks": 774,
+                      "Lossy Heap Blocks": 0,
+                      "Shared Hit Blocks": 937,
+                      "Shared Read Blocks": 0,
+                      "Shared Dirtied Blocks": 0,
+                      "Shared Written Blocks": 0,
+                      "Local Hit Blocks": 0,
+                      "Local Read Blocks": 0,
+                      "Local Dirtied Blocks": 0,
+                      "Local Written Blocks": 0,
+                      "Temp Read Blocks": 0,
+                      "Temp Written Blocks": 0,
+                      "Plans": [
+                        {
+                          "Node Type": "Bitmap Index Scan",
+                          "Parent Relationship": "Outer",
+                          "Parallel Aware": false,
+                          "Async Capable": false,
+                          "Index Name": "question_publication_members_pkey",
+                          "Startup Cost": 0.00,
+                          "Total Cost": 5.11,
+                          "Plan Rows": 93,
+                          "Plan Width": 0,
+                          "Actual Startup Time": 0.304,
+                          "Actual Total Time": 0.304,
+                          "Actual Rows": 11200,
+                          "Actual Loops": 1,
+                          "Index Cond": "(publication_id = '3c8dbc15-78a9-40b7-b208-2fe63b95c966'::uuid)",
+                          "Shared Hit Blocks": 163,
+                          "Shared Read Blocks": 0,
+                          "Shared Dirtied Blocks": 0,
+                          "Shared Written Blocks": 0,
+                          "Local Hit Blocks": 0,
+                          "Local Read Blocks": 0,
+                          "Local Dirtied Blocks": 0,
+                          "Local Written Blocks": 0,
+                          "Temp Read Blocks": 0,
+                          "Temp Written Blocks": 0
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "Planning": {
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            },
+            "Planning Time": 0.049,
+            "Triggers": [
+            ],
+            "Execution Time": 2.640
+          }
+        ]
+    content_audit_capacity_test.go:159: CAPACITY SQLPLAN [
+          {
+            "Plan": {
+              "Node Type": "Index Scan",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "question_publications_pkey",
+              "Relation Name": "question_publications",
+              "Alias": "question_publications",
+              "Startup Cost": 0.14,
+              "Total Cost": 8.16,
+              "Plan Rows": 1,
+              "Plan Width": 16,
+              "Actual Startup Time": 0.003,
+              "Actual Total Time": 0.004,
+              "Actual Rows": 1,
+              "Actual Loops": 1,
+              "Index Cond": "(id = '3c8dbc15-78a9-40b7-b208-2fe63b95c966'::uuid)",
+              "Rows Removed by Index Recheck": 0,
+              "Filter": "sealed",
+              "Rows Removed by Filter": 0,
+              "Shared Hit Blocks": 2,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            },
+            "Planning": {
+              "Shared Hit Blocks": 0,
+              "Shared Read Blocks": 0,
+              "Shared Dirtied Blocks": 0,
+              "Shared Written Blocks": 0,
+              "Local Hit Blocks": 0,
+              "Local Read Blocks": 0,
+              "Local Dirtied Blocks": 0,
+              "Local Written Blocks": 0,
+              "Temp Read Blocks": 0,
+              "Temp Written Blocks": 0
+            },
+            "Planning Time": 0.029,
+            "Triggers": [
+            ],
+            "Execution Time": 0.007
+          }
+        ]
+--- PASS: TestContentAuditCapacity (66.28s)
+    --- PASS: TestContentAuditCapacity/maximum-content-head (40.92s)
+    --- PASS: TestContentAuditCapacity/bank-budget-guards (0.00s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	66.684s

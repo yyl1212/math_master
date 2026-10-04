@@ -1,0 +1,170 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts content-acceptance-reading.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✘  1 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms (229ms)
+  ✘  2 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons (154ms)
+  ✘  3 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible (154ms)
+  ✘  4 [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers (151ms)
+  ✘  5 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms (154ms)
+  ✘  6 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons (154ms)
+  ✘  7 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible (153ms)
+  ✘  8 [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers (150ms)
+
+
+  1) [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:4:89
+
+    Error Context: ../test-results/content-acceptance-reading-d4409-ish-names-and-Chinese-terms-desktop/error-context.md
+
+  2) [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:5:125
+
+    Error Context: ../test-results/content-acceptance-reading-37af1-SVGs-load-in-actual-lessons-desktop/error-context.md
+
+  3) [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:6:102
+
+    Error Context: ../test-results/content-acceptance-reading-2ab94--and-counterexample-visible-desktop/error-context.md
+
+  4) [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:7:117
+
+    Error Context: ../test-results/content-acceptance-reading-8450f-ivate-provenance-or-answers-desktop/error-context.md
+
+  5) [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:4:89
+
+    Error Context: ../test-results/content-acceptance-reading-d4409-ish-names-and-Chinese-terms-mobile/error-context.md
+
+  6) [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:5:125
+
+    Error Context: ../test-results/content-acceptance-reading-37af1-SVGs-load-in-actual-lessons-mobile/error-context.md
+
+  7) [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:6:102
+
+    Error Context: ../test-results/content-acceptance-reading-2ab94--and-counterexample-visible-mobile/error-context.md
+
+  8) [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-reading.spec.ts:7:117
+
+    Error Context: ../test-results/content-acceptance-reading-8450f-ivate-provenance-or-answers-mobile/error-context.md
+
+  8 failed
+    [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms 
+    [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons 
+    [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible 
+    [desktop] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers 
+    [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:4:5 › thirty-node route has English names and Chinese terms 
+    [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:5:5 › all nine original mathematical SVGs load in actual lessons 
+    [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:6:5 › fixed version two keeps formal formulas and counterexample visible 
+    [mobile] › ../tests/e2e/content-acceptance-reading.spec.ts:7:5 › public lesson sources expose attribution without private provenance or answers 

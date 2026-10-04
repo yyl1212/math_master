@@ -1,0 +1,43 @@
+{
+  "codeSHA": "4d27dc8f1564bd0ed5b5fa0d4ac1a5a8c504c8ab",
+  "importantFixed": 3,
+  "critical": 0,
+  "deferredMinor": 2,
+  "auditSuite": {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentaudit ./internal/store ./internal/cli -run '^TestContentAudit' -skip '^TestContentAuditCapacity$' -timeout 5m -count=1",
+    "exit": 0,
+    "log": "logs/final-audit-suite-green.log",
+    "packageSeconds": {
+      "contentaudit": 1.397,
+      "store": 14.222,
+      "cli": 5.501
+    },
+    "privateEnvironmentInjection": "TEST_DATABASE_URL由私有封装注入；不记录DSN值。"
+  },
+  "capacity": {
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestContentAuditCapacity$' -timeout 5m -count=1 -v",
+    "exit": 0,
+    "reportedSeconds": 66.684,
+    "log": "logs/final-capacity-green.log"
+  },
+  "static": [
+    {
+      "command": "node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs",
+      "exit": 0,
+      "seconds": 5.601,
+      "log": "logs/final-node.log"
+    },
+    {
+      "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...",
+      "exit": 0,
+      "seconds": 0.466,
+      "log": "logs/final-vet.log"
+    },
+    {
+      "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...",
+      "exit": 0,
+      "seconds": 0.566,
+      "log": "logs/final-build.log"
+    }
+  ]
+}

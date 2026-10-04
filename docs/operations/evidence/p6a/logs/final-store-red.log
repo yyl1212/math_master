@@ -1,0 +1,5 @@
+--- FAIL: TestContentAuditTemplateDependencyEligibility (0.96s)
+    content_audit_review_test.go:43: template with no current eligible instance was not excluded
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	1.541s
+FAIL
