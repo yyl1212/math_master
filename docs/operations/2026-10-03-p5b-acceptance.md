@@ -155,3 +155,26 @@ flowchart LR
 | 10000通知/10000同源重跑 | 42.15s PASS |
 
 全部28项裁定和其错误代价完整归档；没有未解决Important/Critical或minor(deferred)。文档归档提交后只作一次SSH推送，最终完整head四workflow/六job结果在PR说明核验后补记，不再为写入自身SHA创建文档提交。草稿PR保持未合并、未部署。
+
+## 最终空范围补扫修复及新鲜矩阵
+
+完整head215a8ed1的PR侧纠错容量已处理10000条证据与元数据，随后在5m补扫预算超时；其余五job通过，全部四run状态及Push/PR原始脱敏日志保留：[完整失败状态](evidence/p5b/verification-github-ci-empty-range-failure.json)。未重跑失败CI，既有成功不能替代最新完整head。
+
+按[空范围补扫架构与兼容性审核](2026-10-04-p5b-empty-range-fix.md)仅改一个补扫源文件，现有规则索引排除必空cutoff范围；原完整匹配与根→方案→终结登记顺序、共享50预算、全部守卫保持。空范围2005→8 buffers，整轮补扫4.868→3.041s；worker读批次/条件INSERT无可靠收益候选被拒绝，worker源码未改。新受验产品 `4f0f0441e5317f1ad8c33a8a86c81c2291a17b76` 全44条命令新鲜执行；上一d14报告保留为verification-macos-atd14e159.json，最新verification-macos.json如下：
+
+| 检查 | 本轮实际结果 |
+| --- | --- |
+| 全矩阵 | 44/44命令全部退出0，每条小于10分钟 |
+| 前端 / Node / 双视口 | 350 / 44 / 146全部通过，原130浏览器用例保留 |
+| 核心/HTTP/server/harness | 107.74s PASS |
+| 原store/CLI | 147.02s PASS |
+| 学习测评 | 85.9s PASS |
+| 反馈 | 29.3s PASS |
+| 纠错通知/CLI | 130.34s PASS |
+| 原反馈容量 | 11.56s PASS |
+| 原最大题源 | 93.07s PASS |
+| 原最大路线 | 122.78s PASS |
+| 1000案件/1000批准方案/10000证据 | 137.07s PASS |
+| 10000通知/10000同源重跑 | 45.48s PASS |
+
+29项裁定与错误代价完整归档，一次独立reviewer、一次持续必要修复轮、零deferred minor保持。归档后仅推送最新完整head并等待四workflow/六job真实验收；CI结果写PR说明，不为了记录自身SHA再造一个归档提交。产品PR保持draft、未合并、未部署。

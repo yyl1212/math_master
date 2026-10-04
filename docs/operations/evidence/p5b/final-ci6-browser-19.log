@@ -1,0 +1,13 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts correction-review.spec.ts
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis (4.8s)
+  ✓  2 [desktop] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts (4.0s)
+  ✓  3 [mobile] › ../tests/e2e/correction-review.spec.ts:5:5 › real plan author cannot self-approve; a distinct reviewer approves its frozen basis (5.5s)
+  ✓  4 [mobile] › ../tests/e2e/correction-review.spec.ts:6:5 › confirmed POST followed by failed GET preserves its original key and account switch clears drafts (3.3s)
+
+  4 passed (18.8s)

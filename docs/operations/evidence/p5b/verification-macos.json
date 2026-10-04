@@ -1,7 +1,7 @@
 {
   "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
-  "testedHead": "d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb",
-  "evidenceRecordedAtHead": "d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb",
+  "testedHead": "4f0f0441e5317f1ad8c33a8a86c81c2291a17b76",
+  "evidenceRecordedAtHead": "4f0f0441e5317f1ad8c33a8a86c81c2291a17b76",
   "platform": "darwin",
   "goEnvironment": {
     "CGO_ENABLED": "0",
@@ -13,42 +13,42 @@
     "globalTimeout": 480000
   },
   "groupHeads": {
-    "go": "d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb",
-    "front": "d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb",
-    "browser": "d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb"
+    "go": "4f0f0441e5317f1ad8c33a8a86c81c2291a17b76",
+    "front": "4f0f0441e5317f1ad8c33a8a86c81c2291a17b76",
+    "browser": "4f0f0441e5317f1ad8c33a8a86c81c2291a17b76"
   },
   "groups": {
     "go": [
       {
-        "name": "final-ci5-go-diff",
+        "name": "final-ci6-go-diff",
         "args": [
           "git",
           "diff",
           "--check"
         ],
         "cwd": null,
-        "startedAt": "2026-10-04T00:30:57.109100+00:00",
+        "startedAt": "2026-10-04T01:17:37.479622+00:00",
         "exitCode": 0,
         "seconds": 0.03,
-        "log": "final-ci5-go-diff.log",
+        "log": "final-ci6-go-diff.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-ci5-go-format",
+        "name": "final-ci6-go-format",
         "args": [
           "node",
           "-e",
           "const {spawnSync}=require(\"node:child_process\");const r=spawnSync(\"gofmt\",[\"-l\",\".\"],{encoding:\"utf8\"});process.stdout.write(r.stdout??\"\");process.stderr.write(r.stderr??\"\");process.exit(r.status!==0?1:r.stdout.trim()?1:0)"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:30:57.142755+00:00",
+        "startedAt": "2026-10-04T01:17:37.511495+00:00",
         "exitCode": 0,
-        "seconds": 0.07,
-        "log": "final-ci5-go-format.log",
+        "seconds": 0.09,
+        "log": "final-ci6-go-format.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-ci5-go-node",
+        "name": "final-ci6-go-node",
         "args": [
           "node",
           "--test",
@@ -61,14 +61,14 @@
           "tools/content-ingest/snapshot.test.mjs"
         ],
         "cwd": null,
-        "startedAt": "2026-10-04T00:30:57.216929+00:00",
+        "startedAt": "2026-10-04T01:17:37.597547+00:00",
         "exitCode": 0,
-        "seconds": 5.59,
-        "log": "final-ci5-go-node.log",
-        "logSHA256": "f1e2f1149bcc464f8735f0eddb86d3f4a5f6860ee14e741e4dbba66696484df5"
+        "seconds": 5.62,
+        "log": "final-ci6-go-node.log",
+        "logSHA256": "6bc7caf9fa9f0f29a7d3fe2b3321a6fbfa2d63a74a7b46d87cd1c9b4710bb9d0"
       },
       {
-        "name": "final-ci5-go-vet",
+        "name": "final-ci6-go-vet",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -78,14 +78,14 @@
           "./..."
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:31:02.802279+00:00",
+        "startedAt": "2026-10-04T01:17:43.218810+00:00",
         "exitCode": 0,
-        "seconds": 0.22,
-        "log": "final-ci5-go-vet.log",
+        "seconds": 1.0,
+        "log": "final-ci6-go-vet.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-ci5-go-foundation",
+        "name": "final-ci6-go-foundation",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -111,14 +111,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:31:03.019505+00:00",
+        "startedAt": "2026-10-04T01:17:44.216953+00:00",
         "exitCode": 0,
-        "seconds": 104.84,
-        "log": "final-ci5-go-foundation.log",
-        "logSHA256": "02289d757a8a0be3b4ee02ff9c88665faff81d5c1c1ee6f82bf30b7d2e6cccea"
+        "seconds": 107.74,
+        "log": "final-ci6-go-foundation.log",
+        "logSHA256": "332acdf68fd8def3e3a5d81a06072e0c1d5e7f17ff98f7ec68a59cae464d81d1"
       },
       {
-        "name": "final-ci5-go-store",
+        "name": "final-ci6-go-store",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -134,14 +134,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:32:47.864987+00:00",
+        "startedAt": "2026-10-04T01:19:31.956770+00:00",
         "exitCode": 0,
-        "seconds": 144.3,
-        "log": "final-ci5-go-store.log",
-        "logSHA256": "7f937deba05569da7c5257588b0cec9b522c23205ae6f698ef2a8879350651c6"
+        "seconds": 147.02,
+        "log": "final-ci6-go-store.log",
+        "logSHA256": "6e45ae96426388d5c0722cba3f52a39df8d417f297f0eab2ede93d251d55fb81"
       },
       {
-        "name": "final-ci5-go-learning",
+        "name": "final-ci6-go-learning",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -158,14 +158,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:35:12.169170+00:00",
+        "startedAt": "2026-10-04T01:21:58.974584+00:00",
         "exitCode": 0,
-        "seconds": 84.75,
-        "log": "final-ci5-go-learning.log",
-        "logSHA256": "f085a255da25c6338726474166f7cc75a8d8a4301131e89520734daaf76b89ee"
+        "seconds": 85.9,
+        "log": "final-ci6-go-learning.log",
+        "logSHA256": "a4d0be48554a38ffea1cafd08347d64c5563ee5f3250ee4cd876ee332006647f"
       },
       {
-        "name": "final-ci5-go-feedback",
+        "name": "final-ci6-go-feedback",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -182,14 +182,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:36:36.918391+00:00",
+        "startedAt": "2026-10-04T01:23:24.872119+00:00",
         "exitCode": 0,
-        "seconds": 28.73,
-        "log": "final-ci5-go-feedback.log",
-        "logSHA256": "dc147751f71ef43031940327f73c6afbf4e5585993d478fe2a43a7b4bbc618ce"
+        "seconds": 29.3,
+        "log": "final-ci6-go-feedback.log",
+        "logSHA256": "c52618d538bee627b9167ae12cd8375b13526a8aa43f3d60cfccb44b5a0eef53"
       },
       {
-        "name": "final-ci5-go-correction",
+        "name": "final-ci6-go-correction",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -207,14 +207,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:37:05.648079+00:00",
+        "startedAt": "2026-10-04T01:23:54.172597+00:00",
         "exitCode": 0,
-        "seconds": 128.57,
-        "log": "final-ci5-go-correction.log",
-        "logSHA256": "0e963d39ec32505d1ce48c23b9eca582cce5a96359714d4267df139848de6c29"
+        "seconds": 130.34,
+        "log": "final-ci6-go-correction.log",
+        "logSHA256": "7096cf4a85af50c8d11bd47e041cf0cc67e34e191566c98adade18810c65bc86"
       },
       {
-        "name": "final-ci5-go-FeedbackCapacity",
+        "name": "final-ci6-go-FeedbackCapacity",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -230,14 +230,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:39:14.217851+00:00",
+        "startedAt": "2026-10-04T01:26:04.513604+00:00",
         "exitCode": 0,
         "seconds": 11.56,
-        "log": "final-ci5-go-FeedbackCapacity.log",
-        "logSHA256": "b3b8c705061c93d3c20d3bc0fc9566eecac420ee867b29b8ebfea00cf9d6b35a"
+        "log": "final-ci6-go-FeedbackCapacity.log",
+        "logSHA256": "369838fe2c309d5ca64c0e2b143af6de7ea283fcf81c8e78ed33031db6c9bef6"
       },
       {
-        "name": "final-ci5-go-LearningCapacitySourceVolume",
+        "name": "final-ci6-go-LearningCapacitySourceVolume",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -253,14 +253,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:39:25.778306+00:00",
+        "startedAt": "2026-10-04T01:26:16.073990+00:00",
         "exitCode": 0,
-        "seconds": 92.6,
-        "log": "final-ci5-go-LearningCapacitySourceVolume.log",
-        "logSHA256": "0670d8773fa98db85cb970b2100f1bff55406caf1b4e431e3f642509cb8b33d3"
+        "seconds": 93.07,
+        "log": "final-ci6-go-LearningCapacitySourceVolume.log",
+        "logSHA256": "c6806229293cadb0bf0cb3bb0cf87e8020ae4181a7a9746aaf4191ee72e19d0e"
       },
       {
-        "name": "final-ci5-go-LearningCapacityMaxPool",
+        "name": "final-ci6-go-LearningCapacityMaxPool",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -276,14 +276,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:40:58.381826+00:00",
+        "startedAt": "2026-10-04T01:27:49.142534+00:00",
         "exitCode": 0,
-        "seconds": 119.79,
-        "log": "final-ci5-go-LearningCapacityMaxPool.log",
-        "logSHA256": "7d5a314e202f0125ef3cbc026e9799be4e6989f184199d9535713b85b68568c7"
+        "seconds": 122.78,
+        "log": "final-ci6-go-LearningCapacityMaxPool.log",
+        "logSHA256": "83aaa82d715ba86f008ad0b4c29eca713ac60c9adea215337aba7763c4d2eef2"
       },
       {
-        "name": "final-ci5-go-CorrectionCapacityImpact",
+        "name": "final-ci6-go-CorrectionCapacityImpact",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -299,14 +299,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:42:58.168649+00:00",
+        "startedAt": "2026-10-04T01:29:51.924861+00:00",
         "exitCode": 0,
-        "seconds": 138.48,
-        "log": "final-ci5-go-CorrectionCapacityImpact.log",
-        "logSHA256": "2a684cc7c6d5750acc5d71a795e03387f2e957cc19481cbdeb6ba31634dcd95b"
+        "seconds": 137.07,
+        "log": "final-ci6-go-CorrectionCapacityImpact.log",
+        "logSHA256": "688f11affc4fe13c6532d3c46b693303f3122ea92c3aa2903e89c0e9c01d241d"
       },
       {
-        "name": "final-ci5-go-CorrectionCapacityNotifications",
+        "name": "final-ci6-go-CorrectionCapacityNotifications",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -322,14 +322,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:45:16.648301+00:00",
+        "startedAt": "2026-10-04T01:32:08.999825+00:00",
         "exitCode": 0,
-        "seconds": 42.15,
-        "log": "final-ci5-go-CorrectionCapacityNotifications.log",
-        "logSHA256": "deb2500f0e4b63d0a7ad9a427bab52fd87f7798add2bdaa1ab28d27c84c15bee"
+        "seconds": 45.48,
+        "log": "final-ci6-go-CorrectionCapacityNotifications.log",
+        "logSHA256": "8ea930d41d37a2b91a0ee5140606d8baccd261029448843e8bdaaf942febe42e"
       },
       {
-        "name": "final-ci5-go-build",
+        "name": "final-ci6-go-build",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -339,98 +339,98 @@
           "./cmd/..."
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:45:58.802969+00:00",
+        "startedAt": "2026-10-04T01:32:54.476560+00:00",
         "exitCode": 0,
-        "seconds": 0.51,
-        "log": "final-ci5-go-build.log",
+        "seconds": 0.55,
+        "log": "final-ci6-go-build.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     ],
     "front": [
       {
-        "name": "final-ci5-front-install",
+        "name": "final-ci6-front-install",
         "args": [
           "npm",
           "ci"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:30:58.817196+00:00",
+        "startedAt": "2026-10-04T01:17:37.246699+00:00",
         "exitCode": 0,
-        "seconds": 3.73,
-        "log": "final-ci5-front-install.log",
+        "seconds": 3.77,
+        "log": "final-ci6-front-install.log",
         "logSHA256": "42116c6035f9b549143f304beb049a9e32051fe250f0fd4c00dd3b277e79b6bf"
       },
       {
-        "name": "final-ci5-front-api",
+        "name": "final-ci6-front-api",
         "args": [
           "npm",
           "run",
           "api:generate"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:31:02.550376+00:00",
+        "startedAt": "2026-10-04T01:17:41.018901+00:00",
         "exitCode": 0,
-        "seconds": 0.79,
-        "log": "final-ci5-front-api.log",
-        "logSHA256": "b30a673374e8c8a3e2838d59c821cab8ef7b25cb90329771440ddfb4e817695b"
+        "seconds": 0.71,
+        "log": "final-ci6-front-api.log",
+        "logSHA256": "f74ad13ea516c1bf2209756c04dd8cd11ea79f08df4e0784d4c2ee7cb9b002d0"
       },
       {
-        "name": "final-ci5-front-typecheck",
+        "name": "final-ci6-front-typecheck",
         "args": [
           "npm",
           "run",
           "typecheck"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:31:03.345541+00:00",
+        "startedAt": "2026-10-04T01:17:41.725156+00:00",
         "exitCode": 0,
-        "seconds": 5.34,
-        "log": "final-ci5-front-typecheck.log",
+        "seconds": 0.91,
+        "log": "final-ci6-front-typecheck.log",
         "logSHA256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
       },
       {
-        "name": "final-ci5-front-unit",
+        "name": "final-ci6-front-unit",
         "args": [
           "npm",
           "test"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:31:08.686568+00:00",
+        "startedAt": "2026-10-04T01:17:42.633079+00:00",
         "exitCode": 0,
-        "seconds": 4.9,
-        "log": "final-ci5-front-unit.log",
-        "logSHA256": "22d8f0850511c54a14631c7db3ed0c7f39018c2ad52b31ec07aefd4a667a12a0"
+        "seconds": 4.64,
+        "log": "final-ci6-front-unit.log",
+        "logSHA256": "f599bcebeec4f6898dc90248ab807f481be60d4a515e1e7a87ce37ff3f86010b"
       },
       {
-        "name": "final-ci5-front-build",
+        "name": "final-ci6-front-build",
         "args": [
           "npm",
           "run",
           "build"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:31:13.587384+00:00",
+        "startedAt": "2026-10-04T01:17:47.277646+00:00",
         "exitCode": 0,
-        "seconds": 3.8,
-        "log": "final-ci5-front-build.log",
-        "logSHA256": "2b04c3f354ba541b2eb63984341d4849ac9589833294872434db4595851d44aa"
+        "seconds": 6.91,
+        "log": "final-ci6-front-build.log",
+        "logSHA256": "a2867214c44eaa4199536ae3aec023a308ef0021ecac6c151c7154d65e0182a9"
       },
       {
-        "name": "final-ci5-front-audit",
+        "name": "final-ci6-front-audit",
         "args": [
           "npm",
           "audit",
           "--omit=dev"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:31:17.387538+00:00",
+        "startedAt": "2026-10-04T01:17:54.184774+00:00",
         "exitCode": 0,
-        "seconds": 0.97,
-        "log": "final-ci5-front-audit.log",
+        "seconds": 1.03,
+        "log": "final-ci6-front-audit.log",
         "logSHA256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
       },
       {
-        "name": "final-ci5-front-generated-clean",
+        "name": "final-ci6-front-generated-clean",
         "args": [
           "git",
           "diff",
@@ -439,14 +439,14 @@
           "frontend/src/lib/api/generated.d.ts"
         ],
         "cwd": null,
-        "startedAt": "2026-10-04T00:31:18.362308+00:00",
+        "startedAt": "2026-10-04T01:17:55.213102+00:00",
         "exitCode": 0,
         "seconds": 0.04,
-        "log": "final-ci5-front-generated-clean.log",
+        "log": "final-ci6-front-generated-clean.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-ci5-front-harness",
+        "name": "final-ci6-front-harness",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -458,14 +458,14 @@
           "./cmd/e2e-harness"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-04T00:31:18.399948+00:00",
+        "startedAt": "2026-10-04T01:17:55.251806+00:00",
         "exitCode": 0,
-        "seconds": 0.42,
-        "log": "final-ci5-front-harness.log",
+        "seconds": 0.41,
+        "log": "final-ci6-front-harness.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-ci5-front-chromium",
+        "name": "final-ci6-front-chromium",
         "args": [
           "npm",
           "exec",
@@ -475,16 +475,16 @@
           "chromium"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:31:18.822332+00:00",
+        "startedAt": "2026-10-04T01:17:55.666847+00:00",
         "exitCode": 0,
-        "seconds": 0.51,
-        "log": "final-ci5-front-chromium.log",
+        "seconds": 0.5,
+        "log": "final-ci6-front-chromium.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     ],
     "browser": [
       {
-        "name": "final-ci5-browser-01",
+        "name": "final-ci6-browser-01",
         "args": [
           "env",
           "-u",
@@ -497,14 +497,14 @@
           "reading.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:31:52.750018+00:00",
+        "startedAt": "2026-10-04T01:18:28.267205+00:00",
         "exitCode": 0,
-        "seconds": 30.24,
-        "log": "final-ci5-browser-01.log",
-        "logSHA256": "835bf02664d711919d6fc57d1f1c1c6d78bdace249180a86448aa2b74f9958fa"
+        "seconds": 31.29,
+        "log": "final-ci6-browser-01.log",
+        "logSHA256": "0c4353ac3e147a832b7f5e776fa44e27049dae80890fa4b4f0b51c1c84e92756"
       },
       {
-        "name": "final-ci5-browser-02",
+        "name": "final-ci6-browser-02",
         "args": [
           "env",
           "-u",
@@ -517,14 +517,14 @@
           "auth-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:32:22.988169+00:00",
+        "startedAt": "2026-10-04T01:18:59.562169+00:00",
         "exitCode": 0,
-        "seconds": 33.16,
-        "log": "final-ci5-browser-02.log",
-        "logSHA256": "197f90ce750b339ac7ea5b54d3aacca44741819a4cd6dff3511d8c1efcfa754b"
+        "seconds": 30.56,
+        "log": "final-ci6-browser-02.log",
+        "logSHA256": "317439bf63a7767a54f4e51200511680e80e30cdade2774769d99f62d8ef3085"
       },
       {
-        "name": "final-ci5-browser-03",
+        "name": "final-ci6-browser-03",
         "args": [
           "env",
           "-u",
@@ -536,14 +536,14 @@
           "content-authoring.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:32:56.147623+00:00",
+        "startedAt": "2026-10-04T01:19:30.124125+00:00",
         "exitCode": 0,
-        "seconds": 12.72,
-        "log": "final-ci5-browser-03.log",
-        "logSHA256": "e939d64fdc20dad7571a21c8ddef3efb944ade21bd4f341417381e0a687b114e"
+        "seconds": 12.73,
+        "log": "final-ci6-browser-03.log",
+        "logSHA256": "2fc9ef7f3d2530016df8f4f7ddeea5548b4dd86dec20baad342653633ad8136e"
       },
       {
-        "name": "final-ci5-browser-04",
+        "name": "final-ci6-browser-04",
         "args": [
           "env",
           "-u",
@@ -555,14 +555,14 @@
           "content-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:33:08.871130+00:00",
+        "startedAt": "2026-10-04T01:19:42.851116+00:00",
         "exitCode": 0,
-        "seconds": 20.58,
-        "log": "final-ci5-browser-04.log",
-        "logSHA256": "c9e4e625ad8c335c22f75e2eadc011ee8733056751ce1b9b7bd04eb3f6507020"
+        "seconds": 22.12,
+        "log": "final-ci6-browser-04.log",
+        "logSHA256": "0171ea59ed8496827b46bbb199ea14ccd6d9ab287cb8ca0413884e6b03c485ab"
       },
       {
-        "name": "final-ci5-browser-05",
+        "name": "final-ci6-browser-05",
         "args": [
           "env",
           "-u",
@@ -574,14 +574,14 @@
           "content-release.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:33:29.449519+00:00",
+        "startedAt": "2026-10-04T01:20:04.976099+00:00",
         "exitCode": 0,
-        "seconds": 35.94,
-        "log": "final-ci5-browser-05.log",
-        "logSHA256": "9c0cc31524fb50023fb53735080acba4a03c9ac7d221756b075ab972ad203925"
+        "seconds": 33.88,
+        "log": "final-ci6-browser-05.log",
+        "logSHA256": "5e7959cbee896f277baa66e25b2faf4314060858ffcd70c0ec8622fbcc954b1a"
       },
       {
-        "name": "final-ci5-browser-06",
+        "name": "final-ci6-browser-06",
         "args": [
           "env",
           "-u",
@@ -593,14 +593,14 @@
           "content-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:34:05.395046+00:00",
+        "startedAt": "2026-10-04T01:20:38.853030+00:00",
         "exitCode": 0,
-        "seconds": 39.48,
-        "log": "final-ci5-browser-06.log",
-        "logSHA256": "5acdced91d79a78a2eed783a19685b4a35b5c41ff00317ab7f202f8439badec7"
+        "seconds": 40.99,
+        "log": "final-ci6-browser-06.log",
+        "logSHA256": "be9fea2ea412bdfd1cebfcaf7646e05d504b9d8a20aa0348c0a4d17fc419e3c3"
       },
       {
-        "name": "final-ci5-browser-07",
+        "name": "final-ci6-browser-07",
         "args": [
           "env",
           "-u",
@@ -612,14 +612,14 @@
           "question-authoring.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:34:44.873972+00:00",
+        "startedAt": "2026-10-04T01:21:19.845253+00:00",
         "exitCode": 0,
-        "seconds": 33.41,
-        "log": "final-ci5-browser-07.log",
-        "logSHA256": "01e1f5c82a2d276fb89443ffa756dd11821ff6c11248091f90090acc1e22aa3e"
+        "seconds": 34.52,
+        "log": "final-ci6-browser-07.log",
+        "logSHA256": "9c9f39ae311f8729eef4a82d4e245969e2adcdbb227a6dcfce48ae3e0ab6dd77"
       },
       {
-        "name": "final-ci5-browser-08",
+        "name": "final-ci6-browser-08",
         "args": [
           "env",
           "-u",
@@ -631,14 +631,14 @@
           "question-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:35:18.286404+00:00",
+        "startedAt": "2026-10-04T01:21:54.366775+00:00",
         "exitCode": 0,
-        "seconds": 22.57,
-        "log": "final-ci5-browser-08.log",
-        "logSHA256": "9eba4350e13e21d4be18e60ad6bd3b8bfd5d0bcd97b4eb1498d0f370491d9241"
+        "seconds": 21.14,
+        "log": "final-ci6-browser-08.log",
+        "logSHA256": "17f3e687879cfb4fd43714bd288540386553f6e2de6e623d982955113df5c28f"
       },
       {
-        "name": "final-ci5-browser-09",
+        "name": "final-ci6-browser-09",
         "args": [
           "env",
           "-u",
@@ -650,14 +650,14 @@
           "question-release.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:35:40.853573+00:00",
+        "startedAt": "2026-10-04T01:22:15.510913+00:00",
         "exitCode": 0,
-        "seconds": 45.42,
-        "log": "final-ci5-browser-09.log",
-        "logSHA256": "08a8738065cbfd595b1ad3ded5c9477eb906322492e8edcd9ba98b16b550be40"
+        "seconds": 46.88,
+        "log": "final-ci6-browser-09.log",
+        "logSHA256": "b65d74aad4b8887a70809f1b3ae60c0c8d60a508c1e965c729b443bff20b04f7"
       },
       {
-        "name": "final-ci5-browser-10",
+        "name": "final-ci6-browser-10",
         "args": [
           "env",
           "-u",
@@ -669,14 +669,14 @@
           "question-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:36:26.277787+00:00",
+        "startedAt": "2026-10-04T01:23:02.391432+00:00",
         "exitCode": 0,
-        "seconds": 46.68,
-        "log": "final-ci5-browser-10.log",
-        "logSHA256": "5097735b66a6a2f9dfafc8ee89954bd427384f6c4e169e950d32d7f5094153a9"
+        "seconds": 47.18,
+        "log": "final-ci6-browser-10.log",
+        "logSHA256": "9355996c294958acb77a7e8bf948297a33a1266347977d78b037578274dfc8b5"
       },
       {
-        "name": "final-ci5-browser-11",
+        "name": "final-ci6-browser-11",
         "args": [
           "env",
           "-u",
@@ -688,14 +688,14 @@
           "learning-progress.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:37:12.954782+00:00",
+        "startedAt": "2026-10-04T01:23:49.570011+00:00",
         "exitCode": 0,
-        "seconds": 23.76,
-        "log": "final-ci5-browser-11.log",
-        "logSHA256": "e85e71a2dbf3212474c728432ba2bd27ee52a21b0e08050526b797151bf3afd1"
+        "seconds": 23.46,
+        "log": "final-ci6-browser-11.log",
+        "logSHA256": "d73a1f715b13fe21cb6865001f60ba1cf7977384874ae7613977895ba16ac981"
       },
       {
-        "name": "final-ci5-browser-12",
+        "name": "final-ci6-browser-12",
         "args": [
           "env",
           "-u",
@@ -708,14 +708,14 @@
           "learning-assessment.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:37:36.719663+00:00",
+        "startedAt": "2026-10-04T01:24:13.034821+00:00",
         "exitCode": 0,
-        "seconds": 36.93,
-        "log": "final-ci5-browser-12.log",
-        "logSHA256": "b62b32584bf4b70ad1899c3504ba83dcb55ef56c630b7e66ddb681dedf3589e9"
+        "seconds": 38.17,
+        "log": "final-ci6-browser-12.log",
+        "logSHA256": "e871efe2b0a1cf7a393fe1798061f8ce01a59167b1e67b52f514c9973672c18e"
       },
       {
-        "name": "final-ci5-browser-13",
+        "name": "final-ci6-browser-13",
         "args": [
           "env",
           "-u",
@@ -728,14 +728,14 @@
           "learning-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:38:13.651497+00:00",
+        "startedAt": "2026-10-04T01:24:51.202171+00:00",
         "exitCode": 0,
-        "seconds": 64.44,
-        "log": "final-ci5-browser-13.log",
-        "logSHA256": "10a94651b0dee9529228291f73f881a4a67b570413fa25465d9bfc257f473768"
+        "seconds": 63.15,
+        "log": "final-ci6-browser-13.log",
+        "logSHA256": "50432856ef1c4e77b0278c4993fc6c6e0eebe74b1871c8f68a4e70c53ac48fbd"
       },
       {
-        "name": "final-ci5-browser-14",
+        "name": "final-ci6-browser-14",
         "args": [
           "env",
           "-u",
@@ -747,14 +747,14 @@
           "learning-review-regressions.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:39:18.087598+00:00",
+        "startedAt": "2026-10-04T01:25:54.350595+00:00",
         "exitCode": 0,
-        "seconds": 26.83,
-        "log": "final-ci5-browser-14.log",
-        "logSHA256": "e9624fa52e9357808f0c4a5e7aad95cefe11f42e28f37691e17c6342a0493dfe"
+        "seconds": 25.5,
+        "log": "final-ci6-browser-14.log",
+        "logSHA256": "d0ecd8b574521704fbfb7f7843284f79ffc33ea7f3e624f32279f8f349cd3c9d"
       },
       {
-        "name": "final-ci5-browser-15",
+        "name": "final-ci6-browser-15",
         "args": [
           "env",
           "-u",
@@ -766,14 +766,14 @@
           "feedback-user.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:39:44.918999+00:00",
+        "startedAt": "2026-10-04T01:26:19.850078+00:00",
         "exitCode": 0,
-        "seconds": 75.69,
-        "log": "final-ci5-browser-15.log",
-        "logSHA256": "0f769c7661fd03fd957fc9d076ea2f429c70691703dca7d98eaa4e729f48e6a2"
+        "seconds": 76.02,
+        "log": "final-ci6-browser-15.log",
+        "logSHA256": "46d8f33874ec240b8a0bd4a97d6dbd3357883fbc01c04c920fe37cff2c18c78e"
       },
       {
-        "name": "final-ci5-browser-16",
+        "name": "final-ci6-browser-16",
         "args": [
           "env",
           "-u",
@@ -785,14 +785,14 @@
           "feedback-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:41:00.613798+00:00",
+        "startedAt": "2026-10-04T01:27:35.873389+00:00",
         "exitCode": 0,
-        "seconds": 46.06,
-        "log": "final-ci5-browser-16.log",
-        "logSHA256": "a52912ce5404b9c27462c0ef2a7ce6c8880ae024ba5c2b6627f1bc2bdafae13c"
+        "seconds": 45.58,
+        "log": "final-ci6-browser-16.log",
+        "logSHA256": "a4b8b81ee1053d7ff6a57270c20a865d19579f6509321ec9f8e435d0c791223b"
       },
       {
-        "name": "final-ci5-browser-17",
+        "name": "final-ci6-browser-17",
         "args": [
           "env",
           "-u",
@@ -804,14 +804,14 @@
           "feedback-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:41:46.678069+00:00",
+        "startedAt": "2026-10-04T01:28:21.451205+00:00",
         "exitCode": 0,
-        "seconds": 61.91,
-        "log": "final-ci5-browser-17.log",
-        "logSHA256": "56d0463bcaac09f5b7b1f16b1fcdde9656a9cc19b0b68f93cd6dd03267e8043c"
+        "seconds": 63.93,
+        "log": "final-ci6-browser-17.log",
+        "logSHA256": "04c2352f01500a8425612434599a0e633606b1f081f122b5aa0677531237d330"
       },
       {
-        "name": "final-ci5-browser-18",
+        "name": "final-ci6-browser-18",
         "args": [
           "env",
           "-u",
@@ -823,14 +823,14 @@
           "correction-user.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:42:48.594971+00:00",
+        "startedAt": "2026-10-04T01:29:25.384550+00:00",
         "exitCode": 0,
-        "seconds": 29.68,
-        "log": "final-ci5-browser-18.log",
-        "logSHA256": "9d0db7c7ee535065a91aa531c2551df6f1e07b27ca1fd114050ec2173e58a04f"
+        "seconds": 29.57,
+        "log": "final-ci6-browser-18.log",
+        "logSHA256": "071da00c0c3cb58b4c2297850c85ef09860edfbeef735baebf05eefb7e32b085"
       },
       {
-        "name": "final-ci5-browser-19",
+        "name": "final-ci6-browser-19",
         "args": [
           "env",
           "-u",
@@ -842,14 +842,14 @@
           "correction-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:43:18.280536+00:00",
+        "startedAt": "2026-10-04T01:29:54.958554+00:00",
         "exitCode": 0,
-        "seconds": 18.05,
-        "log": "final-ci5-browser-19.log",
-        "logSHA256": "29a1f95ca62be7de6cadacb4b4f76535dce17bb9bdc48e874308f47d092acf42"
+        "seconds": 19.16,
+        "log": "final-ci6-browser-19.log",
+        "logSHA256": "b107d708961e5a81aef8339bf61ef27d4f475bf1d6862f9a257d7b3f44fd5746"
       },
       {
-        "name": "final-ci5-browser-20",
+        "name": "final-ci6-browser-20",
         "args": [
           "env",
           "-u",
@@ -861,11 +861,11 @@
           "notification-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-04T00:43:36.333670+00:00",
+        "startedAt": "2026-10-04T01:30:14.116064+00:00",
         "exitCode": 0,
-        "seconds": 46.24,
-        "log": "final-ci5-browser-20.log",
-        "logSHA256": "e2b51ebc69b5316a9fb2c362fbe123e6ed09ed84b1f28be3224dcae5701e4dd9"
+        "seconds": 46.92,
+        "log": "final-ci6-browser-20.log",
+        "logSHA256": "2b5829f284a8ecbfbeb32c1ab3c885c411bb191d337efc61246fc6ad0a79163e"
       }
     ]
   },
@@ -916,7 +916,8 @@
       "d5a33408458ab085d6374400576f9337e5ec96aa",
       "b38828cad67dbf91f88777b0c0a761013ba3bd46",
       "424a6a279f7fc1fef6ec10abe1cc918743cb425d",
-      "90fd12ddf393d573454ee4e747bcde2f124c512c"
+      "90fd12ddf393d573454ee4e747bcde2f124c512c",
+      "215a8ed1cfe13856e25c7762912a70d55401d902"
     ],
     "unchangedCapacities": true,
     "unchangedDeadlines": true,
@@ -926,7 +927,15 @@
     "backfillBeforeSeconds": 12.949685666,
     "backfillCandidateSeconds": 4.867590291,
     "caseBeforeBuffers": 32005,
-    "caseCandidateBuffers": 2005
+    "caseCandidateBuffers": 2005,
+    "emptyRangeRuling": 29,
+    "emptyRangeBeforeSeconds": 4.867590291,
+    "emptyRangeCandidateSeconds": 3.041380417,
+    "emptyRangeBeforeBuffers": 2005,
+    "emptyRangeCandidateBuffers": 8,
+    "unchangedWorker": true,
+    "declinedWorkerCandidateSeconds": 4.506747875,
+    "currentWorkerBaselineSeconds": 4.290721125
   },
   "evidenceQA": {
     "rawWhitespaceCommand": [

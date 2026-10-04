@@ -43,3 +43,5 @@ CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修�
 交付证据QA补充Ruling27：原始stdout保持逐字节及SHA，仅在人工文档空白风格检查中排除准确证据目录的*.log；所有源码、JSON及诊断脚本继续检查，未变更Git设置、CI或测试预算。准确默认RED/限定GREEN及manifest核验已归档；全部27项裁定、16任务/80步完成，最新完整文档head仍以PR说明的四run/六job验收为准。
 
 同一次必要修复轮追加Ruling28：最终文档90fd12d容量5m真实失败，仅将补扫terminal候选按当前已锁定案件参数化，保持原谓词/顺序/50预算/全部守卫；完整原容量与所有44命令在产品 `d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb` 新鲜PASS，350前端/146浏览器/44Node/五容量，完整28裁定见实施账本。一次独立reviewer及零deferred minor保持；新最终归档head的四workflow/六job必须实际成功，最新结论以PR #23说明为准。
+
+同一次必要修复轮追加Ruling29：完整head215a8ed1的PR容量5m真实失败，采用已测现有规则索引最早日期排除必空范围、锁定案件根/方案/类型有依赖元数据读取；原谓词/顺序/50预算/全部守卫和worker保持。产品 `4f0f0441e5317f1ad8c33a8a86c81c2291a17b76` 全44命令新鲜PASS，350前端/146浏览器/44Node/五容量；29裁定完整归档，一次独立reviewer、零deferred minor。最终最新head四workflow/六job仍须实际成功，以PR #23最新说明为准。

@@ -1,0 +1,7 @@
+=== RUN   TestCorrectionCapacityDiagnostic
+    correction_capacity_diagnostic_test.go:4: DIAG setup 33.9263245s
+    correction_capacity_diagnostic_test.go:6: DIAG real500 4.506747875s
+    correction_capacity_diagnostic_test.go:6: PHASE_PROFILE_JSON {"body":{"Calls":41120,"Nanoseconds":64677015,"MaxNanoseconds":666375},"correctionAdvanceCursor":{"Calls":500,"Nanoseconds":210098467,"MaxNanoseconds":968958},"correctionBuildBasisMetadata":{"Calls":500,"Nanoseconds":842815749,"MaxNanoseconds":5301916},"correctionEvent":{"Calls":20,"Nanoseconds":7254292,"MaxNanoseconds":610084},"correctionInstanceDeps":{"Calls":500,"Nanoseconds":149322962,"MaxNanoseconds":3733875},"correctionPositionMap":{"Calls":1000,"Nanoseconds":11075997,"MaxNanoseconds":223625},"correctionProcessEvidence":{"Calls":500,"Nanoseconds":2490241552,"MaxNanoseconds":11091917},"correctionReadBatch":{"Calls":2500,"Nanoseconds":1579156542,"MaxNanoseconds":2665541},"correctionReadJob":{"Calls":20,"Nanoseconds":5592623,"MaxNanoseconds":520542},"correctionReadPracticeInputs":{"Calls":500,"Nanoseconds":606219744,"MaxNanoseconds":3844875},"correctionSystemTx":{"Calls":530,"Nanoseconds":4506185377,"MaxNanoseconds":17733209},"correctionWriteResult":{"Calls":500,"Nanoseconds":799833590,"MaxNanoseconds":3571916},"dbClock":{"Calls":20,"Nanoseconds":4662915,"MaxNanoseconds":264083}}
+--- PASS: TestCorrectionCapacityDiagnostic (38.45s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	39.040s
