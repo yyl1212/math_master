@@ -1,0 +1,6617 @@
+{
+  "kind": "question-bank",
+  "schemaVersion": 1,
+  "id": "elementary-foundations-numbers",
+  "version": 1,
+  "templates": [
+    {
+      "id": "ef-compare-whole",
+      "version": 1,
+      "knowledge": {
+        "id": "comparing-numbers",
+        "version": 1
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "comparing-numbers",
+            "version": 1
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-comparing-numbers-unit",
+          "version": 1
+        }
+      ],
+      "type": "single_choice",
+      "answerFormat": null,
+      "promptTemplate": "Compare {{left}} and {{right}} as nonnegative whole numbers. Choose their exact relation.",
+      "explanationTemplate": "Place both values on the same ordered number line. Their relation is {{answer}}.",
+      "engine": {
+        "family": "rational_comparison",
+        "operation": "compare",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "2",
+            "7",
+            "12",
+            "20"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "2",
+            "8",
+            "10",
+            "21"
+          ]
+        }
+      ],
+      "constraints": [],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    }
+  ],
+  "fixedQuestions": [
+    {
+      "id": "ef-natural-numbers-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "How many objects are in an empty collection?",
+        "explanation": "A count pairs one marker with each object; an empty collection has zero objects.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "1"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 2 groups of 2 counters and 1 extra counters. How many counters are there?",
+        "explanation": "A count pairs one marker with each object; an empty collection has zero objects.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "7"
+          },
+          {
+            "id": "d",
+            "text": "8"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 3 groups of 2 counters and 2 extra counters. How many counters are there?",
+        "explanation": "A count pairs one marker with each object; an empty collection has zero objects.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "9"
+          },
+          {
+            "id": "b",
+            "text": "10"
+          },
+          {
+            "id": "c",
+            "text": "8"
+          },
+          {
+            "id": "d",
+            "text": "11"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 4 groups of 2 counters and 3 extra counters. How many counters are there?",
+        "explanation": "A count pairs one marker with each object; an empty collection has zero objects.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "12"
+          },
+          {
+            "id": "b",
+            "text": "13"
+          },
+          {
+            "id": "c",
+            "text": "14"
+          },
+          {
+            "id": "d",
+            "text": "11"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 5 groups of 2 counters and 4 extra counters. How many counters are there?",
+        "explanation": "A count pairs one marker with each object; an empty collection has zero objects.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "14"
+          },
+          {
+            "id": "b",
+            "text": "15"
+          },
+          {
+            "id": "c",
+            "text": "16"
+          },
+          {
+            "id": "d",
+            "text": "17"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "The numeral 03 represents which number under our N_0 convention?",
+        "explanation": "Leading zeros do not change numerical value. Our natural numbers include zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "3"
+          },
+          {
+            "id": "c",
+            "text": "30"
+          },
+          {
+            "id": "d",
+            "text": "No number"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "The numeral 04 represents which number under our N_0 convention?",
+        "explanation": "Leading zeros do not change numerical value. Our natural numbers include zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "40"
+          },
+          {
+            "id": "c",
+            "text": "4"
+          },
+          {
+            "id": "d",
+            "text": "No number"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "The numeral 05 represents which number under our N_0 convention?",
+        "explanation": "Leading zeros do not change numerical value. Our natural numbers include zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "50"
+          },
+          {
+            "id": "c",
+            "text": "No number"
+          },
+          {
+            "id": "d",
+            "text": "5"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "The numeral 06 represents which number under our N_0 convention?",
+        "explanation": "Leading zeros do not change numerical value. Our natural numbers include zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "60"
+          },
+          {
+            "id": "d",
+            "text": "No number"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "The numeral 07 represents which number under our N_0 convention?",
+        "explanation": "Leading zeros do not change numerical value. Our natural numbers include zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "7"
+          },
+          {
+            "id": "c",
+            "text": "70"
+          },
+          {
+            "id": "d",
+            "text": "No number"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 1 groups of 3 counters. Which answer also correctly distinguishes number and numeral?",
+        "explanation": "There are three counters per group. The count is the number; its written symbols form a numeral. N_0 includes zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4; the numeral writes the count"
+          },
+          {
+            "id": "b",
+            "text": "3; a numeral is a physical counter"
+          },
+          {
+            "id": "c",
+            "text": "3; the numeral writes the count"
+          },
+          {
+            "id": "d",
+            "text": "2; zero is excluded here"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 2 groups of 3 counters. Which answer also correctly distinguishes number and numeral?",
+        "explanation": "There are three counters per group. The count is the number; its written symbols form a numeral. N_0 includes zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7; the numeral writes the count"
+          },
+          {
+            "id": "b",
+            "text": "6; a numeral is a physical counter"
+          },
+          {
+            "id": "c",
+            "text": "5; zero is excluded here"
+          },
+          {
+            "id": "d",
+            "text": "6; the numeral writes the count"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 3 groups of 3 counters. Which answer also correctly distinguishes number and numeral?",
+        "explanation": "There are three counters per group. The count is the number; its written symbols form a numeral. N_0 includes zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "9; the numeral writes the count"
+          },
+          {
+            "id": "b",
+            "text": "10; the numeral writes the count"
+          },
+          {
+            "id": "c",
+            "text": "9; a numeral is a physical counter"
+          },
+          {
+            "id": "d",
+            "text": "8; zero is excluded here"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 4 groups of 3 counters. Which answer also correctly distinguishes number and numeral?",
+        "explanation": "There are three counters per group. The count is the number; its written symbols form a numeral. N_0 includes zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "13; the numeral writes the count"
+          },
+          {
+            "id": "b",
+            "text": "12; the numeral writes the count"
+          },
+          {
+            "id": "c",
+            "text": "12; a numeral is a physical counter"
+          },
+          {
+            "id": "d",
+            "text": "11; zero is excluded here"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-natural-numbers-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "natural-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "natural-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-natural-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Count 5 groups of 3 counters. Which answer also correctly distinguishes number and numeral?",
+        "explanation": "There are three counters per group. The count is the number; its written symbols form a numeral. N_0 includes zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "16; the numeral writes the count"
+          },
+          {
+            "id": "b",
+            "text": "15; a numeral is a physical counter"
+          },
+          {
+            "id": "c",
+            "text": "15; the numeral writes the count"
+          },
+          {
+            "id": "d",
+            "text": "14; zero is excluded here"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "After all 3 counters are removed from a tray, how many remain?",
+        "explanation": "Removing the entire collection leaves an empty collection, whose count is zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "After all 4 counters are removed from a tray, how many remain?",
+        "explanation": "Removing the entire collection leaves an empty collection, whose count is zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "2"
+          },
+          {
+            "id": "c",
+            "text": "0"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "After all 5 counters are removed from a tray, how many remain?",
+        "explanation": "Removing the entire collection leaves an empty collection, whose count is zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "2"
+          },
+          {
+            "id": "c",
+            "text": "3"
+          },
+          {
+            "id": "d",
+            "text": "0"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "After all 6 counters are removed from a tray, how many remain?",
+        "explanation": "Removing the entire collection leaves an empty collection, whose count is zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "0"
+          },
+          {
+            "id": "b",
+            "text": "1"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "After all 7 counters are removed from a tray, how many remain?",
+        "explanation": "Removing the entire collection leaves an empty collection, whose count is zero.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1"
+          },
+          {
+            "id": "b",
+            "text": "0"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "In the base-ten numeral 305, what does the middle zero show?",
+        "explanation": "The digit zero marks the tens place, so later digits retain their correct positions.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "five tens"
+          },
+          {
+            "id": "c",
+            "text": "zero tens"
+          },
+          {
+            "id": "d",
+            "text": "the entire number is zero"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "In the base-ten numeral 405, what does the middle zero show?",
+        "explanation": "The digit zero marks the tens place, so later digits retain their correct positions.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "five tens"
+          },
+          {
+            "id": "c",
+            "text": "the entire number is zero"
+          },
+          {
+            "id": "d",
+            "text": "zero tens"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "In the base-ten numeral 505, what does the middle zero show?",
+        "explanation": "The digit zero marks the tens place, so later digits retain their correct positions.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "zero tens"
+          },
+          {
+            "id": "b",
+            "text": "zero hundreds"
+          },
+          {
+            "id": "c",
+            "text": "five tens"
+          },
+          {
+            "id": "d",
+            "text": "the entire number is zero"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "In the base-ten numeral 605, what does the middle zero show?",
+        "explanation": "The digit zero marks the tens place, so later digits retain their correct positions.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "zero tens"
+          },
+          {
+            "id": "c",
+            "text": "five tens"
+          },
+          {
+            "id": "d",
+            "text": "the entire number is zero"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "In the base-ten numeral 705, what does the middle zero show?",
+        "explanation": "The digit zero marks the tens place, so later digits retain their correct positions.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "five tens"
+          },
+          {
+            "id": "c",
+            "text": "zero tens"
+          },
+          {
+            "id": "d",
+            "text": "the entire number is zero"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "An empty box has count 0. In the numeral 305, which statement also explains the zero digit?",
+        "explanation": "Zero can name the empty count and also mark an unoccupied tens place; these uses must be distinguished.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "empty count; zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "one object; zero tens"
+          },
+          {
+            "id": "c",
+            "text": "empty count; delete zero without change"
+          },
+          {
+            "id": "d",
+            "text": "empty count; zero tens"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "An empty box has count 0. In the numeral 405, which statement also explains the zero digit?",
+        "explanation": "Zero can name the empty count and also mark an unoccupied tens place; these uses must be distinguished.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "empty count; zero tens"
+          },
+          {
+            "id": "b",
+            "text": "empty count; zero hundreds"
+          },
+          {
+            "id": "c",
+            "text": "one object; zero tens"
+          },
+          {
+            "id": "d",
+            "text": "empty count; delete zero without change"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "An empty box has count 0. In the numeral 505, which statement also explains the zero digit?",
+        "explanation": "Zero can name the empty count and also mark an unoccupied tens place; these uses must be distinguished.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "empty count; zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "empty count; zero tens"
+          },
+          {
+            "id": "c",
+            "text": "one object; zero tens"
+          },
+          {
+            "id": "d",
+            "text": "empty count; delete zero without change"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "An empty box has count 0. In the numeral 605, which statement also explains the zero digit?",
+        "explanation": "Zero can name the empty count and also mark an unoccupied tens place; these uses must be distinguished.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "empty count; zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "one object; zero tens"
+          },
+          {
+            "id": "c",
+            "text": "empty count; zero tens"
+          },
+          {
+            "id": "d",
+            "text": "empty count; delete zero without change"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-zero-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "zero",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "zero",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-zero-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "An empty box has count 0. In the numeral 705, which statement also explains the zero digit?",
+        "explanation": "Zero can name the empty count and also mark an unoccupied tens place; these uses must be distinguished.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "empty count; zero hundreds"
+          },
+          {
+            "id": "b",
+            "text": "one object; zero tens"
+          },
+          {
+            "id": "c",
+            "text": "empty count; delete zero without change"
+          },
+          {
+            "id": "d",
+            "text": "empty count; zero tens"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What number is represented by 3 hundreds, 0 tens and 5 units?",
+        "explanation": "Evaluate 3*100+0*10+5*1 = 305; rebundle units if needed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "306"
+          },
+          {
+            "id": "b",
+            "text": "307"
+          },
+          {
+            "id": "c",
+            "text": "305"
+          },
+          {
+            "id": "d",
+            "text": "308"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What number is represented by 3 hundreds, 0 tens and 10 units?",
+        "explanation": "Evaluate 3*100+0*10+10*1 = 310; rebundle units if needed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "311"
+          },
+          {
+            "id": "b",
+            "text": "312"
+          },
+          {
+            "id": "c",
+            "text": "313"
+          },
+          {
+            "id": "d",
+            "text": "310"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What number is represented by 3 hundreds, 0 tens and 15 units?",
+        "explanation": "Evaluate 3*100+0*10+15*1 = 315; rebundle units if needed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "315"
+          },
+          {
+            "id": "b",
+            "text": "316"
+          },
+          {
+            "id": "c",
+            "text": "317"
+          },
+          {
+            "id": "d",
+            "text": "318"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What number is represented by 3 hundreds, 0 tens and 20 units?",
+        "explanation": "Evaluate 3*100+0*10+20*1 = 320; rebundle units if needed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "321"
+          },
+          {
+            "id": "b",
+            "text": "320"
+          },
+          {
+            "id": "c",
+            "text": "322"
+          },
+          {
+            "id": "d",
+            "text": "323"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What number is represented by 3 hundreds, 0 tens and 25 units?",
+        "explanation": "Evaluate 3*100+0*10+25*1 = 325; rebundle units if needed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "326"
+          },
+          {
+            "id": "b",
+            "text": "327"
+          },
+          {
+            "id": "c",
+            "text": "325"
+          },
+          {
+            "id": "d",
+            "text": "328"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "You have 1 tens and 10 units. Exchange the units for a ten. Which representation preserves the total?",
+        "explanation": "Ten units equal one ten. Remove those ten units and add exactly one ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1 tens, 0 units"
+          },
+          {
+            "id": "b",
+            "text": "2 tens, 10 units"
+          },
+          {
+            "id": "c",
+            "text": "3 tens, 0 units"
+          },
+          {
+            "id": "d",
+            "text": "2 tens, 0 units"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "You have 2 tens and 10 units. Exchange the units for a ten. Which representation preserves the total?",
+        "explanation": "Ten units equal one ten. Remove those ten units and add exactly one ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3 tens, 0 units"
+          },
+          {
+            "id": "b",
+            "text": "2 tens, 0 units"
+          },
+          {
+            "id": "c",
+            "text": "3 tens, 10 units"
+          },
+          {
+            "id": "d",
+            "text": "4 tens, 0 units"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "You have 3 tens and 10 units. Exchange the units for a ten. Which representation preserves the total?",
+        "explanation": "Ten units equal one ten. Remove those ten units and add exactly one ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3 tens, 0 units"
+          },
+          {
+            "id": "b",
+            "text": "4 tens, 0 units"
+          },
+          {
+            "id": "c",
+            "text": "4 tens, 10 units"
+          },
+          {
+            "id": "d",
+            "text": "5 tens, 0 units"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "You have 4 tens and 10 units. Exchange the units for a ten. Which representation preserves the total?",
+        "explanation": "Ten units equal one ten. Remove those ten units and add exactly one ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4 tens, 0 units"
+          },
+          {
+            "id": "b",
+            "text": "5 tens, 10 units"
+          },
+          {
+            "id": "c",
+            "text": "5 tens, 0 units"
+          },
+          {
+            "id": "d",
+            "text": "6 tens, 0 units"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "You have 5 tens and 10 units. Exchange the units for a ten. Which representation preserves the total?",
+        "explanation": "Ten units equal one ten. Remove those ten units and add exactly one ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5 tens, 0 units"
+          },
+          {
+            "id": "b",
+            "text": "6 tens, 10 units"
+          },
+          {
+            "id": "c",
+            "text": "7 tens, 0 units"
+          },
+          {
+            "id": "d",
+            "text": "6 tens, 0 units"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the value of 1 tens and 15 units, and what exchange is valid?",
+        "explanation": "Compute the original value using place units. Exchanging ten units for one ten changes the representation while preserving that value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "25; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "b",
+            "text": "25; exchange 5 units for 1 ten"
+          },
+          {
+            "id": "c",
+            "text": "15; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "d",
+            "text": "35; exchange 10 units for 1 ten"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the value of 2 tens and 15 units, and what exchange is valid?",
+        "explanation": "Compute the original value using place units. Exchanging ten units for one ten changes the representation while preserving that value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "35; exchange 5 units for 1 ten"
+          },
+          {
+            "id": "b",
+            "text": "35; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "c",
+            "text": "25; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "d",
+            "text": "45; exchange 10 units for 1 ten"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the value of 3 tens and 15 units, and what exchange is valid?",
+        "explanation": "Compute the original value using place units. Exchanging ten units for one ten changes the representation while preserving that value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "45; exchange 5 units for 1 ten"
+          },
+          {
+            "id": "b",
+            "text": "35; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "c",
+            "text": "45; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "d",
+            "text": "55; exchange 10 units for 1 ten"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the value of 4 tens and 15 units, and what exchange is valid?",
+        "explanation": "Compute the original value using place units. Exchanging ten units for one ten changes the representation while preserving that value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "55; exchange 5 units for 1 ten"
+          },
+          {
+            "id": "b",
+            "text": "45; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "c",
+            "text": "65; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "d",
+            "text": "55; exchange 10 units for 1 ten"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-place-value-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "place-value",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "place-value",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the value of 5 tens and 15 units, and what exchange is valid?",
+        "explanation": "Compute the original value using place units. Exchanging ten units for one ten changes the representation while preserving that value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "65; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "b",
+            "text": "65; exchange 5 units for 1 ten"
+          },
+          {
+            "id": "c",
+            "text": "55; exchange 10 units for 1 ten"
+          },
+          {
+            "id": "d",
+            "text": "75; exchange 10 units for 1 ten"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A point lies 3 equal unit intervals right of zero. Which number labels it?",
+        "explanation": "Count intervals from zero; each interval represents one unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "6"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A point lies 4 equal unit intervals right of zero. Which number labels it?",
+        "explanation": "Count intervals from zero; each interval represents one unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "6"
+          },
+          {
+            "id": "d",
+            "text": "7"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A point lies 5 equal unit intervals right of zero. Which number labels it?",
+        "explanation": "Count intervals from zero; each interval represents one unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "7"
+          },
+          {
+            "id": "d",
+            "text": "8"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A point lies 6 equal unit intervals right of zero. Which number labels it?",
+        "explanation": "Count intervals from zero; each interval represents one unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "6"
+          },
+          {
+            "id": "d",
+            "text": "9"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A point lies 7 equal unit intervals right of zero. Which number labels it?",
+        "explanation": "Count intervals from zero; each interval represents one unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "9"
+          },
+          {
+            "id": "c",
+            "text": "10"
+          },
+          {
+            "id": "d",
+            "text": "7"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "On a uniformly spaced nonnegative number line, what is the distance from 0 to 3 in unit lengths?",
+        "explanation": "The coordinate counts the fixed unit intervals from zero, so its nonnegative distance is the same count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3"
+          },
+          {
+            "id": "b",
+            "text": "4"
+          },
+          {
+            "id": "c",
+            "text": "5"
+          },
+          {
+            "id": "d",
+            "text": "6"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "On a uniformly spaced nonnegative number line, what is the distance from 0 to 4 in unit lengths?",
+        "explanation": "The coordinate counts the fixed unit intervals from zero, so its nonnegative distance is the same count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5"
+          },
+          {
+            "id": "b",
+            "text": "4"
+          },
+          {
+            "id": "c",
+            "text": "6"
+          },
+          {
+            "id": "d",
+            "text": "7"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "On a uniformly spaced nonnegative number line, what is the distance from 0 to 5 in unit lengths?",
+        "explanation": "The coordinate counts the fixed unit intervals from zero, so its nonnegative distance is the same count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6"
+          },
+          {
+            "id": "b",
+            "text": "7"
+          },
+          {
+            "id": "c",
+            "text": "5"
+          },
+          {
+            "id": "d",
+            "text": "8"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "On a uniformly spaced nonnegative number line, what is the distance from 0 to 6 in unit lengths?",
+        "explanation": "The coordinate counts the fixed unit intervals from zero, so its nonnegative distance is the same count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "9"
+          },
+          {
+            "id": "d",
+            "text": "6"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "On a uniformly spaced nonnegative number line, what is the distance from 0 to 7 in unit lengths?",
+        "explanation": "The coordinate counts the fixed unit intervals from zero, so its nonnegative distance is the same count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "9"
+          },
+          {
+            "id": "d",
+            "text": "10"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Locate 3 on a unit number line and describe its distance from zero.",
+        "explanation": "Start at zero and count equal intervals. The endpoint has coordinate and distance 3.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "2 intervals right; distance 3"
+          },
+          {
+            "id": "b",
+            "text": "3 intervals right; distance 3"
+          },
+          {
+            "id": "c",
+            "text": "3 intervals right; distance 4"
+          },
+          {
+            "id": "d",
+            "text": "3 unequal gaps; distance 3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Locate 4 on a unit number line and describe its distance from zero.",
+        "explanation": "Start at zero and count equal intervals. The endpoint has coordinate and distance 4.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3 intervals right; distance 4"
+          },
+          {
+            "id": "b",
+            "text": "4 intervals right; distance 5"
+          },
+          {
+            "id": "c",
+            "text": "4 intervals right; distance 4"
+          },
+          {
+            "id": "d",
+            "text": "4 unequal gaps; distance 4"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Locate 5 on a unit number line and describe its distance from zero.",
+        "explanation": "Start at zero and count equal intervals. The endpoint has coordinate and distance 5.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4 intervals right; distance 5"
+          },
+          {
+            "id": "b",
+            "text": "5 intervals right; distance 6"
+          },
+          {
+            "id": "c",
+            "text": "5 unequal gaps; distance 5"
+          },
+          {
+            "id": "d",
+            "text": "5 intervals right; distance 5"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Locate 6 on a unit number line and describe its distance from zero.",
+        "explanation": "Start at zero and count equal intervals. The endpoint has coordinate and distance 6.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6 intervals right; distance 6"
+          },
+          {
+            "id": "b",
+            "text": "5 intervals right; distance 6"
+          },
+          {
+            "id": "c",
+            "text": "6 intervals right; distance 7"
+          },
+          {
+            "id": "d",
+            "text": "6 unequal gaps; distance 6"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-number-line-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "number-line",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "number-line",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-number-line-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Locate 7 on a unit number line and describe its distance from zero.",
+        "explanation": "Start at zero and count equal intervals. The endpoint has coordinate and distance 7.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6 intervals right; distance 7"
+          },
+          {
+            "id": "b",
+            "text": "7 intervals right; distance 7"
+          },
+          {
+            "id": "c",
+            "text": "7 intervals right; distance 8"
+          },
+          {
+            "id": "d",
+            "text": "7 unequal gaps; distance 7"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Which comparison of 305 and 355 is correct?",
+        "explanation": "Hundreds match; compare the tens at the highest differing place.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "305 < 355"
+          },
+          {
+            "id": "b",
+            "text": "305 = 355"
+          },
+          {
+            "id": "c",
+            "text": "305 > 355"
+          },
+          {
+            "id": "d",
+            "text": "Values cannot be compared"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Which comparison of 310 and 360 is correct?",
+        "explanation": "Hundreds match; compare the tens at the highest differing place.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "310 = 360"
+          },
+          {
+            "id": "b",
+            "text": "310 < 360"
+          },
+          {
+            "id": "c",
+            "text": "310 > 360"
+          },
+          {
+            "id": "d",
+            "text": "Values cannot be compared"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Which comparison of 315 and 365 is correct?",
+        "explanation": "Hundreds match; compare the tens at the highest differing place.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "315 = 365"
+          },
+          {
+            "id": "b",
+            "text": "315 > 365"
+          },
+          {
+            "id": "c",
+            "text": "315 < 365"
+          },
+          {
+            "id": "d",
+            "text": "Values cannot be compared"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Which comparison of 320 and 370 is correct?",
+        "explanation": "Hundreds match; compare the tens at the highest differing place.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "320 = 370"
+          },
+          {
+            "id": "b",
+            "text": "320 > 370"
+          },
+          {
+            "id": "c",
+            "text": "Values cannot be compared"
+          },
+          {
+            "id": "d",
+            "text": "320 < 370"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Which comparison of 325 and 375 is correct?",
+        "explanation": "Hundreds match; compare the tens at the highest differing place.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "325 < 375"
+          },
+          {
+            "id": "b",
+            "text": "325 = 375"
+          },
+          {
+            "id": "c",
+            "text": "325 > 375"
+          },
+          {
+            "id": "d",
+            "text": "Values cannot be compared"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Why is 305 smaller than 355?",
+        "explanation": "The highest places match until tens; zero tens is less than five tens.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "the final digit is smaller"
+          },
+          {
+            "id": "b",
+            "text": "the tens place differs first"
+          },
+          {
+            "id": "c",
+            "text": "a zero makes every numeral zero"
+          },
+          {
+            "id": "d",
+            "text": "the first number has fewer digits"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Why is 405 smaller than 455?",
+        "explanation": "The highest places match until tens; zero tens is less than five tens.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "the final digit is smaller"
+          },
+          {
+            "id": "b",
+            "text": "a zero makes every numeral zero"
+          },
+          {
+            "id": "c",
+            "text": "the tens place differs first"
+          },
+          {
+            "id": "d",
+            "text": "the first number has fewer digits"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Why is 505 smaller than 555?",
+        "explanation": "The highest places match until tens; zero tens is less than five tens.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "the final digit is smaller"
+          },
+          {
+            "id": "b",
+            "text": "a zero makes every numeral zero"
+          },
+          {
+            "id": "c",
+            "text": "the first number has fewer digits"
+          },
+          {
+            "id": "d",
+            "text": "the tens place differs first"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Why is 605 smaller than 655?",
+        "explanation": "The highest places match until tens; zero tens is less than five tens.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "the tens place differs first"
+          },
+          {
+            "id": "b",
+            "text": "the final digit is smaller"
+          },
+          {
+            "id": "c",
+            "text": "a zero makes every numeral zero"
+          },
+          {
+            "id": "d",
+            "text": "the first number has fewer digits"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Why is 705 smaller than 755?",
+        "explanation": "The highest places match until tens; zero tens is less than five tens.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "the final digit is smaller"
+          },
+          {
+            "id": "b",
+            "text": "the tens place differs first"
+          },
+          {
+            "id": "c",
+            "text": "a zero makes every numeral zero"
+          },
+          {
+            "id": "d",
+            "text": "the first number has fewer digits"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 305 with 355 and explain the order.",
+        "explanation": "Align place units and identify the highest differing digit; the larger tens digit determines the greater value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "305 > 355; highest differing place is tens"
+          },
+          {
+            "id": "b",
+            "text": "305 = 355; hundreds match"
+          },
+          {
+            "id": "c",
+            "text": "305 < 355; highest differing place is tens"
+          },
+          {
+            "id": "d",
+            "text": "305 < 355; zero makes a number zero"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 310 with 360 and explain the order.",
+        "explanation": "Align place units and identify the highest differing digit; the larger tens digit determines the greater value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "310 > 360; highest differing place is tens"
+          },
+          {
+            "id": "b",
+            "text": "310 = 360; hundreds match"
+          },
+          {
+            "id": "c",
+            "text": "310 < 360; zero makes a number zero"
+          },
+          {
+            "id": "d",
+            "text": "310 < 360; highest differing place is tens"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 315 with 365 and explain the order.",
+        "explanation": "Align place units and identify the highest differing digit; the larger tens digit determines the greater value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "315 < 365; highest differing place is tens"
+          },
+          {
+            "id": "b",
+            "text": "315 > 365; highest differing place is tens"
+          },
+          {
+            "id": "c",
+            "text": "315 = 365; hundreds match"
+          },
+          {
+            "id": "d",
+            "text": "315 < 365; zero makes a number zero"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 320 with 370 and explain the order.",
+        "explanation": "Align place units and identify the highest differing digit; the larger tens digit determines the greater value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "320 > 370; highest differing place is tens"
+          },
+          {
+            "id": "b",
+            "text": "320 < 370; highest differing place is tens"
+          },
+          {
+            "id": "c",
+            "text": "320 = 370; hundreds match"
+          },
+          {
+            "id": "d",
+            "text": "320 < 370; zero makes a number zero"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-comparing-numbers-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "comparing-numbers",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "comparing-numbers",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-comparing-numbers-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 325 with 375 and explain the order.",
+        "explanation": "Align place units and identify the highest differing digit; the larger tens digit determines the greater value.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "325 > 375; highest differing place is tens"
+          },
+          {
+            "id": "b",
+            "text": "325 = 375; hundreds match"
+          },
+          {
+            "id": "c",
+            "text": "325 < 375; highest differing place is tens"
+          },
+          {
+            "id": "d",
+            "text": "325 < 375; zero makes a number zero"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Round the nonnegative value 2.5 to the nearest unit using half-up rounding.",
+        "explanation": "It is an exact midpoint. Half-up for nonnegative values chooses the larger adjacent multiple of the unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4"
+          },
+          {
+            "id": "b",
+            "text": "3"
+          },
+          {
+            "id": "c",
+            "text": "5"
+          },
+          {
+            "id": "d",
+            "text": "6"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Round the nonnegative value 4.5 to the nearest unit using half-up rounding.",
+        "explanation": "It is an exact midpoint. Half-up for nonnegative values chooses the larger adjacent multiple of the unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6"
+          },
+          {
+            "id": "b",
+            "text": "7"
+          },
+          {
+            "id": "c",
+            "text": "5"
+          },
+          {
+            "id": "d",
+            "text": "8"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Round the nonnegative value 5.5 to the nearest unit using half-up rounding.",
+        "explanation": "It is an exact midpoint. Half-up for nonnegative values chooses the larger adjacent multiple of the unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "9"
+          },
+          {
+            "id": "d",
+            "text": "6"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Round the nonnegative value 6.5 to the nearest unit using half-up rounding.",
+        "explanation": "It is an exact midpoint. Half-up for nonnegative values chooses the larger adjacent multiple of the unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "9"
+          },
+          {
+            "id": "d",
+            "text": "10"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Round the nonnegative value 7.5 to the nearest unit using half-up rounding.",
+        "explanation": "It is an exact midpoint. Half-up for nonnegative values chooses the larger adjacent multiple of the unit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "9"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "10"
+          },
+          {
+            "id": "d",
+            "text": "11"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Estimate 29 + 31 using nearby tens. Which result is reasonable?",
+        "explanation": "Round both terms near 30. Their sum is near 60, which agrees with the exact cancellation of the one-unit changes.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "70"
+          },
+          {
+            "id": "b",
+            "text": "6"
+          },
+          {
+            "id": "c",
+            "text": "60"
+          },
+          {
+            "id": "d",
+            "text": "600"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Estimate 39 + 41 using nearby tens. Which result is reasonable?",
+        "explanation": "Round both terms near 40. Their sum is near 80, which agrees with the exact cancellation of the one-unit changes.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "90"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "800"
+          },
+          {
+            "id": "d",
+            "text": "80"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Estimate 49 + 51 using nearby tens. Which result is reasonable?",
+        "explanation": "Round both terms near 50. Their sum is near 100, which agrees with the exact cancellation of the one-unit changes.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "100"
+          },
+          {
+            "id": "b",
+            "text": "110"
+          },
+          {
+            "id": "c",
+            "text": "10"
+          },
+          {
+            "id": "d",
+            "text": "1000"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Estimate 59 + 61 using nearby tens. Which result is reasonable?",
+        "explanation": "Round both terms near 60. Their sum is near 120, which agrees with the exact cancellation of the one-unit changes.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "130"
+          },
+          {
+            "id": "b",
+            "text": "120"
+          },
+          {
+            "id": "c",
+            "text": "12"
+          },
+          {
+            "id": "d",
+            "text": "1200"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Estimate 69 + 71 using nearby tens. Which result is reasonable?",
+        "explanation": "Round both terms near 70. Their sum is near 140, which agrees with the exact cancellation of the one-unit changes.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "150"
+          },
+          {
+            "id": "b",
+            "text": "14"
+          },
+          {
+            "id": "c",
+            "text": "140"
+          },
+          {
+            "id": "d",
+            "text": "1400"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half-up round 3.5 to units, then judge whether 3.5 + 3.5 is close to 8.",
+        "explanation": "The midpoint rounds upward. The rounded sum is an estimate; the exact sum is 7.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "b",
+            "text": "4; the exact sum is 8"
+          },
+          {
+            "id": "c",
+            "text": "5; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "d",
+            "text": "4; a nearby estimate, not exact equality"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half-up round 4.5 to units, then judge whether 4.5 + 4.5 is close to 10.",
+        "explanation": "The midpoint rounds upward. The rounded sum is an estimate; the exact sum is 9.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "b",
+            "text": "4; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "c",
+            "text": "5; the exact sum is 10"
+          },
+          {
+            "id": "d",
+            "text": "6; a nearby estimate, not exact equality"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half-up round 5.5 to units, then judge whether 5.5 + 5.5 is close to 12.",
+        "explanation": "The midpoint rounds upward. The rounded sum is an estimate; the exact sum is 11.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "b",
+            "text": "6; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "c",
+            "text": "6; the exact sum is 12"
+          },
+          {
+            "id": "d",
+            "text": "7; a nearby estimate, not exact equality"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half-up round 6.5 to units, then judge whether 6.5 + 6.5 is close to 14.",
+        "explanation": "The midpoint rounds upward. The rounded sum is an estimate; the exact sum is 13.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "b",
+            "text": "7; the exact sum is 14"
+          },
+          {
+            "id": "c",
+            "text": "7; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "d",
+            "text": "8; a nearby estimate, not exact equality"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-rounding-estimation-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "rounding-estimation",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "rounding-estimation",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-rounding-estimation-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half-up round 7.5 to units, then judge whether 7.5 + 7.5 is close to 16.",
+        "explanation": "The midpoint rounds upward. The rounded sum is an estimate; the exact sum is 15.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "b",
+            "text": "8; the exact sum is 16"
+          },
+          {
+            "id": "c",
+            "text": "9; a nearby estimate, not exact equality"
+          },
+          {
+            "id": "d",
+            "text": "8; a nearby estimate, not exact equality"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    }
+  ],
+  "blueprints": [
+    {
+      "id": "ef-natural-numbers-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "natural-numbers",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-natural-numbers-fixed-15",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-zero-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "zero",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-zero-fixed-15",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-place-value-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "place-value",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-place-value-fixed-15",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-number-line-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "number-line",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-number-line-fixed-15",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-comparing-numbers-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "comparing-numbers",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-comparing-numbers-fixed-15",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-compare-whole",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-rounding-estimation-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "rounding-estimation",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-rounding-estimation-fixed-15",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    }
+  ]
+}
