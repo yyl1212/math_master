@@ -1,0 +1,23 @@
+{
+  "baseCommit": "8bf3c95b9833941182f4c8caa2da752e6d7838ce",
+  "files": {
+    "api/openapi.yaml": "4bddcf1d084d9a8737e3c795f7ee8f3bcfd164a6604eb363e434841d878d0fcb",
+    "frontend/src/lib/api/generated.d.ts": "026d392c68dd58281a31290688eab28975df5d5bb34fbe37af7e4cb0bb9396d0",
+    "content/catalogue/domains.json": "ee040bf1ef86b9cecb0040d9cb63add74794a99ac60aa924996481a07e57b37b",
+    "content/packages/elementary-fractions.v1.json": "2f0f5bd163e036cf7523875ea1a7a0273f9e2e6b665a5532e1dfa9981b3d686c",
+    "content/questions/elementary-rationals.v1.json": "a6d1dd90aabc93efc167edb38a2c2127ae3c1151cdc4e619f5e5954ecf07c602",
+    "backend/internal/assessment/digest.go": "0f3391aa16949b6866a5e64229a6aae90e07ff3efeb6caa1015a59f98e1e6ba9",
+    "backend/internal/question/digest.go": "4bce87c538e2164cb62a9b7fb7d7478712b7229b64be9eaedc661c7dc274d6c6",
+    "backend/internal/question/generate.go": "310b53c6e072ca25b1e20290c9afacef21015dd6b88f7fbd00690eddd1d1fa36",
+    "backend/internal/question/numeric.go": "48f6cf9a6c50c7c9f5dcc9d3fe7945e1dc6f34ef830c70cfa31bbcd7e4c89ff7",
+    "backend/internal/question/grade.go": "89a551d72df0bb43e6953131061e42a61b460cb3090b1c17d980e5b8a740af0d",
+    "db/migrations/00001_content_foundation.sql": "89eb93725d492c5a7b490f442d594ba385557343ffb139777f02a82cdb421b05",
+    "db/migrations/00002_unit_asset_bindings.sql": "92f5fae5ec546220a39bedfd74a789550b12c989c3e562518660f3294c3835c2",
+    "db/migrations/00003_accounts.sql": "9fd598c1e02944c8ac85989346133a40f20d70d0b350f955fbb2c70b8f893c68",
+    "db/migrations/00004_content_workflow.sql": "ab8589211ca5fe077eb777abd11885bb703b36245c8de7a47e7f12fcc1ea4332",
+    "db/migrations/00005_question_bank.sql": "7f6315f79f65ef95cebd1f679deab20755bbcd64ca80b6b36371aca225b31cde",
+    "db/migrations/00006_learning_assessment.sql": "be5ebf4f6f4b57dcd3351d629cd06a3a51b732ec316d4c30272a42cc1b541b09",
+    "db/migrations/00007_feedback_workflow.sql": "28399daebd188d284f39019a1ce3e101c4d2c89b26acf41ed11523347c316bd3",
+    "db/migrations/00008_correction_notifications.sql": "df07f840099e864ccfbd01d409dd3301b2d63cf55e41e1c927eccbdd86948957"
+  }
+}

@@ -1,0 +1,894 @@
+{
+  "schemaVersion": 1,
+  "mode": "draft",
+  "fixtureOnly": false,
+  "createdAt": "2026-10-04T06:32:20Z",
+  "codeSHA": "4d27dc8f1564bd0ed5b5fa0d4ac1a5a8c504c8ab",
+  "context": {
+    "catalogueVersion": 1,
+    "catalogueSha": "b98777fbedf4dfe8c68b61c6ec9b76064f7c6d483d89a022cb64ba73f636c480",
+    "route": {
+      "id": "elementary-foundations",
+      "version": 1
+    },
+    "routeSha": "5a03fe7d1fbc721c61f1b1def48dbba18bf8397816c519d3de76bd4b2388c400",
+    "knowledgeHead": null,
+    "questionHead": null
+  },
+  "source": {
+    "snapshotId": "eebca0e9f8cbe8ce9afbed5f1f872f382f54e42b8004fcb57d23d05b99ff879a",
+    "policyVersion": 1,
+    "reportSha": "7bd7c12118b915bc0a0ae4398b8018f1ba76e305736703a0617802677c7874ad",
+    "complete": true,
+    "unresolvedCount": 8
+  },
+  "draftCounts": {
+    "knowledge": 30,
+    "templates": 24,
+    "fixedInstances": 450,
+    "generatedInstances": 384,
+    "effectiveInstances": 834,
+    "duplicates": 0,
+    "excluded": 0
+  },
+  "formalCounts": {
+    "knowledge": 0,
+    "templates": 0,
+    "fixedInstances": 0,
+    "generatedInstances": 0,
+    "effectiveInstances": 0,
+    "duplicates": 0,
+    "excluded": 0
+  },
+  "nodes": [
+    {
+      "knowledge": {
+        "id": "natural-numbers",
+        "version": 1,
+        "sha256": "869dfa64cd84730f9f80a63e4fb139bd468ad7cd0e28756d93f92a27fef8e1e6"
+      },
+      "blueprint": {
+        "id": "ef-natural-numbers-assessment",
+        "version": 1,
+        "sha256": "e0e69509b1f61437d9f1734e7be5dc03da44f34af86062fecf57dc495e5ae0d5"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-natural-numbers-fixed-01",
+        "ef-natural-numbers-fixed-02",
+        "ef-natural-numbers-fixed-03",
+        "ef-natural-numbers-fixed-04",
+        "ef-natural-numbers-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "zero",
+        "version": 1,
+        "sha256": "8e86a8f073fc37a1bca2a018772e941017c0badac7a93b8703e98bf92fd05aed"
+      },
+      "blueprint": {
+        "id": "ef-zero-assessment",
+        "version": 1,
+        "sha256": "c6e0248500945d835846cf3328552a319fc36a2fe44cdaaadebd70ae44e6518d"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-zero-fixed-01",
+        "ef-zero-fixed-02",
+        "ef-zero-fixed-03",
+        "ef-zero-fixed-04",
+        "ef-zero-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "place-value",
+        "version": 1,
+        "sha256": "e6d56337f9eeeb1b97008a2c1d6dc420dbd9e79a57e8335daaa645e464ad033a"
+      },
+      "blueprint": {
+        "id": "ef-place-value-assessment",
+        "version": 1,
+        "sha256": "7a11d1196d0ccdd50e83dd9892caf07c99337ae1ab5640644579bbbcf0c50798"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-place-value-fixed-01",
+        "ef-place-value-fixed-02",
+        "ef-place-value-fixed-03",
+        "ef-place-value-fixed-04",
+        "ef-place-value-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "number-line",
+        "version": 1,
+        "sha256": "95baaf395b8020f7ff7b5fdf9ad1e37fe14b241f61f8cc3526f1c6ec3828178c"
+      },
+      "blueprint": {
+        "id": "ef-number-line-assessment",
+        "version": 1,
+        "sha256": "27b5074cc258337a3017b3eef644ecffcbe6e53399992897d2798f06c2d68b80"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-number-line-fixed-01",
+        "ef-number-line-fixed-02",
+        "ef-number-line-fixed-03",
+        "ef-number-line-fixed-04",
+        "ef-number-line-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "comparing-numbers",
+        "version": 1,
+        "sha256": "8e484849723be96a24038caee12792a242d833f2db7f2c4ad3e23c61aa842af3"
+      },
+      "blueprint": {
+        "id": "ef-comparing-numbers-assessment",
+        "version": 1,
+        "sha256": "4aae901a644dd999eb2cb2041dce3ed565a32975301882d2e68e82892011e1c5"
+      },
+      "effectiveInstances": 31,
+      "assessmentInstances": 31,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-comparing-numbers-fixed-01",
+        "ef-comparing-numbers-fixed-02",
+        "ef-comparing-numbers-fixed-03",
+        "ef-comparing-numbers-fixed-04",
+        "ef-comparing-numbers-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "rounding-estimation",
+        "version": 1,
+        "sha256": "e6fd80803494fe9fe8153ab93e73c3ff9d08b4816134e8bfa4c0690f987b1774"
+      },
+      "blueprint": {
+        "id": "ef-rounding-estimation-assessment",
+        "version": 1,
+        "sha256": "a35b4909e0e83af08ec82b0fbb49195aaffce0dbf67b741c952191581b316ee6"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-rounding-estimation-fixed-01",
+        "ef-rounding-estimation-fixed-02",
+        "ef-rounding-estimation-fixed-03",
+        "ef-rounding-estimation-fixed-04",
+        "ef-rounding-estimation-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "addition",
+        "version": 1,
+        "sha256": "ca45a67c7e8697a5c4e635a8cfd474a42b7dcf4eea59a5bd0d3f1e6529b91624"
+      },
+      "blueprint": {
+        "id": "ef-addition-assessment",
+        "version": 1,
+        "sha256": "ef46395390665f03621f488f7702943ab94dd99ffef3901eee5262475aa06fe8"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-addition-fixed-01",
+        "ef-addition-fixed-02",
+        "ef-addition-fixed-03",
+        "ef-addition-fixed-04",
+        "ef-addition-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "addition-properties",
+        "version": 1,
+        "sha256": "3b6e47dbbbe8064a99d10718518ffa6954a8572152fd27f04676537885cc643d"
+      },
+      "blueprint": {
+        "id": "ef-addition-properties-assessment",
+        "version": 1,
+        "sha256": "b8d23da60a770a4b3d03f30658fd39c908f4232dba04901d5fc31a6da3a5a78a"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-addition-properties-fixed-01",
+        "ef-addition-properties-fixed-02",
+        "ef-addition-properties-fixed-03",
+        "ef-addition-properties-fixed-04",
+        "ef-addition-properties-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "subtraction",
+        "version": 1,
+        "sha256": "581b2a7bebd249afd7344df22b7fdce3e8930dd5d0fd180500f6978e3e30c0c7"
+      },
+      "blueprint": {
+        "id": "ef-subtraction-assessment",
+        "version": 1,
+        "sha256": "26130575da8c3aa602940be5a1fc8662aaf5637da46b8f2ab27470317fcb86e7"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-subtraction-fixed-01",
+        "ef-subtraction-fixed-02",
+        "ef-subtraction-fixed-03",
+        "ef-subtraction-fixed-04",
+        "ef-subtraction-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "addition-subtraction-inverse",
+        "version": 1,
+        "sha256": "5dd92b378dd56460c86c5a7892fb3912f9030767fa853e24442964b031d91c34"
+      },
+      "blueprint": {
+        "id": "ef-addition-subtraction-inverse-assessment",
+        "version": 1,
+        "sha256": "2f3a6b2a4b4fd1f84a71a736f9f65c60381a9bf080f70252d68717f96af03669"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-addition-subtraction-inverse-fixed-01",
+        "ef-addition-subtraction-inverse-fixed-02",
+        "ef-addition-subtraction-inverse-fixed-03",
+        "ef-addition-subtraction-inverse-fixed-04",
+        "ef-addition-subtraction-inverse-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "multiplication",
+        "version": 1,
+        "sha256": "74a4cd76c4ff6f2cc88f5b8043dd0c39942cb07fd418097c839748329a1fcb03"
+      },
+      "blueprint": {
+        "id": "ef-multiplication-assessment",
+        "version": 1,
+        "sha256": "10f7fd6d47ee5c99a2969d6047ddca3700a3c78905ad7556fe2a65db2d6e5d11"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-multiplication-fixed-01",
+        "ef-multiplication-fixed-02",
+        "ef-multiplication-fixed-03",
+        "ef-multiplication-fixed-04",
+        "ef-multiplication-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "multiplication-properties",
+        "version": 1,
+        "sha256": "a675fa6c576986c5f94cfb7c2b5a8fb99f9cb3e0cd0dfeb3f65d0002f644954d"
+      },
+      "blueprint": {
+        "id": "ef-multiplication-properties-assessment",
+        "version": 1,
+        "sha256": "062aa027922412bca96d65b132c8c79e4f197b0f19efb5bb47f173482038f120"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-multiplication-properties-fixed-01",
+        "ef-multiplication-properties-fixed-02",
+        "ef-multiplication-properties-fixed-03",
+        "ef-multiplication-properties-fixed-04",
+        "ef-multiplication-properties-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "division",
+        "version": 1,
+        "sha256": "edeabd253ee810401b5cc752f0674659ac3b39062ad0f77b516813abdf301f89"
+      },
+      "blueprint": {
+        "id": "ef-division-assessment",
+        "version": 1,
+        "sha256": "74770238ef87e29b06ad9f068d474b1ee8a8c4060416bfb11bda74b2e35aee70"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-division-fixed-01",
+        "ef-division-fixed-02",
+        "ef-division-fixed-03",
+        "ef-division-fixed-04",
+        "ef-division-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "division-remainder",
+        "version": 1,
+        "sha256": "ab6ab9fecf4d9208eaa4bcc4c6c3efe82e4f8b31d1adefbeb650af1be817e4d2"
+      },
+      "blueprint": {
+        "id": "ef-division-remainder-assessment",
+        "version": 1,
+        "sha256": "20798f8d69291b8e7e2c09110f57236d00406d4cfbd5badf372d73a125feb13b"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-division-remainder-fixed-01",
+        "ef-division-remainder-fixed-02",
+        "ef-division-remainder-fixed-03",
+        "ef-division-remainder-fixed-04",
+        "ef-division-remainder-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "order-of-operations",
+        "version": 1,
+        "sha256": "e9de09366bb59cbb441d6b194e813428db95d07b006de84422a97d33700248a7"
+      },
+      "blueprint": {
+        "id": "ef-order-of-operations-assessment",
+        "version": 1,
+        "sha256": "076e237accdbdb875f45d3cf2194067cea73d796cad2cd6ba8fcfafff919f3a4"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-order-of-operations-fixed-01",
+        "ef-order-of-operations-fixed-02",
+        "ef-order-of-operations-fixed-03",
+        "ef-order-of-operations-fixed-04",
+        "ef-order-of-operations-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "factors",
+        "version": 2,
+        "sha256": "953c104e302bbe9a9ed4f99f44ea773ba59b8c379e1200ffa0d4093ae8cdbf00"
+      },
+      "blueprint": {
+        "id": "ef-factors-assessment",
+        "version": 1,
+        "sha256": "3a3aba0424189bff661dea2567d1fc6f001d41077d03722180b49f29f6c88393"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-factors-fixed-01",
+        "ef-factors-fixed-02",
+        "ef-factors-fixed-03",
+        "ef-factors-fixed-04",
+        "ef-factors-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "divisibility",
+        "version": 1,
+        "sha256": "45ccde9e0cf9b67ae042508114b3c662dcd70c2db22d8d62d68914c1eeadb969"
+      },
+      "blueprint": {
+        "id": "ef-divisibility-assessment",
+        "version": 1,
+        "sha256": "694d3f9972b3e27dc360c1b93025dabda96288193354b83b24043550c2afaa22"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-divisibility-fixed-01",
+        "ef-divisibility-fixed-02",
+        "ef-divisibility-fixed-03",
+        "ef-divisibility-fixed-04",
+        "ef-divisibility-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "fractions",
+        "version": 2,
+        "sha256": "49d1cce419bd01831f6c7abba2da0b93f687e2946abf6bfe8a45f4d8b855c922"
+      },
+      "blueprint": {
+        "id": "ef-fractions-assessment",
+        "version": 1,
+        "sha256": "33af1ea9e09ad44ce3cf6fa33712e1bbabddc10ed29e729ef6667f67b2b8c73b"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-fractions-fixed-01",
+        "ef-fractions-fixed-02",
+        "ef-fractions-fixed-03",
+        "ef-fractions-fixed-04",
+        "ef-fractions-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "fraction-number-line",
+        "version": 1,
+        "sha256": "d8576a843f9eac10dc296a6de744c0e3334dd44ff25cf8ef7b330bb8b927da12"
+      },
+      "blueprint": {
+        "id": "ef-fraction-number-line-assessment",
+        "version": 1,
+        "sha256": "a501685edd6461362d3ba9798fcb4f12853afe6513ed52cfee1784615ca203d9"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-fraction-number-line-fixed-01",
+        "ef-fraction-number-line-fixed-02",
+        "ef-fraction-number-line-fixed-03",
+        "ef-fraction-number-line-fixed-04",
+        "ef-fraction-number-line-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "equivalent-fractions",
+        "version": 2,
+        "sha256": "9084fd500277e34b1643dd4f5aeb6b19327eb5fd552312a5741c045554b03781"
+      },
+      "blueprint": {
+        "id": "ef-equivalent-fractions-assessment",
+        "version": 1,
+        "sha256": "1d4a97c07799979c3127a3a8f12a30ce847d33759c119a48354c26d8c5e5358b"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-equivalent-fractions-fixed-01",
+        "ef-equivalent-fractions-fixed-02",
+        "ef-equivalent-fractions-fixed-03",
+        "ef-equivalent-fractions-fixed-04",
+        "ef-equivalent-fractions-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "simplifying-fractions",
+        "version": 2,
+        "sha256": "ca1733d4c7825b5e10e0f202b1328f58f299ad97928acd29435faabfcdd3eaaa"
+      },
+      "blueprint": {
+        "id": "ef-simplifying-fractions-assessment",
+        "version": 1,
+        "sha256": "d147433ed786749bcb7f53ac5d0e558ef12494c73a516557f13a7f11ae75fae3"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-simplifying-fractions-fixed-01",
+        "ef-simplifying-fractions-fixed-02",
+        "ef-simplifying-fractions-fixed-03",
+        "ef-simplifying-fractions-fixed-04",
+        "ef-simplifying-fractions-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "comparing-fractions",
+        "version": 2,
+        "sha256": "1a84d9e098eef1cfee4db432d30e09fe77f73bafb13b7d8572921d1c3c4b897c"
+      },
+      "blueprint": {
+        "id": "ef-comparing-fractions-assessment",
+        "version": 1,
+        "sha256": "31bb13313a003a768ca140f3702773cf4439519da98bec85ba6f198ffd772ab1"
+      },
+      "effectiveInstances": 31,
+      "assessmentInstances": 31,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-comparing-fractions-fixed-01",
+        "ef-comparing-fractions-fixed-02",
+        "ef-comparing-fractions-fixed-03",
+        "ef-comparing-fractions-fixed-04",
+        "ef-comparing-fractions-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "fractions-same-denominator",
+        "version": 1,
+        "sha256": "530d7606aefddf82ce931895925b37b24d42f15b5b13cd148546c510b85f7d5e"
+      },
+      "blueprint": {
+        "id": "ef-fractions-same-denominator-assessment",
+        "version": 1,
+        "sha256": "0e08293d42541909d081c679ee8b5e28548459aaaf0b072688de72d8ec7bd0e7"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-fractions-same-denominator-fixed-01",
+        "ef-fractions-same-denominator-fixed-02",
+        "ef-fractions-same-denominator-fixed-03",
+        "ef-fractions-same-denominator-fixed-04",
+        "ef-fractions-same-denominator-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "fractions-unlike-denominator",
+        "version": 1,
+        "sha256": "967ea34aa0369a1c9e23a34af71749b49e63738e3557a9baa5d7210a9e6c7938"
+      },
+      "blueprint": {
+        "id": "ef-fractions-unlike-denominator-assessment",
+        "version": 1,
+        "sha256": "0e23ab7cbeebd6c39e92afd5bd83ba969ea8e04bbeac1bfab61fb168d14204ca"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-fractions-unlike-denominator-fixed-01",
+        "ef-fractions-unlike-denominator-fixed-02",
+        "ef-fractions-unlike-denominator-fixed-03",
+        "ef-fractions-unlike-denominator-fixed-04",
+        "ef-fractions-unlike-denominator-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "fraction-multiplication",
+        "version": 1,
+        "sha256": "7a3401f78372c402667bdb7fe6597de78d40ca67d3ee658b108d12a60abf60b7"
+      },
+      "blueprint": {
+        "id": "ef-fraction-multiplication-assessment",
+        "version": 1,
+        "sha256": "a58f74b8855e5ebaa7477d8bd01047ee11a89f184ca75e164a0b884addc1b7ca"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-fraction-multiplication-fixed-01",
+        "ef-fraction-multiplication-fixed-02",
+        "ef-fraction-multiplication-fixed-03",
+        "ef-fraction-multiplication-fixed-04",
+        "ef-fraction-multiplication-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "fraction-division",
+        "version": 1,
+        "sha256": "5d46307db0c2760abf33cf28d0011c739a38e8c003677477e2bc7f4db9e0a82a"
+      },
+      "blueprint": {
+        "id": "ef-fraction-division-assessment",
+        "version": 1,
+        "sha256": "cfc4ad523bb84f61ada6bddf2ea4e6d4bad13ad4da4ead9742e5f45900803309"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-fraction-division-fixed-01",
+        "ef-fraction-division-fixed-02",
+        "ef-fraction-division-fixed-03",
+        "ef-fraction-division-fixed-04",
+        "ef-fraction-division-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "decimal-place-value",
+        "version": 2,
+        "sha256": "5d49a77e79ba76605d788eebfbeb56b010bf85d4425524da4b5b60bd2c7f2aca"
+      },
+      "blueprint": {
+        "id": "ef-decimal-place-value-assessment",
+        "version": 1,
+        "sha256": "f07e43b224b7f850023d7e9fc30ddb0fbc1b5128a986c5617b07a4254073e356"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-decimal-place-value-fixed-01",
+        "ef-decimal-place-value-fixed-02",
+        "ef-decimal-place-value-fixed-03",
+        "ef-decimal-place-value-fixed-04",
+        "ef-decimal-place-value-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "decimal-fraction-conversion",
+        "version": 2,
+        "sha256": "b7dd28ebed0982f6e38243bc64e2fbb74aad2ee7a88ebfe83eef474b2480e6ba"
+      },
+      "blueprint": {
+        "id": "ef-decimal-fraction-conversion-assessment",
+        "version": 1,
+        "sha256": "a7e7883a32bfd9a80bf601b4bfa66ab6353d38474950a723a502968a51b3651a"
+      },
+      "effectiveInstances": 15,
+      "assessmentInstances": 15,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-decimal-fraction-conversion-fixed-01",
+        "ef-decimal-fraction-conversion-fixed-02",
+        "ef-decimal-fraction-conversion-fixed-03",
+        "ef-decimal-fraction-conversion-fixed-04",
+        "ef-decimal-fraction-conversion-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "ratios-proportions",
+        "version": 1,
+        "sha256": "c40815e9520269bb067d4a5c5d9b6cd8510a986fb916efa4ca3ea0b74de12679"
+      },
+      "blueprint": {
+        "id": "ef-ratios-proportions-assessment",
+        "version": 1,
+        "sha256": "81934b270eb7f39db5faea39819e47468b2fb3a7bae19a7f1b9ed5eda6478338"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-ratios-proportions-fixed-01",
+        "ef-ratios-proportions-fixed-02",
+        "ef-ratios-proportions-fixed-03",
+        "ef-ratios-proportions-fixed-04",
+        "ef-ratios-proportions-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    },
+    {
+      "knowledge": {
+        "id": "percentages",
+        "version": 2,
+        "sha256": "f96b82b451dfcf642abd6bcb9135b6bdab2c43073cfb636391d980b71cd2b044"
+      },
+      "blueprint": {
+        "id": "ef-percentages-assessment",
+        "version": 1,
+        "sha256": "8d33017fd5062e42b3413a64487c7c24748e1a8c8ab978f07b4e07e7d28f7d41"
+      },
+      "effectiveInstances": 47,
+      "assessmentInstances": 47,
+      "core": [
+        0,
+        1
+      ],
+      "fiveWitness": [
+        "ef-percentages-fixed-01",
+        "ef-percentages-fixed-02",
+        "ef-percentages-fixed-03",
+        "ef-percentages-fixed-04",
+        "ef-percentages-fixed-06"
+      ],
+      "afterPracticeWitness": true,
+      "ready": true,
+      "reasons": []
+    }
+  ],
+  "quality": {
+    "twoAngles": true,
+    "examples": true,
+    "assets": true,
+    "independentReview": false,
+    "learningComplete": false
+  },
+  "conclusion": "draft_ready",
+  "reasons": []
+}

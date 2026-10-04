@@ -1,0 +1,170 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts content-acceptance-learning.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✘  1 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants (154ms)
+  ✘  2 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available (156ms)
+  ✘  3 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification (158ms)
+  ✘  4 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness (156ms)
+  ✘  5 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants (153ms)
+  ✘  6 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available (148ms)
+  ✘  7 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification (155ms)
+  ✘  8 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness (154ms)
+
+
+  1) [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:11:110
+
+    Error Context: ../test-results/content-acceptance-learnin-9695e-lock-only-their-descendants-desktop/error-context.md
+
+  2) [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:12:111
+
+    Error Context: ../test-results/content-acceptance-learnin-0d56c-estion-assessment-available-desktop/error-context.md
+
+  3) [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:13:118
+
+    Error Context: ../test-results/content-acceptance-learnin-fdb03--keep-current-qualification-desktop/error-context.md
+
+  4) [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:14:109
+
+    Error Context: ../test-results/content-acceptance-learnin-c871e-ure-show-truthful-readiness-desktop/error-context.md
+
+  5) [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:11:110
+
+    Error Context: ../test-results/content-acceptance-learnin-9695e-lock-only-their-descendants-mobile/error-context.md
+
+  6) [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:12:111
+
+    Error Context: ../test-results/content-acceptance-learnin-0d56c-estion-assessment-available-mobile/error-context.md
+
+  7) [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:13:118
+
+    Error Context: ../test-results/content-acceptance-learnin-fdb03--keep-current-qualification-mobile/error-context.md
+
+  8) [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness 
+
+    Error: Test scene change failed
+
+       at fixtures.ts:71
+
+      69 |     const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
+      70 |     if (response.status() !== 204) throw new Error("Test scene change failed");
+    > 71 |   } catch { throw new Error("Test scene change failed"); }
+         |                   ^
+      72 | }
+      73 |
+        at changeScene (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:71:19)
+        at change (/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/fixtures.ts:37:7)
+        at /Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tests/e2e/content-acceptance-learning.spec.ts:14:109
+
+    Error Context: ../test-results/content-acceptance-learnin-c871e-ure-show-truthful-readiness-mobile/error-context.md
+
+  8 failed
+    [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants 
+    [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available 
+    [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification 
+    [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness 
+    [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants 
+    [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available 
+    [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification 
+    [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness 

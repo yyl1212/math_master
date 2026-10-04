@@ -1,0 +1,18 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts feedback-security.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/feedback-security.spec.ts:4:5 › anonymous, other owner, editor-only and self-handler enforce private boundaries (5.2s)
+[WebServer] 2026/10/04 14:02:36 ERROR Private API request failed request_id=0eb8929df82a1f8e77ccb58f1758245b error_code=SERVICE_UNAVAILABLE
+  ✓  2 [desktop] › ../tests/e2e/feedback-security.spec.ts:5:5 › all readers block original-template overlap; later discussion records exposure and renders pure text (7.8s)
+  ✓  3 [desktop] › ../tests/e2e/feedback-security.spec.ts:6:5 › lost committed response retries once with the same key and cross-tab switch clears drafts (15.2s)
+  ✓  4 [desktop] › ../tests/e2e/feedback-security.spec.ts:8:5 › a confirmed create with a failed metadata read keeps its original key and cannot create a second report (3.3s)
+  ✓  5 [mobile] › ../tests/e2e/feedback-security.spec.ts:4:5 › anonymous, other owner, editor-only and self-handler enforce private boundaries (5.2s)
+  ✓  6 [mobile] › ../tests/e2e/feedback-security.spec.ts:5:5 › all readers block original-template overlap; later discussion records exposure and renders pure text (7.7s)
+  ✓  7 [mobile] › ../tests/e2e/feedback-security.spec.ts:6:5 › lost committed response retries once with the same key and cross-tab switch clears drafts (14.5s)
+  ✓  8 [mobile] › ../tests/e2e/feedback-security.spec.ts:8:5 › a confirmed create with a failed metadata read keeps its original key and cannot create a second report (3.1s)
+
+  8 passed (1.1m)

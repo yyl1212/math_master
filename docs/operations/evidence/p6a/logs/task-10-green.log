@@ -1,0 +1,15 @@
+✔ new audit batches and all old budgets are wired (3.199459ms)
+✔ missing new browser or audit capacity is detected (1.698666ms)
+✔ old browser deletion and budget changes are detected (1.053584ms)
+✔ eight migrations, public contracts, old data and mathematical bytes remain unchanged (1.844834ms)
+✔ tampered migration and old mathematics fail byte protection (2.369667ms)
+✔ production endpoints never expose the audit or test harness (2.09925ms)
+✔ legacy snapshot identity and CLI explicit secret boundary persist (0.330209ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 41.339958

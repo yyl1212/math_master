@@ -1,0 +1,5 @@
+# github.com/yyl1212/math_master/backend/internal/cli [github.com/yyl1212/math_master/backend/internal/cli.test]
+internal/cli/content_audit_test.go:44:74: undefined: RunContentAudit
+internal/cli/content_audit_test.go:67:17: assignment mismatch: 3 variables but contentaudit.CheckDraft returns 2 values
+FAIL	github.com/yyl1212/math_master/backend/internal/cli [build failed]
+FAIL

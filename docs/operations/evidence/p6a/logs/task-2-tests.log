@@ -1,0 +1,16 @@
+✔ source report preserves separate identifiers and source bytes despite equal titles and legacy IDs (34.365417ms)
+✔ selected-only blocking isolates unselected digest differences (27.159166ms)
+✔ AI review never becomes publication approval (26.615833ms)
+✔ missing identifiers and repeated record identities block ready (53.604291ms)
+✔ unknown selected path blocks ready without reading outside fixed batch (27.077083ms)
+✔ conflicting third-index hashes retain both origins in the report (60.526792ms)
+✔ tampered fixed bytes and symbolic paths cannot produce a trusted report (26.879458ms)
+✔ CLI writes one private report and never overwrites or writes into live sources (98.462083ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 388.782833

@@ -230,6 +230,6 @@ CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修�
 
 从 SSH 获取的最新 master 建立 codex/p6-content-design，仅编写[P6 首批内容与质量验收书面设计](../specs/2026-10-04-first-content-acceptance-design.md)、来源预检并更新来源清单。本方案分 P6a 准备/草稿和 P6b 独立复核/正式验收，原 30/20/300、逐节点十实例/五检测及核心五题覆盖保持。当前资料不断更新，三份索引和八项摘要差异的具体时点见[只读预检](../../content/2026-10-04-p6-source-preflight.json)；未修改用户输入、原快照或正式内容。
 
-P6 书面方案及兼容边界已获用户确认。[P6a 实施计划](2026-10-04-first-content-preparation.md)已编写，包含十任务/五十步骤、准确三十节点版本与前置图、二十四模板/四百五十固定题的草稿目标及只读验收接口；计划待审阅，随后沿用 Native 执行。此记录不代表 P6 产品开发、数学内容发布、P6 数量达标或 P7 部署已经完成。
+P6 书面方案及兼容边界、[P6a 实施计划](2026-10-04-first-content-preparation.md)已获用户确认，按 Native 连续执行十任务/五十步骤。已完成三索引固定批次、来源定位、30知识/30单元/9原创SVG、24模板/450固定/384生成共834不同草稿实例、纯验收与只读CLI、30节点真实测评和双视口16项新联调。草稿CLI为 draft_ready，隔离发布态为 awaiting_review/fixtureOnly；正式计数为零。完整旧回归和整分支审查记录见[实施证据](../../operations/evidence/p6a/implementation.md)。P6b仍待真实独立人员数学复核、批准发布和正式验收；P7部署另行安排。
 
-合并后 master 的实际两次 push workflow 均为 failure，三个 job 均零个执行步骤；GitHub 原始注释指向账号付款或 Actions 支出限额。见[启动限制诊断](../../operations/2026-10-04-github-actions-start-block.md)。本地文档检查和 P6 方案可继续，未宣称新 master 的远端测试通过，不改 CI 或购买服务。
+GitHub Actions 的原启动限制在2026-10-04复查时已恢复；旧失败原因及恢复证据见[启动限制诊断](../../operations/2026-10-04-github-actions-start-block.md)。恢复启动不等于新实现CI通过；实现MR准确head的远端结果另核验，不放宽测试、超时或兼容保护。

@@ -1,0 +1,11 @@
+# github.com/yyl1212/math_master/backend/internal/store_test [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/content_audit_capacity_test.go:120:22: f.repo.ReadContentAudit undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadContentAudit)
+internal/store/content_audit_test.go:64:28: store.New(ro).ReadContentAudit undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadContentAudit)
+internal/store/content_audit_test.go:133:33: f.repo.ReadContentAudit undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadContentAudit)
+internal/store/content_audit_test.go:175:24: f.repo.ReadContentAudit undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadContentAudit)
+internal/store/content_audit_test.go:195:19: f.repo.WithdrawContentVersion undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method WithdrawContentVersion)
+internal/store/content_audit_test.go:200:23: f.repo.ReadContentAudit undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadContentAudit)
+internal/store/content_audit_test.go:217:23: f.repo.ReadContentAudit undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadContentAudit)
+internal/store/content_audit_test.go:255:21: f.repo.ReadContentAudit undefined (type *"github.com/yyl1212/math_master/backend/internal/store".Store has no field or method ReadContentAudit)
+FAIL	github.com/yyl1212/math_master/backend/internal/store [build failed]
+FAIL

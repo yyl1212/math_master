@@ -1,0 +1,18 @@
+ok  	github.com/yyl1212/math_master/backend/cmd/server	2.516s
+ok  	github.com/yyl1212/math_master/backend/internal/correction	1.292s
+ok  	github.com/yyl1212/math_master/backend/internal/notification	2.865s
+ok  	github.com/yyl1212/math_master/backend/internal/feedback	1.732s
+ok  	github.com/yyl1212/math_master/backend/internal/assessment	1.377s
+ok  	github.com/yyl1212/math_master/backend/internal/learning	2.116s
+ok  	github.com/yyl1212/math_master/backend/internal/question	4.333s
+ok  	github.com/yyl1212/math_master/backend/internal/auth	3.325s
+ok  	github.com/yyl1212/math_master/backend/internal/content	5.804s
+ok  	github.com/yyl1212/math_master/backend/internal/publication	3.633s
+ok  	github.com/yyl1212/math_master/backend/internal/config	4.363s
+ok  	github.com/yyl1212/math_master/backend/internal/httpapi	66.113s
+--- FAIL: TestContentAcceptanceFixture (11.66s)
+    content_acceptance_fixture_test.go:82: {percentages 2} honest pass invalid numeric format: INVALID_SYNTAX
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/e2etest	119.178s
+ok  	github.com/yyl1212/math_master/backend/internal/testutil	5.617s
+FAIL

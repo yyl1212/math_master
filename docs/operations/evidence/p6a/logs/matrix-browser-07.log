@@ -1,0 +1,33 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts question-authoring.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/question-authoring.spec.ts:4:5 › questionAuthoringRealStackAndResponsiveFrozenPages (4.1s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  2 [desktop] › ../tests/e2e/question-authoring.spec.ts:33:5 › questionPublicationKeyboardDialogAndResponsiveDiff (7.3s)
+  ✓  3 [desktop] › ../tests/e2e/question-authoring.spec.ts:35:5 › questionWrongAnswersParameterRangeAndConflictKeepInput (2.9s)
+  ✓  4 [desktop] › ../tests/e2e/question-authoring.spec.ts:68:5 › questionCLIImportAdoptionDoesNotCreateApproval (2.5s)
+  ✓  5 [mobile] › ../tests/e2e/question-authoring.spec.ts:4:5 › questionAuthoringRealStackAndResponsiveFrozenPages (3.7s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  6 [mobile] › ../tests/e2e/question-authoring.spec.ts:33:5 › questionPublicationKeyboardDialogAndResponsiveDiff (6.5s)
+  ✓  7 [mobile] › ../tests/e2e/question-authoring.spec.ts:35:5 › questionWrongAnswersParameterRangeAndConflictKeepInput (2.9s)
+  ✓  8 [mobile] › ../tests/e2e/question-authoring.spec.ts:68:5 › questionCLIImportAdoptionDoesNotCreateApproval (2.4s)
+
+  8 passed (33.9s)

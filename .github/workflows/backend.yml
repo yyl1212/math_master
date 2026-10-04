@@ -43,13 +43,13 @@ jobs:
           process.exit(r.status!==0?1:r.stdout.trim()?1:0);'
           git diff --check
       - name: 验证入口与资料快照
-        run: node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs
+        run: node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs
       - name: Go 静态检查
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...
       - name: 内容与 HTTP 校验
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1
       - name: 真实 PostgreSQL 集成验证
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip "^Test(Learning|Assessment|Feedback|Correction|Notification)" -timeout 5m -count=1
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip "^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)" -timeout 5m -count=1
       - name: 学习测评真实数据库回归
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Learning|Assessment)' -skip '^TestLearningCapacity' -timeout 5m -count=1
       - name: 反馈真实数据库回归
@@ -60,6 +60,12 @@ jobs:
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacitySourceVolume$' -timeout 5m -count=1 -v
       - name: 最大合法固定路线容量
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacityMaxPool$' -timeout 5m -count=1 -v
+      - name: 首批内容纯验收口径
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentaudit -timeout 5m -count=1
+      - name: 首批内容只读数据库与CLI
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^TestContentAudit' -skip '^TestContentAuditCapacity$' -timeout 5m -count=1
+      - name: 首批只读最大合法内容与题库
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestContentAuditCapacity$' -timeout 5m -count=1 -v
       - name: 构建
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...
 

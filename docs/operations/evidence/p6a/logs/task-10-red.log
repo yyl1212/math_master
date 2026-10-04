@@ -1,0 +1,46 @@
+✖ new audit batches and all old budgets are wired (2.204625ms)
+✔ missing new browser or audit capacity is detected (1.084083ms)
+✔ old browser deletion and budget changes are detected (0.9755ms)
+✔ eight migrations, public contracts, old data and mathematical bytes remain unchanged (1.764792ms)
+✔ tampered migration and old mathematics fail byte protection (2.238125ms)
+✔ production endpoints never expose the audit or test harness (1.82275ms)
+✔ legacy snapshot identity and CLI explicit secret boundary persist (0.176083ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 36.3285
+
+✖ failing tests:
+
+test at tools/verify/content-acceptance-ci.test.mjs:63:1
+✖ new audit batches and all old budgets are wired (2.204625ms)
+  AssertionError [ERR_ASSERTION]: new browser batches
+  + actual - expected
+  
+  + []
+  - [
+  -   [
+  -     'content-acceptance-reading.spec.ts'
+  -   ],
+  -   [
+  -     'content-acceptance-learning.spec.ts'
+  -   ]
+  - ]
+  
+      at validate (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/content-acceptance-ci.test.mjs:49:9)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/verify/content-acceptance-ci.test.mjs:63:60)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [],
+    expected: [ [ 'content-acceptance-reading.spec.ts' ], [ 'content-acceptance-learning.spec.ts' ] ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

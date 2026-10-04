@@ -1,0 +1,22 @@
+✔ freezes source bytes and finds changes without changing the prior snapshot (52.492333ms)
+✔ unchanged sources produce no repeated changes and never overwrite a snapshot (68.338125ms)
+✔ rejects index paths escaping the source folder (22.821125ms)
+✔ reports missing files as a review item without modifying the previous snapshot (45.334292ms)
+✔ private snapshots retain owner-only permissions under a permissive umask (23.817667ms)
+✔ legacy manifest keeps the exact files-byte digest and field set (23.21525ms)
+✔ third index participates in capture selection and conflict mismatches (28.016583ms)
+✔ symbolic source files cannot escape capture (20.628375ms)
+✔ source-changed cleanup is deterministic across rewrite and deletion (122.043834ms)
+✔ legacy one and two indices preserve primary selection and counts (5.53475ms)
+✔ third index contributes primary entries while shared declarations retain all origins (0.164417ms)
+✔ conflicting declarations retain both hashes instead of last-wins (0.126167ms)
+✔ missing digest remains a report issue without invalidating legacy capture (0.09175ms)
+✔ rejects unsafe primary and declared paths and missing base index (0.725584ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 437.133417

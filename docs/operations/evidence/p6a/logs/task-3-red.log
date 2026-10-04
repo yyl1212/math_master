@@ -1,0 +1,14 @@
+# github.com/yyl1212/math_master/backend/internal/contentaudit [github.com/yyl1212/math_master/backend/internal/contentaudit.test]
+internal/contentaudit/coverage_test.go:14:23: undefined: Mode
+internal/contentaudit/coverage_test.go:14:29: undefined: Request
+internal/contentaudit/coverage_test.go:14:46: undefined: Request
+internal/contentaudit/coverage_test.go:15:27: undefined: DraftFacts
+internal/contentaudit/coverage_test.go:15:39: undefined: SourceBundle
+internal/contentaudit/coverage_test.go:16:5: undefined: DraftFacts
+internal/contentaudit/coverage_test.go:17:5: undefined: SourceBundle
+internal/contentaudit/coverage_test.go:17:92: undefined: SourceReport
+internal/contentaudit/coverage_test.go:17:157: undefined: SourceIssue
+internal/contentaudit/coverage_test.go:17:180: undefined: SourceMap
+internal/contentaudit/coverage_test.go:17:180: too many errors
+FAIL	github.com/yyl1212/math_master/backend/internal/contentaudit [build failed]
+FAIL

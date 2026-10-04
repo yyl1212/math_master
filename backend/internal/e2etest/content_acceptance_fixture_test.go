@@ -42,6 +42,10 @@ func TestContentAcceptanceFixture(t *testing.T) {
 	instances := map[question.Identity]question.Instance{}
 	for _, i := range facts.Bank.Instances {
 		instances[i.Identity] = i
+		ok, err := assessment.GradeAnswer(i, acceptanceAnswer(i))
+		if err != nil || !ok {
+			t.Fatal("technical answer adapter", i.Identity.ID, err)
+		}
 	}
 	access, e := fixtureAccess(ctx, accounts, "auth_learner", false)
 	if e != nil {
@@ -112,9 +116,9 @@ func acceptanceAnswer(i question.Instance) assessment.Answer {
 	}
 	r := i.Body.CorrectNumeric.Numerator + "/" + i.Body.CorrectNumeric.Denominator
 	if i.Body.AnswerFormat != nil && *i.Body.AnswerFormat == "percentage" {
-		n, _ := new(big.Int).SetString(i.Body.CorrectNumeric.Numerator, 10)
-		n.Mul(n, big.NewInt(100))
-		r = n.String() + "/" + i.Body.CorrectNumeric.Denominator + "%"
+		value, _ := new(big.Rat).SetString(r)
+		value.Mul(value, big.NewRat(100, 1))
+		r = strings.TrimRight(strings.TrimRight(value.FloatString(20), "0"), ".") + "%"
 	}
 	return assessment.Answer{Kind: "numeric", Raw: &r}
 }

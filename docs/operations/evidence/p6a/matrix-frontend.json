@@ -1,0 +1,41 @@
+[
+  {
+    "command": "node tools/verify/run.mjs --cwd frontend -- npm run api:generate",
+    "exit": 0,
+    "log": "logs/matrix-frontend-generate.log"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd frontend -- npm run typecheck",
+    "exit": 0,
+    "log": "logs/matrix-frontend-typecheck.log"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd frontend -- npm test",
+    "exit": 0,
+    "log": "logs/matrix-frontend-unit.log",
+    "cases": 350,
+    "reportedSeconds": 3.9
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd frontend -- npm run build",
+    "exit": 0,
+    "log": "logs/matrix-frontend-build.log"
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd frontend -- npm audit --omit=dev",
+    "exit": 0,
+    "vulnerabilities": 0,
+    "log": "logs/matrix-frontend-audit.log"
+  },
+  {
+    "command": "git diff --exit-code -- frontend/src/lib/api/generated.d.ts",
+    "exit": 0,
+    "generatedContractChanged": false
+  },
+  {
+    "command": "node tools/verify/run.mjs --cwd frontend -- npm run typecheck",
+    "exit": 0,
+    "seconds": 0.783,
+    "log": "logs/task-10-final-typecheck.log"
+  }
+]

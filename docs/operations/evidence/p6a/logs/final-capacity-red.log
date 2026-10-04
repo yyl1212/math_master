@@ -1,0 +1,5 @@
+--- FAIL: TestContentAuditSourceCorpusCapacity (0.03s)
+    review_regression_test.go:118: oversized corpus must fail its separate memory budget before hashing invalid content audit input
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/contentaudit	0.519s
+FAIL

@@ -1,0 +1,196 @@
+✖ source report preserves separate identifiers and source bytes despite equal titles and legacy IDs (26.506333ms)
+✖ selected-only blocking isolates unselected digest differences (24.758334ms)
+✖ AI review never becomes publication approval (24.831125ms)
+✖ missing identifiers and repeated record identities block ready (25.468042ms)
+✖ unknown selected path blocks ready without reading outside fixed batch (25.383209ms)
+✖ conflicting third-index hashes retain both origins in the report (51.61875ms)
+✖ tampered fixed bytes and symbolic paths cannot produce a trusted report (23.787042ms)
+✖ CLI writes one private report and never overwrites or writes into live sources (43.567125ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 0
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 277.437459
+
+✖ failing tests:
+
+test at tools/content-ingest/source-report.test.mjs:13:1
+✖ source report preserves separate identifiers and source bytes despite equal titles and legacy IDs (26.506333ms)
+  AssertionError [ERR_ASSERTION]: source report is required
+      at build (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:12:49)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:14:103)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.start (node:internal/test_runner/test:1177:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:385:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-report.test.mjs:20:1
+✖ selected-only blocking isolates unselected digest differences (24.758334ms)
+  AssertionError [ERR_ASSERTION]: source report is required
+      at build (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:12:49)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:21:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-report.test.mjs:23:1
+✖ AI review never becomes publication approval (24.831125ms)
+  AssertionError [ERR_ASSERTION]: source report is required
+      at build (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:12:49)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:24:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-report.test.mjs:26:1
+✖ missing identifiers and repeated record identities block ready (25.468042ms)
+  AssertionError [ERR_ASSERTION]: source report is required
+      at build (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:12:49)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:28:53)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-report.test.mjs:31:1
+✖ unknown selected path blocks ready without reading outside fixed batch (25.383209ms)
+  AssertionError [ERR_ASSERTION]: source report is required
+      at build (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:12:49)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:32:44)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-report.test.mjs:35:1
+✖ conflicting third-index hashes retain both origins in the report (51.61875ms)
+  AssertionError [ERR_ASSERTION]: source report is required
+      at build (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:12:49)
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:38:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-report.test.mjs:40:1
+✖ tampered fixed bytes and symbolic paths cannot produce a trusted report (23.787042ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /SNAPSHOT_BYTES_MISMATCH/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: source report is required'
+  
+      at async TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:41:88)
+      at async Test.run (node:internal/test_runner/test:1313:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: source report is required
+        at build (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:12:49)
+        at file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:41:113
+        at waitForActual (node:assert:632:21)
+        at strict.rejects (node:assert:769:31)
+        at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:41:101)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1306:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+        at Test.postRun (node:internal/test_runner/test:1447:19)
+        at Test.run (node:internal/test_runner/test:1372:12),
+    expected: /SNAPSHOT_BYTES_MISMATCH/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+
+test at tools/content-ingest/source-report.test.mjs:44:1
+✖ CLI writes one private report and never overwrites or writes into live sources (43.567125ms)
+  AssertionError [ERR_ASSERTION]: node:internal/modules/cjs/loader:1503
+    throw err;
+    ^
+  
+  Error: Cannot find module '/Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.mjs'
+      at Module._resolveFilename (node:internal/modules/cjs/loader:1500:15)
+      at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
+      at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1116:12)
+      at Module._load (node:internal/modules/cjs/loader:1285:25)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+      at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+      at node:internal/main/run_main_module:33:47 {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: []
+  }
+  
+  Node.js v24.17.0
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///Users/wiw/.codex/worktrees/p5-feedback-design/math_master/tools/content-ingest/source-report.test.mjs:47:26)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:897:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

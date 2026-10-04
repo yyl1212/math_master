@@ -1,9 +1,10 @@
 import { defineConfig } from "../../frontend/node_modules/@playwright/test/index.js";
 import { resolve } from "node:path";
 const root = resolve(__dirname, "../..");
+const selectedFiles = process.argv.filter((arg) => /^[a-z-]+\.spec\.ts$/.test(arg));
 export default defineConfig({
   testDir: ".",
-  testMatch: "*.spec.ts",
+  testMatch: selectedFiles.length ? selectedFiles.map((file) => "**/" + file) : "*.spec.ts",
   outputDir: "../../test-results",
   workers: 1,
   retries: 0,

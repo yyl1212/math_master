@@ -1,0 +1,25 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts content-acceptance-learning.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants (7.0s)
+  ✓  2 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available (7.7s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  3 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification (9.3s)
+  ✓  4 [desktop] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness (8.3s)
+  ✓  5 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:11:5 › three fails, four passes, and exact prerequisites unlock only their descendants (8.5s)
+  ✓  6 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:12:5 › one practice exposure leaves a different five-question assessment available (7.2s)
+[WebServer] ⨯ Error: The destination stream closed early.
+[WebServer]     at ignore-listed frames {
+[WebServer]   digest: '2706977520'
+[WebServer] }
+  ✓  7 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:13:5 › learned state, fixed-version review and explicit retake keep current qualification (8.8s)
+  ✓  8 [mobile] › ../tests/e2e/content-acceptance-learning.spec.ts:14:5 › feedback, withdrawal correction and full exposure show truthful readiness (8.6s)
+
+  8 passed (1.1m)

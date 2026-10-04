@@ -1,0 +1,19 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts learning-diagnostic.spec.ts learning-security.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/learning-diagnostic.spec.ts:2:5 › diagnostic qualifies only the locked target, without ancestor reading or qualification (3.2s)
+  ✓  2 [desktop] › ../tests/e2e/learning-diagnostic.spec.ts:3:5 › recent five are excluded across blueprints, preview exposure makes grading affected and next pool unavailable (6.8s)
+[WebServer] 2026/10/04 13:59:04 ERROR Private API request failed request_id=11009a05a4f0c36a09daeea77d6b280e error_code=SERVICE_UNAVAILABLE
+  ✓  3 [desktop] › ../tests/e2e/learning-security.spec.ts:2:5 › other UUIDs and fixed SVG are private; withdrawal hides answers while preserving original score (6.4s)
+  ✓  4 [desktop] › ../tests/e2e/learning-security.spec.ts:3:5 › lost committed response needs same-key manual retry; a switched account never replays an old answer (14.9s)
+  ✓  5 [mobile] › ../tests/e2e/learning-diagnostic.spec.ts:2:5 › diagnostic qualifies only the locked target, without ancestor reading or qualification (3.6s)
+  ✓  6 [mobile] › ../tests/e2e/learning-diagnostic.spec.ts:3:5 › recent five are excluded across blueprints, preview exposure makes grading affected and next pool unavailable (7.0s)
+[WebServer] 2026/10/04 13:59:36 ERROR Private API request failed request_id=02554b37bc66d952dcad9c058019e5d3 error_code=SERVICE_UNAVAILABLE
+  ✓  7 [mobile] › ../tests/e2e/learning-security.spec.ts:2:5 › other UUIDs and fixed SVG are private; withdrawal hides answers while preserving original score (6.3s)
+  ✓  8 [mobile] › ../tests/e2e/learning-security.spec.ts:3:5 › lost committed response needs same-key manual retry; a switched account never replays an old answer (15.2s)
+
+  8 passed (1.1m)

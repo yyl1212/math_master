@@ -1,0 +1,19 @@
+
+> math-master-frontend@0.1.0 e2e
+> playwright test --config ../tests/e2e/playwright.config.ts question-security.spec.ts
+
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › ../tests/e2e/question-security.spec.ts:4:5 › questionLearnerPrivate404RoleRevocationAndMissingMigration (4.1s)
+  ✓  2 [desktop] › ../tests/e2e/question-security.spec.ts:6:9 › questionUnconfirmedWriteManualSameKeyReplay-timeout (13.0s)
+  ✓  3 [desktop] › ../tests/e2e/question-security.spec.ts:6:9 › questionUnconfirmedWriteManualSameKeyReplay-cancel (3.0s)
+[WebServer] 2026/10/04 13:57:23 ERROR Private API request failed request_id=109601e0c06f27d27f23ef8baa80e680 error_code=SERVICE_UNAVAILABLE
+  ✓  4 [desktop] › ../tests/e2e/question-security.spec.ts:12:5 › questionSharedActualSlotsAndEnvelopeBudget (2.7s)
+  ✓  5 [mobile] › ../tests/e2e/question-security.spec.ts:4:5 › questionLearnerPrivate404RoleRevocationAndMissingMigration (5.5s)
+  ✓  6 [mobile] › ../tests/e2e/question-security.spec.ts:6:9 › questionUnconfirmedWriteManualSameKeyReplay-timeout (12.9s)
+  ✓  7 [mobile] › ../tests/e2e/question-security.spec.ts:6:9 › questionUnconfirmedWriteManualSameKeyReplay-cancel (3.1s)
+[WebServer] 2026/10/04 13:57:48 ERROR Private API request failed request_id=24e72d8e81586c2fc787b89a87c81f33 error_code=SERVICE_UNAVAILABLE
+  ✓  8 [mobile] › ../tests/e2e/question-security.spec.ts:12:5 › questionSharedActualSlotsAndEnvelopeBudget (2.7s)
+
+  8 passed (48.6s)
