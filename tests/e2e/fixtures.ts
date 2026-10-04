@@ -2,10 +2,11 @@ import {
   test as base,
   expect,
   type Page,
-  type APIRequestContext,
 } from "../../frontend/node_modules/@playwright/test/index.js";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
+import { changeScene } from "./scene-control";
+export { changeScene };
 export type Runtime = {
   apiURL: string;
   controlURL: string;
@@ -62,11 +63,4 @@ export async function signIn(page: Page, username: string, password: string) {
 }
 export async function safeScreenshot(page: Page, info: { outputPath: (name: string) => string }, name: string) {
   if (!process.env.CI) await page.screenshot({ path: info.outputPath(name + ".png"), fullPage: true, mask: [page.locator("input, textarea")] });
-}
-
-export async function changeScene(request: Pick<APIRequestContext, "post">, runtime: Pick<Runtime, "controlURL" | "token">, name: string) {
-  try {
-    const response = await request.post(runtime.controlURL + "/scene/" + name, { headers: { Authorization: "Bearer " + runtime.token }, timeout: 5000 });
-    if (response.status() !== 204) throw new Error("Test scene change failed");
-  } catch { throw new Error("Test scene change failed"); }
 }

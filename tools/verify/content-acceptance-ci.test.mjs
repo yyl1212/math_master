@@ -63,3 +63,59 @@ function validate(b,f,p){
 test('new audit batches and all old budgets are wired',()=>validate(backend,frontend,playwright));
 test('missing new browser or audit capacity is detected',()=>{for(const needle of ['content-acceptance-reading.spec.ts','content-acceptance-learning.spec.ts'])assert.throws(()=>validate(backend,frontend.split('\n').filter(l=>!l.includes('run:')||!l.includes(needle)).join('\n'),playwright));assert.throws(()=>validate(backend.split('\n').filter(l=>!l.includes("-run '^TestContentAuditCapacity$'")).join('\n'),frontend,playwright))});
 test('old browser deletion and budget changes are detected',()=>{assert.throws(()=>validate(backend,frontend.replace('catalogue.spec.ts reading.spec.ts','reading.spec.ts'),playwright),/old 20/);assert.throws(()=>validate(backend.replace('-timeout 5m','-timeout 6m'),frontend,playwright));assert.throws(()=>validate(backend,frontend,playwright.replace('retries: 0','retries: 1')))});
+
+// Test the scene transport independently of browser dependencies so the backend
+// workflow keeps its existing Node-only verification entry point.
+async function sceneControl() { return import('../../tests/e2e/scene-control.ts'); }
+const sceneRuntime={controlURL:'http://127.0.0.1:1',token:'test-only-scene-token'};
+test('complete content scene accepts one setup slower than the old five-second limit', {timeout:15000}, async t=>{
+ const {createServer}=await import('node:http');
+ const {changeScene}=await sceneControl();
+ let requests=0;
+ const server=createServer((req,res)=>{
+  requests++;
+  assert.equal(req.url,'/scene/content-acceptance');
+  assert.equal(req.headers.authorization,'Bearer '+sceneRuntime.token);
+  setTimeout(()=>{res.writeHead(204);res.end();},5500);
+ });
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ t.after(()=>new Promise(resolve=>{server.closeAllConnections();server.close(resolve);}));
+ const runtime={...sceneRuntime,controlURL:'http://127.0.0.1:'+server.address().port};
+ const request={post:async(url,options)=>{
+  const response=await fetch(url,{method:'POST',headers:options.headers,signal:AbortSignal.timeout(options.timeout)});
+  return {status:()=>response.status};
+ }};
+ await changeScene(request,runtime,'content-acceptance');
+ assert.equal(requests,1,'no automatic retry of fixture writes');
+});
+test('all legacy and unknown scenes retain the five-second request limit',async()=>{
+ const {changeScene}=await sceneControl();
+ for(const name of ['draft','question','learning','feedback','correction','content-acceptance-unknown']){
+  let calls=0;
+  await changeScene({post:async(url,options)=>{
+   calls++;assert.equal(url,sceneRuntime.controlURL+'/scene/'+name);assert.equal(options.timeout,5000);
+   return {status:()=>204};
+  }},sceneRuntime,name);
+  assert.equal(calls,1);
+ }
+});
+test('content setup has a ten-second limit within the unchanged individual test budget',async()=>{
+ const {changeScene}=await sceneControl();
+ await changeScene({post:async(_url,options)=>{assert.equal(options.timeout,10000);return {status:()=>204};}},sceneRuntime,'content-acceptance');
+ assert.match(playwright,/\btimeout:\s*30000\b/);
+});
+test('scene failures are single-attempt and redact both transport and timeout errors',async()=>{
+ const {changeScene}=await sceneControl();
+ for(const failure of [401,400,503,'network request leaked test-only-scene-token http://127.0.0.1:1','apiRequestContext.post: Timeout 10000ms exceeded; test-only-scene-token']){
+  let calls=0;
+  await assert.rejects(changeScene({post:async()=>{
+   calls++;
+   if(typeof failure==='number')return {status:()=>failure};
+   throw new Error(failure);
+  }},sceneRuntime,'content-acceptance'),error=>{
+   assert.equal(error.message,typeof failure==='string'&&failure.includes('Timeout')?'Test scene change timed out':'Test scene change failed');
+   assert.equal(error.cause,undefined);assert.doesNotMatch(error.stack,/test-only-scene-token|http:\/\/127/);return true;
+  });
+  assert.equal(calls,1);
+ }
+});

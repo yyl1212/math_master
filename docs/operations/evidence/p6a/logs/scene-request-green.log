@@ -1,0 +1,15 @@
+✔ new audit batches and all old budgets are wired (2.450875ms)
+✔ missing new browser or audit capacity is detected (1.612666ms)
+✔ old browser deletion and budget changes are detected (0.941625ms)
+✔ complete content scene accepts one setup slower than the old five-second limit (5543.020458ms)
+✔ all legacy and unknown scenes retain the five-second request limit (0.377875ms)
+✔ content setup has a ten-second limit within the unchanged individual test budget (0.297125ms)
+✔ scene failures are single-attempt and redact both transport and timeout errors (0.701542ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5585.068834

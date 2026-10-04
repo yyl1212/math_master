@@ -9,14 +9,14 @@
     "new": 16,
     "total": 162
   },
-  "nodeCases": 68,
+  "nodeCases": 72,
   "frontendCases": 350,
   "review": {
     "freshReviewers": 1,
     "critical": 0,
     "importantFixed": 3,
     "deferredMinor": 2,
-    "rulings": 14
+    "rulings": 15
   },
   "files": [
     {
@@ -36,8 +36,8 @@
     },
     {
       "path": "implementation.md",
-      "bytes": 5173,
-      "sha256": "1c38e5b0f14271821a01e409d79393758958ea2737657c1e39f826f2e73ca564"
+      "bytes": 6565,
+      "sha256": "de0bb3d4428dfadae5a3f5b942768022fefde867b5eccef666f5217e3206b32b"
     },
     {
       "path": "logs/baseline-go-fixed.log",
@@ -335,6 +335,56 @@
       "sha256": "a718c5ce838919f9dfa503130137a7be9453558f00ae8f26f3de852e116c6e71"
     },
     {
+      "path": "logs/remote-frontend-failure.log",
+      "bytes": 6650,
+      "sha256": "d00388695340b16e9cc3f3d4b3bf9f8893cebcec50e6c0ca1f3a65d3bf159973"
+    },
+    {
+      "path": "logs/scene-browser-01.log",
+      "bytes": 1964,
+      "sha256": "6dfda3c94ae22c2655c9452b1dee6899318a42747bb14ea2bc424d9cca9f3cf7"
+    },
+    {
+      "path": "logs/scene-browser-21.log",
+      "bytes": 1386,
+      "sha256": "9ae3f213f86cc35ececf93b7a002652c64713e17deae9cb732d2b4b54757b12f"
+    },
+    {
+      "path": "logs/scene-browser-22.log",
+      "bytes": 1812,
+      "sha256": "34c4a98e7a34b07323fe9bbc82105db5fc2f57828237349519f9a2b84b002451"
+    },
+    {
+      "path": "logs/scene-frontend-all.log",
+      "bytes": 599,
+      "sha256": "598d204fe1d9b47d87781d9b39a4b3e1b057d633c189ec48f7b7141084650102"
+    },
+    {
+      "path": "logs/scene-node-all.log",
+      "bytes": 6108,
+      "sha256": "88dac4d610311c03008389824f249ab1984d77399edbe832da2f7ba9341b6640"
+    },
+    {
+      "path": "logs/scene-request-green.log",
+      "bytes": 695,
+      "sha256": "24375a3d57196435c6e313a47e9dfa86bf0b7377514278bb8fc0d8369ddbac22"
+    },
+    {
+      "path": "logs/scene-request-red-deadline.log",
+      "bytes": 3321,
+      "sha256": "ff870127efce54d2d59a1d3bf80693c71d269009b58813015db1bb925d4a8ac9"
+    },
+    {
+      "path": "logs/scene-request-red-missing.log",
+      "bytes": 5731,
+      "sha256": "550b2a84a15d6dbfa7ba3aa1c9e012601d26e048819a49e1b6d1b2578a4de04c"
+    },
+    {
+      "path": "logs/scene-typecheck.log",
+      "bytes": 56,
+      "sha256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
+    },
+    {
       "path": "logs/task-1-green.log",
       "bytes": 1313,
       "sha256": "85c5a8c1721fdf058a1513f7b3ab428d30c1c7af218546c2183fc0cc03a19016"
@@ -600,6 +650,11 @@
       "sha256": "dfa58b23a41ae1f067a3cab8024efac92cc739138bcbdf64c827bc105e5e1ae8"
     },
     {
+      "path": "matrix-scene-regression.json",
+      "bytes": 1352,
+      "sha256": "8272f2bdd0cc25bc26d053d3d4d86f8da32bcdd5f005c3cf0fa42ed1ac27b4e4"
+    },
+    {
       "path": "published-report.json",
       "bytes": 25564,
       "sha256": "deaf06e4ee6cffbc1fe8bc93bf203f6739207302da036b1a5392eb6037f35e65"
@@ -608,6 +663,11 @@
       "path": "published-report.md",
       "bytes": 2637,
       "sha256": "e2083b8cfa77f75df36b36fec9bbd1071c8ad7858f5b29d1beefdf28a3377043"
+    },
+    {
+      "path": "remote-ci-first-red.json",
+      "bytes": 49656,
+      "sha256": "3a10cc1f9294204eafd2c5eade5759834a97ebff8413708d4f82efa235919198"
     },
     {
       "path": "review.md",
@@ -676,13 +736,20 @@
     },
     {
       "path": "self-review.md",
-      "bytes": 1509,
-      "sha256": "37cef095cd5ca756217670411c876b9661b441c3028b11415c229b8a250a8774"
+      "bytes": 1786,
+      "sha256": "a1bc455734f1ceebd2bdf96a9d6bc3cf949120dd300dfe842e67caac9be1a0af"
     },
     {
       "path": "source-summary.json",
       "bytes": 460,
       "sha256": "8a9bc8be4eb1adee71ea2c6f82a1c5c4c5c548b667ee2926931cca655e0b1065"
     }
-  ]
+  ],
+  "sceneSetupRegression": {
+    "cases": 32,
+    "ordinaryRequestMs": 5000,
+    "contentAcceptanceRequestMs": 10000,
+    "automaticRetries": 0
+  },
+  "implementationPR": "https://github.com/yyl1212/math_master/pull/25"
 }
