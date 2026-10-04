@@ -139,3 +139,13 @@ type RegisterPart struct {
 	ManifestSHA256 string      `json:"manifestSHA256"`
 	Rows           []ReviewRow `json:"rows"`
 }
+
+type Verification struct {
+	SchemaVersion  int                              `json:"schemaVersion"`
+	Conclusion     string                           `json:"conclusion"`
+	FixtureOnly    bool                             `json:"fixtureOnly"`
+	ManifestSHA256 string                           `json:"manifestSHA256"`
+	Reasons        []string                         `json:"reasons"`
+	Evidence       *contentaudit.AcceptanceEvidence `json:"-"`
+	Files          []ExportFile                     `json:"-"`
+}
