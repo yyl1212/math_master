@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-05",
+  "timezone": "Asia/Shanghai",
+  "stage": "read_only_preflight",
+  "designStatus": "awaiting_user_review",
+  "sourceCommit": "9f71cf4f2b29c5101cc87a4511c0b32d786ddeb0",
+  "sourcePullRequest": "https://github.com/yyl1212/math_master/pull/29",
+  "server": {
+    "host": "43.135.142.53",
+    "sshUsername": "ubuntu",
+    "sshPort": 22,
+    "os": "Ubuntu 26.04 LTS",
+    "architecture": "x86_64",
+    "cpuCount": 2,
+    "memoryMiB": 3654,
+    "swapMiB": 2047,
+    "rootDiskAvailableGiB": 49,
+    "listeningOn80Or443": false,
+    "noninteractiveSudoAvailable": true,
+    "dockerInstalled": false,
+    "caddyInstalled": false,
+    "nodeFoundInPath": false,
+    "goFoundInPath": false,
+    "aptCandidates": {
+      "docker.io": "29.1.3-0ubuntu4.1",
+      "docker-compose-v2": "2.40.3+ds1-0ubuntu1",
+      "caddy": "2.6.2-14"
+    },
+    "hostFirewallInputPolicy": "ACCEPT",
+    "inspectedDefenseChain": "YJ-FIREWALL-INPUT",
+    "defenseChainRuleLines": 519,
+    "defenseChainDestinationPortCounts": {
+      "22": 518
+    },
+    "cloudIngressReachability": "requires_live_acme_validation"
+  },
+  "serverOutboundChecks": [
+    {
+      "service": "Let’s Encrypt ACME",
+      "status": 200
+    },
+    {
+      "service": "Docker Registry authentication challenge",
+      "status": 401
+    },
+    {
+      "service": "Docker Registry authenticated public manifest lookup",
+      "success": true
+    },
+    {
+      "service": "npm registry",
+      "status": 200
+    },
+    {
+      "service": "Go module proxy",
+      "status": 200
+    },
+    {
+      "service": "Caddy 官方发布包 HEAD",
+      "status": 200,
+      "downloaded": false
+    }
+  ],
+  "verifiedServerImages": [
+    {
+      "image": "caddy:2.11.4-alpine",
+      "platform": "linux/amd64",
+      "indexDigest": "sha256:6aeddd44c3078b0f9a35206472a11420648a79c184603ef95957d0a20044cb2b",
+      "platformDigest": "sha256:040e9f7480b80b6d4a7e5013a21159b950a63dcbdb956e38abe2387fb28d9ec0",
+      "purpose": "earlier_feasibility_only_not_selected_for_deployment"
+    },
+    {
+      "image": "golang:1.27.1-alpine",
+      "platform": "linux/amd64",
+      "indexDigest": "sha256:8a5910f31396cd4d89662f56c68b3ae31d374308270a1c3bd96672ee5ed43414",
+      "platformDigest": "sha256:cd9a32216aee5667f957a62d13a10032a63fd58e14b3f3d9cc8c2122f501e95e"
+    },
+    {
+      "image": "node:24.17.0-alpine",
+      "platform": "linux/amd64",
+      "indexDigest": "sha256:156b55f92e98ccd5ef49578a8cea0df4679826564bad1c9d4ef04462b9f0ded6",
+      "platformDigest": "sha256:9e04e3f9c9164cb2c913593ba0733fbd0caf4e9bea474d743ca8a32aa36d98c9"
+    },
+    {
+      "image": "postgres:17.11",
+      "platform": "linux/amd64",
+      "indexDigest": "sha256:d74eeac9a635390a49bc21bd49fccd973de707e2a53a76ac49b552b8712ec46f",
+      "platformDigest": "sha256:e31e3d5327d1806f6177827c9710643e4f35f7ab3f14d26d05332753d3e95ee0"
+    },
+    {
+      "image": "alpine:3.24",
+      "platform": "linux/amd64",
+      "indexDigest": "sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6",
+      "platformDigest": "sha256:d56c381f961d307a21b3ca004cf1e3910f106644aefb1f43e654c8a56c4fd395"
+    }
+  ],
+  "httpsFeasibility": {
+    "domainAvailable": false,
+    "recommendedOrigin": "https://43.135.142.53",
+    "caddyVersion": "2.11.7",
+    "certmagicVersion": "0.25.6",
+    "officialSourceAllowsLetsEncryptIpCertificates": true,
+    "acmeProfile": "shortlived",
+    "certificateLifetimeHours": 160,
+    "trustedCertificateIssued": false,
+    "renewalActuallyObserved": false
+  },
+  "scope": {
+    "applicationCodeChanged": false,
+    "serverPackagesInstalled": false,
+    "serverServicesDeployed": false,
+    "firewallChanged": false,
+    "databaseCopiedOrModified": false,
+    "accountRolesChanged": false,
+    "mathematicalContentPublished": false,
+    "localRuntimeChanged": false,
+    "implementationPlanWritten": false,
+    "previewOnline": false,
+    "formalP6bAccepted": false,
+    "formalP7Accepted": false
+  },
+  "designSelfReview": {
+    "knownBlockingDesignIssues": 0,
+    "resolved": [
+      "Ubuntu 提供的 Caddy 软件包过旧，改用已核验的 IP 证书支持版本",
+      "公网账号沿用现有生产 HTTPS origin 和 Cookie 策略",
+      "保留本机数据，为服务器使用独立数据库凭据",
+      "未审阅草稿保留现有私有访问权限和状态",
+      "仅网关开放公网端口，排除测试控制程序",
+      "交付前完成恢复演练，回退保留数据卷",
+      "最新 Docker 标签尚未同步，改用可达的官方静态程序包并强制校验固定摘要"
+    ],
+    "remainingRuntimeValidation": [
+      "外部 ACME 挑战端口可达",
+      "生产构建内存和实际资源限制",
+      "可信证书签发与自动续期配置",
+      "实际隔离数据库恢复及完整性核对",
+      "用户正常登录及有权限的私有草稿阅读",
+      "有界负载、重启、备份与恢复检查"
+    ]
+  },
+  "caddyRelease": {
+    "version": "2.11.7",
+    "publishedAtUtc": "2026-10-03T05:58:33Z",
+    "prerelease": false,
+    "officialDockerDefinitionVersionAtCheck": "2.11.6",
+    "registryChecks": [
+      {
+        "image": "caddy:2.11.7",
+        "status": 404
+      },
+      {
+        "image": "caddy:2.11.7-alpine",
+        "status": 404
+      }
+    ],
+    "selectedArchiveUrl": "https://github.com/caddyserver/caddy/releases/download/v2.11.7/caddy_2.11.7_linux_amd64.tar.gz",
+    "officialArchiveDigest": "sha256:727b91701a392de6ebc5027509f548bf39979e5216340d0faed8fa5e69c84f8b",
+    "archiveHeadFromServer": {
+      "status": 200,
+      "contentLength": 18113754
+    },
+    "archiveDownloaded": false,
+    "archiveHashActuallyVerified": false,
+    "officialReleaseBuildCGOEnabled": "0",
+    "approach": "构建网关镜像时下载官方发布包，校验固定摘要后才解压使用"
+  },
+  "masterCI": [
+    {
+      "runId": 37231827804,
+      "url": "https://github.com/yyl1212/math_master/actions/runs/37231827804",
+      "headSha": "9f71cf4f2b29c5101cc87a4511c0b32d786ddeb0",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "verify",
+          "conclusion": "success"
+        },
+        {
+          "name": "correction_verify",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 37231827877,
+      "url": "https://github.com/yyl1212/math_master/actions/runs/37231827877",
+      "headSha": "9f71cf4f2b29c5101cc87a4511c0b32d786ddeb0",
+      "status": "completed",
+      "conclusion": "success",
+      "jobs": [
+        {
+          "name": "verify",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ]
+}
