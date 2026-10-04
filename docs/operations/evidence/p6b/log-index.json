@@ -597,6 +597,15 @@
     "redactions": []
   },
   {
+    "name": "review-fix-build-smoke.log",
+    "log": "logs/review-fix-build-smoke.log.gz",
+    "logCompression": "gzip",
+    "originalLogSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "storedUncompressedSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "storedSHA256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "redactions": []
+  },
+  {
     "name": "review-fix-failed-green.log",
     "log": "logs/review-fix-failed-green.log.gz",
     "logCompression": "gzip",
