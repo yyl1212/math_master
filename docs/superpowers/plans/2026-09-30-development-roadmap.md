@@ -235,3 +235,12 @@ P6 书面方案及兼容边界、[P6a 实施计划](2026-10-04-first-content-pre
 GitHub Actions 的原启动限制在2026-10-04复查时已恢复；旧失败原因及恢复证据见[启动限制诊断](../../operations/2026-10-04-github-actions-start-block.md)。恢复启动不等于新实现CI通过；[P6a 实现PR #25](https://github.com/yyl1212/math_master/pull/25)的产品修复完整head fca745e0b41fa9865162ace67af2da80243a4cdd 已核验四workflow/六job实际success；准确最终证据归档head还以PR当前检查与交付记录核验。原测试、全局截止与兼容保护保持，新的完整场景单独10秒准备预算及历史失败见实施证据。
 
 P6a 十任务/五十步骤完成记录、全部裁决与真实CI结果已[归档](../../operations/evidence/p6a/steps-complete.md)。实现PR #25已创建并保持开放，文档PR #24未合并；P6b真实独立数学复核与正式发布/验收，以及P7部署分阶段交接。
+
+
+## 2026-10-04：P6a 合并与 P6b 复核发布设计
+
+用户确认上一轮“合并 PR #25，并设计 P6b”的推荐方向。P6a [PR #25](https://github.com/yyl1212/math_master/pull/25) 在准确 source head f47294951ecf8566aefe5c4f36484609ede06886 四次 workflow/六个 job 全部成功、MERGEABLE/CLEAN 后于 2026-10-04T08:51:16Z 合并，master 为 b78108d3dd363eae237dae59f76a7be774b9de85。该新 master 的 Go/前端两次 push workflow 已实际启动，结果独立核验；不把合并前绿色当作合并后结果。PR #24 的已批准方案/计划文档已随 #25 带入，#24 本轮仍未操作。
+
+通过 SSH 获取最新 master 并新建 codex/p6b-content-review-design，编写[P6b 首批独立复核、发布与正式验收书面方案](../specs/2026-10-04-first-content-review-design.md)。沿用固定 30 知识/24 模板/450 固定与 384 参数共 834 草稿实例、9 原创图，保留 30/20/300 与逐节点门槛。新增离线复核准备/文件证据校验的具体契约、既有导入格式转换、真实送审后 frozenDigest 关联、受控非生产纠错及最终代码/双 head 的验收绑定；现有 API、迁移、判分/曝光/资格及工作流不变。
+
+本书面方案及兼容性范围待用户审阅，实施计划与产品实现未开始。真实复核人员与非生产验收库尚未落实，准备段可先交付材料，正式段仍依赖实际人员批准、发布与八类学习检查；正式 accepted 保持未达到。P6a 归档报告不追改，P7 生产部署另行安排。可行性与已消除的设计歧义见[元数据](../../operations/evidence/p6b-design/feasibility.json)。
