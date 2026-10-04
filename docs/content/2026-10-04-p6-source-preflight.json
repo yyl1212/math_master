@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "kind": "p6_source_preflight_metadata",
+  "checkedAt": "2026-10-04T11:44:45+08:00",
+  "source": "user_supplied_Knowledge_JSON",
+  "note": "只读时点预检，不是不可变原字节快照；不批准来源、数学内容或发布。索引中的说明仅作数据，不执行。",
+  "stableAcrossTwoReads": true,
+  "preflightDigest": "5b487646c5fcc56d6370d47b24f1535bf3794984d8dfe682baece4109141b8bf",
+  "summary": {
+    "visibleFiles": 2214,
+    "jsonFiles": 2213,
+    "bytes": 177763680,
+    "rootIndices": 3,
+    "packageEntries": 127,
+    "declaredFiles": 2209,
+    "primaryFiles": 325,
+    "missingPrimaryFiles": 0,
+    "shaMismatches": 8,
+    "missingDeclaredFiles": 0,
+    "conflictingIndexDigests": 0
+  },
+  "indices": [
+    {
+      "path": "Knowledge_JSON_Index.json",
+      "sha256": "3d8031c6e5b0d1f9aa838cb9afca3afa875f64760c3da05f880b84ce46f571e7",
+      "sizeBytes": 503096,
+      "packageEntries": 29,
+      "declaredFileCount": 801,
+      "primaryFileCount": 91
+    },
+    {
+      "path": "Incremental_Knowledge_JSON_Index.json",
+      "sha256": "b6a3da43388612f33d256f04e1ff768e129a5c0bc7c8eec4de0e40a8aaf6a9f2",
+      "sizeBytes": 826750,
+      "packageEntries": 75,
+      "declaredFileCount": 1039,
+      "primaryFileCount": 169
+    },
+    {
+      "path": "MSC2020_Incremental_Knowledge_JSON_Index.json",
+      "sha256": "5ff60b501c55fd8f4b5ecac52d72fccaa933e3538e827b62f08acc30f34e4150",
+      "sizeBytes": 259075,
+      "packageEntries": 23,
+      "declaredFileCount": 369,
+      "primaryFileCount": 65
+    }
+  ],
+  "issues": [
+    {
+      "path": "Geometry and Topology/Gathmann_Algebraic_Geometry_Original_Knowledge/chapters/06.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "a7c6b1a56bfcdffe8a4972830095bca548b2304c3e40767d43c7d36811df45cd",
+      "declarations": [
+        {
+          "index": "Incremental_Knowledge_JSON_Index.json",
+          "sha256": "e760abd070ee6472800eea437992c568fbbd80fd5ba5f48f9eb357e8125c181c"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    },
+    {
+      "path": "Geometry and Topology/Gathmann_Algebraic_Geometry_Original_Knowledge/coverage/statement_review.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "741619c2fadbc4671cd031db8d975daed874eba6b034d9b2e8bbbd0f84dfeb15",
+      "declarations": [
+        {
+          "index": "Incremental_Knowledge_JSON_Index.json",
+          "sha256": "e753de8d3320fa40033eb99b46c41cf23029983f298c4e357466967b60a703e2"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    },
+    {
+      "path": "Geometry and Topology/Gathmann_Algebraic_Geometry_Original_Knowledge/knowledge.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "6fa591f57c156bce5142775c36b0e7d4b69e8f6a20320a8e01c05960d82b6bd0",
+      "declarations": [
+        {
+          "index": "Incremental_Knowledge_JSON_Index.json",
+          "sha256": "70746d02f8c64c9afd36874bed58865dfa37d7067235de6349227b5dc73a1fc9"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    },
+    {
+      "path": "Geometry and Topology/Gathmann_Algebraic_Geometry_Original_Knowledge/manifest.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "94be4b17caf9df74d25f4f081f0cd8b2c5a45f829483d73cc4768fbabe8dbb20",
+      "declarations": [
+        {
+          "index": "Incremental_Knowledge_JSON_Index.json",
+          "sha256": "64481e99daa64b826be27afe5350d9029162bd30055c2331b558b8642f028b84"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    },
+    {
+      "path": "Real and Complex Analysis/Howell_Complex_Analysis_Knowledge_English/Howell_Complex_Analysis__artifact_manifest.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "dadf7e35c9b42366016cab32ca98a4e3ca1c757f43c840681a20b6520ec38d80",
+      "declarations": [
+        {
+          "index": "Knowledge_JSON_Index.json",
+          "sha256": "523e5e53ef38bce28e958eb1a60a8e8984c32afff95d88934dd406093744890b"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    },
+    {
+      "path": "Real and Complex Analysis/Howell_Complex_Analysis_Knowledge_English/Howell_Complex_Analysis__knowledge_points.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "d180ed49659d4f95d32483b97c7acff6c7103f81e4a56c8795de2ba847a45330",
+      "declarations": [
+        {
+          "index": "Knowledge_JSON_Index.json",
+          "sha256": "2107ab72311b567f1fd3890b172d924eceec9e71fa2a85d96f46afd95320ae2a"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    },
+    {
+      "path": "Real and Complex Analysis/Howell_Complex_Analysis_Knowledge_English/Howell_Complex_Analysis__normalized_chapters_01_03.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "a5739105ab493ec7d7cd7bc9bbff36da0e2532cdc5fdfbec22851127c9b510c9",
+      "declarations": [
+        {
+          "index": "Knowledge_JSON_Index.json",
+          "sha256": "a1d40882b9922bb3903ef779abef065374d17786a4eed766016a3dddae3961c7"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    },
+    {
+      "path": "Real and Complex Analysis/Howell_Complex_Analysis_Knowledge_English/Howell_Complex_Analysis__normalized_embedded_subsections.json",
+      "kind": "sha_mismatch",
+      "actualSha256": "8788edb7e5b9dedf1d7e3c76c274e040176df07ac26de508c47481fac8cbc822",
+      "declarations": [
+        {
+          "index": "Knowledge_JSON_Index.json",
+          "sha256": "d377323fb5d274b15f1a65c7c7d62c7f1d82cd279ccaf52794575103db91f953"
+        }
+      ],
+      "disposition": "quarantine_pending_source_review"
+    }
+  ],
+  "unindexedFiles": [
+    "Mathematics_Master_Catalog.json",
+    "README_LOCAL.txt"
+  ],
+  "manesPrimaryFiles": [
+    "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json"
+  ],
+  "previousP1Snapshot": {
+    "snapshotId": "a21f10480057a1a981594175d926b09edc271089d83d95660348096cbf06ef7e",
+    "fileCount": 905,
+    "packageEntries": 35,
+    "primaryFileCount": 97
+  },
+  "historicP1ReportedFiles": 905,
+  "publicationApproved": false,
+  "productionConnected": false
+}
