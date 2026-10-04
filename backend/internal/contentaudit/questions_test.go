@@ -187,3 +187,85 @@ func TestContentAuditQuestionsNumbersOperations(t *testing.T) {
 		t.Fatal("fake concept witness accepted")
 	}
 }
+func TestContentAuditQuestionsFractionsRatios(t *testing.T) {
+	f := questionBatch(t, "fractions", "decimals", "ratios")
+	checkQuestionBatch(t, f, [][3]int{{5, 135, 80}, {4, 60, 64}, {4, 30, 64}})
+	goldens := map[string]string{"ef-decimal-fraction-conversion-fixed-01": "1/4", "ef-percentages-fixed-01": "30%", "ef-percentages-fixed-06": "15", "ef-fractions-unlike-denominator-fixed-01": "8/15", "ef-fraction-division-fixed-01": "3/2"}
+	for _, s := range f.Sealed {
+		for _, q := range s.Package.FixedQuestions {
+			if expected, ok := goldens[q.ID]; ok {
+				correct := ""
+				for _, c := range q.Body.Choices {
+					if c.ID == *q.Body.CorrectChoiceID {
+						correct = c.Text
+					}
+				}
+				if correct != expected {
+					t.Fatal("fraction/decimal/percent golden", q.ID, correct, expected)
+				}
+				delete(goldens, q.ID)
+			}
+		}
+	}
+	if len(goldens) != 0 {
+		t.Fatal("missing golden")
+	}
+	for _, s := range f.Sealed {
+		for _, tpl := range s.Package.Templates {
+			if strings.HasPrefix(tpl.ID, "ef-same-unit-") {
+				for _, p := range tpl.Parameters {
+					for _, v := range p.Values {
+						if !strings.HasSuffix(v, "/8") {
+							t.Fatal("eighths lost")
+						}
+					}
+				}
+			}
+			if strings.HasPrefix(tpl.ID, "ef-common-unit-") {
+				for _, p := range tpl.Parameters {
+					den := "/3"
+					if p.Name == "right" {
+						den = "/5"
+					}
+					for _, v := range p.Values {
+						if !strings.HasSuffix(v, den) {
+							t.Fatal("unlike domains")
+						}
+					}
+				}
+			}
+			if tpl.ID == "ef-percent-rate" && (tpl.AnswerFormat == nil || *tpl.AnswerFormat != "percentage" || !strings.Contains(tpl.PromptTemplate, "%")) {
+				t.Fatal("percentage syntax")
+			}
+		}
+	}
+}
+func TestContentAuditCompleteDraft(t *testing.T) {
+	input, e := LoadDraft(context.Background(), "../../..")
+	if e != nil {
+		t.Fatal(e)
+	}
+	f, e := CheckDraft(context.Background(), input)
+	if e != nil {
+		t.Fatal(e)
+	}
+	mapping, e := ReadSourceMap("../../../content/source-maps/elementary-foundations.v1.json")
+	if e != nil {
+		t.Fatal(e)
+	}
+	sources := SourceBundle{SnapshotID: mapping.SnapshotID, ReportSHA: mapping.SourceReportSHA256, Report: SourceReport{SchemaVersion: 1, PolicyVersion: 1, Ready: true, Issues: []SourceIssue{}}, Mapping: mapping}
+	req := testRequest(Draft)
+	req.Route = content.VersionRef{ID: "elementary-foundations", Version: 1}
+	r, e := EvaluateDraft(context.Background(), req, f, sources)
+	if e != nil || r.Conclusion != DraftReady || r.DraftCounts.Knowledge != 30 || r.DraftCounts.Templates != 24 || r.DraftCounts.FixedInstances != 450 || r.DraftCounts.GeneratedInstances != 384 || r.DraftCounts.EffectiveInstances != 834 || r.DraftCounts.Duplicates != 0 || r.FormalCounts.Knowledge != 0 {
+		t.Fatal(r, e)
+	}
+	if len(r.Nodes) != 30 {
+		t.Fatal("route nodes")
+	}
+	for _, n := range r.Nodes {
+		if n.EffectiveInstances < 15 || n.AssessmentInstances < 15 || len(n.FiveWitness) != 5 || !n.AfterPracticeWitness || !n.Ready {
+			t.Fatal(n)
+		}
+	}
+}

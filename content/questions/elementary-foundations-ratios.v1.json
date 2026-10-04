@@ -1,0 +1,2506 @@
+{
+  "kind": "question-bank",
+  "schemaVersion": 1,
+  "id": "elementary-foundations-ratios",
+  "version": 1,
+  "templates": [
+    {
+      "id": "ef-ratio-unit-rate",
+      "version": 1,
+      "knowledge": {
+        "id": "ratios-proportions",
+        "version": 1
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "ratios-proportions",
+            "version": 1
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-ratios-proportions-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "{{right}} identical notebooks cost {{left}} currency units at a constant proportional rate. Find currency units per notebook.",
+      "explanationTemplate": "The unit rate is cost divided by count: {{answer}} currency units per notebook. Verify its units and constant proportional model.",
+      "engine": {
+        "family": "rational_arithmetic",
+        "operation": "divide",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "6",
+            "12",
+            "18",
+            "24"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "2",
+            "3",
+            "4",
+            "6"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result",
+        "nonzero_divisor"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    },
+    {
+      "id": "ef-proportion-scale",
+      "version": 1,
+      "knowledge": {
+        "id": "ratios-proportions",
+        "version": 1
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "ratios-proportions",
+            "version": 1
+          },
+          "objectiveIndices": [
+            1
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-ratios-proportions-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "A recipe uses {{known}} measures per batch and a larger preparation uses {{result}} measures. Find the proportional number of batches.",
+      "explanationTemplate": "Solve known measures per batch times x batches equals total. The nonzero known amount gives a scale factor of {{answer}} batches.",
+      "engine": {
+        "family": "missing_operand",
+        "operation": "multiply",
+        "unknownSide": "right",
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "known",
+          "values": [
+            "2",
+            "3",
+            "4",
+            "6"
+          ]
+        },
+        {
+          "name": "result",
+          "values": [
+            "12",
+            "24",
+            "36",
+            "48"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    },
+    {
+      "id": "ef-percent-rate",
+      "version": 1,
+      "knowledge": {
+        "id": "percentages",
+        "version": 2
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "percentages",
+            "version": 2
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-percentages-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "percentage",
+      "promptTemplate": "A part is {{left}} and the stated whole is {{right}} in the same unit. Express the part-to-whole ratio as a percentage using the % sign.",
+      "explanationTemplate": "Divide part by whole to get the exact ratio {{answer}}. Multiply that ratio by 100 and append %; the named whole is required.",
+      "engine": {
+        "family": "rational_arithmetic",
+        "operation": "divide",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "10",
+            "20",
+            "25",
+            "50"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result",
+        "nonzero_divisor"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    },
+    {
+      "id": "ef-percent-part",
+      "version": 1,
+      "knowledge": {
+        "id": "percentages",
+        "version": 2
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "percentages",
+            "version": 2
+          },
+          "objectiveIndices": [
+            1
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-percentages-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "A stated whole is {{left}} units. Its percentage rate is the exact ratio {{right}} of that whole (100 times this ratio percent). Find the part in units.",
+      "explanationTemplate": "Multiply the named whole by the fractional percentage ratio. The part is {{answer}} units; keeping the same whole makes the interpretation valid.",
+      "engine": {
+        "family": "rational_arithmetic",
+        "operation": "multiply",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "20",
+            "40",
+            "60",
+            "80"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "1/10",
+            "1/5",
+            "1/4",
+            "1/2"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    }
+  ],
+  "fixedQuestions": [
+    {
+      "id": "ef-ratios-proportions-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "3 identical notebooks cost 12 currency units at a constant rate. What is the cost per notebook?",
+        "explanation": "Divide cost by the nonzero notebook count; the unit rate is 4 currency units per notebook.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "6"
+          },
+          {
+            "id": "d",
+            "text": "7"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "4 identical notebooks cost 20 currency units at a constant rate. What is the cost per notebook?",
+        "explanation": "Divide cost by the nonzero notebook count; the unit rate is 5 currency units per notebook.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6"
+          },
+          {
+            "id": "b",
+            "text": "5"
+          },
+          {
+            "id": "c",
+            "text": "7"
+          },
+          {
+            "id": "d",
+            "text": "8"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "5 identical notebooks cost 30 currency units at a constant rate. What is the cost per notebook?",
+        "explanation": "Divide cost by the nonzero notebook count; the unit rate is 6 currency units per notebook.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7"
+          },
+          {
+            "id": "b",
+            "text": "8"
+          },
+          {
+            "id": "c",
+            "text": "6"
+          },
+          {
+            "id": "d",
+            "text": "9"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "6 identical notebooks cost 42 currency units at a constant rate. What is the cost per notebook?",
+        "explanation": "Divide cost by the nonzero notebook count; the unit rate is 7 currency units per notebook.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "9"
+          },
+          {
+            "id": "c",
+            "text": "10"
+          },
+          {
+            "id": "d",
+            "text": "7"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "7 identical notebooks cost 56 currency units at a constant rate. What is the cost per notebook?",
+        "explanation": "Divide cost by the nonzero notebook count; the unit rate is 8 currency units per notebook.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "8"
+          },
+          {
+            "id": "b",
+            "text": "9"
+          },
+          {
+            "id": "c",
+            "text": "10"
+          },
+          {
+            "id": "d",
+            "text": "11"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A proportional recipe uses 2 measures for one batch. How many measures for three batches, and which scaling is valid?",
+        "explanation": "A directly proportional model uses the same scale factor for every quantity. Check the units and absence of a fixed offset.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6; add 3 to every quantity"
+          },
+          {
+            "id": "b",
+            "text": "6; multiply every quantity by 3"
+          },
+          {
+            "id": "c",
+            "text": "7; multiply every quantity by 3"
+          },
+          {
+            "id": "d",
+            "text": "5; multiply every quantity by 3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A proportional recipe uses 3 measures for one batch. How many measures for three batches, and which scaling is valid?",
+        "explanation": "A directly proportional model uses the same scale factor for every quantity. Check the units and absence of a fixed offset.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "9; add 3 to every quantity"
+          },
+          {
+            "id": "b",
+            "text": "10; multiply every quantity by 3"
+          },
+          {
+            "id": "c",
+            "text": "9; multiply every quantity by 3"
+          },
+          {
+            "id": "d",
+            "text": "6; multiply every quantity by 3"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A proportional recipe uses 4 measures for one batch. How many measures for three batches, and which scaling is valid?",
+        "explanation": "A directly proportional model uses the same scale factor for every quantity. Check the units and absence of a fixed offset.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "12; add 3 to every quantity"
+          },
+          {
+            "id": "b",
+            "text": "13; multiply every quantity by 3"
+          },
+          {
+            "id": "c",
+            "text": "7; multiply every quantity by 3"
+          },
+          {
+            "id": "d",
+            "text": "12; multiply every quantity by 3"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A proportional recipe uses 5 measures for one batch. How many measures for three batches, and which scaling is valid?",
+        "explanation": "A directly proportional model uses the same scale factor for every quantity. Check the units and absence of a fixed offset.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "15; multiply every quantity by 3"
+          },
+          {
+            "id": "b",
+            "text": "15; add 3 to every quantity"
+          },
+          {
+            "id": "c",
+            "text": "16; multiply every quantity by 3"
+          },
+          {
+            "id": "d",
+            "text": "8; multiply every quantity by 3"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A proportional recipe uses 6 measures for one batch. How many measures for three batches, and which scaling is valid?",
+        "explanation": "A directly proportional model uses the same scale factor for every quantity. Check the units and absence of a fixed offset.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "18; add 3 to every quantity"
+          },
+          {
+            "id": "b",
+            "text": "18; multiply every quantity by 3"
+          },
+          {
+            "id": "c",
+            "text": "19; multiply every quantity by 3"
+          },
+          {
+            "id": "d",
+            "text": "9; multiply every quantity by 3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "3 notebooks cost 12. At the same proportional rate, give cost per notebook and cost for 4 notebooks.",
+        "explanation": "The cost/count ratio is constant. Divide to find the unit rate, then multiply it by the new notebook count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5; 16"
+          },
+          {
+            "id": "b",
+            "text": "4; 17"
+          },
+          {
+            "id": "c",
+            "text": "4; 16"
+          },
+          {
+            "id": "d",
+            "text": "4; 13"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "4 notebooks cost 20. At the same proportional rate, give cost per notebook and cost for 5 notebooks.",
+        "explanation": "The cost/count ratio is constant. Divide to find the unit rate, then multiply it by the new notebook count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6; 25"
+          },
+          {
+            "id": "b",
+            "text": "5; 26"
+          },
+          {
+            "id": "c",
+            "text": "5; 21"
+          },
+          {
+            "id": "d",
+            "text": "5; 25"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "5 notebooks cost 30. At the same proportional rate, give cost per notebook and cost for 6 notebooks.",
+        "explanation": "The cost/count ratio is constant. Divide to find the unit rate, then multiply it by the new notebook count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "6; 36"
+          },
+          {
+            "id": "b",
+            "text": "7; 36"
+          },
+          {
+            "id": "c",
+            "text": "6; 37"
+          },
+          {
+            "id": "d",
+            "text": "6; 31"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "6 notebooks cost 42. At the same proportional rate, give cost per notebook and cost for 7 notebooks.",
+        "explanation": "The cost/count ratio is constant. Divide to find the unit rate, then multiply it by the new notebook count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "8; 49"
+          },
+          {
+            "id": "b",
+            "text": "7; 49"
+          },
+          {
+            "id": "c",
+            "text": "7; 50"
+          },
+          {
+            "id": "d",
+            "text": "7; 43"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-ratios-proportions-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "ratios-proportions",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "ratios-proportions",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-ratios-proportions-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "7 notebooks cost 56. At the same proportional rate, give cost per notebook and cost for 8 notebooks.",
+        "explanation": "The cost/count ratio is constant. Divide to find the unit rate, then multiply it by the new notebook count.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "9; 64"
+          },
+          {
+            "id": "b",
+            "text": "8; 65"
+          },
+          {
+            "id": "c",
+            "text": "8; 64"
+          },
+          {
+            "id": "d",
+            "text": "8; 57"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part of 3 is measured against a stated whole of 10. What percentage is it?",
+        "explanation": "The part/whole ratio is 3/10. Multiply this ratio by 100 to express it as 30 percent.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3%"
+          },
+          {
+            "id": "b",
+            "text": "30%"
+          },
+          {
+            "id": "c",
+            "text": "300%"
+          },
+          {
+            "id": "d",
+            "text": "70%"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part of 6 is measured against a stated whole of 20. What percentage is it?",
+        "explanation": "The part/whole ratio is 3/10. Multiply this ratio by 100 to express it as 30 percent.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3%"
+          },
+          {
+            "id": "b",
+            "text": "300%"
+          },
+          {
+            "id": "c",
+            "text": "30%"
+          },
+          {
+            "id": "d",
+            "text": "70%"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part of 9 is measured against a stated whole of 30. What percentage is it?",
+        "explanation": "The part/whole ratio is 3/10. Multiply this ratio by 100 to express it as 30 percent.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3%"
+          },
+          {
+            "id": "b",
+            "text": "300%"
+          },
+          {
+            "id": "c",
+            "text": "70%"
+          },
+          {
+            "id": "d",
+            "text": "30%"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part of 12 is measured against a stated whole of 40. What percentage is it?",
+        "explanation": "The part/whole ratio is 3/10. Multiply this ratio by 100 to express it as 30 percent.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "30%"
+          },
+          {
+            "id": "b",
+            "text": "3%"
+          },
+          {
+            "id": "c",
+            "text": "300%"
+          },
+          {
+            "id": "d",
+            "text": "70%"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part of 15 is measured against a stated whole of 50. What percentage is it?",
+        "explanation": "The part/whole ratio is 3/10. Multiply this ratio by 100 to express it as 30 percent.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3%"
+          },
+          {
+            "id": "b",
+            "text": "30%"
+          },
+          {
+            "id": "c",
+            "text": "300%"
+          },
+          {
+            "id": "d",
+            "text": "70%"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is 25 percent of a stated whole of 60?",
+        "explanation": "25 percent is the ratio 1/4. Multiply the stated whole by 1/4 to obtain its part.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "16"
+          },
+          {
+            "id": "b",
+            "text": "17"
+          },
+          {
+            "id": "c",
+            "text": "15"
+          },
+          {
+            "id": "d",
+            "text": "18"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is 25 percent of a stated whole of 120?",
+        "explanation": "25 percent is the ratio 1/4. Multiply the stated whole by 1/4 to obtain its part.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "31"
+          },
+          {
+            "id": "b",
+            "text": "32"
+          },
+          {
+            "id": "c",
+            "text": "33"
+          },
+          {
+            "id": "d",
+            "text": "30"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is 25 percent of a stated whole of 180?",
+        "explanation": "25 percent is the ratio 1/4. Multiply the stated whole by 1/4 to obtain its part.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "45"
+          },
+          {
+            "id": "b",
+            "text": "46"
+          },
+          {
+            "id": "c",
+            "text": "47"
+          },
+          {
+            "id": "d",
+            "text": "48"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is 25 percent of a stated whole of 240?",
+        "explanation": "25 percent is the ratio 1/4. Multiply the stated whole by 1/4 to obtain its part.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "61"
+          },
+          {
+            "id": "b",
+            "text": "60"
+          },
+          {
+            "id": "c",
+            "text": "62"
+          },
+          {
+            "id": "d",
+            "text": "63"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is 25 percent of a stated whole of 300?",
+        "explanation": "25 percent is the ratio 1/4. Multiply the stated whole by 1/4 to obtain its part.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "76"
+          },
+          {
+            "id": "b",
+            "text": "77"
+          },
+          {
+            "id": "c",
+            "text": "75"
+          },
+          {
+            "id": "d",
+            "text": "78"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part is 5, with stated whole 20. Give its percentage and recover the part from that percentage.",
+        "explanation": "Divide part by its named whole to get 1/4, or 25 percent. Multiplying that whole by 1/4 recovers the exact part; changing the whole would change the percentage.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "50%; 5"
+          },
+          {
+            "id": "b",
+            "text": "25%; 6"
+          },
+          {
+            "id": "c",
+            "text": "5%; 1"
+          },
+          {
+            "id": "d",
+            "text": "25%; 5"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part is 10, with stated whole 40. Give its percentage and recover the part from that percentage.",
+        "explanation": "Divide part by its named whole to get 1/4, or 25 percent. Multiplying that whole by 1/4 recovers the exact part; changing the whole would change the percentage.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "25%; 10"
+          },
+          {
+            "id": "b",
+            "text": "50%; 10"
+          },
+          {
+            "id": "c",
+            "text": "25%; 11"
+          },
+          {
+            "id": "d",
+            "text": "5%; 2"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part is 15, with stated whole 60. Give its percentage and recover the part from that percentage.",
+        "explanation": "Divide part by its named whole to get 1/4, or 25 percent. Multiplying that whole by 1/4 recovers the exact part; changing the whole would change the percentage.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "50%; 15"
+          },
+          {
+            "id": "b",
+            "text": "25%; 15"
+          },
+          {
+            "id": "c",
+            "text": "25%; 16"
+          },
+          {
+            "id": "d",
+            "text": "5%; 3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part is 20, with stated whole 80. Give its percentage and recover the part from that percentage.",
+        "explanation": "Divide part by its named whole to get 1/4, or 25 percent. Multiplying that whole by 1/4 recovers the exact part; changing the whole would change the percentage.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "50%; 20"
+          },
+          {
+            "id": "b",
+            "text": "25%; 21"
+          },
+          {
+            "id": "c",
+            "text": "25%; 20"
+          },
+          {
+            "id": "d",
+            "text": "5%; 4"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-percentages-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "percentages",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "percentages",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-percentages-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A part is 25, with stated whole 100. Give its percentage and recover the part from that percentage.",
+        "explanation": "Divide part by its named whole to get 1/4, or 25 percent. Multiplying that whole by 1/4 recovers the exact part; changing the whole would change the percentage.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "50%; 25"
+          },
+          {
+            "id": "b",
+            "text": "25%; 26"
+          },
+          {
+            "id": "c",
+            "text": "5%; 5"
+          },
+          {
+            "id": "d",
+            "text": "25%; 25"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    }
+  ],
+  "blueprints": [
+    {
+      "id": "ef-ratios-proportions-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "ratios-proportions",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-ratios-proportions-fixed-15",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-ratio-unit-rate",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-proportion-scale",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-percentages-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "percentages",
+        "version": 2
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-percentages-fixed-15",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-percent-rate",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-percent-part",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    }
+  ]
+}

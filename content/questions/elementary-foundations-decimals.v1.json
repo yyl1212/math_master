@@ -1,0 +1,4681 @@
+{
+  "kind": "question-bank",
+  "schemaVersion": 1,
+  "id": "elementary-foundations-decimals",
+  "version": 1,
+  "templates": [
+    {
+      "id": "ef-fraction-scale",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-multiplication",
+        "version": 1
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "fraction-multiplication",
+            "version": 1
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-fraction-multiplication-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "Scale {{left}} litres by the fractional factor {{right}}. Find the resulting amount in litres.",
+      "explanationTemplate": "A fraction of an amount is a multiplicative scale. Multiply the ratios to get {{answer}} litres; compare the factor with one to check the direction of scaling.",
+      "engine": {
+        "family": "rational_arithmetic",
+        "operation": "multiply",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "1/3",
+            "2/3",
+            "4/3",
+            "5/3"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "1/5",
+            "2/5",
+            "3/5",
+            "4/5"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    },
+    {
+      "id": "ef-fraction-area",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-multiplication",
+        "version": 1
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "fraction-multiplication",
+            "version": 1
+          },
+          "objectiveIndices": [
+            1
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-fraction-multiplication-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "A rectangle has sides {{left}} units and {{right}} units. Find the fractional area in square units.",
+      "explanationTemplate": "Multiply the two fractional lengths. The rectangular area is {{answer}} square units; both dimensions contribute to the squared unit.",
+      "engine": {
+        "family": "rational_arithmetic",
+        "operation": "multiply",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "1/3",
+            "2/3",
+            "4/3",
+            "5/3"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "1/5",
+            "2/5",
+            "3/5",
+            "4/5"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    },
+    {
+      "id": "ef-fraction-measuring",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-division",
+        "version": 1
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "fraction-division",
+            "version": 1
+          },
+          "objectiveIndices": [
+            0
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-fraction-division-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "Using scoops of {{right}} litres, how many scoop-sized amounts equal {{left}} litres?",
+      "explanationTemplate": "Solve scoop-size times scoop-count equals total. The positive group size gives {{answer}} scoops; multiplying back checks the total.",
+      "engine": {
+        "family": "rational_arithmetic",
+        "operation": "divide",
+        "unknownSide": null,
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "left",
+          "values": [
+            "1/2",
+            "3/4",
+            "5/4",
+            "3/2"
+          ]
+        },
+        {
+          "name": "right",
+          "values": [
+            "1/4",
+            "1/3",
+            "1/2",
+            "2/3"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result",
+        "nonzero_divisor"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    },
+    {
+      "id": "ef-fraction-missing-factor",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-division",
+        "version": 1
+      },
+      "coverage": [
+        {
+          "knowledge": {
+            "id": "fraction-division",
+            "version": 1
+          },
+          "objectiveIndices": [
+            1
+          ]
+        }
+      ],
+      "units": [
+        {
+          "id": "ef-fraction-division-unit",
+          "version": 1
+        }
+      ],
+      "type": "numeric",
+      "answerFormat": "rational",
+      "promptTemplate": "An unknown amount x scaled by the nonzero fraction {{known}} equals {{result}} units. Find x in units.",
+      "explanationTemplate": "Divide the product by the known nonzero factor to obtain x={{answer}} units, then substitute into the original product.",
+      "engine": {
+        "family": "missing_operand",
+        "operation": "multiply",
+        "unknownSide": "right",
+        "generatorVersion": 1,
+        "verifierVersion": 1
+      },
+      "parameters": [
+        {
+          "name": "known",
+          "values": [
+            "1/4",
+            "1/3",
+            "1/2",
+            "2/3"
+          ]
+        },
+        {
+          "name": "result",
+          "values": [
+            "1/2",
+            "3/4",
+            "5/4",
+            "3/2"
+          ]
+        }
+      ],
+      "constraints": [
+        "nonnegative_result"
+      ],
+      "distractors": [],
+      "assets": [],
+      "sources": [
+        {
+          "kind": "original",
+          "author": "Math Master project",
+          "title": "Elementary foundations: original learning materials",
+          "url": "",
+          "accessedAt": "",
+          "license": "CC0-1.0",
+          "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+        }
+      ]
+    }
+  ],
+  "fixedQuestions": [
+    {
+      "id": "ef-fraction-multiplication-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Scale 3/4 units by one half. What quantity results?",
+        "explanation": "A half-scale selects half of the given nonnegative quantity: multiply the scale factor by the amount.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3/8"
+          },
+          {
+            "id": "b",
+            "text": "1/2"
+          },
+          {
+            "id": "c",
+            "text": "5/4"
+          },
+          {
+            "id": "d",
+            "text": "19/8"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Scale 1 units by one half. What quantity results?",
+        "explanation": "A half-scale selects half of the given nonnegative quantity: multiply the scale factor by the amount.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5/8"
+          },
+          {
+            "id": "b",
+            "text": "1/2"
+          },
+          {
+            "id": "c",
+            "text": "3/2"
+          },
+          {
+            "id": "d",
+            "text": "5/2"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Scale 5/4 units by one half. What quantity results?",
+        "explanation": "A half-scale selects half of the given nonnegative quantity: multiply the scale factor by the amount.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3/4"
+          },
+          {
+            "id": "b",
+            "text": "7/4"
+          },
+          {
+            "id": "c",
+            "text": "5/8"
+          },
+          {
+            "id": "d",
+            "text": "21/8"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Scale 3/2 units by one half. What quantity results?",
+        "explanation": "A half-scale selects half of the given nonnegative quantity: multiply the scale factor by the amount.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7/8"
+          },
+          {
+            "id": "b",
+            "text": "2"
+          },
+          {
+            "id": "c",
+            "text": "11/4"
+          },
+          {
+            "id": "d",
+            "text": "3/4"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Scale 7/4 units by one half. What quantity results?",
+        "explanation": "A half-scale selects half of the given nonnegative quantity: multiply the scale factor by the amount.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7/8"
+          },
+          {
+            "id": "b",
+            "text": "1"
+          },
+          {
+            "id": "c",
+            "text": "9/4"
+          },
+          {
+            "id": "d",
+            "text": "23/8"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A rectangle is 3/4 units wide and 1/2 unit high. What is its area?",
+        "explanation": "Multiply both fractional side lengths; the result is area, so its unit is squared.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5/4 square units"
+          },
+          {
+            "id": "b",
+            "text": "3/8 square units"
+          },
+          {
+            "id": "c",
+            "text": "3/8 length units"
+          },
+          {
+            "id": "d",
+            "text": "1/2 square units"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A rectangle is 1 units wide and 1/2 unit high. What is its area?",
+        "explanation": "Multiply both fractional side lengths; the result is area, so its unit is squared.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3/2 square units"
+          },
+          {
+            "id": "b",
+            "text": "1/2 length units"
+          },
+          {
+            "id": "c",
+            "text": "1/2 square units"
+          },
+          {
+            "id": "d",
+            "text": "5/8 square units"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A rectangle is 5/4 units wide and 1/2 unit high. What is its area?",
+        "explanation": "Multiply both fractional side lengths; the result is area, so its unit is squared.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7/4 square units"
+          },
+          {
+            "id": "b",
+            "text": "5/8 length units"
+          },
+          {
+            "id": "c",
+            "text": "3/4 square units"
+          },
+          {
+            "id": "d",
+            "text": "5/8 square units"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A rectangle is 3/2 units wide and 1/2 unit high. What is its area?",
+        "explanation": "Multiply both fractional side lengths; the result is area, so its unit is squared.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3/4 square units"
+          },
+          {
+            "id": "b",
+            "text": "2 square units"
+          },
+          {
+            "id": "c",
+            "text": "3/4 length units"
+          },
+          {
+            "id": "d",
+            "text": "7/8 square units"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "A rectangle is 7/4 units wide and 1/2 unit high. What is its area?",
+        "explanation": "Multiply both fractional side lengths; the result is area, so its unit is squared.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "9/4 square units"
+          },
+          {
+            "id": "b",
+            "text": "7/8 square units"
+          },
+          {
+            "id": "c",
+            "text": "7/8 length units"
+          },
+          {
+            "id": "d",
+            "text": "1 square units"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half of 3/4 and the area of an 3/4-by-1/2 rectangle are compared.",
+        "explanation": "The product has the same numerical ratio but different meanings: scaling preserves the amount unit while two lengths produce square units.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1/2 units; 3/8 square units"
+          },
+          {
+            "id": "b",
+            "text": "3/8 units; 3/8 length units"
+          },
+          {
+            "id": "c",
+            "text": "3/8 units; 3/8 square units"
+          },
+          {
+            "id": "d",
+            "text": "5/4 units; 5/4 square units"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half of 1 and the area of an 1-by-1/2 rectangle are compared.",
+        "explanation": "The product has the same numerical ratio but different meanings: scaling preserves the amount unit while two lengths produce square units.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5/8 units; 1/2 square units"
+          },
+          {
+            "id": "b",
+            "text": "1/2 units; 1/2 length units"
+          },
+          {
+            "id": "c",
+            "text": "3/2 units; 3/2 square units"
+          },
+          {
+            "id": "d",
+            "text": "1/2 units; 1/2 square units"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half of 5/4 and the area of an 5/4-by-1/2 rectangle are compared.",
+        "explanation": "The product has the same numerical ratio but different meanings: scaling preserves the amount unit while two lengths produce square units.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5/8 units; 5/8 square units"
+          },
+          {
+            "id": "b",
+            "text": "3/4 units; 5/8 square units"
+          },
+          {
+            "id": "c",
+            "text": "5/8 units; 5/8 length units"
+          },
+          {
+            "id": "d",
+            "text": "7/4 units; 7/4 square units"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half of 3/2 and the area of an 3/2-by-1/2 rectangle are compared.",
+        "explanation": "The product has the same numerical ratio but different meanings: scaling preserves the amount unit while two lengths produce square units.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7/8 units; 3/4 square units"
+          },
+          {
+            "id": "b",
+            "text": "3/4 units; 3/4 square units"
+          },
+          {
+            "id": "c",
+            "text": "3/4 units; 3/4 length units"
+          },
+          {
+            "id": "d",
+            "text": "2 units; 2 square units"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-multiplication-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-multiplication",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-multiplication",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-multiplication-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Half of 7/4 and the area of an 7/4-by-1/2 rectangle are compared.",
+        "explanation": "The product has the same numerical ratio but different meanings: scaling preserves the amount unit while two lengths produce square units.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1 units; 7/8 square units"
+          },
+          {
+            "id": "b",
+            "text": "7/8 units; 7/8 length units"
+          },
+          {
+            "id": "c",
+            "text": "7/8 units; 7/8 square units"
+          },
+          {
+            "id": "d",
+            "text": "9/4 units; 9/4 square units"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "How many half-unit groups fit in 3/4 units?",
+        "explanation": "Solve (1/2)*x=3/4. Multiplying the total by 2 gives the number of half-unit groups, 3/2.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "2"
+          },
+          {
+            "id": "b",
+            "text": "3/2"
+          },
+          {
+            "id": "c",
+            "text": "3/8"
+          },
+          {
+            "id": "d",
+            "text": "5/2"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "How many half-unit groups fit in 1 units?",
+        "explanation": "Solve (1/2)*x=1. Multiplying the total by 2 gives the number of half-unit groups, 2.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5/2"
+          },
+          {
+            "id": "b",
+            "text": "1/2"
+          },
+          {
+            "id": "c",
+            "text": "2"
+          },
+          {
+            "id": "d",
+            "text": "3"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "How many half-unit groups fit in 5/4 units?",
+        "explanation": "Solve (1/2)*x=5/4. Multiplying the total by 2 gives the number of half-unit groups, 5/2.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3"
+          },
+          {
+            "id": "b",
+            "text": "5/8"
+          },
+          {
+            "id": "c",
+            "text": "7/2"
+          },
+          {
+            "id": "d",
+            "text": "5/2"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "How many half-unit groups fit in 3/2 units?",
+        "explanation": "Solve (1/2)*x=3/2. Multiplying the total by 2 gives the number of half-unit groups, 3.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3"
+          },
+          {
+            "id": "b",
+            "text": "7/2"
+          },
+          {
+            "id": "c",
+            "text": "3/4"
+          },
+          {
+            "id": "d",
+            "text": "4"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "How many half-unit groups fit in 7/4 units?",
+        "explanation": "Solve (1/2)*x=7/4. Multiplying the total by 2 gives the number of half-unit groups, 7/2.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4"
+          },
+          {
+            "id": "b",
+            "text": "7/2"
+          },
+          {
+            "id": "c",
+            "text": "7/8"
+          },
+          {
+            "id": "d",
+            "text": "9/2"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Solve (1/2)*x=3/4. What value and divisor condition are correct?",
+        "explanation": "Divide the product by the known positive factor. The known factor must be nonzero for the missing factor to be uniquely recovered.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3/2; a zero known factor would always work"
+          },
+          {
+            "id": "b",
+            "text": "3/8; the known factor is nonzero"
+          },
+          {
+            "id": "c",
+            "text": "3/2; the known factor is nonzero"
+          },
+          {
+            "id": "d",
+            "text": "5/2; the known factor is nonzero"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Solve (1/2)*x=1. What value and divisor condition are correct?",
+        "explanation": "Divide the product by the known positive factor. The known factor must be nonzero for the missing factor to be uniquely recovered.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "2; a zero known factor would always work"
+          },
+          {
+            "id": "b",
+            "text": "1/2; the known factor is nonzero"
+          },
+          {
+            "id": "c",
+            "text": "3; the known factor is nonzero"
+          },
+          {
+            "id": "d",
+            "text": "2; the known factor is nonzero"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Solve (1/2)*x=5/4. What value and divisor condition are correct?",
+        "explanation": "Divide the product by the known positive factor. The known factor must be nonzero for the missing factor to be uniquely recovered.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5/2; the known factor is nonzero"
+          },
+          {
+            "id": "b",
+            "text": "5/2; a zero known factor would always work"
+          },
+          {
+            "id": "c",
+            "text": "5/8; the known factor is nonzero"
+          },
+          {
+            "id": "d",
+            "text": "7/2; the known factor is nonzero"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Solve (1/2)*x=3/2. What value and divisor condition are correct?",
+        "explanation": "Divide the product by the known positive factor. The known factor must be nonzero for the missing factor to be uniquely recovered.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3; a zero known factor would always work"
+          },
+          {
+            "id": "b",
+            "text": "3; the known factor is nonzero"
+          },
+          {
+            "id": "c",
+            "text": "3/4; the known factor is nonzero"
+          },
+          {
+            "id": "d",
+            "text": "4; the known factor is nonzero"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Solve (1/2)*x=7/4. What value and divisor condition are correct?",
+        "explanation": "Divide the product by the known positive factor. The known factor must be nonzero for the missing factor to be uniquely recovered.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "7/2; a zero known factor would always work"
+          },
+          {
+            "id": "b",
+            "text": "7/8; the known factor is nonzero"
+          },
+          {
+            "id": "c",
+            "text": "7/2; the known factor is nonzero"
+          },
+          {
+            "id": "d",
+            "text": "9/2; the known factor is nonzero"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Measure 3/4 units in half-unit groups, and solve (1/2)*x=3/4.",
+        "explanation": "Both models solve the same missing-product relation. The quotient 3/2 is checked by multiplying it by 1/2 to recover 3/4.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "x=3/8; multiply back by the nonzero group size"
+          },
+          {
+            "id": "b",
+            "text": "x=3/2; invert the total instead of the group size"
+          },
+          {
+            "id": "c",
+            "text": "x=5/2; multiply back by the nonzero group size"
+          },
+          {
+            "id": "d",
+            "text": "x=3/2; multiply back by the nonzero group size"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Measure 1 units in half-unit groups, and solve (1/2)*x=1.",
+        "explanation": "Both models solve the same missing-product relation. The quotient 2 is checked by multiplying it by 1/2 to recover 1.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "x=2; multiply back by the nonzero group size"
+          },
+          {
+            "id": "b",
+            "text": "x=1/2; multiply back by the nonzero group size"
+          },
+          {
+            "id": "c",
+            "text": "x=2; invert the total instead of the group size"
+          },
+          {
+            "id": "d",
+            "text": "x=3; multiply back by the nonzero group size"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Measure 5/4 units in half-unit groups, and solve (1/2)*x=5/4.",
+        "explanation": "Both models solve the same missing-product relation. The quotient 5/2 is checked by multiplying it by 1/2 to recover 5/4.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "x=5/8; multiply back by the nonzero group size"
+          },
+          {
+            "id": "b",
+            "text": "x=5/2; multiply back by the nonzero group size"
+          },
+          {
+            "id": "c",
+            "text": "x=5/2; invert the total instead of the group size"
+          },
+          {
+            "id": "d",
+            "text": "x=7/2; multiply back by the nonzero group size"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Measure 3/2 units in half-unit groups, and solve (1/2)*x=3/2.",
+        "explanation": "Both models solve the same missing-product relation. The quotient 3 is checked by multiplying it by 1/2 to recover 3/2.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "x=3/4; multiply back by the nonzero group size"
+          },
+          {
+            "id": "b",
+            "text": "x=3; invert the total instead of the group size"
+          },
+          {
+            "id": "c",
+            "text": "x=3; multiply back by the nonzero group size"
+          },
+          {
+            "id": "d",
+            "text": "x=4; multiply back by the nonzero group size"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-fraction-division-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "fraction-division",
+          "version": 1
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "fraction-division",
+              "version": 1
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-fraction-division-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Measure 7/4 units in half-unit groups, and solve (1/2)*x=7/4.",
+        "explanation": "Both models solve the same missing-product relation. The quotient 7/2 is checked by multiplying it by 1/2 to recover 7/4.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "x=7/8; multiply back by the nonzero group size"
+          },
+          {
+            "id": "b",
+            "text": "x=7/2; invert the total instead of the group size"
+          },
+          {
+            "id": "c",
+            "text": "x=9/2; multiply back by the nonzero group size"
+          },
+          {
+            "id": "d",
+            "text": "x=7/2; multiply back by the nonzero group size"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the place value of the digit 1 in 0.105?",
+        "explanation": "The first digit right of the decimal point is in the tenths place, independent of later digits.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1 hundredths"
+          },
+          {
+            "id": "b",
+            "text": "1 thousandths"
+          },
+          {
+            "id": "c",
+            "text": "1 tenths"
+          },
+          {
+            "id": "d",
+            "text": "1 units"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the place value of the digit 2 in 0.205?",
+        "explanation": "The first digit right of the decimal point is in the tenths place, independent of later digits.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "2 hundredths"
+          },
+          {
+            "id": "b",
+            "text": "2 thousandths"
+          },
+          {
+            "id": "c",
+            "text": "2 units"
+          },
+          {
+            "id": "d",
+            "text": "2 tenths"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the place value of the digit 3 in 0.305?",
+        "explanation": "The first digit right of the decimal point is in the tenths place, independent of later digits.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3 tenths"
+          },
+          {
+            "id": "b",
+            "text": "3 hundredths"
+          },
+          {
+            "id": "c",
+            "text": "3 thousandths"
+          },
+          {
+            "id": "d",
+            "text": "3 units"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the place value of the digit 4 in 0.405?",
+        "explanation": "The first digit right of the decimal point is in the tenths place, independent of later digits.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4 hundredths"
+          },
+          {
+            "id": "b",
+            "text": "4 tenths"
+          },
+          {
+            "id": "c",
+            "text": "4 thousandths"
+          },
+          {
+            "id": "d",
+            "text": "4 units"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "What is the place value of the digit 5 in 0.505?",
+        "explanation": "The first digit right of the decimal point is in the tenths place, independent of later digits.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5 hundredths"
+          },
+          {
+            "id": "b",
+            "text": "5 thousandths"
+          },
+          {
+            "id": "c",
+            "text": "5 tenths"
+          },
+          {
+            "id": "d",
+            "text": "5 units"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 1.50 and 1.5.",
+        "explanation": "The added trailing zero is in the hundredths place and has value zero; the other place values stay fixed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "different; more digits always means greater"
+          },
+          {
+            "id": "b",
+            "text": "equal; zeros may be deleted from any place"
+          },
+          {
+            "id": "c",
+            "text": "different; the 5 moves to hundredths"
+          },
+          {
+            "id": "d",
+            "text": "equal; the added zero contributes zero hundredths"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 2.50 and 2.5.",
+        "explanation": "The added trailing zero is in the hundredths place and has value zero; the other place values stay fixed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "equal; the added zero contributes zero hundredths"
+          },
+          {
+            "id": "b",
+            "text": "different; more digits always means greater"
+          },
+          {
+            "id": "c",
+            "text": "equal; zeros may be deleted from any place"
+          },
+          {
+            "id": "d",
+            "text": "different; the 5 moves to hundredths"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 3.50 and 3.5.",
+        "explanation": "The added trailing zero is in the hundredths place and has value zero; the other place values stay fixed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "different; more digits always means greater"
+          },
+          {
+            "id": "b",
+            "text": "equal; the added zero contributes zero hundredths"
+          },
+          {
+            "id": "c",
+            "text": "equal; zeros may be deleted from any place"
+          },
+          {
+            "id": "d",
+            "text": "different; the 5 moves to hundredths"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 4.50 and 4.5.",
+        "explanation": "The added trailing zero is in the hundredths place and has value zero; the other place values stay fixed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "different; more digits always means greater"
+          },
+          {
+            "id": "b",
+            "text": "equal; zeros may be deleted from any place"
+          },
+          {
+            "id": "c",
+            "text": "equal; the added zero contributes zero hundredths"
+          },
+          {
+            "id": "d",
+            "text": "different; the 5 moves to hundredths"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Compare 5.50 and 5.5.",
+        "explanation": "The added trailing zero is in the hundredths place and has value zero; the other place values stay fixed.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "different; more digits always means greater"
+          },
+          {
+            "id": "b",
+            "text": "equal; zeros may be deleted from any place"
+          },
+          {
+            "id": "c",
+            "text": "different; the 5 moves to hundredths"
+          },
+          {
+            "id": "d",
+            "text": "equal; the added zero contributes zero hundredths"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Evaluate 1.50 and explain why 1.5 has the same value.",
+        "explanation": "Both expansions give 1 units and five tenths. The trailing zero contributes zero hundredths without shifting any digit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "1+5/10; zero hundredths changes nothing"
+          },
+          {
+            "id": "b",
+            "text": "1+5/100; zero hundredths changes nothing"
+          },
+          {
+            "id": "c",
+            "text": "1+5/10; delete any zero without changing value"
+          },
+          {
+            "id": "d",
+            "text": "1+50; zeros never have a place"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Evaluate 2.50 and explain why 2.5 has the same value.",
+        "explanation": "Both expansions give 2 units and five tenths. The trailing zero contributes zero hundredths without shifting any digit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "2+5/100; zero hundredths changes nothing"
+          },
+          {
+            "id": "b",
+            "text": "2+5/10; zero hundredths changes nothing"
+          },
+          {
+            "id": "c",
+            "text": "2+5/10; delete any zero without changing value"
+          },
+          {
+            "id": "d",
+            "text": "2+50; zeros never have a place"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Evaluate 3.50 and explain why 3.5 has the same value.",
+        "explanation": "Both expansions give 3 units and five tenths. The trailing zero contributes zero hundredths without shifting any digit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3+5/100; zero hundredths changes nothing"
+          },
+          {
+            "id": "b",
+            "text": "3+5/10; delete any zero without changing value"
+          },
+          {
+            "id": "c",
+            "text": "3+5/10; zero hundredths changes nothing"
+          },
+          {
+            "id": "d",
+            "text": "3+50; zeros never have a place"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Evaluate 4.50 and explain why 4.5 has the same value.",
+        "explanation": "Both expansions give 4 units and five tenths. The trailing zero contributes zero hundredths without shifting any digit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "4+5/100; zero hundredths changes nothing"
+          },
+          {
+            "id": "b",
+            "text": "4+5/10; delete any zero without changing value"
+          },
+          {
+            "id": "c",
+            "text": "4+50; zeros never have a place"
+          },
+          {
+            "id": "d",
+            "text": "4+5/10; zero hundredths changes nothing"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-place-value-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-place-value",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-place-value",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-place-value-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Evaluate 5.50 and explain why 5.5 has the same value.",
+        "explanation": "Both expansions give 5 units and five tenths. The trailing zero contributes zero hundredths without shifting any digit.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5+5/10; zero hundredths changes nothing"
+          },
+          {
+            "id": "b",
+            "text": "5+5/100; zero hundredths changes nothing"
+          },
+          {
+            "id": "c",
+            "text": "5+5/10; delete any zero without changing value"
+          },
+          {
+            "id": "d",
+            "text": "5+50; zeros never have a place"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-01",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert the finite decimal 0.25 to an exact fraction.",
+        "explanation": "Write the two decimal places as an integer over 100, then reduce by common positive factors.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "13/50"
+          },
+          {
+            "id": "b",
+            "text": "27/100"
+          },
+          {
+            "id": "c",
+            "text": "7/25"
+          },
+          {
+            "id": "d",
+            "text": "1/4"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-02",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert the finite decimal 0.15 to an exact fraction.",
+        "explanation": "Write the two decimal places as an integer over 100, then reduce by common positive factors.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "3/20"
+          },
+          {
+            "id": "b",
+            "text": "4/25"
+          },
+          {
+            "id": "c",
+            "text": "17/100"
+          },
+          {
+            "id": "d",
+            "text": "9/50"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-03",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert the finite decimal 0.20 to an exact fraction.",
+        "explanation": "Write the two decimal places as an integer over 100, then reduce by common positive factors.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "21/100"
+          },
+          {
+            "id": "b",
+            "text": "1/5"
+          },
+          {
+            "id": "c",
+            "text": "11/50"
+          },
+          {
+            "id": "d",
+            "text": "23/100"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-04",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert the finite decimal 0.25 to an exact fraction.",
+        "explanation": "Write the two decimal places as an integer over 100, then reduce by common positive factors.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "13/50"
+          },
+          {
+            "id": "b",
+            "text": "27/100"
+          },
+          {
+            "id": "c",
+            "text": "1/4"
+          },
+          {
+            "id": "d",
+            "text": "7/25"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-05",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert the finite decimal 0.30 to an exact fraction.",
+        "explanation": "Write the two decimal places as an integer over 100, then reduce by common positive factors.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "31/100"
+          },
+          {
+            "id": "b",
+            "text": "8/25"
+          },
+          {
+            "id": "c",
+            "text": "33/100"
+          },
+          {
+            "id": "d",
+            "text": "3/10"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-06",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Does the reduced fraction 1/3 have a terminating base-ten decimal?",
+        "explanation": "Reduction gives 1/3. Its positive reduced denominator has factor 3, so its decimal repeats rather than terminates.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "no; it reduces to 1/3"
+          },
+          {
+            "id": "b",
+            "text": "yes; every rational terminates"
+          },
+          {
+            "id": "c",
+            "text": "yes; any numerator allows a finite decimal"
+          },
+          {
+            "id": "d",
+            "text": "no; denominator 3 is zero"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-07",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Does the reduced fraction 2/6 have a terminating base-ten decimal?",
+        "explanation": "Reduction gives 1/3. Its positive reduced denominator has factor 3, so its decimal repeats rather than terminates.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "yes; every rational terminates"
+          },
+          {
+            "id": "b",
+            "text": "no; it reduces to 1/3"
+          },
+          {
+            "id": "c",
+            "text": "yes; any numerator allows a finite decimal"
+          },
+          {
+            "id": "d",
+            "text": "no; denominator 3 is zero"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-08",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Does the reduced fraction 3/9 have a terminating base-ten decimal?",
+        "explanation": "Reduction gives 1/3. Its positive reduced denominator has factor 3, so its decimal repeats rather than terminates.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "yes; every rational terminates"
+          },
+          {
+            "id": "b",
+            "text": "yes; any numerator allows a finite decimal"
+          },
+          {
+            "id": "c",
+            "text": "no; it reduces to 1/3"
+          },
+          {
+            "id": "d",
+            "text": "no; denominator 3 is zero"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-09",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Does the reduced fraction 4/12 have a terminating base-ten decimal?",
+        "explanation": "Reduction gives 1/3. Its positive reduced denominator has factor 3, so its decimal repeats rather than terminates.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "yes; every rational terminates"
+          },
+          {
+            "id": "b",
+            "text": "yes; any numerator allows a finite decimal"
+          },
+          {
+            "id": "c",
+            "text": "no; denominator 3 is zero"
+          },
+          {
+            "id": "d",
+            "text": "no; it reduces to 1/3"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-10",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Does the reduced fraction 5/15 have a terminating base-ten decimal?",
+        "explanation": "Reduction gives 1/3. Its positive reduced denominator has factor 3, so its decimal repeats rather than terminates.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "no; it reduces to 1/3"
+          },
+          {
+            "id": "b",
+            "text": "yes; every rational terminates"
+          },
+          {
+            "id": "c",
+            "text": "yes; any numerator allows a finite decimal"
+          },
+          {
+            "id": "d",
+            "text": "no; denominator 3 is zero"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-11",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert 1.25 to a fraction and state why its decimal is finite.",
+        "explanation": "Convert the hundredths exactly and reduce. The reduced denominator is 4, a power of 2, so it divides a power of ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "5/4; all denominators terminate"
+          },
+          {
+            "id": "b",
+            "text": "5/4; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "c",
+            "text": "3/2; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "d",
+            "text": "5/4; denominator contains factor 3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-12",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert 2.25 to a fraction and state why its decimal is finite.",
+        "explanation": "Convert the hundredths exactly and reduce. The reduced denominator is 4, a power of 2, so it divides a power of ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "9/4; all denominators terminate"
+          },
+          {
+            "id": "b",
+            "text": "5/2; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "c",
+            "text": "9/4; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "d",
+            "text": "9/4; denominator contains factor 3"
+          }
+        ],
+        "correctChoiceId": "c",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-13",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert 3.25 to a fraction and state why its decimal is finite.",
+        "explanation": "Convert the hundredths exactly and reduce. The reduced denominator is 4, a power of 2, so it divides a power of ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "13/4; all denominators terminate"
+          },
+          {
+            "id": "b",
+            "text": "7/2; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "c",
+            "text": "13/4; denominator contains factor 3"
+          },
+          {
+            "id": "d",
+            "text": "13/4; reduced denominator contains only factor 2"
+          }
+        ],
+        "correctChoiceId": "d",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-14",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert 4.25 to a fraction and state why its decimal is finite.",
+        "explanation": "Convert the hundredths exactly and reduce. The reduced denominator is 4, a power of 2, so it divides a power of ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "17/4; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "b",
+            "text": "17/4; all denominators terminate"
+          },
+          {
+            "id": "c",
+            "text": "9/2; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "d",
+            "text": "17/4; denominator contains factor 3"
+          }
+        ],
+        "correctChoiceId": "a",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-fixed-15",
+      "version": 1,
+      "body": {
+        "type": "single_choice",
+        "knowledge": {
+          "id": "decimal-fraction-conversion",
+          "version": 2
+        },
+        "coverage": [
+          {
+            "knowledge": {
+              "id": "decimal-fraction-conversion",
+              "version": 2
+            },
+            "objectiveIndices": [
+              0,
+              1
+            ]
+          }
+        ],
+        "units": [
+          {
+            "id": "ef-decimal-fraction-conversion-unit",
+            "version": 1
+          }
+        ],
+        "prompt": "Convert 5.25 to a fraction and state why its decimal is finite.",
+        "explanation": "Convert the hundredths exactly and reduce. The reduced denominator is 4, a power of 2, so it divides a power of ten.",
+        "answerFormat": null,
+        "choices": [
+          {
+            "id": "a",
+            "text": "21/4; all denominators terminate"
+          },
+          {
+            "id": "b",
+            "text": "21/4; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "c",
+            "text": "11/2; reduced denominator contains only factor 2"
+          },
+          {
+            "id": "d",
+            "text": "21/4; denominator contains factor 3"
+          }
+        ],
+        "correctChoiceId": "b",
+        "correctNumeric": null,
+        "witness": null,
+        "assets": [],
+        "sources": [
+          {
+            "kind": "original",
+            "author": "Math Master project",
+            "title": "Elementary foundations: original learning materials",
+            "url": "",
+            "accessedAt": "",
+            "license": "CC0-1.0",
+            "attribution": "Original wording, worked problems and diagrams prepared for independent review; draft, not published."
+          }
+        ]
+      }
+    }
+  ],
+  "blueprints": [
+    {
+      "id": "ef-fraction-multiplication-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-multiplication",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-multiplication-fixed-15",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-fraction-scale",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-fraction-area",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-fraction-division-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "fraction-division",
+        "version": 1
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-fraction-division-fixed-15",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-fraction-measuring",
+            "version": 1
+          }
+        },
+        {
+          "kind": "template",
+          "ref": {
+            "id": "ef-fraction-missing-factor",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-decimal-place-value-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "decimal-place-value",
+        "version": 2
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-place-value-fixed-15",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    },
+    {
+      "id": "ef-decimal-fraction-conversion-assessment",
+      "version": 1,
+      "knowledge": {
+        "id": "decimal-fraction-conversion",
+        "version": 2
+      },
+      "coreObjectiveIndices": [
+        0,
+        1
+      ],
+      "sources": [
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-01",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-02",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-03",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-04",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-05",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-06",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-07",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-08",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-09",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-10",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-11",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-12",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-13",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-14",
+            "version": 1
+          }
+        },
+        {
+          "kind": "instance",
+          "ref": {
+            "id": "ef-decimal-fraction-conversion-fixed-15",
+            "version": 1
+          }
+        }
+      ],
+      "coverageNote": "Both locked objectives are core. Fixed questions 01-05 target goal 0, 06-10 goal 1, and 11-15 genuinely combine the two models. Exactly five eligible questions must jointly cover both.",
+      "ruleVersion": 1,
+      "questionCount": 5,
+      "passCount": 4
+    }
+  ]
+}
