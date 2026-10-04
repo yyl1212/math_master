@@ -139,15 +139,11 @@ func RunContentReview(ctx context.Context, args []string, stdout, stderr io.Writ
 			ManifestSHA256 string `json:"manifestSHA256"`
 		}{"prepared", len(bundle.Manifest.Objects), len(bundle.Manifest.Sources), bundle.Manifest.FixtureOnly, fmt.Sprintf("%x", sha256.Sum256(raw))})
 	}
-	raw, e := readReviewAbsolute(ctx, reviewManifest, contentreview.MaxFileBytes)
+	manifestRaw, e := readReviewAbsolute(ctx, reviewManifest, contentreview.MaxFileBytes)
 	if e != nil {
 		return classify(e)
 	}
-	var manifest contentreview.ReviewManifest
-	if e = question.DecodeOperationalJSON(bytes.NewReader(raw), contentreview.MaxFileBytes, &manifest); e != nil {
-		return classify(e)
-	}
-	raw, e = readReviewAbsolute(ctx, input, contentreview.MaxFileBytes)
+	raw, e := readReviewAbsolute(ctx, input, contentreview.MaxFileBytes)
 	if e != nil {
 		return classify(e)
 	}
@@ -155,7 +151,7 @@ func RunContentReview(ctx context.Context, args []string, stdout, stderr io.Writ
 	if e = question.DecodeOperationalJSON(bytes.NewReader(raw), contentreview.MaxFileBytes, &evidence); e != nil {
 		return classify(e)
 	}
-	verified, e := contentreview.VerifyEvidence(ctx, evidenceRoot, manifest, evidence)
+	verified, e := contentreview.VerifyEvidenceFromBytes(ctx, evidenceRoot, manifestRaw, evidence)
 	if e != nil {
 		return classify(e)
 	}

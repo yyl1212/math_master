@@ -36,7 +36,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 
 使用固定 snapshotId `eebca0e9f8cbe8ce9afbed5f1f872f382f54e42b8004fcb57d23d05b99ff879a`、报告 SHA `7bd7c12118b915bc0a0ae4398b8018f1ba76e305736703a0617802677c7874ad`；初始映射原字节 SHA `26da1e09d9249d7642e6cd26d3ee4014304184acf53569ef24702cdda20d64b0`，修订映射按实际新 SHA 登记并保留旧文件。不重新读取持续更新的 Knowledge_JSON；八项高级资料差异继续隔离。合成来源测试必须显式 `--fixture-only`，正式用途中禁止取消夹具标记。
 
-输出包括 `review-manifest.json`、初始登记与分片、`sources.json`、知识和五题包导入、五主题的全部材料及九图。清单保存准确身份、必需检查、来源、参数实例和输入/不可变输出摘要。登记根/分片不列入 manifest.files，避免相互摘要循环；其根绑定最终 manifest SHA，各分片 SHA 单独核对。复核请按[全量清单](../content/p6b-review-checklist.md)完成最终副本。
+输出包括 `review-manifest.json`、初始登记与分片、`sources.json`、知识和五题包导入、五主题的全部材料及九图。清单保存准确身份、必需检查、来源、参数实例和输入/不可变输出摘要。登记根/分片不列入 manifest.files，避免相互摘要循环；其根绑定最终 manifest 原始文件字节 SHA，各分片 SHA 单独核对；不能以解码后重新序列化的摘要代替。合法空白或字段顺序调整会改变原字节 SHA，须同步 release、最终登记根/分片及全部学习上下文绑定。复核请按[全量清单](../content/p6b-review-checklist.md)完成最终副本。
 
 导入只有现有 publication.DraftInput/question.DraftInput 的字段。知识 SVG 使用捕获的同字节 Base64；同知识版本/批次/路径/文件 SHA 的出处合并，记录、旧 ID、用途和条件完整写入 Note/LegacyID。路线汇总的出处沿用已有准确知识关联，完整关系留在 sources.json；仅路线引用且无知识关联时拒绝导入。
 
@@ -63,7 +63,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 | 2 | 契约/身份非法，或实际执行结果 not_ready |
 | 1 | IO、预算或取消失败 |
 
-未检查、缺独立性、签署、实际构建、双 head 或任一 not_run 只写私有校验报告。完整复核及八份实际文件才生成原 schemaVersion=1 acceptance-evidence.json；已执行 failed 保留为 not_ready。输出另有中文说明和无人员路径的文件摘要清单。stdout 仅状态、数量、fixtureOnly 与 SHA；stderr 为稳定原因码。
+未检查、缺独立性、签署、实际构建、双 head 或任一 not_run 时只写私有校验报告。任一合法记录为 failed 时主状态为 not_ready（退出2），即使同时存在待补项也保留全部原因；不完整组合仍不生成验收文件。完整复核及八份实际文件才生成原 schemaVersion=1 acceptance-evidence.json，完整 failed 保留明确失败证据。输出另有中文说明和无人员路径的文件摘要清单。stdout 仅状态、数量、fixtureOnly 与 SHA；stderr 为稳定原因码。
 
 | 预算 | 上限 |
 | --- | --- |
@@ -81,3 +81,5 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 ## 已有路线的导入前置
 
 正常工作流技术对照保留不可变规则：旧示例已经使用 `elementary-foundations/v1` 时，新三十节点路线以相同 ID/版本导入必须冲突。首次路线导入的正例只在尚未占用该版本的随机隔离库运行；没有清空或覆盖旧路线。正式环境若已有该旧版本，在 R2 追加准确路线版本并同步输入清单、对象来源映射及复核 manifest，重新全量复核后送审。不能为了导入通过删除正式数据。
+
+程序内调用约定：文件消费者使用 `VerifyEvidenceFromBytes`，同一捕获的原字节严格解码并求摘要；typed `VerifyEvidence` 只适用于生成端按既有 canonical JSON 序列化的 manifest。两个入口共用校验主体，原8MiB单文件、256MiB合计及有限命令预算不变。

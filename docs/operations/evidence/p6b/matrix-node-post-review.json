@@ -1,0 +1,25 @@
+[
+  {
+    "workflowCommand": "node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs",
+    "command": "node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs",
+    "exit": 0,
+    "seconds": 5.67,
+    "startedAt": "2026-10-04T13:10:42.769555+00:00",
+    "finishedAt": "2026-10-04T13:10:48.439223+00:00",
+    "log": "logs/matrix-node-post-review-01.log.gz",
+    "codeHead": "fc0bd30c6789de70733ba467efe729dc8c4abe64",
+    "sourceSetSHA256": "6b1517bf472867ef6f7909f5a1c9e22df5b6c50821b0eee0b9290c5457d102cc",
+    "fixtureOnly": true,
+    "counts": {
+      "tests": 81,
+      "pass": 81,
+      "fail": 0,
+      "skipped": 0
+    },
+    "logCompression": "gzip",
+    "originalLogSHA256": "9a985fe911c37e30b0568be2d3b1d5818721a17d54ecfe661aa6c0be31660a22",
+    "storedUncompressedSHA256": "9a985fe911c37e30b0568be2d3b1d5818721a17d54ecfe661aa6c0be31660a22",
+    "storedSHA256": "714160151aae9a47871f44070d936bb8b820c8b37765608bfeb67dd9a579aa76",
+    "redactions": []
+  }
+]

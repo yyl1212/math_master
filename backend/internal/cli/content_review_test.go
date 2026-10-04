@@ -448,3 +448,138 @@ func TestContentReviewIOBudgetCancel(t *testing.T) {
 		t.Fatal("old output changed")
 	}
 }
+
+func crManifestBytes(t *testing.T, manifest contentreview.ReviewManifest, format string) []byte {
+	t.Helper()
+	raw := crFixtureJSON(t, manifest)
+	switch format {
+	case "canonical":
+		return raw
+	case "whitespace":
+		var formatted bytes.Buffer
+		if e := json.Indent(&formatted, raw, "", "  "); e != nil {
+			t.Fatal(e)
+		}
+		return append(formatted.Bytes(), '\n')
+	case "reordered":
+		var fields map[string]json.RawMessage
+		if e := json.Unmarshal(raw, &fields); e != nil {
+			t.Fatal(e)
+		}
+		return crFixtureJSON(t, fields)
+	default:
+		t.Fatal("unknown manifest format", format)
+		return nil
+	}
+}
+
+func crBindManifestBytes(t *testing.T, f *crEvidenceFixtureData, raw []byte) {
+	t.Helper()
+	digest := crSha(raw)
+	f.Release.ManifestSHA256 = digest
+	f.Input.ReleaseContext = crEvidenceSave(t, f.Root, f.Input.ReleaseContext.Path, f.Release)
+	var register contentreview.ReviewRegister
+	crEvidenceRead(t, *f, f.Input.ReviewRegister, &register)
+	register.ManifestSHA256 = digest
+	for i, ref := range register.Parts {
+		var part contentreview.RegisterPart
+		crEvidenceRead(t, *f, ref, &part)
+		part.ManifestSHA256 = digest
+		register.Parts[i] = crEvidenceSave(t, f.Root, ref.Path, part)
+	}
+	f.Input.ReviewRegister = crEvidenceSave(t, f.Root, f.Input.ReviewRegister.Path, register)
+	for i := range f.Input.LearningChecks {
+		crMutateLearning(t, f, i, func(r *contentreview.LearningRecord) { r.Context.ManifestSHA256 = digest })
+	}
+}
+
+func TestContentReviewManifestRawBytes(t *testing.T) {
+	for _, format := range []string{"canonical", "whitespace", "reordered"} {
+		for _, binding := range []string{"matching", "stale"} {
+			if format == "canonical" && binding == "stale" {
+				continue
+			}
+			t.Run(format+"/"+binding, func(t *testing.T) {
+				f := crEvidenceFixture(t)
+				crWithLearning(t, &f)
+				raw := crManifestBytes(t, f.Manifest, format)
+				if format != "canonical" && crSha(raw) == crSha(crFixtureJSON(t, f.Manifest)) {
+					t.Fatal("test did not change the original manifest bytes")
+				}
+				if binding == "matching" {
+					crBindManifestBytes(t, &f, raw)
+				}
+				args, out := crVerifyArgs(t, f)
+				crFixtureWrite(t, filepath.Join(f.Root, "review-manifest.json"), raw)
+				code, stdout, stderr := crRun(context.Background(), args)
+				if binding == "stale" {
+					if code != 2 || !strings.Contains(stderr, "REVIEW_INVALID") {
+						t.Fatalf("stale byte binding accepted: exit=%d stderr=%q", code, stderr)
+					}
+					if _, e := os.Stat(out); !os.IsNotExist(e) {
+						t.Fatal("stale manifest created output", e)
+					}
+					return
+				}
+				if code != 0 || stderr != "" {
+					t.Fatalf("correct raw binding refused: exit=%d stderr=%q", code, stderr)
+				}
+				var summary struct {
+					ManifestSHA256 string `json:"manifestSHA256"`
+				}
+				if e := json.Unmarshal([]byte(stdout), &summary); e != nil || summary.ManifestSHA256 != crSha(raw) {
+					t.Fatal("stdout lost original manifest digest", e)
+				}
+				var verified contentreview.Verification
+				crEvidenceRead(t, crEvidenceFixtureData{Root: out}, contentreview.FileRef{Path: "verification.json"}, &verified)
+				if verified.ManifestSHA256 != crSha(raw) || verified.Conclusion != "evidence_ready" {
+					t.Fatal("report lost raw digest or complete evidence")
+				}
+				if _, e := os.Stat(filepath.Join(out, "acceptance-evidence.json")); e != nil {
+					t.Fatal("complete evidence file missing", e)
+				}
+			})
+		}
+	}
+}
+
+func TestContentReviewFailedWithPending(t *testing.T) {
+	for _, pending := range []string{"missing-check", "not-run", "missing-build", "missing-binding"} {
+		t.Run(pending, func(t *testing.T) {
+			f := crEvidenceFixture(t)
+			crWithLearning(t, &f)
+			crMutateLearning(t, &f, 0, func(r *contentreview.LearningRecord) { r.Result = "failed" })
+			wantPending := "LEARNING_PENDING"
+			switch pending {
+			case "missing-check":
+				f.Input.LearningChecks = f.Input.LearningChecks[:7]
+			case "not-run":
+				crMutateLearning(t, &f, 1, func(r *contentreview.LearningRecord) { r.Result = "not_run" })
+			case "missing-build":
+				f.Release.BuildRecord = contentreview.FileRef{}
+				f.Input.ReleaseContext = crEvidenceSave(t, f.Root, f.Input.ReleaseContext.Path, f.Release)
+				wantPending = "RELEASE_PENDING"
+			case "missing-binding":
+				f.Input.Bindings = f.Input.Bindings[:5]
+				wantPending = "REVIEW_PENDING"
+			}
+			args, out := crVerifyArgs(t, f)
+			code, _, stderr := crRun(context.Background(), args)
+			if code != 2 || stderr != "" {
+				t.Fatalf("known failure was masked: exit=%d stderr=%q", code, stderr)
+			}
+			var verified contentreview.Verification
+			crEvidenceRead(t, crEvidenceFixtureData{Root: out}, contentreview.FileRef{Path: "verification.json"}, &verified)
+			if verified.Conclusion != "not_ready" || verified.Evidence != nil {
+				t.Fatal("failed incomplete evidence had wrong status or acceptance evidence")
+			}
+			joined := strings.Join(verified.Reasons, ",")
+			if !strings.Contains(joined, "LEARNING_FAILED") || !strings.Contains(joined, wantPending) {
+				t.Fatal("failure or pending reason was lost", verified.Reasons)
+			}
+			if _, e := os.Stat(filepath.Join(out, "acceptance-evidence.json")); !os.IsNotExist(e) {
+				t.Fatal("incomplete failed evidence created acceptance file", e)
+			}
+		})
+	}
+}

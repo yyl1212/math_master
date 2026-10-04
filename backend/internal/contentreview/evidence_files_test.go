@@ -3,11 +3,13 @@ package contentreview
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/contentaudit"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"testing"
 )
@@ -267,5 +269,146 @@ func TestReviewEvidenceAbsentReleaseHeads(t *testing.T) {
 	v, e := VerifyEvidence(context.Background(), f.Root, f.Manifest, f.Input)
 	if e != nil || v.Conclusion != "awaiting_review" || v.Evidence != nil {
 		t.Fatal("missing real published heads accepted", e)
+	}
+}
+
+func TestReviewEvidenceFailedWithPending(t *testing.T) {
+	for _, pending := range []string{"missing-check", "not-run", "missing-build", "missing-binding"} {
+		t.Run(pending, func(t *testing.T) {
+			f := evidenceFixture(t)
+			withLearning(t, &f)
+			mutateLearning(t, &f, 0, func(r *LearningRecord) { r.Result = "failed" })
+			wantPending := "LEARNING_PENDING"
+			switch pending {
+			case "missing-check":
+				f.Input.LearningChecks = f.Input.LearningChecks[:7]
+			case "not-run":
+				mutateLearning(t, &f, 1, func(r *LearningRecord) { r.Result = "not_run" })
+			case "missing-build":
+				f.Release.BuildRecord = FileRef{}
+				f.Input.ReleaseContext = evidenceSave(t, f.Root, f.Input.ReleaseContext.Path, f.Release)
+				wantPending = "RELEASE_PENDING"
+			case "missing-binding":
+				f.Input.Bindings = f.Input.Bindings[:5]
+				wantPending = "REVIEW_PENDING"
+			}
+			v, e := VerifyEvidence(context.Background(), f.Root, f.Manifest, f.Input)
+			if e != nil || v.Conclusion != "not_ready" || v.Evidence != nil {
+				t.Fatal("known failure masked by pending or acceptance emitted", e, v.Conclusion)
+			}
+			if !slices.Contains(v.Reasons, "LEARNING_FAILED") || !slices.Contains(v.Reasons, wantPending) {
+				t.Fatal("failure or pending reason lost", v.Reasons)
+			}
+			out := filepath.Join(outputRoot(t), "verification")
+			if e = WriteVerification(context.Background(), out, v); e != nil {
+				t.Fatal(e)
+			}
+			if _, e = os.Stat(filepath.Join(out, "acceptance-evidence.json")); !os.IsNotExist(e) {
+				t.Fatal("incomplete failed evidence created acceptance file", e)
+			}
+		})
+	}
+}
+
+func manifestTestBytes(t *testing.T, m ReviewManifest, format string) []byte {
+	t.Helper()
+	raw := fixtureJSON(t, m)
+	switch format {
+	case "canonical":
+		return raw
+	case "whitespace":
+		var formatted bytes.Buffer
+		if e := json.Indent(&formatted, raw, "", "  "); e != nil {
+			t.Fatal(e)
+		}
+		return append(formatted.Bytes(), '\n')
+	case "reordered":
+		var fields map[string]json.RawMessage
+		if e := json.Unmarshal(raw, &fields); e != nil {
+			t.Fatal(e)
+		}
+		return fixtureJSON(t, fields)
+	default:
+		t.Fatal("unknown format", format)
+		return nil
+	}
+}
+
+func bindManifestBytes(t *testing.T, f *evidenceFixtureData, raw []byte) {
+	t.Helper()
+	digest := sha(raw)
+	f.Release.ManifestSHA256 = digest
+	f.Input.ReleaseContext = evidenceSave(t, f.Root, f.Input.ReleaseContext.Path, f.Release)
+	var register ReviewRegister
+	evidenceRead(t, *f, f.Input.ReviewRegister, &register)
+	register.ManifestSHA256 = digest
+	for i, ref := range register.Parts {
+		var part RegisterPart
+		evidenceRead(t, *f, ref, &part)
+		part.ManifestSHA256 = digest
+		register.Parts[i] = evidenceSave(t, f.Root, ref.Path, part)
+	}
+	f.Input.ReviewRegister = evidenceSave(t, f.Root, f.Input.ReviewRegister.Path, register)
+	for i := range f.Input.LearningChecks {
+		mutateLearning(t, f, i, func(r *LearningRecord) { r.Context.ManifestSHA256 = digest })
+	}
+}
+
+func TestReviewEvidenceManifestRawBytes(t *testing.T) {
+	for _, format := range []string{"canonical", "whitespace", "reordered"} {
+		for _, binding := range []string{"matching", "stale"} {
+			if format == "canonical" && binding == "stale" {
+				continue
+			}
+			t.Run(format+"/"+binding, func(t *testing.T) {
+				f := evidenceFixture(t)
+				withLearning(t, &f)
+				raw := manifestTestBytes(t, f.Manifest, format)
+				if format != "canonical" && sha(raw) == sha(fixtureJSON(t, f.Manifest)) {
+					t.Fatal("test failed to change original manifest bytes")
+				}
+				if binding == "matching" {
+					bindManifestBytes(t, &f, raw)
+				}
+				v, e := VerifyEvidenceFromBytes(context.Background(), f.Root, raw, f.Input)
+				if binding == "stale" {
+					if !errors.Is(e, ErrInvalid) || v.Evidence != nil || len(v.Files) != 0 {
+						t.Fatal("stale raw manifest binding accepted", e)
+					}
+					return
+				}
+				if e != nil || v.Conclusion != "evidence_ready" || v.Evidence == nil || v.ManifestSHA256 != sha(raw) {
+					t.Fatal("correct raw manifest binding or digest lost", e, v.Conclusion)
+				}
+				if !bytes.Contains(bundleVerificationFile(t, v, "verification.md"), []byte(sha(raw))) {
+					t.Fatal("Chinese report lost original digest")
+				}
+			})
+		}
+	}
+}
+
+func TestReviewEvidenceManifestBytesStrictBoundary(t *testing.T) {
+	for _, c := range []struct {
+		name string
+		raw  []byte
+		want error
+	}{
+		{"unknown", []byte(`{"unknown":1}`), ErrInvalid},
+		{"duplicate", []byte(`{"schemaVersion":1,"schemaVersion":1}`), ErrInvalid},
+		{"malformed", []byte(`{`), ErrInvalid},
+		{"oversized", bytes.Repeat([]byte(" "), MaxFileBytes+1), ErrLimit},
+	} {
+		t.Run(c.name, func(t *testing.T) {
+			v, e := VerifyEvidenceFromBytes(context.Background(), "/nonexistent-review-root", c.raw, EvidenceInput{})
+			if !errors.Is(e, c.want) || v.Evidence != nil || len(v.Files) != 0 {
+				t.Fatal("bad manifest was read or accepted", e)
+			}
+		})
+	}
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+	if _, e := VerifyEvidenceFromBytes(ctx, "/nonexistent-review-root", nil, EvidenceInput{}); !errors.Is(e, context.Canceled) {
+		t.Fatal("cancellation lost", e)
 	}
 }

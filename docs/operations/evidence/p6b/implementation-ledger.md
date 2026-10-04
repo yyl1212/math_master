@@ -78,3 +78,19 @@ Task 10 browser progress: 14/22批、100项 passed，failed0/skipped0。
 Task 10 review focus supplement: 请独立核对 verifier 边界的 manifest 原字节绑定，包括外部JSON重排字段/空白后与重新编码摘要的关系；此为待审查行为，不预判严重级别。
 Task 10 browser progress: 原前20批/146项全部 passed，failed0/skipped0；最后首批完整路线两批进行中。
 Task 10 steps 10.1–10.3: 9新保护RED→GREEN；原72+新9=81 Node、350前端、22批162浏览器、16批Go1376结果及全部六容量全部通过，零跳过。现代码与完整本地矩阵完成，10.4唯一fresh整分支审查及10.5 SSH draft MR/准确最终head CI交付门槛待执行，不宣称整个Task10交付完成。
+Final review: 唯一 fresh reviewer /root/p6b_final_whole_branch_review，gpt-6-astra/high，fork none；范围 b78108d3dd363eae237dae59f76a7be774b9de85..fc0bd30c6789de70733ba467efe729dc8c4abe64。提供全包、方案/计划、五类重点原文、十条Ruling及原字节边界补充；等待独立报告。
+
+Final review received: Critical0/Important2/新增Minor0；原独立意见 Ready to merge=No。I1 原始 manifest 字节绑定错误会接受旧摘要、拒绝合法新摘要；I2 实际学习 failed 与缺证据并存时被 awaiting_review 掩盖。按实际影响保留 Important 级别；本轮一次修复，逐项 RED→GREEN 后相关全套回归，不启动第二次 reviewer。
+Final review fix scope: 修改 evidence.go/evidence_files.go、CLI content_review.go、两既有测试文件及中文计划/手册/证据；增加仅私有离线 FromBytes 入口，以同一 captured bytes 严格解码并求 SHA，typed convenience 保持生成端 canonical 约定。现有 JSON/API/运行时不变；失败优先级与能否生成验收证据分别处理。
+Final: Ruling: 真实数学结论和205来源的实际出处/许可不由技术审查代替 — R2须由实际人员逐项核验，fixture不算批准 — 错误成本：人工结论错误会引入错题或不合许可的内容。
+Final: Ruling: 自然人身份、能力、独立性与实际构建真实性由负责人核验 — 工具只验证材料和声明一致性，不提供密码学身份证明 — 错误成本：负责人误判会接受虚假承诺或错误构建。
+Final: Ruling: 真实R1—R4初始化/批准/发布/accepted未在准备段授权执行 — 当前整体awaiting_review、正式计数0 — 错误成本：正式里程碑仍须后续完成，不能宣称上线内容已验收。
+Final: Ruling: P7生产部署不属于本轮范围 — 不部署、不将fixture当线上环境 — 错误成本：后续仍需部署方案与运维执行。
+Final: Ruling: 先前学习容量查询间歇超时原因尚未证实 — 查询实现未改变，本轮89.819s通过不等于根因修复 — 错误成本：超时可能复现，保留历史诊断并持续按原预算验证。
+Final: Ruling: P6a blueprint SHA回退问题按已确认设计继续延期 — 新复核采用实际完整JSON及正常Store事实，旧实现不在本轮修改 — 错误成本：旧摘要语义歧义仍在，未来修复须专门兼容审查。
+Final: Ruling: P6a中文摘要缺双head及逐节点原因按已确认设计继续延期 — 完整JSON保留追踪事实，旧摘要格式不变 — 错误成本：只读摘要无法完整定位，未来格式改进须审查。
+Final: Ruling: 准确最终head远端CI及合并授权由主执行者实际核验 — 必须四workflow/六job全成功，现仅授权SSH推送与草稿MR — 错误成本：CI未成功则不能交付；未经后续指令不能合并。
+Review RED correction: 初次canonical正例误从JSON读取json:"-"的内部Evidence字段；改为实际验收文件存在断言后重跑，保留首次日志。两项真实行为负例已均复现，产品代码尚未修改。
+Review I1 fix: 有效行为RED含空白/重排matching拒绝及stale接受；纯入口API RED已确认。FromBytes捕获原字节SHA贯穿release/register/报告，I1定向纯层6.834s、CLI7.711s均GREEN；严格未知/重复/格式/8MiB+1/取消边界通过。现在修复I2：任何合法failed先置not_ready，完整性门槛保持单独决定Evidence。
+Review I2 fix: 四类failed+pending定向纯层13.787s、CLI11.434s GREEN；完整failed仍有失败Evidence，纯pending无证据，缺项failed主状态not_ready并保留所有理由。开始独立后审查16批Go与81Node全套日志，不覆盖原矩阵；新源集合SHA与原parent HEAD准确记录。
+Final review fix regression: 一次修复后的16/16批Go全通过，1403个pass事件/fail0/skip0；81/81Node全通过，六容量均成功（题源89.909s/最大路线121.574s/最大内容67.461s/纠错影响135.310s/通知42.153s）；新纯层115事件。原矩阵及所有新日志分开归档，共118份压缩/解压SHA已逐份复算，完整原字节私有保留。唯一审查0Critical/2Important/0新Minor，主执行者一次修复并完成全套相关回归；无第二次reviewer。Task10远端准确最终headCI与MR交付门槛仍待完成。

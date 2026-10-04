@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "reviewedRange": {
+    "base": "b78108d3dd363eae237dae59f76a7be774b9de85",
+    "head": "fc0bd30c6789de70733ba467efe729dc8c4abe64"
+  },
+  "reviewer": "p6b_final_whole_branch_review",
+  "reviewerCount": 1,
+  "newReviewersAfterFix": 0,
+  "critical": 0,
+  "important": 2,
+  "newMinor": 0,
+  "fixPasses": 1,
+  "targetedResults": "passed",
+  "completeRelatedRegression": "passed",
+  "logs": [
+    {
+      "name": "review-fix-behavior-red.log",
+      "command": "python3 <private-test-env-helper> node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview ./internal/cli -run '^(TestReviewEvidenceFailedWithPending|TestContentReviewManifestRawBytes|TestContentReviewFailedWithPending)$' -timeout 5m -count=1",
+      "exit": 1,
+      "originalLogSHA256": "e5973a1d96ec2a2b8a3807786e7c6402aef57b09f3f41c82b87e5c5b8378a358",
+      "role": "initial_red_with_corrected_test_assertion",
+      "log": "logs/review-fix-behavior-red.log.gz",
+      "logCompression": "gzip",
+      "storedUncompressedSHA256": "e5973a1d96ec2a2b8a3807786e7c6402aef57b09f3f41c82b87e5c5b8378a358",
+      "storedSHA256": "e676c98907ebb3e90e5b57f87f21da149d6411038900f943f6f054391f8215d7",
+      "redactions": []
+    },
+    {
+      "name": "review-fix-behavior-red-validated.log",
+      "command": "python3 <private-test-env-helper> node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview ./internal/cli -run '^(TestReviewEvidenceFailedWithPending|TestContentReviewManifestRawBytes|TestContentReviewFailedWithPending)$' -timeout 5m -count=1",
+      "exit": 1,
+      "originalLogSHA256": "8fce25923c9ebb081b870f623562784ee8b4c993e4efc05dd51390d392fbebcd",
+      "role": "genuine_behavior_red",
+      "log": "logs/review-fix-behavior-red-validated.log.gz",
+      "logCompression": "gzip",
+      "storedUncompressedSHA256": "8fce25923c9ebb081b870f623562784ee8b4c993e4efc05dd51390d392fbebcd",
+      "storedSHA256": "b2d2265fe53ea0812f417f892fba12d7ff000048b93d25d69f265f0a5a045308",
+      "redactions": []
+    },
+    {
+      "name": "review-fix-manifest-api-red.log",
+      "command": "python3 <private-test-env-helper> node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewEvidenceManifest' -timeout 5m -count=1",
+      "exit": 1,
+      "originalLogSHA256": "bd497700a161d0cbd652a979bb99d1e6b91443d3b65919b5dcdf40aa4b695bdb",
+      "role": "missing_api_red",
+      "log": "logs/review-fix-manifest-api-red.log.gz",
+      "logCompression": "gzip",
+      "storedUncompressedSHA256": "bd497700a161d0cbd652a979bb99d1e6b91443d3b65919b5dcdf40aa4b695bdb",
+      "storedSHA256": "e3ad2fb0b3a92d7663e7bff6e4a2997c7eb03b259125b0f7114a9c9631d77bcc",
+      "redactions": []
+    },
+    {
+      "name": "review-fix-manifest-green.log",
+      "command": "python3 <private-test-env-helper> node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview ./internal/cli -run '^(TestReviewEvidenceManifestRawBytes|TestReviewEvidenceManifestBytesStrictBoundary|TestContentReviewManifestRawBytes)$' -timeout 5m -count=1",
+      "exit": 0,
+      "originalLogSHA256": "2ecafd3a9f28c0f8611c4198e6e5ac9dcf77cf94cdfdc2227525545b694069ac",
+      "role": "targeted_green",
+      "log": "logs/review-fix-manifest-green.log.gz",
+      "logCompression": "gzip",
+      "storedUncompressedSHA256": "2ecafd3a9f28c0f8611c4198e6e5ac9dcf77cf94cdfdc2227525545b694069ac",
+      "storedSHA256": "f7e7f06d6893f3dfd4302048b3b8bf7c467f92f81aa20d121e47ae9a94578854",
+      "redactions": []
+    },
+    {
+      "name": "review-fix-failed-green.log",
+      "command": "python3 <private-test-env-helper> node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview ./internal/cli -run '^(TestReviewEvidenceFailedWithPending|TestReviewEvidenceNoReadyFile|TestContentReviewFailedWithPending|TestContentReviewVerify)$' -timeout 5m -count=1",
+      "exit": 0,
+      "originalLogSHA256": "d880432143e7e5fad5a408e929e5b98089a880710d52ab6e704e453dea96d99d",
+      "role": "targeted_green",
+      "log": "logs/review-fix-failed-green.log.gz",
+      "logCompression": "gzip",
+      "storedUncompressedSHA256": "d880432143e7e5fad5a408e929e5b98089a880710d52ab6e704e453dea96d99d",
+      "storedSHA256": "ee46a0ff9ce44e467cafa8e8b0d3e6db412beabd658181595e3c22a8edcc92b9",
+      "redactions": []
+    }
+  ],
+  "I1": {
+    "decision": "accepted_important",
+    "remedy": "same captured manifest bytes strictly decoded and hashed by offline FromBytes adapter",
+    "cases": [
+      "canonical correct binding",
+      "whitespace correct/stale binding",
+      "reordered keys correct/stale binding",
+      "unknown/duplicate/malformed/oversized/canceled input"
+    ],
+    "sourceStage": "I1 targeted GREEN before the I2 status assignment"
+  },
+  "I2": {
+    "decision": "accepted_important",
+    "remedy": "failed sets not_ready independently from the completeness gate for AcceptanceEvidence",
+    "cases": [
+      "failed + missing learning file",
+      "failed + not_run",
+      "failed + missing build",
+      "failed + missing review binding",
+      "complete passed/pending/failed original behavior"
+    ],
+    "sourceStage": "I1 and I2 both applied"
+  },
+  "formalConclusion": "awaiting_review",
+  "fixtureOnly": true,
+  "postReviewMatrix": {
+    "parentHead": "fc0bd30c6789de70733ba467efe729dc8c4abe64",
+    "sourceSetSHA256": "6b1517bf472867ef6f7909f5a1c9e22df5b6c50821b0eee0b9290c5457d102cc",
+    "goBatches": 16,
+    "goPassEvents": 1403,
+    "goFailed": 0,
+    "goSkipped": 0,
+    "nodePassed": 81,
+    "fullSourceInvariant": "各批记录同一实际工作树源集合，不重标为将来的提交SHA"
+  }
+}

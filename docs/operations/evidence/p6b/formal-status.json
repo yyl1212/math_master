@@ -29,8 +29,10 @@
   "preparation": {
     "implementation": "available",
     "fullRegression": "passed",
-    "wholeBranchReview": "pending",
-    "exactFinalHeadCI": "pending"
+    "wholeBranchReview": "completed_findings_resolved_by_executor",
+    "exactFinalHeadCI": "pending",
+    "postReviewRegression": "passed",
+    "reviewFixes": "two_important_resolved_one_pass"
   },
   "remaining": [
     "真实负责人及非生产环境用途和操作范围",

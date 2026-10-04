@@ -12,7 +12,7 @@
 
 [Go矩阵](matrix-go.json)16/16批、1376个 Test pass 结果事件（含父测试及具名子测试）、fail0/skip0；原宽入口包含新 Store/CLI 测试且 skip未扩充。六项容量均实际通过：反馈、学习题源、最大路线、最大内容、纠错影响、通知。旧题源准备超时本轮未复现，本地本次89.819秒通过；具体慢查询根因仍未证实，[旧诊断](../p6b-design/ci-diagnosis.md)保留，不宣称通过即修复。
 
-[Node矩阵](matrix-node.json)原72项+新9项=81/81；[前端矩阵](matrix-frontend.json)350/350、类型生成/检查、构建及依赖审计通过，generated.d.ts无diff。[当前harness构建](matrix-harness.json)通过；[浏览器矩阵](matrix-browser.json)原22批/162双视口全部通过，failed0/skipped0；整分支审查与准确最终head远端CI尚待完成。
+[Node矩阵](matrix-node.json)原72项+新9项=81/81；[前端矩阵](matrix-frontend.json)350/350、类型生成/检查、构建及依赖审计通过，generated.d.ts无diff。[当前harness构建](matrix-harness.json)通过；[浏览器矩阵](matrix-browser.json)原22批/162双视口全部通过，failed0/skipped0；该原矩阵完成后进行了唯一整分支审查；两项Important已一次修复并完成相关全套回归，准确最终head远端CI尚待完成。
 
 单批Go5m、浏览器8m、包装9m、CI job30m，原8秒操作与四分钟准备限制、数据量、workers=1、retries=0全部保留。新纯层99个结果事件包含真实256MiB读取、预算+1、64附件、取消/不覆盖/失败清理及证据缺项；不以小夹具替代原最大容量。
 
@@ -29,3 +29,11 @@
 [操作手册](../../content-review.md)和[全量复核清单](../../../content/p6b-review-checklist.md)用于实际负责人落实R1环境/人员/范围，R2全量独立数学与出处许可复核，R3正常批准/双head发布与知情非生产纠错，R4最终八检查和实际一致只读accepted。已有旧 `elementary-foundations/v1` 路线时追加准确版本/清单/来源映射并重新复核，不能覆盖不可变路线。
 
 [正式状态](formal-status.json)记录所有门槛。当前没有真实库初始化、角色授予、数学批准、正式发布/accepted或P7部署；技术夹具不能替代真实审批。MR保持draft，合并由用户后续指令决定。
+
+## 审查修复后的独立回归记录
+
+[唯一审查与裁决](review.md)保留原范围、原No意见、两项Important、零新增Minor和八项无法代替实际人员/执行者判断的边界。I1增加同一捕获字节的离线校验入口，原字节SHA贯穿release/register/全部学习上下文及报告；I2任何合法failed优先not_ready，完整性单独决定是否生成既有验收证据。CLI及纯层均有真实RED→GREEN。
+
+[后审查Go矩阵](matrix-go-post-review.json)16/16批、1403个pass事件、fail0/skip0；[后审查Node矩阵](matrix-node-post-review.json)81/81。六容量未放宽，学习题源本次89.909s、最大路线121.574s、最大内容67.461s、纠错影响135.310s、通知42.153s，具体根因未知的历史超时仍不称作已修复。前端/浏览器原记录保留其实际来源，离线修复没有修改其生产代码。
+
+后审查矩阵起始HEAD为 `fc0bd30c6789de70733ba467efe729dc8c4abe64`，包含未提交的修复，实际源集合SHA为 `6b1517bf472867ef6f7909f5a1c9e22df5b6c50821b0eee0b9290c5457d102cc`；记录均准确保留该时点，不以未来产品/归档HEAD改标签。日志与原矩阵分别命名，并独立复算压缩/解压摘要。

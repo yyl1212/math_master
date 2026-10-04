@@ -16,8 +16,8 @@ var learningCheckNames = []string{"reading", "pass", "fail", "prerequisites", "r
 
 const MaxLearningAttachments = 64
 
-func validateRelease(r *evidenceReader, m ReviewManifest, release ReleaseContext) (bool, error) {
-	if release.SchemaVersion != 1 || release.CodeSHA != m.CodeSHA || release.CatalogueVersion != m.CatalogueVersion || release.CatalogueSHA256 != m.CatalogueSHA256 || release.Route != m.Route || release.ManifestSHA256 != manifestSHA(m) || release.FixtureOnly != m.FixtureOnly {
+func validateRelease(r *evidenceReader, m ReviewManifest, rawManifestSHA string, release ReleaseContext) (bool, error) {
+	if release.SchemaVersion != 1 || release.CodeSHA != m.CodeSHA || release.CatalogueVersion != m.CatalogueVersion || release.CatalogueSHA256 != m.CatalogueSHA256 || release.Route != m.Route || release.ManifestSHA256 != rawManifestSHA || release.FixtureOnly != m.FixtureOnly {
 		return false, ErrInvalid
 	}
 	ready := true

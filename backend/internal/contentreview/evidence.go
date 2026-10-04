@@ -212,12 +212,12 @@ func validateManifest(m ReviewManifest) error {
 	}
 	return nil
 }
-func readRegister(r *evidenceReader, m ReviewManifest, ref FileRef) ([]ReviewRow, error) {
+func readRegister(r *evidenceReader, m ReviewManifest, rawManifestSHA string, ref FileRef) ([]ReviewRow, error) {
 	var root ReviewRegister
 	if e := r.decode(ref, MaxFileBytes, &root); e != nil {
 		return nil, e
 	}
-	if root.SchemaVersion != 1 || root.ManifestSHA256 != manifestSHA(m) || len(root.Parts) > MaxFiles {
+	if root.SchemaVersion != 1 || root.ManifestSHA256 != rawManifestSHA || len(root.Parts) > MaxFiles {
 		return nil, ErrInvalid
 	}
 	expected := map[string][]string{}
@@ -604,8 +604,27 @@ func verifyReviewBindings(ctx context.Context, r *evidenceReader, m ReviewManife
 	sort.Slice(out.attestations, func(i, j int) bool { return out.attestations[i].DecisionID < out.attestations[j].DecisionID })
 	return out, nil
 }
+
+// VerifyEvidence uses the canonical JSON encoding of a machine-produced manifest.
+// File consumers must use VerifyEvidenceFromBytes to retain the original byte digest.
 func VerifyEvidence(ctx context.Context, root string, m ReviewManifest, input EvidenceInput) (Verification, error) {
-	out := Verification{SchemaVersion: 1, Conclusion: "awaiting_review", FixtureOnly: m.FixtureOnly, ManifestSHA256: manifestSHA(m), Reasons: []string{}, Files: []ExportFile{}}
+	return verifyEvidence(ctx, root, m, manifestSHA(m), input)
+}
+
+// VerifyEvidenceFromBytes decodes and binds the same captured manifest bytes.
+func VerifyEvidenceFromBytes(ctx context.Context, root string, manifestRaw []byte, input EvidenceInput) (Verification, error) {
+	if e := ctx.Err(); e != nil {
+		return Verification{}, e
+	}
+	var m ReviewManifest
+	if e := strict(manifestRaw, MaxFileBytes, &m); e != nil {
+		return Verification{}, e
+	}
+	return verifyEvidence(ctx, root, m, digestBytes(manifestRaw), input)
+}
+
+func verifyEvidence(ctx context.Context, root string, m ReviewManifest, rawManifestSHA string, input EvidenceInput) (Verification, error) {
+	out := Verification{SchemaVersion: 1, Conclusion: "awaiting_review", FixtureOnly: m.FixtureOnly, ManifestSHA256: rawManifestSHA, Reasons: []string{}, Files: []ExportFile{}}
 	if e := validateManifest(m); e != nil {
 		return out, e
 	}
@@ -620,7 +639,7 @@ func VerifyEvidence(ctx context.Context, root string, m ReviewManifest, input Ev
 	if e = reader.decode(input.ReleaseContext, MaxFileBytes, &release); e != nil {
 		return out, e
 	}
-	releaseReady, e := validateRelease(reader, m, release)
+	releaseReady, e := validateRelease(reader, m, rawManifestSHA, release)
 	if e != nil {
 		return out, e
 	}
@@ -628,7 +647,7 @@ func VerifyEvidence(ctx context.Context, root string, m ReviewManifest, input Ev
 	if e != nil {
 		return out, e
 	}
-	rows, e := readRegister(reader, m, input.ReviewRegister)
+	rows, e := readRegister(reader, m, rawManifestSHA, input.ReviewRegister)
 	if e != nil {
 		return out, e
 	}
@@ -655,6 +674,7 @@ func VerifyEvidence(ctx context.Context, root string, m ReviewManifest, input Ev
 		out.Reasons = append(out.Reasons, "LEARNING_PENDING")
 	}
 	if learning.failed {
+		out.Conclusion = "not_ready"
 		out.Reasons = append(out.Reasons, "LEARNING_FAILED")
 	}
 	if result.ready && releaseReady && learning.ready {
