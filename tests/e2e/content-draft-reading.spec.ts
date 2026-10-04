@@ -115,7 +115,7 @@ test("emptySavedDraftHasNoInventedKnowledgeAndCanBeOpenedFromTheList", async ({ 
     await scene("content");
     await actor(page, "content_editor");
     await page.goto("/editor");
-    await page.getByLabel("New package ID").fill("empty-reading-draft");
+    await page.getByLabel("New package ID").fill("w".repeat(64));
     await page.getByLabel("New catalogue version").fill("1");
     await page.getByRole("button", { name: "Create draft", exact: true }).click();
     await expect(page).toHaveURL(/\/editor\/drafts\/[0-9a-f-]+$/);

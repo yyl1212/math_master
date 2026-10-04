@@ -39,7 +39,7 @@ export function DraftReadingView({ initial }: { initial: DraftView }) {
         <header>
             <p className="eyebrow">PRIVATE DRAFT PREVIEW</p>
             <h1>Read knowledge draft</h1>
-            <p>{initial.package.id} · Package version {initial.package.version}</p>
+            <p className={styles.metadata}>{initial.package.id} · Package version {initial.package.version}</p>
             <p>Saved revision {initial.revision} · Status: {initial.status}</p>
             <p className={styles.previewNotice}>Read-only preview of the saved revision. Unsaved edits are not included. This preview does not establish mathematical approval or publication, and does not record learning progress.</p>
             <div className={styles.actions}>
