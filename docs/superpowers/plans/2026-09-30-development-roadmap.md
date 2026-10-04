@@ -222,3 +222,14 @@ CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修�
 同一次必要修复轮追加Ruling28：最终文档90fd12d容量5m真实失败，仅将补扫terminal候选按当前已锁定案件参数化，保持原谓词/顺序/50预算/全部守卫；完整原容量与所有44命令在产品 `d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb` 新鲜PASS，350前端/146浏览器/44Node/五容量，完整28裁定见实施账本。一次独立reviewer及零deferred minor保持；新最终归档head的四workflow/六job必须实际成功，最新结论以PR #23说明为准。
 
 同一次必要修复轮追加Ruling29：完整head215a8ed1的PR容量5m真实失败，采用已测现有规则索引最早日期排除必空范围、锁定案件根/方案/类型有依赖元数据读取；原谓词/顺序/50预算/全部守卫和worker保持。产品 `4f0f0441e5317f1ad8c33a8a86c81c2291a17b76` 全44命令新鲜PASS，350前端/146浏览器/44Node/五容量；29裁定完整归档，一次独立reviewer、零deferred minor。最终最新head四workflow/六job仍须实际成功，以PR #23最新说明为准。
+
+
+## 2026-10-04：P5b 合并与 P6 书面设计
+
+用户已明确确认“合并 PR #23，并设计 P6”。P5b [PR #23](https://github.com/yyl1212/math_master/pull/23)合并前准确 head bea681a6d45ae9787bdb8526639ec2b01e7590d5 的四次 workflow、六个 job 全部 success，已实际合并至 master 8bf3c95b9833941182f4c8caa2da752e6d7838ce；新 master 的运行按准确提交另外核验，不以旧 head 代替。
+
+从 SSH 获取的最新 master 建立 codex/p6-content-design，仅编写[P6 首批内容与质量验收书面设计](../specs/2026-10-04-first-content-acceptance-design.md)、来源预检并更新来源清单。本方案分 P6a 准备/草稿和 P6b 独立复核/正式验收，原 30/20/300、逐节点十实例/五检测及核心五题覆盖保持。当前资料不断更新，三份索引和八项摘要差异的具体时点见[只读预检](../../content/2026-10-04-p6-source-preflight.json)；未修改用户输入、原快照或正式内容。
+
+P6 书面方案及兼容边界已获用户确认。[P6a 实施计划](2026-10-04-first-content-preparation.md)已编写，包含十任务/五十步骤、准确三十节点版本与前置图、二十四模板/四百五十固定题的草稿目标及只读验收接口；计划待审阅，随后沿用 Native 执行。此记录不代表 P6 产品开发、数学内容发布、P6 数量达标或 P7 部署已经完成。
+
+合并后 master 的实际两次 push workflow 均为 failure，三个 job 均零个执行步骤；GitHub 原始注释指向账号付款或 Actions 支出限额。见[启动限制诊断](../../operations/2026-10-04-github-actions-start-block.md)。本地文档检查和 P6 方案可继续，未宣称新 master 的远端测试通过，不改 CI 或购买服务。
