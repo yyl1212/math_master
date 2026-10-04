@@ -140,7 +140,11 @@ func (s *Store) BackfillCorrections(ctx context.Context, limit int) (int, error)
 				if e != nil {
 					return e
 				}
-				items, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT e.kind,e.id::text,e.owner::text FROM evidence e CROSS JOIN correction_cases c WHERE c.id=$1 AND e.terminal AND e.kind IN ('assessment','practice') AND `+correctionCasePredicateSQL(c.Kind)+` AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='terminal:'||c.id::text||':'||e.kind||':'||e.id::text) ORDER BY e.kind,e.id LIMIT $2`, caseID, limit-total)
+				// Bind the bounded evidence scan to this already locked case. After
+				// statistics change, flattening a cross join can read every practice's
+				// frozen rule before rejecting an old cutoff. Keep all source predicates,
+				// ordering and the shared remaining budget inside the parameterized scan.
+				items, e := tx.QueryContext(ctx, `WITH evidence AS (`+correctionEvidenceRowsSQL+`) SELECT e.kind,e.id::text,e.owner::text FROM correction_cases c CROSS JOIN LATERAL (SELECT e.kind,e.id,e.owner FROM evidence e WHERE e.terminal AND e.kind IN ('assessment','practice') AND `+correctionCasePredicateSQL(c.Kind)+` AND NOT EXISTS(SELECT 1 FROM correction_jobs j WHERE j.source_key='terminal:'||c.id::text||':'||e.kind||':'||e.id::text) ORDER BY e.kind,e.id LIMIT $2 OFFSET 0) e WHERE c.id=$1 ORDER BY e.kind,e.id`, caseID, limit-total)
 				if e != nil {
 					return e
 				}
