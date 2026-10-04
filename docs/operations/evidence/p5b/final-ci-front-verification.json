@@ -1,0 +1,150 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "head": "d5a33408458ab085d6374400576f9337e5ec96aa",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "commands": [
+    {
+      "name": "final-ci-front-install",
+      "args": [
+        "npm",
+        "ci"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T20:40:30.563509+00:00",
+      "exitCode": 0,
+      "seconds": 3.75,
+      "log": "final-ci-front-install.log",
+      "logSHA256": "42116c6035f9b549143f304beb049a9e32051fe250f0fd4c00dd3b277e79b6bf"
+    },
+    {
+      "name": "final-ci-front-api",
+      "args": [
+        "npm",
+        "run",
+        "api:generate"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T20:40:34.313578+00:00",
+      "exitCode": 0,
+      "seconds": 0.59,
+      "log": "final-ci-front-api.log",
+      "logSHA256": "b97c2cc74723a046ae9576e824a72fbab29bd24ff21373c62a72e1d6342f3d7b"
+    },
+    {
+      "name": "final-ci-front-typecheck",
+      "args": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T20:40:34.908078+00:00",
+      "exitCode": 0,
+      "seconds": 0.87,
+      "log": "final-ci-front-typecheck.log",
+      "logSHA256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
+    },
+    {
+      "name": "final-ci-front-unit",
+      "args": [
+        "npm",
+        "test"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T20:40:35.778054+00:00",
+      "exitCode": 0,
+      "seconds": 4.32,
+      "log": "final-ci-front-unit.log",
+      "logSHA256": "853d0d89d06cdb816f1ca314f3a963c64f43ca19526ad8dd719f09acf977a367"
+    },
+    {
+      "name": "final-ci-front-build",
+      "args": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T20:40:40.098248+00:00",
+      "exitCode": 0,
+      "seconds": 3.54,
+      "log": "final-ci-front-build.log",
+      "logSHA256": "3c7dbf340cd43fb4b86b8796de64169855360e14a7b6499150e1c0d4e6c77033"
+    },
+    {
+      "name": "final-ci-front-audit",
+      "args": [
+        "npm",
+        "audit",
+        "--omit=dev"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T20:40:43.634926+00:00",
+      "exitCode": 0,
+      "seconds": 1.09,
+      "log": "final-ci-front-audit.log",
+      "logSHA256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "name": "final-ci-front-generated-clean",
+      "args": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "frontend/src/lib/api/generated.d.ts"
+      ],
+      "cwd": null,
+      "startedAt": "2026-10-03T20:40:44.720871+00:00",
+      "exitCode": 0,
+      "seconds": 0.04,
+      "log": "final-ci-front-generated-clean.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-ci-front-harness",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "build",
+        "-o",
+        "bin/e2e-harness",
+        "./cmd/e2e-harness"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T20:40:44.759926+00:00",
+      "exitCode": 0,
+      "seconds": 0.41,
+      "log": "final-ci-front-harness.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-ci-front-chromium",
+      "args": [
+        "npm",
+        "exec",
+        "--",
+        "playwright",
+        "install",
+        "chromium"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T20:40:45.165642+00:00",
+      "exitCode": 0,
+      "seconds": 0.51,
+      "log": "final-ci-front-chromium.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

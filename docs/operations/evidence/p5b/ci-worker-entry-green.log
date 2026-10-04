@@ -1,0 +1,102 @@
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/check
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/function
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/weakened-check
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unvalidated-fk
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique-index
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-function
+--- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed (7.75s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/check (0.83s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key (0.77s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique (0.77s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/function (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table (0.77s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger (0.82s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/weakened-check (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unvalidated-fk (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique-index (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-function (0.76s)
+=== RUN   TestCorrectionCompatibilityOriginalFailedReceiptAndRollback
+--- PASS: TestCorrectionCompatibilityOriginalFailedReceiptAndRollback (1.02s)
+=== RUN   TestCorrectionProcessAtomic
+=== RUN   TestCorrectionProcessAtomic/result
+=== RUN   TestCorrectionProcessAtomic/dependency
+=== RUN   TestCorrectionProcessAtomic/dependency-last
+=== RUN   TestCorrectionProcessAtomic/qualification
+=== RUN   TestCorrectionProcessAtomic/notification
+=== RUN   TestCorrectionProcessAtomic/cursor
+--- PASS: TestCorrectionProcessAtomic (5.67s)
+    --- PASS: TestCorrectionProcessAtomic/result (0.95s)
+    --- PASS: TestCorrectionProcessAtomic/dependency (0.94s)
+    --- PASS: TestCorrectionProcessAtomic/dependency-last (0.94s)
+    --- PASS: TestCorrectionProcessAtomic/qualification (0.94s)
+    --- PASS: TestCorrectionProcessAtomic/notification (0.95s)
+    --- PASS: TestCorrectionProcessAtomic/cursor (0.94s)
+=== RUN   TestCorrectionStaleLeaseNoEvidenceWrites
+--- PASS: TestCorrectionStaleLeaseNoEvidenceWrites (0.88s)
+=== RUN   TestCorrectionCrashResumeCursorAndNotificationDedup
+--- PASS: TestCorrectionCrashResumeCursorAndNotificationDedup (1.70s)
+=== RUN   TestCorrectionStaleLeaseAtFinalCommitFence
+--- PASS: TestCorrectionStaleLeaseAtFinalCommitFence (0.96s)
+=== RUN   TestCorrectionWithdrawalCommitRace
+=== RUN   TestCorrectionWithdrawalCommitRace/withdrawal-first
+=== RUN   TestCorrectionWithdrawalCommitRace/correction-first
+--- PASS: TestCorrectionWithdrawalCommitRace (2.56s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/withdrawal-first (1.24s)
+    --- PASS: TestCorrectionWithdrawalCommitRace/correction-first (1.31s)
+=== RUN   TestCorrectionPartialConfigNeverEnabledLegacy
+--- PASS: TestCorrectionPartialConfigNeverEnabledLegacy (0.23s)
+=== RUN   TestCorrectionCommitIdentityRoleRevokedDuringLockWait
+--- PASS: TestCorrectionCommitIdentityRoleRevokedDuringLockWait (0.77s)
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn
+--- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis (2.21s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope (1.11s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn (1.10s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteParentClosure
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteParentClosure (0.89s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies (1.72s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit (0.86s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective (0.85s)
+=== RUN   TestCorrectionSystemEntryOrderedLocks
+=== RUN   TestCorrectionSystemEntryOrderedLocks/0
+=== RUN   TestCorrectionSystemEntryOrderedLocks/1
+=== RUN   TestCorrectionSystemEntryOrderedLocks/2
+--- PASS: TestCorrectionSystemEntryOrderedLocks (2.29s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/0 (0.76s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/1 (0.76s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/2 (0.76s)
+=== RUN   TestCorrectionSystemEntryWithoutContentLocks
+--- PASS: TestCorrectionSystemEntryWithoutContentLocks (0.77s)
+=== RUN   TestCorrectionCommitIdentityFreshReplay
+=== RUN   TestCorrectionCommitIdentityFreshReplay/role
+=== RUN   TestCorrectionCommitIdentityFreshReplay/credential
+=== RUN   TestCorrectionCommitIdentityFreshReplay/password
+=== RUN   TestCorrectionCommitIdentityFreshReplay/csrf
+--- PASS: TestCorrectionCommitIdentityFreshReplay (3.07s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/role (0.77s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/credential (0.76s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/password (0.77s)
+    --- PASS: TestCorrectionCommitIdentityFreshReplay/csrf (0.77s)
+=== RUN   TestCorrectionPartialConfigFailsClosed
+=== RUN   TestCorrectionPartialConfigFailsClosed/table
+=== RUN   TestCorrectionPartialConfigFailsClosed/version
+=== RUN   TestCorrectionPartialConfigFailsClosed/column
+=== RUN   TestCorrectionPartialConfigFailsClosed/trigger
+=== RUN   TestCorrectionPartialConfigFailsClosed/empty-down
+--- PASS: TestCorrectionPartialConfigFailsClosed (3.78s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/table (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/version (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/column (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/trigger (0.76s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/empty-down (0.76s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	36.733s

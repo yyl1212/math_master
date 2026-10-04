@@ -1,0 +1,981 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "testedHead": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
+  "evidenceRecordedAtHead": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "groupHeads": {
+    "go": "751f45badc51feebeb3669416aedba19b4566521",
+    "front": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
+    "browser": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848"
+  },
+  "goInputEquivalence": {
+    "executedHead": "751f45badc51feebeb3669416aedba19b4566521",
+    "appliesToHead": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
+    "unchangedInputGitObjects": {
+      "backend": "0110a350e6f1f6da9e14577b5e71036fe36764aa",
+      "db": "15d72f344de64eb57dc3717a93b0852e76bca5d9",
+      "api": "e366444253ae4e2bfc06e4299fe4b44fe1d2d0ce",
+      "content": "8525b1be6ca0cee7a529feed2626934cc092ad6e",
+      "schemas": "3d4e104561ce0cd6bb78301dcebc0beecfd9ee1d",
+      "tools": "2b9a7d80299806b27f2ef36a0b98f1d4d66deeeb",
+      ".github": "dde46727f86a01c25d33af0a8635e895ae852cef",
+      "frontend/package.json": "56ef2efb8cdb465ab8fffd9cf093030e8fdec357",
+      "frontend/package-lock.json": "fd555f0fd90024b23afbd9e851472ccb3be9e882",
+      "tests/e2e/playwright.config.ts": "38c38f0b849992d88843e6bb4bc4a2e2e3b84a3b",
+      "compose.dev.yaml": "273812c4b10d0efe5cf202c4d2630de966fb86cb"
+    },
+    "allNonDocumentChanges": [
+      "docs/operations/2026-10-03-p5b-final-review.md",
+      "docs/operations/2026-10-03-p5b-review-fixes.md",
+      "frontend/src/features/correction/correction-asset.tsx",
+      "tests/e2e/correction-user.spec.ts"
+    ],
+    "ruling": "仅图片样式引用/浏览器宽图断言变更；Go输入完全一致，Node已按新spec另跑，前端/浏览器完整重跑。"
+  },
+  "groups": {
+    "go": [
+      {
+        "name": "final-pass-go-diff",
+        "args": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "cwd": null,
+        "startedAt": "2026-10-03T19:21:33.010753+00:00",
+        "exitCode": 0,
+        "seconds": 0.03,
+        "log": "final-pass-go-diff.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "final-pass-go-format",
+        "args": [
+          "node",
+          "-e",
+          "const {spawnSync}=require(\"node:child_process\");const r=spawnSync(\"gofmt\",[\"-l\",\".\"],{encoding:\"utf8\"});process.stdout.write(r.stdout??\"\");process.stderr.write(r.stderr??\"\");process.exit(r.status!==0?1:r.stdout.trim()?1:0)"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:21:33.040280+00:00",
+        "exitCode": 0,
+        "seconds": 0.07,
+        "log": "final-pass-go-format.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "final-pass-go-node",
+        "args": [
+          "node",
+          "--test",
+          "tools/verify/run.test.mjs",
+          "tools/verify/learning-compatibility.test.mjs",
+          "tools/verify/feedback-compatibility.test.mjs",
+          "tools/verify/correction-compatibility.test.mjs",
+          "tools/verify/feedback-ci.test.mjs",
+          "tools/verify/correction-ci.test.mjs",
+          "tools/content-ingest/snapshot.test.mjs"
+        ],
+        "cwd": null,
+        "startedAt": "2026-10-03T19:21:33.111497+00:00",
+        "exitCode": 0,
+        "seconds": 5.59,
+        "log": "final-pass-go-node.log",
+        "logSHA256": "c9d066e642811ec983eaec9dd8c94e0f46b520abba1124272859fe7cad5b022e"
+      },
+      {
+        "name": "final-pass-go-vet",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "vet",
+          "./..."
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:21:38.704238+00:00",
+        "exitCode": 0,
+        "seconds": 0.28,
+        "log": "final-pass-go-vet.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "final-pass-go-foundation",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./cmd/server",
+          "./internal/correction",
+          "./internal/notification",
+          "./internal/feedback",
+          "./internal/assessment",
+          "./internal/learning",
+          "./internal/question",
+          "./internal/auth",
+          "./internal/content",
+          "./internal/publication",
+          "./internal/config",
+          "./internal/httpapi",
+          "./internal/e2etest",
+          "./internal/testutil",
+          "-timeout",
+          "5m",
+          "-count=1"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:21:38.983167+00:00",
+        "exitCode": 0,
+        "seconds": 104.98,
+        "log": "final-pass-go-foundation.log",
+        "logSHA256": "504f907fed91389fce120288f54414e358e775150b9a9b76296cb7d1bc0de4db"
+      },
+      {
+        "name": "final-pass-go-store",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "./internal/cli",
+          "-skip",
+          "^Test(Learning|Assessment|Feedback|Correction|Notification)",
+          "-timeout",
+          "5m",
+          "-count=1"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:23:23.964007+00:00",
+        "exitCode": 0,
+        "seconds": 140.45,
+        "log": "final-pass-go-store.log",
+        "logSHA256": "59e9656879e80199b59f5e370a2b7100b2039ca35550ce68d638cafedbc2796c"
+      },
+      {
+        "name": "final-pass-go-learning",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "-run",
+          "^Test(Learning|Assessment)",
+          "-skip",
+          "^TestLearningCapacity",
+          "-timeout",
+          "5m",
+          "-count=1"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:25:44.418002+00:00",
+        "exitCode": 0,
+        "seconds": 81.95,
+        "log": "final-pass-go-learning.log",
+        "logSHA256": "541772c590b080153137c6255e833ede6af6fc6909f56419030ebddad3536d5f"
+      },
+      {
+        "name": "final-pass-go-feedback",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "-run",
+          "^TestFeedback",
+          "-skip",
+          "^TestFeedbackCapacity",
+          "-timeout",
+          "5m",
+          "-count=1"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:27:06.372159+00:00",
+        "exitCode": 0,
+        "seconds": 28.14,
+        "log": "final-pass-go-feedback.log",
+        "logSHA256": "e350f0491a6580af8de287de517e89764bfff615128fdcaf116b053b76f54a69"
+      },
+      {
+        "name": "final-pass-go-correction",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "./internal/cli",
+          "-run",
+          "^Test(Correction|Notification)",
+          "-skip",
+          "^TestCorrectionCapacity",
+          "-timeout",
+          "5m",
+          "-count=1"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:27:34.516832+00:00",
+        "exitCode": 0,
+        "seconds": 120.43,
+        "log": "final-pass-go-correction.log",
+        "logSHA256": "b55547717468fe5b9ae19d0e2dca431813a83eceb1e5ba3bef74e882774f0d98"
+      },
+      {
+        "name": "final-pass-go-FeedbackCapacity",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "-run",
+          "^TestFeedbackCapacity$",
+          "-timeout",
+          "5m",
+          "-count=1",
+          "-v"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:29:34.944747+00:00",
+        "exitCode": 0,
+        "seconds": 11.15,
+        "log": "final-pass-go-FeedbackCapacity.log",
+        "logSHA256": "4d7919faf7eca1314877e89117a18ca7dd6e85cd12992b97fce4d0bb84201601"
+      },
+      {
+        "name": "final-pass-go-LearningCapacitySourceVolume",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "-run",
+          "^TestLearningCapacitySourceVolume$",
+          "-timeout",
+          "5m",
+          "-count=1",
+          "-v"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:29:46.099869+00:00",
+        "exitCode": 0,
+        "seconds": 91.81,
+        "log": "final-pass-go-LearningCapacitySourceVolume.log",
+        "logSHA256": "5fcf7914484cd45029fd110e573f18ea72d361bc9b932edf2f11198ef3901956"
+      },
+      {
+        "name": "final-pass-go-LearningCapacityMaxPool",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "-run",
+          "^TestLearningCapacityMaxPool$",
+          "-timeout",
+          "5m",
+          "-count=1",
+          "-v"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:31:17.906075+00:00",
+        "exitCode": 0,
+        "seconds": 123.96,
+        "log": "final-pass-go-LearningCapacityMaxPool.log",
+        "logSHA256": "eb045f3524f77a71bca457e707bc389bcdca5b795660c95fee18bef74c0ee9a0"
+      },
+      {
+        "name": "final-pass-go-CorrectionCapacityImpact",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "-run",
+          "^TestCorrectionCapacityImpact$",
+          "-timeout",
+          "5m",
+          "-count=1",
+          "-v"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:33:21.865327+00:00",
+        "exitCode": 0,
+        "seconds": 250.44,
+        "log": "final-pass-go-CorrectionCapacityImpact.log",
+        "logSHA256": "d6d316929d3b6e850eef089164fc91a7fc8dd3da8bedcddb7047614f05ac6590"
+      },
+      {
+        "name": "final-pass-go-CorrectionCapacityNotifications",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "test",
+          "./internal/store",
+          "-run",
+          "^TestCorrectionCapacityNotifications$",
+          "-timeout",
+          "5m",
+          "-count=1",
+          "-v"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:37:32.297006+00:00",
+        "exitCode": 0,
+        "seconds": 41.99,
+        "log": "final-pass-go-CorrectionCapacityNotifications.log",
+        "logSHA256": "e08b07337897ee04d87ad0488ed80b6a54df26a1376b66f51c1da30040936bbd"
+      },
+      {
+        "name": "final-pass-go-build",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "build",
+          "./cmd/..."
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:38:14.272054+00:00",
+        "exitCode": 0,
+        "seconds": 0.52,
+        "log": "final-pass-go-build.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "front": [
+      {
+        "name": "final-pass-front-install",
+        "args": [
+          "npm",
+          "ci"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:05.113396+00:00",
+        "exitCode": 0,
+        "seconds": 3.66,
+        "log": "final-pass-front-install.log",
+        "logSHA256": "42116c6035f9b549143f304beb049a9e32051fe250f0fd4c00dd3b277e79b6bf"
+      },
+      {
+        "name": "final-pass-front-api",
+        "args": [
+          "npm",
+          "run",
+          "api:generate"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:08.776096+00:00",
+        "exitCode": 0,
+        "seconds": 0.72,
+        "log": "final-pass-front-api.log",
+        "logSHA256": "28a67ad1fed5a68b5bcf993abbd98b9b44c2516b3e3e4032301a41bc550dd140"
+      },
+      {
+        "name": "final-pass-front-typecheck",
+        "args": [
+          "npm",
+          "run",
+          "typecheck"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:09.494065+00:00",
+        "exitCode": 0,
+        "seconds": 0.92,
+        "log": "final-pass-front-typecheck.log",
+        "logSHA256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
+      },
+      {
+        "name": "final-pass-front-unit",
+        "args": [
+          "npm",
+          "test"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:10.415007+00:00",
+        "exitCode": 0,
+        "seconds": 4.16,
+        "log": "final-pass-front-unit.log",
+        "logSHA256": "3c2dc8021cd5bdd2ac27faa839f0f2d3849a4c996f5521db98926d477d5ed1c9"
+      },
+      {
+        "name": "final-pass-front-build",
+        "args": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:14.579524+00:00",
+        "exitCode": 0,
+        "seconds": 3.9,
+        "log": "final-pass-front-build.log",
+        "logSHA256": "e90a2ed6b4b39e5e708aa1b1a77f6a3ee5cc37bd7585c58b524773ad19a85e58"
+      },
+      {
+        "name": "final-pass-front-audit",
+        "args": [
+          "npm",
+          "audit",
+          "--omit=dev"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:18.481241+00:00",
+        "exitCode": 0,
+        "seconds": 1.04,
+        "log": "final-pass-front-audit.log",
+        "logSHA256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+      },
+      {
+        "name": "final-pass-front-generated-clean",
+        "args": [
+          "git",
+          "diff",
+          "--exit-code",
+          "--",
+          "frontend/src/lib/api/generated.d.ts"
+        ],
+        "cwd": null,
+        "startedAt": "2026-10-03T19:43:19.523230+00:00",
+        "exitCode": 0,
+        "seconds": 0.05,
+        "log": "final-pass-front-generated-clean.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "final-pass-front-harness",
+        "args": [
+          "env",
+          "CGO_ENABLED=0",
+          "GOTOOLCHAIN=go1.27.1",
+          "go",
+          "build",
+          "-o",
+          "bin/e2e-harness",
+          "./cmd/e2e-harness"
+        ],
+        "cwd": "backend",
+        "startedAt": "2026-10-03T19:43:19.570308+00:00",
+        "exitCode": 0,
+        "seconds": 0.39,
+        "log": "final-pass-front-harness.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "final-pass-front-chromium",
+        "args": [
+          "npm",
+          "exec",
+          "--",
+          "playwright",
+          "install",
+          "chromium"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:19.958405+00:00",
+        "exitCode": 0,
+        "seconds": 0.54,
+        "log": "final-pass-front-chromium.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "browser": [
+      {
+        "name": "final-pass-browser-01",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "catalogue.spec.ts",
+          "reading.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:20.542377+00:00",
+        "exitCode": 0,
+        "seconds": 37.34,
+        "log": "final-pass-browser-01.log",
+        "logSHA256": "f1cc1be5db30a7188dbd52998b65ea8e57b355416b10fa402851f06adac57548"
+      },
+      {
+        "name": "final-pass-browser-02",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "auth.spec.ts",
+          "auth-security.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:43:57.883971+00:00",
+        "exitCode": 0,
+        "seconds": 29.45,
+        "log": "final-pass-browser-02.log",
+        "logSHA256": "462c5450508999eeb61ca44207a9741c5e4c0c62919f83ff4cd24ad1bafea87e"
+      },
+      {
+        "name": "final-pass-browser-03",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "content-authoring.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:44:27.338033+00:00",
+        "exitCode": 0,
+        "seconds": 12.87,
+        "log": "final-pass-browser-03.log",
+        "logSHA256": "71671471ce80d2f4ba8f29408020a4bb5e77beedafe16d89664553c10a1d3c89"
+      },
+      {
+        "name": "final-pass-browser-04",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "content-review.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:44:40.210050+00:00",
+        "exitCode": 0,
+        "seconds": 20.74,
+        "log": "final-pass-browser-04.log",
+        "logSHA256": "02650adeac565935b410b04021e5b4d0b7e125f7d263a54759b6079c16f813cf"
+      },
+      {
+        "name": "final-pass-browser-05",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "content-release.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:45:00.951742+00:00",
+        "exitCode": 0,
+        "seconds": 33.65,
+        "log": "final-pass-browser-05.log",
+        "logSHA256": "53b5bfb789b1e3c014adeb71f578fd3a3e80b5e5c8d5e36b8c0c533533d8abec"
+      },
+      {
+        "name": "final-pass-browser-06",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "content-security.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:45:34.605159+00:00",
+        "exitCode": 0,
+        "seconds": 37.81,
+        "log": "final-pass-browser-06.log",
+        "logSHA256": "deac33b68baad5c03fdda357feea48563cb8d5806e59db936adb76c0a914cd0e"
+      },
+      {
+        "name": "final-pass-browser-07",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "question-authoring.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:46:12.413307+00:00",
+        "exitCode": 0,
+        "seconds": 34.88,
+        "log": "final-pass-browser-07.log",
+        "logSHA256": "21d6f50609a5a1856bdcd650c641e2053608f9f23278e62f6714ac14d3ed7135"
+      },
+      {
+        "name": "final-pass-browser-08",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "question-review.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:46:47.300017+00:00",
+        "exitCode": 0,
+        "seconds": 21.23,
+        "log": "final-pass-browser-08.log",
+        "logSHA256": "ae5f8e3a19fb141152baf33a01b905b80ca0e73b258e3d933e9900707b0ddfc4"
+      },
+      {
+        "name": "final-pass-browser-09",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "question-release.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:47:08.528643+00:00",
+        "exitCode": 0,
+        "seconds": 48.48,
+        "log": "final-pass-browser-09.log",
+        "logSHA256": "e07b2ebbadb74bc16c9e85519fb26f96c0de9282058647a78b6fafe1e327d723"
+      },
+      {
+        "name": "final-pass-browser-10",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "question-security.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:47:57.008959+00:00",
+        "exitCode": 0,
+        "seconds": 47.75,
+        "log": "final-pass-browser-10.log",
+        "logSHA256": "06031e22122ae262af0a55621afde00359f7d80435b9d2435a9108b6248cc6fc"
+      },
+      {
+        "name": "final-pass-browser-11",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "learning-progress.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:48:44.764917+00:00",
+        "exitCode": 0,
+        "seconds": 25.52,
+        "log": "final-pass-browser-11.log",
+        "logSHA256": "2b4b025ec4718bb8503805a5d45b20525483257f84a7db3318f3dcd53a3c97c5"
+      },
+      {
+        "name": "final-pass-browser-12",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "learning-practice.spec.ts",
+          "learning-assessment.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:49:10.288828+00:00",
+        "exitCode": 0,
+        "seconds": 37.92,
+        "log": "final-pass-browser-12.log",
+        "logSHA256": "9d68352dd5aa966a290310bbc21e244b96192caa30a332fb60c08c318773b92a"
+      },
+      {
+        "name": "final-pass-browser-13",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "learning-diagnostic.spec.ts",
+          "learning-security.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:49:48.208269+00:00",
+        "exitCode": 0,
+        "seconds": 64.63,
+        "log": "final-pass-browser-13.log",
+        "logSHA256": "25f9dad3ab2bb1dd956641222d12e02b2f12298355e03ebc84ae29ba785d6523"
+      },
+      {
+        "name": "final-pass-browser-14",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "learning-review-regressions.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:50:52.839260+00:00",
+        "exitCode": 0,
+        "seconds": 28.38,
+        "log": "final-pass-browser-14.log",
+        "logSHA256": "dbee7dd09a8190e59990fa5e040726eae839fd45d219da7ffec0b2961ebfbecf"
+      },
+      {
+        "name": "final-pass-browser-15",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "feedback-user.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:51:21.217146+00:00",
+        "exitCode": 0,
+        "seconds": 76.53,
+        "log": "final-pass-browser-15.log",
+        "logSHA256": "b8b0a743219eb5c2d5a8dbb46e2b6a19877b08dca4c8d717d9d05a1d5ac9759c"
+      },
+      {
+        "name": "final-pass-browser-16",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "feedback-review.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:52:37.747024+00:00",
+        "exitCode": 0,
+        "seconds": 46.51,
+        "log": "final-pass-browser-16.log",
+        "logSHA256": "5dc987b6f2d4eb80676c13efea96714344f7ebe159f93bba8d721041cc1f2de9"
+      },
+      {
+        "name": "final-pass-browser-17",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "feedback-security.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:53:24.257483+00:00",
+        "exitCode": 0,
+        "seconds": 63.53,
+        "log": "final-pass-browser-17.log",
+        "logSHA256": "1fd33cb99b7a262bd47391315ddff5c5e9f4baef9989b5c5137cc7632aee4986"
+      },
+      {
+        "name": "final-pass-browser-18",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "correction-user.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:54:27.785018+00:00",
+        "exitCode": 0,
+        "seconds": 29.29,
+        "log": "final-pass-browser-18.log",
+        "logSHA256": "04ec0f5884c716201d78001b6f3ac106c54788f61934985c3eaa3d772c455e78"
+      },
+      {
+        "name": "final-pass-browser-19",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "correction-review.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:54:57.074991+00:00",
+        "exitCode": 0,
+        "seconds": 19.39,
+        "log": "final-pass-browser-19.log",
+        "logSHA256": "37adc7a930e7c57ac774e707c733e3ebe8d42d5e7a5d5dea4d7e68d30dabc5c5"
+      },
+      {
+        "name": "final-pass-browser-20",
+        "args": [
+          "env",
+          "-u",
+          "NO_COLOR",
+          "npm",
+          "run",
+          "e2e",
+          "--",
+          "notification-security.spec.ts"
+        ],
+        "cwd": "frontend",
+        "startedAt": "2026-10-03T19:55:16.466612+00:00",
+        "exitCode": 0,
+        "seconds": 47.71,
+        "log": "final-pass-browser-20.log",
+        "logSHA256": "13bee4524eea7decec066b8d52f8014ad85f3967bce877b02c379006072162a2"
+      }
+    ]
+  },
+  "postChangeChecks": {
+    "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+    "head": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
+    "platform": "darwin",
+    "goEnvironment": {
+      "CGO_ENABLED": "0",
+      "GOTOOLCHAIN": "go1.27.1"
+    },
+    "browser": {
+      "workers": 1,
+      "retries": 0,
+      "globalTimeout": 480000
+    },
+    "commands": [
+      {
+        "name": "final-pass-inputs-diff",
+        "args": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "cwd": null,
+        "startedAt": "2026-10-03T19:42:59.432753+00:00",
+        "exitCode": 0,
+        "seconds": 0.03,
+        "log": "final-pass-inputs-diff.log",
+        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "final-pass-inputs-node",
+        "args": [
+          "node",
+          "--test",
+          "tools/verify/run.test.mjs",
+          "tools/verify/learning-compatibility.test.mjs",
+          "tools/verify/feedback-compatibility.test.mjs",
+          "tools/verify/correction-compatibility.test.mjs",
+          "tools/verify/feedback-ci.test.mjs",
+          "tools/verify/correction-ci.test.mjs",
+          "tools/content-ingest/snapshot.test.mjs"
+        ],
+        "cwd": null,
+        "startedAt": "2026-10-03T19:42:59.463254+00:00",
+        "exitCode": 0,
+        "seconds": 5.59,
+        "log": "final-pass-inputs-node.log",
+        "logSHA256": "45174a02a6eec2a1acc23754d521a2f3e733c2563e18abca521af498f765a402"
+      }
+    ]
+  },
+  "counts": {
+    "node": 44,
+    "frontend": 350,
+    "browser": 146,
+    "browserBatches": 20
+  },
+  "screenshots": [
+    "desktop-correction-account-switch.png",
+    "desktop-correction-effective-illustrations.png",
+    "desktop-correction-independent-review.png",
+    "desktop-correction-notifications.png",
+    "desktop-correction-overlap-boundary.png",
+    "desktop-correction-retake.png",
+    "desktop-notification-owner-isolation.png",
+    "desktop-notification-same-key-replay.png",
+    "desktop-original-assessment-result.png",
+    "desktop-original-practice-revealed.png",
+    "mobile-correction-account-switch.png",
+    "mobile-correction-effective-illustrations.png",
+    "mobile-correction-independent-review.png",
+    "mobile-correction-notifications.png",
+    "mobile-correction-overlap-boundary.png",
+    "mobile-correction-retake.png",
+    "mobile-notification-owner-isolation.png",
+    "mobile-notification-same-key-replay.png",
+    "mobile-original-assessment-result.png",
+    "mobile-original-practice-revealed.png"
+  ],
+  "review": {
+    "reviewedHead": "daaafe791ef49295e6b7fcc6beaf908945588409",
+    "independentReviewers": 1,
+    "fixPasses": 1,
+    "importantFixed": 3,
+    "deferredMinors": 0
+  }
+}

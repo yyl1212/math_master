@@ -26,7 +26,7 @@ Deferred minors：无。唯一原Minor已升级为Important并处理，没有将
 
 ## 最终门槛
 
-独立原始结论为 `Ready to merge? With fixes`。三项修复已有真实失败与定向GREEN，修复后完整本机矩阵在 `ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848` 全部通过（44命令/350前端/146双视口/44Node/全部Go及五项容量）；SSH draft PR最新完整head四项workflow/all jobs仍待远端完成，不能把首轮旧SHA的成功替代最终验证，也不宣称部署或自行合并。
+独立原始结论为 `Ready to merge? With fixes`。三项修复已有真实失败与定向GREEN，修复后完整本机矩阵在 `ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848` 全部通过（44命令/350前端/146双视口/44Node/全部Go及五项容量）；首次SSH draft完整head四项workflow/all jobs已通过，最终文档提交仍须最新head再次核验，不能把首轮旧SHA的成功替代最终验证，也不宣称部署或自行合并。
 
 同一次链修复补充 `TestCorrectionReplacementChainIgnoresUnrelatedFork`：真实其他实例的批准分支冲突造成3.19秒RED，链守卫仅沿当前原实例的确定性边走到终点后，和当前链冲突/环及无中间结果回归一起8.17秒GREEN。其他题目无关分支不阻塞本证据；当前链分叉、环、缺边、超100引用/边仍拒绝。未完成的旧SHA矩阵已由其自身包装器安全中止，不用于最终验收；全部组将在新提交重跑。
 
@@ -35,3 +35,9 @@ Deferred minors：无。唯一原Minor已升级为Important并处理，没有将
 宽图边界 fresh build GREEN：桌面/手机两场景10.10秒通过，包含实际图片加载、本人有效结果URL、再次撤回404和原摘要保持。完整前端与20批浏览器及Node复核仍待本提交验收。
 
 修复后全矩阵：ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848。固定路由计数断言真实失败于新增接口17/20，已同步并增加准确Session/id/SHA/SVG/CSP/private/1MiB断言，完整复验通过；没有删除旧契约保护。
+
+CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修复审核](2026-10-03-p5b-ci-query-fix.md)优化准确schema索引、案件分支估算及同事务准确前置/末尾读取往返、原事务语句批次及隔离夹具数据库时钟，不改数量/截止/守卫。全部Go、前端、20批浏览器在 `177ed57186a662db87b2b0fd0d56384607de3936` 新鲜完整复验，44命令/350前端/146浏览器/44Node/五容量PASS；首次失败和历史矩阵保留。产品草稿PR #23的最新完整head四run/全部job仍须实际核验。
+
+一次独立审查及同一次修复轮完成，全部27项Ruling及零deferred minor已归档，Task16完成记录可查。[23](https://github.com/yyl1212/math_master/pull/23)首次完整head `177ed57186a662db87b2b0fd0d56384607de3936` 四workflow/六job全部PASS；最终文档提交的再次验收以PR说明为准。
+
+交付证据QA补充Ruling27：原始stdout保持逐字节及SHA，仅在人工文档空白风格检查中排除准确证据目录的*.log；所有源码、JSON及诊断脚本继续检查，未变更Git设置、CI或测试预算。准确默认RED/限定GREEN及manifest核验已归档；全部27项裁定、16任务/80步完成，最新完整文档head仍以PR说明的四run/六job验收为准。

@@ -1,0 +1,400 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "head": "d6f8c743a9385aeacf97644b2f5f6d6f1b729f60",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "commands": [
+    {
+      "name": "task16-full-browser-01",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "catalogue.spec.ts",
+        "reading.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:31:05.365481+00:00",
+      "exitCode": 0,
+      "seconds": 37.05,
+      "log": "task16-full-browser-01.log",
+      "logSHA256": "e941c499d8a8366f529e30edb97bdabd733e943afe29c1728af9430a7b028eb9"
+    },
+    {
+      "name": "task16-full-browser-02",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "auth.spec.ts",
+        "auth-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:31:42.415814+00:00",
+      "exitCode": 0,
+      "seconds": 31.1,
+      "log": "task16-full-browser-02.log",
+      "logSHA256": "8fcd125eee2f32d23b9277ac4c13093b1ac8ae623a0e3b1400e3517359b03bda"
+    },
+    {
+      "name": "task16-full-browser-03",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-authoring.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:32:13.515802+00:00",
+      "exitCode": 0,
+      "seconds": 12.94,
+      "log": "task16-full-browser-03.log",
+      "logSHA256": "58bd74b094944847c4aea207dd8341a210418e37f5d5ce35523d4cef3f3023c2"
+    },
+    {
+      "name": "task16-full-browser-04",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:32:26.454300+00:00",
+      "exitCode": 0,
+      "seconds": 21.07,
+      "log": "task16-full-browser-04.log",
+      "logSHA256": "f8827ac64f95385e6f8f466010def6280f9f707bd017098d6d8aadc7ae453ed9"
+    },
+    {
+      "name": "task16-full-browser-05",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-release.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:32:47.524657+00:00",
+      "exitCode": 0,
+      "seconds": 34.18,
+      "log": "task16-full-browser-05.log",
+      "logSHA256": "0efdd0599d642a53bce3055b3985f88726bc8a85bb18155de0bc11e155ae2a32"
+    },
+    {
+      "name": "task16-full-browser-06",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "content-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:33:21.708960+00:00",
+      "exitCode": 0,
+      "seconds": 40.28,
+      "log": "task16-full-browser-06.log",
+      "logSHA256": "7e727a7899206124f1fa638f5179e6d0f2365a3d54f20286e4dfe00597819be6"
+    },
+    {
+      "name": "task16-full-browser-07",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-authoring.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:34:01.994307+00:00",
+      "exitCode": 0,
+      "seconds": 33.16,
+      "log": "task16-full-browser-07.log",
+      "logSHA256": "16de05cbc6c1089da65b5508a0ed74c3f0e7ecb7dbb2568ae14ec1365c9476ef"
+    },
+    {
+      "name": "task16-full-browser-08",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:34:35.155354+00:00",
+      "exitCode": 0,
+      "seconds": 21.42,
+      "log": "task16-full-browser-08.log",
+      "logSHA256": "c11a557e01ba9866a5cfa9c4748807713f8ad2ed3ee1813bfb71e2ffc14c72f1"
+    },
+    {
+      "name": "task16-full-browser-09",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-release.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:34:56.570911+00:00",
+      "exitCode": 0,
+      "seconds": 49.2,
+      "log": "task16-full-browser-09.log",
+      "logSHA256": "b00b80ddaaffde1a2674267155500ed45e96fdac54f412aea23c9af17be3adb2"
+    },
+    {
+      "name": "task16-full-browser-10",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "question-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:35:45.774168+00:00",
+      "exitCode": 0,
+      "seconds": 48.95,
+      "log": "task16-full-browser-10.log",
+      "logSHA256": "d4048555b328cd4479c25e787321d96dc654328af1a2e57e156457a6b5b56827"
+    },
+    {
+      "name": "task16-full-browser-11",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-progress.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:36:34.719833+00:00",
+      "exitCode": 0,
+      "seconds": 25.36,
+      "log": "task16-full-browser-11.log",
+      "logSHA256": "5cd01ac36d21ffa2d70ff482630c2bfeb1a7929946b1b953bdbcabdd5108c903"
+    },
+    {
+      "name": "task16-full-browser-12",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-practice.spec.ts",
+        "learning-assessment.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:37:00.078700+00:00",
+      "exitCode": 0,
+      "seconds": 38.53,
+      "log": "task16-full-browser-12.log",
+      "logSHA256": "ee1deb6b3d7ea3689d1e41344be353b926333cff00561be57769a36160e102b6"
+    },
+    {
+      "name": "task16-full-browser-13",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-diagnostic.spec.ts",
+        "learning-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:37:38.610948+00:00",
+      "exitCode": 0,
+      "seconds": 65.38,
+      "log": "task16-full-browser-13.log",
+      "logSHA256": "45f80887868070b3d336ce6a951fdb92575d1122e4e190ff1dc50dbd31b2591a"
+    },
+    {
+      "name": "task16-full-browser-14",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "learning-review-regressions.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:38:43.993726+00:00",
+      "exitCode": 0,
+      "seconds": 27.85,
+      "log": "task16-full-browser-14.log",
+      "logSHA256": "39d07ca146695755256373780d9ecd54d9974e9b2f9642650403e32e7b4c5204"
+    },
+    {
+      "name": "task16-full-browser-15",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "feedback-user.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:39:11.846073+00:00",
+      "exitCode": 0,
+      "seconds": 75.79,
+      "log": "task16-full-browser-15.log",
+      "logSHA256": "ff1e335947f2a2086d72b607813e14f655fbafde47f9b06b15c3b9044c9df066"
+    },
+    {
+      "name": "task16-full-browser-16",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "feedback-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:40:27.640041+00:00",
+      "exitCode": 0,
+      "seconds": 48.18,
+      "log": "task16-full-browser-16.log",
+      "logSHA256": "c40715f51cd2a3c1bafe8f48a801edded4a0bacb51ed9706fc9ca1a8100f9081"
+    },
+    {
+      "name": "task16-full-browser-17",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "feedback-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:41:15.820976+00:00",
+      "exitCode": 0,
+      "seconds": 64.43,
+      "log": "task16-full-browser-17.log",
+      "logSHA256": "6afe040b9fcd9b923aa0edbc43d751b1f4b27ef2d351d91ccc3646c3de1909af"
+    },
+    {
+      "name": "task16-full-browser-18",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "correction-user.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:42:20.257420+00:00",
+      "exitCode": 0,
+      "seconds": 22.41,
+      "log": "task16-full-browser-18.log",
+      "logSHA256": "9bd0a3d61f8ad13a32a07a9e56a276c7d9a1e991b0cbbf5113c43594376852c5"
+    },
+    {
+      "name": "task16-full-browser-19",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "correction-review.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:42:42.671015+00:00",
+      "exitCode": 0,
+      "seconds": 19.51,
+      "log": "task16-full-browser-19.log",
+      "logSHA256": "cbef0d5c62d2c33322b24ba53543df9b3c69c0829cdf9d543587cb965bc627e9"
+    },
+    {
+      "name": "task16-full-browser-20",
+      "args": [
+        "env",
+        "-u",
+        "NO_COLOR",
+        "npm",
+        "run",
+        "e2e",
+        "--",
+        "notification-security.spec.ts"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:43:02.187256+00:00",
+      "exitCode": 0,
+      "seconds": 47.83,
+      "log": "task16-full-browser-20.log",
+      "logSHA256": "58498ee2114d012fb6ac8dfa8a9aa5b15807e04eb49df36ac637ea92c82b6091"
+    }
+  ]
+}

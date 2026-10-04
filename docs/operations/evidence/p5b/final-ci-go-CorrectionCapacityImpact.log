@@ -1,0 +1,7 @@
+=== RUN   TestCorrectionCapacityImpact
+    correction_capacity_test.go:238: capacity worker processed=1000 elapsed=48.878891667s
+    correction_capacity_test.go:238: capacity worker processed=2000 elapsed=1m3.2149385s
+    correction_capacity_test.go:238: capacity worker processed=3000 elapsed=1m17.39720575s
+    correction_capacity_test.go:238: capacity worker processed=4000 elapsed=1m31.509216667s
+signal: interrupt
+FAIL	github.com/yyl1212/math_master/backend/internal/store	92.604s

@@ -1,0 +1,20 @@
+[
+  {
+    "query": "SELECT",
+    "calls": 63,
+    "totalMs": 189.38,
+    "maxMs": 4.643
+  },
+  {
+    "query": "WITH evidence AS (SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed",
+    "calls": 55,
+    "totalMs": 66.47,
+    "maxMs": 5.528
+  },
+  {
+    "query": "EXPLAIN (ANALYZE, BUFFERS) WITH evidence AS (SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed",
+    "calls": 1,
+    "totalMs": 1.43,
+    "maxMs": 1.43
+  }
+]

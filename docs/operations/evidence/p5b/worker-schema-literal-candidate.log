@@ -1,0 +1,71 @@
+=== RUN   TestCorrectionCapacityDiagnostic
+    correction_capacity_diagnostic_test.go:4: DIAG setup 32.546450917s
+    correction_capacity_diagnostic_test.go:6: DIAG real500 5.581730958s
+    correction_capacity_diagnostic_test.go:6: PHASE_PROFILE_JSON {"body":{"Calls":40500,"Nanoseconds":40910461,"MaxNanoseconds":426083},"correctionAdvanceCursor":{"Calls":500,"Nanoseconds":317903838,"MaxNanoseconds":1178084},"correctionBuildBasisMetadata":{"Calls":500,"Nanoseconds":1248481780,"MaxNanoseconds":5590250},"correctionEvent":{"Calls":20,"Nanoseconds":6111374,"MaxNanoseconds":417375},"correctionInstanceDeps":{"Calls":500,"Nanoseconds":133873676,"MaxNanoseconds":659666},"correctionLockCaseKind":{"Calls":500,"Nanoseconds":111898177,"MaxNanoseconds":341625},"correctionOriginalBasis":{"Calls":500,"Nanoseconds":426490703,"MaxNanoseconds":2586666},"correctionPositionMap":{"Calls":1000,"Nanoseconds":133134120,"MaxNanoseconds":1496709},"correctionProcessEvidence":{"Calls":500,"Nanoseconds":3775164459,"MaxNanoseconds":14196125},"correctionReadEvidenceMetadata":{"Calls":500,"Nanoseconds":121775786,"MaxNanoseconds":613125},"correctionReadJob":{"Calls":520,"Nanoseconds":128336806,"MaxNanoseconds":497250},"correctionReadJobTime":{"Calls":500,"Nanoseconds":127938632,"MaxNanoseconds":551541},"correctionSystemConfigured":{"Calls":530,"Nanoseconds":671966805,"MaxNanoseconds":1923584},"correctionSystemEnter":{"Calls":530,"Nanoseconds":126647874,"MaxNanoseconds":493125},"correctionSystemTx":{"Calls":530,"Nanoseconds":5581460252,"MaxNanoseconds":18530625},"correctionWriteResult":{"Calls":500,"Nanoseconds":948219465,"MaxNanoseconds":3924625},"dbClock":{"Calls":20,"Nanoseconds":4484419,"MaxNanoseconds":261208},"learningEvidenceDependencies":{"Calls":500,"Nanoseconds":119936386,"MaxNanoseconds":628125},"learningLoadItems":{"Calls":500,"Nanoseconds":172314621,"MaxNanoseconds":2018625},"learningReadPractice":{"Calls":500,"Nanoseconds":133203341,"MaxNanoseconds":638541},"notificationAppend":{"Calls":500,"Nanoseconds":172270027,"MaxNanoseconds":775542},"readAccount":{"Calls":1000,"Nanoseconds":456525300,"MaxNanoseconds":1672917}}
+--- PASS: TestCorrectionCapacityDiagnostic (38.14s)
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/check
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/function
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/weakened-check
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unvalidated-fk
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/unique-index
+=== RUN   TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-function
+--- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed (7.58s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/check (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/foreign-key (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique (0.75s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/function (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-table (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/disabled-trigger (0.75s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/weakened-check (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unvalidated-fk (0.76s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/unique-index (0.75s)
+    --- PASS: TestCorrectionCompatibilityRequiredGuardsFailClosed/trigger-function (0.76s)
+=== RUN   TestCorrectionCompatibilityOriginalFailedReceiptAndRollback
+--- PASS: TestCorrectionCompatibilityOriginalFailedReceiptAndRollback (1.01s)
+=== RUN   TestCorrectionPartialConfigNeverEnabledLegacy
+--- PASS: TestCorrectionPartialConfigNeverEnabledLegacy (0.22s)
+=== RUN   TestCorrectionSchemaImmutable
+--- PASS: TestCorrectionSchemaImmutable (0.77s)
+=== RUN   TestCorrectionSchemaDirectApprovalRejected
+--- PASS: TestCorrectionSchemaDirectApprovalRejected (0.75s)
+=== RUN   TestCorrectionSchemaOwnership
+--- PASS: TestCorrectionSchemaOwnership (0.80s)
+=== RUN   TestCorrectionSchemaUnapprovedPassRejected
+--- PASS: TestCorrectionSchemaUnapprovedPassRejected (0.76s)
+=== RUN   TestCorrectionSchemaLegalResultAndAudit
+--- PASS: TestCorrectionSchemaLegalResultAndAudit (0.88s)
+=== RUN   TestCorrectionSchemaReplacementSHA
+--- PASS: TestCorrectionSchemaReplacementSHA (0.84s)
+=== RUN   TestCorrectionSchemaPassingKnowledgeRequired
+--- PASS: TestCorrectionSchemaPassingKnowledgeRequired (0.86s)
+=== RUN   TestCorrectionSchemaUnmappedReplacementRejected
+--- PASS: TestCorrectionSchemaUnmappedReplacementRejected (0.99s)
+=== RUN   TestCorrectionSystemEntryOrderedLocks
+=== RUN   TestCorrectionSystemEntryOrderedLocks/0
+=== RUN   TestCorrectionSystemEntryOrderedLocks/1
+=== RUN   TestCorrectionSystemEntryOrderedLocks/2
+--- PASS: TestCorrectionSystemEntryOrderedLocks (2.30s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/0 (0.77s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/1 (0.76s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/2 (0.76s)
+=== RUN   TestCorrectionSystemEntryWithoutContentLocks
+--- PASS: TestCorrectionSystemEntryWithoutContentLocks (0.75s)
+=== RUN   TestCorrectionPartialConfigFailsClosed
+=== RUN   TestCorrectionPartialConfigFailsClosed/table
+=== RUN   TestCorrectionPartialConfigFailsClosed/version
+=== RUN   TestCorrectionPartialConfigFailsClosed/column
+=== RUN   TestCorrectionPartialConfigFailsClosed/trigger
+=== RUN   TestCorrectionPartialConfigFailsClosed/empty-down
+--- PASS: TestCorrectionPartialConfigFailsClosed (3.79s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/table (0.75s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/version (0.77s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/column (0.76s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/trigger (0.76s)
+    --- PASS: TestCorrectionPartialConfigFailsClosed/empty-down (0.76s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	61.042s

@@ -33,7 +33,7 @@
 
 历史容量复用真实独立作者、复核及发布事实，全部FK、不可变/独立审核及延迟守卫开启；并非1000次绕过配额的API创建。10000证据由生产方法连续处理，每批50条且断点单调前进，原seal/答案摘要保持不变；无准确映射的撤回诚实返回retake_required，不凭空授予资格。所有案件、方案、结果和两位owner的通知分页直到全部，expected sets完全相等。
 
-最新影响容量：保留堆增量335768bytes、单批最高分配23577080bytes，均低于该一题技术夹具的32MiB断言；总分配量为4686570664bytes。这不是峰值RSS或所有真实数学正文大小的承诺，单正文和完整响应仍按各自字节上限处理。10000通知生产append后再同源append10000次，最终仍10000条；首次已读时间、同键回执及跨owner拒绝均真实验证。
+审查前影响容量：保留堆增量335768bytes、单批最高分配23577080bytes，均低于该一题技术夹具的32MiB断言；总分配量为4686570664bytes。这不是峰值RSS或所有真实数学正文大小的承诺，单正文和完整响应仍按各自字节上限处理。10000通知生产append后再同源append10000次，最终仍10000条；首次已读时间、同键回执及跨owner拒绝均真实验证。
 
 RED→GREEN包括缺check/FK/unique/function、触发器错表/错函数/禁用、约束同名变弱、FK未验证、资格唯一索引缺失，以及终结outbox的OR优先级扩大范围。真实容量首跑在补扫8秒事务失败，按固定case kind减少无关查询计划、每结果合并依赖INSERT后通过，全部行守卫与末行故障回滚保留。通知容量首跑本来就PASS，虽历史日志名为red，未制造假失败。证据目录保留这些原日志。
 
@@ -73,10 +73,62 @@ RED→GREEN包括缺check/FK/unique/function、触发器错表/错函数/禁用�
 | 安装/API生成/类型/构建/harness/gofmt/vet/Go构建 | 全部通过；generated无漂移 |
 | 生产依赖审计 | 0漏洞 |
 
-新配图场景真实撤回原模板，独立批准有效等价方案，桌面/手机实际SVG全部加载；替代模板再次撤回后逐URL立即404，原答案/result摘要保持一致。已归档首轮缺陷、契约计数同步及成功回归。一次修复全部完成，零未解决Critical/Important、无deferred minor。SSH draft产品PR最新完整head四项workflow/all jobs仍待远端执行，不预写PASS。
+新配图场景真实撤回原模板，独立批准有效等价方案，桌面/手机实际SVG全部加载；替代模板再次撤回后逐URL立即404，原答案/result摘要保持一致。已归档首轮缺陷、契约计数同步及成功回归。一次修复全部完成，零未解决Critical/Important、无deferred minor。首次SSH draft交付及对应完整head四项workflow/all jobs已实际通过，见下方证据；最终文档提交仍按最新head再验。
 
 验证范围按实际SHA记录：配图CSS引用和宽图浏览器断言是Go矩阵后唯一非文档差异；backend、db、api、content、schemas、tools、workflow、依赖锁及Playwright配置Git对象逐个相等。Go不伪写为新SHA执行；Node因读取spec在新SHA额外完整44项PASS，diff复核PASS；前端9命令/浏览器20批全在新SHA执行。等价证明和逐组SHA已归档，最新远端四项CI仍须新完整head全部执行。
 
 历史步骤、基线、失败及中断日志与[历史执行索引](evidence/p5b/verification-history.jsonl)保留以供审计；它们不构成当前PASS结论。最终结论以verification-macos.json中的准确逐组SHA、命令、退出码和日志SHA为准。全部文本日志已检查无token/带密码数据库URL。
 
 已逐张查看20张桌面/手机截图：纠错配图和长依据身份在视口内，原五题结果和练习页面保留。账户/曝光/同键边界截图部分记录安全加载过渡态，未显示私有草稿或答案；功能结论依据该场景的真实浏览器/API断言，不能以过渡截图单独推断。
+
+## CI 容量修复后的完整矩阵
+
+首次SSH draft的bc8561f完整head，两个Go基础job及两个前端job成功，两个纠错job均在5m容量截止失败；d5a3340的PR纠错job通过但push失败，b38828c两项纠错job仍在5m失败；424a6a2的push完整容量198.23s通过而PR worker10000完成285.84s后在原5m的后续核验超时，六job其余五项通过。所有四项workflow最终状态及对应原始脱敏日志均保留。保留[失败run/job证据](evidence/p5b/verification-github-ci-failure.json)与[实际容量日志](evidence/p5b/ci-github-capacity-red.log)，没有重跑失败CI、隐藏跳过、减少数量或放宽预算。
+
+[查询修复方案](2026-10-03-p5b-ci-query-fix.md)及Ruling22—26完成查询与事务往返可行性审查后，所有44条命令在同一产品提交 `177ed57186a662db87b2b0fd0d56384607de3936` 重新实际执行；历史Go输入等价证明仅保存在before-ci-query-fix，不复用于本次后端变化。下面及verification-macos.json才是本轮最新本机结论，远端仍须最新完整head全四run/六job通过。
+
+| 检查 | 本轮实际结果 |
+| --- | --- |
+| 全矩阵 | 44/44命令，全部退出0，每条小于10分钟 |
+| 前端 / Node / 双视口 | 350 / 44 / 146全部通过，原130浏览器用例保留 |
+| 核心/HTTP/server/harness | 103.81s PASS |
+| 原store/CLI | 139.55s PASS |
+| 学习测评 | 80.36s PASS |
+| 反馈 | 27.92s PASS |
+| 纠错通知/CLI | 123.46s PASS |
+| 原反馈容量 | 10.9s PASS |
+| 原最大题源 | 89.54s PASS |
+| 原最大路线 | 121.71s PASS |
+| 1000案件/1000批准方案/10000证据 | 144.11s PASS |
+| 10000通知/10000同源重跑 | 41.63s PASS |
+| 安装/API/类型/构建/gofmt/vet/生产依赖审计 | 全部通过，0生产漏洞、generated无漂移 |
+
+仅统一隔离测评夹具数据库时钟，并调整查询计划、准确读取往返及原事务语句批次；每事务schema真实性、全部来源/审批/归属、逐条原子结果/断点/通知及完整容量集合均保留。所有失败、诊断、成功日志、准确SHA及20张本轮脱敏截图已归档；本机结果不代替远端结果。
+
+## SSH draft 交付与远端验收
+
+产品草稿：[23](https://github.com/yyl1212/math_master/pull/23)。首次交付受验完整head为 `177ed57186a662db87b2b0fd0d56384607de3936`；按workflow文件、事件、branch、完整head和最新run attempt核验全部jobs，而非仅看PR整体状态。
+
+| Workflow | 事件 | 全部job |
+| --- | --- | --- |
+| [Go 内容账户与题库验证](https://github.com/yyl1212/math_master/actions/runs/37161982220) | push | verify PASS, correction_verify PASS |
+| [Go 内容账户与题库验证](https://github.com/yyl1212/math_master/actions/runs/37161985906) | pull_request | correction_verify PASS, verify PASS |
+| [英文网站账户与题库验证](https://github.com/yyl1212/math_master/actions/runs/37161982250) | push | verify PASS |
+| [英文网站账户与题库验证](https://github.com/yyl1212/math_master/actions/runs/37161985896) | pull_request | verify PASS |
+
+四项workflow与六个job全部完成且success，最新记录见[结构化远端证据](evidence/p5b/verification-github-first-delivery.json)。本文件和最终账本归档后再次SSH推送文档提交，必须重新核验最新完整head四项workflow及全部jobs；最终核验结果记在PR说明，避免自指提交循环。未合并产品PR、未部署、未运行生产迁移、未更改持续更新的知识点目录。
+
+## 原始证据与文档格式检查
+
+Ruling27：提交前默认`git diff --cached --check`在逐字节原始诊断/CI stdout的尾随空格及空白EOF处实际退出2，输出已保留。为保留准确证据及SHA，仅在提交文档时采用`git diff --cached --check -- . ':(exclude)docs/operations/evidence/p5b/*.log'`，实际退出0；全部源码、人工文档、JSON和诊断生成器均继续检查。所有排除的原始日志仍逐文件验证bytes与SHA，没有清洗、变更Git设置、修改CI或放宽任何测试截止。
+
+```mermaid
+flowchart LR
+  R[原始stdout字节] --> H[逐文件bytes及SHA核验]
+  H --> A[原样归档]
+  S[源码/人工文档/JSON/诊断脚本] --> W[原空白风格检查]
+  W --> C[纯文档提交]
+  A --> C
+```
+
+仅补充本验收、终审/计划/路线图汇总、实施账本、验证JSON和manifest；产品与177ed57完整受验提交完全相同。当前全部27项裁定无deferred minor。最终文档head仍按PR说明核验四项workflow/六个job。

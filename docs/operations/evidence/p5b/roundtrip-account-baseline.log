@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionProcessOwnerPasswordChangedDuringWait
+--- PASS: TestCorrectionProcessOwnerPasswordChangedDuringWait (0.95s)
+=== RUN   TestCorrectionProcessFinalAccountRecheckedBeforeCursor
+--- PASS: TestCorrectionProcessFinalAccountRecheckedBeforeCursor (0.91s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	2.435s

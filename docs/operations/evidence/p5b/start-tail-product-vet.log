@@ -1,0 +1,4 @@
+# github.com/yyl1212/math_master/backend/internal/store
+internal/store/correction_finish.go:7:2: "github.com/yyl1212/math_master/backend/internal/auth" imported and not used
+# github.com/yyl1212/math_master/backend/internal/store [github.com/yyl1212/math_master/backend/internal/store.test]
+internal/store/correction_finish.go:7:2: "github.com/yyl1212/math_master/backend/internal/auth" imported and not used

@@ -1,7 +1,7 @@
 {
   "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
-  "testedHead": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
-  "evidenceRecordedAtHead": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
+  "testedHead": "177ed57186a662db87b2b0fd0d56384607de3936",
+  "evidenceRecordedAtHead": "177ed57186a662db87b2b0fd0d56384607de3936",
   "platform": "darwin",
   "goEnvironment": {
     "CGO_ENABLED": "0",
@@ -13,66 +13,42 @@
     "globalTimeout": 480000
   },
   "groupHeads": {
-    "go": "751f45badc51feebeb3669416aedba19b4566521",
-    "front": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
-    "browser": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848"
-  },
-  "goInputEquivalence": {
-    "executedHead": "751f45badc51feebeb3669416aedba19b4566521",
-    "appliesToHead": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
-    "unchangedInputGitObjects": {
-      "backend": "0110a350e6f1f6da9e14577b5e71036fe36764aa",
-      "db": "15d72f344de64eb57dc3717a93b0852e76bca5d9",
-      "api": "e366444253ae4e2bfc06e4299fe4b44fe1d2d0ce",
-      "content": "8525b1be6ca0cee7a529feed2626934cc092ad6e",
-      "schemas": "3d4e104561ce0cd6bb78301dcebc0beecfd9ee1d",
-      "tools": "2b9a7d80299806b27f2ef36a0b98f1d4d66deeeb",
-      ".github": "dde46727f86a01c25d33af0a8635e895ae852cef",
-      "frontend/package.json": "56ef2efb8cdb465ab8fffd9cf093030e8fdec357",
-      "frontend/package-lock.json": "fd555f0fd90024b23afbd9e851472ccb3be9e882",
-      "tests/e2e/playwright.config.ts": "38c38f0b849992d88843e6bb4bc4a2e2e3b84a3b",
-      "compose.dev.yaml": "273812c4b10d0efe5cf202c4d2630de966fb86cb"
-    },
-    "allNonDocumentChanges": [
-      "docs/operations/2026-10-03-p5b-final-review.md",
-      "docs/operations/2026-10-03-p5b-review-fixes.md",
-      "frontend/src/features/correction/correction-asset.tsx",
-      "tests/e2e/correction-user.spec.ts"
-    ],
-    "ruling": "仅图片样式引用/浏览器宽图断言变更；Go输入完全一致，Node已按新spec另跑，前端/浏览器完整重跑。"
+    "go": "177ed57186a662db87b2b0fd0d56384607de3936",
+    "front": "177ed57186a662db87b2b0fd0d56384607de3936",
+    "browser": "177ed57186a662db87b2b0fd0d56384607de3936"
   },
   "groups": {
     "go": [
       {
-        "name": "final-pass-go-diff",
+        "name": "final-ci4-go-diff",
         "args": [
           "git",
           "diff",
           "--check"
         ],
         "cwd": null,
-        "startedAt": "2026-10-03T19:21:33.010753+00:00",
+        "startedAt": "2026-10-03T23:30:40.875918+00:00",
         "exitCode": 0,
         "seconds": 0.03,
-        "log": "final-pass-go-diff.log",
+        "log": "final-ci4-go-diff.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-pass-go-format",
+        "name": "final-ci4-go-format",
         "args": [
           "node",
           "-e",
           "const {spawnSync}=require(\"node:child_process\");const r=spawnSync(\"gofmt\",[\"-l\",\".\"],{encoding:\"utf8\"});process.stdout.write(r.stdout??\"\");process.stderr.write(r.stderr??\"\");process.exit(r.status!==0?1:r.stdout.trim()?1:0)"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:21:33.040280+00:00",
+        "startedAt": "2026-10-03T23:30:40.906850+00:00",
         "exitCode": 0,
         "seconds": 0.07,
-        "log": "final-pass-go-format.log",
+        "log": "final-ci4-go-format.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-pass-go-node",
+        "name": "final-ci4-go-node",
         "args": [
           "node",
           "--test",
@@ -85,14 +61,14 @@
           "tools/content-ingest/snapshot.test.mjs"
         ],
         "cwd": null,
-        "startedAt": "2026-10-03T19:21:33.111497+00:00",
+        "startedAt": "2026-10-03T23:30:40.981577+00:00",
         "exitCode": 0,
-        "seconds": 5.59,
-        "log": "final-pass-go-node.log",
-        "logSHA256": "c9d066e642811ec983eaec9dd8c94e0f46b520abba1124272859fe7cad5b022e"
+        "seconds": 5.58,
+        "log": "final-ci4-go-node.log",
+        "logSHA256": "a5f278f1de9cf8bfac533cae4bf977aee6003310e9f095d904326a73d9480750"
       },
       {
-        "name": "final-pass-go-vet",
+        "name": "final-ci4-go-vet",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -102,14 +78,14 @@
           "./..."
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:21:38.704238+00:00",
+        "startedAt": "2026-10-03T23:30:46.559617+00:00",
         "exitCode": 0,
-        "seconds": 0.28,
-        "log": "final-pass-go-vet.log",
+        "seconds": 0.23,
+        "log": "final-ci4-go-vet.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-pass-go-foundation",
+        "name": "final-ci4-go-foundation",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -135,14 +111,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:21:38.983167+00:00",
+        "startedAt": "2026-10-03T23:30:46.786271+00:00",
         "exitCode": 0,
-        "seconds": 104.98,
-        "log": "final-pass-go-foundation.log",
-        "logSHA256": "504f907fed91389fce120288f54414e358e775150b9a9b76296cb7d1bc0de4db"
+        "seconds": 103.81,
+        "log": "final-ci4-go-foundation.log",
+        "logSHA256": "ebd9b0fb4339f26119535153e93376b0c418bc67468d47ef4533588d288e9a06"
       },
       {
-        "name": "final-pass-go-store",
+        "name": "final-ci4-go-store",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -158,14 +134,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:23:23.964007+00:00",
+        "startedAt": "2026-10-03T23:32:30.597089+00:00",
         "exitCode": 0,
-        "seconds": 140.45,
-        "log": "final-pass-go-store.log",
-        "logSHA256": "59e9656879e80199b59f5e370a2b7100b2039ca35550ce68d638cafedbc2796c"
+        "seconds": 139.55,
+        "log": "final-ci4-go-store.log",
+        "logSHA256": "420b752d0ba5f3743bba9132932d3afb759b628b4860d4e115cd2ca7273bf4de"
       },
       {
-        "name": "final-pass-go-learning",
+        "name": "final-ci4-go-learning",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -182,14 +158,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:25:44.418002+00:00",
+        "startedAt": "2026-10-03T23:34:50.143832+00:00",
         "exitCode": 0,
-        "seconds": 81.95,
-        "log": "final-pass-go-learning.log",
-        "logSHA256": "541772c590b080153137c6255e833ede6af6fc6909f56419030ebddad3536d5f"
+        "seconds": 80.36,
+        "log": "final-ci4-go-learning.log",
+        "logSHA256": "5e9106742cca33a90813d4b27e9662e87fda928788d7db3e72d43891a75e6aa0"
       },
       {
-        "name": "final-pass-go-feedback",
+        "name": "final-ci4-go-feedback",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -206,14 +182,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:27:06.372159+00:00",
+        "startedAt": "2026-10-03T23:36:10.503385+00:00",
         "exitCode": 0,
-        "seconds": 28.14,
-        "log": "final-pass-go-feedback.log",
-        "logSHA256": "e350f0491a6580af8de287de517e89764bfff615128fdcaf116b053b76f54a69"
+        "seconds": 27.92,
+        "log": "final-ci4-go-feedback.log",
+        "logSHA256": "383fe024ce744cb198fae42e760606f1b7ab6483df550420b6727d745e45c8aa"
       },
       {
-        "name": "final-pass-go-correction",
+        "name": "final-ci4-go-correction",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -231,14 +207,14 @@
           "-count=1"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:27:34.516832+00:00",
+        "startedAt": "2026-10-03T23:36:38.424758+00:00",
         "exitCode": 0,
-        "seconds": 120.43,
-        "log": "final-pass-go-correction.log",
-        "logSHA256": "b55547717468fe5b9ae19d0e2dca431813a83eceb1e5ba3bef74e882774f0d98"
+        "seconds": 123.46,
+        "log": "final-ci4-go-correction.log",
+        "logSHA256": "6c0cbee9cdf83efd62a69df814ab63161ee8b26373ff441639e3f840ad70aa3c"
       },
       {
-        "name": "final-pass-go-FeedbackCapacity",
+        "name": "final-ci4-go-FeedbackCapacity",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -254,14 +230,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:29:34.944747+00:00",
+        "startedAt": "2026-10-03T23:38:41.885614+00:00",
         "exitCode": 0,
-        "seconds": 11.15,
-        "log": "final-pass-go-FeedbackCapacity.log",
-        "logSHA256": "4d7919faf7eca1314877e89117a18ca7dd6e85cd12992b97fce4d0bb84201601"
+        "seconds": 10.9,
+        "log": "final-ci4-go-FeedbackCapacity.log",
+        "logSHA256": "6beb9be1148dd4fd63b0697a31124d3cda979f526434fcb27377fe76e8b9db80"
       },
       {
-        "name": "final-pass-go-LearningCapacitySourceVolume",
+        "name": "final-ci4-go-LearningCapacitySourceVolume",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -277,14 +253,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:29:46.099869+00:00",
+        "startedAt": "2026-10-03T23:38:52.784044+00:00",
         "exitCode": 0,
-        "seconds": 91.81,
-        "log": "final-pass-go-LearningCapacitySourceVolume.log",
-        "logSHA256": "5fcf7914484cd45029fd110e573f18ea72d361bc9b932edf2f11198ef3901956"
+        "seconds": 89.54,
+        "log": "final-ci4-go-LearningCapacitySourceVolume.log",
+        "logSHA256": "fc00fb21b87ccc61667d23a418df2a6bf829c24641862278fb400b9e70797b43"
       },
       {
-        "name": "final-pass-go-LearningCapacityMaxPool",
+        "name": "final-ci4-go-LearningCapacityMaxPool",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -300,14 +276,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:31:17.906075+00:00",
+        "startedAt": "2026-10-03T23:40:22.325880+00:00",
         "exitCode": 0,
-        "seconds": 123.96,
-        "log": "final-pass-go-LearningCapacityMaxPool.log",
-        "logSHA256": "eb045f3524f77a71bca457e707bc389bcdca5b795660c95fee18bef74c0ee9a0"
+        "seconds": 121.71,
+        "log": "final-ci4-go-LearningCapacityMaxPool.log",
+        "logSHA256": "6bc4bf60d8813f50cbc358e6106755884ae73a6d1a1f37eed96727dc186beb2b"
       },
       {
-        "name": "final-pass-go-CorrectionCapacityImpact",
+        "name": "final-ci4-go-CorrectionCapacityImpact",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -323,14 +299,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:33:21.865327+00:00",
+        "startedAt": "2026-10-03T23:42:24.032128+00:00",
         "exitCode": 0,
-        "seconds": 250.44,
-        "log": "final-pass-go-CorrectionCapacityImpact.log",
-        "logSHA256": "d6d316929d3b6e850eef089164fc91a7fc8dd3da8bedcddb7047614f05ac6590"
+        "seconds": 144.11,
+        "log": "final-ci4-go-CorrectionCapacityImpact.log",
+        "logSHA256": "bd326c35b9f9e16f1027f30e9c54f9ec823b4173cccf65fa1e26ffb701ce6c95"
       },
       {
-        "name": "final-pass-go-CorrectionCapacityNotifications",
+        "name": "final-ci4-go-CorrectionCapacityNotifications",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -346,14 +322,14 @@
           "-v"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:37:32.297006+00:00",
+        "startedAt": "2026-10-03T23:44:48.141036+00:00",
         "exitCode": 0,
-        "seconds": 41.99,
-        "log": "final-pass-go-CorrectionCapacityNotifications.log",
-        "logSHA256": "e08b07337897ee04d87ad0488ed80b6a54df26a1376b66f51c1da30040936bbd"
+        "seconds": 41.63,
+        "log": "final-ci4-go-CorrectionCapacityNotifications.log",
+        "logSHA256": "1ffe36fc08121ef4d218cb6967a83e0bd39f1e9900d72050a542c5c65596f2da"
       },
       {
-        "name": "final-pass-go-build",
+        "name": "final-ci4-go-build",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -363,98 +339,98 @@
           "./cmd/..."
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:38:14.272054+00:00",
+        "startedAt": "2026-10-03T23:45:29.775784+00:00",
         "exitCode": 0,
-        "seconds": 0.52,
-        "log": "final-pass-go-build.log",
+        "seconds": 0.51,
+        "log": "final-ci4-go-build.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     ],
     "front": [
       {
-        "name": "final-pass-front-install",
+        "name": "final-ci4-front-install",
         "args": [
           "npm",
           "ci"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:05.113396+00:00",
+        "startedAt": "2026-10-03T23:30:42.860444+00:00",
         "exitCode": 0,
-        "seconds": 3.66,
-        "log": "final-pass-front-install.log",
+        "seconds": 3.9,
+        "log": "final-ci4-front-install.log",
         "logSHA256": "42116c6035f9b549143f304beb049a9e32051fe250f0fd4c00dd3b277e79b6bf"
       },
       {
-        "name": "final-pass-front-api",
+        "name": "final-ci4-front-api",
         "args": [
           "npm",
           "run",
           "api:generate"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:08.776096+00:00",
+        "startedAt": "2026-10-03T23:30:46.757934+00:00",
         "exitCode": 0,
-        "seconds": 0.72,
-        "log": "final-pass-front-api.log",
-        "logSHA256": "28a67ad1fed5a68b5bcf993abbd98b9b44c2516b3e3e4032301a41bc550dd140"
+        "seconds": 0.69,
+        "log": "final-ci4-front-api.log",
+        "logSHA256": "e66e0b821ee748c01897b0857c1452d91985c6dfa6cbb573d952527c63714f76"
       },
       {
-        "name": "final-pass-front-typecheck",
+        "name": "final-ci4-front-typecheck",
         "args": [
           "npm",
           "run",
           "typecheck"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:09.494065+00:00",
+        "startedAt": "2026-10-03T23:30:47.448337+00:00",
         "exitCode": 0,
-        "seconds": 0.92,
-        "log": "final-pass-front-typecheck.log",
+        "seconds": 6.59,
+        "log": "final-ci4-front-typecheck.log",
         "logSHA256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
       },
       {
-        "name": "final-pass-front-unit",
+        "name": "final-ci4-front-unit",
         "args": [
           "npm",
           "test"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:10.415007+00:00",
+        "startedAt": "2026-10-03T23:30:54.036447+00:00",
         "exitCode": 0,
-        "seconds": 4.16,
-        "log": "final-pass-front-unit.log",
-        "logSHA256": "3c2dc8021cd5bdd2ac27faa839f0f2d3849a4c996f5521db98926d477d5ed1c9"
+        "seconds": 4.23,
+        "log": "final-ci4-front-unit.log",
+        "logSHA256": "0d9e7cf1759123347797cb1b326898eec5f456c3ae3c78bf4a5ffb145c908ab3"
       },
       {
-        "name": "final-pass-front-build",
+        "name": "final-ci4-front-build",
         "args": [
           "npm",
           "run",
           "build"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:14.579524+00:00",
+        "startedAt": "2026-10-03T23:30:58.261873+00:00",
         "exitCode": 0,
-        "seconds": 3.9,
-        "log": "final-pass-front-build.log",
-        "logSHA256": "e90a2ed6b4b39e5e708aa1b1a77f6a3ee5cc37bd7585c58b524773ad19a85e58"
+        "seconds": 3.54,
+        "log": "final-ci4-front-build.log",
+        "logSHA256": "8b4ad2b75b215a57dec745aee36eea5300430a4ec841b17bed9bdb6adf9cd195"
       },
       {
-        "name": "final-pass-front-audit",
+        "name": "final-ci4-front-audit",
         "args": [
           "npm",
           "audit",
           "--omit=dev"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:18.481241+00:00",
+        "startedAt": "2026-10-03T23:31:01.802792+00:00",
         "exitCode": 0,
-        "seconds": 1.04,
-        "log": "final-pass-front-audit.log",
+        "seconds": 1.01,
+        "log": "final-ci4-front-audit.log",
         "logSHA256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
       },
       {
-        "name": "final-pass-front-generated-clean",
+        "name": "final-ci4-front-generated-clean",
         "args": [
           "git",
           "diff",
@@ -463,14 +439,14 @@
           "frontend/src/lib/api/generated.d.ts"
         ],
         "cwd": null,
-        "startedAt": "2026-10-03T19:43:19.523230+00:00",
+        "startedAt": "2026-10-03T23:31:02.813784+00:00",
         "exitCode": 0,
-        "seconds": 0.05,
-        "log": "final-pass-front-generated-clean.log",
+        "seconds": 0.04,
+        "log": "final-ci4-front-generated-clean.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-pass-front-harness",
+        "name": "final-ci4-front-harness",
         "args": [
           "env",
           "CGO_ENABLED=0",
@@ -482,14 +458,14 @@
           "./cmd/e2e-harness"
         ],
         "cwd": "backend",
-        "startedAt": "2026-10-03T19:43:19.570308+00:00",
+        "startedAt": "2026-10-03T23:31:02.850468+00:00",
         "exitCode": 0,
-        "seconds": 0.39,
-        "log": "final-pass-front-harness.log",
+        "seconds": 0.4,
+        "log": "final-ci4-front-harness.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       },
       {
-        "name": "final-pass-front-chromium",
+        "name": "final-ci4-front-chromium",
         "args": [
           "npm",
           "exec",
@@ -499,16 +475,16 @@
           "chromium"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:19.958405+00:00",
+        "startedAt": "2026-10-03T23:31:03.247645+00:00",
         "exitCode": 0,
-        "seconds": 0.54,
-        "log": "final-pass-front-chromium.log",
+        "seconds": 0.52,
+        "log": "final-ci4-front-chromium.log",
         "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
       }
     ],
     "browser": [
       {
-        "name": "final-pass-browser-01",
+        "name": "final-ci4-browser-01",
         "args": [
           "env",
           "-u",
@@ -521,14 +497,14 @@
           "reading.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:20.542377+00:00",
+        "startedAt": "2026-10-03T23:46:28.240286+00:00",
         "exitCode": 0,
-        "seconds": 37.34,
-        "log": "final-pass-browser-01.log",
-        "logSHA256": "f1cc1be5db30a7188dbd52998b65ea8e57b355416b10fa402851f06adac57548"
+        "seconds": 40.46,
+        "log": "final-ci4-browser-01.log",
+        "logSHA256": "30ece26fddfc5c89c9d6ab87d1e1f9acef60d9eaeb10828bebf80d6713d5bb1c"
       },
       {
-        "name": "final-pass-browser-02",
+        "name": "final-ci4-browser-02",
         "args": [
           "env",
           "-u",
@@ -541,14 +517,14 @@
           "auth-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:43:57.883971+00:00",
+        "startedAt": "2026-10-03T23:47:08.699006+00:00",
         "exitCode": 0,
-        "seconds": 29.45,
-        "log": "final-pass-browser-02.log",
-        "logSHA256": "462c5450508999eeb61ca44207a9741c5e4c0c62919f83ff4cd24ad1bafea87e"
+        "seconds": 30.9,
+        "log": "final-ci4-browser-02.log",
+        "logSHA256": "43379605db48d158785ac495f36193819cf427ba49a522a53d13a1f8a84b17b8"
       },
       {
-        "name": "final-pass-browser-03",
+        "name": "final-ci4-browser-03",
         "args": [
           "env",
           "-u",
@@ -560,14 +536,14 @@
           "content-authoring.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:44:27.338033+00:00",
+        "startedAt": "2026-10-03T23:47:39.598853+00:00",
         "exitCode": 0,
-        "seconds": 12.87,
-        "log": "final-pass-browser-03.log",
-        "logSHA256": "71671471ce80d2f4ba8f29408020a4bb5e77beedafe16d89664553c10a1d3c89"
+        "seconds": 12.88,
+        "log": "final-ci4-browser-03.log",
+        "logSHA256": "58bd74b094944847c4aea207dd8341a210418e37f5d5ce35523d4cef3f3023c2"
       },
       {
-        "name": "final-pass-browser-04",
+        "name": "final-ci4-browser-04",
         "args": [
           "env",
           "-u",
@@ -579,14 +555,14 @@
           "content-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:44:40.210050+00:00",
+        "startedAt": "2026-10-03T23:47:52.475681+00:00",
         "exitCode": 0,
-        "seconds": 20.74,
-        "log": "final-pass-browser-04.log",
-        "logSHA256": "02650adeac565935b410b04021e5b4d0b7e125f7d263a54759b6079c16f813cf"
+        "seconds": 19.27,
+        "log": "final-ci4-browser-04.log",
+        "logSHA256": "4c267d56b7c84c319ecbdbe3fa26aef01c097a90bca790ca2716405d6a433bed"
       },
       {
-        "name": "final-pass-browser-05",
+        "name": "final-ci4-browser-05",
         "args": [
           "env",
           "-u",
@@ -598,14 +574,14 @@
           "content-release.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:45:00.951742+00:00",
+        "startedAt": "2026-10-03T23:48:11.743118+00:00",
         "exitCode": 0,
-        "seconds": 33.65,
-        "log": "final-pass-browser-05.log",
-        "logSHA256": "53b5bfb789b1e3c014adeb71f578fd3a3e80b5e5c8d5e36b8c0c533533d8abec"
+        "seconds": 32.07,
+        "log": "final-ci4-browser-05.log",
+        "logSHA256": "f8f4e9c6d543b0f672af004d893a006a7e6ff795737b16fc3d3f626cc5188334"
       },
       {
-        "name": "final-pass-browser-06",
+        "name": "final-ci4-browser-06",
         "args": [
           "env",
           "-u",
@@ -617,14 +593,14 @@
           "content-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:45:34.605159+00:00",
+        "startedAt": "2026-10-03T23:48:43.814003+00:00",
         "exitCode": 0,
-        "seconds": 37.81,
-        "log": "final-pass-browser-06.log",
-        "logSHA256": "deac33b68baad5c03fdda357feea48563cb8d5806e59db936adb76c0a914cd0e"
+        "seconds": 39.17,
+        "log": "final-ci4-browser-06.log",
+        "logSHA256": "3c232fce6df72aa89913ecb6a827b83277062ae93fcc9bfb1346ad1da4f88a4b"
       },
       {
-        "name": "final-pass-browser-07",
+        "name": "final-ci4-browser-07",
         "args": [
           "env",
           "-u",
@@ -636,14 +612,14 @@
           "question-authoring.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:46:12.413307+00:00",
+        "startedAt": "2026-10-03T23:49:22.981451+00:00",
         "exitCode": 0,
-        "seconds": 34.88,
-        "log": "final-pass-browser-07.log",
-        "logSHA256": "21d6f50609a5a1856bdcd650c641e2053608f9f23278e62f6714ac14d3ed7135"
+        "seconds": 34.1,
+        "log": "final-ci4-browser-07.log",
+        "logSHA256": "1137b254e53c0a3a6395db969235f059a2df410da5189152823a40e4b00cffa5"
       },
       {
-        "name": "final-pass-browser-08",
+        "name": "final-ci4-browser-08",
         "args": [
           "env",
           "-u",
@@ -655,14 +631,14 @@
           "question-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:46:47.300017+00:00",
+        "startedAt": "2026-10-03T23:49:57.079746+00:00",
         "exitCode": 0,
-        "seconds": 21.23,
-        "log": "final-pass-browser-08.log",
-        "logSHA256": "ae5f8e3a19fb141152baf33a01b905b80ca0e73b258e3d933e9900707b0ddfc4"
+        "seconds": 21.37,
+        "log": "final-ci4-browser-08.log",
+        "logSHA256": "6dbd28b60b89c5941d35eb500926ec0b71dc0220a599996a4bc1ce69f27ee44e"
       },
       {
-        "name": "final-pass-browser-09",
+        "name": "final-ci4-browser-09",
         "args": [
           "env",
           "-u",
@@ -674,14 +650,14 @@
           "question-release.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:47:08.528643+00:00",
+        "startedAt": "2026-10-03T23:50:18.453731+00:00",
         "exitCode": 0,
-        "seconds": 48.48,
-        "log": "final-pass-browser-09.log",
-        "logSHA256": "e07b2ebbadb74bc16c9e85519fb26f96c0de9282058647a78b6fafe1e327d723"
+        "seconds": 48.0,
+        "log": "final-ci4-browser-09.log",
+        "logSHA256": "2fb9222dcc90efdc77a18d733d0346b797d63722cd0601b9df61deb5bc97b147"
       },
       {
-        "name": "final-pass-browser-10",
+        "name": "final-ci4-browser-10",
         "args": [
           "env",
           "-u",
@@ -693,14 +669,14 @@
           "question-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:47:57.008959+00:00",
+        "startedAt": "2026-10-03T23:51:06.452165+00:00",
         "exitCode": 0,
-        "seconds": 47.75,
-        "log": "final-pass-browser-10.log",
-        "logSHA256": "06031e22122ae262af0a55621afde00359f7d80435b9d2435a9108b6248cc6fc"
+        "seconds": 48.35,
+        "log": "final-ci4-browser-10.log",
+        "logSHA256": "2b7370347b0cc745343eec0ef7b43f307d4c9d40e0bf4d31c9f87553ccfaa322"
       },
       {
-        "name": "final-pass-browser-11",
+        "name": "final-ci4-browser-11",
         "args": [
           "env",
           "-u",
@@ -712,14 +688,14 @@
           "learning-progress.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:48:44.764917+00:00",
+        "startedAt": "2026-10-03T23:51:54.807139+00:00",
         "exitCode": 0,
-        "seconds": 25.52,
-        "log": "final-pass-browser-11.log",
-        "logSHA256": "2b4b025ec4718bb8503805a5d45b20525483257f84a7db3318f3dcd53a3c97c5"
+        "seconds": 25.33,
+        "log": "final-ci4-browser-11.log",
+        "logSHA256": "9b88dfba1872a948be62cfa928379a016aef2f56207501637c0a4c3bc8ce3799"
       },
       {
-        "name": "final-pass-browser-12",
+        "name": "final-ci4-browser-12",
         "args": [
           "env",
           "-u",
@@ -732,14 +708,14 @@
           "learning-assessment.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:49:10.288828+00:00",
+        "startedAt": "2026-10-03T23:52:20.136736+00:00",
         "exitCode": 0,
-        "seconds": 37.92,
-        "log": "final-pass-browser-12.log",
-        "logSHA256": "9d68352dd5aa966a290310bbc21e244b96192caa30a332fb60c08c318773b92a"
+        "seconds": 40.49,
+        "log": "final-ci4-browser-12.log",
+        "logSHA256": "070c1efe198596fe4899b03b0cbf0e4460a7431277cae4aa68776311b04569f8"
       },
       {
-        "name": "final-pass-browser-13",
+        "name": "final-ci4-browser-13",
         "args": [
           "env",
           "-u",
@@ -752,14 +728,14 @@
           "learning-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:49:48.208269+00:00",
+        "startedAt": "2026-10-03T23:53:00.633126+00:00",
         "exitCode": 0,
-        "seconds": 64.63,
-        "log": "final-pass-browser-13.log",
-        "logSHA256": "25f9dad3ab2bb1dd956641222d12e02b2f12298355e03ebc84ae29ba785d6523"
+        "seconds": 65.8,
+        "log": "final-ci4-browser-13.log",
+        "logSHA256": "3f0d14036325aaa2f816b14b5f3131a518a0db7b992f6f67066fac4a529f81af"
       },
       {
-        "name": "final-pass-browser-14",
+        "name": "final-ci4-browser-14",
         "args": [
           "env",
           "-u",
@@ -771,14 +747,14 @@
           "learning-review-regressions.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:50:52.839260+00:00",
+        "startedAt": "2026-10-03T23:54:06.437968+00:00",
         "exitCode": 0,
-        "seconds": 28.38,
-        "log": "final-pass-browser-14.log",
-        "logSHA256": "dbee7dd09a8190e59990fa5e040726eae839fd45d219da7ffec0b2961ebfbecf"
+        "seconds": 30.15,
+        "log": "final-ci4-browser-14.log",
+        "logSHA256": "b74a7b47d804304f4cfb5ebba6e279d33daba682b30e0b0a05e02d61dc20b1c9"
       },
       {
-        "name": "final-pass-browser-15",
+        "name": "final-ci4-browser-15",
         "args": [
           "env",
           "-u",
@@ -790,14 +766,14 @@
           "feedback-user.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:51:21.217146+00:00",
+        "startedAt": "2026-10-03T23:54:36.585384+00:00",
         "exitCode": 0,
-        "seconds": 76.53,
-        "log": "final-pass-browser-15.log",
-        "logSHA256": "b8b0a743219eb5c2d5a8dbb46e2b6a19877b08dca4c8d717d9d05a1d5ac9759c"
+        "seconds": 76.17,
+        "log": "final-ci4-browser-15.log",
+        "logSHA256": "2e35f631b6dba1ebecbd5ebc5d2b914163df3ce1f157589b8b9942e6685120bc"
       },
       {
-        "name": "final-pass-browser-16",
+        "name": "final-ci4-browser-16",
         "args": [
           "env",
           "-u",
@@ -809,14 +785,14 @@
           "feedback-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:52:37.747024+00:00",
+        "startedAt": "2026-10-03T23:55:52.762165+00:00",
         "exitCode": 0,
-        "seconds": 46.51,
-        "log": "final-pass-browser-16.log",
-        "logSHA256": "5dc987b6f2d4eb80676c13efea96714344f7ebe159f93bba8d721041cc1f2de9"
+        "seconds": 47.32,
+        "log": "final-ci4-browser-16.log",
+        "logSHA256": "17f94ca3982091f7cb3e2d07c979b10dc031bfc9f6f597f6ee1d7d5be15a5704"
       },
       {
-        "name": "final-pass-browser-17",
+        "name": "final-ci4-browser-17",
         "args": [
           "env",
           "-u",
@@ -828,14 +804,14 @@
           "feedback-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:53:24.257483+00:00",
+        "startedAt": "2026-10-03T23:56:40.086895+00:00",
         "exitCode": 0,
-        "seconds": 63.53,
-        "log": "final-pass-browser-17.log",
-        "logSHA256": "1fd33cb99b7a262bd47391315ddff5c5e9f4baef9989b5c5137cc7632aee4986"
+        "seconds": 64.68,
+        "log": "final-ci4-browser-17.log",
+        "logSHA256": "726a82e7ade6e5883e5c2bc15a4e5beb5317a24291b239200c9588f8dee2724e"
       },
       {
-        "name": "final-pass-browser-18",
+        "name": "final-ci4-browser-18",
         "args": [
           "env",
           "-u",
@@ -847,14 +823,14 @@
           "correction-user.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:54:27.785018+00:00",
+        "startedAt": "2026-10-03T23:57:44.769063+00:00",
         "exitCode": 0,
-        "seconds": 29.29,
-        "log": "final-pass-browser-18.log",
-        "logSHA256": "04ec0f5884c716201d78001b6f3ac106c54788f61934985c3eaa3d772c455e78"
+        "seconds": 29.94,
+        "log": "final-ci4-browser-18.log",
+        "logSHA256": "7bf6919a1bbfa9ae88fa8608ddd7ee559793a22ef539e9ab54a4d8b41eb9a268"
       },
       {
-        "name": "final-pass-browser-19",
+        "name": "final-ci4-browser-19",
         "args": [
           "env",
           "-u",
@@ -866,14 +842,14 @@
           "correction-review.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:54:57.074991+00:00",
+        "startedAt": "2026-10-03T23:58:14.707673+00:00",
         "exitCode": 0,
-        "seconds": 19.39,
-        "log": "final-pass-browser-19.log",
-        "logSHA256": "37adc7a930e7c57ac774e707c733e3ebe8d42d5e7a5d5dea4d7e68d30dabc5c5"
+        "seconds": 18.66,
+        "log": "final-ci4-browser-19.log",
+        "logSHA256": "5663ee0edfae6e471a2bc088a126e60e8765e3eee1bc7720d519043a788395a9"
       },
       {
-        "name": "final-pass-browser-20",
+        "name": "final-ci4-browser-20",
         "args": [
           "env",
           "-u",
@@ -885,61 +861,11 @@
           "notification-security.spec.ts"
         ],
         "cwd": "frontend",
-        "startedAt": "2026-10-03T19:55:16.466612+00:00",
+        "startedAt": "2026-10-03T23:58:33.366639+00:00",
         "exitCode": 0,
-        "seconds": 47.71,
-        "log": "final-pass-browser-20.log",
-        "logSHA256": "13bee4524eea7decec066b8d52f8014ad85f3967bce877b02c379006072162a2"
-      }
-    ]
-  },
-  "postChangeChecks": {
-    "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
-    "head": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
-    "platform": "darwin",
-    "goEnvironment": {
-      "CGO_ENABLED": "0",
-      "GOTOOLCHAIN": "go1.27.1"
-    },
-    "browser": {
-      "workers": 1,
-      "retries": 0,
-      "globalTimeout": 480000
-    },
-    "commands": [
-      {
-        "name": "final-pass-inputs-diff",
-        "args": [
-          "git",
-          "diff",
-          "--check"
-        ],
-        "cwd": null,
-        "startedAt": "2026-10-03T19:42:59.432753+00:00",
-        "exitCode": 0,
-        "seconds": 0.03,
-        "log": "final-pass-inputs-diff.log",
-        "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-      },
-      {
-        "name": "final-pass-inputs-node",
-        "args": [
-          "node",
-          "--test",
-          "tools/verify/run.test.mjs",
-          "tools/verify/learning-compatibility.test.mjs",
-          "tools/verify/feedback-compatibility.test.mjs",
-          "tools/verify/correction-compatibility.test.mjs",
-          "tools/verify/feedback-ci.test.mjs",
-          "tools/verify/correction-ci.test.mjs",
-          "tools/content-ingest/snapshot.test.mjs"
-        ],
-        "cwd": null,
-        "startedAt": "2026-10-03T19:42:59.463254+00:00",
-        "exitCode": 0,
-        "seconds": 5.59,
-        "log": "final-pass-inputs-node.log",
-        "logSHA256": "45174a02a6eec2a1acc23754d521a2f3e733c2563e18abca521af498f765a402"
+        "seconds": 46.78,
+        "log": "final-ci4-browser-20.log",
+        "logSHA256": "344ed312098ffc06688195b8c570d958eaf87ca40c79800b6de2e7f14282b7b9"
       }
     ]
   },
@@ -977,5 +903,46 @@
     "fixPasses": 1,
     "importantFixed": 3,
     "deferredMinors": 0
+  },
+  "ciQueryFix": {
+    "originalFailedHead": "bc8561fc73ffe80549fdebca6a8adb0cc32f8c70",
+    "ruling": 22,
+    "workerRuling": 23,
+    "batchRuling": 24,
+    "clockRuling": 25,
+    "startTailRuling": 26,
+    "failedHeads": [
+      "bc8561fc73ffe80549fdebca6a8adb0cc32f8c70",
+      "d5a33408458ab085d6374400576f9337e5ec96aa",
+      "b38828cad67dbf91f88777b0c0a761013ba3bd46",
+      "424a6a279f7fc1fef6ec10abe1cc918743cb425d"
+    ],
+    "unchangedCapacities": true,
+    "unchangedDeadlines": true,
+    "freshFullMatrix": true,
+    "rawEvidenceRuling": 27
+  },
+  "evidenceQA": {
+    "rawWhitespaceCommand": [
+      "git",
+      "diff",
+      "--cached",
+      "--check"
+    ],
+    "rawWhitespaceExit": 2,
+    "rawWhitespaceLog": "delivery-docs-raw-whitespace.log",
+    "styleCommand": [
+      "git",
+      "diff",
+      "--cached",
+      "--check",
+      "--",
+      ".",
+      ":(exclude)docs/operations/evidence/p5b/*.log"
+    ],
+    "styleExit": 0,
+    "rawLogsByteExact": true,
+    "sourceCodeUnchanged": true,
+    "globalGitSettingsUnchanged": true
   }
 }

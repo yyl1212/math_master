@@ -1,0 +1,6 @@
+=== RUN   TestCorrectionWorkerAccountFreshRoleAfterWait
+--- PASS: TestCorrectionWorkerAccountFreshRoleAfterWait (0.91s)
+=== RUN   TestCorrectionWorkerAccountCancelledBatchRecovery
+--- PASS: TestCorrectionWorkerAccountCancelledBatchRecovery (0.82s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	2.283s

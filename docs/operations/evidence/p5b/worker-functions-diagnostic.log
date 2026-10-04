@@ -1,0 +1,16 @@
+=== RUN   TestCorrectionCapacityDiagnostic
+    correction_capacity_diagnostic_test.go:4: DIAG setup 33.450885042s
+    correction_capacity_diagnostic_test.go:6: DIAG real500 5.889589166s
+    correction_capacity_diagnostic_test.go:6: PHASE_PROFILE_JSON {"body":{"Calls":42620,"Nanoseconds":75160693,"MaxNanoseconds":531667},"correctionAdvanceCursor":{"Calls":500,"Nanoseconds":428386161,"MaxNanoseconds":1514416},"correctionBuildBasisMetadata":{"Calls":500,"Nanoseconds":1096611509,"MaxNanoseconds":7816250},"correctionEvent":{"Calls":1020,"Nanoseconds":310971207,"MaxNanoseconds":1459583},"correctionInstanceDeps":{"Calls":500,"Nanoseconds":132876435,"MaxNanoseconds":693334},"correctionLockCaseKind":{"Calls":500,"Nanoseconds":111566999,"MaxNanoseconds":424417},"correctionOriginalBasis":{"Calls":500,"Nanoseconds":422163457,"MaxNanoseconds":4258208},"correctionPositionMap":{"Calls":1000,"Nanoseconds":186988284,"MaxNanoseconds":1161167},"correctionProcessEvidence":{"Calls":500,"Nanoseconds":4005674751,"MaxNanoseconds":19594084},"correctionReadEvidenceMetadata":{"Calls":500,"Nanoseconds":122086648,"MaxNanoseconds":800000},"correctionReadJob":{"Calls":520,"Nanoseconds":129068458,"MaxNanoseconds":821583},"correctionReadJobTime":{"Calls":500,"Nanoseconds":127755431,"MaxNanoseconds":765791},"correctionSystemConfigured":{"Calls":530,"Nanoseconds":718942751,"MaxNanoseconds":3707083},"correctionSystemEnter":{"Calls":530,"Nanoseconds":126209587,"MaxNanoseconds":887167},"correctionSystemTx":{"Calls":530,"Nanoseconds":5889349683,"MaxNanoseconds":25508125},"correctionWriteResult":{"Calls":500,"Nanoseconds":1227956971,"MaxNanoseconds":5396959},"dbClock":{"Calls":20,"Nanoseconds":4640044,"MaxNanoseconds":448833},"learningEvidenceDependencies":{"Calls":500,"Nanoseconds":119092037,"MaxNanoseconds":510125},"learningLoadItems":{"Calls":500,"Nanoseconds":170840374,"MaxNanoseconds":3235708},"learningReadPractice":{"Calls":500,"Nanoseconds":131237242,"MaxNanoseconds":561917},"notificationAppend":{"Calls":500,"Nanoseconds":169038509,"MaxNanoseconds":770625},"readAccount":{"Calls":1000,"Nanoseconds":452868934,"MaxNanoseconds":1101084}}
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_case_applies 1000 467.339 467.339
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_result_complete 1000 616.568 93.912
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU learning_evidence_owner 1500 87.012 87.012
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_result_guard 500 38.07 38.07
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_event_guard 1020 27.079 27.079
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_job_guard 520 14.528 14.528
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_dependency_guard 5000 13.267 13.267
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_job_complete 520 9.274 9.274
+    correction_capacity_diagnostic_test.go:9: FUNCTION_CPU correction_notice_guard 500 35.687 3.987
+--- PASS: TestCorrectionCapacityDiagnostic (39.39s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	39.992s

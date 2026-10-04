@@ -1,0 +1,76 @@
+=== RUN   TestCorrectionWorkerAccountFreshRoleAfterWait
+--- PASS: TestCorrectionWorkerAccountFreshRoleAfterWait (0.80s)
+=== RUN   TestCorrectionWorkerAccountCancelledBatchRecovery
+--- PASS: TestCorrectionWorkerAccountCancelledBatchRecovery (0.77s)
+=== RUN   TestCorrectionProcessAtomic
+=== RUN   TestCorrectionProcessAtomic/result
+=== RUN   TestCorrectionProcessAtomic/dependency
+=== RUN   TestCorrectionProcessAtomic/dependency-last
+=== RUN   TestCorrectionProcessAtomic/qualification
+=== RUN   TestCorrectionProcessAtomic/notification
+=== RUN   TestCorrectionProcessAtomic/cursor
+--- PASS: TestCorrectionProcessAtomic (5.60s)
+    --- PASS: TestCorrectionProcessAtomic/result (0.93s)
+    --- PASS: TestCorrectionProcessAtomic/dependency (0.93s)
+    --- PASS: TestCorrectionProcessAtomic/dependency-last (0.92s)
+    --- PASS: TestCorrectionProcessAtomic/qualification (0.94s)
+    --- PASS: TestCorrectionProcessAtomic/notification (0.94s)
+    --- PASS: TestCorrectionProcessAtomic/cursor (0.94s)
+=== RUN   TestCorrectionStaleLeaseNoEvidenceWrites
+--- PASS: TestCorrectionStaleLeaseNoEvidenceWrites (0.90s)
+=== RUN   TestCorrectionCrashResumeCursorAndNotificationDedup
+--- PASS: TestCorrectionCrashResumeCursorAndNotificationDedup (1.67s)
+=== RUN   TestCorrectionCumulativeResultsOtherCaseStillRestricts
+--- PASS: TestCorrectionCumulativeResultsOtherCaseStillRestricts (1.04s)
+=== RUN   TestCorrectionStaleLeaseAtFinalCommitFence
+--- PASS: TestCorrectionStaleLeaseAtFinalCommitFence (0.94s)
+=== RUN   TestCorrectionCumulativeResultsParentReplacementWithdrawn
+--- PASS: TestCorrectionCumulativeResultsParentReplacementWithdrawn (1.58s)
+=== RUN   TestCorrectionProcessCurrentAccountRecheckedNoPersonnelQuota
+--- PASS: TestCorrectionProcessCurrentAccountRecheckedNoPersonnelQuota (0.93s)
+=== RUN   TestCorrectionCumulativeResultsIncompatibleApprovedMappings
+--- PASS: TestCorrectionCumulativeResultsIncompatibleApprovedMappings (1.52s)
+=== RUN   TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass
+--- PASS: TestCorrectionCumulativeResultsApprovedChildRetakeSupersedesPass (1.57s)
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope
+=== RUN   TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn
+--- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis (2.22s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/foreign-scope (1.12s)
+    --- PASS: TestCorrectionProcessDatabaseRejectsForeignScopeAndWithdrawnBasis/withdrawn (1.09s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteParentClosure
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteParentClosure (0.89s)
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit
+=== RUN   TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective
+--- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies (1.72s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/audit (0.86s)
+    --- PASS: TestCorrectionProcessDatabaseRequiresCompleteDependencies/effective (0.86s)
+=== RUN   TestCorrectionUnprocessedApprovedChain
+--- PASS: TestCorrectionUnprocessedApprovedChain (1.56s)
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict
+=== RUN   TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle
+--- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles (3.40s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/conflict (1.74s)
+    --- PASS: TestCorrectionReplacementChainRejectsConflictsAndCycles/cycle (1.66s)
+=== RUN   TestCorrectionReplacementChainIgnoresUnrelatedFork
+--- PASS: TestCorrectionReplacementChainIgnoresUnrelatedFork (1.97s)
+=== RUN   TestCorrectionProcessOwnerPasswordChangedDuringWait
+--- PASS: TestCorrectionProcessOwnerPasswordChangedDuringWait (0.91s)
+=== RUN   TestCorrectionProcessFinalAccountRecheckedBeforeCursor
+--- PASS: TestCorrectionProcessFinalAccountRecheckedBeforeCursor (0.90s)
+=== RUN   TestCorrectionSystemEntryOrderedLocks
+=== RUN   TestCorrectionSystemEntryOrderedLocks/0
+=== RUN   TestCorrectionSystemEntryOrderedLocks/1
+=== RUN   TestCorrectionSystemEntryOrderedLocks/2
+--- PASS: TestCorrectionSystemEntryOrderedLocks (2.28s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/0 (0.76s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/1 (0.76s)
+    --- PASS: TestCorrectionSystemEntryOrderedLocks/2 (0.76s)
+=== RUN   TestCorrectionSystemEntryWithoutContentLocks
+--- PASS: TestCorrectionSystemEntryWithoutContentLocks (0.75s)
+=== RUN   TestCorrectionJobClockAfterRowWait
+--- PASS: TestCorrectionJobClockAfterRowWait (0.78s)
+PASS
+ok  	github.com/yyl1212/math_master/backend/internal/store	35.255s

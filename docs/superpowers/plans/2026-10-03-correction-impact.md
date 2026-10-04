@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 >
-> 日期：2026-10-03。用户已书面确认 P5b 方案及第十一节兼容性变化；用户已确认实施计划，Native执行中：Task1—15已完成，Task16进行CI、完整回归及一次独立整分支审查。产品基线为文档PR #22合并后的 `dad438d13b37d1053e3bf42e7c32e3829e4518a6`；不运行生产迁移。
+> 日期：2026-10-03。用户已书面确认 P5b 方案及第十一节兼容性变化；用户已确认实施计划，Native实施16项/80步已完成；一次独立审查与同一次三项重要修复、完整本机矩阵和首次SSH draft四项CI已通过，最终文档提交仍按最新head再次核验。产品基线为文档PR #22合并后的 `dad438d13b37d1053e3bf42e7c32e3829e4518a6`；不运行生产迁移。
 
 **Goal:** 错误依据即时限制学习证据；以独立批准的准确依据重判原答案，保留旧事实，给本人提供可查的纠错结果和站内通知。
 
@@ -334,7 +334,7 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 - [x] **Step 2 — RED。** `node tools/verify/run.mjs -- node --test tools/verify/correction-ci.test.mjs tools/verify/feedback-ci.test.mjs`。Expected：新job/新浏览器未运行，保护FAIL。
 - [x] **Step 3 — 最小实现。** backend.yml保留原verify job与三capacity，旧store skip仅扩为 `^Test(Learning|Assessment|Feedback|Correction|Notification)`；新增 correction_verify job，独立同版本PG服务/锁定Actions/CGO环境，执行新非capacity/两capacity各5m，两个job各30m。frontend只追加三browser批次，原17顺序保持。文档记录source/cutoff/六处置、审批、补扫、八次+manual恢复、关闭worker仍限制、曾启用缺表、二进制回退维护与十表非空Down拒绝，验收记录不预写PASS。
 - [x] **Step 4 — 完整GREEN与独立审查。** 执行下列矩阵，保留精确SHA/命令/退出码/耗时/脱敏结果及双视口截图；Native完成全部功能后 requesting-code-review 安排一位新reviewer审查master→全分支实际diff/方案/计划/证据。重要问题先RED回归→最小修复→受影响复验，最后完整矩阵一次。Expected：原全部+新增测试PASS、零阻塞/重要未解决问题；交付指标为实际数量，不预承诺新增case数量。
-- [ ] **Step 5 — 交付。** `git add tools/verify/{correction,feedback}-ci.test.mjs .github/workflows/{backend,frontend}.yml docs/operations/correction-workflow.md docs/operations/2026-10-03-p5b-{acceptance,final-review}.md docs/operations/evidence/p5b docs/superpowers/specs/2026-10-03-correction-impact-design.md docs/superpowers/plans/2026-10-03-correction-impact.md docs/superpowers/plans/2026-09-30-development-roadmap.md`；`git commit -m 'test: 完成P5b回归审查与恢复证据'`。SSH正常push产品分支，`gh pr create --draft --base master --body-file <脱敏中文说明文件>`，成功后attach_artifact；读取最新完整head的四workflow runs及全部jobs，全部成功后汇报PR。不自行合并实现MR、不部署；四run验收记录必须是最新head，文档再push需再次核对。
+- [x] **Step 5 — 交付。** `git add tools/verify/{correction,feedback}-ci.test.mjs .github/workflows/{backend,frontend}.yml docs/operations/correction-workflow.md docs/operations/2026-10-03-p5b-{acceptance,final-review}.md docs/operations/evidence/p5b docs/superpowers/specs/2026-10-03-correction-impact-design.md docs/superpowers/plans/2026-10-03-correction-impact.md docs/superpowers/plans/2026-09-30-development-roadmap.md`；`git commit -m 'test: 完成P5b回归审查与恢复证据'`。SSH正常push产品分支，`gh pr create --draft --base master --body-file <脱敏中文说明文件>`，成功后attach_artifact；读取最新完整head的四workflow runs及全部jobs，全部成功后汇报PR。不自行合并实现MR、不部署；四run验收记录必须是最新head，文档再push需再次核对。
 
 ## 完整验证矩阵
 
@@ -418,3 +418,11 @@ Native执行前先复核 `origin/master`，从最新合并文档基线新建/复
 只安排一位fresh reviewer，最终原结论With fixes；三项按用户影响均为Important。按[修复方案](../../operations/2026-10-03-p5b-review-fixes.md)及[审查记录](../../operations/2026-10-03-p5b-final-review.md)先正式RED，后最小修复和完整矩阵。补充store/correction_assets.go、correction_review_regression_test.go；修改第八迁移批准链守卫、correction repository/service、HTTP route/dispatch与测试、OpenAPI/generated、纠错SVG proxy及types/schemas、结果配图组件和admin入口能力、隔离harness及双视口图片测试。兼容性审查结论无阻塞：仅增加本人有效结果私有SVG路径/操作，原16路径/19操作继续保留，实际共17路径/20操作；原88路径及旧schema/response/security完整保护，不改旧七迁移、摘要目的、数学五题门槛或生产数据。
 
 Task16交付的同一次CI性能修复继续按[事务往返结构审核](../../operations/2026-10-03-p5b-ci-query-fix.md)执行；只合并实时准确SQL往返，保留全部任务/数据/校验/独立证据事务/截止和四run门槛。未完成旧head矩阵不作为验收。
+
+CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修复审核](../../operations/2026-10-03-p5b-ci-query-fix.md)优化准确schema索引、案件分支估算及同事务准确前置/末尾读取往返、原事务语句批次及隔离夹具数据库时钟，不改数量/截止/守卫。全部Go、前端、20批浏览器在 `177ed57186a662db87b2b0fd0d56384607de3936` 新鲜完整复验，44命令/350前端/146浏览器/44Node/五容量PASS；首次失败和历史矩阵保留。产品草稿PR #23的最新完整head四run/全部job仍须实际核验。
+
+## P5b 实施交付记录
+
+16项/80步全部完成，最终逐任务账本、27项裁定及完整证据见[实施账本](../../operations/evidence/p5b/implementation-ledger.md)和[验收记录](../../operations/2026-10-03-p5b-acceptance.md)。已创建[产品草稿PR](https://github.com/yyl1212/math_master/pull/23)，首次head `177ed57186a662db87b2b0fd0d56384607de3936` 的Go/前端push及PR四workflow与六job均已通过；本归档再提交后仍再次核验最终head。不自动合并、不部署。
+
+交付证据QA补充Ruling27：原始stdout保持逐字节及SHA，仅在人工文档空白风格检查中排除准确证据目录的*.log；所有源码、JSON及诊断脚本继续检查，未变更Git设置、CI或测试预算。准确默认RED/限定GREEN及manifest核验已归档；全部27项裁定、16任务/80步完成，最新完整文档head仍以PR说明的四run/六job验收为准。

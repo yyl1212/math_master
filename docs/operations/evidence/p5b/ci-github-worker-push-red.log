@@ -1,0 +1,1029 @@
+﻿2026-10-03T21:33:43.4138661Z Current runner version: '2.337.0'
+2026-10-03T21:33:43.4177230Z ##[group]Runner Image Provisioner
+2026-10-03T21:33:43.4178805Z Hosted Compute Agent
+2026-10-03T21:33:43.4179813Z Version: 20260901.588
+2026-10-03T21:33:43.4180876Z Commit: f88ec8081b781fac6c440065ac7ff9e710ce3d0b
+2026-10-03T21:33:43.4182152Z Build Date: 2026-09-01T19:56:44Z
+2026-10-03T21:33:43.4183629Z Worker ID: {6927a128-acc0-42c0-90ef-a73e6ce7d2c2}
+2026-10-03T21:33:43.4185057Z Azure Region: eastus
+2026-10-03T21:33:43.4186019Z ##[endgroup]
+2026-10-03T21:33:43.4188743Z ##[group]Operating System
+2026-10-03T21:33:43.4189870Z Ubuntu
+2026-10-03T21:33:43.4190880Z 24.04.5
+2026-10-03T21:33:43.4192954Z LTS
+2026-10-03T21:33:43.4193880Z ##[endgroup]
+2026-10-03T21:33:43.4194829Z ##[group]Runner Image
+2026-10-03T21:33:43.4195965Z Image: ubuntu-24.04
+2026-10-03T21:33:43.4197005Z Version: 20260927.320.1
+2026-10-03T21:33:43.4199190Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260927.320/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-03T21:33:43.4201993Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260927.320
+2026-10-03T21:33:43.4204086Z ##[endgroup]
+2026-10-03T21:33:43.4205974Z ##[group]GITHUB_TOKEN Permissions
+2026-10-03T21:33:43.4208957Z Contents: read
+2026-10-03T21:33:43.4209901Z Metadata: read
+2026-10-03T21:33:43.4210943Z ##[endgroup]
+2026-10-03T21:33:43.4214612Z Secret source: Actions
+2026-10-03T21:33:43.4216389Z Cache mode: write
+2026-10-03T21:33:43.4217981Z Prepare workflow directory
+2026-10-03T21:33:43.4876462Z Prepare all required actions
+2026-10-03T21:33:43.4949492Z Getting action download info
+2026-10-03T21:33:43.7910911Z Download action repository 'actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-03T21:33:43.9166846Z Download action repository 'actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e' (SHA:b7ad1dad31e06c5925ef5d2fc7ad053ef454303e)
+2026-10-03T21:33:44.1094472Z Download action repository 'actions/setup-node@820762786026740c76f36085b0efc47a31fe5020' (SHA:820762786026740c76f36085b0efc47a31fe5020)
+2026-10-03T21:33:44.3164538Z Complete job name: correction_verify
+2026-10-03T21:33:44.3699261Z ##[group]Checking docker version
+2026-10-03T21:33:44.3713133Z ##[command]/usr/bin/docker version --format '{{.Server.APIVersion}}'
+2026-10-03T21:33:44.4911468Z '1.48'
+2026-10-03T21:33:44.4926577Z Docker daemon API version: '1.48'
+2026-10-03T21:33:44.4927661Z ##[command]/usr/bin/docker version --format '{{.Client.APIVersion}}'
+2026-10-03T21:33:44.5122028Z '1.48'
+2026-10-03T21:33:44.5137812Z Docker client API version: '1.48'
+2026-10-03T21:33:44.5145154Z ##[endgroup]
+2026-10-03T21:33:44.5149070Z ##[group]Clean up resources from previous jobs
+2026-10-03T21:33:44.5156115Z ##[command]/usr/bin/docker ps --all --quiet --no-trunc --filter "label=560bfe"
+2026-10-03T21:33:44.5335976Z ##[command]/usr/bin/docker network prune --force --filter "label=560bfe"
+2026-10-03T21:33:44.5486356Z ##[endgroup]
+2026-10-03T21:33:44.5486881Z ##[group]Create local container network
+2026-10-03T21:33:44.5497454Z ##[command]/usr/bin/docker network create --label 560bfe github_network_bdfea7a9b89f4818b7f2252bd94a342e
+2026-10-03T21:33:44.6132999Z ac9dc6f8a7fd4908cfb232ec21ff0eee02374b2ec73e027605ae0f6e63dd1b58
+2026-10-03T21:33:44.6160613Z ##[endgroup]
+2026-10-03T21:33:44.6189166Z ##[group]Starting postgres service container
+2026-10-03T21:33:44.6209691Z ##[command]/usr/bin/docker pull postgres:17.11
+2026-10-03T21:33:44.8849891Z 17.11: Pulling from library/postgres
+2026-10-03T21:33:44.9588033Z 6b37362b3da7: Pulling fs layer
+2026-10-03T21:33:44.9589928Z 0725a8be915e: Pulling fs layer
+2026-10-03T21:33:44.9591520Z 71f55f60a786: Pulling fs layer
+2026-10-03T21:33:44.9593433Z 564dc3c4a6f9: Pulling fs layer
+2026-10-03T21:33:44.9595625Z 752819419f50: Pulling fs layer
+2026-10-03T21:33:44.9597837Z 8b51b9245051: Pulling fs layer
+2026-10-03T21:33:44.9599288Z 498b9ff7d682: Pulling fs layer
+2026-10-03T21:33:44.9600744Z 755a851127eb: Pulling fs layer
+2026-10-03T21:33:44.9602518Z bbe7b3469b20: Pulling fs layer
+2026-10-03T21:33:44.9604369Z 73872941ba23: Pulling fs layer
+2026-10-03T21:33:44.9605926Z 2f9b6cf2e417: Pulling fs layer
+2026-10-03T21:33:44.9607551Z 3feaebf93d15: Pulling fs layer
+2026-10-03T21:33:44.9609197Z 50e228e2fe6d: Pulling fs layer
+2026-10-03T21:33:44.9610723Z bed9376b51dc: Pulling fs layer
+2026-10-03T21:33:44.9612561Z 755a851127eb: Waiting
+2026-10-03T21:33:44.9614034Z bbe7b3469b20: Waiting
+2026-10-03T21:33:44.9616112Z 73872941ba23: Waiting
+2026-10-03T21:33:44.9618894Z 2f9b6cf2e417: Waiting
+2026-10-03T21:33:44.9621392Z 3feaebf93d15: Waiting
+2026-10-03T21:33:44.9623632Z 50e228e2fe6d: Waiting
+2026-10-03T21:33:44.9625794Z 564dc3c4a6f9: Waiting
+2026-10-03T21:33:44.9627643Z 752819419f50: Waiting
+2026-10-03T21:33:44.9629938Z bed9376b51dc: Waiting
+2026-10-03T21:33:44.9632242Z 8b51b9245051: Waiting
+2026-10-03T21:33:44.9634666Z 498b9ff7d682: Waiting
+2026-10-03T21:33:44.9903808Z 0725a8be915e: Verifying Checksum
+2026-10-03T21:33:44.9906140Z 0725a8be915e: Download complete
+2026-10-03T21:33:45.0356959Z 71f55f60a786: Verifying Checksum
+2026-10-03T21:33:45.0361549Z 71f55f60a786: Download complete
+2026-10-03T21:33:45.0494188Z 564dc3c4a6f9: Verifying Checksum
+2026-10-03T21:33:45.0497051Z 564dc3c4a6f9: Download complete
+2026-10-03T21:33:45.1100004Z 752819419f50: Verifying Checksum
+2026-10-03T21:33:45.1103649Z 752819419f50: Download complete
+2026-10-03T21:33:45.1123610Z 6b37362b3da7: Verifying Checksum
+2026-10-03T21:33:45.1128904Z 6b37362b3da7: Download complete
+2026-10-03T21:33:45.1135113Z 8b51b9245051: Verifying Checksum
+2026-10-03T21:33:45.1137550Z 8b51b9245051: Download complete
+2026-10-03T21:33:45.1434828Z 498b9ff7d682: Verifying Checksum
+2026-10-03T21:33:45.1437578Z 498b9ff7d682: Download complete
+2026-10-03T21:33:45.1463578Z 755a851127eb: Verifying Checksum
+2026-10-03T21:33:45.1468901Z 755a851127eb: Download complete
+2026-10-03T21:33:45.1797709Z 73872941ba23: Verifying Checksum
+2026-10-03T21:33:45.1800668Z 73872941ba23: Download complete
+2026-10-03T21:33:45.1844747Z 2f9b6cf2e417: Verifying Checksum
+2026-10-03T21:33:45.1847673Z 2f9b6cf2e417: Download complete
+2026-10-03T21:33:45.2349682Z 50e228e2fe6d: Verifying Checksum
+2026-10-03T21:33:45.2358634Z 50e228e2fe6d: Download complete
+2026-10-03T21:33:45.2374894Z 3feaebf93d15: Verifying Checksum
+2026-10-03T21:33:45.2377665Z 3feaebf93d15: Download complete
+2026-10-03T21:33:45.2770903Z bed9376b51dc: Verifying Checksum
+2026-10-03T21:33:45.2781961Z bed9376b51dc: Download complete
+2026-10-03T21:33:45.7349731Z bbe7b3469b20: Verifying Checksum
+2026-10-03T21:33:45.7354900Z bbe7b3469b20: Download complete
+2026-10-03T21:33:46.6801989Z 6b37362b3da7: Pull complete
+2026-10-03T21:33:46.7185661Z 0725a8be915e: Pull complete
+2026-10-03T21:33:47.7032911Z 71f55f60a786: Pull complete
+2026-10-03T21:33:47.7575143Z 564dc3c4a6f9: Pull complete
+2026-10-03T21:33:48.1212069Z 752819419f50: Pull complete
+2026-10-03T21:33:48.2225707Z 8b51b9245051: Pull complete
+2026-10-03T21:33:48.2328527Z 498b9ff7d682: Pull complete
+2026-10-03T21:33:48.2431077Z 755a851127eb: Pull complete
+2026-10-03T21:33:52.6439023Z bbe7b3469b20: Pull complete
+2026-10-03T21:33:52.6643910Z 73872941ba23: Pull complete
+2026-10-03T21:33:52.6791820Z 2f9b6cf2e417: Pull complete
+2026-10-03T21:33:52.6924521Z 3feaebf93d15: Pull complete
+2026-10-03T21:33:52.7035890Z 50e228e2fe6d: Pull complete
+2026-10-03T21:33:52.7142210Z bed9376b51dc: Pull complete
+2026-10-03T21:33:52.7182016Z Digest: sha256:d74eeac9a635390a49bc21bd49fccd973de707e2a53a76ac49b552b8712ec46f
+2026-10-03T21:33:52.7201881Z Status: Downloaded newer image for postgres:17.11
+2026-10-03T21:33:52.7214485Z docker.io/library/postgres:17.11
+2026-10-03T21:33:52.7290268Z ##[command]/usr/bin/docker create --name 9c9686327d2547c490577f5f782869c8_postgres1711_9ea479 --label 560bfe --network github_network_bdfea7a9b89f4818b7f2252bd94a342e --network-alias postgres -p 5432:5432 --health-cmd "pg_isready -U math_master -d math_master_test_ci" --health-interval 2s --health-timeout 3s --health-retries 20 -e "POSTGRES_USER=math_master" -e "POSTGRES_PASSWORD=ci-only" -e "POSTGRES_DB=math_master_test_ci" -e GITHUB_ACTIONS=true -e CI=true postgres:17.11
+2026-10-03T21:33:52.7585872Z d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:33:52.7610738Z ##[command]/usr/bin/docker start d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:33:53.0403832Z d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:33:53.0434793Z ##[command]/usr/bin/docker ps --all --filter id=d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96 --filter status=running --no-trunc --format "{{.ID}} {{.Status}}"
+2026-10-03T21:33:53.0631387Z d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96 Up Less than a second (health: starting)
+2026-10-03T21:33:53.0663711Z ##[command]/usr/bin/docker port d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:33:53.0871220Z 5432/tcp -> 0.0.0.0:5432
+2026-10-03T21:33:53.0886339Z 5432/tcp -> [::]:5432
+2026-10-03T21:33:53.0937057Z ##[endgroup]
+2026-10-03T21:33:53.0949942Z ##[group]Waiting for all services to be ready
+2026-10-03T21:33:53.0973389Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:33:53.1187619Z starting
+2026-10-03T21:33:53.1219993Z postgres service is starting, waiting 2 seconds before checking again.
+2026-10-03T21:33:55.1220181Z ##[command]/usr/bin/docker inspect --format="{{if .Config.Healthcheck}}{{print .State.Health.Status}}{{end}}" d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:33:55.1368640Z healthy
+2026-10-03T21:33:55.1385867Z postgres service is healthy.
+2026-10-03T21:33:55.1386290Z ##[endgroup]
+2026-10-03T21:33:55.1760365Z ##[group]Run actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+2026-10-03T21:33:55.1761068Z with:
+2026-10-03T21:33:55.1761292Z   repository: yyl1212/math_master
+2026-10-03T21:33:55.1764460Z   token: ***
+2026-10-03T21:33:55.1764680Z   ssh-strict: true
+2026-10-03T21:33:55.1764901Z   ssh-user: git
+2026-10-03T21:33:55.1765126Z   persist-credentials: true
+2026-10-03T21:33:55.1765367Z   clean: true
+2026-10-03T21:33:55.1765577Z   sparse-checkout-cone-mode: true
+2026-10-03T21:33:55.1765831Z   fetch-depth: 1
+2026-10-03T21:33:55.1766035Z   fetch-tags: false
+2026-10-03T21:33:55.1766243Z   show-progress: true
+2026-10-03T21:33:55.1766451Z   lfs: false
+2026-10-03T21:33:55.1766641Z   submodules: false
+2026-10-03T21:33:55.1767102Z   set-safe-directory: true
+2026-10-03T21:33:55.1767458Z   allow-unsafe-pr-checkout: false
+2026-10-03T21:33:55.1768057Z env:
+2026-10-03T21:33:55.1768250Z   CGO_ENABLED: 0
+2026-10-03T21:33:55.1768461Z   GOTOOLCHAIN: go1.27.1
+2026-10-03T21:33:55.1769089Z   TEST_DATABASE_URL: ***127.0.0.1:5432/math_master_test_ci?sslmode=disable
+2026-10-03T21:33:55.1769460Z ##[endgroup]
+2026-10-03T21:33:55.2925195Z Syncing repository: yyl1212/math_master
+2026-10-03T21:33:55.2927011Z ##[group]Getting Git version info
+2026-10-03T21:33:55.2927648Z Working directory is '/home/runner/work/math_master/math_master'
+2026-10-03T21:33:55.2953745Z [command]/usr/bin/git version
+2026-10-03T21:33:55.3177224Z git version 2.55.0
+2026-10-03T21:33:55.3224348Z ##[endgroup]
+2026-10-03T21:33:55.3235069Z Temporarily overriding HOME='/home/runner/work/_temp/d2972ad8-31f9-4e1f-83c5-1e1c322768a4' before making global git config changes
+2026-10-03T21:33:55.3236709Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-03T21:33:55.3254453Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/math_master/math_master
+2026-10-03T21:33:55.3341834Z Deleting the contents of '/home/runner/work/math_master/math_master'
+2026-10-03T21:33:55.3353016Z ##[group]Determining repository object format
+2026-10-03T21:33:55.3373389Z ##[endgroup]
+2026-10-03T21:33:55.3374202Z ##[group]Initializing the repository
+2026-10-03T21:33:55.3394723Z [command]/usr/bin/git init /home/runner/work/math_master/math_master
+2026-10-03T21:33:55.3578705Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-03T21:33:55.3598058Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-03T21:33:55.3607137Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-03T21:33:55.3619906Z hint: call:
+2026-10-03T21:33:55.3620828Z hint:
+2026-10-03T21:33:55.3621742Z hint: 	git config --global init.defaultBranch <name>
+2026-10-03T21:33:55.3623017Z hint:
+2026-10-03T21:33:55.3623737Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-03T21:33:55.3624983Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-03T21:33:55.3625972Z hint:
+2026-10-03T21:33:55.3626714Z hint: 	git branch -m <name>
+2026-10-03T21:33:55.3627254Z hint:
+2026-10-03T21:33:55.3628106Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-03T21:33:55.3629494Z Initialized empty Git repository in /home/runner/work/math_master/math_master/.git/
+2026-10-03T21:33:55.3632187Z [command]/usr/bin/git remote add origin https://github.com/yyl1212/math_master
+2026-10-03T21:33:55.3755668Z ##[endgroup]
+2026-10-03T21:33:55.3763780Z ##[group]Disabling automatic garbage collection
+2026-10-03T21:33:55.3774513Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-03T21:33:55.3797673Z ##[endgroup]
+2026-10-03T21:33:55.3798672Z ##[group]Setting up auth
+2026-10-03T21:33:55.3799293Z Removing SSH command configuration
+2026-10-03T21:33:55.3800313Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-03T21:33:55.3866736Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-03T21:33:55.4389708Z Removing HTTP extra header
+2026-10-03T21:33:55.4390753Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-03T21:33:55.4455873Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-03T21:33:55.4703883Z Removing includeIf entries pointing to credentials config files
+2026-10-03T21:33:55.4709147Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-03T21:33:55.4748900Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-03T21:33:55.5006777Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-03T21:33:55.5050688Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/math_master/math_master/.git.path /home/runner/work/_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:33:55.5089844Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/math_master/math_master/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:33:55.5134598Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:33:55.5175446Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:33:55.5208996Z ##[endgroup]
+2026-10-03T21:33:55.5209908Z ##[group]Fetching the repository
+2026-10-03T21:33:55.5217397Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b38828cad67dbf91f88777b0c0a761013ba3bd46:refs/remotes/origin/codex/p5b-correction-workflow
+2026-10-03T21:33:56.2646160Z From https://github.com/yyl1212/math_master
+2026-10-03T21:33:56.2647835Z  * [new ref]         b38828cad67dbf91f88777b0c0a761013ba3bd46 -> origin/codex/p5b-correction-workflow
+2026-10-03T21:33:56.2658123Z [command]/usr/bin/git branch --list --remote origin/codex/p5b-correction-workflow
+2026-10-03T21:33:56.2692894Z   origin/codex/p5b-correction-workflow
+2026-10-03T21:33:56.2702565Z [command]/usr/bin/git rev-parse refs/remotes/origin/codex/p5b-correction-workflow
+2026-10-03T21:33:56.2733318Z b38828cad67dbf91f88777b0c0a761013ba3bd46
+2026-10-03T21:33:56.2737513Z ##[endgroup]
+2026-10-03T21:33:56.2773450Z ##[group]Determining the checkout info
+2026-10-03T21:33:56.2774472Z ##[endgroup]
+2026-10-03T21:33:56.2775101Z [command]/usr/bin/git sparse-checkout disable
+2026-10-03T21:33:56.2829263Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-03T21:33:56.2861885Z ##[group]Checking out the ref
+2026-10-03T21:33:56.2867537Z [command]/usr/bin/git checkout --progress --force -B codex/p5b-correction-workflow refs/remotes/origin/codex/p5b-correction-workflow
+2026-10-03T21:33:56.3983515Z Switched to a new branch 'codex/p5b-correction-workflow'
+2026-10-03T21:33:56.3994466Z branch 'codex/p5b-correction-workflow' set up to track 'origin/codex/p5b-correction-workflow'.
+2026-10-03T21:33:56.3998975Z ##[endgroup]
+2026-10-03T21:33:56.4063463Z [command]/usr/bin/git log -1 --format=%H
+2026-10-03T21:33:56.4092108Z b38828cad67dbf91f88777b0c0a761013ba3bd46
+2026-10-03T21:33:56.4354644Z ##[group]Run actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+2026-10-03T21:33:56.4355043Z with:
+2026-10-03T21:33:56.4355241Z   go-version: 1.27.1
+2026-10-03T21:33:56.4355482Z   cache-dependency-path: backend/go.sum
+2026-10-03T21:33:56.4355759Z   check-latest: false
+2026-10-03T21:33:56.4358240Z   token: ***
+2026-10-03T21:33:56.4358434Z   cache: true
+2026-10-03T21:33:56.4358624Z env:
+2026-10-03T21:33:56.4358798Z   CGO_ENABLED: 0
+2026-10-03T21:33:56.4359000Z   GOTOOLCHAIN: go1.27.1
+2026-10-03T21:33:56.4359508Z   TEST_DATABASE_URL: ***127.0.0.1:5432/math_master_test_ci?sslmode=disable
+2026-10-03T21:33:56.4359892Z ##[endgroup]
+2026-10-03T21:33:56.5585944Z Setup go version spec 1.27.1
+2026-10-03T21:33:56.5595598Z Attempting to download 1.27.1...
+2026-10-03T21:33:57.0193727Z matching 1.27.1...
+2026-10-03T21:33:57.0201985Z Acquiring 1.27.1 from https://github.com/actions/go-versions/releases/download/1.27.1-33583469715/go-1.27.1-linux-x64.tar.gz
+2026-10-03T21:33:57.6920053Z Extracting Go...
+2026-10-03T21:33:57.7061785Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/754ce117-6ca3-44e9-9535-dea86798e5c4 -f /home/runner/work/_temp/73b21a50-a4c1-4a64-8026-078aba24cc71
+2026-10-03T21:33:59.7088208Z Successfully extracted go to /home/runner/work/_temp/754ce117-6ca3-44e9-9535-dea86798e5c4
+2026-10-03T21:33:59.7089577Z Adding to the cache ...
+2026-10-03T21:34:06.9569589Z Successfully cached go to /opt/hostedtoolcache/go/1.27.1/x64
+2026-10-03T21:34:06.9571962Z Added go to the path
+2026-10-03T21:34:06.9574700Z Successfully set up Go version 1.27.1
+2026-10-03T21:34:06.9833325Z [command]/opt/hostedtoolcache/go/1.27.1/x64/bin/go env GOMODCACHE
+2026-10-03T21:34:06.9879816Z [command]/opt/hostedtoolcache/go/1.27.1/x64/bin/go env GOCACHE
+2026-10-03T21:34:06.9940542Z /home/runner/go/pkg/mod
+2026-10-03T21:34:06.9954396Z /home/runner/.cache/go-build
+2026-10-03T21:34:07.0651275Z Cache hit for: setup-go-Linux-x64-ubuntu24-go-1.27.1-6f926d71642f0f7c618aaf48183d120ae01c676eeeea6094ca09a10a0292f233
+2026-10-03T21:34:07.5317684Z Received 65855688 of 65855688 (100.0%), 149.5 MBs/sec
+2026-10-03T21:34:07.5363113Z Cache Size: ~63 MB (65855688 B)
+2026-10-03T21:34:07.5431723Z [command]/usr/bin/tar -xf /home/runner/work/_temp/6e26b68f-1ff3-44c0-b951-45c43b375fc3/cache.tzst -P -C /home/runner/work/math_master/math_master --use-compress-program unzstd
+2026-10-03T21:34:08.3187368Z Cache restored successfully
+2026-10-03T21:34:08.3233916Z Cache restored from key: setup-go-Linux-x64-ubuntu24-go-1.27.1-6f926d71642f0f7c618aaf48183d120ae01c676eeeea6094ca09a10a0292f233
+2026-10-03T21:34:08.3260324Z go version go1.27.1 linux/amd64
+2026-10-03T21:34:08.3260925Z 
+2026-10-03T21:34:08.3261357Z ##[group]go env
+2026-10-03T21:34:08.3408583Z AR='ar'
+2026-10-03T21:34:08.3413029Z CC='gcc'
+2026-10-03T21:34:08.3413715Z CGO_CFLAGS='-O2 -g'
+2026-10-03T21:34:08.3414371Z CGO_CPPFLAGS=''
+2026-10-03T21:34:08.3414992Z CGO_CXXFLAGS='-O2 -g'
+2026-10-03T21:34:08.3415578Z CGO_ENABLED='0'
+2026-10-03T21:34:08.3416158Z CGO_FFLAGS='-O2 -g'
+2026-10-03T21:34:08.3416737Z CGO_LDFLAGS='-O2 -g'
+2026-10-03T21:34:08.3417315Z CXX='g++'
+2026-10-03T21:34:08.3417843Z GCCGO='gccgo'
+2026-10-03T21:34:08.3418379Z GO111MODULE=''
+2026-10-03T21:34:08.3418928Z GOAMD64='v1'
+2026-10-03T21:34:08.3419458Z GOARCH='amd64'
+2026-10-03T21:34:08.3420771Z GOAUTH='netrc'
+2026-10-03T21:34:08.3421618Z GOBIN='/home/runner/go/bin'
+2026-10-03T21:34:08.3422991Z GOCACHE='/home/runner/.cache/go-build'
+2026-10-03T21:34:08.3423707Z GOCACHEPROG=''
+2026-10-03T21:34:08.3424261Z GODEBUG=''
+2026-10-03T21:34:08.3424843Z GOENV='/home/runner/.config/go/env'
+2026-10-03T21:34:08.3425479Z GOEXE=''
+2026-10-03T21:34:08.3426042Z GOEXPERIMENT=''
+2026-10-03T21:34:08.3426591Z GOFIPS140='off'
+2026-10-03T21:34:08.3427138Z GOFLAGS=''
+2026-10-03T21:34:08.3428411Z GOGCCFLAGS='-fPIC -m64 -Wl,--no-gc-sections -fmessage-length=0 -ffile-prefix-map=/tmp/go-build2945060146=/tmp/go-build -gno-record-gcc-switches'
+2026-10-03T21:34:08.3429725Z GOHOSTARCH='amd64'
+2026-10-03T21:34:08.3430586Z GOHOSTOS='linux'
+2026-10-03T21:34:08.3431200Z GOINSECURE=''
+2026-10-03T21:34:08.3431734Z GOMOD='/dev/null'
+2026-10-03T21:34:08.3432903Z GOMODCACHE='/home/runner/go/pkg/mod'
+2026-10-03T21:34:08.3433603Z GONOPROXY=''
+2026-10-03T21:34:08.3434200Z GONOSUMDB=''
+2026-10-03T21:34:08.3434768Z GOOS='linux'
+2026-10-03T21:34:08.3435319Z GOPACKAGESDRIVER=''
+2026-10-03T21:34:08.3435990Z GOPATH='/home/runner/go'
+2026-10-03T21:34:08.3436581Z GOPRIVATE=''
+2026-10-03T21:34:08.3437273Z GOPROXY='https://proxy.golang.org,direct'
+2026-10-03T21:34:08.3438064Z GOROOT='/opt/hostedtoolcache/go/1.27.1/x64'
+2026-10-03T21:34:08.3438751Z GOSUMDB='sum.golang.org'
+2026-10-03T21:34:08.3439348Z GOTELEMETRY='local'
+2026-10-03T21:34:08.3439987Z GOTELEMETRYDIR='/home/runner/.config/go/telemetry'
+2026-10-03T21:34:08.3440831Z GOTMPDIR=''
+2026-10-03T21:34:08.3441455Z GOTOOLCHAIN='local'
+2026-10-03T21:34:08.3442677Z GOTOOLDIR='/opt/hostedtoolcache/go/1.27.1/x64/pkg/tool/linux_amd64'
+2026-10-03T21:34:08.3443550Z GOVCS=''
+2026-10-03T21:34:08.3444206Z GOVERSION='go1.27.1'
+2026-10-03T21:34:08.3444894Z GOWORK=''
+2026-10-03T21:34:08.3445564Z PKG_CONFIG='pkg-config'
+2026-10-03T21:34:08.3446080Z 
+2026-10-03T21:34:08.3446913Z ##[endgroup]
+2026-10-03T21:34:08.3628845Z ##[group]Run actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+2026-10-03T21:34:08.3629264Z with:
+2026-10-03T21:34:08.3629466Z   node-version: 24.17.0
+2026-10-03T21:34:08.3629699Z   check-latest: false
+2026-10-03T21:34:08.3632184Z   token: ***
+2026-10-03T21:34:08.3632722Z   package-manager-cache: true
+2026-10-03T21:34:08.3632983Z env:
+2026-10-03T21:34:08.3633166Z   CGO_ENABLED: 0
+2026-10-03T21:34:08.3633398Z   GOTOOLCHAIN: local
+2026-10-03T21:34:08.3633877Z   TEST_DATABASE_URL: ***127.0.0.1:5432/math_master_test_ci?sslmode=disable
+2026-10-03T21:34:08.3634262Z ##[endgroup]
+2026-10-03T21:34:08.4965247Z Attempting to download 24.17.0...
+2026-10-03T21:34:09.0655738Z Acquiring 24.17.0 - x64 from https://github.com/actions/node-versions/releases/download/24.17.0-27765711116/node-24.17.0-linux-x64.tar.gz
+2026-10-03T21:34:09.6552918Z Extracting ...
+2026-10-03T21:34:09.6710600Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/1a20bf47-329e-4fa0-9ffb-1680af0d8742 -f /home/runner/work/_temp/1950f0dd-bfdf-45e7-9b9d-23061250038d
+2026-10-03T21:34:11.1663585Z Adding to the cache ...
+2026-10-03T21:34:14.5373450Z ##[group]Environment details
+2026-10-03T21:34:14.8293456Z node: v24.17.0
+2026-10-03T21:34:14.8293891Z npm: 11.13.0
+2026-10-03T21:34:14.8318096Z yarn: 1.22.22
+2026-10-03T21:34:14.8318850Z ##[endgroup]
+2026-10-03T21:34:14.8503768Z ##[group]Run node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^Test(Correction|Notification)' -skip '^TestCorrectionCapacity' -timeout 5m -count=1
+2026-10-03T21:34:14.8505675Z node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^Test(Correction|Notification)' -skip '^TestCorrectionCapacity' -timeout 5m -count=1
+2026-10-03T21:34:14.8749542Z shell: /usr/bin/bash -e {0}
+2026-10-03T21:34:14.8750092Z env:
+2026-10-03T21:34:14.8750327Z   CGO_ENABLED: 0
+2026-10-03T21:34:14.8750616Z   GOTOOLCHAIN: local
+2026-10-03T21:34:14.8751325Z   TEST_DATABASE_URL: ***127.0.0.1:5432/math_master_test_ci?sslmode=disable
+2026-10-03T21:34:14.8751788Z ##[endgroup]
+2026-10-03T21:37:49.3100856Z ok  	github.com/yyl1212/math_master/backend/internal/store	204.798s
+2026-10-03T21:37:49.3102121Z ok  	github.com/yyl1212/math_master/backend/internal/cli	1.302s
+2026-10-03T21:37:49.3571666Z ##[group]Run node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrectionCapacityImpact$' -timeout 5m -count=1 -v
+2026-10-03T21:37:49.3573383Z node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestCorrectionCapacityImpact$' -timeout 5m -count=1 -v
+2026-10-03T21:37:49.3641434Z shell: /usr/bin/bash -e {0}
+2026-10-03T21:37:49.3641691Z env:
+2026-10-03T21:37:49.3641880Z   CGO_ENABLED: 0
+2026-10-03T21:37:49.3642092Z   GOTOOLCHAIN: local
+2026-10-03T21:37:49.3643001Z   TEST_DATABASE_URL: ***127.0.0.1:5432/math_master_test_ci?sslmode=disable
+2026-10-03T21:37:49.3643405Z ##[endgroup]
+2026-10-03T21:37:49.9875493Z === RUN   TestCorrectionCapacityImpact
+2026-10-03T21:39:47.5971910Z     correction_capacity_test.go:238: capacity worker processed=1000 elapsed=1m57.609237522s
+2026-10-03T21:40:10.1858205Z     correction_capacity_test.go:238: capacity worker processed=2000 elapsed=2m20.196882927s
+2026-10-03T21:40:32.7783959Z     correction_capacity_test.go:238: capacity worker processed=3000 elapsed=2m42.789878764s
+2026-10-03T21:40:55.9415617Z     correction_capacity_test.go:238: capacity worker processed=4000 elapsed=3m5.953333951s
+2026-10-03T21:41:18.6531580Z     correction_capacity_test.go:238: capacity worker processed=5000 elapsed=3m28.665287548s
+2026-10-03T21:41:40.8658019Z     correction_capacity_test.go:238: capacity worker processed=6000 elapsed=3m50.877442571s
+2026-10-03T21:42:03.2133272Z     correction_capacity_test.go:238: capacity worker processed=7000 elapsed=4m13.222709403s
+2026-10-03T21:42:25.4482915Z     correction_capacity_test.go:238: capacity worker processed=8000 elapsed=4m35.460170218s
+2026-10-03T21:42:47.7810043Z     correction_capacity_test.go:238: capacity worker processed=9000 elapsed=4m57.792782939s
+2026-10-03T21:42:49.9914695Z panic: test timed out after 5m0s
+2026-10-03T21:42:49.9941478Z 	running tests:
+2026-10-03T21:42:49.9943956Z 		TestCorrectionCapacityImpact (5m0s)
+2026-10-03T21:42:49.9976799Z 
+2026-10-03T21:42:49.9995494Z goroutine 223001 [running]:
+2026-10-03T21:42:50.0000804Z testing.(*M).startAlarm.func1()
+2026-10-03T21:42:50.0003619Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2959 +0x34a
+2026-10-03T21:42:50.0004404Z created by time.goFunc
+2026-10-03T21:42:50.0005070Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/time/sleep.go:182 +0x2d
+2026-10-03T21:42:50.0005558Z 
+2026-10-03T21:42:50.0005872Z goroutine 1 [chan receive, 5 minutes]:
+2026-10-03T21:42:50.0006800Z testing.(*T).Run(0x2fe947b03448, {0xc03802?, 0x2fe947d3faa0?}, 0x13b0ab8)
+2026-10-03T21:42:50.0007869Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2266 +0x4f2
+2026-10-03T21:42:50.0008717Z testing.runTests.func1(0x2fe947b03448)
+2026-10-03T21:42:50.0009668Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2742 +0x37
+2026-10-03T21:42:50.0010516Z testing.tRunner(0x2fe947b03448, 0x2fe947d3fbc8)
+2026-10-03T21:42:50.0011430Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2193 +0xea
+2026-10-03T21:42:50.0013658Z testing.runTests({0xc10a70, 0x26}, {0xc1f22d, 0x35}, 0x2fe94791d7a0, {0x1427890, 0x13e, 0x13e}, {0xc2a87b967ad8546d, 0x45d9c1232f, ...})
+2026-10-03T21:42:50.0015192Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2740 +0x510
+2026-10-03T21:42:50.0016046Z testing.(*M).Run(0x2fe947c03540)
+2026-10-03T21:42:50.0016838Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2600 +0x6af
+2026-10-03T21:42:50.0017616Z main.main()
+2026-10-03T21:42:50.0018021Z 	_testmain.go:682 +0x9b
+2026-10-03T21:42:50.0018273Z 
+2026-10-03T21:42:50.0018491Z goroutine 20 [IO wait]:
+2026-10-03T21:42:50.0019188Z internal/poll.runtime_pollWait(0x7fec25449000, 0x72)
+2026-10-03T21:42:50.0020098Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/runtime/netpoll.go:351 +0x85
+2026-10-03T21:42:50.0021125Z internal/poll.(*pollDesc).wait(0x2fe947bee200?, 0x2fe9478b4000?, 0x0)
+2026-10-03T21:42:50.0054895Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/internal/poll/fd_poll_runtime.go:84 +0x27
+2026-10-03T21:42:50.0055939Z internal/poll.(*pollDesc).waitRead(...)
+2026-10-03T21:42:50.0056912Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/internal/poll/fd_poll_runtime.go:89
+2026-10-03T21:42:50.0058031Z internal/poll.(*FD).Read(0x2fe947bee200, {0x2fe9478b4000, 0x2000, 0x2000})
+2026-10-03T21:42:50.0059165Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/internal/poll/fd_unix.go:170 +0x2a8
+2026-10-03T21:42:50.0060349Z net.(*netFD).Read(0x2fe947bee200, {0x2fe9478b4000?, 0x7fec252ca2f8?, 0x7fec6c0ec108?})
+2026-10-03T21:42:50.0061393Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/net/fd_posix.go:68 +0x25
+2026-10-03T21:42:50.0112832Z net.(*conn).Read(0x2fe94790a168, {0x2fe9478b4000?, 0x144d1c0?, 0x2fe947d69308?})
+2026-10-03T21:42:50.0113906Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/net/net.go:196 +0x45
+2026-10-03T21:42:50.0115323Z github.com/jackc/pgx/v5/pgconn/internal/bgreader.(*BGReader).Read(0x2fe947b126c0, {0x2fe9478b4000, 0x2000, 0x2000})
+2026-10-03T21:42:50.0116900Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgconn/internal/bgreader/bgreader.go:100 +0xcb
+2026-10-03T21:42:50.0118238Z io.ReadAtLeast({0x13a5490, 0x2fe947b126c0}, {0x2fe9478b4000, 0x2000, 0x2000}, 0x5)
+2026-10-03T21:42:50.0119273Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/io/io.go:335 +0x83
+2026-10-03T21:42:50.0120268Z github.com/jackc/pgx/v5/pgproto3.(*chunkReader).Next(0x2fe9479f0840, 0x5)
+2026-10-03T21:42:50.0121449Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgproto3/chunkreader.go:80 +0x289
+2026-10-03T21:42:50.0183435Z github.com/jackc/pgx/v5/pgproto3.(*Frontend).Receive(0x2fe947834908)
+2026-10-03T21:42:50.0184687Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgproto3/frontend.go:313 +0x3c
+2026-10-03T21:42:50.0185826Z github.com/jackc/pgx/v5/pgconn.(*PgConn).peekMessage(0x2fe947c0c588)
+2026-10-03T21:42:50.0186846Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgconn/pgconn.go:643 +0x155
+2026-10-03T21:42:50.0187961Z github.com/jackc/pgx/v5/pgconn.(*PgConn).receiveMessage(0x2fe947c0c588)
+2026-10-03T21:42:50.0189049Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgconn/pgconn.go:667 +0x26
+2026-10-03T21:42:50.0190118Z github.com/jackc/pgx/v5/pgconn.(*ResultReader).receiveMessage(0x2fe947c0c640)
+2026-10-03T21:42:50.0191169Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgconn/pgconn.go:1921 +0x37
+2026-10-03T21:42:50.0223536Z github.com/jackc/pgx/v5/pgconn.(*ResultReader).readUntilRowDescription(0x2fe947c0c640, 0x2fe94a1cc780, {0x2fe947d69810, 0x3, 0x3})
+2026-10-03T21:42:50.0225229Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgconn/pgconn.go:1888 +0x73
+2026-10-03T21:42:50.0228764Z github.com/jackc/pgx/v5/pgconn.(*PgConn).execExtendedSuffix(0x2fe947c0c588, 0x2fe947c0c640, 0x2fe94a1cc780, {0x2fe947d69810, 0x3, 0x3})
+2026-10-03T21:42:50.0230537Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgconn/pgconn.go:1388 +0x1c5
+2026-10-03T21:42:50.0233903Z github.com/jackc/pgx/v5/pgconn.(*PgConn).ExecStatement(0x2fe947c0c588, {0x13abe30?, 0x2fe94a4a1a90?}, 0x2fe94a1cc780, {0x2fe947b1f888, 0x5, 0x25}, {0x2fe947ac0480, 0x5, 0x20}, ...)
+2026-10-03T21:42:50.0236038Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/pgconn/pgconn.go:1328 +0x17d
+2026-10-03T21:42:50.0237558Z github.com/jackc/pgx/v5.(*Conn).Query(0x2fe947b4a3c0, {0x13abe30?, 0x2fe94a4a1a90?}, {0xc5b593, 0x68c}, {0x2fe94791e660, 0x6, 0x6})
+2026-10-03T21:42:50.0239169Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/conn.go:857 +0x1425
+2026-10-03T21:42:50.0240849Z github.com/jackc/pgx/v5/stdlib.(*Conn).QueryContext(0x2fe9479010e0, {0x13abe30, 0x2fe94a4a1a90}, {0xc5b593, 0x68c}, {0x2fe947e355f0, 0x5, 0x2fe948b86a40?})
+2026-10-03T21:42:50.0242759Z 	/home/runner/go/pkg/mod/github.com/jackc/pgx/v5@v5.11.0/stdlib/sql.go:528 +0x1e5
+2026-10-03T21:42:50.0244714Z database/sql.ctxDriverQuery({0x13abe30?, 0x2fe94a4a1a90?}, {0x7fec2544ca40?, 0x2fe9479010e0?}, {0x0?, 0x0?}, {0xc5b593?, 0x488268?}, {0x2fe947e355f0, 0x5, ...})
+2026-10-03T21:42:50.0246619Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/ctxutil.go:48 +0xbf
+2026-10-03T21:42:50.0247509Z database/sql.(*DB).queryDC.func1()
+2026-10-03T21:42:50.0248389Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:1791 +0x15c
+2026-10-03T21:42:50.0249401Z database/sql.withLock({0x13a8b18, 0x2fe947bee280}, 0x2fe947d69c18)
+2026-10-03T21:42:50.0250365Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:3621 +0x71
+2026-10-03T21:42:50.0252214Z database/sql.(*DB).queryDC(0x651?, {0x13abe30, 0x2fe94a4a1a90}, {0x13abe30, 0x2fe94a4a1ae0}, 0x2fe947bee280, 0x2fe9482f44f0, {0xc5b593, 0x68c}, {0x2fe948b86a00, ...})
+2026-10-03T21:42:50.0253987Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:1786 +0x1b7
+2026-10-03T21:42:50.0255293Z database/sql.(*Tx).QueryContext(0x2fe94796c2d0, {0x13abe30, 0x2fe94a4a1a90}, {0xc5b593, 0x68c}, {0x2fe948b86a00, 0x5, 0x5})
+2026-10-03T21:42:50.0256654Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:2540 +0xc8
+2026-10-03T21:42:50.0257660Z database/sql.(*Tx).QueryRowContext(...)
+2026-10-03T21:42:50.0258521Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:2558
+2026-10-03T21:42:50.0261998Z github.com/yyl1212/math_master/backend/internal/store.correctionSystemConfigured({0x13abe30, 0x2fe94a4a1a90}, 0x2fe94796c2d0)
+2026-10-03T21:42:50.0284225Z 	/home/runner/work/math_master/math_master/backend/internal/store/correction_system.go:27 +0x28d
+2026-10-03T21:42:50.0285871Z github.com/yyl1212/math_master/backend/internal/store.(*Store).correctionSystemTx(0x2fe947836070, {0x13abe30?, 0x2fe94a1cc000?}, 0x1, 0x2fe947d6a058)
+2026-10-03T21:42:50.0287335Z 	/home/runner/work/math_master/math_master/backend/internal/store/correction_jobs.go:21 +0xfa
+2026-10-03T21:42:50.0294580Z github.com/yyl1212/math_master/backend/internal/store.(*Store).ProcessCorrectionJob(0x2fe947836070, {0x13abea0, 0x2fe947b48ee0}, {{0x2fe947a20de0, 0x24}, 0xb6, {0x36b4ca90, 0xee2536df6, 0x0}, 0x1, ...}, ...)
+2026-10-03T21:42:50.0296703Z 	/home/runner/work/math_master/math_master/backend/internal/store/correction_process.go:244 +0x43d
+2026-10-03T21:42:50.0298323Z github.com/yyl1212/math_master/backend/internal/store_test.TestCorrectionCapacityImpact(0x2fe947b03688)
+2026-10-03T21:42:50.0299869Z 	/home/runner/work/math_master/math_master/backend/internal/store/correction_capacity_test.go:223 +0x8f0
+2026-10-03T21:42:50.0300923Z testing.tRunner(0x2fe947b03688, 0x13b0ab8)
+2026-10-03T21:42:50.0301811Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2193 +0xea
+2026-10-03T21:42:50.0302888Z created by testing.(*T).Run in goroutine 1
+2026-10-03T21:42:50.0303676Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/testing/testing.go:2258 +0x4d4
+2026-10-03T21:42:50.0304156Z 
+2026-10-03T21:42:50.0304428Z goroutine 21 [select, 5 minutes]:
+2026-10-03T21:42:50.0305400Z database/sql.(*DB).connectionOpener(0x2fe947b3f2b0, {0x13abe30, 0x2fe947b53950})
+2026-10-03T21:42:50.0306468Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:1266 +0x89
+2026-10-03T21:42:50.0307276Z created by database/sql.OpenDB in goroutine 20
+2026-10-03T21:42:50.0308181Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:846 +0x135
+2026-10-03T21:42:50.0309150Z 
+2026-10-03T21:42:50.0309459Z goroutine 24 [select, 5 minutes]:
+2026-10-03T21:42:50.0310404Z database/sql.(*DB).connectionOpener(0x2fe947b3e9c0, {0x13abe30, 0x2fe947972190})
+2026-10-03T21:42:50.0311535Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:1266 +0x89
+2026-10-03T21:42:50.0313837Z created by database/sql.OpenDB in goroutine 20
+2026-10-03T21:42:50.0314440Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:846 +0x135
+2026-10-03T21:42:50.0314798Z 
+2026-10-03T21:42:50.0314951Z goroutine 223000 [runnable]:
+2026-10-03T21:42:50.0315274Z context.WithDeadlineCause.func2()
+2026-10-03T21:42:50.0315714Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/context/context.go:653
+2026-10-03T21:42:50.0316092Z created by time.goFunc
+2026-10-03T21:42:50.0316489Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/time/sleep.go:182 +0x2d
+2026-10-03T21:42:50.0316766Z 
+2026-10-03T21:42:50.0316923Z goroutine 223010 [chan receive]:
+2026-10-03T21:42:50.0317481Z database/sql.(*Tx).awaitDone(0x2fe94796c2d0)
+2026-10-03T21:42:50.0318015Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:2217 +0x2b
+2026-10-03T21:42:50.0318532Z created by database/sql.(*DB).beginDC in goroutine 20
+2026-10-03T21:42:50.0319056Z 	/opt/hostedtoolcache/go/1.27.1/x64/src/database/sql/sql.go:1930 +0x1ff
+2026-10-03T21:42:50.0319656Z FAIL	github.com/yyl1212/math_master/backend/internal/store	300.017s
+2026-10-03T21:42:50.0320021Z FAIL
+2026-10-03T21:42:50.0331448Z ##[error]Process completed with exit code 1.
+2026-10-03T21:42:50.0459500Z Post job cleanup.
+2026-10-03T21:42:50.1443145Z [command]/usr/bin/git version
+2026-10-03T21:42:50.1498853Z git version 2.55.0
+2026-10-03T21:42:50.1585730Z Temporarily overriding HOME='/home/runner/work/_temp/2d3aff26-fc18-41ce-b925-8ca6a09d2ccb' before making global git config changes
+2026-10-03T21:42:50.1586931Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-03T21:42:50.1587908Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/math_master/math_master
+2026-10-03T21:42:50.1644045Z Removing SSH command configuration
+2026-10-03T21:42:50.1653959Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-03T21:42:50.1696113Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-03T21:42:50.2133382Z Removing HTTP extra header
+2026-10-03T21:42:50.2154418Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-03T21:42:50.2170912Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-03T21:42:50.2561324Z Removing includeIf entries pointing to credentials config files
+2026-10-03T21:42:50.2563377Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-03T21:42:50.2644043Z includeif.gitdir:/home/runner/work/math_master/math_master/.git.path
+2026-10-03T21:42:50.2687593Z includeif.gitdir:/home/runner/work/math_master/math_master/.git/worktrees/*.path
+2026-10-03T21:42:50.2688897Z includeif.gitdir:/github/workspace/.git.path
+2026-10-03T21:42:50.2714506Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-03T21:42:50.2773925Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/math_master/math_master/.git.path
+2026-10-03T21:42:50.2795038Z /home/runner/work/_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:42:50.2831289Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/math_master/math_master/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-d4222096\-2996\-4c98\-a464\-a3dfde82afef\.config
+2026-10-03T21:42:50.2886492Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/math_master/math_master/.git/worktrees/*.path
+2026-10-03T21:42:50.2913577Z /home/runner/work/_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:42:50.2954710Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/math_master/math_master/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-d4222096\-2996\-4c98\-a464\-a3dfde82afef\.config
+2026-10-03T21:42:50.2982642Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-03T21:42:50.2984309Z /github/runner_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:42:50.2987557Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-d4222096\-2996\-4c98\-a464\-a3dfde82afef\.config
+2026-10-03T21:42:50.3055432Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-03T21:42:50.3153305Z /github/runner_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config
+2026-10-03T21:42:50.3425203Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-d4222096\-2996\-4c98\-a464\-a3dfde82afef\.config
+2026-10-03T21:42:50.3534507Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-03T21:42:50.3875133Z Removing credentials config '/home/runner/work/_temp/git-credentials-d4222096-2996-4c98-a464-a3dfde82afef.config'
+2026-10-03T21:42:50.4057934Z Print service container logs: 9c9686327d2547c490577f5f782869c8_postgres1711_9ea479
+2026-10-03T21:42:50.4063365Z ##[command]/usr/bin/docker logs --details d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:42:50.4231972Z  initdb: warning: enabling "trust" authentication for local connections
+2026-10-03T21:42:50.4251294Z  initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+2026-10-03T21:42:50.4253450Z  2026-10-03 21:33:54.088 UTC [1] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-03T21:42:50.4255018Z  2026-10-03 21:33:54.088 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2026-10-03T21:42:50.4255908Z  2026-10-03 21:33:54.088 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+2026-10-03T21:42:50.4256931Z  2026-10-03 21:33:54.090 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-03T21:42:50.4257959Z  2026-10-03 21:33:54.094 UTC [64] LOG:  database system was shut down at 2026-10-03 21:33:53 UTC
+2026-10-03T21:42:50.4258893Z  2026-10-03 21:33:54.098 UTC [1] LOG:  database system is ready to accept connections
+2026-10-03T21:42:50.4259765Z  2026-10-03 21:34:25.112 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4261719Z  2026-10-03 21:34:25.197 UTC [62] LOG:  checkpoint complete: wrote 1227 buffers (7.5%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.017 s, sync=0.067 s, total=0.086 s; sync files=409, longest=0.013 s, average=0.001 s; distance=15565 kB, estimate=15565 kB; lsn=0/284B460, redo lsn=0/284AF38
+2026-10-03T21:42:50.4264632Z  2026-10-03 21:34:25.197 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4266587Z  2026-10-03 21:34:25.200 UTC [62] LOG:  checkpoint complete: wrote 1 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=1, longest=0.001 s, average=0.001 s; distance=1 kB, estimate=14008 kB; lsn=0/284B538, redo lsn=0/284B4D8
+2026-10-03T21:42:50.4268595Z  2026-10-03 21:34:25.664 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4270425Z  2026-10-03 21:34:25.784 UTC [62] LOG:  checkpoint complete: wrote 1120 buffers (6.8%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.026 s, sync=0.089 s, total=0.120 s; sync files=627, longest=0.003 s, average=0.001 s; distance=13790 kB, estimate=13987 kB; lsn=0/3739BC0, redo lsn=0/35C2F60
+2026-10-03T21:42:50.4272408Z  2026-10-03 21:34:25.869 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4274304Z  2026-10-03 21:34:25.872 UTC [62] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=2, longest=0.001 s, average=0.001 s; distance=1719 kB, estimate=12760 kB; lsn=0/3770CC0, redo lsn=0/3770C68
+2026-10-03T21:42:50.4275605Z  2026-10-03 21:34:26.266 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4276734Z  2026-10-03 21:34:26.269 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=7792 kB, estimate=12263 kB; lsn=0/3F0CD88, redo lsn=0/3F0CD30
+2026-10-03T21:42:50.4278927Z  2026-10-03 21:34:26.814 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4280802Z  2026-10-03 21:34:26.817 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8049 kB, estimate=11842 kB; lsn=0/46E9460, redo lsn=0/46E9408
+2026-10-03T21:42:50.4282899Z  2026-10-03 21:34:27.151 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4284989Z  2026-10-03 21:34:27.154 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=7777 kB, estimate=11435 kB; lsn=0/4E81BD8, redo lsn=0/4E81B80
+2026-10-03T21:42:50.4286845Z  2026-10-03 21:34:28.636 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4288680Z  2026-10-03 21:34:28.640 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8297 kB, estimate=11121 kB; lsn=0/569C1E0, redo lsn=0/569C188
+2026-10-03T21:42:50.4290646Z  2026-10-03 21:34:30.109 UTC [221] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4291530Z  2026-10-03 21:34:30.210 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4293754Z  2026-10-03 21:34:30.213 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8301 kB, estimate=10839 kB; lsn=0/5EB77D0, redo lsn=0/5EB7778
+2026-10-03T21:42:50.4296639Z  2026-10-03 21:34:31.915 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4298548Z  2026-10-03 21:34:31.918 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8331 kB, estimate=10589 kB; lsn=0/66DA6B0, redo lsn=0/66DA658
+2026-10-03T21:42:50.4299896Z  2026-10-03 21:34:33.448 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4300994Z  2026-10-03 21:34:33.452 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8314 kB, estimate=10361 kB; lsn=0/6EF8F10, redo lsn=0/6EF8EB8
+2026-10-03T21:42:50.4302108Z  2026-10-03 21:34:35.350 UTC [247] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4302926Z  2026-10-03 21:34:35.449 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4303989Z  2026-10-03 21:34:35.452 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8304 kB, estimate=10155 kB; lsn=0/7715260, redo lsn=0/7715208
+2026-10-03T21:42:50.4305227Z  2026-10-03 21:34:36.851 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4306275Z  2026-10-03 21:34:36.854 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8299 kB, estimate=9970 kB; lsn=0/7F30178, redo lsn=0/7F30120
+2026-10-03T21:42:50.4307330Z  2026-10-03 21:34:38.896 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4308427Z  2026-10-03 21:34:38.899 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9016 kB, estimate=9874 kB; lsn=0/87FE540, redo lsn=0/87FE4E8
+2026-10-03T21:42:50.4309489Z  2026-10-03 21:34:40.125 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4310544Z  2026-10-03 21:34:40.130 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.006 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8250 kB, estimate=9712 kB; lsn=0/900CED0, redo lsn=0/900CE78
+2026-10-03T21:42:50.4311594Z  2026-10-03 21:34:41.353 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4313050Z  2026-10-03 21:34:41.358 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.003 s, total=0.006 s; sync files=4, longest=0.003 s, average=0.001 s; distance=8251 kB, estimate=9566 kB; lsn=0/981BBF8, redo lsn=0/981BBA0
+2026-10-03T21:42:50.4314168Z  2026-10-03 21:34:42.591 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4315221Z  2026-10-03 21:34:42.594 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8250 kB, estimate=9434 kB; lsn=0/A02A7C8, redo lsn=0/A02A770
+2026-10-03T21:42:50.4316267Z  2026-10-03 21:34:43.871 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4317319Z  2026-10-03 21:34:43.873 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8250 kB, estimate=9316 kB; lsn=0/A8392E8, redo lsn=0/A839290
+2026-10-03T21:42:50.4318412Z  2026-10-03 21:34:45.101 UTC [311] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4318918Z  2026-10-03 21:34:45.201 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4319978Z  2026-10-03 21:34:45.205 UTC [62] LOG:  checkpoint complete: wrote 46 buffers (0.3%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=13, longest=0.001 s, average=0.001 s; distance=8523 kB, estimate=9237 kB; lsn=0/B08BFA0, redo lsn=0/B08BF48
+2026-10-03T21:42:50.4321032Z  2026-10-03 21:34:46.427 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4322084Z  2026-10-03 21:34:46.430 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8320 kB, estimate=9145 kB; lsn=0/B8AC110, redo lsn=0/B8AC0B8
+2026-10-03T21:42:50.4323639Z  2026-10-03 21:34:47.651 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4324769Z  2026-10-03 21:34:47.656 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8326 kB, estimate=9063 kB; lsn=0/C0CDA40, redo lsn=0/C0CD9E8
+2026-10-03T21:42:50.4325998Z  2026-10-03 21:34:48.899 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4327053Z  2026-10-03 21:34:48.902 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8325 kB, estimate=8989 kB; lsn=0/C8EF1E0, redo lsn=0/C8EF188
+2026-10-03T21:42:50.4328124Z  2026-10-03 21:34:50.172 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4329180Z  2026-10-03 21:34:50.175 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8322 kB, estimate=8923 kB; lsn=0/D10FAF0, redo lsn=0/D10FA98
+2026-10-03T21:42:50.4330275Z  2026-10-03 21:34:51.446 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4331331Z  2026-10-03 21:34:51.449 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8322 kB, estimate=8862 kB; lsn=0/D930460, redo lsn=0/D930408
+2026-10-03T21:42:50.4332716Z  2026-10-03 21:34:53.201 UTC [353] ERROR:  invalid passing qualification
+2026-10-03T21:42:50.4333265Z  2026-10-03 21:34:53.201 UTC [353] CONTEXT:  PL/pgSQL function learning_grant_complete() line 9 at RAISE
+2026-10-03T21:42:50.4333984Z  2026-10-03 21:34:53.205 UTC [353] ERROR:  nonempty correction workflow cannot roll back
+2026-10-03T21:42:50.4334554Z  2026-10-03 21:34:53.205 UTC [353] CONTEXT:  PL/pgSQL function inline_code_block line 3 at RAISE
+2026-10-03T21:42:50.4335080Z  2026-10-03 21:34:53.205 UTC [353] STATEMENT:  DO $$DECLARE name text;n bigint;BEGIN
+2026-10-03T21:42:50.4336142Z  	 FOREACH name IN ARRAY ARRAY['correction_cases','correction_plans','correction_events','correction_jobs','correction_results','correction_dependencies','correction_idempotency','correction_rate_limits','notifications','notification_reads'] LOOP
+2026-10-03T21:42:50.4337434Z  	  EXECUTE format('SELECT count(*) FROM %I',name) INTO n;IF n>0 THEN RAISE EXCEPTION 'nonempty correction workflow cannot roll back'; END IF;
+2026-10-03T21:42:50.4338020Z  	 END LOOP;
+2026-10-03T21:42:50.4338214Z  	END $$;
+2026-10-03T21:42:50.4339039Z  	DROP TABLE notification_reads,notifications,correction_idempotency,correction_rate_limits,correction_events,correction_dependencies,correction_results,correction_jobs,correction_plans,correction_cases;
+2026-10-03T21:42:50.4341712Z  	DROP FUNCTION correction_event_guard(),correction_notice_guard(),correction_dependency_guard(),correction_result_complete(),correction_case_applies(uuid,text,uuid,uuid),correction_expected_dependencies(jsonb),correction_equivalent_json(jsonb,jsonb),correction_replacement_authorized(jsonb,integer),correction_result_guard(),correction_job_complete(),correction_job_guard(),correction_plan_complete(),correction_plan_proof(jsonb,uuid,jsonb),correction_instance_proof(jsonb,uuid,jsonb),correction_plan_guard(),correction_case_complete(),correction_case_guard(),correction_immutable();
+2026-10-03T21:42:50.4344392Z  	DROP INDEX correction_original_asset,correction_assessment_scope,correction_practice_scope;
+2026-10-03T21:42:50.4344986Z  	-- correction_enabled 与 correction_marker_guard/trigger 永久保留。
+2026-10-03T21:42:50.4345462Z  2026-10-03 21:34:53.309 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4346561Z  2026-10-03 21:34:53.311 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8505 kB, estimate=8827 kB; lsn=0/E17E9A0, redo lsn=0/E17E948
+2026-10-03T21:42:50.4347633Z  2026-10-03 21:34:55.037 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4348841Z  2026-10-03 21:34:55.040 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8459 kB, estimate=8790 kB; lsn=0/E9C18B0, redo lsn=0/E9C1858
+2026-10-03T21:42:50.4349916Z  2026-10-03 21:34:57.292 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4350976Z  2026-10-03 21:34:57.295 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8803 kB, estimate=8803 kB; lsn=0/F25A4D0, redo lsn=0/F25A478
+2026-10-03T21:42:50.4352019Z  2026-10-03 21:34:58.956 UTC [387] ERROR:  isolated exposure failure
+2026-10-03T21:42:50.4352826Z  2026-10-03 21:34:58.956 UTC [387] CONTEXT:  PL/pgSQL function isolated_correction_exposure() line 1 at RAISE
+2026-10-03T21:42:50.4353941Z  2026-10-03 21:34:58.956 UTC [387] STATEMENT:  INSERT INTO correction_events(id,subject_kind,subject_id,case_id,owner_user_id,kind,sequence,actor_user_id,body,body_bytes,body_digest) VALUES($1,'exposure',$1,$2,$3,'detail_exposed',1,$3,$4,$5,$6)
+2026-10-03T21:42:50.4354957Z  2026-10-03 21:34:59.067 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4356190Z  2026-10-03 21:34:59.069 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8460 kB, estimate=8768 kB; lsn=0/FA9D858, redo lsn=0/FA9D800
+2026-10-03T21:42:50.4357257Z  2026-10-03 21:35:00.285 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4358324Z  2026-10-03 21:35:00.291 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.002 s, sync=0.002 s, total=0.006 s; sync files=4, longest=0.002 s, average=0.001 s; distance=8322 kB, estimate=8724 kB; lsn=0/102BE1B0, redo lsn=0/102BE158
+2026-10-03T21:42:50.4359392Z  2026-10-03 21:35:01.952 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4360457Z  2026-10-03 21:35:01.955 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8418 kB, estimate=8693 kB; lsn=0/10AF69C0, redo lsn=0/10AF6968
+2026-10-03T21:42:50.4361524Z  2026-10-03 21:35:03.294 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4362867Z  2026-10-03 21:35:03.298 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8337 kB, estimate=8657 kB; lsn=0/1131B068, redo lsn=0/1131B010
+2026-10-03T21:42:50.4363933Z  2026-10-03 21:35:04.877 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4365003Z  2026-10-03 21:35:04.881 UTC [62] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=8, longest=0.001 s, average=0.001 s; distance=8431 kB, estimate=8635 kB; lsn=0/11B56E20, redo lsn=0/11B56DC8
+2026-10-03T21:42:50.4366084Z  2026-10-03 21:35:06.130 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4367151Z  2026-10-03 21:35:06.133 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8362 kB, estimate=8608 kB; lsn=0/12381818, redo lsn=0/123817C0
+2026-10-03T21:42:50.4368227Z  2026-10-03 21:35:07.420 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4369292Z  2026-10-03 21:35:07.423 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8333 kB, estimate=8580 kB; lsn=0/12BA4C30, redo lsn=0/12BA4BD8
+2026-10-03T21:42:50.4370554Z  2026-10-03 21:35:08.660 UTC [448] ERROR:  isolated atomic rollback fixture
+2026-10-03T21:42:50.4371105Z  2026-10-03 21:35:08.660 UTC [448] CONTEXT:  PL/pgSQL function isolated_job_failure() line 1 at RAISE
+2026-10-03T21:42:50.4372108Z  2026-10-03 21:35:08.660 UTC [448] STATEMENT:  INSERT INTO correction_jobs(id,source_key,case_id,plan_id,plan_version,type,created_at,next_run_at) VALUES($1,$2,$3,$4,$5,$6,$7,$7) ON CONFLICT(source_key) DO NOTHING RETURNING id::text
+2026-10-03T21:42:50.4373296Z  2026-10-03 21:35:08.666 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4374364Z  2026-10-03 21:35:08.669 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8328 kB, estimate=8555 kB; lsn=0/133C6EA8, redo lsn=0/133C6E50
+2026-10-03T21:42:50.4375475Z  2026-10-03 21:35:10.049 UTC [451] ERROR:  isolated terminal rollback fixture
+2026-10-03T21:42:50.4375995Z  2026-10-03 21:35:10.049 UTC [451] CONTEXT:  PL/pgSQL function isolated_job_failure() line 1 at RAISE
+2026-10-03T21:42:50.4377282Z  2026-10-03 21:35:10.049 UTC [451] STATEMENT:  WITH evidence AS (SELECT 'assessment'::text kind,id,owner_user_id owner,created_at,knowledge_id kid,knowledge_version kv,knowledge_sha256 kh,rule_version,state='submitted' terminal FROM assessment_attempts WHERE sealed
+2026-10-03T21:42:50.4378754Z  	 UNION ALL SELECT 'practice',id,owner_user_id,created_at,knowledge_id,knowledge_version,knowledge_sha256,(seal#>>'{body,ruleVersion}')::integer,state='answered' FROM practice_attempts
+2026-10-03T21:42:50.4379865Z  	 UNION ALL SELECT 'learning-event',id,owner_user_id,recorded_at,knowledge_id,knowledge_version,knowledge_sha256,NULL::integer,true FROM learning_events
+2026-10-03T21:42:50.4382587Z  	 UNION ALL SELECT 'enrollment',id,owner_user_id,created_at,NULL::text,NULL::integer,NULL::text,NULL::integer,true FROM learning_path_enrollments), matched AS (SELECT c.id case_id,e.id,e.kind,e.owner FROM evidence e CROSS JOIN correction_cases c WHERE e.id=$1 AND e.kind=$2 AND e.owner=$3 AND e.terminal AND ((c.sealed AND c.kind='grading_rule' AND e.kind IN ('assessment','practice') AND e.rule_version=c.rule_version AND e.created_at<=c.cutoff AND (c.scope_kind='all' OR e.kid=c.knowledge_id AND e.kv=c.knowledge_version AND e.kh=c.knowledge_sha256)) OR (c.sealed AND c.kind='withdrawal' AND (
+2026-10-03T21:42:50.4386329Z  	 EXISTS(SELECT 1 FROM learning_evidence_dependencies d WHERE d.evidence_kind=e.kind AND d.evidence_id=e.id AND d.owner_user_id=e.owner AND ((c.withdrawal_space='content' AND EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.sha256=d.sha256 AND (d.kind='asset' OR w.target_id=d.id AND w.target_version=d.version))) OR (c.withdrawal_space='question' AND EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256))))
+2026-10-03T21:42:50.4390126Z  	 OR EXISTS(SELECT 1 FROM correction_results r JOIN correction_dependencies d ON d.result_id=r.id AND d.role='effective' WHERE r.sealed AND r.owner_user_id=e.owner AND r.evidence_kind=e.kind AND r.evidence_id=e.id AND ((c.withdrawal_space='content' AND EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.sha256=d.sha256 AND (d.kind='asset' OR w.target_id=d.id AND w.target_version=d.version))) OR (c.withdrawal_space='question' AND EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.id=c.withdrawal_id AND w.kind=d.kind AND w.target_id=d.id AND w.target_version=d.version AND w.sha256=d.sha256))))
+2026-10-03T21:42:50.4394102Z  	 OR (e.kind='enrollment' AND c.withdrawal_space='content' AND EXISTS(SELECT 1 FROM content_withdrawals w JOIN learning_path_enrollments p ON p.id=e.id AND p.owner_user_id=e.owner WHERE w.id=c.withdrawal_id AND ((w.kind='path' AND p.path_id=w.target_id AND p.path_version=w.target_version AND p.path_sha256=w.sha256) OR (w.kind='knowledge' AND EXISTS(SELECT 1 FROM learning_path_nodes n WHERE n.enrollment_id=p.id AND n.knowledge_id=w.target_id AND n.knowledge_version=w.target_version AND n.knowledge_sha256=w.sha256)))))
+2026-10-03T21:42:50.4397650Z  	 )))), inserted AS (INSERT INTO correction_jobs(id,source_key,case_id,type,evidence_kind,evidence_id,owner_user_id,created_at,next_run_at) SELECT gen_random_uuid(),'terminal:'||case_id::text||':'||kind||':'||id::text,case_id,'attempt_terminal',kind,id,owner,$4,$4 FROM matched ON CONFLICT(source_key) DO NOTHING RETURNING id,case_id) INSERT INTO correction_events(id,subject_kind,subject_id,case_id,kind,sequence,body,body_bytes,body_digest) SELECT gen_random_uuid(),'job',id,case_id,'job_created',1,$5::jsonb,$6,$7 FROM inserted
+2026-10-03T21:42:50.4399572Z  2026-10-03 21:35:10.138 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4400708Z  2026-10-03 21:35:10.142 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8388 kB, estimate=8538 kB; lsn=0/13BF7FE8, redo lsn=0/13BF7F90
+2026-10-03T21:42:50.4401796Z  2026-10-03 21:35:11.461 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4403207Z  2026-10-03 21:35:11.482 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.021 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8336 kB, estimate=8518 kB; lsn=0/1441C298, redo lsn=0/1441C240
+2026-10-03T21:42:50.4404345Z  2026-10-03 21:35:12.848 UTC [472] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4404859Z  2026-10-03 21:35:12.950 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4405930Z  2026-10-03 21:35:12.954 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8361 kB, estimate=8502 kB; lsn=0/14C46A90, redo lsn=0/14C46A38
+2026-10-03T21:42:50.4407002Z  2026-10-03 21:35:14.261 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4408123Z  2026-10-03 21:35:14.264 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8334 kB, estimate=8485 kB; lsn=0/1546A550, redo lsn=0/1546A4F8
+2026-10-03T21:42:50.4409195Z  2026-10-03 21:35:15.545 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4410258Z  2026-10-03 21:35:15.547 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8333 kB, estimate=8470 kB; lsn=0/15C8DCF0, redo lsn=0/15C8DC98
+2026-10-03T21:42:50.4411374Z  2026-10-03 21:35:17.015 UTC [496] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4411883Z  2026-10-03 21:35:17.116 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4413202Z  2026-10-03 21:35:17.119 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8415 kB, estimate=8465 kB; lsn=0/164C5928, redo lsn=0/164C58D0
+2026-10-03T21:42:50.4414274Z  2026-10-03 21:35:17.516 UTC [506] ERROR:  permanent correction enablement
+2026-10-03T21:42:50.4414833Z  2026-10-03 21:35:17.516 UTC [506] CONTEXT:  PL/pgSQL function correction_marker_guard() line 3 at RAISE
+2026-10-03T21:42:50.4415506Z  2026-10-03 21:35:17.516 UTC [506] STATEMENT:  UPDATE goose_db_version SET correction_enabled=false WHERE version_id=0
+2026-10-03T21:42:50.4416233Z  2026-10-03 21:35:17.517 UTC [506] ERROR:  permanent correction enablement
+2026-10-03T21:42:50.4416757Z  2026-10-03 21:35:17.517 UTC [506] CONTEXT:  PL/pgSQL function correction_marker_guard() line 3 at RAISE
+2026-10-03T21:42:50.4417397Z  2026-10-03 21:35:17.517 UTC [506] STATEMENT:  DELETE FROM goose_db_version WHERE version_id=0
+2026-10-03T21:42:50.4417894Z  2026-10-03 21:35:17.517 UTC [506] ERROR:  permanent correction enablement
+2026-10-03T21:42:50.4418417Z  2026-10-03 21:35:17.517 UTC [506] CONTEXT:  PL/pgSQL function correction_marker_guard() line 3 at RAISE
+2026-10-03T21:42:50.4419059Z  2026-10-03 21:35:17.517 UTC [506] STATEMENT:  UPDATE goose_db_version SET version_id=99 WHERE version_id=0
+2026-10-03T21:42:50.4419617Z  2026-10-03 21:35:17.566 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4420694Z  2026-10-03 21:35:17.569 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8655 kB, estimate=8655 kB; lsn=0/16D398A8, redo lsn=0/16D39850
+2026-10-03T21:42:50.4421805Z  2026-10-03 21:35:18.757 UTC [510] ERROR:  nonempty correction workflow cannot roll back
+2026-10-03T21:42:50.4422620Z  2026-10-03 21:35:18.757 UTC [510] CONTEXT:  PL/pgSQL function inline_code_block line 3 at RAISE
+2026-10-03T21:42:50.4423318Z  2026-10-03 21:35:18.757 UTC [510] STATEMENT:  DO $$DECLARE name text;n bigint;BEGIN
+2026-10-03T21:42:50.4424388Z  	 FOREACH name IN ARRAY ARRAY['correction_cases','correction_plans','correction_events','correction_jobs','correction_results','correction_dependencies','correction_idempotency','correction_rate_limits','notifications','notification_reads'] LOOP
+2026-10-03T21:42:50.4425645Z  	  EXECUTE format('SELECT count(*) FROM %I',name) INTO n;IF n>0 THEN RAISE EXCEPTION 'nonempty correction workflow cannot roll back'; END IF;
+2026-10-03T21:42:50.4426234Z  	 END LOOP;
+2026-10-03T21:42:50.4426422Z  	END $$;
+2026-10-03T21:42:50.4427212Z  	DROP TABLE notification_reads,notifications,correction_idempotency,correction_rate_limits,correction_events,correction_dependencies,correction_results,correction_jobs,correction_plans,correction_cases;
+2026-10-03T21:42:50.4429934Z  	DROP FUNCTION correction_event_guard(),correction_notice_guard(),correction_dependency_guard(),correction_result_complete(),correction_case_applies(uuid,text,uuid,uuid),correction_expected_dependencies(jsonb),correction_equivalent_json(jsonb,jsonb),correction_replacement_authorized(jsonb,integer),correction_result_guard(),correction_job_complete(),correction_job_guard(),correction_plan_complete(),correction_plan_proof(jsonb,uuid,jsonb),correction_instance_proof(jsonb,uuid,jsonb),correction_plan_guard(),correction_case_complete(),correction_case_guard(),correction_immutable();
+2026-10-03T21:42:50.4432218Z  	DROP INDEX correction_original_asset,correction_assessment_scope,correction_practice_scope;
+2026-10-03T21:42:50.4433003Z  	-- correction_enabled 与 correction_marker_guard/trigger 永久保留。
+2026-10-03T21:42:50.4433453Z  2026-10-03 21:35:18.763 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4434551Z  2026-10-03 21:35:18.767 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8319 kB, estimate=8622 kB; lsn=0/17559790, redo lsn=0/17559738
+2026-10-03T21:42:50.4435676Z  2026-10-03 21:35:20.003 UTC [513] ERROR:  nonempty correction workflow cannot roll back
+2026-10-03T21:42:50.4436228Z  2026-10-03 21:35:20.003 UTC [513] CONTEXT:  PL/pgSQL function inline_code_block line 3 at RAISE
+2026-10-03T21:42:50.4436795Z  2026-10-03 21:35:20.003 UTC [513] STATEMENT:  DO $$DECLARE name text;n bigint;BEGIN
+2026-10-03T21:42:50.4437841Z  	 FOREACH name IN ARRAY ARRAY['correction_cases','correction_plans','correction_events','correction_jobs','correction_results','correction_dependencies','correction_idempotency','correction_rate_limits','notifications','notification_reads'] LOOP
+2026-10-03T21:42:50.4439267Z  	  EXECUTE format('SELECT count(*) FROM %I',name) INTO n;IF n>0 THEN RAISE EXCEPTION 'nonempty correction workflow cannot roll back'; END IF;
+2026-10-03T21:42:50.4439842Z  	 END LOOP;
+2026-10-03T21:42:50.4440034Z  	END $$;
+2026-10-03T21:42:50.4440831Z  	DROP TABLE notification_reads,notifications,correction_idempotency,correction_rate_limits,correction_events,correction_dependencies,correction_results,correction_jobs,correction_plans,correction_cases;
+2026-10-03T21:42:50.4443624Z  	DROP FUNCTION correction_event_guard(),correction_notice_guard(),correction_dependency_guard(),correction_result_complete(),correction_case_applies(uuid,text,uuid,uuid),correction_expected_dependencies(jsonb),correction_equivalent_json(jsonb,jsonb),correction_replacement_authorized(jsonb,integer),correction_result_guard(),correction_job_complete(),correction_job_guard(),correction_plan_complete(),correction_plan_proof(jsonb,uuid,jsonb),correction_instance_proof(jsonb,uuid,jsonb),correction_plan_guard(),correction_case_complete(),correction_case_guard(),correction_immutable();
+2026-10-03T21:42:50.4445902Z  	DROP INDEX correction_original_asset,correction_assessment_scope,correction_practice_scope;
+2026-10-03T21:42:50.4446436Z  	-- correction_enabled 与 correction_marker_guard/trigger 永久保留。
+2026-10-03T21:42:50.4447008Z  2026-10-03 21:35:20.008 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4448111Z  2026-10-03 21:35:20.011 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8318 kB, estimate=8591 kB; lsn=0/17D792A0, redo lsn=0/17D79248
+2026-10-03T21:42:50.4449186Z  2026-10-03 21:35:21.367 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4450270Z  2026-10-03 21:35:21.373 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.006 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8339 kB, estimate=8566 kB; lsn=0/1859E1A8, redo lsn=0/1859E150
+2026-10-03T21:42:50.4451343Z  2026-10-03 21:35:23.016 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4452547Z  2026-10-03 21:35:23.019 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8411 kB, estimate=8551 kB; lsn=0/18DD4F18, redo lsn=0/18DD4EC0
+2026-10-03T21:42:50.4453631Z  2026-10-03 21:35:24.402 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4454693Z  2026-10-03 21:35:24.406 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8464 kB, estimate=8542 kB; lsn=0/196191F8, redo lsn=0/196191A0
+2026-10-03T21:42:50.4455772Z  2026-10-03 21:35:25.750 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4456840Z  2026-10-03 21:35:25.753 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8338 kB, estimate=8522 kB; lsn=0/19E3DD88, redo lsn=0/19E3DD30
+2026-10-03T21:42:50.4457896Z  2026-10-03 21:35:27.199 UTC [559] ERROR:  isolated atomic process fault
+2026-10-03T21:42:50.4458437Z  2026-10-03 21:35:27.199 UTC [559] CONTEXT:  PL/pgSQL function isolated_process_failure() line 1 at RAISE
+2026-10-03T21:42:50.4460276Z  2026-10-03 21:35:27.199 UTC [559] STATEMENT:  INSERT INTO correction_results(id,owner_user_id,case_id,plan_id,plan_version,parent_result_id,evidence_kind,evidence_id,knowledge_id,knowledge_version,knowledge_sha256,status,reason,score,passed,correctness,handled_case_ids,basis,basis_bytes,basis_digest,source_key) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) ON CONFLICT(source_key,evidence_kind,evidence_id,basis_digest) DO NOTHING RETURNING id::text
+2026-10-03T21:42:50.4462152Z  2026-10-03 21:35:27.283 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4463354Z  2026-10-03 21:35:27.287 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8420 kB, estimate=8511 kB; lsn=0/1A676F50, redo lsn=0/1A676EF8
+2026-10-03T21:42:50.4464420Z  2026-10-03 21:35:28.770 UTC [562] ERROR:  isolated atomic process fault
+2026-10-03T21:42:50.4465008Z  2026-10-03 21:35:28.770 UTC [562] CONTEXT:  PL/pgSQL function isolated_process_failure() line 1 at RAISE
+2026-10-03T21:42:50.4466323Z  2026-10-03 21:35:28.770 UTC [562] STATEMENT:  INSERT INTO correction_dependencies(result_id,role,kind,id,version,sha256,positions) SELECT $1,d.role,d.kind,d.id,d.version,d.sha256,d.positions FROM jsonb_to_recordset($2::jsonb) AS d(role text,kind text,id text,version integer,sha256 text,positions integer[])
+2026-10-03T21:42:50.4467551Z  2026-10-03 21:35:28.857 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4468749Z  2026-10-03 21:35:28.860 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8433 kB, estimate=8504 kB; lsn=0/1AEB33C0, redo lsn=0/1AEB3368
+2026-10-03T21:42:50.4469816Z  2026-10-03 21:35:30.372 UTC [573] ERROR:  isolated atomic process fault
+2026-10-03T21:42:50.4470330Z  2026-10-03 21:35:30.372 UTC [573] CONTEXT:  PL/pgSQL function isolated_process_failure() line 1 at RAISE
+2026-10-03T21:42:50.4471632Z  2026-10-03 21:35:30.372 UTC [573] STATEMENT:  INSERT INTO correction_dependencies(result_id,role,kind,id,version,sha256,positions) SELECT $1,d.role,d.kind,d.id,d.version,d.sha256,d.positions FROM jsonb_to_recordset($2::jsonb) AS d(role text,kind text,id text,version integer,sha256 text,positions integer[])
+2026-10-03T21:42:50.4472987Z  2026-10-03 21:35:30.462 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4474071Z  2026-10-03 21:35:30.466 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8440 kB, estimate=8497 kB; lsn=0/1B6F1718, redo lsn=0/1B6F16C0
+2026-10-03T21:42:50.4475153Z  2026-10-03 21:35:31.974 UTC [584] ERROR:  isolated atomic process fault
+2026-10-03T21:42:50.4475664Z  2026-10-03 21:35:31.974 UTC [584] CONTEXT:  PL/pgSQL function isolated_process_failure() line 1 at RAISE
+2026-10-03T21:42:50.4477546Z  2026-10-03 21:35:31.974 UTC [584] STATEMENT:  INSERT INTO correction_events(id,subject_kind,subject_id,case_id,result_id,owner_user_id,kind,sequence,body,body_bytes,body_digest,recorded_at) SELECT gen_random_uuid(),'result',r.id,r.case_id,r.id,$2,'qualification_granted',(SELECT coalesce(max(sequence),0)+1 FROM correction_events WHERE subject_kind='result' AND subject_id=r.id),$3::jsonb,$4,$5,$6 FROM correction_results r WHERE r.id=$1 AND r.owner_user_id=$2 AND r.sealed ON CONFLICT DO NOTHING
+2026-10-03T21:42:50.4479388Z  2026-10-03 21:35:32.066 UTC [584] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4479904Z  2026-10-03 21:35:32.167 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4480981Z  2026-10-03 21:35:32.169 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8459 kB, estimate=8493 kB; lsn=0/1BF34368, redo lsn=0/1BF34310
+2026-10-03T21:42:50.4482214Z  2026-10-03 21:35:33.650 UTC [595] ERROR:  isolated atomic process fault
+2026-10-03T21:42:50.4482848Z  2026-10-03 21:35:33.650 UTC [595] CONTEXT:  PL/pgSQL function isolated_process_failure() line 1 at RAISE
+2026-10-03T21:42:50.4483821Z  2026-10-03 21:35:33.650 UTC [595] STATEMENT:  INSERT INTO notifications(owner_user_id,dedup_key,type,evidence_kind,evidence_id,case_id,result_id) VALUES($1,$2,$3,$4,$5,$6,$7) ON CONFLICT(dedup_key) DO NOTHING
+2026-10-03T21:42:50.4484697Z  2026-10-03 21:35:33.728 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4485779Z  2026-10-03 21:35:33.731 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8460 kB, estimate=8490 kB; lsn=0/1C777430, redo lsn=0/1C7773D8
+2026-10-03T21:42:50.4486834Z  2026-10-03 21:35:35.265 UTC [598] ERROR:  isolated atomic process fault
+2026-10-03T21:42:50.4487350Z  2026-10-03 21:35:35.265 UTC [598] CONTEXT:  PL/pgSQL function isolated_process_failure() line 1 at RAISE
+2026-10-03T21:42:50.4488163Z  2026-10-03 21:35:35.265 UTC [598] STATEMENT:  UPDATE correction_jobs SET cursor_kind=$2,cursor_id=$3,processed_count=processed_count+1,sequence=$4 WHERE id=$1
+2026-10-03T21:42:50.4488891Z  2026-10-03 21:35:35.344 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4490087Z  2026-10-03 21:35:35.347 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8461 kB, estimate=8487 kB; lsn=0/1CFBAAA8, redo lsn=0/1CFBAA50
+2026-10-03T21:42:50.4491173Z  2026-10-03 21:35:36.817 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4492437Z  2026-10-03 21:35:36.822 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.002 s, sync=0.001 s, total=0.006 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8377 kB, estimate=8476 kB; lsn=0/1D7E9058, redo lsn=0/1D7E9000
+2026-10-03T21:42:50.4493583Z  2026-10-03 21:35:38.525 UTC [618] ERROR:  isolated second evidence interruption
+2026-10-03T21:42:50.4494125Z  2026-10-03 21:35:38.525 UTC [618] CONTEXT:  PL/pgSQL function isolated_process_failure() line 1 at RAISE
+2026-10-03T21:42:50.4495984Z  2026-10-03 21:35:38.525 UTC [618] STATEMENT:  INSERT INTO correction_results(id,owner_user_id,case_id,plan_id,plan_version,parent_result_id,evidence_kind,evidence_id,knowledge_id,knowledge_version,knowledge_sha256,status,reason,score,passed,correctness,handled_case_ids,basis,basis_bytes,basis_digest,source_key) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21) ON CONFLICT(source_key,evidence_kind,evidence_id,basis_digest) DO NOTHING RETURNING id::text
+2026-10-03T21:42:50.4497808Z  2026-10-03 21:35:39.703 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4498887Z  2026-10-03 21:35:39.707 UTC [62] LOG:  checkpoint complete: wrote 8 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=6, longest=0.001 s, average=0.001 s; distance=8707 kB, estimate=8707 kB; lsn=0/1E069DF8, redo lsn=0/1E069DA0
+2026-10-03T21:42:50.4500016Z  2026-10-03 21:35:41.365 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4501088Z  2026-10-03 21:35:41.368 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8426 kB, estimate=8679 kB; lsn=0/1E8A4950, redo lsn=0/1E8A48F8
+2026-10-03T21:42:50.4502187Z  2026-10-03 21:35:43.081 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4503376Z  2026-10-03 21:35:43.085 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8470 kB, estimate=8658 kB; lsn=0/1F0EA3D8, redo lsn=0/1F0EA380
+2026-10-03T21:42:50.4504597Z  2026-10-03 21:35:44.688 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4505664Z  2026-10-03 21:35:44.692 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8453 kB, estimate=8638 kB; lsn=0/1F92BB98, redo lsn=0/1F92BB40
+2026-10-03T21:42:50.4506727Z  2026-10-03 21:35:46.163 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4507807Z  2026-10-03 21:35:46.166 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8409 kB, estimate=8615 kB; lsn=0/20162208, redo lsn=0/201621B0
+2026-10-03T21:42:50.4508877Z  2026-10-03 21:35:47.709 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4509941Z  2026-10-03 21:35:47.715 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.006 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8411 kB, estimate=8594 kB; lsn=0/20998E98, redo lsn=0/20998E40
+2026-10-03T21:42:50.4511023Z  2026-10-03 21:35:49.858 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4512348Z  2026-10-03 21:35:49.863 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8773 kB, estimate=8773 kB; lsn=0/2122A620, redo lsn=0/2122A5C8
+2026-10-03T21:42:50.4513442Z  2026-10-03 21:35:52.161 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4514515Z  2026-10-03 21:35:52.164 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8775 kB, estimate=8775 kB; lsn=0/21ABC2D8, redo lsn=0/21ABC280
+2026-10-03T21:42:50.4515603Z  2026-10-03 21:35:55.023 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4516674Z  2026-10-03 21:35:55.027 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9325 kB, estimate=9325 kB; lsn=0/223D7A68, redo lsn=0/223D7A10
+2026-10-03T21:42:50.4517745Z  2026-10-03 21:35:56.519 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4518806Z  2026-10-03 21:35:56.522 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8371 kB, estimate=9230 kB; lsn=0/22C04700, redo lsn=0/22C046A8
+2026-10-03T21:42:50.4519876Z  2026-10-03 21:35:57.948 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4520992Z  2026-10-03 21:35:57.951 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8396 kB, estimate=9147 kB; lsn=0/234378C8, redo lsn=0/23437870
+2026-10-03T21:42:50.4522071Z  2026-10-03 21:35:59.493 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4523260Z  2026-10-03 21:35:59.496 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8413 kB, estimate=9073 kB; lsn=0/23C6EEB8, redo lsn=0/23C6EE60
+2026-10-03T21:42:50.4524332Z  2026-10-03 21:36:02.324 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4525545Z  2026-10-03 21:36:02.327 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9166 kB, estimate=9166 kB; lsn=0/24562828, redo lsn=0/245627D0
+2026-10-03T21:42:50.4526613Z  2026-10-03 21:36:05.096 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4527679Z  2026-10-03 21:36:05.099 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9171 kB, estimate=9171 kB; lsn=0/24E57810, redo lsn=0/24E577B8
+2026-10-03T21:42:50.4528752Z  2026-10-03 21:36:06.624 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4529822Z  2026-10-03 21:36:06.629 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8407 kB, estimate=9095 kB; lsn=0/2568D5D0, redo lsn=0/2568D578
+2026-10-03T21:42:50.4530923Z  2026-10-03 21:36:08.172 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4532151Z  2026-10-03 21:36:08.176 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8453 kB, estimate=9031 kB; lsn=0/25ECEAF8, redo lsn=0/25ECEAA0
+2026-10-03T21:42:50.4533415Z  2026-10-03 21:36:09.796 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4534483Z  2026-10-03 21:36:09.799 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8618 kB, estimate=8989 kB; lsn=0/26739430, redo lsn=0/267393D8
+2026-10-03T21:42:50.4535544Z  2026-10-03 21:36:11.206 UTC [820] ERROR:  invalid passing qualification
+2026-10-03T21:42:50.4536069Z  2026-10-03 21:36:11.206 UTC [820] CONTEXT:  PL/pgSQL function learning_grant_complete() line 9 at RAISE
+2026-10-03T21:42:50.4536612Z  2026-10-03 21:36:11.208 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4537682Z  2026-10-03 21:36:11.213 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8398 kB, estimate=8930 kB; lsn=0/26F6CDB8, redo lsn=0/26F6CD60
+2026-10-03T21:42:50.4538755Z  2026-10-03 21:36:12.697 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4539821Z  2026-10-03 21:36:12.700 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8446 kB, estimate=8882 kB; lsn=0/277AC700, redo lsn=0/277AC6A8
+2026-10-03T21:42:50.4540897Z  2026-10-03 21:36:14.352 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4541961Z  2026-10-03 21:36:14.355 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8427 kB, estimate=8836 kB; lsn=0/27FE7458, redo lsn=0/27FE7400
+2026-10-03T21:42:50.4543177Z  2026-10-03 21:36:17.165 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4544252Z  2026-10-03 21:36:17.169 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=10505 kB, estimate=10505 kB; lsn=0/28A299C8, redo lsn=0/28A29970
+2026-10-03T21:42:50.4545455Z  2026-10-03 21:36:18.434 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4546523Z  2026-10-03 21:36:18.437 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8324 kB, estimate=10287 kB; lsn=0/2924AB18, redo lsn=0/2924AAC0
+2026-10-03T21:42:50.4547627Z  2026-10-03 21:36:19.921 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4548699Z  2026-10-03 21:36:19.925 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8378 kB, estimate=10096 kB; lsn=0/29A79398, redo lsn=0/29A79340
+2026-10-03T21:42:50.4549771Z  2026-10-03 21:36:21.655 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4550833Z  2026-10-03 21:36:21.658 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8459 kB, estimate=9932 kB; lsn=0/2A2BC0A0, redo lsn=0/2A2BC048
+2026-10-03T21:42:50.4551910Z  2026-10-03 21:36:23.021 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4552563Z  The files belonging to this database system will be owned by user "postgres".
+2026-10-03T21:42:50.4553112Z  This user must also own the server process.
+2026-10-03T21:42:50.4553402Z  
+2026-10-03T21:42:50.4553680Z  The database cluster will be initialized with locale "en_US.utf8".
+2026-10-03T21:42:50.4554123Z  The default database encoding has accordingly been set to "UTF8".
+2026-10-03T21:42:50.4554546Z  The default text search configuration will be set to "english".
+2026-10-03T21:42:50.4554881Z  
+2026-10-03T21:42:50.4555073Z  Data page checksums are disabled.
+2026-10-03T21:42:50.4555317Z  
+2026-10-03T21:42:50.4555624Z  fixing permissions on existing directory /var/lib/postgresql/data ... ok
+2026-10-03T21:42:50.4556018Z  creating subdirectories ... ok
+2026-10-03T21:42:50.4556382Z  selecting dynamic shared memory implementation ... posix
+2026-10-03T21:42:50.4556739Z  selecting default "max_connections" ... 100
+2026-10-03T21:42:50.4557065Z  selecting default "shared_buffers" ... 128MB
+2026-10-03T21:42:50.4557363Z  selecting default time zone ... Etc/UTC
+2026-10-03T21:42:50.4557648Z  creating configuration files ... ok
+2026-10-03T21:42:50.4557938Z  running bootstrap script ... ok
+2026-10-03T21:42:50.4558236Z  performing post-bootstrap initialization ... ok
+2026-10-03T21:42:50.4558554Z  syncing data to disk ... ok
+2026-10-03T21:42:50.4558796Z  
+2026-10-03T21:42:50.4558964Z  
+2026-10-03T21:42:50.4559191Z  Success. You can now start the database server using:
+2026-10-03T21:42:50.4559498Z  
+2026-10-03T21:42:50.4559731Z      pg_ctl -D /var/lib/postgresql/data -l logfile start
+2026-10-03T21:42:50.4560039Z  
+2026-10-03T21:42:50.4560690Z  waiting for server to start....2026-10-03 21:33:53.774 UTC [48] LOG:  starting PostgreSQL 17.11 (Debian 17.11-1.pgdg13+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit
+2026-10-03T21:42:50.4561627Z  2026-10-03 21:33:53.775 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+2026-10-03T21:42:50.4562205Z  2026-10-03 21:33:53.778 UTC [51] LOG:  database system was shut down at 2026-10-03 21:33:53 UTC
+2026-10-03T21:42:50.4562874Z  2026-10-03 21:33:53.781 UTC [48] LOG:  database system is ready to accept connections
+2026-10-03T21:42:50.4563269Z   done
+2026-10-03T21:42:50.4563454Z  server started
+2026-10-03T21:42:50.4563654Z  CREATE DATABASE
+2026-10-03T21:42:50.4563849Z  
+2026-10-03T21:42:50.4564015Z  
+2026-10-03T21:42:50.4564331Z  /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+2026-10-03T21:42:50.4564736Z  
+2026-10-03T21:42:50.4564989Z  2026-10-03 21:33:53.964 UTC [48] LOG:  received fast shutdown request
+2026-10-03T21:42:50.4565680Z  waiting for server to shut down....2026-10-03 21:33:53.965 UTC [48] LOG:  aborting any active transactions
+2026-10-03T21:42:50.4566386Z  2026-10-03 21:33:53.968 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+2026-10-03T21:42:50.4566933Z  2026-10-03 21:33:53.968 UTC [49] LOG:  shutting down
+2026-10-03T21:42:50.4567328Z  2026-10-03 21:33:53.969 UTC [49] LOG:  checkpoint starting: shutdown immediate
+2026-10-03T21:42:50.4568436Z  2026-10-03 21:33:53.985 UTC [49] LOG:  checkpoint complete: wrote 925 buffers (5.6%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.013 s, sync=0.003 s, total=0.018 s; sync files=301, longest=0.002 s, average=0.001 s; distance=4256 kB, estimate=4256 kB; lsn=0/19179B8, redo lsn=0/19179B8
+2026-10-03T21:42:50.4569544Z  2026-10-03 21:33:53.992 UTC [48] LOG:  database system is shut down
+2026-10-03T21:42:50.4569871Z   done
+2026-10-03T21:42:50.4570056Z  server stopped
+2026-10-03T21:42:50.4570245Z  
+2026-10-03T21:42:50.4570481Z  PostgreSQL init process complete; ready for start up.
+2026-10-03T21:42:50.4570785Z  
+2026-10-03T21:42:50.4571774Z  2026-10-03 21:36:23.025 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8337 kB, estimate=9773 kB; lsn=0/2AAE0608, redo lsn=0/2AAE05B0
+2026-10-03T21:42:50.4573005Z  2026-10-03 21:36:23.428 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4574210Z  2026-10-03 21:36:23.430 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=7186 kB, estimate=9514 kB; lsn=0/2B1E4E70, redo lsn=0/2B1E4E18
+2026-10-03T21:42:50.4575297Z  2026-10-03 21:36:24.976 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4576401Z  2026-10-03 21:36:24.979 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8497 kB, estimate=9412 kB; lsn=0/2BA31398, redo lsn=0/2BA31340
+2026-10-03T21:42:50.4577480Z  2026-10-03 21:36:26.567 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4578574Z  2026-10-03 21:36:26.570 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8369 kB, estimate=9308 kB; lsn=0/2C25D8F8, redo lsn=0/2C25D8A0
+2026-10-03T21:42:50.4579738Z  2026-10-03 21:36:27.817 UTC [922] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4580301Z  2026-10-03 21:36:27.818 UTC [913] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4580847Z  2026-10-03 21:36:27.918 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4581933Z  2026-10-03 21:36:27.922 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8318 kB, estimate=9209 kB; lsn=0/2CA7D4E0, redo lsn=0/2CA7D488
+2026-10-03T21:42:50.4583169Z  2026-10-03 21:36:29.381 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4584309Z  2026-10-03 21:36:29.385 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8410 kB, estimate=9129 kB; lsn=0/2D2B3F80, redo lsn=0/2D2B3F28
+2026-10-03T21:42:50.4585442Z  2026-10-03 21:36:31.255 UTC [935] ERROR:  accurate independently handled case required
+2026-10-03T21:42:50.4586026Z  2026-10-03 21:36:31.255 UTC [935] CONTEXT:  PL/pgSQL function correction_result_complete() line 9 at RAISE
+2026-10-03T21:42:50.4586681Z  2026-10-03 21:36:31.255 UTC [935] STATEMENT:  commit
+2026-10-03T21:42:50.4587077Z  2026-10-03 21:36:31.260 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4588187Z  2026-10-03 21:36:31.263 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9099 kB, estimate=9126 kB; lsn=0/2DB96E30, redo lsn=0/2DB96DD8
+2026-10-03T21:42:50.4589271Z  2026-10-03 21:36:33.078 UTC [946] ERROR:  active withdrawal in corrected basis
+2026-10-03T21:42:50.4589835Z  2026-10-03 21:36:33.078 UTC [946] CONTEXT:  PL/pgSQL function correction_result_complete() line 25 at RAISE
+2026-10-03T21:42:50.4590329Z  2026-10-03 21:36:33.078 UTC [946] STATEMENT:  commit
+2026-10-03T21:42:50.4590798Z  2026-10-03 21:36:33.079 UTC [946] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4591323Z  2026-10-03 21:36:33.180 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4592542Z  2026-10-03 21:36:33.183 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9096 kB, estimate=9123 kB; lsn=0/2E478FE0, redo lsn=0/2E478F88
+2026-10-03T21:42:50.4593653Z  2026-10-03 21:36:34.655 UTC [957] ERROR:  complete parent closure and audit required
+2026-10-03T21:42:50.4594404Z  2026-10-03 21:36:34.655 UTC [957] CONTEXT:  PL/pgSQL function correction_result_complete() line 16 at RAISE
+2026-10-03T21:42:50.4594904Z  2026-10-03 21:36:34.655 UTC [957] STATEMENT:  commit
+2026-10-03T21:42:50.4595293Z  2026-10-03 21:36:34.657 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4596363Z  2026-10-03 21:36:34.661 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8493 kB, estimate=9060 kB; lsn=0/2ECC4708, redo lsn=0/2ECC46B0
+2026-10-03T21:42:50.4597447Z  2026-10-03 21:36:36.090 UTC [960] ERROR:  original and effective audit required
+2026-10-03T21:42:50.4598025Z  2026-10-03 21:36:36.090 UTC [960] CONTEXT:  PL/pgSQL function correction_result_complete() line 18 at RAISE
+2026-10-03T21:42:50.4598514Z  2026-10-03 21:36:36.090 UTC [960] STATEMENT:  commit
+2026-10-03T21:42:50.4598900Z  2026-10-03 21:36:36.095 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4600006Z  2026-10-03 21:36:36.098 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8405 kB, estimate=8995 kB; lsn=0/2F4F9E38, redo lsn=0/2F4F9DE0
+2026-10-03T21:42:50.4601124Z  2026-10-03 21:36:37.524 UTC [971] ERROR:  complete actual effective dependencies required
+2026-10-03T21:42:50.4601722Z  2026-10-03 21:36:37.524 UTC [971] CONTEXT:  PL/pgSQL function correction_result_complete() line 24 at RAISE
+2026-10-03T21:42:50.4602216Z  2026-10-03 21:36:37.524 UTC [971] STATEMENT:  commit
+2026-10-03T21:42:50.4602724Z  2026-10-03 21:36:37.626 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4603814Z  2026-10-03 21:36:37.629 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8404 kB, estimate=8936 kB; lsn=0/2FD2F010, redo lsn=0/2FD2EFB8
+2026-10-03T21:42:50.4604883Z  2026-10-03 21:36:40.448 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4605944Z  2026-10-03 21:36:40.452 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9313 kB, estimate=9313 kB; lsn=0/306475A8, redo lsn=0/30647550
+2026-10-03T21:42:50.4607140Z  2026-10-03 21:36:42.703 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4608206Z  2026-10-03 21:36:42.706 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8806 kB, estimate=9262 kB; lsn=0/30EE0E70, redo lsn=0/30EE0E18
+2026-10-03T21:42:50.4609309Z  2026-10-03 21:36:45.836 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4610382Z  2026-10-03 21:36:45.839 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9405 kB, estimate=9405 kB; lsn=0/31810340, redo lsn=0/318102E8
+2026-10-03T21:42:50.4611507Z  2026-10-03 21:36:48.767 UTC [1030] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4612032Z  2026-10-03 21:36:48.867 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4613225Z  2026-10-03 21:36:48.870 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9098 kB, estimate=9374 kB; lsn=0/320F2E88, redo lsn=0/320F2E30
+2026-10-03T21:42:50.4614516Z  2026-10-03 21:36:50.544 UTC [1052] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4615052Z  2026-10-03 21:36:50.643 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4616135Z  2026-10-03 21:36:50.646 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8458 kB, estimate=9282 kB; lsn=0/32935698, redo lsn=0/32935640
+2026-10-03T21:42:50.4617213Z  2026-10-03 21:36:54.296 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4618279Z  2026-10-03 21:36:54.299 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9998 kB, estimate=9998 kB; lsn=0/332F9030, redo lsn=0/332F8FD8
+2026-10-03T21:42:50.4619376Z  2026-10-03 21:36:56.185 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4620437Z  2026-10-03 21:36:56.188 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9060 kB, estimate=9904 kB; lsn=0/33BD2120, redo lsn=0/33BD20C8
+2026-10-03T21:42:50.4621506Z  2026-10-03 21:36:57.500 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4622693Z  2026-10-03 21:36:57.505 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8327 kB, estimate=9746 kB; lsn=0/343F3F70, redo lsn=0/343F3F18
+2026-10-03T21:42:50.4623769Z  2026-10-03 21:36:59.348 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4624846Z  2026-10-03 21:36:59.351 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8685 kB, estimate=9640 kB; lsn=0/34C6F3F8, redo lsn=0/34C6F3A0
+2026-10-03T21:42:50.4625974Z  2026-10-03 21:37:00.722 UTC [1111] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4626484Z  2026-10-03 21:37:00.823 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4627589Z  2026-10-03 21:37:00.826 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8336 kB, estimate=9510 kB; lsn=0/35493780, redo lsn=0/35493728
+2026-10-03T21:42:50.4628835Z  2026-10-03 21:37:02.115 UTC [1122] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4629344Z  2026-10-03 21:37:02.216 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4630453Z  2026-10-03 21:37:02.219 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8333 kB, estimate=9392 kB; lsn=0/35CB6C08, redo lsn=0/35CB6BB0
+2026-10-03T21:42:50.4631542Z  2026-10-03 21:37:03.709 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4632729Z  2026-10-03 21:37:03.712 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8693 kB, estimate=9322 kB; lsn=0/365340C0, redo lsn=0/36534068
+2026-10-03T21:42:50.4633815Z  2026-10-03 21:37:04.925 UTC [1137] ERROR:  immutable correction case source
+2026-10-03T21:42:50.4634378Z  2026-10-03 21:37:04.925 UTC [1137] CONTEXT:  PL/pgSQL function correction_case_guard() line 9 at RAISE
+2026-10-03T21:42:50.4634954Z  2026-10-03 21:37:04.925 UTC [1137] STATEMENT:  DELETE FROM correction_cases WHERE id=$1
+2026-10-03T21:42:50.4635571Z  2026-10-03 21:37:04.926 UTC [1137] ERROR:  immutable correction case source
+2026-10-03T21:42:50.4636106Z  2026-10-03 21:37:04.926 UTC [1137] CONTEXT:  PL/pgSQL function correction_case_guard() line 9 at RAISE
+2026-10-03T21:42:50.4636768Z  2026-10-03 21:37:04.926 UTC [1137] STATEMENT:  UPDATE correction_cases SET cutoff=clock_timestamp() WHERE id=$1
+2026-10-03T21:42:50.4637332Z  2026-10-03 21:37:04.927 UTC [1137] ERROR:  immutable correction case source
+2026-10-03T21:42:50.4637856Z  2026-10-03 21:37:04.927 UTC [1137] CONTEXT:  PL/pgSQL function correction_case_guard() line 9 at RAISE
+2026-10-03T21:42:50.4638462Z  2026-10-03 21:37:04.927 UTC [1137] STATEMENT:  UPDATE correction_cases SET sealed=false WHERE id=$1
+2026-10-03T21:42:50.4638971Z  2026-10-03 21:37:04.927 UTC [1137] ERROR:  immutable correction fact
+2026-10-03T21:42:50.4639483Z  2026-10-03 21:37:04.927 UTC [1137] CONTEXT:  PL/pgSQL function correction_immutable() line 2 at RAISE
+2026-10-03T21:42:50.4640095Z  2026-10-03 21:37:04.927 UTC [1137] STATEMENT:  DELETE FROM correction_events WHERE subject_id=$1
+2026-10-03T21:42:50.4640595Z  2026-10-03 21:37:04.928 UTC [1137] ERROR:  immutable correction fact
+2026-10-03T21:42:50.4641102Z  2026-10-03 21:37:04.928 UTC [1137] CONTEXT:  PL/pgSQL function correction_immutable() line 2 at RAISE
+2026-10-03T21:42:50.4641742Z  2026-10-03 21:37:04.928 UTC [1137] STATEMENT:  UPDATE correction_events SET sequence=2 WHERE subject_id=$1
+2026-10-03T21:42:50.4642416Z  2026-10-03 21:37:04.936 UTC [1137] ERROR:  invalid correction plan advance
+2026-10-03T21:42:50.4642964Z  2026-10-03 21:37:04.936 UTC [1137] CONTEXT:  PL/pgSQL function correction_plan_guard() line 13 at RAISE
+2026-10-03T21:42:50.4643725Z  2026-10-03 21:37:04.936 UTC [1137] STATEMENT:  UPDATE correction_plans SET body=jsonb_set(body,'{reason}','"changed"') WHERE id=$1 AND version=1
+2026-10-03T21:42:50.4644410Z  2026-10-03 21:37:04.941 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4645504Z  2026-10-03 21:37:04.945 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8323 kB, estimate=9222 kB; lsn=0/36D54CC8, redo lsn=0/36D54C70
+2026-10-03T21:42:50.4646580Z  2026-10-03 21:37:06.136 UTC [1148] ERROR:  matching plan event required
+2026-10-03T21:42:50.4647130Z  2026-10-03 21:37:06.136 UTC [1148] CONTEXT:  PL/pgSQL function correction_plan_complete() line 6 at RAISE
+2026-10-03T21:42:50.4647768Z  2026-10-03 21:37:06.136 UTC [1148] STATEMENT:  commit
+2026-10-03T21:42:50.4648175Z  2026-10-03 21:37:06.139 UTC [1148] ERROR:  independent current reviewer required
+2026-10-03T21:42:50.4648721Z  2026-10-03 21:37:06.139 UTC [1148] CONTEXT:  PL/pgSQL function correction_plan_complete() line 9 at RAISE
+2026-10-03T21:42:50.4649210Z  2026-10-03 21:37:06.139 UTC [1148] STATEMENT:  commit
+2026-10-03T21:42:50.4649589Z  2026-10-03 21:37:06.143 UTC [1148] ERROR:  immutable correction decision
+2026-10-03T21:42:50.4650121Z  2026-10-03 21:37:06.143 UTC [1148] CONTEXT:  PL/pgSQL function correction_plan_guard() line 12 at RAISE
+2026-10-03T21:42:50.4650826Z  2026-10-03 21:37:06.143 UTC [1148] STATEMENT:  UPDATE correction_plans SET status='rejected' WHERE id=$1 AND version=1
+2026-10-03T21:42:50.4651447Z  2026-10-03 21:37:06.148 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4652661Z  2026-10-03 21:37:06.151 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8324 kB, estimate=9132 kB; lsn=0/37575EB0, redo lsn=0/37575E58
+2026-10-03T21:42:50.4654089Z  2026-10-03 21:37:07.469 UTC [1151] ERROR:  insert or update on table "notification_reads" violates foreign key constraint "notification_reads_notification_id_owner_user_id_fkey"
+2026-10-03T21:42:50.4655481Z  2026-10-03 21:37:07.469 UTC [1151] DETAIL:  Key (notification_id, owner_user_id)=(8298b953-8d8e-410e-9cc5-00d34ef9d97d, f24df53e-bca4-4c7c-9eea-5094775c1a56) is not present in table "notifications".
+2026-10-03T21:42:50.4656537Z  2026-10-03 21:37:07.469 UTC [1151] STATEMENT:  INSERT INTO notification_reads(owner_user_id,notification_id) VALUES($1,$2)
+2026-10-03T21:42:50.4657135Z  2026-10-03 21:37:07.471 UTC [1151] ERROR:  immutable correction fact
+2026-10-03T21:42:50.4657645Z  2026-10-03 21:37:07.471 UTC [1151] CONTEXT:  PL/pgSQL function correction_immutable() line 2 at RAISE
+2026-10-03T21:42:50.4658419Z  2026-10-03 21:37:07.471 UTC [1151] STATEMENT:  UPDATE notification_reads SET read_at=clock_timestamp() WHERE notification_id=$1
+2026-10-03T21:42:50.4659062Z  2026-10-03 21:37:07.475 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4660169Z  2026-10-03 21:37:07.478 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8352 kB, estimate=9054 kB; lsn=0/37D9DED0, redo lsn=0/37D9DE78
+2026-10-03T21:42:50.4661449Z  2026-10-03 21:37:08.672 UTC [1162] ERROR:  new row for relation "correction_results" violates check constraint "correction_results_check3"
+2026-10-03T21:42:50.4663595Z  2026-10-03 21:37:08.672 UTC [1162] DETAIL:  Failing row contains (bc581955-628b-4f7a-b492-bc042a77d8e6, 94c9bacd-09aa-4efd-b7bf-edddcd5601f8, 36efef8c-74e0-47f5-b0b6-496ab41c4025, 50613d09-784e-473a-9fd2-bad7086e92bd, 1, null, assessment, 2f82cb16-b5c3-4e7b-b98e-57fe77e1a0cd, null, null, null, corrected_passed, answer_corrected, 5, t, [], [], {}, \x7b7d, 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a, fake, f, 2026-10-03 21:37:08.67237+00).
+2026-10-03T21:42:50.4666468Z  2026-10-03 21:37:08.672 UTC [1162] STATEMENT:  INSERT INTO correction_results(id,owner_user_id,case_id,plan_id,plan_version,evidence_kind,evidence_id,status,reason,score,passed,handled_case_ids,basis,basis_bytes,basis_digest,source_key) VALUES($1,$2,$3,$4,1,'assessment',$5,'corrected_passed','answer_corrected',5,true,'[]','{}',convert_to('{}','UTF8'),encode(sha256(convert_to('{}','UTF8')),'hex'),'fake')
+2026-10-03T21:42:50.4667981Z  2026-10-03 21:37:08.677 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4669068Z  2026-10-03 21:37:08.680 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8320 kB, estimate=8981 kB; lsn=0/385BE1F8, redo lsn=0/385BE1A0
+2026-10-03T21:42:50.4670261Z  2026-10-03 21:37:10.130 UTC [1165] ERROR:  result seal audit required
+2026-10-03T21:42:50.4670799Z  2026-10-03 21:37:10.130 UTC [1165] CONTEXT:  PL/pgSQL function correction_result_complete() line 5 at RAISE
+2026-10-03T21:42:50.4671302Z  2026-10-03 21:37:10.130 UTC [1165] STATEMENT:  commit
+2026-10-03T21:42:50.4671680Z  2026-10-03 21:37:10.160 UTC [1165] ERROR:  immutable correction result
+2026-10-03T21:42:50.4672214Z  2026-10-03 21:37:10.160 UTC [1165] CONTEXT:  PL/pgSQL function correction_result_guard() line 3 at RAISE
+2026-10-03T21:42:50.4672950Z  2026-10-03 21:37:10.160 UTC [1165] STATEMENT:  UPDATE correction_results SET score=0 WHERE id=$1
+2026-10-03T21:42:50.4673451Z  2026-10-03 21:37:10.161 UTC [1165] ERROR:  immutable correction result
+2026-10-03T21:42:50.4673973Z  2026-10-03 21:37:10.161 UTC [1165] CONTEXT:  PL/pgSQL function correction_result_guard() line 3 at RAISE
+2026-10-03T21:42:50.4674557Z  2026-10-03 21:37:10.161 UTC [1165] STATEMENT:  DELETE FROM correction_results WHERE id=$1
+2026-10-03T21:42:50.4675054Z  2026-10-03 21:37:10.162 UTC [1165] ERROR:  immutable correction dependency
+2026-10-03T21:42:50.4675613Z  2026-10-03 21:37:10.162 UTC [1165] CONTEXT:  PL/pgSQL function correction_dependency_guard() line 3 at RAISE
+2026-10-03T21:42:50.4676246Z  2026-10-03 21:37:10.162 UTC [1165] STATEMENT:  DELETE FROM correction_dependencies WHERE result_id=$1
+2026-10-03T21:42:50.4676885Z  2026-10-03 21:37:10.163 UTC [1165] ERROR:  immutable attempt child
+2026-10-03T21:42:50.4677429Z  2026-10-03 21:37:10.163 UTC [1165] CONTEXT:  PL/pgSQL function learning_attempt_child_guard() line 9 at RAISE
+2026-10-03T21:42:50.4678144Z  2026-10-03 21:37:10.163 UTC [1165] STATEMENT:  UPDATE assessment_answers SET answer='{"kind":"skipped"}' WHERE attempt_id=$1
+2026-10-03T21:42:50.4678773Z  2026-10-03 21:37:10.179 UTC [1165] ERROR:  owned sealed correction source required
+2026-10-03T21:42:50.4679358Z  2026-10-03 21:37:10.179 UTC [1165] CONTEXT:  PL/pgSQL function correction_result_complete() line 6 at RAISE
+2026-10-03T21:42:50.4679857Z  2026-10-03 21:37:10.179 UTC [1165] STATEMENT:  commit
+2026-10-03T21:42:50.4680257Z  2026-10-03 21:37:10.184 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4681351Z  2026-10-03 21:37:10.187 UTC [62] LOG:  checkpoint complete: wrote 8 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=6, longest=0.001 s, average=0.001 s; distance=8495 kB, estimate=8932 kB; lsn=0/38E09F58, redo lsn=0/38E09F00
+2026-10-03T21:42:50.4682605Z  2026-10-03 21:37:11.595 UTC [1177] ERROR:  accurate frozen plan proof required
+2026-10-03T21:42:50.4683157Z  2026-10-03 21:37:11.595 UTC [1177] CONTEXT:  PL/pgSQL function correction_plan_complete() line 7 at RAISE
+2026-10-03T21:42:50.4683647Z  2026-10-03 21:37:11.595 UTC [1177] STATEMENT:  commit
+2026-10-03T21:42:50.4684041Z  2026-10-03 21:37:11.599 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4685135Z  2026-10-03 21:37:11.603 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8370 kB, estimate=8876 kB; lsn=0/39636788, redo lsn=0/39636730
+2026-10-03T21:42:50.4686219Z  2026-10-03 21:37:13.023 UTC [1188] ERROR:  original knowledge identity required
+2026-10-03T21:42:50.4686782Z  2026-10-03 21:37:13.023 UTC [1188] CONTEXT:  PL/pgSQL function correction_result_complete() line 22 at RAISE
+2026-10-03T21:42:50.4687286Z  2026-10-03 21:37:13.023 UTC [1188] STATEMENT:  commit
+2026-10-03T21:42:50.4687673Z  2026-10-03 21:37:13.028 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4688741Z  2026-10-03 21:37:13.031 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8404 kB, estimate=8829 kB; lsn=0/39E6B8F0, redo lsn=0/39E6B898
+2026-10-03T21:42:50.4689949Z  2026-10-03 21:37:14.650 UTC [1198] ERROR:  equivalent accurate instance required
+2026-10-03T21:42:50.4690521Z  2026-10-03 21:37:14.650 UTC [1198] CONTEXT:  PL/pgSQL function correction_result_complete() line 29 at RAISE
+2026-10-03T21:42:50.4691064Z  2026-10-03 21:37:14.650 UTC [1198] STATEMENT:  commit
+2026-10-03T21:42:50.4691493Z  2026-10-03 21:37:14.700 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4692705Z  2026-10-03 21:37:14.704 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8763 kB, estimate=8822 kB; lsn=0/3A6FA750, redo lsn=0/3A6FA6F8
+2026-10-03T21:42:50.4694019Z  2026-10-03 21:37:16.124 UTC [1203] ERROR:  duplicate key value violates unique constraint "correction_cases_withdrawal_space_withdrawal_id_key"
+2026-10-03T21:42:50.4694942Z  2026-10-03 21:37:16.124 UTC [1203] DETAIL:  Key (withdrawal_space, withdrawal_id)=(question, 2e419cd5-ff5e-4bce-aca6-63ef4c7fbf65) already exists.
+2026-10-03T21:42:50.4696659Z  2026-10-03 21:37:16.124 UTC [1203] STATEMENT:  INSERT INTO correction_cases(id,kind,withdrawal_space,withdrawal_id,content_withdrawal_id,question_withdrawal_id,rule_version,scope_kind,knowledge_id,knowledge_version,knowledge_sha256,cutoff,creator_user_id,created_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)
+2026-10-03T21:42:50.4697999Z  2026-10-03 21:37:16.167 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4699137Z  2026-10-03 21:37:16.170 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8368 kB, estimate=8777 kB; lsn=0/3AF26A60, redo lsn=0/3AF26A08
+2026-10-03T21:42:50.4700306Z  2026-10-03 21:37:17.591 UTC [1214] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4700825Z  2026-10-03 21:37:17.691 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4701884Z  2026-10-03 21:37:17.694 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8363 kB, estimate=8735 kB; lsn=0/3B751728, redo lsn=0/3B7516D0
+2026-10-03T21:42:50.4703097Z  2026-10-03 21:37:19.098 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4704166Z  2026-10-03 21:37:19.101 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8367 kB, estimate=8699 kB; lsn=0/3BF7D628, redo lsn=0/3BF7D5D0
+2026-10-03T21:42:50.4705734Z  2026-10-03 21:37:20.449 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4706900Z  2026-10-03 21:37:20.452 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8313 kB, estimate=8660 kB; lsn=0/3C79BD90, redo lsn=0/3C79BD38
+2026-10-03T21:42:50.4707985Z  2026-10-03 21:37:21.695 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4709074Z  2026-10-03 21:37:21.701 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.006 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8314 kB, estimate=8625 kB; lsn=0/3CFBA618, redo lsn=0/3CFBA5C0
+2026-10-03T21:42:50.4710183Z  2026-10-03 21:37:22.921 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4711251Z  2026-10-03 21:37:22.925 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8314 kB, estimate=8594 kB; lsn=0/3D7D8F80, redo lsn=0/3D7D8F28
+2026-10-03T21:42:50.4712714Z  2026-10-03 21:37:24.137 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4713822Z  2026-10-03 21:37:24.140 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8314 kB, estimate=8566 kB; lsn=0/3DFF7980, redo lsn=0/3DFF7928
+2026-10-03T21:42:50.4714961Z  2026-10-03 21:37:25.369 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4716024Z  2026-10-03 21:37:25.372 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8325 kB, estimate=8542 kB; lsn=0/3E819150, redo lsn=0/3E8190F8
+2026-10-03T21:42:50.4717095Z  2026-10-03 21:37:26.628 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4718162Z  2026-10-03 21:37:26.632 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8314 kB, estimate=8519 kB; lsn=0/3F0379B8, redo lsn=0/3F037960
+2026-10-03T21:42:50.4719360Z  2026-10-03 21:37:27.883 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4720436Z  2026-10-03 21:37:27.886 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8320 kB, estimate=8499 kB; lsn=0/3F857B80, redo lsn=0/3F857B28
+2026-10-03T21:42:50.4721514Z  2026-10-03 21:37:29.110 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4722955Z  2026-10-03 21:37:29.114 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8320 kB, estimate=8481 kB; lsn=0/40077E70, redo lsn=0/40077E18
+2026-10-03T21:42:50.4724029Z  2026-10-03 21:37:30.356 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4725102Z  2026-10-03 21:37:30.359 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8320 kB, estimate=8465 kB; lsn=0/40898210, redo lsn=0/408981B8
+2026-10-03T21:42:50.4726174Z  2026-10-03 21:37:31.565 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4727243Z  2026-10-03 21:37:31.573 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.002 s, sync=0.002 s, total=0.008 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8321 kB, estimate=8451 kB; lsn=0/410B86A0, redo lsn=0/410B8648
+2026-10-03T21:42:50.4728318Z  2026-10-03 21:37:32.798 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4729384Z  2026-10-03 21:37:32.802 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8319 kB, estimate=8438 kB; lsn=0/418D82A0, redo lsn=0/418D8248
+2026-10-03T21:42:50.4730498Z  2026-10-03 21:37:33.979 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4731616Z  2026-10-03 21:37:33.983 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8315 kB, estimate=8425 kB; lsn=0/420F71F8, redo lsn=0/420F71A0
+2026-10-03T21:42:50.4732970Z  2026-10-03 21:37:35.327 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4734040Z  2026-10-03 21:37:35.330 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8317 kB, estimate=8415 kB; lsn=0/429167A8, redo lsn=0/42916750
+2026-10-03T21:42:50.4735106Z  2026-10-03 21:37:36.546 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4736174Z  2026-10-03 21:37:36.549 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8317 kB, estimate=8405 kB; lsn=0/43135CA0, redo lsn=0/43135C48
+2026-10-03T21:42:50.4737297Z  2026-10-03 21:37:37.765 UTC [1350] FATAL:  terminating connection due to administrator command
+2026-10-03T21:42:50.4737817Z  2026-10-03 21:37:37.866 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4738889Z  2026-10-03 21:37:37.869 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8459 kB, estimate=8459 kB; lsn=0/43978BF8, redo lsn=0/43978BA0
+2026-10-03T21:42:50.4739961Z  2026-10-03 21:37:39.317 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4741150Z  2026-10-03 21:37:39.320 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8367 kB, estimate=8450 kB; lsn=0/441A49F8, redo lsn=0/441A49A0
+2026-10-03T21:42:50.4742333Z  2026-10-03 21:37:39.664 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4743399Z  2026-10-03 21:37:39.667 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=7853 kB, estimate=8390 kB; lsn=0/4494FEE8, redo lsn=0/4494FE90
+2026-10-03T21:42:50.4744476Z  2026-10-03 21:37:41.311 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4745538Z  2026-10-03 21:37:41.314 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8453 kB, estimate=8453 kB; lsn=0/451914C0, redo lsn=0/45191468
+2026-10-03T21:42:50.4746610Z  2026-10-03 21:37:42.923 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4747674Z  2026-10-03 21:37:42.927 UTC [62] LOG:  checkpoint complete: wrote 5 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8419 kB, estimate=8450 kB; lsn=0/459CA4B8, redo lsn=0/459CA460
+2026-10-03T21:42:50.4748734Z  2026-10-03 21:37:44.439 UTC [1389] ERROR:  isolated receipt failure
+2026-10-03T21:42:50.4749277Z  2026-10-03 21:37:44.439 UTC [1389] CONTEXT:  PL/pgSQL function isolated_notification_receipt() line 1 at RAISE
+2026-10-03T21:42:50.4750241Z  2026-10-03 21:37:44.439 UTC [1389] STATEMENT:  INSERT INTO correction_idempotency(owner_user_id,action,resource,key,digest,status,receipt) VALUES($1,'notification-read',$2,$3,$4,200,$5)
+2026-10-03T21:42:50.4751090Z  2026-10-03 21:37:44.579 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4752166Z  2026-10-03 21:37:44.583 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8599 kB, estimate=8599 kB; lsn=0/462301E0, redo lsn=0/46230188
+2026-10-03T21:42:50.4753528Z  2026-10-03 21:37:46.144 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4754616Z  2026-10-03 21:37:46.149 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.002 s, sync=0.001 s, total=0.005 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8419 kB, estimate=8581 kB; lsn=0/46A68EF0, redo lsn=0/46A68E98
+2026-10-03T21:42:50.4755701Z  2026-10-03 21:37:47.508 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4756777Z  2026-10-03 21:37:47.511 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 1 recycled; write=0.001 s, sync=0.001 s, total=0.003 s; sync files=4, longest=0.001 s, average=0.001 s; distance=8346 kB, estimate=8557 kB; lsn=0/4728F970, redo lsn=0/4728F918
+2026-10-03T21:42:50.4757854Z  2026-10-03 21:37:49.283 UTC [62] LOG:  checkpoint starting: immediate force wait
+2026-10-03T21:42:50.4758927Z  2026-10-03 21:37:49.286 UTC [62] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.004 s; sync files=4, longest=0.001 s, average=0.001 s; distance=9028 kB, estimate=9028 kB; lsn=0/47B60D50, redo lsn=0/47B60CF8
+2026-10-03T21:42:50.4759985Z  2026-10-03 21:42:49.716 UTC [62] LOG:  checkpoint starting: time
+2026-10-03T21:42:50.4760488Z  2026-10-03 21:42:50.002 UTC [1429] LOG:  unexpected EOF on client connection with an open transaction
+2026-10-03T21:42:50.4767803Z Stop and remove container: 9c9686327d2547c490577f5f782869c8_postgres1711_9ea479
+2026-10-03T21:42:50.4773736Z ##[command]/usr/bin/docker rm --force d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:42:50.6875991Z d115cfffb4aa47d0f705d988255d2cbb76cc7ce2a508540d4bdd0225adc58f96
+2026-10-03T21:42:50.6922801Z Remove container network: github_network_bdfea7a9b89f4818b7f2252bd94a342e
+2026-10-03T21:42:50.6929455Z ##[command]/usr/bin/docker network rm github_network_bdfea7a9b89f4818b7f2252bd94a342e
+2026-10-03T21:42:50.7945021Z github_network_bdfea7a9b89f4818b7f2252bd94a342e
+2026-10-03T21:42:50.8037446Z Cleaning up orphan processes

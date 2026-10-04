@@ -1,0 +1,50 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "head": "ddaef8f422a1dfafe8e6bbd426e6e9aa5ee74848",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "commands": [
+    {
+      "name": "final-pass-inputs-diff",
+      "args": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": null,
+      "startedAt": "2026-10-03T19:42:59.432753+00:00",
+      "exitCode": 0,
+      "seconds": 0.03,
+      "log": "final-pass-inputs-diff.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "final-pass-inputs-node",
+      "args": [
+        "node",
+        "--test",
+        "tools/verify/run.test.mjs",
+        "tools/verify/learning-compatibility.test.mjs",
+        "tools/verify/feedback-compatibility.test.mjs",
+        "tools/verify/correction-compatibility.test.mjs",
+        "tools/verify/feedback-ci.test.mjs",
+        "tools/verify/correction-ci.test.mjs",
+        "tools/content-ingest/snapshot.test.mjs"
+      ],
+      "cwd": null,
+      "startedAt": "2026-10-03T19:42:59.463254+00:00",
+      "exitCode": 0,
+      "seconds": 5.59,
+      "log": "final-pass-inputs-node.log",
+      "logSHA256": "45174a02a6eec2a1acc23754d521a2f3e733c2563e18abca521af498f765a402"
+    }
+  ]
+}

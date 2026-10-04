@@ -1,0 +1,150 @@
+{
+  "baseline": "dad438d13b37d1053e3bf42e7c32e3829e4518a6",
+  "head": "d6f8c743a9385aeacf97644b2f5f6d6f1b729f60",
+  "platform": "darwin",
+  "goEnvironment": {
+    "CGO_ENABLED": "0",
+    "GOTOOLCHAIN": "go1.27.1"
+  },
+  "browser": {
+    "workers": 1,
+    "retries": 0,
+    "globalTimeout": 480000
+  },
+  "commands": [
+    {
+      "name": "task16-full-front-install",
+      "args": [
+        "npm",
+        "ci"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:30:31.551461+00:00",
+      "exitCode": 0,
+      "seconds": 6.45,
+      "log": "task16-full-front-install.log",
+      "logSHA256": "2b5bca5c1928568cbf8485a689ce829fba28dfe354107381783b43abe59c17a6"
+    },
+    {
+      "name": "task16-full-front-api",
+      "args": [
+        "npm",
+        "run",
+        "api:generate"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:30:38.001272+00:00",
+      "exitCode": 0,
+      "seconds": 0.72,
+      "log": "task16-full-front-api.log",
+      "logSHA256": "35929320f77b549a2d73cded464cd2a106bfed93748b4bf862e1156389dc6a9c"
+    },
+    {
+      "name": "task16-full-front-typecheck",
+      "args": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:30:38.716816+00:00",
+      "exitCode": 0,
+      "seconds": 0.97,
+      "log": "task16-full-front-typecheck.log",
+      "logSHA256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc"
+    },
+    {
+      "name": "task16-full-front-unit",
+      "args": [
+        "npm",
+        "test"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:30:39.685604+00:00",
+      "exitCode": 0,
+      "seconds": 4.52,
+      "log": "task16-full-front-unit.log",
+      "logSHA256": "30ec4e372842995dc4711035e0ac89afa9cdb0a9630b47765df383e78f02ae9d"
+    },
+    {
+      "name": "task16-full-front-build",
+      "args": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:30:44.201678+00:00",
+      "exitCode": 0,
+      "seconds": 4.0,
+      "log": "task16-full-front-build.log",
+      "logSHA256": "4e49b2ea4f340b4dcfff9ff871142a07d8f43e9aaf9e780454983deb6eae4c13"
+    },
+    {
+      "name": "task16-full-front-audit",
+      "args": [
+        "npm",
+        "audit",
+        "--omit=dev"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:30:48.204377+00:00",
+      "exitCode": 0,
+      "seconds": 1.6,
+      "log": "task16-full-front-audit.log",
+      "logSHA256": "6d8c5c8f3d7684adb070417bd608d01ae90aa3dc26a65af03ffda4955f38d9a3"
+    },
+    {
+      "name": "task16-full-front-generated-clean",
+      "args": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "frontend/src/lib/api/generated.d.ts"
+      ],
+      "cwd": null,
+      "startedAt": "2026-10-03T18:30:49.804237+00:00",
+      "exitCode": 0,
+      "seconds": 0.05,
+      "log": "task16-full-front-generated-clean.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "task16-full-front-harness",
+      "args": [
+        "env",
+        "CGO_ENABLED=0",
+        "GOTOOLCHAIN=go1.27.1",
+        "go",
+        "build",
+        "-o",
+        "bin/e2e-harness",
+        "./cmd/e2e-harness"
+      ],
+      "cwd": "backend",
+      "startedAt": "2026-10-03T18:30:49.850970+00:00",
+      "exitCode": 0,
+      "seconds": 0.38,
+      "log": "task16-full-front-harness.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "task16-full-front-chromium",
+      "args": [
+        "npm",
+        "exec",
+        "--",
+        "playwright",
+        "install",
+        "chromium"
+      ],
+      "cwd": "frontend",
+      "startedAt": "2026-10-03T18:30:50.235733+00:00",
+      "exitCode": 0,
+      "seconds": 0.53,
+      "log": "task16-full-front-chromium.log",
+      "logSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

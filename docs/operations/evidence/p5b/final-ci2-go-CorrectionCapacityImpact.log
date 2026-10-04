@@ -1,0 +1,3 @@
+=== RUN   TestCorrectionCapacityImpact
+signal: interrupt
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.486s

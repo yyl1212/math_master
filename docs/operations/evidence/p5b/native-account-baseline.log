@@ -1,0 +1,8 @@
+=== RUN   TestCorrectionWorkerAccountFreshRoleAfterWait
+    correction_batch_test.go:48: ERROR: update or delete on table "auth_user_roles" violates foreign key constraint "auth_users_learner_fk" on table "auth_users" (SQLSTATE 23503)
+--- FAIL: TestCorrectionWorkerAccountFreshRoleAfterWait (0.83s)
+=== RUN   TestCorrectionWorkerAccountCancelledBatchRecovery
+--- PASS: TestCorrectionWorkerAccountCancelledBatchRecovery (0.78s)
+FAIL
+FAIL	github.com/yyl1212/math_master/backend/internal/store	2.205s
+FAIL
