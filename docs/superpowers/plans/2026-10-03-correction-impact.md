@@ -426,3 +426,5 @@ CI交付同一次修复补充：首次bc8561f容量5m真实RED，按[查询修�
 16项/80步全部完成，最终逐任务账本、27项裁定及完整证据见[实施账本](../../operations/evidence/p5b/implementation-ledger.md)和[验收记录](../../operations/2026-10-03-p5b-acceptance.md)。已创建[产品草稿PR](https://github.com/yyl1212/math_master/pull/23)，首次head `177ed57186a662db87b2b0fd0d56384607de3936` 的Go/前端push及PR四workflow与六job均已通过；本归档再提交后仍再次核验最终head。不自动合并、不部署。
 
 交付证据QA补充Ruling27：原始stdout保持逐字节及SHA，仅在人工文档空白风格检查中排除准确证据目录的*.log；所有源码、JSON及诊断脚本继续检查，未变更Git设置、CI或测试预算。准确默认RED/限定GREEN及manifest核验已归档；全部27项裁定、16任务/80步完成，最新完整文档head仍以PR说明的四run/六job验收为准。
+
+同一次必要修复轮追加Ruling28：最终文档90fd12d容量5m真实失败，仅将补扫terminal候选按当前已锁定案件参数化，保持原谓词/顺序/50预算/全部守卫；完整原容量与所有44命令在产品 `d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb` 新鲜PASS，350前端/146浏览器/44Node/五容量，完整28裁定见实施账本。一次独立reviewer及零deferred minor保持；新最终归档head的四workflow/六job必须实际成功，最新结论以PR #23说明为准。

@@ -132,3 +132,26 @@ flowchart LR
 ```
 
 仅补充本验收、终审/计划/路线图汇总、实施账本、验证JSON和manifest；产品与177ed57完整受验提交完全相同。当前全部27项裁定无deferred minor。最终文档head仍按PR说明核验四项workflow/六个job。
+
+## 最终归档提交的真实失败与补扫修复
+
+纯文档提交90fd12d的两项纠错job仍在5m补扫阶段失败，另外四job全部成功，四run最终状态与两份原始脱敏日志保留：[完整失败状态](evidence/p5b/verification-github-ci-document-failure.json)。不把上一177ed57的成功用于最终交付，也未重跑失败CI。
+
+按[补扫查询可行性与架构审核](2026-10-04-p5b-backfill-query-fix.md)仅改一条当前案件参数化候选查询，提交结果后的旧计划读取32005 buffers并反复解析无关封存题源，新计划读取2005 buffers；全1000案件补扫从12.950s降至4.868s，原所有集合与时间预算保持。新的产品受验提交 `d14e159bc4fb57d7c1fcfa2b836feb48cb378fbb` 上44条命令全部新鲜重跑，旧报告保留为verification-macos-at177ed57.json，最新结论为verification-macos.json：
+
+| 检查 | 本轮实际结果 |
+| --- | --- |
+| 全矩阵 | 44/44命令全部退出0，每条小于10分钟 |
+| 前端 / Node / 双视口 | 350 / 44 / 146全部通过，原130浏览器用例保留 |
+| 核心/HTTP/server/harness | 104.84s PASS |
+| 原store/CLI | 144.3s PASS |
+| 学习测评 | 84.75s PASS |
+| 反馈 | 28.73s PASS |
+| 纠错通知/CLI | 128.57s PASS |
+| 原反馈容量 | 11.56s PASS |
+| 原最大题源 | 92.6s PASS |
+| 原最大路线 | 119.79s PASS |
+| 1000案件/1000批准方案/10000证据 | 138.48s PASS |
+| 10000通知/10000同源重跑 | 42.15s PASS |
+
+全部28项裁定和其错误代价完整归档；没有未解决Important/Critical或minor(deferred)。文档归档提交后只作一次SSH推送，最终完整head四workflow/六job结果在PR说明核验后补记，不再为写入自身SHA创建文档提交。草稿PR保持未合并、未部署。
