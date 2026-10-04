@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync,statSync,chmodSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync, existsSync,statSync,chmodSync,symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { spawnSync } from 'node:child_process';
+import { spawnSync, spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 const program=fileURLToPath(new URL('./snapshot.mjs',import.meta.url));
@@ -50,4 +50,36 @@ test('private snapshots retain owner-only permissions under a permissive umask',
  const r=spawnSync(process.execPath,['-e',"process.umask(0o022);import(process.argv[1]);",program,'--source',source,'--out',out],{encoding:'utf8',timeout:10000});assert.equal(r.status,0,r.stderr);
  for(const p of [out,join(out,'files')])assert.equal(statSync(p).mode&0o777,0o700);
  for(const p of [join(out,'manifest.json'),join(out,'files/knowledge.json')])assert.equal(statSync(p).mode&0o777,0o600);
+});
+
+test('legacy manifest keeps the exact files-byte digest and field set',t=>{
+ const {dir,source}=fixture(t);const out=join(dir,'legacy');assert.equal(run(source,out).status,0);
+ const m=JSON.parse(readFileSync(join(out,'manifest.json')));
+ assert.equal(m.schemaVersion,1);
+ assert.deepEqual(Object.keys(m),['schemaVersion','snapshotId','createdAt','sourceRoot','packageCount','primaryFiles','files','changes','sourceIndexMismatches']);
+ assert.equal(m.snapshotId,createHash('sha256').update(JSON.stringify(m.files)).digest('hex'));
+});
+test('third index participates in capture selection and conflict mismatches',t=>{
+ const {dir,source}=fixture(t);writeFileSync(join(source,'c.json'),'{}');
+ const expected=createHash('sha256').update('{}').digest('hex');
+ writeFileSync(join(source,'MSC2020_Incremental_Knowledge_JSON_Index.json'),JSON.stringify({packages:[{primary_knowledge_local_relative_paths:['c.json'],json_files:[{local_relative_path:'c.json',sha256:expected},{local_relative_path:'knowledge.json',sha256:'b'.repeat(64)}]}]}));
+ const out=join(dir,'third');assert.equal(run(source,out).status,0);
+ const m=JSON.parse(readFileSync(join(out,'manifest.json')));
+ assert.equal(m.packageCount,2);assert.deepEqual(m.primaryFiles,['c.json','knowledge.json']);assert.deepEqual(m.sourceIndexMismatches,['knowledge.json']);
+});
+test('symbolic source files cannot escape capture',t=>{
+ const {dir,source}=fixture(t);symlinkSync(join(source,'knowledge.json'),join(source,'alias.json'));
+ const out=join(dir,'symlink');const result=run(source,out);assert.equal(result.status,1);assert.match(result.stderr,/SOURCE_SYMLINK/);assert.equal(existsSync(out),false);
+});
+test('source-changed cleanup is deterministic across rewrite and deletion',async t=>{
+ for(const action of ['rewrite','delete']) {
+  const {dir,source}=fixture(t),out=join(dir,'changing'),ack=join(dir,'continue'),hook=join(dir,'hook.mjs');
+  const oldOut=join(dir,'old');assert.equal(run(source,oldOut).status,0);const oldBytes=readFileSync(join(oldOut,'manifest.json'));
+  writeFileSync(hook,`import fs from 'node:fs';import {syncBuiltinESMExports} from 'node:module';const mkdir=fs.mkdirSync;fs.mkdirSync=function(p,...args){if(p===${JSON.stringify(out)}){process.stdout.write('CAPTURED\\n');const until=Date.now()+5000;while(!fs.existsSync(${JSON.stringify(ack)})){if(Date.now()>until)throw Error('TEST_BARRIER_TIMEOUT');Atomics.wait(new Int32Array(new SharedArrayBuffer(4)),0,0,10);}}return mkdir.call(this,p,...args)};syncBuiltinESMExports();`);
+  const child=spawn(process.execPath,['--import',hook,program,'--source',source,'--out',out]);let stdout='',stderr='';
+  child.stdout.on('data',b=>{stdout+=b.toString();if(stdout.includes('CAPTURED\n')&&!existsSync(ack)){if(action==='rewrite')writeFileSync(join(source,'knowledge.json'),'{}');else rmSync(join(source,'knowledge.json'));writeFileSync(ack,'ok');}});
+  child.stderr.on('data',b=>stderr+=b.toString());
+  const code=await new Promise((resolve,reject)=>{child.once('error',reject);child.once('close',resolve)});
+  assert.equal(code,1);assert.match(stderr,/SOURCE_CHANGED_RETRY/);assert.equal(existsSync(out),false);assert.deepEqual(readFileSync(join(oldOut,'manifest.json')),oldBytes);
+ }
 });
