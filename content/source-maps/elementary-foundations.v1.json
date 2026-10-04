@@ -1,0 +1,2259 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": 1,
+  "snapshotId": "eebca0e9f8cbe8ce9afbed5f1f872f382f54e42b8004fcb57d23d05b99ff879a",
+  "sourceReportSha256": "7bd7c12118b915bc0a0ae4398b8018f1ba76e305736703a0617802677c7874ad",
+  "sources": [
+    {
+      "id": "ef-source-01-manes-p3-k001",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k001",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 1: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Use the local source convention rather than assuming one universal meaning of natural number.\"]"
+    },
+    {
+      "id": "ef-source-01-manes-p2-k008",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k008",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 1: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Compare interpreted values, not just digit strings.\"]"
+    },
+    {
+      "id": "ef-source-02-manes-p3-k001",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k001",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 2: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Use the local source convention rather than assuming one universal meaning of natural number.\"]"
+    },
+    {
+      "id": "ef-source-02-manes-p2-k010",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k010",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 2: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Use a positional number system with a zero symbol.\"]"
+    },
+    {
+      "id": "ef-source-03-manes-p2-k001",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k001",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 3: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"b is an integer at least 2; initial dots represent a nonnegative integer; add boxes to the left as needed.\"]"
+    },
+    {
+      "id": "ef-source-03-manes-p2-k002",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k002",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 3: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"b\u003e=2 is an integer; the exponent 0 gives b^0=1.\"]"
+    },
+    {
+      "id": "ef-source-04-manes-p3-k012",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k012",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 4: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The numerical measurement changes if the unit changes.\"]"
+    },
+    {
+      "id": "ef-source-04-manes-p3-k013",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k013",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 4: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"One step has the declared unit length; for signed operands use their direction consistently.\"]"
+    },
+    {
+      "id": "ef-source-05-manes-p3-k012",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k012",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 5: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The numerical measurement changes if the unit changes.\"]"
+    },
+    {
+      "id": "ef-source-05-manes-p2-k005",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k005",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 5: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Each digit satisfies 0\u003c=d_i\u003cb.\"]"
+    },
+    {
+      "id": "ef-source-06-manes-p6-k028",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p6-k028",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 6: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"Specify whether a nearest value, a lower bound or an upper bound is required.\"]"
+    },
+    {
+      "id": "ef-source-07-manes-p3-k003",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k003",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 7: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Numerals use the same integer base b\u003e=2.\"]"
+    },
+    {
+      "id": "ef-source-07-manes-p3-k013",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k013",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 7: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"One step has the declared unit length; for signed operands use their direction consistently.\"]"
+    },
+    {
+      "id": "ef-source-08-manes-p3-k021",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k021",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 8: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The operation is addition; do not transfer the rule automatically to subtraction.\"]"
+    },
+    {
+      "id": "ef-source-08-manes-p3-k022",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k022",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 8: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The operands remain in the same order.\"]"
+    },
+    {
+      "id": "ef-source-08-manes-p3-k023",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k023",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 8: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Use integers when a subtraction result is negative; counterexamples may also be chosen with nonnegative results.\"]"
+    },
+    {
+      "id": "ef-source-09-manes-p3-k005",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k005",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 9: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"For the nonnegative dots model, minuend\u003e=subtrahend; b\u003e=2.\"]"
+    },
+    {
+      "id": "ef-source-09-manes-p3-k019",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k019",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 9: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"For whole-number take-away, c\u003e=b; the relationship also holds over integers.\"]"
+    },
+    {
+      "id": "ef-source-10-manes-p3-k019",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k019",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 10: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"For whole-number take-away, c\u003e=b; the relationship also holds over integers.\"]"
+    },
+    {
+      "id": "ef-source-10-manes-p3-k028",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k028",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 10: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"For the multiplication/division family, a and b must be nonzero.\"]"
+    },
+    {
+      "id": "ef-source-11-manes-p3-k007",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k007",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 11: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The repeated-addition count m is a whole number; later extensions are needed for fractional or negative multipliers.\"]"
+    },
+    {
+      "id": "ef-source-11-manes-p3-k015",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k015",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 11: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"m,n are nonnegative integer lengths in the initial model; area uses square units.\"]"
+    },
+    {
+      "id": "ef-source-12-manes-p3-k024",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k024",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 12: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Distinguish each law’s statement from a reason it holds.\"]"
+    },
+    {
+      "id": "ef-source-12-manes-p3-k025",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k025",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 12: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The displayed source law concerns whole numbers and extends to the usual integer, rational and real operations.\"]"
+    },
+    {
+      "id": "ef-source-13-manes-p3-k008",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k008",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 13: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"a is nonnegative and b is positive; whole groups may leave a remainder.\"]"
+    },
+    {
+      "id": "ef-source-13-manes-p3-k029",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k029",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 13: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Groups must be equal; specify what each number measures.\"]"
+    },
+    {
+      "id": "ef-source-14-manes-p3-k011",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k011",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 14: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The upper bound r\u003cb is essential; it makes the complete-group count maximal.\"]"
+    },
+    {
+      "id": "ef-source-14-manes-p3-k030",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k030",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 14: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Keep the underlying total, group size and units explicit.\"]"
+    },
+    {
+      "id": "ef-source-15-manes-p3-k003",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k003",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 15: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"Numerals use the same integer base b\u003e=2.\"]"
+    },
+    {
+      "id": "ef-source-15-manes-p3-k007",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k007",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 15: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"The repeated-addition count m is a whole number; later extensions are needed for fractional or negative multipliers.\"]"
+    },
+    {
+      "id": "ef-source-15-manes-p3-k008",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k008",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 15: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"a is nonnegative and b is positive; whole groups may leave a remainder.\"]"
+    },
+    {
+      "id": "ef-source-16-manes-p4-k008",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k008",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 16: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"Use common multiplicative factors, not arbitrary matching symbols or addends.\"]"
+    },
+    {
+      "id": "ef-source-16-manes-p3-k011",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p3-k011",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 16: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"The upper bound r\u003cb is essential; it makes the complete-group count maximal.\"]"
+    },
+    {
+      "id": "ef-source-17-manes-p2-k013",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k013",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 17: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"q is a nonnegative integer; zero is even.\"]"
+    },
+    {
+      "id": "ef-source-17-manes-p2-k015",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k015",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 17: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"b\u003e=2 is even; digits are valid base-b digits.\"]"
+    },
+    {
+      "id": "ef-source-17-manes-p2-k002",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p2-k002",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 17: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"b\u003e=2 is an integer; the exponent 0 gives b^0=1.\"]"
+    },
+    {
+      "id": "ef-source-18-manes-p4-k001",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k001",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 18: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"State the meaning and the chosen whole or unit.\"]"
+    },
+    {
+      "id": "ef-source-18-manes-p4-k003",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k003",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 18: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Equal-sized parts and a clearly specified whole are essential.\"]"
+    },
+    {
+      "id": "ef-source-18-manes-p4-k011",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k011",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 18: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Declare the whole before interpreting a picture or combining quantities.\"]"
+    },
+    {
+      "id": "ef-source-19-manes-p4-k012",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k012",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 19: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The unit is the distance from 0 to 1; denominators are positive for the stated direction comparisons.\"]"
+    },
+    {
+      "id": "ef-source-19-manes-p4-k005",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k005",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 19: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"In the mixed form,0\u003c=r\u003cb; do not read the omitted plus sign as multiplication.\"]"
+    },
+    {
+      "id": "ef-source-20-manes-p4-k007",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k007",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 20: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"b≠0 and x≠0; the initial pictorial explanation uses positive whole x.\"]"
+    },
+    {
+      "id": "ef-source-20-manes-p4-k031",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k031",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 20: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Check equality using valid arithmetic and nonzero denominators.\"]"
+    },
+    {
+      "id": "ef-source-21-manes-p4-k008",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k008",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 21: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"Use common multiplicative factors, not arbitrary matching symbols or addends.\"]"
+    },
+    {
+      "id": "ef-source-21-manes-p4-k031",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k031",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 21: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"Check equality using valid arithmetic and nonzero denominators.\"]"
+    },
+    {
+      "id": "ef-source-22-manes-p4-k013",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k013",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 22: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"A positive denominator is required before comparing numerators this way.\"]"
+    },
+    {
+      "id": "ef-source-22-manes-p4-k014",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k014",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 22: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"For the strict reverse-order claim the common numerator is positive; with numerator 0 both values equal 0.\"]"
+    },
+    {
+      "id": "ef-source-22-manes-p4-k016",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k016",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 22: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The positive-denominator condition fixes the direction of the comparison.\"]"
+    },
+    {
+      "id": "ef-source-23-manes-p4-k009",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k009",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 23: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Both quantities must use the same underlying whole or compatible units.\"]"
+    },
+    {
+      "id": "ef-source-24-manes-p4-k010",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k010",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 24: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"For pictorial interpretation use positive denominators and a common whole.\"]"
+    },
+    {
+      "id": "ef-source-25-manes-p4-k019",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k019",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 25: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The single-unit-square drawing assumes 0\u003c=a\u003c=b and 0\u003c=c\u003c=d with positive integer denominators; extend the grid for larger factors.\"]"
+    },
+    {
+      "id": "ef-source-25-manes-p4-k020",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k020",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 25: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"b,d are nonzero; the initial area explanation uses nonnegative fractions.\"]"
+    },
+    {
+      "id": "ef-source-26-manes-p4-k024",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k024",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 26: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"A\u003e=0 and B\u003e0; all amounts use compatible units.\"]"
+    },
+    {
+      "id": "ef-source-26-manes-p4-k026",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k026",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 26: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The divisor B is nonzero.\"]"
+    },
+    {
+      "id": "ef-source-26-manes-p4-k028",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p4-k028",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 26: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Both fractions must be defined and the divisor c/d must be nonzero.\"]"
+    },
+    {
+      "id": "ef-source-27-manes-p6-k002",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p6-k002",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 27: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"Digits are 0 through 9 and the decimal point marks the boundary after ones.\"]"
+    },
+    {
+      "id": "ef-source-27-manes-p6-k004",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p6-k004",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "fact_check",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 27: reference is fact_check; original scope and derivation must be independently checked. Original record conditions: [\"The zeros are appended at the right end after the existing fractional digits.\"]"
+    },
+    {
+      "id": "ef-source-28-manes-p6-k003",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p6-k003",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 28: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"k is a nonnegative integer; the numerator’s sign is handled consistently.\"]"
+    },
+    {
+      "id": "ef-source-28-manes-p6-k010",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p6-k010",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 28: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"This is a statement about a rational number in a fixed integer base\u003e=2.\"]"
+    },
+    {
+      "id": "ef-source-28-manes-p6-k013",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p6-k013",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "original_derivation",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 28: reference is original_derivation; original scope and derivation must be independently checked. Original record conditions: [\"Reduce first; zero and integer values have denominator 1 in lowest terms.\"]"
+    },
+    {
+      "id": "ef-source-29-manes-p8-k002",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p8-k002",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 29: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"Use the textbook’s dimensions as exercise data, not a current vessel specification.\"]"
+    },
+    {
+      "id": "ef-source-29-manes-p8-k004",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p8-k004",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 29: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"Distance, rate and route assumptions must be supplied or researched; do not treat a historic duration as a guaranteed future duration.\"]"
+    },
+    {
+      "id": "ef-source-30-manes-p6-k003",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p6-k003",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 30: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"k is a nonnegative integer; the numerator’s sign is handled consistently.\"]"
+    },
+    {
+      "id": "ef-source-30-manes-p8-k002",
+      "path": "Foundations and Precalculus/Manes_Elementary_Mathematics_Knowledge_English/manes_elementary_complete__knowledge_corpus.json",
+      "recordId": "manes-p8-k002",
+      "datasetId": "manes-elementary-teachers-full-book-knowledge-en",
+      "fileSha256": "92e726555476be59b9cd23bd333dbaed7b2c6dafe2e1c04bdc29ccfa048dcf81",
+      "publicSources": [
+        {
+          "kind": "external",
+          "author": "Michelle Manes",
+          "title": "Mathematics for Elementary Teachers",
+          "url": "https://pressbooks-dev.oer.hawaii.edu/math111/",
+          "accessedAt": "2026-10-04",
+          "license": "CC-BY-SA-4.0",
+          "attribution": "Background and fact-check reference; this draft does not reproduce the book text."
+        }
+      ],
+      "use": "background",
+      "legacyIds": [],
+      "reviewStatus": "\"independent_ai_statement_conditions_review_completed\"",
+      "conditionsNote": "Node 30: reference is background; original scope and derivation must be independently checked. Original record conditions: [\"Use the textbook’s dimensions as exercise data, not a current vessel specification.\"]"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "knowledge",
+      "id": "natural-numbers",
+      "version": 1,
+      "sha256": "869dfa64cd84730f9f80a63e4fb139bd468ad7cd0e28756d93f92a27fef8e1e6",
+      "sourceIds": [
+        "ef-source-01-manes-p3-k001",
+        "ef-source-01-manes-p2-k008"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-natural-numbers-unit",
+      "version": 1,
+      "sha256": "c51d0cd34c84ea644e11ea0061efc3d2428ad8f35880249eec81667ca9a987b9",
+      "sourceIds": [
+        "ef-source-01-manes-p3-k001",
+        "ef-source-01-manes-p2-k008"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "zero",
+      "version": 1,
+      "sha256": "8e86a8f073fc37a1bca2a018772e941017c0badac7a93b8703e98bf92fd05aed",
+      "sourceIds": [
+        "ef-source-02-manes-p3-k001",
+        "ef-source-02-manes-p2-k010"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-zero-unit",
+      "version": 1,
+      "sha256": "4ca66607c82040b862bf3d31eea1581752eb611f97adba5a35c67515d2d3fc65",
+      "sourceIds": [
+        "ef-source-02-manes-p3-k001",
+        "ef-source-02-manes-p2-k010"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "place-value",
+      "version": 1,
+      "sha256": "e6d56337f9eeeb1b97008a2c1d6dc420dbd9e79a57e8335daaa645e464ad033a",
+      "sourceIds": [
+        "ef-source-03-manes-p2-k001",
+        "ef-source-03-manes-p2-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-place-value-unit",
+      "version": 1,
+      "sha256": "57a35f1edff725aa2a0bbc3fd7326c9a2ad657a80bcc3ea71e8671ad86d5ad46",
+      "sourceIds": [
+        "ef-source-03-manes-p2-k001",
+        "ef-source-03-manes-p2-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "number-line",
+      "version": 1,
+      "sha256": "95baaf395b8020f7ff7b5fdf9ad1e37fe14b241f61f8cc3526f1c6ec3828178c",
+      "sourceIds": [
+        "ef-source-04-manes-p3-k012",
+        "ef-source-04-manes-p3-k013"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-number-line-unit",
+      "version": 1,
+      "sha256": "5b25756a59fa4555138b7aa4a9546965a782707aea1646fa8c20fa354966f3c8",
+      "sourceIds": [
+        "ef-source-04-manes-p3-k012",
+        "ef-source-04-manes-p3-k013"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "comparing-numbers",
+      "version": 1,
+      "sha256": "8e484849723be96a24038caee12792a242d833f2db7f2c4ad3e23c61aa842af3",
+      "sourceIds": [
+        "ef-source-05-manes-p3-k012",
+        "ef-source-05-manes-p2-k005"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-comparing-numbers-unit",
+      "version": 1,
+      "sha256": "53c8c6f67280a940d3080026073d6651d1a0d8e703103761d089e8737f0b20ee",
+      "sourceIds": [
+        "ef-source-05-manes-p3-k012",
+        "ef-source-05-manes-p2-k005"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "rounding-estimation",
+      "version": 1,
+      "sha256": "e6fd80803494fe9fe8153ab93e73c3ff9d08b4816134e8bfa4c0690f987b1774",
+      "sourceIds": [
+        "ef-source-06-manes-p6-k028"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-rounding-estimation-unit",
+      "version": 1,
+      "sha256": "c1967ece5f19821801807df04071e7b03eb4c1b156e14a8e9ce9916364f5ab2b",
+      "sourceIds": [
+        "ef-source-06-manes-p6-k028"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "addition",
+      "version": 1,
+      "sha256": "ca45a67c7e8697a5c4e635a8cfd474a42b7dcf4eea59a5bd0d3f1e6529b91624",
+      "sourceIds": [
+        "ef-source-07-manes-p3-k003",
+        "ef-source-07-manes-p3-k013"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-addition-unit",
+      "version": 1,
+      "sha256": "a2c327ca80706f6662703be9ce075f2ace454d22f6e73e68782688efd705ff2a",
+      "sourceIds": [
+        "ef-source-07-manes-p3-k003",
+        "ef-source-07-manes-p3-k013"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "addition-properties",
+      "version": 1,
+      "sha256": "3b6e47dbbbe8064a99d10718518ffa6954a8572152fd27f04676537885cc643d",
+      "sourceIds": [
+        "ef-source-08-manes-p3-k021",
+        "ef-source-08-manes-p3-k022",
+        "ef-source-08-manes-p3-k023"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-addition-properties-unit",
+      "version": 1,
+      "sha256": "1f881812c90a4cd9fc4ee69d4dc65b6682b05b06def4281b236e593b3cd7badc",
+      "sourceIds": [
+        "ef-source-08-manes-p3-k021",
+        "ef-source-08-manes-p3-k022",
+        "ef-source-08-manes-p3-k023"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "subtraction",
+      "version": 1,
+      "sha256": "581b2a7bebd249afd7344df22b7fdce3e8930dd5d0fd180500f6978e3e30c0c7",
+      "sourceIds": [
+        "ef-source-09-manes-p3-k005",
+        "ef-source-09-manes-p3-k019"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-subtraction-unit",
+      "version": 1,
+      "sha256": "02ca6b47c673f5412d6ea1a1372b65937e81f5e140333551351061cdbedca087",
+      "sourceIds": [
+        "ef-source-09-manes-p3-k005",
+        "ef-source-09-manes-p3-k019"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "addition-subtraction-inverse",
+      "version": 1,
+      "sha256": "5dd92b378dd56460c86c5a7892fb3912f9030767fa853e24442964b031d91c34",
+      "sourceIds": [
+        "ef-source-10-manes-p3-k019",
+        "ef-source-10-manes-p3-k028"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-addition-subtraction-inverse-unit",
+      "version": 1,
+      "sha256": "1b1a1ad8513a6831f646840751eec74b0c4d010ce313facf8443bbe20d7aa655",
+      "sourceIds": [
+        "ef-source-10-manes-p3-k019",
+        "ef-source-10-manes-p3-k028"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "multiplication",
+      "version": 1,
+      "sha256": "74a4cd76c4ff6f2cc88f5b8043dd0c39942cb07fd418097c839748329a1fcb03",
+      "sourceIds": [
+        "ef-source-11-manes-p3-k007",
+        "ef-source-11-manes-p3-k015"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-multiplication-unit",
+      "version": 1,
+      "sha256": "5dcd69130bb9b91c54d426b2d62004518fa5778bd4c08121a23b05b7af844f1c",
+      "sourceIds": [
+        "ef-source-11-manes-p3-k007",
+        "ef-source-11-manes-p3-k015"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "multiplication-properties",
+      "version": 1,
+      "sha256": "a675fa6c576986c5f94cfb7c2b5a8fb99f9cb3e0cd0dfeb3f65d0002f644954d",
+      "sourceIds": [
+        "ef-source-12-manes-p3-k024",
+        "ef-source-12-manes-p3-k025"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-multiplication-properties-unit",
+      "version": 1,
+      "sha256": "70d27c7094f4d68e8ca5b75fd16f8cd9570b178b6e81f0a735d24fd5aebd7f80",
+      "sourceIds": [
+        "ef-source-12-manes-p3-k024",
+        "ef-source-12-manes-p3-k025"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "division",
+      "version": 1,
+      "sha256": "edeabd253ee810401b5cc752f0674659ac3b39062ad0f77b516813abdf301f89",
+      "sourceIds": [
+        "ef-source-13-manes-p3-k008",
+        "ef-source-13-manes-p3-k029"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-division-unit",
+      "version": 1,
+      "sha256": "37196fe5a367b09f6713a038e984794cdc5bf127e162c67298625215c89903d9",
+      "sourceIds": [
+        "ef-source-13-manes-p3-k008",
+        "ef-source-13-manes-p3-k029"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "division-remainder",
+      "version": 1,
+      "sha256": "ab6ab9fecf4d9208eaa4bcc4c6c3efe82e4f8b31d1adefbeb650af1be817e4d2",
+      "sourceIds": [
+        "ef-source-14-manes-p3-k011",
+        "ef-source-14-manes-p3-k030"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-division-remainder-unit",
+      "version": 1,
+      "sha256": "6e66d2e9b941b51a8bbe980589ae55b2670c3b1c8d69d3f4d682cd6204d8ca41",
+      "sourceIds": [
+        "ef-source-14-manes-p3-k011",
+        "ef-source-14-manes-p3-k030"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "order-of-operations",
+      "version": 1,
+      "sha256": "e9de09366bb59cbb441d6b194e813428db95d07b006de84422a97d33700248a7",
+      "sourceIds": [
+        "ef-source-15-manes-p3-k003",
+        "ef-source-15-manes-p3-k007",
+        "ef-source-15-manes-p3-k008"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-order-of-operations-unit",
+      "version": 1,
+      "sha256": "bc777c0eed7211b87b84a98235754aac41309d783eb4edd09e77a6bb7c8ded2e",
+      "sourceIds": [
+        "ef-source-15-manes-p3-k003",
+        "ef-source-15-manes-p3-k007",
+        "ef-source-15-manes-p3-k008"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "factors",
+      "version": 2,
+      "sha256": "953c104e302bbe9a9ed4f99f44ea773ba59b8c379e1200ffa0d4093ae8cdbf00",
+      "sourceIds": [
+        "ef-source-16-manes-p4-k008",
+        "ef-source-16-manes-p3-k011"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-factors-unit",
+      "version": 1,
+      "sha256": "a7250567221f0552d28cd41ed592b69536d2f6b64b5e9e59216cfc307e865077",
+      "sourceIds": [
+        "ef-source-16-manes-p4-k008",
+        "ef-source-16-manes-p3-k011"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "divisibility",
+      "version": 1,
+      "sha256": "45ccde9e0cf9b67ae042508114b3c662dcd70c2db22d8d62d68914c1eeadb969",
+      "sourceIds": [
+        "ef-source-17-manes-p2-k013",
+        "ef-source-17-manes-p2-k015",
+        "ef-source-17-manes-p2-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-divisibility-unit",
+      "version": 1,
+      "sha256": "3040d2f54e334d33151954d00c3cbfa1c39c77cf5e0c9027c21c5f358ab50673",
+      "sourceIds": [
+        "ef-source-17-manes-p2-k013",
+        "ef-source-17-manes-p2-k015",
+        "ef-source-17-manes-p2-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "fractions",
+      "version": 2,
+      "sha256": "49d1cce419bd01831f6c7abba2da0b93f687e2946abf6bfe8a45f4d8b855c922",
+      "sourceIds": [
+        "ef-source-18-manes-p4-k001",
+        "ef-source-18-manes-p4-k003",
+        "ef-source-18-manes-p4-k011"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-fractions-unit",
+      "version": 1,
+      "sha256": "5aaf56b804b8c605fc928972353777ed7e08288d62ea2df12f85fe9331097a8c",
+      "sourceIds": [
+        "ef-source-18-manes-p4-k001",
+        "ef-source-18-manes-p4-k003",
+        "ef-source-18-manes-p4-k011"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "fraction-number-line",
+      "version": 1,
+      "sha256": "d8576a843f9eac10dc296a6de744c0e3334dd44ff25cf8ef7b330bb8b927da12",
+      "sourceIds": [
+        "ef-source-19-manes-p4-k012",
+        "ef-source-19-manes-p4-k005"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-fraction-number-line-unit",
+      "version": 1,
+      "sha256": "4fa161e6cd61218abd579a20edf686aa3afdc93d5dceec61e32c4740cae02cd1",
+      "sourceIds": [
+        "ef-source-19-manes-p4-k012",
+        "ef-source-19-manes-p4-k005"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "equivalent-fractions",
+      "version": 2,
+      "sha256": "9084fd500277e34b1643dd4f5aeb6b19327eb5fd552312a5741c045554b03781",
+      "sourceIds": [
+        "ef-source-20-manes-p4-k007",
+        "ef-source-20-manes-p4-k031"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-equivalent-fractions-unit",
+      "version": 1,
+      "sha256": "84f997cacbf6a4ba2689368e134d219e6c99015c620afb70e3e1e64e7dfb6aca",
+      "sourceIds": [
+        "ef-source-20-manes-p4-k007",
+        "ef-source-20-manes-p4-k031"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "simplifying-fractions",
+      "version": 2,
+      "sha256": "ca1733d4c7825b5e10e0f202b1328f58f299ad97928acd29435faabfcdd3eaaa",
+      "sourceIds": [
+        "ef-source-21-manes-p4-k008",
+        "ef-source-21-manes-p4-k031"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-simplifying-fractions-unit",
+      "version": 1,
+      "sha256": "f4ada6b250d0097c26d2c630ac7d88150bbeca39e2c5c80a12cf1f59fd0a7599",
+      "sourceIds": [
+        "ef-source-21-manes-p4-k008",
+        "ef-source-21-manes-p4-k031"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "comparing-fractions",
+      "version": 2,
+      "sha256": "1a84d9e098eef1cfee4db432d30e09fe77f73bafb13b7d8572921d1c3c4b897c",
+      "sourceIds": [
+        "ef-source-22-manes-p4-k013",
+        "ef-source-22-manes-p4-k014",
+        "ef-source-22-manes-p4-k016"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-comparing-fractions-unit",
+      "version": 1,
+      "sha256": "74647662f553f9832c66a5628bf4a68198b3b4fe0aa782fdd9e3eb136bd27a08",
+      "sourceIds": [
+        "ef-source-22-manes-p4-k013",
+        "ef-source-22-manes-p4-k014",
+        "ef-source-22-manes-p4-k016"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "fractions-same-denominator",
+      "version": 1,
+      "sha256": "530d7606aefddf82ce931895925b37b24d42f15b5b13cd148546c510b85f7d5e",
+      "sourceIds": [
+        "ef-source-23-manes-p4-k009"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-fractions-same-denominator-unit",
+      "version": 1,
+      "sha256": "46906242deb85fa6633e3e79a30cfcaff42620686e8ab5f1fd797401487dbd2d",
+      "sourceIds": [
+        "ef-source-23-manes-p4-k009"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "fractions-unlike-denominator",
+      "version": 1,
+      "sha256": "967ea34aa0369a1c9e23a34af71749b49e63738e3557a9baa5d7210a9e6c7938",
+      "sourceIds": [
+        "ef-source-24-manes-p4-k010"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-fractions-unlike-denominator-unit",
+      "version": 1,
+      "sha256": "6082b0ebcc5be6e136b5b8531c7a1eef7b94d76f65c395807a3f79445b3041ab",
+      "sourceIds": [
+        "ef-source-24-manes-p4-k010"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "fraction-multiplication",
+      "version": 1,
+      "sha256": "7a3401f78372c402667bdb7fe6597de78d40ca67d3ee658b108d12a60abf60b7",
+      "sourceIds": [
+        "ef-source-25-manes-p4-k019",
+        "ef-source-25-manes-p4-k020"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-fraction-multiplication-unit",
+      "version": 1,
+      "sha256": "c92f50573f27621d90146631fefff8dc76f4246b436e7a4d689507e77984605a",
+      "sourceIds": [
+        "ef-source-25-manes-p4-k019",
+        "ef-source-25-manes-p4-k020"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "fraction-division",
+      "version": 1,
+      "sha256": "5d46307db0c2760abf33cf28d0011c739a38e8c003677477e2bc7f4db9e0a82a",
+      "sourceIds": [
+        "ef-source-26-manes-p4-k024",
+        "ef-source-26-manes-p4-k026",
+        "ef-source-26-manes-p4-k028"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-fraction-division-unit",
+      "version": 1,
+      "sha256": "e48685654e729a3dae0e46293bf8d668580ae415e9db72baf651071e1c24fd74",
+      "sourceIds": [
+        "ef-source-26-manes-p4-k024",
+        "ef-source-26-manes-p4-k026",
+        "ef-source-26-manes-p4-k028"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "decimal-place-value",
+      "version": 2,
+      "sha256": "5d49a77e79ba76605d788eebfbeb56b010bf85d4425524da4b5b60bd2c7f2aca",
+      "sourceIds": [
+        "ef-source-27-manes-p6-k002",
+        "ef-source-27-manes-p6-k004"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-decimal-place-value-unit",
+      "version": 1,
+      "sha256": "bcae3effad5e37a31d5e8dfd55de5ec813fe10963b7ce81bfb33b4745f60fc19",
+      "sourceIds": [
+        "ef-source-27-manes-p6-k002",
+        "ef-source-27-manes-p6-k004"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "decimal-fraction-conversion",
+      "version": 2,
+      "sha256": "b7dd28ebed0982f6e38243bc64e2fbb74aad2ee7a88ebfe83eef474b2480e6ba",
+      "sourceIds": [
+        "ef-source-28-manes-p6-k003",
+        "ef-source-28-manes-p6-k010",
+        "ef-source-28-manes-p6-k013"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-decimal-fraction-conversion-unit",
+      "version": 1,
+      "sha256": "353eebbb90228111dc0c25f6f64895332a291aa690209315754b934a04296570",
+      "sourceIds": [
+        "ef-source-28-manes-p6-k003",
+        "ef-source-28-manes-p6-k010",
+        "ef-source-28-manes-p6-k013"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "ratios-proportions",
+      "version": 1,
+      "sha256": "c40815e9520269bb067d4a5c5d9b6cd8510a986fb916efa4ca3ea0b74de12679",
+      "sourceIds": [
+        "ef-source-29-manes-p8-k002",
+        "ef-source-29-manes-p8-k004"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-ratios-proportions-unit",
+      "version": 1,
+      "sha256": "3980ec3796476de1492c2abb28fc85310774a92036b04adb313df03517de8db7",
+      "sourceIds": [
+        "ef-source-29-manes-p8-k002",
+        "ef-source-29-manes-p8-k004"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "knowledge",
+      "id": "percentages",
+      "version": 2,
+      "sha256": "f96b82b451dfcf642abd6bcb9135b6bdab2c43073cfb636391d980b71cd2b044",
+      "sourceIds": [
+        "ef-source-30-manes-p6-k003",
+        "ef-source-30-manes-p8-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "unit",
+      "id": "ef-percentages-unit",
+      "version": 1,
+      "sha256": "cbbafd8e027eacfd6286ddb0abb3f46fea35febd5e731392e2684b2019056920",
+      "sourceIds": [
+        "ef-source-30-manes-p6-k003",
+        "ef-source-30-manes-p8-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "path",
+      "id": "elementary-foundations",
+      "version": 1,
+      "sha256": "5a03fe7d1fbc721c61f1b1def48dbba18bf8397816c519d3de76bd4b2388c400",
+      "sourceIds": [
+        "ef-source-01-manes-p3-k001",
+        "ef-source-01-manes-p2-k008",
+        "ef-source-02-manes-p3-k001",
+        "ef-source-02-manes-p2-k010",
+        "ef-source-03-manes-p2-k001",
+        "ef-source-03-manes-p2-k002",
+        "ef-source-04-manes-p3-k012",
+        "ef-source-04-manes-p3-k013",
+        "ef-source-05-manes-p3-k012",
+        "ef-source-05-manes-p2-k005",
+        "ef-source-06-manes-p6-k028",
+        "ef-source-07-manes-p3-k003",
+        "ef-source-07-manes-p3-k013",
+        "ef-source-08-manes-p3-k021",
+        "ef-source-08-manes-p3-k022",
+        "ef-source-08-manes-p3-k023",
+        "ef-source-09-manes-p3-k005",
+        "ef-source-09-manes-p3-k019",
+        "ef-source-10-manes-p3-k019",
+        "ef-source-10-manes-p3-k028",
+        "ef-source-11-manes-p3-k007",
+        "ef-source-11-manes-p3-k015",
+        "ef-source-12-manes-p3-k024",
+        "ef-source-12-manes-p3-k025",
+        "ef-source-13-manes-p3-k008",
+        "ef-source-13-manes-p3-k029",
+        "ef-source-14-manes-p3-k011",
+        "ef-source-14-manes-p3-k030",
+        "ef-source-15-manes-p3-k003",
+        "ef-source-15-manes-p3-k007",
+        "ef-source-15-manes-p3-k008",
+        "ef-source-16-manes-p4-k008",
+        "ef-source-16-manes-p3-k011",
+        "ef-source-17-manes-p2-k013",
+        "ef-source-17-manes-p2-k015",
+        "ef-source-17-manes-p2-k002",
+        "ef-source-18-manes-p4-k001",
+        "ef-source-18-manes-p4-k003",
+        "ef-source-18-manes-p4-k011",
+        "ef-source-19-manes-p4-k012",
+        "ef-source-19-manes-p4-k005",
+        "ef-source-20-manes-p4-k007",
+        "ef-source-20-manes-p4-k031",
+        "ef-source-21-manes-p4-k008",
+        "ef-source-21-manes-p4-k031",
+        "ef-source-22-manes-p4-k013",
+        "ef-source-22-manes-p4-k014",
+        "ef-source-22-manes-p4-k016",
+        "ef-source-23-manes-p4-k009",
+        "ef-source-24-manes-p4-k010",
+        "ef-source-25-manes-p4-k019",
+        "ef-source-25-manes-p4-k020",
+        "ef-source-26-manes-p4-k024",
+        "ef-source-26-manes-p4-k026",
+        "ef-source-26-manes-p4-k028",
+        "ef-source-27-manes-p6-k002",
+        "ef-source-27-manes-p6-k004",
+        "ef-source-28-manes-p6-k003",
+        "ef-source-28-manes-p6-k010",
+        "ef-source-28-manes-p6-k013",
+        "ef-source-29-manes-p8-k002",
+        "ef-source-29-manes-p8-k004",
+        "ef-source-30-manes-p6-k003",
+        "ef-source-30-manes-p8-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-place-value-exchange",
+      "version": null,
+      "sha256": "90e0dd0739d8d3cf3b10e82f413c0d4210395f59a3bb1fb5748394c31af42827",
+      "sourceIds": [
+        "ef-source-03-manes-p2-k001",
+        "ef-source-03-manes-p2-k002"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-whole-number-line",
+      "version": null,
+      "sha256": "503036b151cbc3744e27c8dcb25b4880b52684d5346e62c3ac93d7d597b2f81f",
+      "sourceIds": [
+        "ef-source-04-manes-p3-k012",
+        "ef-source-04-manes-p3-k013"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-equal-parts",
+      "version": null,
+      "sha256": "1addb3c59afc8218f26514db6be7a9400204c647f8c25d3571e990f0b72cf8bd",
+      "sourceIds": [
+        "ef-source-18-manes-p4-k001",
+        "ef-source-18-manes-p4-k003",
+        "ef-source-18-manes-p4-k011"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-fraction-number-line",
+      "version": null,
+      "sha256": "6ec6851b0a96990dd682cfb09460e66102830ff55875d6d5ca49794a04a8f927",
+      "sourceIds": [
+        "ef-source-19-manes-p4-k012",
+        "ef-source-19-manes-p4-k005"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-equivalent-fraction-strips",
+      "version": null,
+      "sha256": "4aafc418c87af0e7ff7da5c8c02e98a4df8afafb6acf72c5d4c2ecfe1a046e1b",
+      "sourceIds": [
+        "ef-source-20-manes-p4-k007",
+        "ef-source-20-manes-p4-k031"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-fraction-product-area",
+      "version": null,
+      "sha256": "33cc7930f3200dc804be2afa2cef2eb8318de0db405c90e0b19fa54b9a06a424",
+      "sourceIds": [
+        "ef-source-25-manes-p4-k019",
+        "ef-source-25-manes-p4-k020"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-decimal-place-table",
+      "version": null,
+      "sha256": "879dcf099fda8f409afa91c0a33962b4fea7ebe332247e4c043bc28899f08c1a",
+      "sourceIds": [
+        "ef-source-27-manes-p6-k002",
+        "ef-source-27-manes-p6-k004"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-ratio-double-line",
+      "version": null,
+      "sha256": "bb90a4e08528aabd810d7ad9f36406cb1178ebd24a7f46c293a15031d1c6b3b6",
+      "sourceIds": [
+        "ef-source-29-manes-p8-k002",
+        "ef-source-29-manes-p8-k004"
+      ],
+      "origin": "original"
+    },
+    {
+      "kind": "asset",
+      "id": "ef-percent-grid",
+      "version": null,
+      "sha256": "248636e01d55b82b4d83d58837e1381bde46c93cefc0ef906e793f2a7cdbecc0",
+      "sourceIds": [
+        "ef-source-30-manes-p6-k003",
+        "ef-source-30-manes-p8-k002"
+      ],
+      "origin": "original"
+    }
+  ]
+}
