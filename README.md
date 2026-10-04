@@ -71,6 +71,8 @@ npm run start -- --hostname 127.0.0.1 --port 3000
 
 详见 [内容操作说明](docs/operations/content-workflow.md)。英文编辑、复核、发布与撤回后台接入 Go/PostgreSQL；知识、公理、定理、来源及原创 SVG 按固定版本审核。上线前需操作者显式迁移、授予人员角色并完成真实数学复核，本次仅在随机测试库验收。
 
+[知识草稿阅读页说明](docs/operations/knowledge-draft-reading.md)：在工作区列表或编辑器点击 **Read saved draft**，可搜索中英文标题和 ID、逐点阅读已保存版本、查看私有原创配图并提交一般网站反馈。页面展示真实 revision 和草稿状态，沿用现有权限与发布流程。
+
 ## P3a 账户入口
 
 详见 [账户与权限操作说明](docs/operations/account-foundation.md) 和 [P3a 验收记录](docs/operations/2026-10-01-p3a-acceptance.md)。英文注册、登录、账户与管理员页面接入真实 Go/PostgreSQL；密码修改、角色变更和人工重置撤销旧会话。账户能力独立于数学内容发布和学习进度。

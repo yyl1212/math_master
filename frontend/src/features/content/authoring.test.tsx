@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, it, expect, vi } from "vitest";
 import { DraftEditor } from "./draft-editor";
+import { DraftList } from "./draft-list";
 import { importDraftInput, exportDraftInput } from "./asset-transfer";
 import { draftView, draftInput, fixtureID, fixtureSVG } from "@/lib/content/test-fixtures";
 import { contentFailure } from "@/lib/content/schemas";
@@ -53,4 +54,27 @@ it("TestContentKeyboardAndNavigation", async () => {
     expect(screen.queryByRole("link", { name: "Edit content" })).not.toBeInTheDocument();
     rerender(<AuthStatus />);
     expect(document.body.textContent).not.toMatch(/mastered|points|learning progress/i);
+});
+
+it("keeps unsaved edits in the editor until the saved reading entry is available", async () => {
+    const view = draftView();
+    render(<DraftEditor initial={view}/>);
+    expect(screen.queryByRole("link", { name: "Read saved draft" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Read saved draft" })).toHaveAttribute("href", "/editor/drafts/11111111-1111-4111-8111-111111111111/preview");
+    fireEvent.change(screen.getByLabelText("Knowledge 1 statement"), { target: { value: "A saved statement for the reader." } });
+    expect(screen.queryByRole("link", { name: "Read saved draft" })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Read saved draft" })).toBeDisabled();
+    const saved = structuredClone(view);
+    saved.revision = 2;
+    saved.package.knowledge[0].statement = "A saved statement for the reader.";
+    mocks.request.mockResolvedValue({ ok: true, data: saved, status: 200, requestId: "a".repeat(32) });
+    fireEvent.click(screen.getByRole("button", { name: "Save draft" }));
+    await screen.findByRole("link", { name: "Read saved draft" });
+    expect(screen.getByText(/Revision 2 · editing/)).toBeVisible();
+});
+it("opens the saved reader directly from the workspace list", () => {
+    const view = draftView();
+    render(<DraftList initial={{ items: [{ id: view.id, ownerId: view.ownerId, packageId: view.package.id, packageVersion: 1, catalogueVersion: 1, createdAt: view.createdAt, revision: 1, status: "editing", structuralTotal: 0, completenessTotal: 0, updatedAt: view.updatedAt }], total: 1, limit: 20, offset: 0 }} canEdit={false}/>);
+    expect(screen.queryByRole("link", { name: "Read saved draft" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Read saved draft" })).toHaveAttribute("href", "/editor/drafts/11111111-1111-4111-8111-111111111111/preview");
 });
