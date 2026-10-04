@@ -251,3 +251,9 @@ P6a 十任务/五十步骤完成记录、全部裁决与真实CI结果已[归档
 用户已确认 P6b 书面设计及兼容边界，已编写[P6b 实施计划](2026-10-04-first-content-review.md)，待审阅，沿用 Native。准备段十任务/五十步骤覆盖明确版本输入、同字节验证、958 对象/205 来源的全量材料、共同出处 SourceLink 合并、现有导入、原子私有输出、真实冻结绑定和最终八检查文件核验；正常工作流技术联调只在随机隔离库，正式计数为零。
 
 真实 R1—R4 单独依赖人员/许可核验/非生产用途/操作范围、正常批准与双 head 发布、最终实际八检查及既有只读 accepted。当前不执行发布、库初始化、角色授予或 P7 部署，不自动合并 PR #26。master b78108d3dd363eae237dae59f76a7be774b9de85 的两 push workflow 已核实成功；旧文档 head 的容量准备超时及一次本地91.81秒成功见[CI诊断](../../operations/evidence/p6b-design/ci-diagnosis.md)，具体慢查询原因仍未证实，不降低原检查门槛。
+
+## 2026-10-04：P6b 准备工具实施
+
+用户确认 P6b 实施计划与 Native，开发前通过 SSH 获取 master b78108d3dd363eae237dae59f76a7be774b9de85，新建 codex/p6b-content-review-preparation。Task1—9 已提供显式混合版本输入、同字节验证、全量材料与1163未检查登记、六既有导入文件、有界原子输出、真实冻结绑定和八文件离线校验；正常工作流技术对照使用随机隔离库。Task10 完整新旧矩阵、一次独立整分支审查与准确 head CI 交付正在执行。
+
+[固定快照烟测](../../operations/evidence/p6b/preparation.json)实际 prepare=0，缺真实审查与 head 的 verify=3 且没有验收文件；正式数量为零。后续真实环境若已占用旧同版本路线，须追加准确版本/清单/来源映射并重新复核，不能覆盖。操作步骤见[手册](../../operations/content-review.md)；R1—R4 与 P7 保持后续门槛。

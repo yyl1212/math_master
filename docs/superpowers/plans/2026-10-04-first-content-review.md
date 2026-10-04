@@ -2,7 +2,7 @@
 
 > **供实施者使用：** 使用 superpowers:executing-plans，在当前会话沿用用户已选择的 Native 方式按任务执行。准备段实现结束进行一次独立整分支代码审查及完整回归；正式段按真实人员和环境门槛执行，不将技术测试计作数学批准。
 
-日期：2026-10-04。状态：用户已确认[P6b 书面方案及第十节兼容边界](../specs/2026-10-04-first-content-review-design.md)；本实施计划待审阅，产品实现尚未开始。方案分支为 codex/p6b-content-review-design，已获取的 master 为 b78108d3dd363eae237dae59f76a7be774b9de85。计划获确认后重新通过 SSH 获取最新 master，在干净隔离工作树新建 codex/p6b-content-review-preparation，记录实际基线。如果文档 PR #26 尚未合并，只带入本次获确认的文档提交，不自行合并文档 PR。
+日期：2026-10-04。状态：书面方案、兼容边界及本实施计划已获用户确认；Native 准备段 Task1—9 已实施，Task10 本地完整回归已通过，独立审查与交付验证进行中。开发前已通过 SSH 获取最新 master b78108d3dd363eae237dae59f76a7be774b9de85，在干净隔离工作树新建 codex/p6b-content-review-preparation；只带入已确认文档提交，未合并 PR #26。正式 R1—R4 未执行，整体 P6b 为 awaiting_review。
 
 **Goal（目标）：** 先交付受保护、全量可定位的复核材料、现有工作区导入文件、登记表和离线证据校验工具；再由真实独立审阅者完成正常审核、双 head 发布及八类学习检查，取得既有 content-audit 的真实 accepted 报告。准备段完成时整体 P6b 仍为 awaiting_review。
 
@@ -70,7 +70,7 @@ flowchart TD
 
 ## 固定接口、文件契约与预算
 
-以下为计划中的新增接口，不表示当前已经实现；JSON 字段使用表中 camelCase，未知字段、重复键、非法 UTF-8/NUL、超范围整数均复用 question.DecodeStrictJSON 拒绝。数学版本与素材 null 规则沿用 contentaudit.ObjectIdentity，不另造摘要算法。
+以下为准备段新增接口；JSON 字段使用表中 camelCase，未知字段、重复键、非法 UTF-8/NUL、超范围整数均复用既有严格扫描器/形状检查拒绝。新增私有 8MiB 文件使用 question.DecodeOperationalJSON，原 question.DecodeStrictJSON 上限4MiB不变。数学版本与素材 null 规则沿用 contentaudit.ObjectIdentity，不另造摘要算法。
 
 **输入适配（contentaudit 包）。** DraftSelection 的字段 CataloguePath/ContentPath/QuestionPaths/AssetsRoot 分别为 string/string/[]string/string；SelectedDraft 含 Input DraftInput、Files []CapturedFile、Assets map[string][]byte，CapturedFile={Path string, Bytes []byte}，Path 为根内相对路径。Files 包含七份元数据与实际 SVG 捕获字节；Assets 按素材 ID 索引同一份 SVG。新增：
 
@@ -89,7 +89,7 @@ LoadSourcesFromBytes(ctx context.Context, snapshot string, reportRaw, mapRaw []b
 
 **纯层入口（contentreview 包）。** PrepareInput 含 CodeSHA string、Route content.VersionRef、Manifest InputManifest、ManifestRaw []byte、Selected contentaudit.SelectedDraft、Sources contentaudit.SourceBundle、SourceReportRaw/SourceMapRaw []byte、FixtureOnly bool。BuildScope(ctx, PrepareInput) (ReviewScope,error) 生成 Objects（全量）、MappedObjects（原始映射子集）、DerivedInstances（派生子集）、Sources 及 RequiredChecks；Prepare(ctx, PrepareInput) (Bundle,error) 负责完整导入与材料。Bundle={Manifest ReviewManifest, Files []ExportFile}，ExportFile={Path string,Bytes []byte}。所有原字节与已解码值先交叉核对，再复用 CheckSelectedDraft/EvaluateDraft/ValidateAndSeal；不信任调用方给出的 ready 标记。
 
-ReviewScope.Objects/MappedObjects 为 []contentaudit.ObjectIdentity，DerivedInstances 为准确身份/模板/[]question.ParameterValue 的索引，Sources 为 []SourceRecord（path/fileSHA256/datasetId/recordId 与已知出处/条件），RequiredChecks 为 map[string][]string（对象/来源 key 到必需检查名）。ReviewManifest/schemaVersion=1 记录 codeSHA、fixtureOnly、catalogueVersion/catalogueSHA256、route（ID/版本/SHA）、snapshotId、sourceReportSHA256、sourceMapSHA256、inputManifestSHA256、inputs[]、objects[]、derivedInstances[]、sources[]、files[]。inputs/files 均为安全相对路径、bytes、sha256。对象身份 key 为 kind/ID/版本/SHA；生成实例额外记录准确模板身份/参数（使用 question.Identity/[]question.ParameterValue），来源记录 key 为 path/文件 SHA/datasetId/recordId。manifest.files 不含 manifest 自己，避免自摘要循环；manifest 原字节 SHA 由输出摘要/后续 sidecar 保存。
+ReviewScope.Objects/MappedObjects 为 []contentaudit.ObjectIdentity，DerivedInstances 为准确身份/模板/[]question.ParameterValue 的索引，Sources 为 []SourceRecord（path/fileSHA256/datasetId/recordId 与已知出处/条件），RequiredChecks 为 map[string][]string（对象/来源 key 到必需检查名）。ReviewManifest/schemaVersion=1 记录 codeSHA、fixtureOnly、catalogueVersion/catalogueSHA256、route（ID/版本/SHA）、snapshotId、sourceReportSHA256、sourceMapSHA256、inputManifestSHA256、inputs[]、objects[]、derivedInstances[]、sources[]、requiredChecks[]、files[]。inputs/files 均为安全相对路径、bytes、sha256。对象身份 key 为 kind/ID/版本/SHA；生成实例额外记录准确模板身份/参数（使用 question.Identity/[]question.ParameterValue），来源记录 key 为 path/文件 SHA/datasetId/recordId。manifest.files 不含 manifest 自己，也不包含 review-register.json/register 分片；登记根及分片绑定最终 manifest SHA，根记录分片 SHA，避免相互摘要循环；manifest 原字节 SHA 由输出摘要/后续 sidecar 保存。
 
 **登记与材料。** ReviewRegister/schemaVersion=1 含 manifestSHA256、parts[] FileRef；每个 register/<序号>.json 分片含同版本/manifestSHA256 与 rows[]，最多 100 行且不超过 8MiB。每行 key、object 或 source（二选一）、checks[]，每检查 name/status/basis/issue/reviewerRef。status 仅 unreviewed/passed/returned，初始全部 unreviewed，basis/issue/reviewerRef 初始空。knowledge 检查 statement/conditions/prerequisites/proof/objectives；unit 检查 explanations/examples/counterexamples；path 检查 closure/order；asset 检查 mathematics/accessibility/viewports/rights；template 检查 body/domain/generation/answers/explanation/objectives；instance 检查 body/answers/explanation/objectives；blueprint 检查 exact_binding/core_semantics/five_cover/exposure_cover；source 检查 provenance/version_conditions/use/rights。无 proof 的节点登记明确不要求 proof，不能省略实际五项证明。原始未检查登记及 manifest.files 的 SHA 保持不变；实际审阅在新 review-register.final.json 与 register-final/ 分片副本完成，EvidenceInput 指向该最终文件并复算分片 SHA，按同一 manifestSHA256/完整行集合核对，不要求最终审阅状态字节等于原始未检查字节。每个 passed 须有独立核对依据和 reviewerRef，returned 须有问题位置；空字符串不能作为已复核。
 
@@ -117,11 +117,11 @@ VerifyEvidence(ctx context.Context, root string, manifest ReviewManifest, input 
 
 Consumes：已批准 P6a 草稿、固定源、清单契约。Produces：SelectedDraft、同一份 SVG/元数据及可复用来源校验，旧入口行为一致。
 
-- [ ] **1.1 写测试。** 实现 selectedFixture(t) 返回临时根与 DraftSelection；从当前原创文件复制夹具，修订一个题包到 v2 并明确选择。TestSelectedDraftMixedVersions 断言读取 v2、其余明确 v1；TestSelectedDraftCapturedAssets 在捕获后改盘上 SVG，校验/导出仍使用已捕获原字节或发现输入不一致，不能重新悄悄读新字节。UnsafeInputs 覆盖绝对/../路径、重复题包逻辑 ID、根/中间/末端 symlink、FIFO/设备、缺文件、读取中换文件、目录误作文件及预算+1。CapturedSourcesSameBytes 验证报告/map 原字节与解码/SHA 一致。保留旧 LoadDraft 的真实 v1 回归。
-- [ ] **1.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentaudit -run 'Test(SelectedDraft|CapturedSources)' -timeout 5m -count=1`。记录缺少新接口及至少一个真实非法输入失败，不能靠损坏夹具造 RED。
-- [ ] **1.3 最小实现。** 实现上节四接口及私有共用函数；逐个文件捕获一次，所有验证从捕获字节读取，strict 解码、根/目录验证与普通文件读取沿用旧规则。旧 LoadDraft/LoadSources/CheckDraft 的签名、默认选择、8s 单读及错误语义保留。
-- [ ] **1.4 GREEN。** 同一 RED 命令通过，再运行 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentaudit -timeout 5m -count=1`。核心断言 `if got.Input.Questions[i].Version != 2 || sha(got.Files[j].Bytes) != wantRawSHA { t.Fatal("选择或字节不一致") }`；测得全部旧测无丢失。
-- [ ] **1.5 提交。** `git add backend/internal/contentaudit/draft_selection.go backend/internal/contentaudit/draft_selection_test.go backend/internal/contentaudit/draft.go backend/internal/contentaudit/decode.go content/review/elementary-foundations.input.v1.json`；`git commit -m 'feat: 增加明确版本的复核输入适配'`。
+- [x] **1.1 写测试。** 实现 selectedFixture(t) 返回临时根与 DraftSelection；从当前原创文件复制夹具，修订一个题包到 v2 并明确选择。TestSelectedDraftMixedVersions 断言读取 v2、其余明确 v1；TestSelectedDraftCapturedAssets 在捕获后改盘上 SVG，校验/导出仍使用已捕获原字节或发现输入不一致，不能重新悄悄读新字节。UnsafeInputs 覆盖绝对/../路径、重复题包逻辑 ID、根/中间/末端 symlink、FIFO/设备、缺文件、读取中换文件、目录误作文件及预算+1。CapturedSourcesSameBytes 验证报告/map 原字节与解码/SHA 一致。保留旧 LoadDraft 的真实 v1 回归。
+- [x] **1.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentaudit -run 'Test(SelectedDraft|CapturedSources)' -timeout 5m -count=1`。记录缺少新接口及至少一个真实非法输入失败，不能靠损坏夹具造 RED。
+- [x] **1.3 最小实现。** 实现上节四接口及私有共用函数；逐个文件捕获一次，所有验证从捕获字节读取，strict 解码、根/目录验证与普通文件读取沿用旧规则。旧 LoadDraft/LoadSources/CheckDraft 的签名、默认选择、8s 单读及错误语义保留。
+- [x] **1.4 GREEN。** 同一 RED 命令通过，再运行 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentaudit -timeout 5m -count=1`。核心断言 `if got.Input.Questions[i].Version != 2 || sha(got.Files[j].Bytes) != wantRawSHA { t.Fatal("选择或字节不一致") }`；测得全部旧测无丢失。
+- [x] **1.5 提交。** `git add backend/internal/contentaudit/draft_selection.go backend/internal/contentaudit/draft_selection_test.go backend/internal/contentaudit/draft.go backend/internal/contentaudit/decode.go content/review/elementary-foundations.input.v1.json`；`git commit -m 'feat: 增加明确版本的复核输入适配'`。
 
 ### Task 2：全量准确身份与必需登记集合
 
@@ -129,11 +129,11 @@ Consumes：已批准 P6a 草稿、固定源、清单契约。Produces：Selected
 
 Consumes：SelectedDraft/SourceBundle、原字节和固定首批 ID。Produces：ReviewScope、稳定身份与必需检查集合，纯层无 IO/写入。
 
-- [ ] **2.1 写测试。** 实现 reviewFixture(t) PrepareInput：原创草稿加脱敏合成来源/报告，fixtureOnly=true；来源文件/记录 ID 与映射一致，不复制收藏原文。FullBaseline 断言 574 mapped、384 derived、958 对象、205 来源、全部五 proof 与九图；每个 derived 绑定真实准确模板，固定实例 SHA 使用既有封存身份。IdentityMismatch 覆盖错版本/SHA、重复对象/记录、漏末尾参数实例、缺 blueprint/素材、未知源、非首批三十 ID、错路线及 map 超限；修订版本清单成功且旧 SHA 不复用。
-- [ ] **2.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewScope' -timeout 5m -count=1`，断言缺漏不能返回可准备范围。
-- [ ] **2.3 最小实现。** 实现 BuildScope，检查 captured 输入与 Raw/Manifest 一致，复用 CheckSelectedDraft、EvaluateDraft 的真实草稿口径；固定对象按现有 canonical 类型求 SHA，生成实例用 SealedPackage.Instances 身份。来源登记覆盖所有所选记录，标记 unused，不把 unused 丢弃；30 首批 ID 常量来自已批准表，版本从明确草稿取得。
-- [ ] **2.4 GREEN。** 同一命令及全 contentreview 五分钟单测；`if len(scope.Objects)!=958 || len(scope.DerivedInstances)!=384 || len(scope.Sources)!=205 { t.Fatal("全量范围遗漏") }`，重复/错身份/非法版本全部拒绝。
-- [ ] **2.5 提交。** `git add backend/internal/contentreview/model.go backend/internal/contentreview/prepare.go backend/internal/contentreview/prepare_test.go backend/internal/contentreview/test_fixture_test.go`；`git commit -m 'feat: 固定全量数学复核范围与身份'`。
+- [x] **2.1 写测试。** 实现 reviewFixture(t) PrepareInput：原创草稿加脱敏合成来源/报告，fixtureOnly=true；来源文件/记录 ID 与映射一致，不复制收藏原文。FullBaseline 断言 574 mapped、384 derived、958 对象、205 来源、全部五 proof 与九图；每个 derived 绑定真实准确模板，固定实例 SHA 使用既有封存身份。IdentityMismatch 覆盖错版本/SHA、重复对象/记录、漏末尾参数实例、缺 blueprint/素材、未知源、非首批三十 ID、错路线及 map 超限；修订版本清单成功且旧 SHA 不复用。
+- [x] **2.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewScope' -timeout 5m -count=1`，断言缺漏不能返回可准备范围。
+- [x] **2.3 最小实现。** 实现 BuildScope，检查 captured 输入与 Raw/Manifest 一致，复用 CheckSelectedDraft、EvaluateDraft 的真实草稿口径；固定对象按现有 canonical 类型求 SHA，生成实例用 SealedPackage.Instances 身份。来源登记覆盖所有所选记录，标记 unused，不把 unused 丢弃；30 首批 ID 常量来自已批准表，版本从明确草稿取得。
+- [x] **2.4 GREEN。** 同一命令及全 contentreview 五分钟单测；`if len(scope.Objects)!=958 || len(scope.DerivedInstances)!=384 || len(scope.Sources)!=205 { t.Fatal("全量范围遗漏") }`，重复/错身份/非法版本全部拒绝。
+- [x] **2.5 提交。** `git add backend/internal/contentreview/model.go backend/internal/contentreview/prepare.go backend/internal/contentreview/prepare_test.go backend/internal/contentreview/test_fixture_test.go`；`git commit -m 'feat: 固定全量数学复核范围与身份'`。
 
 ### Task 3：现有导入格式与共同来源合并
 
@@ -141,11 +141,11 @@ Consumes：SelectedDraft/SourceBundle、原字节和固定首批 ID。Produces�
 
 Consumes：PrepareInput 与 ReviewScope。Produces：publication.DraftInput 和五个 question.DraftInput，含安全 SVG 和来源追溯，不含审批信息。
 
-- [ ] **3.1 写测试。** SourceCoalescing 为同一知识/批次/path/SHA 放入两个不同 record/legacyId，断言只一个 SourceLink 且两记录/条件均在登记及 Note；不同文件 SHA/知识版本不得合并。NoWorkflowIdentity 严格解码现有 DraftInput 并断言 JSON 无 authorIds/reviewer/approval/head/frozenDigest。ImportBudgets 校验实际知识 Base64+来源数组和五包逻辑/封存预算；错误 SVG、缺资产、外部来源路径、未引用知识链接、源用途遗漏、临界预算+1 均失败。
-- [ ] **3.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewImport' -timeout 5m -count=1`，原始逐记录转换应在重复 SourceLink 案例失败。
-- [ ] **3.3 最小实现。** 实现 BuildImports，用已捕获的 SVG 原字节编码；按准确去重键合并完整来源说明、稳定排序，仅输出实际使用知识的链接。复用 DraftAssets/ValidateWorkflow/ValidateAndSeal；对照每个实例、模板、知识/单元/素材/路线 identity，无新的数学重算器。
-- [ ] **3.4 GREEN。** 同一命令通过；`if len(links)!=1 || !strings.Contains(links[0].Note,"记录A") || !strings.Contains(links[0].Note,"记录B") { t.Fatal("共同出处信息丢失") }`；全部六导入经原接口校验且无额外字段。实测字节数保存到技术证据。
-- [ ] **3.5 提交。** `git add backend/internal/contentreview/imports.go backend/internal/contentreview/imports_test.go backend/internal/contentreview/model.go`；`git commit -m 'feat: 生成兼容现有工作流的复核导入文件'`。
+- [x] **3.1 写测试。** SourceCoalescing 为同一知识/批次/path/SHA 放入两个不同 record/legacyId，断言只一个 SourceLink 且两记录/条件均在登记及 Note；不同文件 SHA/知识版本不得合并。NoWorkflowIdentity 严格解码现有 DraftInput 并断言 JSON 无 authorIds/reviewer/approval/head/frozenDigest。ImportBudgets 校验实际知识 Base64+来源数组和五包逻辑/封存预算；错误 SVG、缺资产、外部来源路径、未引用知识链接、源用途遗漏、临界预算+1 均失败。
+- [x] **3.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewImport' -timeout 5m -count=1`，原始逐记录转换应在重复 SourceLink 案例失败。
+- [x] **3.3 最小实现。** 实现 BuildImports，用已捕获的 SVG 原字节编码；按准确去重键合并完整来源说明、稳定排序，仅输出实际使用知识的链接。复用 DraftAssets/ValidateWorkflow/ValidateAndSeal；对照每个实例、模板、知识/单元/素材/路线 identity，无新的数学重算器。
+- [x] **3.4 GREEN。** 同一命令通过；`if len(links)!=1 || !strings.Contains(links[0].Note,"记录A") || !strings.Contains(links[0].Note,"记录B") { t.Fatal("共同出处信息丢失") }`；全部六导入经原接口校验且无额外字段。实测字节数保存到技术证据。
+- [x] **3.5 提交。** `git add backend/internal/contentreview/imports.go backend/internal/contentreview/imports_test.go backend/internal/contentreview/model.go`；`git commit -m 'feat: 生成兼容现有工作流的复核导入文件'`。
 
 ### Task 4：完整材料、未检查登记和确定性 manifest
 
@@ -153,11 +153,11 @@ Consumes：PrepareInput 与 ReviewScope。Produces：publication.DraftInput 和�
 
 Consumes：范围和六个已验证导入。Produces：Bundle，各对象/参数实例均可定位，全部登记初始未检查。
 
-- [ ] **4.1 写测试。** RequiredChecks 断言全部 1163 行分片、各类必需检查、五 proof、九图双视口/权利项、末尾生成实例/来源均出现且无 passed；MaterialsComplete 对照原英文陈述、全部题面/选项/答案/解析/参数域/目标和 blueprint。测试 Markdown/HTML 特殊字符、伪代码指令、安全图片引用、分页边界及未引用来源。相同输入两次 Prepare 的文件原字节和 SHA 相同。
-- [ ] **4.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReview(Register|Materials|Manifest)' -timeout 5m -count=1`。
-- [ ] **4.3 最小实现。** 完成 Prepare；按五主题、稳定身份及预算拆材料页/登记分片，复用 sealed 实例，不自行求答案。检查所有必需项恰好一次；导入、登记、材料、图片完成后生成 Manifest.Files。Bundle.Files 不包含 manifest，输出层最后序列化 manifest，避免循环 SHA。来源原文不复制，既有许可标签保留待核验状态。
-- [ ] **4.4 GREEN。** 同一命令通过，再全 contentreview；核心断言 `if countRows(bundle)!=1163 || countStatus(bundle,"passed")!=0 { t.Fatal("范围或初始状态错误") }`；全部文件摘要可复算，非法输入拒绝且无答案/来源算法分叉。
-- [ ] **4.5 提交。** stage 本任务四文件，`git commit -m 'feat: 导出全量数学复核材料与未检查登记'`。
+- [x] **4.1 写测试。** RequiredChecks 断言全部 1163 行分片、各类必需检查、五 proof、九图双视口/权利项、末尾生成实例/来源均出现且无 passed；MaterialsComplete 对照原英文陈述、全部题面/选项/答案/解析/参数域/目标和 blueprint。测试 Markdown/HTML 特殊字符、伪代码指令、安全图片引用、分页边界及未引用来源。相同输入两次 Prepare 的文件原字节和 SHA 相同。
+- [x] **4.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReview(Register|Materials|Manifest)' -timeout 5m -count=1`。
+- [x] **4.3 最小实现。** 完成 Prepare；按五主题、稳定身份及预算拆材料页/登记分片，复用 sealed 实例，不自行求答案。检查所有必需项恰好一次；导入、登记、材料、图片完成后生成 Manifest.Files。Bundle.Files 不包含 manifest，输出层最后序列化 manifest，避免循环 SHA。来源原文不复制，既有许可标签保留待核验状态。
+- [x] **4.4 GREEN。** 同一命令通过，再全 contentreview；核心断言 `if countRows(bundle)!=1163 || countStatus(bundle,"passed")!=0 { t.Fatal("范围或初始状态错误") }`；全部文件摘要可复算，非法输入拒绝且无答案/来源算法分叉。
+- [x] **4.5 提交。** stage 本任务四文件，`git commit -m 'feat: 导出全量数学复核材料与未检查登记'`。
 
 ### Task 5：有界普通文件与原子私有输出
 
@@ -165,11 +165,11 @@ Consumes：范围和六个已验证导入。Produces：Bundle，各对象/参数
 
 Consumes：Bundle/Verification.Files 和全新规范绝对输出路径。Produces：完整受保护新目录或安全失败，无旧文件改动。
 
-- [ ] **5.1 写测试。** NoOverwrite 验证已有目录/文件/同名 symlink 完全不变；FailureCleanup 在第 N 次写/关闭失败及 context 取消时仅清理本次新目录。Limits 验证 256 文件、8MiB 文件、256MiB 总字节各临界值及 +1、重复路径、../、绝对路径、symlink 父目录、FIFO、文件读取中变更；模式断言目录 0700/文件 0600。写入失败不得留下可识别完整 manifest。
-- [ ] **5.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewOutput' -timeout 5m -count=1`。
-- [ ] **5.3 最小实现。** WriteBundle(ctx context.Context,out string,bundle Bundle) error 与 WriteVerification(ctx,out,Verification) error；复用一个有界私有 writer。先校验所有安全路径/摘要/总预算，以 Mkdir 原子保留新输出，O_EXCL 创建文件/子目录，manifest 最后写；失败只删除自己新建目录。通过 test-only writer 注入失败，不改变生产功能。输入仍用 Task 1 的有界普通文件读取。
-- [ ] **5.4 GREEN。** 同一命令及纯层全测；`if oldSHA!=sha(readOld()) || outputExistsAfterFailure { t.Fatal("覆盖或残留") }`。在可取消读写及最大合法材料测试中记录耗时/字节；超限不截断，无法完整输出即失败。
-- [ ] **5.5 提交。** stage output.go/output_test.go/model.go，`git commit -m 'feat: 保护复核包的有界原子输出'`。
+- [x] **5.1 写测试。** NoOverwrite 验证已有目录/文件/同名 symlink 完全不变；FailureCleanup 在第 N 次写/关闭失败及 context 取消时仅清理本次新目录。Limits 验证 256 文件、8MiB 文件、256MiB 总字节各临界值及 +1、重复路径、../、绝对路径、symlink 父目录、FIFO、文件读取中变更；模式断言目录 0700/文件 0600。写入失败不得留下可识别完整 manifest。
+- [x] **5.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewOutput' -timeout 5m -count=1`。
+- [x] **5.3 最小实现。** WriteBundle(ctx context.Context,out string,bundle Bundle) error 与 WriteVerification(ctx,out,Verification) error；复用一个有界私有 writer。先校验所有安全路径/摘要/总预算，以 Mkdir 原子保留新输出，O_EXCL 创建文件/子目录，manifest 最后写；失败只删除自己新建目录。通过 test-only writer 注入失败，不改变生产功能。输入仍用 Task 1 的有界普通文件读取。
+- [x] **5.4 GREEN。** 同一命令及纯层全测；`if oldSHA!=sha(readOld()) || outputExistsAfterFailure { t.Fatal("覆盖或残留") }`。在可取消读写及最大合法材料测试中记录耗时/字节；超限不截断，无法完整输出即失败。
+- [x] **5.5 提交。** stage output.go/output_test.go/model.go，`git commit -m 'feat: 保护复核包的有界原子输出'`。
 
 ### Task 6：真实固定送审、全量复核及独立性绑定
 
@@ -177,11 +177,11 @@ Consumes：Bundle/Verification.Files 和全新规范绝对输出路径。Produce
 
 Consumes：manifest、复核分片、真实 SubmissionView/Archive 文件和负责人独立性材料。Produces：经过一致性检查的冻结对象与 decision 集合，不能自行证明自然人。
 
-- [ ] **6.1 写测试。** FrozenBinding 检查知识 FrozenDigest、题库 CanonicalFrozen、批准决策/同 submission/digest、五项/六项勾选、真实 frozen 作者集合、reviewer 不在作者集合、准确全部对象/素材/模板/实例/blueprint。覆盖导出实例乱序/缺失/重复、用 raw SHA 冒充 frozen、错 catalogue、修改 body/author/reviewer、来源链接不同、漏复核行/必需项及重复 decision。IndependencePending 验证未签署、未核验自然人独立性、unreviewed/returned、空 basis/reviewerRef 不能就绪；所有夹具仅为技术身份。
-- [ ] **6.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReview(FrozenBinding|Independence|RegisterEvidence)' -timeout 5m -count=1`。
-- [ ] **6.3 最小实现。** 加入 verifyReviewBindings(ctx,root,manifest,register,bindings) 的私有实现。严格读取既有 SubmissionView 和发布 Archive；题库按 frozen.InstanceIdentities 原顺序重组 archive 实例再调用 CanonicalFrozen，不能因 SQL 导出顺序不同造误差。核对 SourceResponsibility 与 frozen 作者集合、全部对象 SHA；review 行关联对应真实 reviewer，来源登记保留负责人核验依据。机器检查签署材料/摘要存在与承诺一致，不把承诺升级为自然人身份证明。知识/题库当前资格最后仍由 content-audit 的数据库事实核验。
-- [ ] **6.4 GREEN。** 同一命令及纯层全测；`if got.Conclusion=="evidence_ready" || got.Evidence!=nil { t.Fatal("未复核被当作正式证据") }` 适用于所有未落实案例；完整技术夹具通过文件关联仍保留 fixtureOnly=true。
-- [ ] **6.5 提交。** stage evidence.go/evidence_test.go/model.go，`git commit -m 'feat: 校验真实送审与复核登记的准确关联'`。
+- [x] **6.1 写测试。** FrozenBinding 检查知识 FrozenDigest、题库 CanonicalFrozen、批准决策/同 submission/digest、五项/六项勾选、真实 frozen 作者集合、reviewer 不在作者集合、准确全部对象/素材/模板/实例/blueprint。覆盖导出实例乱序/缺失/重复、用 raw SHA 冒充 frozen、错 catalogue、修改 body/author/reviewer、来源链接不同、漏复核行/必需项及重复 decision。IndependencePending 验证未签署、未核验自然人独立性、unreviewed/returned、空 basis/reviewerRef 不能就绪；所有夹具仅为技术身份。
+- [x] **6.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReview(FrozenBinding|Independence|RegisterEvidence)' -timeout 5m -count=1`。
+- [x] **6.3 最小实现。** 加入 verifyReviewBindings(ctx,root,manifest,register,bindings) 的私有实现。严格读取既有 SubmissionView 和发布 Archive；题库按 frozen.InstanceIdentities 原顺序重组 archive 实例再调用 CanonicalFrozen，不能因 SQL 导出顺序不同造误差。核对 SourceResponsibility 与 frozen 作者集合、全部对象 SHA；review 行关联对应真实 reviewer，来源登记保留负责人核验依据。机器检查签署材料/摘要存在与承诺一致，不把承诺升级为自然人身份证明。知识/题库当前资格最后仍由 content-audit 的数据库事实核验。
+- [x] **6.4 GREEN。** 同一命令及纯层全测；`if got.Conclusion=="evidence_ready" || got.Evidence!=nil { t.Fatal("未复核被当作正式证据") }` 适用于所有未落实案例；完整技术夹具通过文件关联仍保留 fixtureOnly=true。
+- [x] **6.5 提交。** stage evidence.go/evidence_test.go/model.go，`git commit -m 'feat: 校验真实送审与复核登记的准确关联'`。
 
 ### Task 7：最终八类实际文件、同上下文及兼容证据
 
@@ -189,11 +189,11 @@ Consumes：manifest、复核分片、真实 SubmissionView/Archive 文件和负�
 
 Consumes：Task 6 结果、ReleaseContext、EvidenceInput、八份 LearningRecord 与真实附件。Produces：Verification 和条件生成的原 AcceptanceEvidence。
 
-- [ ] **7.1 写测试。** Context 覆盖同/异知识 head、题库 head、旧 G、旧 route/version/SHA、catalogue/manifest 或 fixture 标记不一致。Files 覆盖改动/不存在附件、错误原字节 SHA、重复键、重复/未知检查、缺步骤/观察/签署、非法 result、路径逃逸、64 附件/8MiB/256MiB 边界。NoReadyFile 验证缺检查/not_run/未复核/未独立时没有 acceptance-evidence；真实 fail 场景的正确拒绝观察可 result=passed，已执行但错误行为则 failed，不能自动推断或改标签。
-- [ ] **7.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewEvidence' -timeout 5m -count=1`。
-- [ ] **7.3 最小实现。** 完成 VerifyEvidence：复算实际文件与附件 SHA、精确八名称集合、共同最终上下文、冻结/登记完整性；缺项 awaiting_review，错误身份拒绝，已执行 failed 保留 not_ready。完整真实文件才构建原 schemaVersion=1 Evidence，不增加外部字段；fixtureOnly 强标记贯穿。写校验 JSON/中文 Markdown 与 SHA 清单，正文和人员材料不进入公共报告。
-- [ ] **7.4 GREEN。** 同一命令及 contentreview 全测；生成字节必须经 `contentaudit.DecodeEvidence` 成功，`if evidence.CodeSHA!=release.CodeSHA || evidence.FixtureOnly!=release.FixtureOnly { t.Fatal("绑定丢失") }`。再次读取证据文件不产生任何数据库/网络调用。
-- [ ] **7.5 提交。** stage 本任务 evidence 文件及 model.go，`git commit -m 'feat: 校验八类学习文件并生成兼容验收证据'`。
+- [x] **7.1 写测试。** Context 覆盖同/异知识 head、题库 head、旧 G、旧 route/version/SHA、catalogue/manifest 或 fixture 标记不一致。Files 覆盖改动/不存在附件、错误原字节 SHA、重复键、重复/未知检查、缺步骤/观察/签署、非法 result、路径逃逸、64 附件/8MiB/256MiB 边界。NoReadyFile 验证缺检查/not_run/未复核/未独立时没有 acceptance-evidence；真实 fail 场景的正确拒绝观察可 result=passed，已执行但错误行为则 failed，不能自动推断或改标签。
+- [x] **7.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -run '^TestReviewEvidence' -timeout 5m -count=1`。
+- [x] **7.3 最小实现。** 完成 VerifyEvidence：复算实际文件与附件 SHA、精确八名称集合、共同最终上下文、冻结/登记完整性；缺项 awaiting_review，错误身份拒绝，已执行 failed 保留 not_ready。完整真实文件才构建原 schemaVersion=1 Evidence，不增加外部字段；fixtureOnly 强标记贯穿。写校验 JSON/中文 Markdown 与 SHA 清单，正文和人员材料不进入公共报告。
+- [x] **7.4 GREEN。** 同一命令及 contentreview 全测；生成字节必须经 `contentaudit.DecodeEvidence` 成功，`if evidence.CodeSHA!=release.CodeSHA || evidence.FixtureOnly!=release.FixtureOnly { t.Fatal("绑定丢失") }`。再次读取证据文件不产生任何数据库/网络调用。
+- [x] **7.5 提交。** stage 本任务 evidence 文件及 model.go，`git commit -m 'feat: 校验八类学习文件并生成兼容验收证据'`。
 
 ### Task 8：两个有限离线 CLI 与操作说明
 
@@ -201,11 +201,11 @@ Consumes：Task 6 结果、ReleaseContext、EvidenceInput、八份 LearningRecor
 
 Consumes：前七任务纯层、明确参数/预算/新输出契约。Produces：可执行 prepare/verify-evidence、中文手册及所有退出码。
 
-- [ ] **8.1 写测试。** TestContentReviewPrepare 成功调用完整小夹具及实际明确混合版本；VerifyPending/Ready/Failed 检查 3/0/2 和证据文件存在条件。OfflineOnly 设置不可用 DATABASE_URL/TEST_DATABASE_URL，两个命令仍按文件完成，日志无私有内容。参数负测含未知/重复 flag、缺参数、非法 G/路线/版本、发布/DB 参数、额外位置项、不同规范根及 FIFO；IO/预算/取消返回 1，无半成品。main 只委派 RunContentReview。
-- [ ] **8.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run '^TestContentReview' -timeout 5m -count=1`。
-- [ ] **8.3 最小实现。** 实现 RunContentReview 与 main，普通文件原字节先捕获再严格解码，120s 全程 context、8s 单读/原验证约束不变；不引用 store/sql/http client 或读取连接配置。手册给两个真实参数范例、冻结摘要产生时点、分片/全部检查、许可待核验和正式 R1—R4 前置，不包含凭据或假角色初始化脚本。
-- [ ] **8.4 GREEN。** 同一命令及 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/content-review`；退出码、文件模式、无批准字段及 stderr 稳定原因码逐项确认。正常学习/审核 API 不变。
-- [ ] **8.5 提交。** stage 本任务六文件，`git commit -m 'feat: 增加离线内容复核命令与中文手册'`。
+- [x] **8.1 写测试。** TestContentReviewPrepare 成功调用完整小夹具及实际明确混合版本；VerifyPending/Ready/Failed 检查 3/0/2 和证据文件存在条件。OfflineOnly 设置不可用 DATABASE_URL/TEST_DATABASE_URL，两个命令仍按文件完成，日志无私有内容。参数负测含未知/重复 flag、缺参数、非法 G/路线/版本、发布/DB 参数、额外位置项、不同规范根及 FIFO；IO/预算/取消返回 1，无半成品。main 只委派 RunContentReview。
+- [x] **8.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run '^TestContentReview' -timeout 5m -count=1`。
+- [x] **8.3 最小实现。** 实现 RunContentReview 与 main，普通文件原字节先捕获再严格解码，120s 全程 context、8s 单读/原验证约束不变；不引用 store/sql/http client 或读取连接配置。手册给两个真实参数范例、冻结摘要产生时点、分片/全部检查、许可待核验和正式 R1—R4 前置，不包含凭据或假角色初始化脚本。
+- [x] **8.4 GREEN。** 同一命令及 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/content-review`；退出码、文件模式、无批准字段及 stderr 稳定原因码逐项确认。正常学习/审核 API 不变。
+- [x] **8.5 提交。** stage 本任务六文件，`git commit -m 'feat: 增加离线内容复核命令与中文手册'`。
 
 ### Task 9：既有正常工作流的真实数据库技术对照
 
@@ -213,11 +213,11 @@ Consumes：前七任务纯层、明确参数/预算/新输出契约。Produces�
 
 Consumes：生成的六个 DraftInput、原工作流/随机隔离库。Produces：导入/Export/固定送审/批准/发布身份一致的技术证据，正式数量为零。
 
-- [ ] **9.1 写测试。** TestContentReviewWorkflowRoundTrip 使用 testutil 独立 math_master_test_*，普通真实会话/CSRF/幂等键、不同测试作者/审核者和管理员，经既有 service/Store 导入知识→Export 对照→送审/批准→知识发布→五题包固定引用/送审/批准→双 head 发布→正常 Archive 对照。全部对象、SVG、来源数组与 Prepare 身份相同；服务端记录作者，题库最终 frozen 绑定真实知识引用。覆盖同作者拒绝、错 revision/expectedHead、改导入/素材 SHA 和 missing final evidence；技术报告必须 fixtureOnly=true、正式计数0、结论非 accepted。
-- [ ] **9.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestContentReview' -timeout 5m -count=1`；数据库凭据仅用既有私有 TEST_DATABASE_URL，不写命令或日志。失败必须定位真实导入/身份缺口，不能暂改校验器凑通过。
-- [ ] **9.3 最小实现。** 实现测试辅助与证据对照；发现新工具转换缺陷仅修对应 contentreview 文件，生产规则不变。用固定 P6a 私有快照实际执行一次 prepare，实测 205 来源/64 映射/958 对象和六导入请求字节；无人员环境时 verify-evidence 产生 awaiting_review/不产生正式证据。只归档安全 SHA/数量/fixture 状态。
-- [ ] **9.4 GREEN。** 同一命令，再运行旧集成入口 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip "^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)" -timeout 5m -count=1`，确认新 TestContentReview 被原入口实际执行、旧组未被排除。实际完整首批与最大小包预算均成立。
-- [ ] **9.5 提交。** stage 新测试、必要的准确工具修复及 docs/operations/evidence/p6b/preparation.json，`git commit -m 'test: 对照复核导入与既有真实工作流'`。
+- [x] **9.1 写测试。** TestContentReviewWorkflowRoundTrip 使用 testutil 独立 math_master_test_*，普通真实会话/CSRF/幂等键、不同测试作者/审核者和管理员，经既有 service/Store 导入知识→Export 对照→送审/批准→知识发布→五题包固定引用/送审/批准→双 head 发布→正常 Archive 对照。全部对象、SVG、来源数组与 Prepare 身份相同；服务端记录作者，题库最终 frozen 绑定真实知识引用。覆盖同作者拒绝、错 revision/expectedHead、改导入/素材 SHA 和 missing final evidence；技术报告必须 fixtureOnly=true、正式计数0、结论非 accepted。
+- [x] **9.2 RED。** `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestContentReview' -timeout 5m -count=1`；数据库凭据仅用既有私有 TEST_DATABASE_URL，不写命令或日志。失败必须定位真实导入/身份缺口，不能暂改校验器凑通过。
+- [x] **9.3 最小实现。** 实现测试辅助与证据对照；发现新工具转换缺陷仅修对应 contentreview 文件，生产规则不变。用固定 P6a 私有快照实际执行一次 prepare，实测 205 来源/64 映射/958 对象和六导入请求字节；无人员环境时 verify-evidence 产生 awaiting_review/不产生正式证据。只归档安全 SHA/数量/fixture 状态。
+- [x] **9.4 GREEN。** 同一命令，再运行旧集成入口 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip "^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)" -timeout 5m -count=1`，确认新 TestContentReview 被原入口实际执行、旧组未被排除。实际完整首批与最大小包预算均成立。
+- [x] **9.5 提交。** stage 新测试、必要的准确工具修复及 docs/operations/evidence/p6b/preparation.json，`git commit -m 'test: 对照复核导入与既有真实工作流'`。
 
 ### Task 10：兼容保护、完整矩阵、一次整分支审查与交付
 
@@ -225,9 +225,9 @@ Consumes：生成的六个 DraftInput、原工作流/随机隔离库。Produces�
 
 Consumes：九任务实现及旧 P6a 真实矩阵。Produces：准备段可审查 MR、全部新旧回归与真实远端结果，不宣布正式 P6b 完成。
 
-- [ ] **10.1 写保护测试。** 新 Node 测验证旧 API/类型/迁移/生成器/判分文件的基线摘要、原 CLI/schema 与双 head 参数；CI 正反夹具删除/改名旧批次、取消六容量、加跳过、去 CGO 或放宽截止必须失败。新纯 contentreview 必须有明确批次，原 store/cli 宽入口必须包含 TestContentReview；不得扩充 skip 正则漏掉旧测。
-- [ ] **10.2 RED。** `node tools/verify/run.mjs -- node --test tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs`；在内存工作流副本中缺新批次/删除旧批次各有真实 RED，仓库实际旧工作流不删改。
-- [ ] **10.3 最小配置与完整验证。** backend 工作流只追加 contentreview 纯层五分钟批次、在原 Node 命令尾追加两个新文件；新 CLI/Store 测按原宽入口执行，前端批次/依赖不变。按下节矩阵完成全部旧测与新测，收集原日志/exit/SHA/测试数，完成手册和交付状态。若再次发生现有容量慢查询，先用日志/查询计划/输入实测定位，再提交符合既有门槛的精确修复审查；不能将重复碰到一次绿色称作修复。
+- [x] **10.1 写保护测试。** 新 Node 测验证旧 API/类型/迁移/生成器/判分文件的基线摘要、原 CLI/schema 与双 head 参数；CI 正反夹具删除/改名旧批次、取消六容量、加跳过、去 CGO 或放宽截止必须失败。新纯 contentreview 必须有明确批次，原 store/cli 宽入口必须包含 TestContentReview；不得扩充 skip 正则漏掉旧测。
+- [x] **10.2 RED。** `node tools/verify/run.mjs -- node --test tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs`；在内存工作流副本中缺新批次/删除旧批次各有真实 RED，仓库实际旧工作流不删改。
+- [x] **10.3 最小配置与完整验证。** backend 工作流只追加 contentreview 纯层五分钟批次、在原 Node 命令尾追加两个新文件；新 CLI/Store 测按原宽入口执行，前端批次/依赖不变。按下节矩阵完成全部旧测与新测，收集原日志/exit/SHA/测试数，完成手册和交付状态。若再次发生现有容量慢查询，先用日志/查询计划/输入实测定位，再提交符合既有门槛的精确修复审查；不能将重复碰到一次绿色称作修复。
 - [ ] **10.4 GREEN 与整分支审查。** 新保护和完整矩阵全部通过；只在实现完成后按 using-superpowers 的 Native 流程调用一次最强模型独立整分支 reviewer，检查本计划五类重点与全部 diff，必要问题逐项裁决/修复并做相关回归，最终提交后核验完整 head 四 workflow/六 job。已有会话偏好保留；本计划编写不启动 reviewer。只有真实全部成功才标记准备段完成；无人员/正式验收时整体仍 awaiting_review。
 - [ ] **10.5 提交/MR。** stage 本任务已列文件，`git commit -m 'test: 完成离线复核工具的兼容验证与交接'`；先将具体准备输出、测试及尚未执行的正式门槛写入该临时说明文件，再通过 SSH push codex/p6b-content-review-preparation，`gh pr create --base master --head codex/p6b-content-review-preparation --draft --title 'P6b：全量内容复核准备与证据校验' --body-file /private/tmp/math-master-p6b-preparation-pr-body.md`。创建后调用 attach_artifact 附属 PR；准确最终 head 的远端 CI 状态写入说明。合并按用户后续指令，不由本计划授权。
 
@@ -299,4 +299,4 @@ Consumes：九任务实现及旧 P6a 真实矩阵。Produces：准备段可审�
 
 外部执行门槛仍明确：真实人员/许可结论/环境/操作范围未落实，现有 CI 曾有一次准备查询超时且具体原因未证实；这些都不能以设计自审消除。远端准确实现 head 通过是准备段交付门槛，真实 R1—R4/accepted 是整体 P6b 门槛。
 
-请审阅本计划是否准确体现已确认的方案。确认后沿用 Native 执行 Task 1—10，不重复选择执行方式；R1—R4 按实际资源和明确范围推进。计划确认不合并 PR #26、不替代真实数学批准，也不授权生产部署。
+本计划已获确认并沿用 Native 执行 Task 1—10；R1—R4 按实际资源和明确范围推进。计划确认不合并 PR #26、不替代真实数学批准，也不授权生产部署。

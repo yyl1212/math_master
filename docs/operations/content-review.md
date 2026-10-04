@@ -77,3 +77,7 @@ node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.
 输出目录必须全新，Mkdir 原子保留，独占创建文件，完成标记最后写；失败只清理自身目录。拒绝路径逃逸、symlink、FIFO/设备、重复键、未知字段、非法 UTF-8/NUL、超范围整数及变动输入。不复制收藏 corpus 正文到复核包或公共仓库，含答案、人员、案件及环境材料始终私有。
 
 准备段技术回归不等于 R1—R4 完成。真实环境/人员/许可结论未落实时整体 P6b 仍 awaiting_review；正式结果须由原 content-audit 在当前双 head 的单个只读一致事务中实际 accepted、fixtureOnly=false。此计划不部署 P7，也不授权代理代人审批。
+
+## 已有路线的导入前置
+
+正常工作流技术对照保留不可变规则：旧示例已经使用 `elementary-foundations/v1` 时，新三十节点路线以相同 ID/版本导入必须冲突。首次路线导入的正例只在尚未占用该版本的随机隔离库运行；没有清空或覆盖旧路线。正式环境若已有该旧版本，在 R2 追加准确路线版本并同步输入清单、对象来源映射及复核 manifest，重新全量复核后送审。不能为了导入通过删除正式数据。

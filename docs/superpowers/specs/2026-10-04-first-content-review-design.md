@@ -1,6 +1,6 @@
 # P6b：首批数学内容独立复核、发布与正式验收方案
 
-日期：2026-10-04。状态：用户已确认上一轮推荐方向及合并 PR #25，本书面方案及第十节兼容边界已获用户确认；[实施计划](../plans/2026-10-04-first-content-review.md)已编写待审阅，产品实现和真实发布尚未开始。P6a [PR #25](https://github.com/yyl1212/math_master/pull/25)已于 2026-10-04T08:51:16Z 合并，master 基线为 b78108d3dd363eae237dae59f76a7be774b9de85；合并前完整 head f47294951ecf8566aefe5c4f36484609ede06886 的四次 workflow、六个 job 均成功。新 master 的两次 push workflow 已实际启动，结果独立核验。本次通过 SSH 获取最新 master，复用已附属的隔离工作树，新建 codex/p6b-content-review-design。
+日期：2026-10-04。状态：用户已确认上一轮推荐方向及合并 PR #25，本书面方案及第十节兼容边界已获用户确认；[实施计划](../plans/2026-10-04-first-content-review.md)及 Native 执行已获确认，准备工具已实现并进入完整回归/审查交付，真实发布尚未开始。P6a [PR #25](https://github.com/yyl1212/math_master/pull/25)已于 2026-10-04T08:51:16Z 合并，master 基线为 b78108d3dd363eae237dae59f76a7be774b9de85；合并前完整 head f47294951ecf8566aefe5c4f36484609ede06886 的四次 workflow、六个 job 均成功。新 master 的两次 push workflow 已实际启动，结果独立核验。本次通过 SSH 获取最新 master，复用已附属的隔离工作树，新建 codex/p6b-content-review-design。
 
 ## 一、已确认的目的与边界
 

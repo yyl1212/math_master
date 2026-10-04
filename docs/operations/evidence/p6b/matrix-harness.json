@@ -1,0 +1,20 @@
+[
+  {
+    "workflowCommand": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness",
+    "command": "node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness",
+    "exit": 0,
+    "seconds": 0.429,
+    "startedAt": "2026-10-04T12:32:59.195025+00:00",
+    "finishedAt": "2026-10-04T12:32:59.624253+00:00",
+    "log": "logs/matrix-harness-01.log.gz",
+    "codeHead": "5e723077605aeb57e0f841aefccda27587e6977f",
+    "sourceSetSHA256": "06bd25787358c7e29b4047b7f202ba3835b8e6c0be16155e404463771b620f0d",
+    "fixtureOnly": true,
+    "counts": {},
+    "logCompression": "gzip",
+    "originalLogSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "storedUncompressedSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "storedSHA256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64",
+    "redactions": []
+  }
+]

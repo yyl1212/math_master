@@ -122,7 +122,7 @@ func crEvidenceSave(t *testing.T, root, p string, v any) contentreview.FileRef {
 	t.Helper()
 	b := crFixtureJSON(t, v)
 	crFixtureWrite(t, filepath.Join(root, p), b)
-	return contentreview.FileRef{p, crSha(b)}
+	return contentreview.FileRef{Path: p, SHA256: crSha(b)}
 }
 func crEvidenceRead(t *testing.T, f crEvidenceFixtureData, ref contentreview.FileRef, v any) {
 	t.Helper()
@@ -207,7 +207,7 @@ func crSaveFinalRegister(t *testing.T, f *crEvidenceFixtureData) {
 	reg := contentreview.ReviewRegister{SchemaVersion: 1, ManifestSHA256: crSha(crFixtureJSON(t, f.Manifest)), Parts: []contentreview.FileRef{}}
 	for start := 0; start < len(f.Rows); start += 100 {
 		end := min(start+100, len(f.Rows))
-		ref := crEvidenceSave(t, f.Root, fmt.Sprintf("register-final/%03d.json", len(reg.Parts)+1), contentreview.RegisterPart{1, reg.ManifestSHA256, f.Rows[start:end]})
+		ref := crEvidenceSave(t, f.Root, fmt.Sprintf("register-final/%03d.json", len(reg.Parts)+1), contentreview.RegisterPart{SchemaVersion: 1, ManifestSHA256: reg.ManifestSHA256, Rows: f.Rows[start:end]})
 		reg.Parts = append(reg.Parts, ref)
 	}
 	f.Input.ReviewRegister = crEvidenceSave(t, f.Root, "review-register.final.json", reg)
@@ -261,7 +261,7 @@ func crWithLearning(t *testing.T, f *crEvidenceFixtureData) {
 	for _, name := range crLearningNames {
 		a := crEvidenceSave(t, f.Root, "learning/"+name+"-observation.json", map[string]string{"observation": "Isolated technical fixture observation, no real learner."})
 		record := contentreview.LearningRecord{SchemaVersion: 1, Name: name, Result: "passed", Context: f.Release.ReleaseIdentity, ExecutedAt: "2026-10-04T00:00:00Z", Steps: []contentreview.LearningStep{{Action: "Execute the exact technical scenario", Expected: "Observe the specified acceptance or refusal", Observed: "The expected behavior was observed in this fixture"}}, Attachments: []contentreview.FileRef{a}, AttestedBy: crFixtureReviewer, Attestation: f.Release.Attestation}
-		f.Input.LearningChecks = append(f.Input.LearningChecks, contentreview.LearningFile{name, crEvidenceSave(t, f.Root, "learning/"+name+".json", record)})
+		f.Input.LearningChecks = append(f.Input.LearningChecks, contentreview.LearningFile{Name: name, File: crEvidenceSave(t, f.Root, "learning/"+name+".json", record)})
 	}
 }
 func crMutateLearning(t *testing.T, f *crEvidenceFixtureData, index int, mutate func(*contentreview.LearningRecord)) {

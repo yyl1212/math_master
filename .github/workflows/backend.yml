@@ -43,7 +43,7 @@ jobs:
           process.exit(r.status!==0?1:r.stdout.trim()?1:0);'
           git diff --check
       - name: 验证入口与资料快照
-        run: node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs
+        run: node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs
       - name: Go 静态检查
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...
       - name: 内容与 HTTP 校验
@@ -66,6 +66,8 @@ jobs:
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^TestContentAudit' -skip '^TestContentAuditCapacity$' -timeout 5m -count=1
       - name: 首批只读最大合法内容与题库
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestContentAuditCapacity$' -timeout 5m -count=1 -v
+      - name: 全量复核准备与证据纯层
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -timeout 5m -count=1
       - name: 构建
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...
 
