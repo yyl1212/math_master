@@ -45,3 +45,19 @@ JSON 与中文 Markdown 使用相同结论和数量。报告只含安全数学�
 验收输入必须是普通文件；拒绝 FIFO、设备、目录及输入文件的符号链接。读取使用声明长度、前后文件身份/大小/修改时间检查和可取消读取；来源正文的 SHA 与条目解析使用同一份捕获字节，不在摘要核验后重新打开正文。原始 corpus 每文件独立上限64MiB，不能套用4MiB元数据上限；来源映射256KiB、元数据4MiB、安全SVG1MiB、报告8MiB及整条CLI8秒预算不变。未来超过64MiB的来源需要另设计流式导入，当前入口会返回预算失败。
 
 外部验收证据中的 decisionId 和八种 learningChecks 名称必须分别唯一；相同值或冲突值重复都会拒绝，未知检查名称也会拒绝。not_run 不能被后面的 passed 覆盖。发布态的模板必须存在至少一个准确模板身份下当前可用且计入有效池的实例；专属单元/素材退出当前head导致全部实例失效时，该模板不会撑高20模板门槛。来源、审核、正文与两head的原核验仍先于计数。
+
+
+## P6b 书面设计交接
+
+P6a PR #25 已于 2026-10-04 按确认合并，固定草稿与原归档仍保留。新增[P6b 独立复核、发布与正式验收方案](../superpowers/specs/2026-10-04-first-content-review-design.md)及兼容范围已获确认；[实施计划](../superpowers/plans/2026-10-04-first-content-review.md)及 Native 准备段十任务已获用户确认；本轮没有真实库初始化、权限授予、数学批准或发布操作。准备段计划提供受保护全量复核材料与证据文件校验，使用现有 DraftInput 和 AcceptanceEvidence；实际工作流的 fixed/frozen 摘要须在送审后核对，不能用离线文件摘要替代。
+
+正式八类证据须在发布/纠错稳定后绑定实际执行代码、准确路线和当前两 head。受控纠错仅在明确的非生产验收环境进行；永久撤回后的恢复使用新版本/新准确路线与重新批准，既有黑名单不解除。证据文件摘要复算、真实人员独立性核验和数据库只读事实三部分各有职责，缺少其中任一部分不得宣布 P6 正式验收完成。
+
+
+准备段按 Native 实施十任务/五十步骤，现已提供原始未检查复核包、现有六个 DraftInput 及离线文件验证；完整矩阵、整分支审查及准确最终 head 的远端 CI 是交付门槛。真实审阅另存最终登记并关联服务器送审信息。正式段 R1—R4 依赖真实人员和非生产环境落实，当前仍未执行。CI 可启动：已合并 master 的 Go/前端 push 均成功，文档 PR #26 旧 head 有一个既有容量准备查询超时；[诊断与一次本地复现](evidence/p6b-design/ci-diagnosis.md)保留事实，不称作已修复。
+
+## P6b 准备工具交接
+
+新入口为 `content-review prepare` 与 `content-review verify-evidence`，参数及私有文件契约见[操作手册](content-review.md)和[全量清单](../content/p6b-review-checklist.md)。固定快照实际烟测准备成功，输出 958 对象、205 来源、1163 登记；六导入实际字节/摘要见[技术烟测](evidence/p6b/preparation.json)。未落实真实复核及双 head 时返回 exit3/awaiting_review，没有生成 acceptance-evidence，正式数量为零。
+
+新增离线严格解码入口上限8MiB，HTTP 原 DecodeStrictJSON 4MiB 不变；原 CLI/schema、迁移、正常送审/审核/双 head、判分/曝光/资格和永久撤回不变。`manifest.files` 只摘要不可变材料/导入/图片/来源；原始与最终登记另绑定最终 manifest SHA，根文件记录分片 SHA，避免相互摘要循环。缺真实人员、出处许可、环境或实际八检查时，R1—R4 仍待执行，整体状态仍 awaiting_review。

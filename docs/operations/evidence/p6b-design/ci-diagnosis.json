@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-04T10:29:35.638087+00:00",
+  "designHead": "bea6f17047ecc968a1801f23eeba48a70051af37",
+  "master": "b78108d3dd363eae237dae59f76a7be774b9de85",
+  "masterCI": [
+    {
+      "runId": 37190264295,
+      "workflow": "Go",
+      "conclusion": "success"
+    },
+    {
+      "runId": 37190264336,
+      "workflow": "frontend",
+      "conclusion": "success"
+    }
+  ],
+  "designCI": [
+    {
+      "runId": 37190823622,
+      "event": "pull_request",
+      "workflow": "Go",
+      "jobs": [
+        {
+          "id": 111402432022,
+          "name": "verify",
+          "conclusion": "failure"
+        },
+        {
+          "id": 111402431899,
+          "name": "correction_verify",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 37190820415,
+      "event": "push",
+      "workflow": "Go",
+      "conclusion": "success"
+    },
+    {
+      "runId": 37190823620,
+      "event": "pull_request",
+      "workflow": "frontend",
+      "conclusion": "success"
+    },
+    {
+      "runId": 37190820435,
+      "event": "push",
+      "workflow": "frontend",
+      "conclusion": "success"
+    }
+  ],
+  "failure": {
+    "test": "TestLearningCapacitySourceVolume",
+    "phase": "fixture_1000_approval_proof_differential",
+    "setupDeadlineSeconds": 240,
+    "goTestDeadlineSeconds": 300,
+    "runtimeBudgetSeconds": 8,
+    "elapsedSeconds": 240.71,
+    "reason": "context deadline exceeded",
+    "log": "ci-failed.log",
+    "logSHA256": "d816e3923f8167d30e22942ebfbf05b85b4e3a97bf7cd768d2c7035763fb8a71",
+    "specificSlowQueryRootCause": "not_established",
+    "fixed": false
+  },
+  "comparisons": {
+    "sameHeadPushDifferentialSeconds": 12.74,
+    "masterDifferentialSeconds": 9.52,
+    "sameHeadPushTestSeconds": 170.0,
+    "masterTestSeconds": 130.97
+  },
+  "localReproduction": {
+    "codeSHA": "bea6f17047ecc968a1801f23eeba48a70051af37",
+    "command": "python3 /private/tmp/math-master-p6a-test.py node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestLearningCapacitySourceVolume$' -timeout 5m -count=1 -v",
+    "exitCode": 0,
+    "elapsedSeconds": 91.81,
+    "approvalProofDifferential": 1000,
+    "allEqual": true,
+    "allApproved": true,
+    "fixtureOnly": true,
+    "formalCounts": 0,
+    "originalLogSHA256": "7fe94117e98c3600440d53f2b8569b3cd8aae1a0768c124a3a37d150beded494",
+    "originalLogKeptPrivate": true,
+    "excerpt": "local-capacity-excerpt.log",
+    "excerptSHA256": "d76cd936c5bd83892d67ee5e621b727e4a7110aa2e656622e8abe73285f90439",
+    "interpretation": "failure not reproduced; this does not prove a fix"
+  },
+  "changes": {
+    "productCode": false,
+    "capacityReduced": false,
+    "deadlinesRelaxed": false,
+    "workflowChanged": false,
+    "actionsRerunRequested": false
+  }
+}

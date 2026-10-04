@@ -1,0 +1,25 @@
+[
+  {
+    "workflowCommand": "node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs",
+    "command": "node tools/verify/run.mjs -- node --test tools/verify/run.test.mjs tools/verify/learning-compatibility.test.mjs tools/verify/feedback-compatibility.test.mjs tools/verify/correction-compatibility.test.mjs tools/verify/feedback-ci.test.mjs tools/verify/correction-ci.test.mjs tools/content-ingest/snapshot.test.mjs tools/content-ingest/source-index.test.mjs tools/content-ingest/source-report.test.mjs tools/verify/content-acceptance.test.mjs tools/verify/content-acceptance-ci.test.mjs tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs",
+    "exit": 0,
+    "seconds": 5.73,
+    "startedAt": "2026-10-04T12:16:39.090145+00:00",
+    "finishedAt": "2026-10-04T12:16:44.820003+00:00",
+    "log": "logs/matrix-node-01.log.gz",
+    "codeHead": "5e723077605aeb57e0f841aefccda27587e6977f",
+    "sourceSetSHA256": "098fccafb3fee1667efa1bcb0bf1a0b386e1ef028ee6a2ead5c0736f6b1f5aeb",
+    "fixtureOnly": true,
+    "counts": {
+      "tests": 81,
+      "pass": 81,
+      "fail": 0,
+      "skipped": 0
+    },
+    "logCompression": "gzip",
+    "originalLogSHA256": "ff3071816c7a6f1652469802343b1b8c93728e4a910a4c953479ef759a471a19",
+    "storedUncompressedSHA256": "ff3071816c7a6f1652469802343b1b8c93728e4a910a4c953479ef759a471a19",
+    "storedSHA256": "eab3bc7ddd910698ad1be61d9cf50956ec88003deab782cc81fc6249645326f4",
+    "redactions": []
+  }
+]

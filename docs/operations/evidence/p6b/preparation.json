@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "codeSHA": "a6df3d7424766ea29a758fa3c126d3507d8b1cbc",
+  "startedAt": "2026-10-04T12:08:10.564783+00:00",
+  "finishedAt": "2026-10-04T12:08:11.864560+00:00",
+  "fixtureOnly": true,
+  "formalCounts": {
+    "knowledge": 0,
+    "templates": 0,
+    "effectiveInstances": 0
+  },
+  "overallConclusion": "awaiting_review",
+  "prepareExit": 0,
+  "verifyExit": 3,
+  "manifestSHA256": "822fa231b6d5701183ff2f99db82e175538cc2e351cd3ea0407285bb102acf20",
+  "snapshotId": "eebca0e9f8cbe8ce9afbed5f1f872f382f54e42b8004fcb57d23d05b99ff879a",
+  "sourceReportSHA256": "7bd7c12118b915bc0a0ae4398b8018f1ba76e305736703a0617802677c7874ad",
+  "sourceMapSHA256": "26da1e09d9249d7642e6cd26d3ee4014304184acf53569ef24702cdda20d64b0",
+  "counts": {
+    "objects": 958,
+    "derivedInstances": 384,
+    "sources": 205,
+    "mappings": 64,
+    "proofs": 5,
+    "registerRows": 1163
+  },
+  "imports": [
+    {
+      "path": "imports/knowledge.json",
+      "bytes": 151575,
+      "sha256": "3e276a38758f6a9c3bbbd9616e4a0f4a3bc68bb6d65d9691afaa7505f522fba0"
+    },
+    {
+      "path": "imports/questions/elementary-foundations-decimals.json",
+      "bytes": 80457,
+      "sha256": "a29c18f8536da65d486b55df8cd64dcde6a476b1d87a18ff7877ac3aa8ff5aca"
+    },
+    {
+      "path": "imports/questions/elementary-foundations-fractions.json",
+      "bytes": 174211,
+      "sha256": "d6c95f93e1f0ec78d894241dd685cc93c710a9841b77e1c19e60d35d2788d093"
+    },
+    {
+      "path": "imports/questions/elementary-foundations-numbers.json",
+      "bytes": 105008,
+      "sha256": "73d98bf367a18015d2a3ea966f1c3252c5bc989ca7898e15e365250d43adf7f5"
+    },
+    {
+      "path": "imports/questions/elementary-foundations-operations.json",
+      "bytes": 170705,
+      "sha256": "f2cf1384b1bf0c3570a676739aa3704859b33a06050f79e5b847fd9ad9c7bf86"
+    },
+    {
+      "path": "imports/questions/elementary-foundations-ratios.json",
+      "bytes": 40473,
+      "sha256": "69e849020df1a38248d3326612b6c85fa462d92d03e9fb72f015ece244d9219f"
+    }
+  ],
+  "acceptanceEvidenceCreated": false,
+  "r1_r4": "not_executed"
+}

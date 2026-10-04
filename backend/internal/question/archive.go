@@ -15,6 +15,10 @@ func DecodeStrictJSON(r io.Reader, limit int, out any) error {
 	if limit < 1 || limit > MaxEnvelopeBytes {
 		return ErrInvalid
 	}
+	return decodeStrictJSON(r, limit, out)
+}
+
+func decodeStrictJSON(r io.Reader, limit int, out any) error {
 	raw, err := readJSON(r, limit)
 	if err != nil {
 		return err
@@ -193,4 +197,40 @@ func ValidateArchive(ctx context.Context, a Archive, refs ReferenceSnapshot) (Se
 		return empty, report, ErrInvalid
 	}
 	return sealed, report, nil
+}
+
+// DecodeOperationalJSON is reserved for bounded private offline evidence; HTTP envelopes retain DecodeStrictJSON.
+func DecodeOperationalJSON(r io.Reader, limit int, out any) error {
+	if limit < 1 || limit > 8<<20 {
+		return ErrInvalid
+	}
+	if err := decodeStrictJSON(r, limit, out); err != nil {
+		return err
+	}
+	if !operationalIntegers(reflect.ValueOf(out)) {
+		return ErrInvalid
+	}
+	return nil
+}
+
+func operationalIntegers(v reflect.Value) bool {
+	switch v.Kind() {
+	case reflect.Pointer:
+		return v.IsNil() || operationalIntegers(v.Elem())
+	case reflect.Struct:
+		for i := 0; i < v.NumField(); i++ {
+			if !operationalIntegers(v.Field(i)) {
+				return false
+			}
+		}
+	case reflect.Slice:
+		for i := 0; i < v.Len(); i++ {
+			if !operationalIntegers(v.Index(i)) {
+				return false
+			}
+		}
+	case reflect.Int, reflect.Int32, reflect.Int64:
+		return v.Int() >= -2147483648 && v.Int() <= 2147483647
+	}
+	return true
 }

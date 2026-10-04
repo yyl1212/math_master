@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "phase": "P6b",
+  "overallConclusion": "awaiting_review",
+  "fixtureOnly": true,
+  "formalCounts": {
+    "knowledge": 0,
+    "templates": 0,
+    "effectiveInstances": 0
+  },
+  "r1_r4": [
+    {
+      "task": "R1",
+      "status": "not_executed"
+    },
+    {
+      "task": "R2",
+      "status": "not_executed"
+    },
+    {
+      "task": "R3",
+      "status": "not_executed"
+    },
+    {
+      "task": "R4",
+      "status": "not_executed"
+    }
+  ],
+  "preparation": {
+    "implementation": "complete",
+    "fullRegression": "passed",
+    "wholeBranchReview": "completed_findings_resolved_by_executor",
+    "exactFinalHeadCI": {
+      "recordedHead": "0f8aa1ab72c857a800a4da44328f4cd4824fe6b1",
+      "recordedStatus": "success",
+      "workflowRuns": 4,
+      "jobs": 6,
+      "evidenceFile": "ci-product-head.json",
+      "archiveHeadHandoffCondition": "归档提交后，再以PR最新完整head的四workflow/六job全部success作为交付门槛；实际新SHA与运行链接保存到动态PR说明及交接答复，不将旧检查改标签为新head。"
+    },
+    "postReviewRegression": "passed",
+    "reviewFixes": "two_important_resolved_one_pass",
+    "nativeTask10": "complete",
+    "draftPR": "https://github.com/yyl1212/math_master/pull/27"
+  },
+  "remaining": [
+    "真实负责人及非生产环境用途和操作范围",
+    "真实独立自然人全量数学与出处许可复核",
+    "正常工作流批准、双 head 发布和知情纠错演练",
+    "最终八类实际文件与一致只读 accepted"
+  ],
+  "productionDeployment": "not_executed"
+}
