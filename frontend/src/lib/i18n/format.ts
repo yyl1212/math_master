@@ -3,7 +3,7 @@ import {zhMessages} from "./messages/zh-CN";
 import {errorMessageKey} from "./errors";
 import type {UiLocale} from "./config";
 import type {MessageKey,MessageValues,UiMessage,UiNotice} from "./types";
-export function uiMessage<K extends MessageKey>(key:K,values:MessageValues<K>):UiMessage {return {kind:"system",key,values} as UiMessage;}
+export function uiMessage<K extends MessageKey>(key:K,values:MessageValues<K>):UiMessage {return {kind:"system",key,values} as unknown as UiMessage;}
 export function formatUiNotice(locale:UiLocale,notice:UiNotice):string {
  if(notice.kind==="literal")return notice.text;
  const key=notice.kind==="error"?errorMessageKey(notice.namespace,notice.code):notice.key;

@@ -1,0 +1,10 @@
+import {it,expect,vi} from "vitest";import {render,screen,fireEvent} from "@testing-library/react";
+vi.mock("next/navigation",()=>({useRouter:()=>({push:vi.fn(),refresh:vi.fn()})}));vi.mock("@/lib/learning/client",()=>({requestLearning:vi.fn(),bindLearningInput:vi.fn()}));
+import {AssessmentPanel} from "@/features/assessment/assessment-panel";import {LearningStatus} from "@/features/learning/learning-status";import {attempt,state,LearningTestAccount} from "@/lib/learning/test-fixtures";import {requestLearning} from "@/lib/learning/client";
+import {UiLocaleProvider} from "./provider";import {LanguageSwitch} from "@/components/language-switch";
+it("answer-entry-and-active-attempt-survive-language-toggle",()=>{
+ const view=attempt();view.questions[1]={...view.questions[1],type:"single_choice",answerFormat:null,choices:[{id:"original-choice",text:"Save draft"}]};const before=JSON.stringify(view);render(<UiLocaleProvider initialLocale="en"><LanguageSwitch/><LearningTestAccount><AssessmentPanel view={view}/></LearningTestAccount></UiLocaleProvider>);const input=screen.getByLabelText("Answer for question 1"),choice=screen.getByLabelText("Save draft");fireEvent.change(input,{target:{value:"1/2"}});fireEvent.click(choice);fireEvent.click(screen.getByRole("button",{name:"中文"}));expect(screen.getByLabelText("第 1 题答案")).toBe(input);expect(input).toHaveValue("1/2");expect(choice).toBeChecked();expect(choice).toHaveAttribute("value","original-choice");expect(screen.getByRole("button",{name:"提交五题答案"})).toBeVisible();expect(requestLearning).not.toHaveBeenCalled();expect(JSON.stringify(view)).toBe(before);
+});
+it("progress-status-localizes-with-unchanged-qualification",()=>{
+ const s=state({state:"mastered",everUnlocked:true,canEnter:true}),before=JSON.stringify(s);render(<UiLocaleProvider initialLocale="en"><LanguageSwitch/><LearningStatus state={s}/></UiLocaleProvider>);fireEvent.click(screen.getByRole("button",{name:"中文"}));expect(screen.getByText("已掌握",{exact:true})).toBeVisible();expect(screen.getByText("已解锁",{exact:true})).toBeVisible();expect(JSON.stringify(s)).toBe(before);
+});

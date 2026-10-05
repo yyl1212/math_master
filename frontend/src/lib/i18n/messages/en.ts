@@ -3778,5 +3778,787 @@ export const enMessages = {
   "question.check.objectives": {
     "text": "Objectives",
     "params": []
+  },
+  "history-list.no.personal.learning.records.yet.b85eae": {
+    "text": "No personal learning records yet.",
+    "params": []
+  },
+  "history-list.version.value.value.value.ea7ec3": {
+    "text": "Version {v0} · {v1} · {v2}",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "history-list.value.utc.c16e72": {
+    "text": "{v0} UTC",
+    "params": [
+      "v0"
+    ]
+  },
+  "history-list.view.attempt.b17a6b": {
+    "text": "View attempt",
+    "params": []
+  },
+  "history-list.view.learning.record.95f5a9": {
+    "text": "View learning record",
+    "params": []
+  },
+  "history-list.history.pages.714bf6": {
+    "text": "History pages",
+    "params": []
+  },
+  "attempt-asset.question.illustration.b088b7": {
+    "text": "Question illustration",
+    "params": []
+  },
+  "path-progress.fixed.route.progress.367920": {
+    "text": "Fixed route progress",
+    "params": []
+  },
+  "path-progress.saved.route.version.value.555a99": {
+    "text": "Saved route · Version {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "path-progress.value.value.read.8ae4d9": {
+    "text": "{v0} / {v1} read",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "path-progress.value.value.passed.bb2e62": {
+    "text": "{v0} / {v1} passed",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "path-progress.value.value.historically.unlocked.abdc56": {
+    "text": "{v0} / {v1} historically unlocked",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "path-progress.new.route.version.available.67ae0e": {
+    "text": "New route version available",
+    "params": []
+  },
+  "path-progress.your.saved.version.is.unchanged.b5be92": {
+    "text": "Your saved version is unchanged. ",
+    "params": []
+  },
+  "path-progress.explore.the.current.route.eec21f": {
+    "text": "Explore the current route",
+    "params": []
+  },
+  "path-progress.saved.evidence.needs.a.current.review.8dbbf3": {
+    "text": "Saved evidence needs a current review.",
+    "params": []
+  },
+  "path-progress.view.saved.learning.record.3badde": {
+    "text": "View saved learning record",
+    "params": []
+  },
+  "path-progress.join.learning.route.d8d3be": {
+    "text": "Join learning route",
+    "params": []
+  },
+  "path-progress.keep.your.route.progress.a80a0c": {
+    "text": "Keep your route progress",
+    "params": []
+  },
+  "path-progress.save.this.route.version.with.value.knowledge.points.reading.it.do.96b512": {
+    "text": "Save this route version with {v0} knowledge points. Reading it does not join it.",
+    "params": [
+      "v0"
+    ]
+  },
+  "path-progress.join.route.5560fe": {
+    "text": "Join route",
+    "params": []
+  },
+  "overview-panel.learning.overview.f9c4ad": {
+    "text": "Learning overview",
+    "params": []
+  },
+  "overview-panel.your.progress.433a72": {
+    "text": "Your progress",
+    "params": []
+  },
+  "overview-panel.value.read.0fdd28": {
+    "text": "{v0} read",
+    "params": [
+      "v0"
+    ]
+  },
+  "overview-panel.value.passed.70be87": {
+    "text": "{v0} passed",
+    "params": [
+      "v0"
+    ]
+  },
+  "overview-panel.value.historically.unlocked.16f06c": {
+    "text": "{v0} historically unlocked",
+    "params": [
+      "v0"
+    ]
+  },
+  "overview-panel.value.knowledge.points.started.79dd20": {
+    "text": "{v0} knowledge points started",
+    "params": [
+      "v0"
+    ]
+  },
+  "overview-panel.reviewed.learning.content.will.appear.as.it.becomes.available.fdce83": {
+    "text": "Reviewed learning content will appear as it becomes available.",
+    "params": []
+  },
+  "overview-panel.continue.value.5d2b50": {
+    "text": "Continue {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "overview-panel.view.all.learning.history.7a7600": {
+    "text": "View all learning history",
+    "params": []
+  },
+  "overview-panel.learning.routes.13f0bd": {
+    "text": "Learning routes",
+    "params": []
+  },
+  "overview-panel.knowledge.points.4c5586": {
+    "text": " knowledge points",
+    "params": []
+  },
+  "overview-panel.no.reviewed.routes.are.available.yet.f42dab": {
+    "text": "No reviewed routes are available yet.",
+    "params": []
+  },
+  "knowledge-controls.personal.knowledge.record.ac5aa8": {
+    "text": "Personal knowledge record",
+    "params": []
+  },
+  "knowledge-controls.historical.learning.record.1cce1f": {
+    "text": "Historical learning record",
+    "params": []
+  },
+  "knowledge-controls.your.learning.record.0e3a28": {
+    "text": "Your learning record",
+    "params": []
+  },
+  "knowledge-controls.this.is.a.saved.version.8b4989": {
+    "text": "This is a saved version. ",
+    "params": []
+  },
+  "knowledge-controls.review.the.current.explanation.8c3a53": {
+    "text": "Review the current explanation",
+    "params": []
+  },
+  "knowledge-controls.read.freely.your.learning.record.changes.when.you.choose.an.actio.8d30c1": {
+    "text": "Read freely. Your learning record changes when you choose an action below.",
+    "params": []
+  },
+  "knowledge-controls.start.learning.ac1796": {
+    "text": "Start learning",
+    "params": []
+  },
+  "knowledge-controls.mark.as.learned.0636c7": {
+    "text": "Mark as learned",
+    "params": []
+  },
+  "knowledge-controls.reading.completion.recorded.f65e0d": {
+    "text": "Reading completion recorded.",
+    "params": []
+  },
+  "knowledge-controls.work.through.the.prerequisites.or.use.a.diagnostic.assessment.to..f48ccf": {
+    "text": "Work through the prerequisites, or use a diagnostic assessment to check your understanding.",
+    "params": []
+  },
+  "knowledge-controls.ready.5fa7aa": {
+    "text": "Ready",
+    "params": []
+  },
+  "knowledge-controls.needs.assessment.ca948f": {
+    "text": "Needs assessment",
+    "params": []
+  },
+  "knowledge-controls.view.learning.history.31b66d": {
+    "text": "View learning history",
+    "params": []
+  },
+  "knowledge-controls.practice.and.assessment.24449e": {
+    "text": "Practice and assessment",
+    "params": []
+  },
+  "knowledge-controls.build.understanding.d3f7f9": {
+    "text": "Build understanding",
+    "params": []
+  },
+  "knowledge-controls.start.single.question.practice.5312a9": {
+    "text": "Start single-question practice",
+    "params": []
+  },
+  "knowledge-controls.check.your.understanding.b15e3d": {
+    "text": "Check your understanding",
+    "params": []
+  },
+  "knowledge-controls.continue.current.assessment.38cce9": {
+    "text": "Continue current assessment",
+    "params": []
+  },
+  "knowledge-controls.a.reviewed.five.question.assessment.is.not.available.for.this.kno.efc816": {
+    "text": "A reviewed five-question assessment is not available for this knowledge point yet. You can still practise.",
+    "params": []
+  },
+  "knowledge-controls.assessment.goals.bc235e": {
+    "text": "Assessment goals",
+    "params": []
+  },
+  "knowledge-controls.set.value.value.31aca9": {
+    "text": "Set {v0}: {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "knowledge-controls.assessment.mode.87c89f": {
+    "text": "Assessment mode",
+    "params": []
+  },
+  "knowledge-controls.learning.check.3fa22f": {
+    "text": "Learning check",
+    "params": []
+  },
+  "knowledge-controls.diagnostic.assessment.856c34": {
+    "text": "Diagnostic assessment",
+    "params": []
+  },
+  "knowledge-controls.review.assessment.77cf32": {
+    "text": "Review assessment",
+    "params": []
+  },
+  "knowledge-controls.five.eligible.questions.are.not.available.92f917": {
+    "text": "Five eligible questions are not available. ",
+    "params": []
+  },
+  "knowledge-controls.saved.grading.evidence.is.awaiting.independent.correction.review.464d20": {
+    "text": "Saved grading evidence is awaiting independent correction review.",
+    "params": []
+  },
+  "knowledge-controls.previously.viewed.answers.need.time.before.they.can.be.used.in.an.5f58dc": {
+    "text": "Previously viewed answers need time before they can be used in an assessment.",
+    "params": []
+  },
+  "knowledge-controls.additional.reviewed.questions.are.needed.for.these.goals.b62d13": {
+    "text": "Additional reviewed questions are needed for these goals.",
+    "params": []
+  },
+  "knowledge-controls.try.after.95e48e": {
+    "text": " Try after ",
+    "params": []
+  },
+  "knowledge-controls.start.five.question.assessment.09a806": {
+    "text": "Start five-question assessment",
+    "params": []
+  },
+  "learning-status.unavailable.ca1844": {
+    "text": "Unavailable",
+    "params": []
+  },
+  "learning-status.unlocked.531c7b": {
+    "text": "Unlocked",
+    "params": []
+  },
+  "learning-status.locked.a424e3": {
+    "text": "Locked",
+    "params": []
+  },
+  "learning-status.previously.unlocked.ecd216": {
+    "text": "Previously unlocked",
+    "params": []
+  },
+  "learning-status.sign.in.to.keep.your.learning.records.c763b1": {
+    "text": "Sign in to keep your learning records",
+    "params": []
+  },
+  "learning-status.learning.records.are.not.available.yet.d0dd91": {
+    "text": "Learning records are not available yet",
+    "params": []
+  },
+  "learning-status.learning.is.temporarily.unavailable.5d2180": {
+    "text": "Learning is temporarily unavailable",
+    "params": []
+  },
+  "learning-status.checking.your.learning.account.3df2f8": {
+    "text": "Checking your learning account…",
+    "params": []
+  },
+  "learning-status.saving.23e392": {
+    "text": "Saving…",
+    "params": []
+  },
+  "learning-status.no.confirmation.received.you.can.retry.the.same.request.e68eb0": {
+    "text": "No confirmation received. You can retry the same request.",
+    "params": []
+  },
+  "learning-status.use.the.format.shown.beside.the.question.949e24": {
+    "text": "Use the format shown beside the question.",
+    "params": []
+  },
+  "learning-status.try.after.value.ea24ae": {
+    "text": "Try after {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "learning-status.continue.current.attempt.9545db": {
+    "text": "Continue current attempt",
+    "params": []
+  },
+  "learning-status.retry.same.request.16003a": {
+    "text": "Retry same request",
+    "params": []
+  },
+  "knowledge-list.knowledge.learning.states.57e222": {
+    "text": "Knowledge learning states",
+    "params": []
+  },
+  "knowledge-list.your.knowledge.map.cbbacd": {
+    "text": "Your knowledge map",
+    "params": []
+  },
+  "knowledge-list.review.learning.record.de4302": {
+    "text": "Review learning record",
+    "params": []
+  },
+  "knowledge-list.no.reviewed.knowledge.points.are.available.yet.3cee4b": {
+    "text": "No reviewed knowledge points are available yet.",
+    "params": []
+  },
+  "knowledge-list.knowledge.pages.10ab02": {
+    "text": "Knowledge pages",
+    "params": []
+  },
+  "knowledge-list.previous.knowledge.points.4419a5": {
+    "text": "Previous knowledge points",
+    "params": []
+  },
+  "knowledge-list.next.knowledge.points.da8759": {
+    "text": "Next knowledge points",
+    "params": []
+  },
+  "knowledge-list.explore.your.full.learning.map.d9ec05": {
+    "text": "Explore your full learning map",
+    "params": []
+  },
+  "practice-panel.single.question.practice.7f9c5a": {
+    "text": "Single-question practice",
+    "params": []
+  },
+  "practice-panel.practice.supports.understanding.it.does.not.grant.assessment.qual.9691a0": {
+    "text": "Practice supports understanding. It does not grant assessment qualification.",
+    "params": []
+  },
+  "practice-panel.expires.at.2e4e2e": {
+    "text": "Expires at ",
+    "params": []
+  },
+  "practice-panel.submit.answer.b896ad": {
+    "text": "Submit answer",
+    "params": []
+  },
+  "practice-panel.reveal.answer.848e09": {
+    "text": "Reveal answer",
+    "params": []
+  },
+  "practice-panel.abandon.practice.8b007f": {
+    "text": "Abandon practice",
+    "params": []
+  },
+  "practice-panel.reveal.answer.ends.this.practice.immediately.c91381": {
+    "text": "Reveal answer ends this practice immediately.",
+    "params": []
+  },
+  "practice-panel.practice.ended.answer.revealed.3e12d9": {
+    "text": "Practice ended: answer revealed.",
+    "params": []
+  },
+  "practice-panel.review.the.lesson.or.start.another.practice.70e26d": {
+    "text": "Review the lesson or start another practice",
+    "params": []
+  },
+  "result-panel.question.value.016509": {
+    "text": "Question {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "result-panel.answer.and.explanation.are.unavailable.because.the.saved.source.w.9cb9a8": {
+    "text": "Answer and explanation are unavailable because the saved source was withdrawn.",
+    "params": []
+  },
+  "result-panel.your.answer.value.3bb7a4": {
+    "text": "Your answer: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "result-panel.correct.aca01a": {
+    "text": "Correct",
+    "params": []
+  },
+  "result-panel.incorrect.a8a57d": {
+    "text": "Incorrect",
+    "params": []
+  },
+  "result-panel.correct.answer.valuevalue.25351e": {
+    "text": "Correct answer: {v0}{v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "result-panel.correct.answer.value.5463b6": {
+    "text": "Correct answer: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "result-panel.saved.evidence.value.review.the.current.lesson.before.another.ass.c0db55": {
+    "text": "Saved evidence: {v0}. Review the current lesson before another assessment.",
+    "params": [
+      "v0"
+    ]
+  },
+  "result-panel.assessment.affected.1237e8": {
+    "text": "Assessment affected",
+    "params": []
+  },
+  "result-panel.this.assessment.could.not.be.graded.reliably.start.a.fresh.assess.b8d898": {
+    "text": "This assessment could not be graded reliably. Start a fresh assessment when eligible questions are available.",
+    "params": []
+  },
+  "result-panel.passed.436fe7": {
+    "text": "Passed",
+    "params": []
+  },
+  "result-panel.failed.031a8f": {
+    "text": "Failed",
+    "params": []
+  },
+  "result-panel.four.correct.answers.out.of.five.are.required.to.pass.7d4df2": {
+    "text": "Four correct answers out of five are required to pass.",
+    "params": []
+  },
+  "result-panel.saved.result.needs.review.e535eb": {
+    "text": "Saved result needs review",
+    "params": []
+  },
+  "result-panel.the.original.score.is.preserved.this.saved.evidence.may.no.longer.a42a52": {
+    "text": "The original score is preserved. This saved evidence may no longer qualify for current learning progress.",
+    "params": []
+  },
+  "result-panel.historical.unlocks.remain.in.your.learning.record.including.after.ba32e5": {
+    "text": "Historical unlocks remain in your learning record, including after an unsuccessful review.",
+    "params": []
+  },
+  "result-panel.knowledge.qualification.recorded.03cba2": {
+    "text": "Knowledge qualification recorded.",
+    "params": []
+  },
+  "result-panel.unlocked.when.submitted.d7ae9a": {
+    "text": " · Unlocked when submitted",
+    "params": []
+  },
+  "result-panel.review.the.current.lesson.85bd8a": {
+    "text": "Review the current lesson",
+    "params": []
+  },
+  "result-panel.return.to.my.learning.a18bde": {
+    "text": "Return to my learning",
+    "params": []
+  },
+  "answer-fields.answer.for.question.value.273662": {
+    "text": "Answer for question {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "answer-fields.value.at.most.128.characters.your.spelling.is.preserved.4b1382": {
+    "text": "{v0} At most 128 characters. Your spelling is preserved.",
+    "params": [
+      "v0"
+    ]
+  },
+  "assessment-panel.five.question.assessment.96921d": {
+    "text": "Five-question assessment",
+    "params": []
+  },
+  "assessment-panel.this.assessment.is.value.abee64": {
+    "text": "This assessment is {v0}.",
+    "params": [
+      "v0"
+    ]
+  },
+  "assessment-panel.view.result.fdb7ea": {
+    "text": "View result",
+    "params": []
+  },
+  "assessment-panel.return.to.the.lesson.e2abbd": {
+    "text": "Return to the lesson",
+    "params": []
+  },
+  "assessment-panel.submit.all.five.answers.together.select.skip.for.any.question.you.0824a1": {
+    "text": "Submit all five answers together. Select Skip for any question you leave unanswered. Refreshing clears unsent answers; the attempt remains available.",
+    "params": []
+  },
+  "assessment-panel.skip.question.946648": {
+    "text": "Skip question ",
+    "params": []
+  },
+  "assessment-panel.submit.five.answers.e8b79c": {
+    "text": "Submit five answers",
+    "params": []
+  },
+  "assessment-panel.abandon.assessment.d4090a": {
+    "text": "Abandon assessment",
+    "params": []
+  },
+  "assessment-panel.result.not.confirmed.a5d341": {
+    "text": "Result not confirmed",
+    "params": []
+  },
+  "learning.error.LEARNING_NOT_CONFIGURED": {
+    "text": "Learning is temporarily unavailable.",
+    "params": []
+  },
+  "learning.error.LEARNING_VERSION_STALE": {
+    "text": "Published learning content changed. Reload before continuing.",
+    "params": []
+  },
+  "learning.error.LEARNING_PREREQUISITES_UNMET": {
+    "text": "Complete the prerequisites or take a diagnostic assessment.",
+    "params": []
+  },
+  "learning.error.ASSESSMENT_NOT_READY": {
+    "text": "Five eligible questions are not available yet.",
+    "params": []
+  },
+  "learning.error.ASSESSMENT_ACTIVE": {
+    "text": "Continue or abandon the existing attempt.",
+    "params": []
+  },
+  "learning.error.ASSESSMENT_EXPIRED": {
+    "text": "This attempt has expired.",
+    "params": []
+  },
+  "learning.error.ASSESSMENT_STATE_CONFLICT": {
+    "text": "This attempt cannot accept the action.",
+    "params": []
+  },
+  "learning.error.ANSWER_FORMAT_INVALID": {
+    "text": "Check the requested answer format.",
+    "params": []
+  },
+  "learning.error.INVALID_REQUEST": {
+    "text": "Invalid request.",
+    "params": []
+  },
+  "learning.error.INVALID_COOKIE": {
+    "text": "Invalid sign-in cookie.",
+    "params": []
+  },
+  "learning.error.INVALID_CREDENTIALS": {
+    "text": "Invalid username or password.",
+    "params": []
+  },
+  "learning.error.AUTHENTICATION_REQUIRED": {
+    "text": "Please sign in to continue.",
+    "params": []
+  },
+  "learning.error.CSRF_FAILED": {
+    "text": "Request verification failed.",
+    "params": []
+  },
+  "learning.error.FORBIDDEN": {
+    "text": "You do not have permission.",
+    "params": []
+  },
+  "learning.error.PASSWORD_CHANGE_REQUIRED": {
+    "text": "Change your password to continue.",
+    "params": []
+  },
+  "learning.error.NOT_FOUND": {
+    "text": "Resource not found.",
+    "params": []
+  },
+  "learning.error.METHOD_NOT_ALLOWED": {
+    "text": "Method not allowed.",
+    "params": []
+  },
+  "learning.error.IDEMPOTENCY_CONFLICT": {
+    "text": "This request key was used for different input.",
+    "params": []
+  },
+  "learning.error.PAYLOAD_TOO_LARGE": {
+    "text": "This request exceeds the size limit.",
+    "params": []
+  },
+  "learning.error.RATE_LIMITED": {
+    "text": "Too many requests. Try again later.",
+    "params": []
+  },
+  "learning.error.SERVICE_UNAVAILABLE": {
+    "text": "Service temporarily unavailable.",
+    "params": []
+  },
+  "learning.error.AUTH_NOT_CONFIGURED": {
+    "text": "Accounts are temporarily unavailable.",
+    "params": []
+  },
+  "learning.error.USERNAME_UNAVAILABLE": {
+    "text": "This username is unavailable.",
+    "params": []
+  },
+  "learning.error.ALREADY_AUTHENTICATED": {
+    "text": "Sign out before using another account.",
+    "params": []
+  },
+  "learning.error.LAST_ADMIN_REQUIRED": {
+    "text": "At least one administrator is required.",
+    "params": []
+  },
+  "learning.error.REAUTHENTICATION_REQUIRED": {
+    "text": "Verify your password before continuing.",
+    "params": []
+  },
+  "learning.state.unlearned": {
+    "text": "Unlearned",
+    "params": []
+  },
+  "learning.state.learning": {
+    "text": "Learning",
+    "params": []
+  },
+  "learning.state.learned": {
+    "text": "Learned",
+    "params": []
+  },
+  "learning.state.needs-review": {
+    "text": "Needs review",
+    "params": []
+  },
+  "learning.state.mastered": {
+    "text": "Mastered",
+    "params": []
+  },
+  "learning.format.INVALID_SYNTAX": {
+    "text": "INVALID_SYNTAX",
+    "params": []
+  },
+  "learning.format.INPUT_TOO_LONG": {
+    "text": "INPUT_TOO_LONG",
+    "params": []
+  },
+  "learning.format.ZERO_DENOMINATOR": {
+    "text": "ZERO_DENOMINATOR",
+    "params": []
+  },
+  "learning.format.PERCENT_REQUIRED": {
+    "text": "PERCENT_REQUIRED",
+    "params": []
+  },
+  "learning.format.RESULT_TOO_LARGE": {
+    "text": "RESULT_TOO_LARGE",
+    "params": []
+  },
+  "learning.format.INVALID_MODE": {
+    "text": "INVALID_MODE",
+    "params": []
+  },
+  "learning.answer.percentage": {
+    "text": "Use a percentage with %, such as 50%.",
+    "params": []
+  },
+  "learning.answer.number": {
+    "text": "Use an integer, decimal, or fraction, such as 2, 0.5, or 1/2.",
+    "params": []
+  },
+  "page.invalid.learning.parameters.29cb84": {
+    "text": "Invalid learning parameters.",
+    "params": []
+  },
+  "page.reset.learning.view.061672": {
+    "text": "Reset learning view",
+    "params": []
+  },
+  "page.previous.nodes.44fb9e": {
+    "text": "Previous nodes",
+    "params": []
+  },
+  "page.next.nodes.dbf84b": {
+    "text": "Next nodes",
+    "params": []
+  },
+  "page.back.to.my.learning.e67643": {
+    "text": "Back to my learning",
+    "params": []
+  },
+  "page.your.saved.routes.57bbd0": {
+    "text": "Your saved routes",
+    "params": []
+  },
+  "page.value.saved.version.value.04f7f0": {
+    "text": "{v0} · Saved version {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "page.choose.a.reviewed.route.then.select.join.route.to.save.your.progr.8cbbe5": {
+    "text": "Choose a reviewed route, then select Join route to save your progress.",
+    "params": []
+  },
+  "page.previous.routes.eb58cc": {
+    "text": "Previous routes",
+    "params": []
+  },
+  "page.next.routes.e5621d": {
+    "text": "Next routes",
+    "params": []
+  },
+  "page.one.idea.at.a.time.070016": {
+    "text": "ONE IDEA AT A TIME",
+    "params": []
+  },
+  "page.see.what.you.have.read.assessed.and.unlocked.fe8551": {
+    "text": "See what you have read, assessed, and unlocked.",
+    "params": []
+  },
+  "page.invalid.history.parameters.7f8f9a": {
+    "text": "Invalid history parameters.",
+    "params": []
+  },
+  "page.reset.history.view.bc760c": {
+    "text": "Reset history view",
+    "params": []
+  },
+  "page.your.saved.versions.and.assessment.records.85765b": {
+    "text": "Your saved versions and assessment records.",
+    "params": []
+  },
+  "learning.page.routePages": {
+    "text": "Route node pages",
+    "params": []
+  },
+  "learning.page.savedPages": {
+    "text": "Saved route pages",
+    "params": []
   }
 } as const;

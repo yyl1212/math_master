@@ -91,5 +91,20 @@ export const enumKeys={
     "template": "question.enum.template",
     "instance": "question.enum.instance",
     "blueprint": "question.enum.blueprint"
+  },
+  "learning.state": {
+    "unlearned": "learning.state.unlearned",
+    "learning": "learning.state.learning",
+    "learned": "learning.state.learned",
+    "needs-review": "learning.state.needs-review",
+    "mastered": "learning.state.mastered"
+  },
+  "learning.format": {
+    "INVALID_SYNTAX": "learning.format.INVALID_SYNTAX",
+    "INPUT_TOO_LONG": "learning.format.INPUT_TOO_LONG",
+    "ZERO_DENOMINATOR": "learning.format.ZERO_DENOMINATOR",
+    "PERCENT_REQUIRED": "learning.format.PERCENT_REQUIRED",
+    "RESULT_TOO_LARGE": "learning.format.RESULT_TOO_LARGE",
+    "INVALID_MODE": "learning.format.INVALID_MODE"
   }
 } satisfies Record<string,Record<string,StaticMessageKey>>;
