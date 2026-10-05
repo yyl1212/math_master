@@ -1,0 +1,11 @@
+[Unit]
+Description=Math Master daily preview backup
+
+[Timer]
+OnCalendar=*-*-* 02:00:00 Asia/Shanghai
+Persistent=true
+AccuracySec=1m
+Unit=math-master-backup.service
+
+[Install]
+WantedBy=timers.target

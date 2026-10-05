@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-05",
+  "stage": "implementation_plan_self_review",
+  "spec": "docs/superpowers/specs/2026-10-05-server-preview-design.md",
+  "plan": "docs/superpowers/plans/2026-10-05-server-preview.md",
+  "baselineCommit": "9f71cf4f2b29c5101cc87a4511c0b32d786ddeb0",
+  "specApprovedByUser": true,
+  "compatibilityScopeApprovedByUser": true,
+  "executionMethod": "Native",
+  "planStatus": "approved_by_user",
+  "implementationStarted": true,
+  "serverApplicationDeployed": false,
+  "reviewMethod": "author_self_review",
+  "taskCount": 6,
+  "reviewFocusCount": 5,
+  "knownDesignBlockers": [],
+  "checks": {
+    "specCoverage": true,
+    "stepGranularity": true,
+    "interfaceConsistency": true,
+    "reviewFocusAssigned": true,
+    "proportion": true
+  },
+  "correctionsDuringReview": [
+    "匿名草稿阅读页沿用当前登录提示和链接，不误要求新增自动跳转",
+    "每次部署保留受限版本配置，回退恢复对应配置及镜像",
+    "生产和 ACME 测试证书存储分离",
+    "systemd 验证在实际 Linux 服务器进行，失败部署测试不修改真实项目"
+  ],
+  "runtimeChecksPending": [
+    "实际镜像构建与服务资源",
+    "云侧 80/443 入站和公网 IP 可信证书",
+    "一致性快照、隔离恢复和预览库恢复",
+    "用户正常登录与现有私有草稿阅读",
+    "重启、每日备份、站外副本和有界只读负载"
+  ],
+  "previewAccepted": false,
+  "formalContentAccepted": false
+}

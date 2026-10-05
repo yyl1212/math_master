@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-05",
+  "reviewMethod": "independent_read_only_whole_branch",
+  "model": "gpt-6-astra",
+  "baseCommit": "9f71cf4f2b29c5101cc87a4511c0b32d786ddeb0",
+  "reviewedHead": "9dc6c910e5bedab3f9cc8a0960c1774d18a2e1d5",
+  "originalVerdict": "requires_fixes",
+  "findings": {
+    "critical": 0,
+    "important": 3,
+    "minor": 0
+  },
+  "remediation": [
+    {
+      "finding": "首次失败后来源记录丢失导致不能重试",
+      "test": "test_first_deploy_retry_retains_database_provenance",
+      "cases": [
+        "backup",
+        "health",
+        "activate"
+      ],
+      "redObserved": true,
+      "green": true
+    },
+    {
+      "finding": "显式回退失败未停写/保存阶段",
+      "test": "test_explicit_rollback_failure_stops_and_records",
+      "cases": [
+        "health",
+        "tls"
+      ],
+      "redObserved": true,
+      "green": true
+    },
+    {
+      "finding": "迁移和候选验收前未隔离公网写入",
+      "test": "test_start_stops_public_writes_before_migration",
+      "redObserved": true,
+      "green": true
+    }
+  ],
+  "finalOperationsSuite": {
+    "passed": 21,
+    "failed": 0
+  },
+  "remediationMethod": "author_single_fix_pass_with_tdd_no_second_review",
+  "remainingConfirmedCriticalOrImportant": 0,
+  "unresolvedObservation": "destination stream closed early 根因/实际影响证据不足，未宣称修复；现场验收仍须验证页面与资源完整性",
+  "runtimeAcceptancePending": true,
+  "serverApplicationDeployed": false,
+  "previewAccepted": false,
+  "formalContentAccepted": false
+}

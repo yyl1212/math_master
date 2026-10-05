@@ -1,0 +1,9 @@
+https://{$PUBLIC_HOST} {
+    tls {
+        issuer acme {
+            dir {$ACME_DIRECTORY}
+            profile shortlived
+        }
+    }
+    reverse_proxy web:3000
+}

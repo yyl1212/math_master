@@ -1,0 +1,12 @@
+[Unit]
+Description=Math Master preview database backup
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+UMask=0077
+ExecStart=/opt/math_master/current/ops/backup.sh --root /opt/math_master --sudo --kind daily
+TimeoutStartSec=540

@@ -1,0 +1,42 @@
+name: 服务器预览部署验证
+on:
+  push:
+    branches: [master, 'codex/**']
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  operations:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.17.0'
+      - name: 配置、部署、TLS 与真实隔离恢复
+        run: node tools/verify/run.mjs -- python3 -m unittest discover -s ops/tests -p 'test_*.py' -v
+  images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.17.0'
+      - name: Go 生产镜像
+        run: node tools/verify/run.mjs -- docker build --platform linux/amd64 --build-arg VCS_REF="$GITHUB_SHA" -f backend/Dockerfile -t "math-master-api:$GITHUB_SHA" .
+      - name: Next.js 生产镜像
+        run: node tools/verify/run.mjs -- docker build --platform linux/amd64 --build-arg VCS_REF="$GITHUB_SHA" -f frontend/Dockerfile -t "math-master-web:$GITHUB_SHA" .
+      - name: 校验 Caddy 官方包并构建网关
+        run: node tools/verify/run.mjs -- docker build --platform linux/amd64 --build-arg VCS_REF="$GITHUB_SHA" -f ops/caddy.Dockerfile -t "math-master-gateway:$GITHUB_SHA" .
+      - name: 真实镜像入口及公式资源
+        run: node tools/verify/run.mjs -- python3 ops/tests/image_smoke.py --revision "$GITHUB_SHA"
+      - name: 网关 ACME 配置
+        run: >-
+          node tools/verify/run.mjs -- docker run --rm --network none --read-only
+          --env PUBLIC_HOST=43.135.142.53
+          --env ACME_DIRECTORY=https://acme-staging-v02.api.letsencrypt.org/directory
+          --mount "type=bind,src=$GITHUB_WORKSPACE/ops/Caddyfile,dst=/etc/caddy/Caddyfile,readonly"
+          "math-master-gateway:$GITHUB_SHA" validate --config /etc/caddy/Caddyfile --adapter caddyfile
