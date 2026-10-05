@@ -5,6 +5,8 @@ import json
 import os
 from pathlib import Path
 import shutil
+import socket
+import ssl
 import re
 import subprocess
 import sys
@@ -48,6 +50,73 @@ def docker(*args: str) -> bytes:
     return result.stdout
 
 
+def check_ip_tls(image: str) -> dict:
+    # 本机隔离夹具仅显式信任一次性测试证书；生产验收仍使用系统 CA。
+    with tempfile.TemporaryDirectory(dir='/private/tmp' if Path('/private/tmp').exists() else None) as folder:
+        root = Path(folder)
+        fixture = root / 'fixture'
+        fixture.mkdir(mode=0o755)
+        fixture.chmod(0o755)
+        certificate, key = fixture / 'server.crt', fixture / 'server.key'
+        subprocess.run(['openssl', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-days', '1',
+                        '-subj', '/CN=43.135.142.53', '-addext', 'subjectAltName=IP:43.135.142.53',
+                        '-out', str(certificate), '-keyout', str(key)],
+                       check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
+        # root 为 0700；仅容器内非 root Caddy 读取这些一次性夹具文件。
+        certificate.chmod(0o644); key.chmod(0o644)
+        config = json.loads(docker('run', '--rm', '--network', 'none', '--read-only',
+                           '--env', 'PUBLIC_HOST=43.135.142.53',
+                           '--env', 'ACME_DIRECTORY=https://acme-staging-v02.api.letsencrypt.org/directory',
+                           '--mount', f'type=bind,src={OPS / "Caddyfile"},dst=/etc/caddy/Caddyfile,readonly',
+                           image, 'adapt', '--config', '/etc/caddy/Caddyfile', '--adapter', 'caddyfile'))
+        config['apps']['tls'] = {'certificates': {'load_files': [
+            {'certificate': '/fixture/server.crt', 'key': '/fixture/server.key'}]}}
+        for server in config['apps']['http']['servers'].values():
+            server['automatic_https'] = {'disable': True}
+        (fixture / 'config.json').write_text(json.dumps(config))
+        (fixture / 'config.json').chmod(0o644)
+        name = 'math-master-ip-tls-smoke-' + uuid.uuid4().hex
+        created = False
+        try:
+            docker('run', '--detach', '--name', name, '--read-only',
+                   '--sysctl', 'net.ipv4.ip_unprivileged_port_start=0',
+                   '--tmpfs', '/data:rw,size=16m,uid=10001,gid=10001,mode=0700',
+                   '--tmpfs', '/config:rw,size=16m,uid=10001,gid=10001,mode=0700',
+                   '--publish', '127.0.0.1::443',
+                   '--mount', f'type=bind,src={fixture},dst=/fixture,readonly',
+                   image, 'run', '--config', '/fixture/config.json')
+            created = True
+            ready = False
+            for _ in range(20):
+                try:
+                    docker('exec', name, 'wget', '-q', '-O', '/dev/null', 'http://127.0.0.1:2019/config/')
+                    ready = True; break
+                except RuntimeError:
+                    time.sleep(0.25)
+            if not ready:raise RuntimeError('ip-tls-gateway-not-ready')
+            ports = json.loads(docker('inspect', '--format', '{{json .NetworkSettings.Ports}}', name))
+            port = int(ports['443/tcp'][0]['HostPort'])
+            def handshake(context, hostname):
+                with socket.create_connection(('127.0.0.1', port), timeout=5) as transport:
+                    with context.wrap_socket(transport, server_hostname=hostname) as connection:
+                        return connection.getpeercert()
+            try:
+                cert = handshake(ssl.create_default_context(cafile=str(certificate)), '43.135.142.53')
+            except ssl.SSLError:
+                raise RuntimeError('public-ip-tls-unavailable') from None
+            if ('IP Address', '43.135.142.53') not in cert.get('subjectAltName', ()):
+                raise RuntimeError('public-ip-san-missing')
+            for context, hostname in [(ssl.create_default_context(), '43.135.142.53'),
+                                      (ssl.create_default_context(cafile=str(certificate)), '43.135.142.54')]:
+                try:handshake(context, hostname)
+                except ssl.SSLCertVerificationError:pass
+                else:raise RuntimeError('invalid-ip-certificate-accepted')
+            return {'ipClientTLS': True, 'unknownCARejected': True, 'wrongIPRejected': True,
+                    'tlsFixtureCertificateOnly': True}
+        finally:
+            if created:docker('rm', '--force', name)
+
+
 def check(revision: str) -> dict:
     images = {part: f'math-master-{part}:{revision}' for part in ['api', 'web', 'gateway']}
     for part, image in images.items():
@@ -63,6 +132,7 @@ def check(revision: str) -> dict:
     version = docker('run', '--rm', '--network', 'none', '--read-only', images['gateway'], 'version').decode().strip()
     if not version.startswith('v2.11.7 '):
         raise RuntimeError('gateway-version-mismatch')
+    tls_result = check_ip_tls(images['gateway'])
     name = f'math-master-image-smoke-{uuid.uuid4().hex}'
     created = False
     try:
@@ -103,7 +173,7 @@ console.log(JSON.stringify({login: true, stylesheets: new Set(css).size, katexFo
                 time.sleep(0.5)
         if not result:
             raise RuntimeError('web-assets-unavailable')
-        return {'ok': True, 'revision': revision, 'apiWhitelist': True, 'harnessAbsent': True, 'gatewayVersion': version.split()[0], **result}
+        return {'ok': True, 'revision': revision, 'apiWhitelist': True, 'harnessAbsent': True, 'gatewayVersion': version.split()[0], **tls_result, **result}
     finally:
         if created:
             docker('rm', '--force', name)

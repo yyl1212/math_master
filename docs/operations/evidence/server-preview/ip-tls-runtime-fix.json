@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-05",
+  "baseDeploymentCommit": "3564f8a565dac867b1cd62a1ea9e319bb78065e0",
+  "firewall": {
+    "externalTCP80Reachable": true,
+    "externalTCP443Reachable": true,
+    "stagingACMEPassed": true,
+    "productionCertificateObtained": true,
+    "hostRulesChanged": false,
+    "cloudRulesChanged": false,
+    "internalPortsExternallyClosedOrFiltered": [
+      3000,
+      8080,
+      5432,
+      2019
+    ]
+  },
+  "failure": {
+    "ordinarySystemCAIPClient": "TLSV1_ALERT_INTERNAL_ERROR",
+    "explicitIPSNIChainVerified": true,
+    "certificateAlreadyObtainedBeforeHealthCheck": true
+  },
+  "rootCause": "Docker 网关在无 SNI 的 IP ClientHello 中缺少固定公网 IP 默认证书名称",
+  "fix": "全局 default_sni 使用既有固定 PUBLIC_HOST，不修改证书颁发机构、公共 origin 或客户端验证",
+  "regression": {
+    "beforeFix": "真实非 root Caddy/普通 IP 客户端夹具失败 public-ip-tls-unavailable",
+    "afterFix": {
+      "ipClientTLS": true,
+      "unknownCARejected": true,
+      "wrongIPRejected": true,
+      "fixtureCertificateOnly": true,
+      "testImageRevision": "e935b4818d03e57fcbbfb0cc7531203816baefa6",
+      "deploymentImage": false,
+      "operationsPassed": 22,
+      "operationsFailed": 0
+    }
+  },
+  "compatibilityReview": {
+    "existingNoDomainHTTPSRequirement": true,
+    "appliesToClientsWithoutSNI": true,
+    "systemCATrustAndIPSANValidationPreserved": true,
+    "rolesMigrationsAndPublicationUnchanged": true,
+    "kind": "实施者差异审查与实际TLS RED→GREEN"
+  },
+  "serverState": {
+    "gatewayStopped": true,
+    "apiWebStopped": true,
+    "databaseRetained": true,
+    "productionCertificateVolumeRetained": true
+  },
+  "previewAccepted": false,
+  "formalContentAccepted": false,
+  "remaining": "修复PR合并后用准确master提交重新部署，完成真实系统CA、登录、timer、重启和负载验收"
+}

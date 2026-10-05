@@ -1,3 +1,7 @@
+{
+    default_sni {$PUBLIC_HOST}
+}
+
 https://{$PUBLIC_HOST} {
     tls {
         issuer acme {
