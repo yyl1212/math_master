@@ -54,5 +54,42 @@ export const enumKeys={
     "unit": "content.enum.unit",
     "path": "content.enum.path",
     "asset": "content.enum.asset"
+  },
+  "question.check": {
+    "mathematics": "question.check.mathematics",
+    "explanations": "question.check.explanations",
+    "coverage": "question.check.coverage",
+    "sources": "question.check.sources",
+    "illustrations": "question.check.illustrations",
+    "generation": "question.check.generation",
+    "objectives": "question.check.objectives"
+  },
+  "question.enum": {
+    "numeric": "question.enum.numeric",
+    "single_choice": "question.enum.single_choice",
+    "rational": "question.enum.rational",
+    "percentage": "question.enum.percentage",
+    "rational_arithmetic": "question.enum.rational_arithmetic",
+    "rational_comparison": "question.enum.rational_comparison",
+    "missing_operand": "question.enum.missing_operand",
+    "add": "question.enum.add",
+    "subtract": "question.enum.subtract",
+    "multiply": "question.enum.multiply",
+    "divide": "question.enum.divide",
+    "compare": "question.enum.compare",
+    "left": "question.enum.left",
+    "right": "question.enum.right",
+    "nonzero_divisor": "question.enum.nonzero_divisor",
+    "nonnegative_result": "question.enum.nonnegative_result",
+    "distinct_operands": "question.enum.distinct_operands",
+    "negate": "question.enum.negate",
+    "plus_one": "question.enum.plus_one",
+    "minus_one": "question.enum.minus_one",
+    "reciprocal": "question.enum.reciprocal",
+    "core": "question.enum.core",
+    "supplementary": "question.enum.supplementary",
+    "template": "question.enum.template",
+    "instance": "question.enum.instance",
+    "blueprint": "question.enum.blueprint"
   }
 } satisfies Record<string,Record<string,StaticMessageKey>>;

@@ -2328,5 +2328,1455 @@ export const enMessages = {
   "content.error.TRANSFER_UNAVAILABLE": {
     "text": "Content import failed.",
     "params": []
+  },
+  "draft-editor.question.authoring.932915": {
+    "text": "QUESTION AUTHORING",
+    "params": []
+  },
+  "draft-editor.saved.revision.value.value.value.b3456a": {
+    "text": "Saved revision {v0} · {v1} {v2}",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "draft-editor.saving.machine.validation.and.independent.approval.are.separate.s.d9d962": {
+    "text": "Saving, machine validation and independent approval are separate steps.",
+    "params": []
+  },
+  "draft-editor.owner.value.authors.value.2be751": {
+    "text": "Owner: {v0} · Authors: {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "draft-editor.verify.historical.authorship.and.original.sources.before.approval.248a00": {
+    "text": "Verify historical authorship and original sources before approval.",
+    "params": []
+  },
+  "draft-editor.this.workspace.is.read.only.for.this.account.or.has.already.been..be1962": {
+    "text": "This workspace is read-only for this account or has already been submitted.",
+    "params": []
+  },
+  "draft-editor.editable.question.package.e30c58": {
+    "text": "Editable question package",
+    "params": []
+  },
+  "draft-editor.finite.question.templates.3f552e": {
+    "text": "Finite question templates",
+    "params": []
+  },
+  "draft-editor.rational.arithmetic.rational.comparison.missing.operand.05a6d3": {
+    "text": "Rational arithmetic · Rational comparison · Missing operand",
+    "params": []
+  },
+  "draft-editor.template.5cde0f": {
+    "text": "template",
+    "params": []
+  },
+  "draft-editor.fixed.questions.67f48f": {
+    "text": "Fixed questions",
+    "params": []
+  },
+  "draft-editor.fixed.question.b25887": {
+    "text": "fixed question",
+    "params": []
+  },
+  "draft-editor.assessment.blueprints.fcd71c": {
+    "text": "Assessment blueprints",
+    "params": []
+  },
+  "draft-editor.blueprint.b1ece0": {
+    "text": "blueprint",
+    "params": []
+  },
+  "draft-editor.editable.json.and.source.mapping.ceb2f0": {
+    "text": "Editable JSON and source mapping",
+    "params": []
+  },
+  "draft-editor.import.and.export.contain.editable.question.data.and.source.mappi.9b4d59": {
+    "text": "Import and export contain editable question data and source mapping. Original author and review evidence are retained by the server.",
+    "params": []
+  },
+  "draft-editor.editable.question.json.ff0b13": {
+    "text": "Editable question JSON",
+    "params": []
+  },
+  "draft-editor.apply.editable.json.94e26f": {
+    "text": "Apply editable JSON",
+    "params": []
+  },
+  "draft-editor.copy.current.fields.to.json.7379fb": {
+    "text": "Copy current fields to JSON",
+    "params": []
+  },
+  "draft-editor.export.editable.json.65164d": {
+    "text": "Export editable JSON",
+    "params": []
+  },
+  "draft-editor.import.question.json.file.3dea76": {
+    "text": "Import question JSON file",
+    "params": []
+  },
+  "draft-editor.validate.saved.revision.0603de": {
+    "text": "Validate saved revision",
+    "params": []
+  },
+  "draft-editor.reload.saved.version.3c845b": {
+    "text": "Reload saved version",
+    "params": []
+  },
+  "draft-editor.open.frozen.submission.c1dfbc": {
+    "text": "Open frozen submission",
+    "params": []
+  },
+  "draft-editor.back.to.question.workspaces.7f7e32": {
+    "text": "Back to question workspaces",
+    "params": []
+  },
+  "diff-panel.before.a2bcd3": {
+    "text": "Before: ",
+    "params": []
+  },
+  "diff-panel.none.dc937b": {
+    "text": "None",
+    "params": []
+  },
+  "diff-panel.after.84507c": {
+    "text": "After: ",
+    "params": []
+  },
+  "diff-panel.fixed.mathematical.differences.15d782": {
+    "text": "Fixed mathematical differences",
+    "params": []
+  },
+  "diff-panel.loading.fixed.differences.90b335": {
+    "text": "Loading fixed differences…",
+    "params": []
+  },
+  "diff-panel.value.changes.offset.value.3a4d07": {
+    "text": "{v0} changes · Offset {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "diff-panel.previous.changes.35f067": {
+    "text": "Previous changes",
+    "params": []
+  },
+  "diff-panel.next.changes.d0a346": {
+    "text": "Next changes",
+    "params": []
+  },
+  "diff-panel.fixed.members.and.approval.evidence.4d4bdb": {
+    "text": "Fixed members and approval evidence",
+    "params": []
+  },
+  "diff-panel.value.members.offset.value.approval.provenance.can.change.without.d13b68": {
+    "text": "{v0} members · Offset {v1}. Approval provenance can change without a mathematical replacement.",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "diff-panel.value.value.vvalue.610089": {
+    "text": "{v0} · {v1} v{v2}",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "diff-panel.sha.483ee8": {
+    "text": "SHA ",
+    "params": []
+  },
+  "diff-panel.package.98d9ee": {
+    "text": "Package ",
+    "params": []
+  },
+  "diff-panel.submission.fb1f17": {
+    "text": "Submission ",
+    "params": []
+  },
+  "diff-panel.decision.f78582": {
+    "text": "Decision ",
+    "params": []
+  },
+  "diff-panel.frozen.digest.35e32d": {
+    "text": "Frozen digest ",
+    "params": []
+  },
+  "diff-panel.inherited.from.5be696": {
+    "text": "Inherited from ",
+    "params": []
+  },
+  "diff-panel.previous.members.9423b1": {
+    "text": "Previous members",
+    "params": []
+  },
+  "diff-panel.next.members.5909b2": {
+    "text": "Next members",
+    "params": []
+  },
+  "submission-list.independent.question.review.queue.006495": {
+    "text": "Independent question review queue",
+    "params": []
+  },
+  "submission-list.frozen.question.submissions.250eef": {
+    "text": "Frozen question submissions",
+    "params": []
+  },
+  "submission-list.review.uses.immutable.submitted.questions.and.every.bound.instanc.50a797": {
+    "text": "Review uses immutable submitted questions and every bound instance. Authors are excluded from the independent queue.",
+    "params": []
+  },
+  "submission-list.status.8bdde2": {
+    "text": "Status ",
+    "params": []
+  },
+  "submission-list.pending.331551": {
+    "text": "Pending",
+    "params": []
+  },
+  "submission-list.approved.87b42e": {
+    "text": "Approved",
+    "params": []
+  },
+  "submission-list.returned.361023": {
+    "text": "Returned",
+    "params": []
+  },
+  "submission-list.value.frozen.revision.value.cfefdf": {
+    "text": "{v0} · Frozen revision {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "submission-list.digest.value.b74ba8": {
+    "text": "Digest: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "submission-list.no.submissions.in.this.view.28cce2": {
+    "text": "No submissions in this view.",
+    "params": []
+  },
+  "submission-list.previous.submissions.8d9ab0": {
+    "text": "Previous submissions",
+    "params": []
+  },
+  "submission-list.next.submissions.ea5832": {
+    "text": "Next submissions",
+    "params": []
+  },
+  "question-state.question.data.is.not.available.fa945f": {
+    "text": "Question data is not available.",
+    "params": []
+  },
+  "question-state.the.trusted.question.bank.is.not.configured.yet.3d8238": {
+    "text": "The trusted question bank is not configured yet.",
+    "params": []
+  },
+  "question-state.question.management.is.temporarily.unavailable.53681c": {
+    "text": "Question management is temporarily unavailable.",
+    "params": []
+  },
+  "draft-list.trusted.question.bank.a62caf": {
+    "text": "TRUSTED QUESTION BANK",
+    "params": []
+  },
+  "draft-list.build.exact.questions.validate.the.finite.batch.and.submit.it.for.03a844": {
+    "text": "Build exact questions, validate the finite batch and submit it for independent review.",
+    "params": []
+  },
+  "draft-list.no.question.workspaces.yet.84226e": {
+    "text": "No question workspaces yet.",
+    "params": []
+  },
+  "draft-list.previous.workspaces.fa8a2d": {
+    "text": "Previous workspaces",
+    "params": []
+  },
+  "draft-list.next.workspaces.e03049": {
+    "text": "Next workspaces",
+    "params": []
+  },
+  "draft-list.create.question.workspace.2b8d7c": {
+    "text": "Create question workspace",
+    "params": []
+  },
+  "draft-list.new.editable.package.9d8c64": {
+    "text": "New editable package",
+    "params": []
+  },
+  "draft-list.new.question.package.id.fc85e8": {
+    "text": "New question package ID",
+    "params": []
+  },
+  "draft-list.new.question.package.version.6b2659": {
+    "text": "New question package version",
+    "params": []
+  },
+  "draft-list.adopt.an.imported.question.package.35dce8": {
+    "text": "Adopt an imported question package",
+    "params": []
+  },
+  "draft-list.use.the.exact.package.id.and.version.above.historical.authorship..5ae8a4": {
+    "text": "Use the exact package ID and version above. Historical authorship is retained; independent approval is still required.",
+    "params": []
+  },
+  "draft-list.editor.permission.is.required.to.create.or.change.questions.0931c2": {
+    "text": "Editor permission is required to create or change questions.",
+    "params": []
+  },
+  "template-fields.objective.index.eab754": {
+    "text": " objective index ",
+    "params": []
+  },
+  "template-fields.value.coverage.value.f228fd": {
+    "text": "{v0} coverage {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.load.published.objectives.a9108a": {
+    "text": "Load published objectives",
+    "params": []
+  },
+  "template-fields.value.finite.exact.parameters.572b12": {
+    "text": "{v0} · finite exact parameters",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.answer.placeholders.belong.in.the.explanation.values.remain.exact.c1d000": {
+    "text": "Answer placeholders belong in the explanation. Values remain exact text; Go generates and independently verifies the finite batch.",
+    "params": []
+  },
+  "template-fields.generator.version.value.verifier.version.value.bda518": {
+    "text": "Generator version {v0} · Verifier version {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "coverage-panel.published.question.coverage.567402": {
+    "text": "Published question coverage",
+    "params": []
+  },
+  "coverage-panel.counts.reflect.approved.published.questions.whose.current.knowled.630f4d": {
+    "text": "Counts reflect approved, published questions whose current knowledge, units and illustrations remain available.",
+    "params": []
+  },
+  "coverage-panel.knowledge.head.b7020e": {
+    "text": "Knowledge head: ",
+    "params": []
+  },
+  "coverage-panel.question.head.6001f1": {
+    "text": "Question head: ",
+    "params": []
+  },
+  "coverage-panel.snapshots.changed.refresh.from.the.first.page.before.comparing.co.a168f3": {
+    "text": "Snapshots changed. Refresh from the first page before comparing coverage.",
+    "params": []
+  },
+  "coverage-panel.published.trusted.instances.value.0943fe": {
+    "text": "Published trusted instances: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "coverage-panel.approved.templates.value.fixed.questions.value.published.knowledg.47b5a4": {
+    "text": "Approved templates: {v0} · Fixed questions: {v1} · Published knowledge nodes: {v2} · Duplicate occurrences excluded: {v3}",
+    "params": [
+      "v0",
+      "v1",
+      "v2",
+      "v3"
+    ]
+  },
+  "coverage-panel.node.counts.may.overlap.global.counts.use.distinct.question.ident.746aef": {
+    "text": "Node counts may overlap; global counts use distinct question identities.",
+    "params": []
+  },
+  "coverage-panel.ready.for.five.questions.16340b": {
+    "text": "Ready for five questions",
+    "params": []
+  },
+  "coverage-panel.not.ready.for.assessment.386442": {
+    "text": "Not ready for assessment",
+    "params": []
+  },
+  "coverage-panel.no.assessment.blueprint.configured.723360": {
+    "text": "No assessment blueprint configured.",
+    "params": []
+  },
+  "coverage-panel.valid.questions.value.fixed.value.generated.value.blueprint.pool..dd1cd1": {
+    "text": "Valid questions: {v0} · Fixed: {v1} · Generated: {v2} · Blueprint pool: {v3}",
+    "params": [
+      "v0",
+      "v1",
+      "v2",
+      "v3"
+    ]
+  },
+  "coverage-panel.core.objectives.value.covered.value.e199da": {
+    "text": "Core objectives: {v0} · Covered: {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "coverage-panel.supplementary.objectives.value.3fa75c": {
+    "text": "Supplementary objectives: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "coverage-panel.value.coverage.rows.offset.value.d50be7": {
+    "text": "{v0} coverage rows · Offset {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "coverage-panel.refresh.coverage.7fbd1b": {
+    "text": "Refresh coverage",
+    "params": []
+  },
+  "coverage-panel.previous.coverage.nodes.67c2fb": {
+    "text": "Previous coverage nodes",
+    "params": []
+  },
+  "coverage-panel.next.coverage.nodes.dff886": {
+    "text": "Next coverage nodes",
+    "params": []
+  },
+  "publication-panel.question.publication.ef452a": {
+    "text": "QUESTION PUBLICATION",
+    "params": []
+  },
+  "publication-panel.trusted.question.snapshots.dca705": {
+    "text": "Trusted question snapshots",
+    "params": []
+  },
+  "publication-panel.current.knowledge.head.1a83a3": {
+    "text": "Current knowledge head: ",
+    "params": []
+  },
+  "publication-panel.current.question.head.51281d": {
+    "text": "Current question head: ",
+    "params": []
+  },
+  "publication-panel.current.published.bank.value.templates.value.trusted.instances.va.30647f": {
+    "text": "Current published bank: {v0} templates · {v1} trusted instances · {v2} blueprints.",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "publication-panel.withdraw.a.question.version.permanently.114e83": {
+    "text": "Withdraw a question version permanently",
+    "params": []
+  },
+  "publication-panel.refresh.both.current.heads.13c170": {
+    "text": "Refresh both current heads",
+    "params": []
+  },
+  "publication-panel.select.1.20.independently.approved.submissions.inherited.members..a32964": {
+    "text": "Select 1–20 independently approved submissions. Inherited members retain their fixed evidence.",
+    "params": []
+  },
+  "publication-panel.loading.approved.submissions.523773": {
+    "text": "Loading approved submissions…",
+    "params": []
+  },
+  "publication-panel.frozen.review.583f9b": {
+    "text": "Frozen review",
+    "params": []
+  },
+  "publication-panel.previous.approved.submissions.75d73f": {
+    "text": "Previous approved submissions",
+    "params": []
+  },
+  "publication-panel.next.approved.submissions.d59bee": {
+    "text": "Next approved submissions",
+    "params": []
+  },
+  "publication-panel.value.submissions.selected.across.pages.f7aa8e": {
+    "text": "{v0} submissions selected across pages.",
+    "params": [
+      "v0"
+    ]
+  },
+  "publication-panel.no.snapshots.on.this.page.2f19fb": {
+    "text": "No snapshots on this page.",
+    "params": []
+  },
+  "publication-panel.open.fixed.snapshot.d13edd": {
+    "text": "Open fixed snapshot",
+    "params": []
+  },
+  "publication-panel.selected.value.snapshot.978a63": {
+    "text": "Selected {v0} snapshot",
+    "params": [
+      "v0"
+    ]
+  },
+  "publication-panel.manifest.sha.aafd9c": {
+    "text": "Manifest SHA: ",
+    "params": []
+  },
+  "publication-panel.base.knowledge.head.da6971": {
+    "text": "Base knowledge head: ",
+    "params": []
+  },
+  "publication-panel.base.question.head.c7e74a": {
+    "text": "Base question head: ",
+    "params": []
+  },
+  "publication-panel.value.templates.value.instances.value.blueprints.d899e0": {
+    "text": "{v0} templates · {v1} instances · {v2} blueprints",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "publication-panel.published.snapshots.changed.refresh.both.heads.and.prepare.a.new..126274": {
+    "text": "Published snapshots changed. Refresh both heads and prepare a new snapshot.",
+    "params": []
+  },
+  "withdrawal-panel.permanent.question.withdrawal.33c686": {
+    "text": "PERMANENT QUESTION WITHDRAWAL",
+    "params": []
+  },
+  "withdrawal-panel.withdraw.an.exact.question.version.d8e270": {
+    "text": "Withdraw an exact question version",
+    "params": []
+  },
+  "withdrawal-panel.template.withdrawal.removes.its.generated.instances.and.dependent.865351": {
+    "text": "Template withdrawal removes its generated instances and dependent blueprints. Fixed-instance withdrawal removes explicit dependent blueprints. A single generated-instance withdrawal removes that instance; remaining pools are recalculated.",
+    "params": []
+  },
+  "withdrawal-panel.a.node.may.no.longer.have.five.valid.questions.after.withdrawal.p.54a61b": {
+    "text": "A node may no longer have five valid questions after withdrawal. Published explanations remain available. Historical bodies and approval records are preserved; withdrawn versions cannot be restored by republishing old approvals.",
+    "params": []
+  },
+  "withdrawal-panel.current.question.head.value.2cd82b": {
+    "text": "Current question head: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "withdrawal-panel.exact.version.to.withdraw.f7625e": {
+    "text": "Exact version to withdraw",
+    "params": []
+  },
+  "withdrawal-panel.you.may.identify.a.historical.version.that.is.no.longer.in.the.cu.67dc63": {
+    "text": "You may identify a historical version that is no longer in the current bank.",
+    "params": []
+  },
+  "withdrawal-panel.browse.current.members.944018": {
+    "text": "Browse current members",
+    "params": []
+  },
+  "withdrawal-panel.current.fixed.members.2494e0": {
+    "text": "Current fixed members",
+    "params": []
+  },
+  "withdrawal-panel.previous.current.members.eb0309": {
+    "text": "Previous current members",
+    "params": []
+  },
+  "withdrawal-panel.next.current.members.9edb05": {
+    "text": "Next current members",
+    "params": []
+  },
+  "withdrawal-panel.complete.impact.totals.a7beee": {
+    "text": "Complete impact totals",
+    "params": []
+  },
+  "withdrawal-panel.affected.templates.value.9c33ae": {
+    "text": "Affected templates: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "withdrawal-panel.affected.instances.value.d7268d": {
+    "text": "Affected instances: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "withdrawal-panel.affected.blueprints.value.30f428": {
+    "text": "Affected blueprints: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "withdrawal-panel.impact.digest.c7887e": {
+    "text": "Impact digest: ",
+    "params": []
+  },
+  "withdrawal-panel.value.fixed.changes.offset.value.totals.include.all.pages.6666c8": {
+    "text": "{v0} fixed changes · Offset {v1}. Totals include all pages.",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "withdrawal-panel.previous.impact.changes.ab7233": {
+    "text": "Previous impact changes",
+    "params": []
+  },
+  "withdrawal-panel.next.impact.changes.15deab": {
+    "text": "Next impact changes",
+    "params": []
+  },
+  "withdrawal-panel.withdraw.permanently.07fd73": {
+    "text": "Withdraw permanently",
+    "params": []
+  },
+  "withdrawal-panel.back.to.trusted.question.snapshots.d7fd67": {
+    "text": "Back to trusted question snapshots",
+    "params": []
+  },
+  "blueprint-fields.value.five.distinct.questions.ac02dd": {
+    "text": "{v0} · five distinct questions",
+    "params": [
+      "v0"
+    ]
+  },
+  "blueprint-fields.instance.sources.identify.fixed.questions.generated.questions.ent.d26e6b": {
+    "text": "Instance sources identify fixed questions. Generated questions enter through their exact template version.",
+    "params": []
+  },
+  "blueprint-fields.rule.version.1.5.questions.4.correct.answers.required.current.fiv.b49274": {
+    "text": "Rule version 1 · 5 questions · 4 correct answers required. Current five-question coverage is checked by Go.",
+    "params": []
+  },
+  "command-controls.stop.waiting.d4af24": {
+    "text": "Stop waiting",
+    "params": []
+  },
+  "command-controls.the.result.is.unconfirmed.stopping.or.timing.out.does.not.prove.t.fba207": {
+    "text": "The result is unconfirmed. Stopping or timing out does not prove that the server rejected the change.",
+    "params": []
+  },
+  "command-controls.the.previous.command.is.preserved.03b9de": {
+    "text": "The previous command is preserved.",
+    "params": []
+  },
+  "command-controls.retry.sends.the.same.input.and.request.key.no.write.is.retried.au.4ced2e": {
+    "text": "Retry sends the same input and request key. No write is retried automatically.",
+    "params": []
+  },
+  "command-controls.try.again.after.value.seconds.a723d0": {
+    "text": "Try again after {v0} seconds.",
+    "params": [
+      "v0"
+    ]
+  },
+  "command-controls.discard.local.pending.request.14700a": {
+    "text": "Discard local pending request",
+    "params": []
+  },
+  "command-controls.verification.lasts.five.minutes.the.preserved.command.is.sent.onl.64a5cc": {
+    "text": "Verification lasts five minutes. The preserved command is sent only when you choose Retry.",
+    "params": []
+  },
+  "generation-panel.saved.revision.value.generation.check.22a232": {
+    "text": "Saved revision {v0} · Generation check",
+    "params": [
+      "v0"
+    ]
+  },
+  "generation-panel.machine.checks.passed.reviewer.approval.is.required.deef63": {
+    "text": "Machine checks passed. Reviewer approval is required.",
+    "params": []
+  },
+  "generation-panel.questions.need.work.before.submission.d2b52f": {
+    "text": "Questions need work before submission.",
+    "params": []
+  },
+  "generation-panel.showing.the.first.100.issues.totals.include.every.issue.b82545": {
+    "text": "Showing the first 100 issues. Totals include every issue.",
+    "params": []
+  },
+  "generation-panel.question.package.bytes.value.frozen.bytes.value.42a43d": {
+    "text": "Question package bytes: {v0} · Frozen bytes: {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "generation-panel.raw.combinations.value.excluded.value.independently.verified.inst.58393d": {
+    "text": "Raw combinations: {v0} · Excluded: {v1} · Independently verified instances: {v2}",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "generation-panel.value.value.excluded.combinations.671ebe": {
+    "text": "{v0}: {v1} excluded combinations",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "generation-panel.effective.instances.value.fixed.value.generated.value.a62299": {
+    "text": "Effective instances: {v0} · Fixed: {v1} · Generated: {v2}",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "generation-panel.core.objective.indices.value.value.3f0422": {
+    "text": "Core objective indices: {v0} · {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "generation-panel.supplementary.objective.indices.value.d292f7": {
+    "text": "Supplementary objective indices: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "generation-panel.generated.previews.become.trusted.publication.content.only.after..03fe9c": {
+    "text": "Generated previews become trusted publication content only after reviewer approval and activation.",
+    "params": []
+  },
+  "generation-panel.no.sources.declared.source.verification.is.required.f5603d": {
+    "text": "No sources declared. Source verification is required.",
+    "params": []
+  },
+  "generation-panel.version.value.sha.value.777514": {
+    "text": "Version {v0} · SHA {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "generation-panel.primary.knowledge.value.vvalue.60e3e9": {
+    "text": "Primary knowledge: {v0} v{v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "generation-panel.verified.answer.value.6f716c": {
+    "text": "Verified answer: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "generation-panel.fixed.illustrations.fd3664": {
+    "text": "Fixed illustrations",
+    "params": []
+  },
+  "generation-panel.availability.follows.the.current.public.publication.check.attribu.c068b3": {
+    "text": "Availability follows the current public publication. Check attribution in the original source.",
+    "params": []
+  },
+  "generation-panel.independent.verification.witness.and.fixed.coverage.8269b5": {
+    "text": "Independent verification witness and fixed coverage",
+    "params": []
+  },
+  "review-panel.frozen.question.review.f18dbf": {
+    "text": "FROZEN QUESTION REVIEW",
+    "params": []
+  },
+  "review-panel.generator.versions.3bf6e1": {
+    "text": "Generator versions: ",
+    "params": []
+  },
+  "review-panel.verifier.versions.f87830": {
+    "text": " · Verifier versions: ",
+    "params": []
+  },
+  "review-panel.frozen.learning.objectives.14da3e": {
+    "text": "Frozen learning objectives",
+    "params": []
+  },
+  "review-panel.index.f48749": {
+    "text": " · Index ",
+    "params": []
+  },
+  "review-panel.frozen.source.mapping.1dd892": {
+    "text": "Frozen source mapping",
+    "params": []
+  },
+  "review-panel.batch.sha.value.source.sha.value.8530e4": {
+    "text": "Batch SHA {v0} · Source SHA {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "review-panel.no.source.mapping.declared.verify.original.provenance.independent.bb78ac": {
+    "text": "No source mapping declared. Verify original provenance independently.",
+    "params": []
+  },
+  "review-panel.exact.parameters.value.f63e08": {
+    "text": "Exact parameters: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "review-panel.constraints.value.523e1b": {
+    "text": "Constraints: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "review-panel.distractors.value.403375": {
+    "text": "Distractors: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "review-panel.complete.frozen.template.and.engine.specification.5bf1c8": {
+    "text": "Complete frozen template and engine specification",
+    "params": []
+  },
+  "review-panel.complete.frozen.package.blueprints.and.reference.identities.519804": {
+    "text": "Complete frozen package, blueprints and reference identities",
+    "params": []
+  },
+  "review-panel.bound.question.instances.f83db5": {
+    "text": "Bound question instances",
+    "params": []
+  },
+  "review-panel.showing.value.of.value.instances.offset.value.every.instance.is.a.39637c": {
+    "text": "Showing {v0} of {v1} instances · Offset {v2}. Every instance is available through these pages.",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "review-panel.previous.instances.e6cf69": {
+    "text": "Previous instances",
+    "params": []
+  },
+  "review-panel.next.instances.98b8ca": {
+    "text": "Next instances",
+    "params": []
+  },
+  "review-panel.authors.cannot.review.their.own.or.inherited.questions.c8a07b": {
+    "text": "Authors cannot review their own or inherited questions.",
+    "params": []
+  },
+  "review-panel.complete.all.six.checks.before.approval.8b89bd": {
+    "text": "Complete all six checks before approval",
+    "params": []
+  },
+  "review-panel.generation.review.statement.434467": {
+    "text": "Generation review statement",
+    "params": []
+  },
+  "review-panel.when.no.templates.are.present.explain.explicitly.why.generation.d.691385": {
+    "text": "When no templates are present, explain explicitly why generation does not apply.",
+    "params": []
+  },
+  "review-panel.resume.returned.workspace.716887": {
+    "text": "Resume returned workspace",
+    "params": []
+  },
+  "review-panel.back.to.question.submissions.c8d01f": {
+    "text": "Back to question submissions",
+    "params": []
+  },
+  "fixed-fields.use.a.mathematical.verification.witness.750a96": {
+    "text": " Use a mathematical verification witness",
+    "params": []
+  },
+  "fixed-fields.independent.verification.witness.078cd5": {
+    "text": "Independent verification witness",
+    "params": []
+  },
+  "fixed-fields.conceptual.choices.require.an.independent.human.mathematics.revie.61ec90": {
+    "text": "Conceptual choices require an independent human mathematics review. Numeric questions require a valid witness.",
+    "params": []
+  },
+  "draft-editor.editable.question.data.imported.save.and.validate.this.revision.b.a2437c": {
+    "text": "Editable question data imported. Save and validate this revision before submitting.",
+    "params": []
+  },
+  "draft-editor.invalid.or.oversized.editable.question.json.the.current.input.was.899b5c": {
+    "text": "Invalid or oversized editable question JSON. The current input was preserved.",
+    "params": []
+  },
+  "draft-editor.template.value.7d9545": {
+    "text": "Template {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "draft-editor.fixed.question.value.944706": {
+    "text": "Fixed question {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "draft-editor.blueprint.value.ee770e": {
+    "text": "Blueprint {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "draft-editor.question.json.exceeds.the.request.size.limit.e70c01": {
+    "text": "Question JSON exceeds the request size limit.",
+    "params": []
+  },
+  "draft-editor.draft.saved.validate.the.new.saved.revision.3180f2": {
+    "text": "Draft saved. Validate the new saved revision.",
+    "params": []
+  },
+  "draft-editor.the.saved.revision.was.frozen.for.independent.review.23df27": {
+    "text": "The saved revision was frozen for independent review.",
+    "params": []
+  },
+  "draft-editor.saved.version.reloaded.your.editable.input.was.preserved.c167eb": {
+    "text": "Saved version reloaded. Your editable input was preserved.",
+    "params": []
+  },
+  "template-fields.value.source.value.value.83babd": {
+    "text": "{v0} source {v1} {v2}",
+    "params": [
+      "v0",
+      "v1",
+      "v2"
+    ]
+  },
+  "template-fields.value.objective.index.b0b812": {
+    "text": "{v0} objective index",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.coverage.3b6324": {
+    "text": "{v0} coverage",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.coverage.value.knowledge.6e063b": {
+    "text": "{v0} coverage {v1} knowledge",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.value.unit.f2dadb": {
+    "text": "{v0} unit",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.unit.value.7da153": {
+    "text": "{v0} unit {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.value.fixed.illustration.022155": {
+    "text": "{v0} fixed illustration",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.illustration.value.id.ba47fd": {
+    "text": "{v0} illustration {v1} ID",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.value.illustration.value.sha.a322ab": {
+    "text": "{v0} illustration {v1} SHA",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.value.primary.knowledge.99f3ec": {
+    "text": "{v0} primary knowledge",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.family.ea310d": {
+    "text": "{v0} family",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.operation.e1cc41": {
+    "text": "{v0} operation",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.unknown.side.48d786": {
+    "text": "{v0} unknown side",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.answer.type.e7124b": {
+    "text": "{v0} answer type",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.numeric.format.fa8de6": {
+    "text": "{v0} numeric format",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.prompt.31f4c5": {
+    "text": "{v0} prompt",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.explanation.cedb6c": {
+    "text": "{v0} explanation",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.parameter.b27ed8": {
+    "text": "{v0} parameter",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.parameter.value.name.93d5c0": {
+    "text": "{v0} parameter {v1} name",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.value.parameter.value.values.1a245e": {
+    "text": "{v0} parameter {v1} values",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.value.constraint.9fe5b9": {
+    "text": "{v0} constraint",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.constraint.value.27d9e1": {
+    "text": "{v0} constraint {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "template-fields.value.distractor.46ec27": {
+    "text": "{v0} distractor",
+    "params": [
+      "v0"
+    ]
+  },
+  "template-fields.value.distractor.value.acc9f0": {
+    "text": "{v0} distractor {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "publication-panel.snapshot.prepared.inspect.its.complete.fixed.difference.and.evide.4818f7": {
+    "text": "Snapshot prepared. Inspect its complete fixed difference and evidence before activation.",
+    "params": []
+  },
+  "publication-panel.snapshot.activated.both.current.heads.refreshed.550507": {
+    "text": "Snapshot activated. Both current heads refreshed.",
+    "params": []
+  },
+  "blueprint-fields.value.core.97243e": {
+    "text": "{v0} core",
+    "params": [
+      "v0"
+    ]
+  },
+  "blueprint-fields.value.source.value.kind.276627": {
+    "text": "{v0} source {v1} kind",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "blueprint-fields.value.coverage.explanation.e9faf5": {
+    "text": "{v0} coverage explanation",
+    "params": [
+      "v0"
+    ]
+  },
+  "command-controls.password.verified.retry.the.preserved.command.when.ready.aef9f8": {
+    "text": "Password verified. Retry the preserved command when ready.",
+    "params": []
+  },
+  "review-panel.instance.data.does.not.match.this.frozen.submission.a1ce90": {
+    "text": "Instance data does not match this frozen submission.",
+    "params": []
+  },
+  "review-panel.submission.returned.for.changes.690b53": {
+    "text": "Submission returned for changes.",
+    "params": []
+  },
+  "fixed-fields.value.answer.numerator.b7eb62": {
+    "text": "{v0} answer numerator",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.answer.denominator.589df2": {
+    "text": "{v0} answer denominator",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.choice.a4beb3": {
+    "text": "{v0} choice",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.choice.value.id.8e997c": {
+    "text": "{v0} choice {v1} ID",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "fixed-fields.value.choice.value.text.108530": {
+    "text": "{v0} choice {v1} text",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "fixed-fields.value.correct.choice.id.77215b": {
+    "text": "{v0} correct choice ID",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.witness.family.aa4e0d": {
+    "text": "{v0} witness family",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.witness.operation.4515de": {
+    "text": "{v0} witness operation",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.witness.unknown.side.b51c41": {
+    "text": "{v0} witness unknown side",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.witness.parameter.80503f": {
+    "text": "{v0} witness parameter",
+    "params": [
+      "v0"
+    ]
+  },
+  "fixed-fields.value.witness.parameter.value.name.d93d1a": {
+    "text": "{v0} witness parameter {v1} name",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "fixed-fields.value.witness.parameter.value.exact.value.2e0a8a": {
+    "text": "{v0} witness parameter {v1} exact value",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "question.error.INVALID_REQUEST": {
+    "text": "Invalid request.",
+    "params": []
+  },
+  "question.error.INVALID_COOKIE": {
+    "text": "Invalid sign-in cookie.",
+    "params": []
+  },
+  "question.error.AUTHENTICATION_REQUIRED": {
+    "text": "Please sign in to continue.",
+    "params": []
+  },
+  "question.error.CSRF_FAILED": {
+    "text": "Request verification failed.",
+    "params": []
+  },
+  "question.error.FORBIDDEN": {
+    "text": "You do not have permission.",
+    "params": []
+  },
+  "question.error.PASSWORD_CHANGE_REQUIRED": {
+    "text": "Change your password to continue.",
+    "params": []
+  },
+  "question.error.NOT_FOUND": {
+    "text": "Resource not found.",
+    "params": []
+  },
+  "question.error.METHOD_NOT_ALLOWED": {
+    "text": "Method not allowed.",
+    "params": []
+  },
+  "question.error.QUESTION_DRAFT_CONFLICT": {
+    "text": "This draft has changed. Reload before continuing.",
+    "params": []
+  },
+  "question.error.QUESTION_PUBLICATION_STALE": {
+    "text": "Published snapshots changed. Prepare again.",
+    "params": []
+  },
+  "question.error.REVIEW_CONFLICT": {
+    "text": "This submission already has a final decision.",
+    "params": []
+  },
+  "question.error.IDEMPOTENCY_CONFLICT": {
+    "text": "This request key was used for different input.",
+    "params": []
+  },
+  "question.error.IMMUTABLE_CONFLICT": {
+    "text": "This fixed version conflicts with saved questions.",
+    "params": []
+  },
+  "question.error.VERSION_CONFLICT": {
+    "text": "Create a new version for changed questions.",
+    "params": []
+  },
+  "question.error.PAYLOAD_TOO_LARGE": {
+    "text": "This request exceeds the size limit.",
+    "params": []
+  },
+  "question.error.QUESTION_INVALID": {
+    "text": "Question validation failed.",
+    "params": []
+  },
+  "question.error.QUESTION_NOT_READY": {
+    "text": "Complete the required questions before submitting.",
+    "params": []
+  },
+  "question.error.QUESTION_LIMIT_EXCEEDED": {
+    "text": "Split this question bank into smaller reviewed batches.",
+    "params": []
+  },
+  "question.error.REVIEW_REQUIRED": {
+    "text": "Independent review is required.",
+    "params": []
+  },
+  "question.error.REAUTHENTICATION_REQUIRED": {
+    "text": "Verify your password before continuing.",
+    "params": []
+  },
+  "question.error.RATE_LIMITED": {
+    "text": "Too many requests. Try again later.",
+    "params": []
+  },
+  "question.error.QUESTION_BANK_NOT_CONFIGURED": {
+    "text": "Question management is temporarily unavailable.",
+    "params": []
+  },
+  "question.error.AUTH_NOT_CONFIGURED": {
+    "text": "Accounts are temporarily unavailable.",
+    "params": []
+  },
+  "question.error.SERVICE_UNAVAILABLE": {
+    "text": "Service temporarily unavailable.",
+    "params": []
+  },
+  "diff-panel.snapshot.data.does.not.match.the.selected.manifest.707687": {
+    "text": "Snapshot data does not match the selected manifest.",
+    "params": []
+  },
+  "template-fields.this.exact.published.knowledge.version.is.unavailable.validation..44e7ec": {
+    "text": "This exact published knowledge version is unavailable. Validation will check the reference.",
+    "params": []
+  },
+  "withdrawal-panel.preview.changed.read.a.fresh.impact.before.withdrawing.25242a": {
+    "text": "Preview changed. Read a fresh impact before withdrawing.",
+    "params": []
+  },
+  "withdrawal-panel.exact.version.withdrawn.permanently.refresh.published.coverage.to.fc0086": {
+    "text": "Exact version withdrawn permanently. Refresh published coverage to see remaining usable pools.",
+    "params": []
+  },
+  "question.check.mathematics": {
+    "text": "Mathematics",
+    "params": []
+  },
+  "question.check.explanations": {
+    "text": "Explanations",
+    "params": []
+  },
+  "question.check.coverage": {
+    "text": "Coverage",
+    "params": []
+  },
+  "question.check.sources": {
+    "text": "Sources",
+    "params": []
+  },
+  "question.check.illustrations": {
+    "text": "Illustrations",
+    "params": []
+  },
+  "question.check.generation": {
+    "text": "Generation",
+    "params": []
+  },
+  "question.enum.numeric": {
+    "text": "numeric",
+    "params": []
+  },
+  "question.enum.single_choice": {
+    "text": "single_choice",
+    "params": []
+  },
+  "question.enum.rational": {
+    "text": "rational",
+    "params": []
+  },
+  "question.enum.percentage": {
+    "text": "percentage",
+    "params": []
+  },
+  "question.enum.rational_arithmetic": {
+    "text": "rational_arithmetic",
+    "params": []
+  },
+  "question.enum.rational_comparison": {
+    "text": "rational_comparison",
+    "params": []
+  },
+  "question.enum.missing_operand": {
+    "text": "missing_operand",
+    "params": []
+  },
+  "question.enum.add": {
+    "text": "add",
+    "params": []
+  },
+  "question.enum.subtract": {
+    "text": "subtract",
+    "params": []
+  },
+  "question.enum.multiply": {
+    "text": "multiply",
+    "params": []
+  },
+  "question.enum.divide": {
+    "text": "divide",
+    "params": []
+  },
+  "question.enum.compare": {
+    "text": "compare",
+    "params": []
+  },
+  "question.enum.left": {
+    "text": "left",
+    "params": []
+  },
+  "question.enum.right": {
+    "text": "right",
+    "params": []
+  },
+  "question.enum.nonzero_divisor": {
+    "text": "nonzero_divisor",
+    "params": []
+  },
+  "question.enum.nonnegative_result": {
+    "text": "nonnegative_result",
+    "params": []
+  },
+  "question.enum.distinct_operands": {
+    "text": "distinct_operands",
+    "params": []
+  },
+  "question.enum.negate": {
+    "text": "negate",
+    "params": []
+  },
+  "question.enum.plus_one": {
+    "text": "plus_one",
+    "params": []
+  },
+  "question.enum.minus_one": {
+    "text": "minus_one",
+    "params": []
+  },
+  "question.enum.reciprocal": {
+    "text": "reciprocal",
+    "params": []
+  },
+  "question.enum.core": {
+    "text": "core",
+    "params": []
+  },
+  "question.enum.supplementary": {
+    "text": "supplementary",
+    "params": []
+  },
+  "question.enum.template": {
+    "text": "template",
+    "params": []
+  },
+  "question.enum.instance": {
+    "text": "instance",
+    "params": []
+  },
+  "question.enum.blueprint": {
+    "text": "blueprint",
+    "params": []
+  },
+  "publication-panel.current.snapshot.identity.does.not.match.f378f9": {
+    "text": "Current snapshot identity does not match.",
+    "params": []
+  },
+  "review-panel.administrator.self.review.saved.ea6679": {
+    "text": "Administrator self-review saved.",
+    "params": []
+  },
+  "review-panel.independent.review.saved.ba7d40": {
+    "text": "Independent review saved.",
+    "params": []
+  },
+  "question.check.objectives": {
+    "text": "Objectives",
+    "params": []
   }
 } as const;

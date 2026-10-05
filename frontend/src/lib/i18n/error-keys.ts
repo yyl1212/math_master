@@ -48,5 +48,31 @@ export const errorKeys={
     "TRANSFER_DIGEST_MISMATCH": "content.error.TRANSFER_DIGEST_MISMATCH",
     "TRANSFER_EXPORT_INVALID": "content.error.TRANSFER_EXPORT_INVALID",
     "TRANSFER_UNAVAILABLE": "content.error.TRANSFER_UNAVAILABLE"
+  },
+  "question": {
+    "INVALID_REQUEST": "question.error.INVALID_REQUEST",
+    "INVALID_COOKIE": "question.error.INVALID_COOKIE",
+    "AUTHENTICATION_REQUIRED": "question.error.AUTHENTICATION_REQUIRED",
+    "CSRF_FAILED": "question.error.CSRF_FAILED",
+    "FORBIDDEN": "question.error.FORBIDDEN",
+    "PASSWORD_CHANGE_REQUIRED": "question.error.PASSWORD_CHANGE_REQUIRED",
+    "NOT_FOUND": "question.error.NOT_FOUND",
+    "METHOD_NOT_ALLOWED": "question.error.METHOD_NOT_ALLOWED",
+    "QUESTION_DRAFT_CONFLICT": "question.error.QUESTION_DRAFT_CONFLICT",
+    "QUESTION_PUBLICATION_STALE": "question.error.QUESTION_PUBLICATION_STALE",
+    "REVIEW_CONFLICT": "question.error.REVIEW_CONFLICT",
+    "IDEMPOTENCY_CONFLICT": "question.error.IDEMPOTENCY_CONFLICT",
+    "IMMUTABLE_CONFLICT": "question.error.IMMUTABLE_CONFLICT",
+    "VERSION_CONFLICT": "question.error.VERSION_CONFLICT",
+    "PAYLOAD_TOO_LARGE": "question.error.PAYLOAD_TOO_LARGE",
+    "QUESTION_INVALID": "question.error.QUESTION_INVALID",
+    "QUESTION_NOT_READY": "question.error.QUESTION_NOT_READY",
+    "QUESTION_LIMIT_EXCEEDED": "question.error.QUESTION_LIMIT_EXCEEDED",
+    "REVIEW_REQUIRED": "question.error.REVIEW_REQUIRED",
+    "REAUTHENTICATION_REQUIRED": "question.error.REAUTHENTICATION_REQUIRED",
+    "RATE_LIMITED": "question.error.RATE_LIMITED",
+    "QUESTION_BANK_NOT_CONFIGURED": "question.error.QUESTION_BANK_NOT_CONFIGURED",
+    "AUTH_NOT_CONFIGURED": "question.error.AUTH_NOT_CONFIGURED",
+    "SERVICE_UNAVAILABLE": "question.error.SERVICE_UNAVAILABLE"
   }
 } satisfies Partial<Record<string,Record<string,StaticMessageKey>>>;
