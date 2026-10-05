@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "recordedDate": "2026-10-06",
+  "timezone": "Asia/Shanghai",
+  "baseCommit": "610aefff8da3358194a6ec8693f168c0f0cb5a39",
+  "branch": "codex/admin-content-review",
+  "verification": {
+    "frontendUnitTests": 367,
+    "frontendTypecheck": true,
+    "frontendProductionBuild": true,
+    "browserReviewTests": 12,
+    "browserAuthoringPublicationSecurityTests": 46,
+    "nodeContractTests": 83,
+    "operationsTests": 22,
+    "goCoreStoreAndCLI": true,
+    "goHTTPAuthAndPureLayers": true,
+    "goLearningFeedbackCorrectionAndContentAudit": true,
+    "goContentReviewPure": true,
+    "goCapacityBatches": true,
+    "goVet": true,
+    "goCommandsBuild": true,
+    "schemaModuleBuild": true
+  },
+  "review": {
+    "critical": 0,
+    "important": 1,
+    "minor": 1,
+    "importantResolved": 1,
+    "minorResolved": 1,
+    "finalCodeReviewVerdict": "ready_to_merge",
+    "reviewedChanges": "知识和题库管理员自审、响应解析、发布证据、迁移与兼容门禁"
+  },
+  "diagnostics": {
+    "initialLearningPoolCapacity": "4分钟初始化上下文超时",
+    "learningPoolIsolatedRerun": {
+      "sameCodeAndDataAndDeadlines": true,
+      "seconds": 122.94,
+      "result": "passed"
+    },
+    "migrationFixtureFixes": "运维夹具使用真实schema版本，纠错夹具显式验证00008；原保护断言和生产规则保留",
+    "browserServiceLogs": "故障注入场景出现SERVICE_UNAVAILABLE；页面切换出现流提前关闭日志，58项断言全部通过"
+  },
+  "realServerChanged": false,
+  "realRolesChanged": false,
+  "realContentApprovedOrPublished": false
+}

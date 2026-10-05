@@ -1,5 +1,5 @@
 import { test, expect, fitsViewport } from "./fixtures";
-import { submitDraft, approve, actor, wireContent } from "./content-helpers";
+import { submitDraft, approve, actor, wireContent, grantAdministratorReview, prepare, activate, contentKnowledge } from "./content-helpers";
 import type { DraftView, SubmissionView } from "../../frontend/src/lib/content/types";
 test("contentIndependentAccountApprovesFixedBody", async ({ page, scene }) => { await scene("content"); const { submissionID } = await submitDraft(page); await actor(page, "content_reviewer"); await page.goto("/review"); await expect(page.getByRole("link", { name: "e2e-content-math · Version 1" })).toBeVisible(); await page.getByRole("link", { name: "e2e-content-math · Version 1" }).click(); await expect(page.getByRole("button", { name: "Approve submission" })).toBeDisabled(); await expect(page.getByLabel("Knowledge 1 statement")).toHaveCount(0); await expect(page.getByRole("link",{name:"Technical external source"})).toHaveAttribute("href","https://example.org/original-math");
  await expect(page.getByText("prerequisite: e2e-parts-of-a-whole v1",{exact:true})).toBeVisible();
@@ -7,3 +7,25 @@ test("contentIndependentAccountApprovesFixedBody", async ({ page, scene }) => { 
  await expect(page.getByRole("heading",{name:"Counterexamples",exact:true}).first()).toBeVisible();
  await approve(page, submissionID); await fitsViewport(page); const fixed = await wireContent<SubmissionView>(page, "/api/v1/content/submissions/" + submissionID); expect(fixed.data.status).toBe("approved"); expect(fixed.data.review?.frozenDigest).toBe(fixed.data.frozen.frozenDigest); });
 test("contentReturnRestoresWorkspaceAndPreservesFrozenBody", async ({ page, scene }) => { await scene("content"); const { id, submissionID } = await submitDraft(page); await actor(page, "content_reviewer"); await page.goto("/review/" + submissionID); await page.getByLabel("Review note").fill("Please improve the explanation of nonzero denominators."); await page.getByRole("button", { name: "Return for changes" }).click(); await expect(page.getByRole("heading", { name: "Final review decision" })).toBeVisible(); const before = await wireContent<SubmissionView>(page, "/api/v1/content/submissions/" + submissionID); await actor(page, "content_editor"); await page.goto("/editor/drafts/" + id); await page.getByLabel("Knowledge 1 scope").fill("Changed after the immutable review return."); await page.getByRole("button", { name: "Save draft", exact: true }).click(); await expect(page.getByRole("status")).toHaveText(/Draft saved/); const after = await wireContent<SubmissionView>(page, "/api/v1/content/submissions/" + submissionID); expect(after.data.frozen).toEqual(before.data.frozen); expect(after.data.status).toBe("returned"); });
+
+test("administrator can find, review and publish their own fixed content",async({page,scene})=>{
+ await scene("content");
+ const {submissionID}=await submitDraft(page);
+ await grantAdministratorReview(page);
+ await page.goto("/review");
+ await expect(page.getByRole("link",{name:"e2e-content-math · Version 1"})).toBeVisible();
+ await page.getByRole("link",{name:"e2e-content-math · Version 1"}).click();
+ await expect(page.getByRole("heading",{name:"Administrator self-review",exact:true})).toBeVisible();
+ await expect(page.getByRole("button",{name:"Approve submission"})).toBeDisabled();
+ for(const label of ["Mathematics","Explanations","Relationships","Sources","Illustrations"]) await page.getByLabel(label,{exact:true}).check();
+ await page.getByLabel("Review responsibility statement").fill("Administrator self-review: I authored and checked this fixed technical content.");
+ await page.getByLabel("Review note").fill("All five checks completed for the original fixed test content.");
+ await page.getByRole("button",{name:"Approve submission"}).click();
+ await expect(page.getByRole("heading",{name:"Administrator self-review decision"})).toBeVisible();
+ await page.reload();
+ await expect(page.getByRole("heading",{name:"Administrator self-review decision"})).toBeVisible();
+ await fitsViewport(page);
+ await prepare(page,submissionID);
+ await activate(page);
+ expect((await page.request.get("/api/v1/knowledge/"+contentKnowledge)).status()).toBe(200);
+});

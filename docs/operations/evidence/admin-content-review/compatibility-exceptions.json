@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "610aefff8da3358194a6ec8693f168c0f0cb5a39",
+  "files": {
+    "backend/internal/publication/release.go": {
+      "previousSha256": "bfb4f81e6cd52c96883247e01f05a1aa6407f4bdf70d9fdc2272f7255a78fae6",
+      "sha256": "d297e23091619ca4a2caafc0d8dc1746a6dc3dbacd4be880558683480db3a89d"
+    },
+    "backend/internal/question/model.go": {
+      "previousSha256": "2ebccd3a9c78404289fc7de0e3d0faa058fff1fd7f50a137609eef071cc0c730",
+      "sha256": "930f8eace7d91222bdb3499512cf04d3b32b7945a9885f9227c174538c803a8c"
+    },
+    "backend/internal/question/release.go": {
+      "previousSha256": "db5abd25f9c26f2dd5dcf138b9c367cb0b2009d4b88581a888a8f99811a35592",
+      "sha256": "eafc0d2b7dfd6a9e2ca9592989d8925c4b6719f68e3cd30ab17a8aa0b33fb813"
+    },
+    "backend/internal/store/question_release.go": {
+      "previousSha256": "29f3f58c6418637512c2aea1fcc9844dc4174d9c5f4f40e450aff0e0b47bbdaa",
+      "sha256": "69941fe368538d4e7cb62ffde6d4838ea60ebeb1c68c9fffe9252c12361b5b88"
+    },
+    "backend/internal/store/question_review.go": {
+      "previousSha256": "d7ea3106834fd25d451d67adc913aee0e6f84ebd04e387e4baa4a0f29dbdcc3f",
+      "sha256": "c299a9916b70f3128b96e4c9aa91289bc53fe3a1944b7e56e628c3f06c587dc0"
+    },
+    "backend/internal/store/workflow_release.go": {
+      "previousSha256": "1f070d4a0d90f0b7853a14a36f25c585e53ea9725920d317a3ab4f372734bc1e",
+      "sha256": "96e20add5e4c6c0f0f0a37127ffa00b4d06f3de8ca760ce93329d482f774b34c"
+    },
+    "backend/internal/store/workflow_review.go": {
+      "previousSha256": "25aa771242dad8aaf582557c5045508294598d531cf0a5b5af702cc198bf4eca",
+      "sha256": "c69519c5ce9c150e2db12ad1f709a8db3fae9e4d0413d21948fa67419c212547"
+    }
+  },
+  "newFiles": {
+    "db/migrations/00009_admin_content_review.sql": "f5ce848ad783e1dea019ebddc21fc4c344226dabf1c1a001647292757d3b7595"
+  }
+}

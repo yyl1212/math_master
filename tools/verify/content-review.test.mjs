@@ -1,13 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
-import {createHash} from 'node:crypto';
+import {compareApprovedBytes,exceptionPath} from './admin-review-compatibility.mjs';
 const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root));
 const baseline=JSON.parse(read('docs/operations/evidence/p6b/compatibility-baseline.json'));
-const digest=b=>createHash('sha256').update(b).digest('hex');
-function compare(reader=read){for(const[p,sha]of Object.entries(baseline.files))assert.equal(digest(reader(p)),sha,p)}
+function compare(reader=read){compareApprovedBytes(baseline,reader)}
 function goFiles(path){return readdirSync(new URL(path+'/',root),{withFileTypes:true}).flatMap(e=>e.isDirectory()?goFiles(path+'/'+e.name):e.name.endsWith('.go')&&!e.name.endsWith('_test.go')?[path+'/'+e.name]:[])}
-test('approved master public contracts, migrations, runtime and mathematics retain exact bytes',()=>{
+test('historical public contracts and mathematics retain exact bytes with approved administrator-review exceptions',()=>{
  assert.equal(baseline.baseCommit,'b78108d3dd363eae237dae59f76a7be774b9de85');
  assert.equal(Object.keys(baseline.files).filter(p=>p.startsWith('db/migrations/')).length,8);
  assert(Object.keys(baseline.files).length>150);compare();
@@ -40,4 +39,22 @@ test('new technical tests stay in the old integration entry without skips or for
  assert.doesNotMatch(store+'\n'+cli,/t\.Skip(?:f|Now)?\(/);
  assert.match(store,/FixtureOnly: true/);assert.match(store,/awaiting_review/);
  assert.match(read('docs/operations/evidence/p6b/preparation.json').toString(),/"acceptanceEvidenceCreated": false/);
+});
+
+test('approved administrator-review files and new migration still reject tampering',()=>{
+ const exception=JSON.parse(read(exceptionPath));
+ for(const path of [...Object.keys(exception.files),...Object.keys(exception.newFiles)]) {
+  assert.throws(()=>compare(p=>p===path?Buffer.concat([read(p),Buffer.from(' changed')]):read(p)),new RegExp(path.replaceAll('.','\\.')));
+ }
+});
+test('compatibility manifest cannot excuse unrelated contracts or rewrite original evidence',()=>{
+ const exception=JSON.parse(read(exceptionPath));
+ for(const mutate of [
+  x=>{x.files['api/openapi.yaml']={previousSha256:baseline.files['api/openapi.yaml'],sha256:baseline.files['api/openapi.yaml']}},
+  x=>{x.files['backend/internal/question/model.go'].previousSha256='0'.repeat(64)},
+  x=>{x.newFiles['db/migrations/00008_correction_notifications.sql']='0'.repeat(64)},
+ ]) {
+  const changed=structuredClone(exception);mutate(changed);
+  assert.throws(()=>compare(p=>p===exceptionPath?Buffer.from(JSON.stringify(changed)):read(p)));
+ }
 });

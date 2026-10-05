@@ -120,7 +120,7 @@ func BuildCandidate(ctx context.Context, base BaseManifest, subs []ApprovedSubmi
 			return empty, ErrReviewRequired
 		}
 		for _, author := range f.AuthorIDs {
-			if author == d.ReviewerID {
+			if author == d.ReviewerID && !s.AdministratorReview {
 				return empty, ErrReviewRequired
 			}
 		}

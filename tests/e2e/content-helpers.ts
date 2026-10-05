@@ -45,3 +45,17 @@ export async function approve(page: Page, id: string) { await actor(page, "conte
 export async function prepare(page: Page, id: string) { await actor(page, "content_admin"); await page.goto("/admin/publications"); await page.getByRole("checkbox").check(); await page.getByLabel("Publication reason").fill("Publish this isolated independently reviewed technical batch."); await page.getByRole("button", { name: "Prepare snapshot" }).click(); await expect(page.getByRole("status")).toHaveText(/Snapshot prepared/); const pageResult = await wireContent<PublicationPage>(page, "/api/v1/content/publications"); expect(pageResult.status).toBe(200); return pageResult.data.items[0]; }
 export async function verifyPassword(page: Page) { await expect(page.getByRole("dialog")).toBeVisible(); await page.getByLabel("Your password", { exact: true }).fill(TEST_PASSWORD); await page.getByRole("button", { name: "Verify password" }).click(); await expect(page.getByRole("dialog")).toHaveCount(0); await expect(page.getByRole("status")).toHaveText(/Password verified/); }
 export async function activate(page: Page) { await page.getByRole("button", { name: "Activate snapshot" }).click(); await verifyPassword(page); await page.getByRole("button", { name: "Activate snapshot" }).click(); await expect(page.getByRole("status")).toHaveText(/Snapshot activated/); }
+
+// This helper only runs against the harness's disposable database and public test accounts.
+export async function grantAdministratorReview(page: Page) {
+ await actor(page,"auth_admin");
+ await page.goto("/admin/users");
+ await page.getByRole("button",{name:/^content_editor\s/}).click();
+ await page.getByLabel("admin",{exact:true}).check();
+ await page.getByLabel("Reason",{exact:true}).fill("Grant administrator review for this isolated browser regression.");
+ await page.getByRole("button",{name:"Save roles"}).click();
+ await verifyPassword(page);
+ await page.getByRole("button",{name:"Save roles"}).click();
+ await expect(page.getByText("Changes saved.",{exact:true})).toBeVisible();
+ await actor(page,"content_editor");
+}

@@ -453,6 +453,8 @@ type ApprovedSubmission struct {
 	Frozen       FrozenBody     `json:"frozen"`
 	Instances    []Instance     `json:"instances"`
 	Decision     ReviewDecision `json:"decision"`
+	// Internal authority from the store; never accepted from or emitted to JSON.
+	AdministratorReview bool `json:"-"`
 }
 type Candidate struct {
 	Templates  []Template  `json:"templates"`

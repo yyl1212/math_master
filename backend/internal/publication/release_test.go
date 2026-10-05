@@ -164,3 +164,26 @@ func TestReleaseReplacesSVGWithNewOwnerAndUnitVersions(t *testing.T) {
 		t.Fatal("old immutable bytes changed")
 	}
 }
+
+func TestAdministratorReviewAuthoritySurvivesCandidateCopy(t *testing.T) {
+	batch := reviewedBatch(t, releasePackage(), "44444444-4444-4444-8444-444444444444")
+	batch.Submission.Review.ReviewerID = batch.Submission.Frozen.AuthorIDs[0]
+	if _, err := BuildCandidate(Candidate{}, []ReviewedBatch{batch}); !errors.Is(err, ErrReviewRequired) {
+		t.Fatal("untrusted self-approval accepted", err)
+	}
+	batch.AdministratorReview = true
+	if _, err := BuildCandidate(Candidate{}, []ReviewedBatch{batch}); err != nil {
+		t.Fatal("trusted administrator approval lost during copy", err)
+	}
+	raw, err := json.Marshal(batch)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var external ReviewedBatch
+	if err = json.Unmarshal(raw, &external); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = BuildCandidate(Candidate{}, []ReviewedBatch{external}); !errors.Is(err, ErrReviewRequired) {
+		t.Fatal("JSON supplied administrator authority", err)
+	}
+}

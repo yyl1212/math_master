@@ -101,7 +101,7 @@ func questionEvidence(ctx context.Context, tx *sql.Tx, m question.Manifest, curr
  JOIN question_submission_members sm ON sm.submission_id=(e.evidence->>'submissionId')::uuid AND sm.kind=e.identity->>'kind' AND sm.id=e.identity->>'id' AND sm.version=(e.identity->>'version')::integer AND sm.sha256=e.identity->>'sha256'
  JOIN question_submissions s ON s.id=sm.submission_id AND s.sealed AND s.status='approved' AND s.package_id=e.identity->>'packageId' AND s.package_version=(e.identity->>'packageVersion')::integer AND s.frozen_digest=e.evidence->>'frozenDigest' AND s.catalogue_version=$2 AND s.catalogue_sha256=$3
  JOIN question_review_decisions d ON d.id=(e.evidence->>'decisionId')::uuid AND d.submission_id=s.id AND d.frozen_digest=s.frozen_digest AND d.decision='approve'
- WHERE d.checks @> '{"mathematics":true,"explanations":true,"objectives":true,"sources":true,"illustrations":true,"generation":true}' AND NOT EXISTS(SELECT 1 FROM question_submission_authors a WHERE a.submission_id=s.id AND a.user_id=d.reviewer_user_id)
+ WHERE d.checks @> '{"mathematics":true,"explanations":true,"objectives":true,"sources":true,"illustrations":true,"generation":true}' AND (NOT EXISTS(SELECT 1 FROM question_submission_authors a WHERE a.submission_id=s.id AND a.user_id=d.reviewer_user_id) OR NOT $4 OR e.evidence->>'inheritedFrom' IS NOT NULL OR EXISTS(SELECT 1 FROM auth_user_roles r WHERE r.user_id=d.reviewer_user_id AND r.role='admin'))
  AND (NOT $4 OR e.evidence->>'inheritedFrom' IS NOT NULL OR EXISTS(SELECT 1 FROM auth_user_roles r WHERE r.user_id=d.reviewer_user_id AND r.role='reviewer'))`
 	var count int
 	if err := tx.QueryRowContext(ctx, statement, body(m), m.CatalogueVersion, m.CatalogueSHA256, currentReviewers).Scan(&count); err != nil {
@@ -182,14 +182,14 @@ func (s *Store) questionApproved(ctx context.Context, tx *sql.Tx, u auth.User, i
 	if sub.Status != "approved" || sub.Review == nil || sub.Review.Decision != "approve" {
 		return question.ApprovedSubmission{}, question.ErrReviewRequired
 	}
-	var role bool
-	if err = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM auth_user_roles WHERE user_id=$1 AND role='reviewer')`, sub.Review.ReviewerID).Scan(&role); err != nil {
+	var role, administrator bool
+	if err = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM auth_user_roles WHERE user_id=$1 AND role='reviewer'), EXISTS(SELECT 1 FROM auth_user_roles WHERE user_id=$1 AND role='admin')`, sub.Review.ReviewerID).Scan(&role, &administrator); err != nil {
 		return question.ApprovedSubmission{}, err
 	}
 	if !role {
 		return question.ApprovedSubmission{}, question.ErrReviewRequired
 	}
-	return question.ApprovedSubmission{SubmissionID: id, Frozen: sub.Frozen, Instances: instances, Decision: *sub.Review}, nil
+	return question.ApprovedSubmission{SubmissionID: id, Frozen: sub.Frozen, Instances: instances, Decision: *sub.Review, AdministratorReview: administrator}, nil
 }
 func questionInsertPublication(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time, c question.Candidate, status string) (question.PublicationSummary, error) {
 	var out question.PublicationSummary

@@ -25,3 +25,21 @@ it("TestReviewShowsAllFrozenEvidence", () => {
  expect(screen.getByRole("heading",{name:/Frozen review route/})).toBeVisible();expect(screen.getByText(/review-route.*v3/)).toBeVisible();
  for(const name of ["Conditions","Learning objectives","Proof","Examples","Counterexamples"]){expect(screen.getByRole("heading",{name})).toBeVisible()}
 });
+
+it("administrator reviewer can check and approve their own fixed content", () => {
+ const s = submissionView(); s.frozen.authorIds.push(fixtureID);
+ render(<ReviewPanel submission={s} user={{...reviewer, roles:["learner","admin","reviewer"]}}/>);
+ expect(screen.queryByRole("button",{name:"Approve submission"})).toBeInTheDocument();
+ expect(screen.getByRole("heading",{name:"Administrator self-review"})).toBeVisible();
+ expect(screen.getByRole("button",{name:"Approve submission"})).toBeDisabled();
+ for (const label of ["Mathematics","Explanations","Relationships","Sources","Illustrations"]) fireEvent.click(screen.getByLabelText(label));
+ fireEvent.change(screen.getByLabelText("Review responsibility statement"),{target:{value:"I authored this content and take responsibility for this administrator review."}});
+ fireEvent.change(screen.getByLabelText("Review note"),{target:{value:"I checked all five requirements against the fixed version."}});
+ expect(screen.getByRole("button",{name:"Approve submission"})).toBeEnabled();
+ expect(screen.queryByLabelText("Independence statement")).not.toBeInTheDocument();
+});
+it("administrator without reviewer cannot approve their own content", () => {
+ const s=submissionView(); s.frozen.authorIds.push(fixtureID);
+ render(<ReviewPanel submission={s} user={{...reviewer,roles:["learner","admin"]}}/>);
+ expect(screen.queryByRole("button",{name:"Approve submission"})).not.toBeInTheDocument();
+});

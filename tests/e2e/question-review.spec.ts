@@ -1,6 +1,28 @@
 import { test, expect, fitsViewport } from "./fixtures";
-import { submitQuestion, approveQuestion, actor, wireQuestion, questionState, originalQuestionInput } from "./question-helpers";
+import { submitQuestion, approveQuestion, actor, wireQuestion, questionState, originalQuestionInput, prepareQuestion, activateQuestion, questionPackage } from "./question-helpers";
+import {grantAdministratorReview} from "./content-helpers";
 import type { DraftView, SubmissionView } from "../../frontend/src/lib/question/types";
 const review = { decision: "approve", checks: { mathematics: true, explanations: true, objectives: true, sources: true, illustrations: true, generation: true }, independenceNote: "Original test author claims independent review.", generationNote: "All finite instances were inspected independently.", note: "Six checks are complete in this original test request." };
 test("questionRealAuthorCannotReviewAndDistinctReviewerSeesAllFrozenPages", async ({ page, scene, request, runtime }) => { await scene("question"); const d = await submitQuestion(page); const self = await wireQuestion(page, `/api/v1/question-bank/submissions/${d.submissionID}/decision`, "POST", review); expect(self.status).toBe(403); await actor(page, "content_reviewer"); await page.goto("/review/questions/" + d.submissionID); await expect(page.getByRole("checkbox")).toHaveCount(6); await expect(page.getByText("original/question-source.json",{exact:true})).toBeVisible(); await expect(page.getByText(/Generator versions: 1/)).toBeVisible(); await expect(page.getByText(/Offset 0/)).toBeVisible(); await page.getByRole("button", { name: "Next instances" }).click(); await expect(page.getByText(/Showing 8 of 28 instances · Offset 20/)).toBeVisible(); await fitsViewport(page); for (const check of await page.getByRole("checkbox").all()) await check.check(); await page.getByLabel("Independence statement").fill("Independently reviewed the original authors and all finite instances."); await page.getByLabel("Review note").fill("All six checks cover the complete original template batch."); await expect(page.getByLabel("Generation review statement")).toHaveValue(""); await expect(page.getByRole("button", { name: "Approve submission" })).toBeEnabled(); await page.getByRole("button", { name: "Approve submission" }).click(); await expect(page.getByRole("status")).toHaveText(/Independent review saved/); await page.reload(); await expect(page.getByRole("heading", { name: "Final review decision" })).toBeVisible(); const approved = await wireQuestion<SubmissionView>(page, "/api/v1/question-bank/submissions/" + d.submissionID); expect(approved.status).toBe(200); expect(approved.data.review?.generationNote).toBe(""); const state = await questionState(request, runtime); expect(state.reviews).toBe(1); expect(state.events.decideReview).toBe(1); await actor(page, "content_editor"); await page.goto("/review/questions/" + d.submissionID); await page.getByRole("button", { name: "Create revision workspace" }).click(); await expect(page).toHaveURL(/\/editor\/questions\/drafts\/[0-9a-f-]+$/); await expect(page.getByText("Saved revision 1 · editing", { exact: true })).toBeVisible(); expect((await questionState(request, runtime)).submissions).toBe(1); });
 test("questionReturnedWorkspaceReopensButOriginalSubmissionStaysFrozen", async ({ page, scene, request, runtime }) => { await scene("question"); const d = await submitQuestion(page); const before = await wireQuestion<SubmissionView>(page, "/api/v1/question-bank/submissions/" + d.submissionID); await approveQuestion(page, d.submissionID, "return"); await actor(page, "content_editor"); await page.goto("/editor/questions/drafts/" + d.id); await expect(page.getByText("Saved revision 3 · editing", { exact: true })).toBeVisible(); await page.getByLabel("Template 1 prompt").fill("A corrected original prompt {{left}} + {{right}}."); await page.getByRole("button", { name: "Save draft", exact: true }).click(); await expect(page.getByRole("status")).toHaveText(/Draft saved/); const after = await wireQuestion<SubmissionView>(page, "/api/v1/question-bank/submissions/" + d.submissionID); expect(after.status).toBe(200); expect(after.data.frozen).toEqual(before.data.frozen); expect(after.data.status).toBe("returned"); expect((await questionState(request, runtime)).maxRevision).toBe(4); });
+
+test("administrator can find, review and publish their own fixed questions",async({page,scene,request,runtime})=>{
+ await scene("question");
+ const d=await submitQuestion(page);
+ await grantAdministratorReview(page);
+ await page.goto("/review/questions");
+ await expect(page.getByRole("link",{name:questionPackage+" v1"})).toBeVisible();
+ await page.getByRole("link",{name:questionPackage+" v1"}).click();
+ await expect(page.getByRole("heading",{name:"Administrator self-review",exact:true})).toBeVisible();
+ for(const check of await page.getByRole("checkbox").all()) await check.check();
+ await page.getByLabel("Review responsibility statement").fill("Administrator self-review: I authored and checked this fixed technical question bank.");
+ await page.getByLabel("Review note").fill("All six requirements checked against every fixed test instance.");
+ await page.getByRole("button",{name:"Approve submission"}).click();
+ await expect(page.getByRole("heading",{name:"Administrator self-review decision"})).toBeVisible();
+ await page.reload();
+ await expect(page.getByRole("heading",{name:"Administrator self-review decision"})).toBeVisible();
+ await fitsViewport(page);
+ await prepareQuestion(page,d.submissionID);
+ await activateQuestion(page);
+ expect((await questionState(request,runtime)).head).not.toBeNull();
+});

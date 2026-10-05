@@ -2,6 +2,7 @@ package question
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"strings"
@@ -131,5 +132,28 @@ func TestQuestionCandidateProvenanceDoesNotReplaceMath(t *testing.T) {
 		if m.Identity.PackageID != "new-provenance-package" || m.Evidence.FrozenDigest != sub.Frozen.FrozenDigest || m.Evidence.InheritedFrom != nil {
 			t.Fatal("fresh proof not bound to selected package")
 		}
+	}
+}
+
+func TestQuestionAdministratorAuthorityIsInternal(t *testing.T) {
+	sub, refs := candidateFixture(t)
+	sub.Decision.ReviewerID = sub.Frozen.AuthorIDs[0]
+	if _, err := BuildCandidate(context.Background(), BaseManifest{}, []ApprovedSubmission{sub}, refs); !errors.Is(err, ErrReviewRequired) {
+		t.Fatal("untrusted question self-approval accepted", err)
+	}
+	sub.AdministratorReview = true
+	if _, err := BuildCandidate(context.Background(), BaseManifest{}, []ApprovedSubmission{sub}, refs); err != nil {
+		t.Fatal("trusted question administrator rejected", err)
+	}
+	raw, err := json.Marshal(sub)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var external ApprovedSubmission
+	if err = json.Unmarshal(raw, &external); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = BuildCandidate(context.Background(), BaseManifest{}, []ApprovedSubmission{external}, refs); !errors.Is(err, ErrReviewRequired) {
+		t.Fatal("JSON supplied question administrator authority", err)
 	}
 }
