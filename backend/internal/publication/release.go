@@ -11,6 +11,8 @@ type ReviewedBatch struct {
 	Submission SubmissionView
 	Members    []MemberIdentity
 	Bindings   []content.AssetBinding
+	// Set only by the store after verifying the current administrator and reviewer roles.
+	AdministratorReview bool `json:"-"`
 }
 type releaseBody struct {
 	knowledge *content.Knowledge
@@ -280,8 +282,12 @@ func BuildCandidate(base Candidate, batches []ReviewedBatch) (Candidate, error) 
 	publicationID := base.PublicationID
 	base = copyJSON(base)
 	base.PublicationID = publicationID
-	batches = copyJSON(batches)
-	return buildCandidate(base, batches)
+	cloned := copyJSON(batches)
+	// JSON owns a deep content copy but intentionally cannot carry trusted authority.
+	for i := range cloned {
+		cloned[i].AdministratorReview = batches[i].AdministratorReview
+	}
+	return buildCandidate(base, cloned)
 }
 func buildCandidate(base Candidate, batches []ReviewedBatch) (Candidate, error) {
 	var out Candidate
@@ -326,7 +332,7 @@ func buildCandidate(base Candidate, batches []ReviewedBatch) (Candidate, error) 
 			return out, ErrReviewRequired
 		}
 		for _, id := range s.Frozen.AuthorIDs {
-			if id == s.Review.ReviewerID {
+			if id == s.Review.ReviewerID && !batch.AdministratorReview {
 				return out, ErrReviewRequired
 			}
 		}

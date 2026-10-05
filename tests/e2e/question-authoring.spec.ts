@@ -11,7 +11,7 @@ test("questionAuthoringRealStackAndResponsiveFrozenPages", async ({ page, scene 
     await expect(page.getByText("Fractions as rational numbers · 分数")).toBeVisible();
     await expect(page.getByText("0: Represent one half as a rational number.")).toBeVisible();
     await page.getByRole("button", { name: "Validate saved revision" }).click();
-    await expect(page.getByText("Machine checks passed. Independent review is required.")).toBeVisible();
+    await expect(page.getByText("Machine checks passed. Reviewer approval is required.")).toBeVisible();
     await expect(page.getByText(/Independently verified instances: 10/).first()).toBeVisible();
     await fitsViewport(page);
     await safeScreenshot(page, info, "question-authoring");

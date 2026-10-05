@@ -77,7 +77,7 @@ func workflowManifestEvidence(ctx context.Context, tx *sql.Tx, m publication.Man
  JOIN content_submissions sub ON sub.id=sm.submission_id AND sub.sealed AND sub.status='approved' AND sub.frozen_digest=e.evidence->>'frozenDigest' AND sub.catalogue_version=$2 AND sub.catalogue_sha256=$3
  JOIN content_review_decisions d ON d.submission_id=sub.id AND d.id=(e.evidence->>'decisionId')::uuid AND d.frozen_digest=sub.frozen_digest AND d.decision='approve'
  WHERE d.checks @> '{"mathematics":true,"explanations":true,"relationships":true,"sources":true,"illustrations":true}'
- AND NOT EXISTS(SELECT 1 FROM content_submission_authors a WHERE a.submission_id=sub.id AND a.user_id=d.reviewer_user_id)
+ AND (NOT EXISTS(SELECT 1 FROM content_submission_authors a WHERE a.submission_id=sub.id AND a.user_id=d.reviewer_user_id) OR NOT $4 OR e.evidence->>'inheritedFrom' IS NOT NULL OR EXISTS(SELECT 1 FROM auth_user_roles r WHERE r.user_id=d.reviewer_user_id AND r.role='admin'))
  AND (NOT $4 OR e.evidence->>'inheritedFrom' IS NOT NULL OR EXISTS(SELECT 1 FROM auth_user_roles r WHERE r.user_id=d.reviewer_user_id AND r.role='reviewer'))`
 	var count int
 	if err := tx.QueryRowContext(ctx, evidenceSQL, body(m), m.CatalogueVersion, m.CatalogueSHA256, currentReviewers).Scan(&count); err != nil {
@@ -327,6 +327,14 @@ func (s *Store) workflowReviewedBatch(ctx context.Context, tx *sql.Tx, u auth.Us
 	if sub.Status != "approved" || sub.Review == nil || sub.Review.Decision != "approve" {
 		return out, publication.ErrReviewRequired
 	}
+	var reviewer, administrator bool
+	if err = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM auth_user_roles WHERE user_id=$1 AND role='reviewer'), EXISTS(SELECT 1 FROM auth_user_roles WHERE user_id=$1 AND role='admin')`, sub.Review.ReviewerID).Scan(&reviewer, &administrator); err != nil {
+		return out, err
+	}
+	if !reviewer {
+		return out, publication.ErrReviewRequired
+	}
+	out.AdministratorReview = administrator
 	out.Submission = sub
 	out.Members = []publication.MemberIdentity{}
 	rows, err := tx.QueryContext(ctx, `SELECT kind,id,version,package_id,package_version,sha256 FROM content_submission_members WHERE submission_id=$1 ORDER BY kind,id`, id)

@@ -33,12 +33,12 @@ func (s *Store) DecideReview(ctx context.Context, a publication.Access, id strin
 		if err = publication.ValidateReviewInput(input); err != nil {
 			return err
 		}
-		if input.Decision == "approve" {
-			for _, author := range sub.Frozen.AuthorIDs {
-				if author == u.ID {
-					return auth.ErrForbidden
-				}
+		for _, author := range sub.Frozen.AuthorIDs {
+			if author == u.ID && !publication.HasRole(u, auth.RoleAdmin) {
+				return auth.ErrForbidden
 			}
+		}
+		if input.Decision == "approve" {
 			if !sub.Gate.ReadyToSubmit || sub.Gate.StructuralTotal != 0 || sub.Gate.CompletenessTotal != 0 {
 				return publication.ErrContentNotReady
 			}

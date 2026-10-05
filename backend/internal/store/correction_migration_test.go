@@ -16,7 +16,8 @@ func downCorrection(t *testing.T, db *sql.DB) error {
 	if e != nil {
 		return e
 	}
-	_, e = p.Down(context.Background())
+	// Exercise correction migration 00008 even when later migrations exist.
+	_, e = p.DownTo(context.Background(), 7)
 	return e
 }
 func TestCorrectionMigrationEmptyDownAndMarker(t *testing.T) {

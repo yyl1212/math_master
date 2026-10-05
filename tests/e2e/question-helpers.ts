@@ -23,7 +23,7 @@ export async function createQuestion(page: Page, input?: DraftInput) { await act
 export async function submitQuestion(page: Page) {
     const d = await createQuestion(page);
     await page.getByRole("button", { name: "Validate saved revision" }).click();
-    await expect(page.getByText("Machine checks passed. Independent review is required.")).toBeVisible();
+    await expect(page.getByText("Machine checks passed. Reviewer approval is required.")).toBeVisible();
     await page.getByRole("button", { name: "Submit for review" }).click();
     await expect(page.getByRole("status")).toHaveText(/frozen for independent review/);
     const list = await wireContent<{

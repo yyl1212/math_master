@@ -22,6 +22,7 @@ if (OPS/'deploy.py').exists():
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
 OLD='3'*40
 NEW='4'*40
+SCHEMA=max(int(p.name.split('_',1)[0]) for p in (OPS.parent/'db'/'migrations').glob('*.sql'))
 
 
 class DeployTests(unittest.TestCase):
@@ -82,7 +83,7 @@ class DeployTests(unittest.TestCase):
             if revision==NEW and args[:2]==['up','-d'] and 'web' in args:
                 result.returncode=1
             return result
-        with patch.object(common,'compose',side_effect=transport),patch.object(deploy.snapshot,'capture',return_value={'ok':True,'tables':1,'workspaces':0,'dumpSha256':'b'*64}),patch.object(deploy.snapshot,'sql',return_value='8'),patch.object(deploy,'trusted_check',return_value={'ok':True}):
+        with patch.object(common,'compose',side_effect=transport),patch.object(deploy.snapshot,'capture',return_value={'ok':True,'tables':1,'workspaces':0,'dumpSha256':'b'*64}),patch.object(deploy.snapshot,'sql',return_value=str(SCHEMA)),patch.object(deploy,'trusted_check',return_value={'ok':True}):
             self.assertEqual(self.invoke('start','--revision',NEW)[0],1)
         current=json.loads(self.state_path.read_text())
         self.assertEqual(current['current'],OLD)
@@ -94,7 +95,7 @@ class DeployTests(unittest.TestCase):
         deploy=self.implementation()
         self.state.update(current=NEW,previous=OLD,runningRevision=NEW);self.write_state()
         (self.root/'current').unlink();(self.root/'current').symlink_to('releases/'+NEW)
-        with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'sql',return_value='8'),patch.object(deploy,'trusted_check',return_value={'ok':True}):
+        with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'sql',return_value=str(SCHEMA)),patch.object(deploy,'trusted_check',return_value={'ok':True}):
             self.assertEqual(self.invoke('rollback','--revision',OLD)[0],0)
         state=json.loads(self.state_path.read_text())
         self.assertEqual(state['current'],OLD)
@@ -108,7 +109,7 @@ class DeployTests(unittest.TestCase):
         self.state.update(current=None,previous=None,runningRevision=None,bootstrapVerified=False)
         self.write_state()
         if (self.root/'current').is_symlink():(self.root/'current').unlink()
-        return {'sourceCommit':OLD,'dumpSha256':'b'*64,'migrationVersion':8}
+        return {'sourceCommit':OLD,'dumpSha256':'b'*64,'migrationVersion':SCHEMA}
 
     def test_first_deploy_retry_retains_database_provenance(self):
         deploy=self.implementation()
@@ -142,7 +143,7 @@ class DeployTests(unittest.TestCase):
                     if fault=='health' and args[:2]==['up','-d'] and 'web' in args:result.returncode=1
                     return result
                 checker=patch.object(deploy,'trusted_check',side_effect=deploy.DeployError('trusted-https-check-failed')) if fault=='tls' else patch.object(deploy,'trusted_check',return_value={'ok':True})
-                with patch.object(common,'compose',side_effect=transport),patch.object(deploy.snapshot,'sql',return_value='8'),checker:
+                with patch.object(common,'compose',side_effect=transport),patch.object(deploy.snapshot,'sql',return_value=str(SCHEMA)),checker:
                     self.assertEqual(self.invoke('rollback','--revision',OLD)[0],1)
                 state=json.loads(self.state_path.read_text())
                 self.assertEqual(state['current'],NEW)
@@ -175,7 +176,7 @@ class DeployTests(unittest.TestCase):
     def test_schema_mismatch_stops_writes_instead_of_rollback(self):
         deploy=self.implementation()
         self.state.update(current=NEW,previous=OLD,runningRevision=NEW);self.write_state()
-        with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'sql',return_value='9'):
+        with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'sql',return_value=str(SCHEMA+1)):
             self.assertEqual(self.invoke('rollback','--revision',OLD)[0],1)
         self.assertTrue(any(args[:1]==['stop'] for _,args,_ in self.commands))
         self.assertFalse(any(revision==OLD and args[:1]==['up'] for revision,args,_ in self.commands))

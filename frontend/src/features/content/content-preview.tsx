@@ -3,7 +3,7 @@ import { SafeMarkdown } from "@/features/reading/safe-markdown";
 import styles from "@/styles/content.module.css";
 export function GatePanel({ gate }: {
     gate: GateReport;
-}) { return <section className={styles.card}><h2>Readiness check</h2><p>{gate.readyToSubmit ? "Machine checks passed. Independent review is still required." : "Content needs work before review."}</p><p>Structural issues: {gate.structuralTotal} · Completeness issues: {gate.completenessTotal} · Human checks: {gate.humanReviewTotal}</p>{gate.truncated && <p>Showing the first 100 issues.</p>}<ul>{[...gate.structuralErrors, ...gate.completenessErrors, ...gate.humanReviewRequirements].map((v, i) => <li key={i}><strong>{v.code}</strong> {v.path}: {v.message}</li>)}</ul></section>; }
+}) { return <section className={styles.card}><h2>Readiness check</h2><p>{gate.readyToSubmit ? "Machine checks passed. Reviewer approval is still required." : "Content needs work before review."}</p><p>Structural issues: {gate.structuralTotal} · Completeness issues: {gate.completenessTotal} · Human checks: {gate.humanReviewTotal}</p>{gate.truncated && <p>Showing the first 100 issues.</p>}<ul>{[...gate.structuralErrors, ...gate.completenessErrors, ...gate.humanReviewRequirements].map((v, i) => <li key={i}><strong>{v.code}</strong> {v.path}: {v.message}</li>)}</ul></section>; }
 function sourceURL(value: string): string | null {
     try { const url = new URL(value); return url.protocol === "https:" && url.hostname && !url.username && !url.password ? value : null; } catch { return null; }
 }

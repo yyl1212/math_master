@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
 )
@@ -32,12 +33,12 @@ func (s *Store) DecideQuestionReview(ctx context.Context, a question.Access, id 
 		if err = question.ValidateReviewInput(input, len(sub.Frozen.QuestionPackage.Templates) > 0); err != nil {
 			return err
 		}
-		if input.Decision == "approve" {
-			for _, author := range sub.Frozen.AuthorIDs {
-				if author == u.ID {
-					return auth.ErrForbidden
-				}
+		for _, author := range sub.Frozen.AuthorIDs {
+			if author == u.ID && !publication.HasRole(u, auth.RoleAdmin) {
+				return auth.ErrForbidden
 			}
+		}
+		if input.Decision == "approve" {
 			if !sub.Gate.ReadyToSubmit || sub.Gate.StructuralTotal != 0 || sub.Gate.CompletenessTotal != 0 {
 				return question.ErrNotReady
 			}

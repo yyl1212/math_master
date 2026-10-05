@@ -42,7 +42,7 @@ export const submissionViewSchema = z.object({ id: uuid, workspaceId: uuid, owne
         return s.review === null;
     if (!s.review || s.review.submissionId !== s.id || s.review.frozenDigest !== s.frozen.frozenDigest || s.review.decision !== (s.status === "approved" ? "approve" : "return"))
         return false;
-    return s.status !== "approved" || Object.values(s.review.checks).every(Boolean) && reason.safeParse(s.review.independenceNote).success && !s.frozen.authorIds.includes(s.review.reviewerId);
+    return s.status !== "approved" || Object.values(s.review.checks).every(Boolean) && reason.safeParse(s.review.independenceNote).success;
 });
 const identity = z.object({ kind: z.enum(["knowledge", "unit", "path", "asset"]), id, packageId: id, sha256: sha, version, packageVersion: version }).strict().refine(m => m.kind !== "asset" || m.version === 1);
 const evidence = z.object({ submissionId: uuid, decisionId: uuid, frozenDigest: sha, inheritedFrom: uuid.nullable() }).strict();
