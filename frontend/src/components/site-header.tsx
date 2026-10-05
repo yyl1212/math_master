@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import {LanguageSwitch} from "./language-switch";
 import { AuthStatus } from "./auth-status";
 import { usePathname } from "next/navigation";
 export function SiteHeader() {
@@ -52,7 +53,7 @@ export function SiteHeader() {
         </Link>
         <Link prefetch={false} href="/learn" aria-current={path==="/learn"?"page":undefined} data-active={path==="/learn"}>Learn</Link>
       <Link prefetch={false} href="/feedback" data-active={path.startsWith('/feedback')}>My reports</Link><Link prefetch={false} href="/review/feedback" data-active={path.startsWith('/review/feedback')}>Feedback review</Link><Link prefetch={false} href="/notifications" data-active={path==="/notifications"}>Notifications</Link><Link prefetch={false} href="/review/corrections" data-active={path.startsWith("/review/corrections")}>Corrections review</Link><Link prefetch={false} href="/feedback/new?kind=site&area=other">Website feedback</Link></nav>
-      <AuthStatus />
+      <LanguageSwitch /><AuthStatus />
     </header>
   );
 }
