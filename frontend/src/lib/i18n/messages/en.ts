@@ -691,5 +691,325 @@ export const enMessages = {
   "page.route.feedback.729fbd": {
     "text": "Route feedback",
     "params": []
+  },
+  "credentials-form.make.room.for.mathematics.56b94d": {
+    "text": "Make room for mathematics.",
+    "params": []
+  },
+  "credentials-form.welcome.back.dfdbca": {
+    "text": "Welcome back.",
+    "params": []
+  },
+  "credentials-form.create.an.account.to.begin.your.next.chapter.16d5e3": {
+    "text": "Create an account to begin your next chapter.",
+    "params": []
+  },
+  "credentials-form.sign.in.to.your.math.master.account.ced01b": {
+    "text": "Sign in to your Math Master account.",
+    "params": []
+  },
+  "credentials-form.from.first.principles.to.new.frontiers.explore.a.connected.world..c2f0a1": {
+    "text": "From first principles to new frontiers, explore a connected world of mathematical ideas.",
+    "params": []
+  },
+  "credentials-form.explore.the.knowledge.map.d12c1a": {
+    "text": "Explore the Knowledge Map →",
+    "params": []
+  },
+  "credentials-form.username.e3b89e": {
+    "text": "Username",
+    "params": []
+  },
+  "credentials-form.password.e7cf3e": {
+    "text": "Password",
+    "params": []
+  },
+  "credentials-form.15.128.characters.spaces.and.unicode.characters.are.welcome.66a06f": {
+    "text": "15–128 characters. Spaces and Unicode characters are welcome.",
+    "params": []
+  },
+  "credentials-form.please.wait.4660a9": {
+    "text": "Please wait…",
+    "params": []
+  },
+  "credentials-form.already.have.an.account.04a38d": {
+    "text": "Already have an account? ",
+    "params": []
+  },
+  "credentials-form.new.to.math.master.733bb8": {
+    "text": "New to Math Master? ",
+    "params": []
+  },
+  "admin-users.administration.bbdbcb": {
+    "text": "ADMINISTRATION",
+    "params": []
+  },
+  "admin-users.manage.roles.and.help.verified.account.owners.regain.access.3f1280": {
+    "text": "Manage roles and help verified account owners regain access.",
+    "params": []
+  },
+  "admin-users.search.usernames.adb993": {
+    "text": "Search usernames",
+    "params": []
+  },
+  "admin-users.account.9af211": {
+    "text": "account",
+    "params": []
+  },
+  "admin-users.accounts.bc62a3": {
+    "text": "accounts",
+    "params": []
+  },
+  "admin-users.accounts.8a7c8b": {
+    "text": "Accounts",
+    "params": []
+  },
+  "admin-users.password.change.required.77288b": {
+    "text": "Password change required",
+    "params": []
+  },
+  "admin-users.no.matching.accounts.277fda": {
+    "text": "No matching accounts.",
+    "params": []
+  },
+  "admin-users.previous.a57b08": {
+    "text": "Previous",
+    "params": []
+  },
+  "admin-users.next.1ff57a": {
+    "text": "Next",
+    "params": []
+  },
+  "admin-users.roles.c25337": {
+    "text": "Roles",
+    "params": []
+  },
+  "admin-users.reason.f81ab8": {
+    "text": "Reason",
+    "params": []
+  },
+  "admin-users.save.roles.1a0378": {
+    "text": "Save roles",
+    "params": []
+  },
+  "admin-users.reset.password.e0edfe": {
+    "text": "Reset password",
+    "params": []
+  },
+  "admin-users.verify.ownership.outside.this.website.before.resetting.an.account.0883de": {
+    "text": "Verify ownership outside this website before resetting an account. The owner must change this temporary password after signing in.",
+    "params": []
+  },
+  "admin-users.ownership.verification.7438d7": {
+    "text": "Ownership verification",
+    "params": []
+  },
+  "admin-users.temporary.password.b20862": {
+    "text": "Temporary password",
+    "params": []
+  },
+  "admin-users.the.reason.above.also.applies.to.this.reset.6ef8fa": {
+    "text": "The reason above also applies to this reset.",
+    "params": []
+  },
+  "admin-users.verify.your.password.0ed67a": {
+    "text": "Verify your password",
+    "params": []
+  },
+  "admin-users.verification.lasts.five.minutes.you.will.submit.your.change.separ.332ca5": {
+    "text": "Verification lasts five minutes. You will submit your change separately.",
+    "params": []
+  },
+  "admin-users.your.password.bbda70": {
+    "text": "Your password",
+    "params": []
+  },
+  "admin-users.verify.password.f226eb": {
+    "text": "Verify password",
+    "params": []
+  },
+  "admin-users.cancel.19766e": {
+    "text": "Cancel",
+    "params": []
+  },
+  "account-panel.your.account.cee7fd": {
+    "text": "YOUR ACCOUNT",
+    "params": []
+  },
+  "account-panel.change.your.password.to.continue.1c1b58": {
+    "text": "Change your password to continue",
+    "params": []
+  },
+  "account-panel.change.password.3f9c99": {
+    "text": "Change password",
+    "params": []
+  },
+  "account-panel.changing.your.password.signs.you.out.on.every.device.sign.in.agai.c2a7e1": {
+    "text": "Changing your password signs you out on every device. Sign in again with your new password.",
+    "params": []
+  },
+  "account-panel.current.password.72ed2b": {
+    "text": "Current password",
+    "params": []
+  },
+  "account-panel.new.password.3dd9df": {
+    "text": "New password",
+    "params": []
+  },
+  "account-panel.sign.out.48f0d3": {
+    "text": "Sign out",
+    "params": []
+  },
+  "account-panel.sign.out.everywhere.af180f": {
+    "text": "Sign out everywhere",
+    "params": []
+  },
+  "auth-state.view.account.407143": {
+    "text": "View account",
+    "params": []
+  },
+  "auth-state.clear.sign.in.cookie.b7ae51": {
+    "text": "Clear sign-in cookie",
+    "params": []
+  },
+  "auth-state.explore.mathematics.088a8c": {
+    "text": "Explore mathematics",
+    "params": []
+  },
+  "auth.roles": {
+    "text": "Roles",
+    "params": []
+  },
+  "auth.role.learner": {
+    "text": "learner",
+    "params": []
+  },
+  "auth.role.editor": {
+    "text": "editor",
+    "params": []
+  },
+  "auth.role.reviewer": {
+    "text": "reviewer",
+    "params": []
+  },
+  "auth.role.admin": {
+    "text": "admin",
+    "params": []
+  },
+  "auth.input.credentials": {
+    "text": "Use a username of 3–32 letters, digits or underscores, and a password of 15–128 characters.",
+    "params": []
+  },
+  "auth.input.password": {
+    "text": "Passwords must contain 15–128 characters.",
+    "params": []
+  },
+  "auth.input.admin": {
+    "text": "Provide a reason of 10–1000 characters. A password reset also requires ownership verification and a password of 15–128 characters.",
+    "params": []
+  },
+  "auth.saved": {
+    "text": "Changes saved.",
+    "params": []
+  },
+  "auth.verified": {
+    "text": "Password verified. Submit your change again.",
+    "params": []
+  },
+  "auth.state.anonymous": {
+    "text": "Sign in to view your account",
+    "params": []
+  },
+  "auth.state.invalidCookie": {
+    "text": "Your sign-in cookie needs to be cleared.",
+    "params": []
+  },
+  "field.add": {
+    "text": "Add {label}",
+    "params": [
+      "label"
+    ]
+  },
+  "field.remove": {
+    "text": "Remove {label} {number}",
+    "params": [
+      "label",
+      "number"
+    ]
+  },
+  "field.numbered": {
+    "text": "{label} {number}",
+    "params": [
+      "label",
+      "number"
+    ]
+  },
+  "field.id": {
+    "text": "{label} ID",
+    "params": [
+      "label"
+    ]
+  },
+  "field.version": {
+    "text": "{label} version",
+    "params": [
+      "label"
+    ]
+  },
+  "auth.error.INVALID_REQUEST": {
+    "text": "Invalid request.",
+    "params": []
+  },
+  "auth.error.INVALID_COOKIE": {
+    "text": "Invalid sign-in cookie.",
+    "params": []
+  },
+  "auth.error.INVALID_CREDENTIALS": {
+    "text": "Invalid username or password.",
+    "params": []
+  },
+  "auth.error.AUTHENTICATION_REQUIRED": {
+    "text": "Please sign in to continue.",
+    "params": []
+  },
+  "auth.error.CSRF_FAILED": {
+    "text": "Request verification failed.",
+    "params": []
+  },
+  "auth.error.PASSWORD_CHANGE_REQUIRED": {
+    "text": "Change your password to continue.",
+    "params": []
+  },
+  "auth.error.METHOD_NOT_ALLOWED": {
+    "text": "Method not allowed.",
+    "params": []
+  },
+  "auth.error.USERNAME_UNAVAILABLE": {
+    "text": "This username is unavailable.",
+    "params": []
+  },
+  "auth.error.ALREADY_AUTHENTICATED": {
+    "text": "Sign out before using another account.",
+    "params": []
+  },
+  "auth.error.LAST_ADMIN_REQUIRED": {
+    "text": "At least one administrator is required.",
+    "params": []
+  },
+  "auth.error.REAUTHENTICATION_REQUIRED": {
+    "text": "Verify your password before continuing.",
+    "params": []
+  },
+  "auth.error.RATE_LIMITED": {
+    "text": "Too many requests. Try again later.",
+    "params": []
+  },
+  "auth.error.AUTH_NOT_CONFIGURED": {
+    "text": "Accounts are temporarily unavailable.",
+    "params": []
+  },
+  "auth.error.SERVICE_UNAVAILABLE": {
+    "text": "Service temporarily unavailable.",
+    "params": []
   }
 } as const;
