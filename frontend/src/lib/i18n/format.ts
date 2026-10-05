@@ -12,3 +12,5 @@ export function formatUiNotice(locale:UiLocale,notice:UiNotice):string {
  const entry=enMessages[key];const text=locale==="zh-CN"?zhMessages[key]:entry.text;
  return text.replace(/\{([a-zA-Z0-9_]+)\}/g,(_,name:string)=>String((values as Readonly<Record<string,string|number>>)[name]??""));
 }
+
+export const uiValue=(value:string|number|boolean|null|undefined):string|number=>typeof value==="string"||typeof value==="number"?value:"";

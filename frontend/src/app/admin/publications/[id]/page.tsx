@@ -1,3 +1,6 @@
+import {getUiMetadata} from "@/lib/i18n/server";
+import {UiPageTitle} from "@/components/ui-page-title";
+export async function generateMetadata(){return getUiMetadata("page.admin.publications.id");}
 import { contentPageAccess } from "@/features/content/page-access";
 import { ContentState } from "@/features/content/content-state";
 import { readServerContent } from "@/lib/content/server-client";
@@ -10,13 +13,13 @@ import { ReviewPanel } from "@/features/content/review-panel";
 import { PublicationPanel } from "@/features/content/publication-panel";
 import { WithdrawalPanel } from "@/features/content/withdrawal-panel";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Fixed publication" };
+
 export default async function Page({ params }: {
     params: Promise<{
         id: string;
     }>;
 }) { const { id } = await params; if (!contentUUID.test(id))
-    return <ContentState status={404}/>; const access = await contentPageAccess(["admin"]); if ("error" in access)
-    return access.error; const [list, view] = await Promise.all([readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie), readServerContent<PublicationView>({ kind: "readPublication", id }, access.cookie)]); if (!list.ok)
-    return <ContentState status={list.status} code={list.code}/>; if (!view.ok)
-    return <ContentState status={view.status} code={view.code}/>; const initial = { ...list.data, items: [view.data, ...list.data.items.filter(v => v.id !== id)] }; return <PublicationPanel key={id} initial={initial} selectedID={id}/>; }
+    return <><UiPageTitle messageKey="page.admin.publications.id"/>{<ContentState status={404}/>}</>; const access = await contentPageAccess(["admin"]); if ("error" in access)
+    return <><UiPageTitle messageKey="page.admin.publications.id"/>{access.error}</>; const [list, view] = await Promise.all([readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie), readServerContent<PublicationView>({ kind: "readPublication", id }, access.cookie)]); if (!list.ok)
+    return <><UiPageTitle messageKey="page.admin.publications.id"/>{<ContentState status={list.status} code={list.code}/>}</>; if (!view.ok)
+    return <><UiPageTitle messageKey="page.admin.publications.id"/>{<ContentState status={view.status} code={view.code}/>}</>; const initial = { ...list.data, items: [view.data, ...list.data.items.filter(v => v.id !== id)] }; return <><UiPageTitle messageKey="page.admin.publications.id"/>{<PublicationPanel key={id} initial={initial} selectedID={id}/>}</>; }

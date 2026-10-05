@@ -1,4 +1,6 @@
 "use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
 import { useState, useEffect } from "react";
 import type { AssetView } from "@/lib/api/types";
 import type {AssetScope} from "@/lib/content/types";
@@ -11,9 +13,7 @@ export function AssetImage({ asset, alt, assetScope }: { asset: AssetView; alt: 
   return (
     <span className={styles.figure}>
       {failed || !src ? (
-        <span className={styles.figureError} role="status">
-          Illustration is temporarily unavailable.
-        </span>
+        <span className={styles.figureError} role="status"><UiText notice={uiMessage("asset-image.illustration.is.temporarily.unavailable.b89403",{})}/></span>
       ) : (
         <img
           src={src}

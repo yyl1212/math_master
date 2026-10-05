@@ -1,3 +1,7 @@
+"use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {useUiI18n} from "@/lib/i18n/provider";
 import Link from "next/link";
 import type { ApiResult, PathView as PathData } from "@/lib/api/types";
 import { ContentState } from "@/components/content-state";
@@ -5,6 +9,8 @@ import { buildPathGraph, refKey } from "./path-graph";
 import { PathConnections } from "./path-connections";
 import styles from "@/styles/reading.module.css";
 export function PathView({ result,personal }: { result: ApiResult<PathData>;personal?:React.ReactNode }) {
+ const {t}=useUiI18n();
+
   if (!result.ok)
     return (
       <ContentState
@@ -21,15 +27,13 @@ export function PathView({ result,personal }: { result: ApiResult<PathData>;pers
     byRef = new Map(knowledge.map((v) => [refKey(v.knowledge), v.knowledge]));
   return (
     <>
-      <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <Link prefetch={false} href="/knowledge">
-          Knowledge Map
-        </Link>
+      <nav className="breadcrumbs" aria-label={t("domain-view.breadcrumb.2bd873",{})}>
+        <Link prefetch={false} href="/knowledge"><UiText notice={uiMessage("nav.knowledgeMap",{})}/></Link>
         <span aria-hidden="true">/</span>
         <span>{path.title}</span>
       </nav>
       <header className="page-heading">
-        <p className="eyebrow">LEARNING PATH</p>
+        <p className="eyebrow"><UiText notice={uiMessage("path-view.learning.path.8c4705",{})}/></p>
         <h1>{path.title}</h1>
         {path.titleZh && (
           <p className="zh" lang="zh-CN">
@@ -37,17 +41,15 @@ export function PathView({ result,personal }: { result: ApiResult<PathData>;pers
           </p>
         )}
         <div className={styles.meta}>
-          <span className={styles.version}>Version {path.version}</span>
-          <span>{path.nodes.length} knowledge points</span>
+          <span className={styles.version}><UiText notice={uiMessage("domain-view.version.value.d2b5e7",{v0:uiValue(path.version)})}/></span>
+          <span><UiText notice={uiMessage("path-view.value.knowledge.points.38db06",{v0:uiValue(path.nodes.length)})}/></span>
         </div>
-        <p className={styles.pathIntro}>
-          Read freely and follow the prerequisites to connect the ideas.
-        </p>
+        <p className={styles.pathIntro}><UiText notice={uiMessage("path-view.read.freely.and.follow.the.prerequisites.to.connect.the.ideas.ab5874",{})}/></p>
       </header>
       {personal}
       <section
         className={styles.pathGraph}
-        aria-label="Knowledge prerequisites"
+        aria-label={t("path-view.knowledge.prerequisites.5450ad",{})}
       >
         <PathConnections edges={graph.edges} />
         {graph.levels.map((level, index) => (
@@ -76,9 +78,9 @@ export function PathView({ result,personal }: { result: ApiResult<PathData>;pers
                       {k.titleZh}
                     </p>
                   )}
-                  <span className={styles.version}>Version {k.version}</span>
+                  <span className={styles.version}><UiText notice={uiMessage("domain-view.version.value.d2b5e7",{v0:uiValue(k.version)})}/></span>
                   <div className={styles.prerequisites}>
-                    <h3>Prerequisites</h3>
+                    <h3><UiText notice={uiMessage("path-view.prerequisites.865514",{})}/></h3>
                     {prerequisites.length ? (
                       <ul>
                         {prerequisites.map((r) => (
@@ -89,12 +91,12 @@ export function PathView({ result,personal }: { result: ApiResult<PathData>;pers
                             >
                               {byRef.get(refKey(r.target))!.title}
                             </Link>{" "}
-                            <span>v{r.target.version}</span>
+                            <span><UiText notice={uiMessage("path-view.vvalue.55a29f",{v0:uiValue(r.target.version)})}/></span>
                           </li>
                         ))}
                       </ul>
                     ) : (
-                      <p>No prior knowledge required.</p>
+                      <p><UiText notice={uiMessage("path-view.no.prior.knowledge.required.1da6b0",{})}/></p>
                     )}
                   </div>
                 </article>
@@ -103,10 +105,7 @@ export function PathView({ result,personal }: { result: ApiResult<PathData>;pers
           </div>
         ))}
       </section>
-      <p className={styles.pathNote}>
-        Connections show prerequisites for this path version. Reading a
-        knowledge point does not create a learning or assessment record.
-      </p>
+      <p className={styles.pathNote}><UiText notice={uiMessage("path-view.connections.show.prerequisites.for.this.path.version.reading.a.kn.477376",{})}/></p>
     </>
   );
 }

@@ -1,4 +1,9 @@
+"use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {useUiI18n} from "@/lib/i18n/provider";
 import Link from "next/link";
+import type {StaticMessageKey} from "@/lib/i18n/types";
 import type {
   ApiResult,
   KnowledgeView as KnowledgeData,
@@ -11,6 +16,8 @@ export function KnowledgeView({
 }: {
   result: ApiResult<KnowledgeData>;personal?:React.ReactNode;
 }) {
+ const {t}=useUiI18n();
+
   if (!result.ok)
     return (
       <ContentState
@@ -19,60 +26,56 @@ export function KnowledgeView({
     );
   const { knowledge: k, units, assets } = result.data;
   const sections = [
-    k.statement && ["statement", "Core statement"],
-    k.conditions.length && ["conditions", "Conditions"],
-    k.scope && ["scope", "Scope & system"],
-    k.objectives.length && ["objectives", "Learning goals"],
-    k.proof && ["proof", "Proof"],
-    units.length && ["explanations", "Explanations"],
-    k.relations.length && ["connections", "Connections"],
-    k.sources.length && ["sources", "Sources & use"],
-  ].filter(Boolean) as string[][];
+    k.statement && ["statement", "knowledge-view.core.statement.e943c8"],
+    k.conditions.length && ["conditions", "knowledge-view.conditions.97d4be"],
+    k.scope && ["scope", "knowledge-view.scope.system.6be795"],
+    k.objectives.length && ["objectives", "knowledge-view.learning.goals.9e640a"],
+    k.proof && ["proof", "knowledge-view.proof.7fbb3c"],
+    units.length && ["explanations", "knowledge-view.explanations.de30ae"],
+    k.relations.length && ["connections", "knowledge-view.connections.dc2731"],
+    k.sources.length && ["sources", "knowledge-view.sources.use.31f2b5"],
+  ].filter(Boolean) as [string,StaticMessageKey][];
   return (
     <>
-      <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <Link prefetch={false} href="/knowledge">
-          Knowledge Map
-        </Link>
+      <nav className="breadcrumbs" aria-label={t("domain-view.breadcrumb.2bd873",{})}>
+        <Link prefetch={false} href="/knowledge"><UiText notice={uiMessage("nav.knowledgeMap",{})}/></Link>
         <span aria-hidden="true">/</span>
         <span>{k.title}</span>
       </nav>
       <header className="page-heading">
         <div className={styles.meta}>
           <span className={styles.kind}>{k.type.replaceAll("-", " ")}</span>
-          <span className={styles.version}>Version {k.version}</span>
+          <span className={styles.version}><UiText notice={uiMessage("domain-view.version.value.d2b5e7",{v0:uiValue(k.version)})}/></span>
         </div>
-        <h1>{k.title}</h1>
+        <h1 lang="en">{k.title}</h1>
         {k.titleZh && (
           <p className="zh" lang="zh-CN">
             {k.titleZh}
           </p>
         )}
-        <p>
-          Read the idea, understand its conditions, and follow the connections.
-        </p>
+        <p><UiText notice={uiMessage("knowledge-view.read.the.idea.understand.its.conditions.and.follow.the.connection.466280",{})}/></p>
       </header>
       {personal}
       <div className={styles.lessonLayout}>
-        <nav className={styles.lessonNav} aria-label="On this page">
-          <p className="eyebrow">ON THIS PAGE</p>
+        <nav className={styles.lessonNav} aria-label={t("knowledge-view.on.this.page.b5658f",{})}>
+          <p className="eyebrow"><UiText notice={uiMessage("knowledge-view.on.this.page.073c74",{})}/></p>
           {sections.map(([id, label]) => (
             <a href={"#" + id} key={id}>
-              {label}
+              <UiText notice={uiMessage(label,{})}/>
             </a>
           ))}
         </nav>
         <article className={styles.lessonBody}>
           {k.statement && (
             <section id="statement" className={styles.statement}>
-              <p className="eyebrow">THE CORE IDEA</p>
-              <h2>Core statement</h2>
+              <p className="eyebrow"><UiText notice={uiMessage("knowledge-view.the.core.idea.6956da",{})}/></p>
+              <h2><UiText notice={uiMessage("knowledge-view.core.statement.e943c8",{})}/></h2>
               <SafeMarkdown source={k.statement} assets={[]} />
             </section>
           )}
           {k.conditions.length > 0 && (
             <section id="conditions" className="panel">
-              <h2>Conditions</h2>
+              <h2><UiText notice={uiMessage("knowledge-view.conditions.97d4be",{})}/></h2>
               <ul className={styles.fieldList}>
                 {k.conditions.map((v, i) => (
                   <li key={i}>
@@ -84,11 +87,11 @@ export function KnowledgeView({
           )}
           {(k.scope || k.system) && (
             <section id="scope" className="panel">
-              <h2>Scope & system</h2>
+              <h2><UiText notice={uiMessage("knowledge-view.scope.system.6be795",{})}/></h2>
               {k.scope && <SafeMarkdown source={k.scope} assets={[]} />}{" "}
               {k.system && (
                 <div className={styles.system}>
-                  <h3>Mathematical system</h3>
+                  <h3><UiText notice={uiMessage("knowledge-view.mathematical.system.eec854",{})}/></h3>
                   <SafeMarkdown source={k.system} assets={[]} />
                 </div>
               )}
@@ -96,7 +99,7 @@ export function KnowledgeView({
           )}
           {k.objectives.length > 0 && (
             <section id="objectives" className="panel">
-              <h2>Learning goals</h2>
+              <h2><UiText notice={uiMessage("knowledge-view.learning.goals.9e640a",{})}/></h2>
               <ul className={styles.fieldList}>
                 {k.objectives.map((v, i) => (
                   <li key={i}>
@@ -108,13 +111,13 @@ export function KnowledgeView({
           )}
           {k.proof && (
             <section id="proof" className="panel">
-              <h2>Proof</h2>
+              <h2><UiText notice={uiMessage("knowledge-view.proof.7fbb3c",{})}/></h2>
               <SafeMarkdown source={k.proof} assets={[]} />
             </section>
           )}
           {units.length > 0 && (
             <section id="explanations" className="panel">
-              <h2>Explanations</h2>
+              <h2><UiText notice={uiMessage("knowledge-view.explanations.de30ae",{})}/></h2>
               {units.map((u) => {
                 const bound = assets.filter(
                   (a) =>
@@ -132,7 +135,7 @@ export function KnowledgeView({
                     ))}
                     {u.examples.length > 0 && (
                       <section className={styles.examples}>
-                        <h3>Examples</h3>
+                        <h3><UiText notice={uiMessage("knowledge-view.examples.e68ee0",{})}/></h3>
                         {u.examples.map((v, i) => (
                           <SafeMarkdown key={i} source={v} assets={bound} />
                         ))}
@@ -140,7 +143,7 @@ export function KnowledgeView({
                     )}
                     {u.counterexamples.length > 0 && (
                       <section className={styles.counterexamples}>
-                        <h3>Counterexamples</h3>
+                        <h3><UiText notice={uiMessage("knowledge-view.counterexamples.1e428c",{})}/></h3>
                         {u.counterexamples.map((v, i) => (
                           <SafeMarkdown key={i} source={v} assets={bound} />
                         ))}
@@ -153,7 +156,7 @@ export function KnowledgeView({
           )}
           {k.relations.length > 0 && (
             <section id="connections" className="panel">
-              <h2>Connections</h2>
+              <h2><UiText notice={uiMessage("knowledge-view.connections.dc2731",{})}/></h2>
               {(["prerequisite", "derivation", "related"] as const).map(
                 (kind) => {
                   const refs = k.relations.filter((r) => r.kind === kind);
@@ -175,7 +178,7 @@ export function KnowledgeView({
                                 href={"/knowledge/" + r.target.id}
                               >
                                 {r.target.id}{" "}
-                                <span>Version {r.target.version}</span>
+                                <span><UiText notice={uiMessage("domain-view.version.value.d2b5e7",{v0:uiValue(r.target.version)})}/></span>
                                 <span aria-hidden="true">↗</span>
                               </Link>
                             </li>
@@ -190,7 +193,7 @@ export function KnowledgeView({
           )}
           {k.sources.length > 0 && (
             <section id="sources" className="panel">
-              <h2>Sources & use</h2>
+              <h2><UiText notice={uiMessage("knowledge-view.sources.use.31f2b5",{})}/></h2>
               {k.sources.map((source, i) => (
                 <div className={styles.source} key={i}>
                   <h3>
@@ -209,7 +212,7 @@ export function KnowledgeView({
                   <p className={styles.sourceLicense}>{source.license}</p>
                   {source.attribution && <p>{source.attribution}</p>}
                   {source.accessedAt && (
-                    <p className="muted">Accessed {source.accessedAt}</p>
+                    <p className="muted"><UiText notice={uiMessage("knowledge-view.accessed.value.908096",{v0:uiValue(source.accessedAt)})}/></p>
                   )}
                 </div>
               ))}
@@ -217,9 +220,7 @@ export function KnowledgeView({
           )}
         </article>
       </div>
-      <Link prefetch={false} className={styles.backLink} href="/knowledge">
-        ← Back to the knowledge map
-      </Link>
+      <Link prefetch={false} className={styles.backLink} href="/knowledge"><UiText notice={uiMessage("knowledge-view.back.to.the.knowledge.map.8bf2a2",{})}/></Link>
     </>
   );
 }

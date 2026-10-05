@@ -1,3 +1,6 @@
+import {getUiMetadata} from "@/lib/i18n/server";
+import {UiPageTitle} from "@/components/ui-page-title";
+export async function generateMetadata(){return getUiMetadata("page.admin.publications");}
 import { contentPageAccess } from "@/features/content/page-access";
 import { ContentState } from "@/features/content/content-state";
 import { readServerContent } from "@/lib/content/server-client";
@@ -10,7 +13,7 @@ import { ReviewPanel } from "@/features/content/review-panel";
 import { PublicationPanel } from "@/features/content/publication-panel";
 import { WithdrawalPanel } from "@/features/content/withdrawal-panel";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Reviewed publications" };
+
 export default async function Page() { const access = await contentPageAccess(["admin"]); if ("error" in access)
-    return access.error; const result = await readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie); if (!result.ok)
-    return <ContentState status={result.status} code={result.code}/>; return <PublicationPanel initial={result.data}/>; }
+    return <><UiPageTitle messageKey="page.admin.publications"/>{access.error}</>; const result = await readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie); if (!result.ok)
+    return <><UiPageTitle messageKey="page.admin.publications"/>{<ContentState status={result.status} code={result.code}/>}</>; return <><UiPageTitle messageKey="page.admin.publications"/>{<PublicationPanel initial={result.data}/>}</>; }

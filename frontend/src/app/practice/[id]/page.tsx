@@ -1,3 +1,6 @@
+import {getUiMetadata} from "@/lib/i18n/server";
+import {UiPageTitle} from "@/components/ui-page-title";
+export async function generateMetadata(){return getUiMetadata("page.practice.id");}
 import {notFound,redirect} from "next/navigation";import {learningActor} from "@/features/learning/page-data";import {getLearningClient} from "@/lib/learning/server-client";import {learningUUID} from "@/lib/learning/schemas";import {LearningBoundary,LearningNotice} from "@/features/learning/learning-status";import {PracticePanel} from "@/features/practice/practice-panel";
-export const dynamic="force-dynamic";export const metadata={title:"Practice"};
-export default async function Page({params}:{params:Promise<{id:string}>}){const{id}=await params;if(!learningUUID.test(id))notFound();const actor=await learningActor();if(!actor.ok)return <LearningNotice result={actor.error}/>;const result=await getLearningClient().readPractice(id);if(!result.ok)return <LearningNotice result={result}/>;return <LearningBoundary actorId={actor.id}><PracticePanel key={id} view={result.data}/></LearningBoundary>}
+export const dynamic="force-dynamic";
+export default async function Page({params}:{params:Promise<{id:string}>}){const{id}=await params;if(!learningUUID.test(id))notFound();const actor=await learningActor();if(!actor.ok)return <><UiPageTitle messageKey="page.practice.id"/>{<LearningNotice result={actor.error}/>}</>;const result=await getLearningClient().readPractice(id);if(!result.ok)return <><UiPageTitle messageKey="page.practice.id"/>{<LearningNotice result={result}/>}</>;return <><UiPageTitle messageKey="page.practice.id"/>{<LearningBoundary actorId={actor.id}><PracticePanel key={id} view={result.data}/></LearningBoundary>}</>}
