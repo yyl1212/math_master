@@ -5682,5 +5682,129 @@ export const enMessages = {
   "layout.description": {
     "text": "Explore a connected map of mathematics, from foundations to new frontiers.",
     "params": []
+  },
+  "question.state.editing": {
+    "text": "editing",
+    "params": []
+  },
+  "question.state.submitted": {
+    "text": "submitted",
+    "params": []
+  },
+  "question.state.pending": {
+    "text": "pending",
+    "params": []
+  },
+  "question.state.approved": {
+    "text": "approved",
+    "params": []
+  },
+  "question.state.returned": {
+    "text": "returned",
+    "params": []
+  },
+  "question.state.prepared": {
+    "text": "prepared",
+    "params": []
+  },
+  "question.state.published": {
+    "text": "published",
+    "params": []
+  },
+  "question.state.active": {
+    "text": "active",
+    "params": []
+  },
+  "correction.plan.draft": {
+    "text": "draft",
+    "params": []
+  },
+  "correction.plan.pending": {
+    "text": "pending",
+    "params": []
+  },
+  "correction.plan.approved": {
+    "text": "approved",
+    "params": []
+  },
+  "correction.plan.rejected": {
+    "text": "rejected",
+    "params": []
+  },
+  "correction.jobType.withdrawal_impact": {
+    "text": "withdrawal impact",
+    "params": []
+  },
+  "correction.jobType.rule_impact": {
+    "text": "rule impact",
+    "params": []
+  },
+  "correction.jobType.approved_plan": {
+    "text": "approved plan",
+    "params": []
+  },
+  "correction.jobType.attempt_terminal": {
+    "text": "attempt terminal",
+    "params": []
+  },
+  "correction.jobState.queued": {
+    "text": "queued",
+    "params": []
+  },
+  "correction.jobState.running": {
+    "text": "running",
+    "params": []
+  },
+  "correction.jobState.succeeded": {
+    "text": "succeeded",
+    "params": []
+  },
+  "correction.jobState.retry_wait": {
+    "text": "retry_wait",
+    "params": []
+  },
+  "correction.jobState.failed": {
+    "text": "failed",
+    "params": []
+  },
+  "content.field.kind": {
+    "text": "kind",
+    "params": []
+  },
+  "learning.attempt.active": {
+    "text": "active",
+    "params": []
+  },
+  "learning.attempt.submitted": {
+    "text": "submitted",
+    "params": []
+  },
+  "learning.attempt.answered": {
+    "text": "answered",
+    "params": []
+  },
+  "learning.attempt.revealed": {
+    "text": "revealed",
+    "params": []
+  },
+  "learning.attempt.abandoned": {
+    "text": "abandoned",
+    "params": []
+  },
+  "learning.attempt.expired": {
+    "text": "expired",
+    "params": []
+  },
+  "learning.attempt.started": {
+    "text": "started",
+    "params": []
+  },
+  "learning.attempt.completed": {
+    "text": "completed",
+    "params": []
+  },
+  "learning.attempt.enrolled": {
+    "text": "enrolled",
+    "params": []
   }
 } as const;

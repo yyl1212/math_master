@@ -823,6 +823,15 @@
         "knowledge-controls.diagnostic.assessment.856c34",
         "knowledge-controls.learning.check.3fa22f",
         "knowledge-controls.review.assessment.77cf32",
+        "learning.attempt.abandoned",
+        "learning.attempt.active",
+        "learning.attempt.answered",
+        "learning.attempt.completed",
+        "learning.attempt.enrolled",
+        "learning.attempt.expired",
+        "learning.attempt.revealed",
+        "learning.attempt.started",
+        "learning.attempt.submitted",
         "page.illustration.0ffea7",
         "practice-panel.expires.at.2e4e2e"
       ],
@@ -1112,7 +1121,8 @@
         "knowledge-view.proof.7fbb3c"
       ],
       "rawDataAreas": [
-        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要",
+        "原始自动校验报告 code/path/message 与导出 JSON 作为固定证据保持原文"
       ],
       "scenarios": [
         "tests/e2e/ui-language-content.spec.ts"
@@ -1191,6 +1201,7 @@
         "content.field.author",
         "content.field.batchSha256",
         "content.field.id",
+        "content.field.kind",
         "content.field.legacyId",
         "content.field.license",
         "content.field.note",
@@ -1387,6 +1398,7 @@
         "content.field.author",
         "content.field.batchSha256",
         "content.field.id",
+        "content.field.kind",
         "content.field.legacyId",
         "content.field.license",
         "content.field.note",
@@ -1648,6 +1660,7 @@
         "content.field.author",
         "content.field.batchSha256",
         "content.field.id",
+        "content.field.kind",
         "content.field.legacyId",
         "content.field.license",
         "content.field.note",
@@ -1873,6 +1886,19 @@
         "case-panel.retry.processing.593933",
         "case-panel.sequence.value.value.exact.instance.mappings.7c40db",
         "case-panel.value.evidence.records.checked.attempt.value.8.5baf30",
+        "correction.jobState.failed",
+        "correction.jobState.queued",
+        "correction.jobState.retry_wait",
+        "correction.jobState.running",
+        "correction.jobState.succeeded",
+        "correction.jobType.approved_plan",
+        "correction.jobType.attempt_terminal",
+        "correction.jobType.rule_impact",
+        "correction.jobType.withdrawal_impact",
+        "correction.plan.approved",
+        "correction.plan.draft",
+        "correction.plan.pending",
+        "correction.plan.rejected",
         "new-form.value.4000.characters.9daa9f",
         "page.review.corrections",
         "page.review.corrections.id"
@@ -1945,6 +1971,10 @@
         "correction.field.id",
         "correction.field.sha256",
         "correction.field.version",
+        "correction.plan.approved",
+        "correction.plan.draft",
+        "correction.plan.pending",
+        "correction.plan.rejected",
         "correction.side.original",
         "correction.side.replacement",
         "new-form.value.4000.characters.9daa9f",
@@ -2331,6 +2361,15 @@
         "history-list.version.value.value.value.ea7ec3",
         "history-list.view.attempt.b17a6b",
         "history-list.view.learning.record.95f5a9",
+        "learning.attempt.abandoned",
+        "learning.attempt.active",
+        "learning.attempt.answered",
+        "learning.attempt.completed",
+        "learning.attempt.enrolled",
+        "learning.attempt.expired",
+        "learning.attempt.revealed",
+        "learning.attempt.started",
+        "learning.attempt.submitted",
         "page.learning-history"
       ],
       "rawDataAreas": [
@@ -2676,7 +2715,8 @@
         "coverage-panel.value.coverage.rows.offset.value.d50be7"
       ],
       "rawDataAreas": [
-        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要",
+        "原始自动校验报告 code/path/message 与导出 JSON 作为固定证据保持原文"
       ],
       "scenarios": [
         "tests/e2e/ui-language-question.spec.ts"
@@ -2761,7 +2801,15 @@
         "draft-editor.validate.saved.revision.0603de",
         "draft-editor.verify.historical.authorship.and.original.sources.before.approval.248a00",
         "package-fields.package.id.7a35d0",
-        "package-fields.package.version.359c57"
+        "package-fields.package.version.359c57",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
@@ -2793,7 +2841,15 @@
         "draft-list.revision.value.value.value.machine.issues.0d005f",
         "draft-list.trusted.question.bank.a62caf",
         "draft-list.use.the.exact.package.id.and.version.above.historical.authorship..5ae8a4",
-        "page.editor.questions"
+        "page.editor.questions",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
@@ -2902,7 +2958,8 @@
         "template-fields.generator.version.value.verifier.version.value.bda518"
       ],
       "rawDataAreas": [
-        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要",
+        "原始自动校验报告 code/path/message 与导出 JSON 作为固定证据保持原文"
       ],
       "scenarios": [
         "tests/e2e/ui-language-question.spec.ts"
@@ -2970,7 +3027,15 @@
         "publication-panel.v.e40f81",
         "publication-panel.value.submissions.selected.across.pages.f7aa8e",
         "publication-panel.value.templates.value.instances.value.blueprints.d899e0",
-        "publication-panel.withdraw.a.question.version.permanently.114e83"
+        "publication-panel.withdraw.a.question.version.permanently.114e83",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
@@ -3014,6 +3079,14 @@
         "question.check.mathematics",
         "question.check.objectives",
         "question.check.sources",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted",
         "review-panel.administrator.self.review.c05816",
         "review-panel.administrator.self.review.decision.3f56c1",
         "review-panel.administrator.self.review.saved.ea6679",
@@ -3071,6 +3144,14 @@
       "complete": true,
       "messageKeys": [
         "content-preview.value.vvalue.bde90b",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted",
         "submission-list.approved.87b42e",
         "submission-list.digest.value.b74ba8",
         "submission-list.frozen.question.submissions.250eef",
@@ -3097,6 +3178,25 @@
       "complete": true,
       "messageKeys": [
         "audit.objective.label",
+        "content.field.accessedAt",
+        "content.field.attribution",
+        "content.field.author",
+        "content.field.batchSha256",
+        "content.field.id",
+        "content.field.kind",
+        "content.field.legacyId",
+        "content.field.license",
+        "content.field.note",
+        "content.field.path",
+        "content.field.proof",
+        "content.field.relativePath",
+        "content.field.scope",
+        "content.field.sha256",
+        "content.field.statement",
+        "content.field.system",
+        "content.field.title",
+        "content.field.titleZh",
+        "content.field.url",
         "package-fields.value.source.5a7bf3",
         "package-fields.value.source.value.40de80",
         "path-fields.value.id.0ad111",

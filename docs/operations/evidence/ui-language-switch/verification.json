@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "baseCommit": "2cf65972e389102fb5aaf5e96edde5ec6d77d58f",
   "frontend": {
-    "unitTests": 398,
-    "files": 87,
+    "unitTests": 403,
+    "files": 88,
     "typecheck": true,
     "productionBuild": true,
     "productionDependencyVulnerabilities": 0,
@@ -18,8 +18,8 @@
         "ui-language-public.spec.ts"
       ],
       "exitCode": 0,
-      "passed": 6,
-      "seconds": 6
+      "passed": 8,
+      "seconds": 7
     },
     {
       "index": 1,
@@ -28,7 +28,7 @@
       ],
       "exitCode": 0,
       "passed": 4,
-      "seconds": 8
+      "seconds": 9
     },
     {
       "index": 2,
@@ -55,7 +55,7 @@
       ],
       "exitCode": 0,
       "passed": 4,
-      "seconds": 20
+      "seconds": 19
     },
     {
       "index": 5,
@@ -64,7 +64,7 @@
       ],
       "exitCode": 0,
       "passed": 2,
-      "seconds": 9
+      "seconds": 8
     },
     {
       "index": 6,
@@ -411,6 +411,91 @@
     "content",
     "db"
   ],
-  "reviewStatus": "待一次独立整分支审查",
-  "deliveryStatus": "待 SSH 实现 PR，未部署服务器"
+  "reviewStatus": "唯一独立整分支审查完成：无Critical；系统错误、动态状态及来源字段重要项经单轮TDD修复，五项RED→GREEN；未再审",
+  "deliveryStatus": "实现完成独立审查与本地回归；远端PR及CI以GitHub实际记录为准，未部署服务器",
+  "reviewedHead": "63efa1281fd758fade34963c8af45bfc4e2edd57",
+  "reviewFixTests": [
+    "late publication errors",
+    "content namespace refresh errors",
+    "nondefault question states",
+    "correction plan/job states",
+    "source field display names"
+  ],
+  "postReviewEnglishStatus": "审查修复后八组受影响默认英文回归共50项全部通过，保留原分组、双视口、零重试及预算",
+  "postReviewEnglishBrowser": [
+    {
+      "index": 6,
+      "batch": [
+        "question-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 34
+    },
+    {
+      "index": 7,
+      "batch": [
+        "question-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 36
+    },
+    {
+      "index": 8,
+      "batch": [
+        "question-release.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 48
+    },
+    {
+      "index": 10,
+      "batch": [
+        "learning-progress.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 25
+    },
+    {
+      "index": 11,
+      "batch": [
+        "learning-practice.spec.ts",
+        "learning-assessment.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 39
+    },
+    {
+      "index": 13,
+      "batch": [
+        "learning-review-regressions.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 29
+    },
+    {
+      "index": 17,
+      "batch": [
+        "correction-user.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 30
+    },
+    {
+      "index": 18,
+      "batch": [
+        "correction-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 18
+    }
+  ],
+  "integrationBaseRechecked": "2cf65972e389102fb5aaf5e96edde5ec6d77d58f"
 }

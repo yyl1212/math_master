@@ -1,17 +1,16 @@
 # 执行裁决记录
 
-以下为 Native 执行期间的原始裁决记录，交付时按影响与代价说明。
+本次按 Native 顺序实施，下面列出执行期间的判断、理由及判断错误时的代价。验证结果与本裁决记录已保存到版本库；完成交付后清理本任务的私有临时工作区。
 
-- Ruling: Use a private byte-equivalent approved plan copy with bilingual Task headings for the native skill extractor — original Chinese headings are not recognised by task-brief — cost if wrong: brief regeneration only.
+1. **为任务提取器准备私有计划副本。** 原中文“任务”标题不能被技能脚本识别，只在私有副本改为对应 `Task` 标题，原批准文档内容保持。代价：如脚本格式要求变化，需要重新生成任务简报。
+2. **按已批准正文先实现，再等待文档 PR 的 CI 门禁整合。** PR #34 已合并，PR #35 仅包含已获用户批准的设计与计划，不存在运行时前置差异；其合并仍等待最新 CI 成功，并在合并后重新整合 master。代价：文档冲突需要重新整合。
+3. **纠正测试库接口差异。** Testing Library 不支持 Playwright 的 `exact: true` 选项，移除不合法选项并保留字面辅助名称匹配，类型检查后验证。代价：测试查询须按各自库的实际接口维护。
+4. **将纯显示组件设为小型客户端边界。** 为辅助名称即时切换而需要读取语言上下文，数据获取与鉴权页面继续留在服务器。迁移只针对明确 UI 源码，数据表达式不作为词条 key。代价：显示组件的客户端包体可能增加。
+5. **文件处理异常增加明确内部代码。** 导入／导出显示通过 code 选择功能词条，原 `Error.message` 和调用者的错误语义保留。代价：未分类的本地异常显示通用提示，需要新增分类时单独补齐。
+6. **用强类型工厂构造紧凑消息记录。** 超过一千条词条后，巨大联合类型触发 TypeScript `TS2590`。保留 `uiMessage(key, values)` 的词条／参数检查及原序列化结构，消息记录采用不可直接构造的紧凑类型。代价：按单一消息 key 缩窄类型的代码需要通过工厂处理；兼容性由最终审查核对。
+7. **在隔离浏览器测试中触发既有可选纠错密码弹窗。** 实际 Go `createPlan` 不天然要求新密码验证，测试注入一次符合原完整安全头与错误格式的 `REAUTHENTICATION_REQUIRED` 响应，再执行真实密码验证及真实同键重试；实际授权策略保持。代价：未来后台增加新密码门禁时，需要补充对应的真实门禁夹具。
 
-- Ruling: Docs-only PR35 CI does not block implementing its human-approved text after PR34 has merged; keep PR35 conditional merge and rebase implementation afterwards — no runtime prerequisite differs — cost if wrong: clean docs rebase.
-
-- Task 2: Ruling: Testing Library role queries do not support Playwright exact:true — remove invalid option, preserve literal accessible name — typecheck is required before final task completion.
-
-- Task 3: Ruling: Pure presentational components that need translated accessibility attributes are hydrated client boundaries; data fetch/auth pages remain server-only — preserves SSR and private configuration boundary — cost if wrong: client display bundle size. Explicit UI text only is source-migrated; raw data expressions are never message keys.
-
-- Task 5: Ruling: File-processing errors now carry explicit internal codes while retaining their original Error.message — prevents translating arbitrary exception prose and preserves existing import/export callers — cost if wrong: a previously unclassified local error uses the safe generic message. API validators are unchanged.
-
-- Task 7: Ruling: More than 1000 discriminated message members triggered TypeScript TS2590 — use an opaque compact UiMessage DTO constructed only by the key/parameter-typed uiMessage factory; serialized shape and required parameter checks remain unchanged — cost if wrong: code narrowing by individual message key now needs the typed factory instead of a giant union. Final compatibility review required.
-
-- Task 8: Ruling: The Go correction createPlan action does not naturally require fresh password verification — inject one schema-valid REAUTHENTICATION_REQUIRED response in the isolated browser test to exercise the existing optional dialog, then perform real password verification and real same-key createPlan retry — keeps actual authorization unchanged — cost if wrong: a future backend reauthentication policy needs an additional real gate fixture.
+8. **来源字段名按重要问题处理。** 审查将漏译字段名列为轻微问题；这些标签决定中文编辑流程是否完整，因此提升为重要问题并纳入同一轮测试驱动修复。代价：若分级过高，会增加一次局部回归，业务数据保持原样。
+9. **原自动校验报告属于固定证据。** `GatePanel`、`GenerationPanel`、`CoveragePanel` 的 code/path/message 及导出 JSON 保留，标题、数量和功能帮助切换语言。代价：部分技术诊断仍为英文，进一步改善需要明确的版本化显示代码映射。
+10. **保留基线纠错密码验证的结果行为。** 基线将错误密码归为服务不可用，本次只更改显示，不更改验证结果码或授权。代价：已有诊断不够精确，需要在单独的行为设计中处理。
+11. **远端 CI 与生产效果须使用实际结果。** 本地通过不能代替远端执行；SSH PR 创建后检查真实 job 状态。本次未授权部署。代价：远端环境特有失败仍可能阻塞合并。

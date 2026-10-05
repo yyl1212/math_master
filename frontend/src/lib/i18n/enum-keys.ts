@@ -25,7 +25,8 @@ export const enumKeys={
     "legacyId": "content.field.legacyId",
     "note": "content.field.note",
     "id": "content.field.id",
-    "path": "content.field.path"
+    "path": "content.field.path",
+    "kind": "content.field.kind"
   },
   "content.enum": {
     "concept": "content.enum.concept",
@@ -162,5 +163,45 @@ export const enumKeys={
     "id": "correction.field.id",
     "version": "correction.field.version",
     "sha256": "correction.field.sha256"
+  },
+  "question.state": {
+    "editing": "question.state.editing",
+    "submitted": "question.state.submitted",
+    "pending": "question.state.pending",
+    "approved": "question.state.approved",
+    "returned": "question.state.returned",
+    "prepared": "question.state.prepared",
+    "published": "question.state.published",
+    "active": "question.state.active"
+  },
+  "correction.plan": {
+    "draft": "correction.plan.draft",
+    "pending": "correction.plan.pending",
+    "approved": "correction.plan.approved",
+    "rejected": "correction.plan.rejected"
+  },
+  "correction.jobType": {
+    "withdrawal_impact": "correction.jobType.withdrawal_impact",
+    "rule_impact": "correction.jobType.rule_impact",
+    "approved_plan": "correction.jobType.approved_plan",
+    "attempt_terminal": "correction.jobType.attempt_terminal"
+  },
+  "correction.jobState": {
+    "queued": "correction.jobState.queued",
+    "running": "correction.jobState.running",
+    "succeeded": "correction.jobState.succeeded",
+    "retry_wait": "correction.jobState.retry_wait",
+    "failed": "correction.jobState.failed"
+  },
+  "learning.attempt": {
+    "active": "learning.attempt.active",
+    "submitted": "learning.attempt.submitted",
+    "answered": "learning.attempt.answered",
+    "revealed": "learning.attempt.revealed",
+    "abandoned": "learning.attempt.abandoned",
+    "expired": "learning.attempt.expired",
+    "started": "learning.attempt.started",
+    "completed": "learning.attempt.completed",
+    "enrolled": "learning.attempt.enrolled"
   }
 } satisfies Record<string,Record<string,StaticMessageKey>>;
