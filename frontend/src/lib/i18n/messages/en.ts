@@ -4560,5 +4560,986 @@ export const enMessages = {
   "learning.page.savedPages": {
     "text": "Saved route pages",
     "params": []
+  },
+  "new-form.describe.what.happened.and.what.would.help.your.original.report.s.3a0e68": {
+    "text": "Describe what happened and what would help. Your original report stays in the discussion history.",
+    "params": []
+  },
+  "new-form.category.292c06": {
+    "text": "Category",
+    "params": []
+  },
+  "new-form.title.7e8cd2": {
+    "text": "Title",
+    "params": []
+  },
+  "new-form.value.120.characters.67f5dd": {
+    "text": "{v0}/120 characters",
+    "params": [
+      "v0"
+    ]
+  },
+  "new-form.where.on.the.page.2e6785": {
+    "text": "Where on the page?",
+    "params": []
+  },
+  "new-form.value.400.characters.c1548a": {
+    "text": "{v0}/400 characters",
+    "params": [
+      "v0"
+    ]
+  },
+  "new-form.details.45989d": {
+    "text": "Details",
+    "params": []
+  },
+  "new-form.value.4000.characters.9daa9f": {
+    "text": "{v0}/4000 characters",
+    "params": [
+      "v0"
+    ]
+  },
+  "new-form.submit.report.b41fd5": {
+    "text": "Submit report",
+    "params": []
+  },
+  "new-form.refresh.report.target.42c32c": {
+    "text": "Refresh report target",
+    "params": []
+  },
+  "new-form.refreshing.report.target.facb17": {
+    "text": "Refreshing report target…",
+    "params": []
+  },
+  "new-form.report.target.refreshed.review.the.version.before.submitting.agai.33a9e0": {
+    "text": "Report target refreshed. Review the version before submitting again.",
+    "params": []
+  },
+  "feedback-account.checking.your.feedback.account.08c898": {
+    "text": "Checking your feedback account…",
+    "params": []
+  },
+  "status.reload.page.437d0d": {
+    "text": "Reload page",
+    "params": []
+  },
+  "status.your.change.was.saved.retry.the.same.request.to.load.the.latest.s.01d912": {
+    "text": "Your change was saved. Retry the same request to load the latest status.",
+    "params": []
+  },
+  "status.edit.as.a.new.request.356c78": {
+    "text": "Edit as a new request",
+    "params": []
+  },
+  "ticket-list.feedback.review.queue.55f05a": {
+    "text": "Feedback review queue",
+    "params": []
+  },
+  "ticket-list.status.920e41": {
+    "text": "Status",
+    "params": []
+  },
+  "ticket-list.all.statuses.8ee573": {
+    "text": "All statuses",
+    "params": []
+  },
+  "ticket-list.all.categories.9d5097": {
+    "text": "All categories",
+    "params": []
+  },
+  "ticket-list.filter.queue.f927f0": {
+    "text": "Filter queue",
+    "params": []
+  },
+  "ticket-list.new.report.16f776": {
+    "text": "New report",
+    "params": []
+  },
+  "ticket-list.event.5a4db3": {
+    "text": " · Event ",
+    "params": []
+  },
+  "ticket-list.no.reports.match.this.queue.11ebb7": {
+    "text": "No reports match this queue.",
+    "params": []
+  },
+  "ticket-list.no.reports.yet.be893e": {
+    "text": "No reports yet.",
+    "params": []
+  },
+  "ticket-list.next.reports.4eb46c": {
+    "text": "Next reports",
+    "params": []
+  },
+  "discussion-panel.discussion.5eb6cf": {
+    "text": "Discussion",
+    "params": []
+  },
+  "discussion-panel.reading.874bfa": {
+    "text": "Reading…",
+    "params": []
+  },
+  "discussion-panel.read.discussion.60768c": {
+    "text": "Read discussion",
+    "params": []
+  },
+  "discussion-panel.event.133a15": {
+    "text": "Event ",
+    "params": []
+  },
+  "discussion-panel.report.author.24263d": {
+    "text": "Report author",
+    "params": []
+  },
+  "discussion-panel.review.team.4433d3": {
+    "text": "Review team",
+    "params": []
+  },
+  "discussion-panel.basis.5690cd": {
+    "text": "Basis: ",
+    "params": []
+  },
+  "discussion-panel.withdrawal.f3cdbc": {
+    "text": " · Withdrawal ",
+    "params": []
+  },
+  "discussion-panel.replacement.aa0aec": {
+    "text": " · Replacement ",
+    "params": []
+  },
+  "discussion-panel.publication.6dbeee": {
+    "text": " · Publication ",
+    "params": []
+  },
+  "discussion-panel.related.report.db9c9f": {
+    "text": " · Related report ",
+    "params": []
+  },
+  "discussion-panel.next.discussion.page.007355": {
+    "text": "Next discussion page",
+    "params": []
+  },
+  "discussion-panel.back.to.reports.b62a50": {
+    "text": "Back to reports",
+    "params": []
+  },
+  "discussion-panel.current.basis.value.9e8023": {
+    "text": "Current basis: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "discussion-panel.reload.report.status.60577f": {
+    "text": "Reload report status",
+    "params": []
+  },
+  "discussion-panel.additional.details.00fcfc": {
+    "text": "Additional details",
+    "params": []
+  },
+  "discussion-panel.add.details.78056f": {
+    "text": "Add details",
+    "params": []
+  },
+  "review-panel.handle.this.report.3fef67": {
+    "text": "Handle this report",
+    "params": []
+  },
+  "review-panel.report.status.22a134": {
+    "text": "Report status",
+    "params": []
+  },
+  "review-panel.value.choose.an.available.status.bb7389": {
+    "text": "{v0} · choose an available status",
+    "params": [
+      "v0"
+    ]
+  },
+  "review-panel.review.reply.6bf2f2": {
+    "text": "Review reply",
+    "params": []
+  },
+  "review-panel.resolution.basis.47ef7d": {
+    "text": "Resolution basis",
+    "params": []
+  },
+  "review-panel.duplicate.report.id.2eed31": {
+    "text": "Duplicate report ID",
+    "params": []
+  },
+  "review-panel.withdrawal.source.77a1ed": {
+    "text": "Withdrawal source",
+    "params": []
+  },
+  "review-panel.content.47bd29": {
+    "text": "Content",
+    "params": []
+  },
+  "review-panel.question.bank.d8c022": {
+    "text": "Question bank",
+    "params": []
+  },
+  "review-panel.withdrawal.event.id.935c33": {
+    "text": "Withdrawal event ID",
+    "params": []
+  },
+  "review-panel.use.an.independently.approved.already.published.replacement.b34ac2": {
+    "text": "Use an independently approved, already published replacement.",
+    "params": []
+  },
+  "review-panel.replacement.kind.cdfd5f": {
+    "text": "Replacement kind",
+    "params": []
+  },
+  "review-panel.replacement.id.114847": {
+    "text": "Replacement ID",
+    "params": []
+  },
+  "review-panel.replacement.version.bd1b6d": {
+    "text": "Replacement version",
+    "params": []
+  },
+  "review-panel.replacement.sha256.1002ff": {
+    "text": "Replacement SHA256",
+    "params": []
+  },
+  "review-panel.replacement.publication.id.6723c8": {
+    "text": "Replacement publication ID",
+    "params": []
+  },
+  "review-panel.save.handling.result.fe5bce": {
+    "text": "Save handling result",
+    "params": []
+  },
+  "correction-account.checking.your.correction.account.da4282": {
+    "text": "Checking your correction account…",
+    "params": []
+  },
+  "result-panel.learning.correction.c9d5ff": {
+    "text": "Learning correction",
+    "params": []
+  },
+  "result-panel.score.value.5.value.68a83e": {
+    "text": "Score: {v0}/5 · {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "result-panel.current.validity.value.a14551": {
+    "text": "Current validity: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "result-panel.this.correction.currently.cannot.provide.a.learning.qualification.8712ec": {
+    "text": "This correction currently cannot provide a learning qualification.",
+    "params": []
+  },
+  "result-panel.your.original.answers.are.preserved.while.the.basis.is.independen.dfaf01": {
+    "text": "Your original answers are preserved while the basis is independently reviewed.",
+    "params": []
+  },
+  "result-panel.review.the.current.knowledge.and.take.a.new.assessment.when.it.be.c48272": {
+    "text": "Review the current knowledge and take a new assessment when it becomes available.",
+    "params": []
+  },
+  "result-panel.return.to.the.updated.material.before.continuing.57ef79": {
+    "text": "Return to the updated material before continuing.",
+    "params": []
+  },
+  "result-panel.review.knowledge.4b5f8a": {
+    "text": "Review knowledge",
+    "params": []
+  },
+  "result-panel.original.result.34bd06": {
+    "text": "Original result",
+    "params": []
+  },
+  "result-panel.previous.correction.c0de64": {
+    "text": "Previous correction",
+    "params": []
+  },
+  "result-panel.reload.correction.status.e893ee": {
+    "text": "Reload correction status",
+    "params": []
+  },
+  "result-panel.review.corrected.answers.83394a": {
+    "text": "Review corrected answers",
+    "params": []
+  },
+  "result-panel.corrected.result.def77c": {
+    "text": "Corrected result",
+    "params": []
+  },
+  "result-panel.the.same.original.answers.were.checked.against.the.independently..edd1c9": {
+    "text": "The same original answers were checked against the independently approved basis.",
+    "params": []
+  },
+  "result-panel.original.answer.value.80de39": {
+    "text": "Original answer: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "result-panel.not.correct.f9cade": {
+    "text": "Not correct",
+    "params": []
+  },
+  "result-panel.original.value.vvalue.effective.value.vvalue.28ac10": {
+    "text": "Original {v0} v{v1} → Effective {v2} v{v3}",
+    "params": [
+      "v0",
+      "v1",
+      "v2",
+      "v3"
+    ]
+  },
+  "qualification-link.view.corrected.qualification.742e9a": {
+    "text": "View corrected qualification",
+    "params": []
+  },
+  "qualification-link.original.assessment.cebd35": {
+    "text": "Original assessment",
+    "params": []
+  },
+  "case-list.follow.affected.learning.evidence.from.a.registered.issue.to.an.i.e9df91": {
+    "text": "Follow affected learning evidence from a registered issue to an independently reviewed correction.",
+    "params": []
+  },
+  "case-list.reload.correction.cases.01b77f": {
+    "text": "Reload correction cases",
+    "params": []
+  },
+  "case-list.grading.rule.review.ab2fe4": {
+    "text": "Grading rule review",
+    "params": []
+  },
+  "case-list.withdrawn.source.review.966bbb": {
+    "text": "Withdrawn source review",
+    "params": []
+  },
+  "case-list.approved.basis.available.c1fcbf": {
+    "text": "Approved basis available",
+    "params": []
+  },
+  "case-list.awaiting.an.approved.basis.0eaba0": {
+    "text": "Awaiting an approved basis",
+    "params": []
+  },
+  "case-list.no.correction.cases.yet.19127d": {
+    "text": "No correction cases yet.",
+    "params": []
+  },
+  "case-list.next.cases.f41e3e": {
+    "text": "Next cases",
+    "params": []
+  },
+  "case-list.register.a.correction.case.c8261a": {
+    "text": "Register a correction case",
+    "params": []
+  },
+  "case-list.a.grading.issue.uses.the.server.registration.time.withdrawn.sourc.cce17d": {
+    "text": "A grading issue uses the server registration time. Withdrawn sources must reference an actual withdrawal event.",
+    "params": []
+  },
+  "case-list.case.type.858985": {
+    "text": "Case type",
+    "params": []
+  },
+  "case-list.withdrawn.source.749b87": {
+    "text": "Withdrawn source",
+    "params": []
+  },
+  "case-list.grading.rule.2115fc": {
+    "text": "Grading rule",
+    "params": []
+  },
+  "case-list.learning.content.ace9d7": {
+    "text": "Learning content",
+    "params": []
+  },
+  "case-list.rule.version.1.exact.rational.and.single.choice.grading.80f013": {
+    "text": "Rule version 1 · Exact rational and single choice grading.",
+    "params": []
+  },
+  "case-list.grading.scope.ea1ec5": {
+    "text": "Grading scope",
+    "params": []
+  },
+  "case-list.all.mathematics.evidence.9fc01d": {
+    "text": "All mathematics evidence",
+    "params": []
+  },
+  "case-list.one.knowledge.version.0c6041": {
+    "text": "One knowledge version",
+    "params": []
+  },
+  "case-list.knowledge.id.d157a6": {
+    "text": "Knowledge ID",
+    "params": []
+  },
+  "case-list.knowledge.version.acf62a": {
+    "text": "Knowledge version",
+    "params": []
+  },
+  "case-list.knowledge.sha256.46465c": {
+    "text": "Knowledge SHA256",
+    "params": []
+  },
+  "case-list.register.correction.case.abccfa": {
+    "text": "Register correction case",
+    "params": []
+  },
+  "case-list.open.correction.case.7931bb": {
+    "text": "Open correction case",
+    "params": []
+  },
+  "case-panel.awaiting.approval.ae25c9": {
+    "text": "Awaiting approval",
+    "params": []
+  },
+  "case-panel.original.attempts.created.before.value.are.within.scope.007445": {
+    "text": "Original attempts created before {v0} are within scope.",
+    "params": [
+      "v0"
+    ]
+  },
+  "case-panel.reload.case.status.665567": {
+    "text": "Reload case status",
+    "params": []
+  },
+  "case-panel.correction.plans.dfd490": {
+    "text": "Correction plans",
+    "params": []
+  },
+  "case-panel.plan.version.value.value.b562a0": {
+    "text": "Plan version {v0} · {v1}",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "case-panel.sequence.value.value.exact.instance.mappings.7c40db": {
+    "text": "Sequence {v0} · {v1} exact instance mappings",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "case-panel.no.correction.plan.yet.91fe2a": {
+    "text": "No correction plan yet.",
+    "params": []
+  },
+  "case-panel.more.plans.4b0125": {
+    "text": "More plans",
+    "params": []
+  },
+  "case-panel.draft.a.correction.plan.af8cb8": {
+    "text": "Draft a correction plan",
+    "params": []
+  },
+  "case-panel.plan.reason.dc2c72": {
+    "text": "Plan reason",
+    "params": []
+  },
+  "case-panel.create.correction.plan.23b28c": {
+    "text": "Create correction plan",
+    "params": []
+  },
+  "case-panel.open.correction.plan.5cd0c5": {
+    "text": "Open correction plan",
+    "params": []
+  },
+  "case-panel.impact.processing.5455c8": {
+    "text": "Impact processing",
+    "params": []
+  },
+  "case-panel.processing.retries.preserve.completed.evidence.and.the.audit.hist.e975f9": {
+    "text": "Processing retries preserve completed evidence and the audit history.",
+    "params": []
+  },
+  "case-panel.value.evidence.records.checked.attempt.value.8.5baf30": {
+    "text": "{v0} evidence records checked · Attempt {v1}/8",
+    "params": [
+      "v0",
+      "v1"
+    ]
+  },
+  "case-panel.error.category.value.e53a05": {
+    "text": "Error category: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "case-panel.next.attempt.value.cd648a": {
+    "text": "Next attempt: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "case-panel.retry.processing.593933": {
+    "text": "Retry processing",
+    "params": []
+  },
+  "case-panel.more.jobs.a1464e": {
+    "text": "More jobs",
+    "params": []
+  },
+  "evidence-link.corrections.for.saved.evidence.09b140": {
+    "text": "Corrections for saved evidence",
+    "params": []
+  },
+  "evidence-link.check.corrections.cddc7d": {
+    "text": "Check corrections",
+    "params": []
+  },
+  "evidence-link.checking.corrections.e0e9d6": {
+    "text": "Checking corrections…",
+    "params": []
+  },
+  "evidence-link.no.correction.results.yet.be7993": {
+    "text": "No correction results yet.",
+    "params": []
+  },
+  "evidence-link.view.correction.13dc93": {
+    "text": "View correction",
+    "params": []
+  },
+  "evidence-link.more.corrections.56d196": {
+    "text": "More corrections",
+    "params": []
+  },
+  "status.password.verified.retry.the.preserved.request.15ada6": {
+    "text": "Password verified. Retry the preserved request.",
+    "params": []
+  },
+  "status.checking.and.saving.ff6df1": {
+    "text": "Checking and saving…",
+    "params": []
+  },
+  "status.verification.lasts.five.minutes.retry.the.preserved.command.separ.043e8e": {
+    "text": "Verification lasts five minutes. Retry the preserved command separately.",
+    "params": []
+  },
+  "plan-editor.exact.instance.mappings.bdfd3a": {
+    "text": "Exact instance mappings",
+    "params": []
+  },
+  "plan-editor.keep.question.meaning.and.parameters.unchanged.only.an.independen.89968d": {
+    "text": "Keep question meaning and parameters unchanged. Only an independently published correction to answers or explanations may replace an instance.",
+    "params": []
+  },
+  "plan-editor.mapping.value.fc087c": {
+    "text": "Mapping {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "plan-editor.original.instance.4f3d6e": {
+    "text": "Original instance",
+    "params": []
+  },
+  "plan-editor.approved.replacement.f4ed84": {
+    "text": "Approved replacement",
+    "params": []
+  },
+  "plan-editor.publication.id.8130b8": {
+    "text": " publication ID",
+    "params": []
+  },
+  "plan-editor.remove.mapping.value.5a5ea7": {
+    "text": "Remove mapping {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "plan-editor.add.instance.mapping.77231b": {
+    "text": "Add instance mapping",
+    "params": []
+  },
+  "plan-editor.correction.plan.version.value.8aa1ce": {
+    "text": "Correction plan · Version {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "plan-editor.sequence.value.b4d4eb": {
+    "text": "Sequence {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "plan-editor.mappings.e7ca2a": {
+    "text": " mappings",
+    "params": []
+  },
+  "plan-editor.this.draft.has.not.been.sealed.4a1611": {
+    "text": "This draft has not been sealed.",
+    "params": []
+  },
+  "plan-editor.reload.plan.status.082e03": {
+    "text": "Reload plan status",
+    "params": []
+  },
+  "plan-editor.read.plan.details.5c6186": {
+    "text": "Read plan details",
+    "params": []
+  },
+  "plan-editor.new.plan.version.a46c49": {
+    "text": "New plan version",
+    "params": []
+  },
+  "plan-editor.approved.basis.and.draft.538ca7": {
+    "text": "Approved basis and draft",
+    "params": []
+  },
+  "plan-editor.review.decision.value.f55c2d": {
+    "text": "Review decision: {v0}",
+    "params": [
+      "v0"
+    ]
+  },
+  "plan-editor.draft.a.new.plan.version.6ef060": {
+    "text": "Draft a new plan version",
+    "params": []
+  },
+  "plan-editor.create.new.plan.version.88490f": {
+    "text": "Create new plan version",
+    "params": []
+  },
+  "plan-editor.save.plan.draft.8fd425": {
+    "text": "Save plan draft",
+    "params": []
+  },
+  "plan-editor.submit.for.independent.review.7dad26": {
+    "text": "Submit for independent review",
+    "params": []
+  },
+  "plan-editor.open.new.plan.version.4e2487": {
+    "text": "Open new plan version",
+    "params": []
+  },
+  "review-panel.approve.only.after.checking.the.exact.published.sources.creators..0f5188": {
+    "text": "Approve only after checking the exact published sources. Creators, editors of this draft and authors of its mathematical sources cannot approve it.",
+    "params": []
+  },
+  "review-panel.independent.review.reason.08bd46": {
+    "text": "Independent review reason",
+    "params": []
+  },
+  "review-panel.approve.correction.d71667": {
+    "text": "Approve correction",
+    "params": []
+  },
+  "review-panel.reject.correction.0558f4": {
+    "text": "Reject correction",
+    "params": []
+  },
+  "inbox.value.unread.notifications.39c4b8": {
+    "text": "{v0} unread notifications",
+    "params": [
+      "v0"
+    ]
+  },
+  "inbox.reload.notifications.7aeb54": {
+    "text": "Reload notifications",
+    "params": []
+  },
+  "inbox.read.9b9a8d": {
+    "text": "Read",
+    "params": []
+  },
+  "inbox.unread.1b9f38": {
+    "text": "Unread",
+    "params": []
+  },
+  "inbox.mark.as.read.50c8b8": {
+    "text": "Mark as read",
+    "params": []
+  },
+  "inbox.you.have.no.notifications.yet.9654ca": {
+    "text": "You have no notifications yet.",
+    "params": []
+  },
+  "inbox.next.notifications.8c2b27": {
+    "text": "Next notifications",
+    "params": []
+  },
+  "feedback.error.INVALID_REQUEST": {
+    "text": "Invalid request.",
+    "params": []
+  },
+  "feedback.error.INVALID_COOKIE": {
+    "text": "Invalid sign-in cookie.",
+    "params": []
+  },
+  "feedback.error.AUTHENTICATION_REQUIRED": {
+    "text": "Sign in before continuing.",
+    "params": []
+  },
+  "feedback.error.CSRF_FAILED": {
+    "text": "Refresh your sign-in before continuing.",
+    "params": []
+  },
+  "feedback.error.FORBIDDEN": {
+    "text": "You do not have permission for this action.",
+    "params": []
+  },
+  "feedback.error.NOT_FOUND": {
+    "text": "This report or source is unavailable.",
+    "params": []
+  },
+  "feedback.error.METHOD_NOT_ALLOWED": {
+    "text": "This action is unavailable.",
+    "params": []
+  },
+  "feedback.error.PASSWORD_CHANGE_REQUIRED": {
+    "text": "Change your password before continuing.",
+    "params": []
+  },
+  "feedback.error.RATE_LIMITED": {
+    "text": "Too many requests. Try again later.",
+    "params": []
+  },
+  "feedback.error.IDEMPOTENCY_CONFLICT": {
+    "text": "This request key was used for different input.",
+    "params": []
+  },
+  "feedback.error.SERVICE_UNAVAILABLE": {
+    "text": "Service temporarily unavailable.",
+    "params": []
+  },
+  "feedback.error.FEEDBACK_NOT_CONFIGURED": {
+    "text": "Feedback is temporarily unavailable.",
+    "params": []
+  },
+  "feedback.error.FEEDBACK_CONFLICT": {
+    "text": "This report changed. Reload before continuing.",
+    "params": []
+  },
+  "feedback.error.FEEDBACK_TARGET_STALE": {
+    "text": "This source changed. Reload before reporting.",
+    "params": []
+  },
+  "feedback.error.FEEDBACK_ANSWER_OVERLAP": {
+    "text": "Finish or leave the overlapping assessment before reading this discussion.",
+    "params": []
+  },
+  "correction.error.INVALID_REQUEST": {
+    "text": "Invalid request.",
+    "params": []
+  },
+  "correction.error.INVALID_COOKIE": {
+    "text": "Invalid sign-in cookie.",
+    "params": []
+  },
+  "correction.error.AUTHENTICATION_REQUIRED": {
+    "text": "Sign in before continuing.",
+    "params": []
+  },
+  "correction.error.CSRF_FAILED": {
+    "text": "Refresh your sign-in before continuing.",
+    "params": []
+  },
+  "correction.error.FORBIDDEN": {
+    "text": "You do not have permission for this action.",
+    "params": []
+  },
+  "correction.error.NOT_FOUND": {
+    "text": "This correction or notification is unavailable.",
+    "params": []
+  },
+  "correction.error.METHOD_NOT_ALLOWED": {
+    "text": "This action is unavailable.",
+    "params": []
+  },
+  "correction.error.PASSWORD_CHANGE_REQUIRED": {
+    "text": "Change your password before continuing.",
+    "params": []
+  },
+  "correction.error.REAUTHENTICATION_REQUIRED": {
+    "text": "Confirm your password before continuing.",
+    "params": []
+  },
+  "correction.error.RATE_LIMITED": {
+    "text": "Too many requests. Try again later.",
+    "params": []
+  },
+  "correction.error.IDEMPOTENCY_CONFLICT": {
+    "text": "This request key was used for different input.",
+    "params": []
+  },
+  "correction.error.SERVICE_UNAVAILABLE": {
+    "text": "Service temporarily unavailable.",
+    "params": []
+  },
+  "correction.error.CORRECTION_NOT_CONFIGURED": {
+    "text": "Corrections are temporarily unavailable.",
+    "params": []
+  },
+  "correction.error.CORRECTION_CONFLICT": {
+    "text": "This correction changed. Reload before continuing.",
+    "params": []
+  },
+  "correction.error.CORRECTION_SOURCE_STALE": {
+    "text": "This source changed. Reload before continuing.",
+    "params": []
+  },
+  "correction.error.CORRECTION_ANSWER_OVERLAP": {
+    "text": "Finish or leave the overlapping assessment before reading this correction.",
+    "params": []
+  },
+  "correction.error.CORRECTION_LEASE_LOST": {
+    "text": "This job lease changed. Reload before continuing.",
+    "params": []
+  },
+  "feedback.status.new": {
+    "text": "New",
+    "params": []
+  },
+  "feedback.status.processing": {
+    "text": "In progress",
+    "params": []
+  },
+  "feedback.status.waiting_details": {
+    "text": "Waiting for details",
+    "params": []
+  },
+  "feedback.status.resolved": {
+    "text": "Resolved",
+    "params": []
+  },
+  "feedback.status.closed": {
+    "text": "Closed",
+    "params": []
+  },
+  "correction.status.corrected_passed": {
+    "text": "Corrected result · Passed",
+    "params": []
+  },
+  "correction.status.corrected_failed": {
+    "text": "Corrected result · Not passed",
+    "params": []
+  },
+  "correction.status.retake_required": {
+    "text": "Retake required",
+    "params": []
+  },
+  "correction.status.review_material": {
+    "text": "Review material",
+    "params": []
+  },
+  "correction.status.checked_unaffected": {
+    "text": "Checked · Unaffected",
+    "params": []
+  },
+  "correction.status.awaiting_review": {
+    "text": "Checking · Awaiting independent review",
+    "params": []
+  },
+  "notification.type.checking": {
+    "text": "Your learning evidence is being checked.",
+    "params": []
+  },
+  "notification.type.corrected": {
+    "text": "A corrected result is ready to review.",
+    "params": []
+  },
+  "notification.type.retake": {
+    "text": "A new assessment is required.",
+    "params": []
+  },
+  "notification.type.review_material": {
+    "text": "Learning material needs another review.",
+    "params": []
+  },
+  "notification.type.path_unavailable": {
+    "text": "A learning path is currently unavailable.",
+    "params": []
+  },
+  "feedback.category.math_error": {
+    "text": "math error",
+    "params": []
+  },
+  "feedback.category.explanation": {
+    "text": "explanation",
+    "params": []
+  },
+  "feedback.category.illustration": {
+    "text": "illustration",
+    "params": []
+  },
+  "feedback.category.reference": {
+    "text": "reference",
+    "params": []
+  },
+  "feedback.category.typo": {
+    "text": "typo",
+    "params": []
+  },
+  "feedback.category.other": {
+    "text": "other",
+    "params": []
+  },
+  "feedback.category.site": {
+    "text": "site",
+    "params": []
+  },
+  "feedback.category.answer_error": {
+    "text": "answer error",
+    "params": []
+  },
+  "feedback.category.grading_error": {
+    "text": "grading error",
+    "params": []
+  },
+  "feedback.category.technical_issue": {
+    "text": "technical issue",
+    "params": []
+  },
+  "feedback.category.accessibility": {
+    "text": "accessibility",
+    "params": []
+  },
+  "feedback.category.unclear_explanation": {
+    "text": "unclear explanation",
+    "params": []
+  },
+  "feedback.category.suggestion": {
+    "text": "suggestion",
+    "params": []
+  },
+  "feedback.basis.duplicate": {
+    "text": "duplicate",
+    "params": []
+  },
+  "feedback.basis.not_reproducible": {
+    "text": "not reproducible",
+    "params": []
+  },
+  "feedback.basis.out_of_scope": {
+    "text": "out of scope",
+    "params": []
+  },
+  "feedback.basis.suggestion_recorded": {
+    "text": "suggestion recorded",
+    "params": []
+  },
+  "feedback.basis.clarified": {
+    "text": "clarified",
+    "params": []
+  },
+  "feedback.basis.withdrawn": {
+    "text": "withdrawn",
+    "params": []
+  },
+  "feedback.basis.revision_published": {
+    "text": "revision published",
+    "params": []
+  },
+  "feedback.basis.service_fixed": {
+    "text": "service fixed",
+    "params": []
   }
 } as const;

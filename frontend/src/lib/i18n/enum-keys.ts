@@ -106,5 +106,52 @@ export const enumKeys={
     "PERCENT_REQUIRED": "learning.format.PERCENT_REQUIRED",
     "RESULT_TOO_LARGE": "learning.format.RESULT_TOO_LARGE",
     "INVALID_MODE": "learning.format.INVALID_MODE"
+  },
+  "feedback.status": {
+    "new": "feedback.status.new",
+    "processing": "feedback.status.processing",
+    "waiting_details": "feedback.status.waiting_details",
+    "resolved": "feedback.status.resolved",
+    "closed": "feedback.status.closed"
+  },
+  "correction.status": {
+    "corrected_passed": "correction.status.corrected_passed",
+    "corrected_failed": "correction.status.corrected_failed",
+    "retake_required": "correction.status.retake_required",
+    "review_material": "correction.status.review_material",
+    "checked_unaffected": "correction.status.checked_unaffected",
+    "awaiting_review": "correction.status.awaiting_review"
+  },
+  "notification.type": {
+    "checking": "notification.type.checking",
+    "corrected": "notification.type.corrected",
+    "retake": "notification.type.retake",
+    "review_material": "notification.type.review_material",
+    "path_unavailable": "notification.type.path_unavailable"
+  },
+  "feedback.category": {
+    "math_error": "feedback.category.math_error",
+    "explanation": "feedback.category.explanation",
+    "illustration": "feedback.category.illustration",
+    "reference": "feedback.category.reference",
+    "typo": "feedback.category.typo",
+    "other": "feedback.category.other",
+    "site": "feedback.category.site",
+    "answer_error": "feedback.category.answer_error",
+    "grading_error": "feedback.category.grading_error",
+    "technical_issue": "feedback.category.technical_issue",
+    "accessibility": "feedback.category.accessibility",
+    "unclear_explanation": "feedback.category.unclear_explanation",
+    "suggestion": "feedback.category.suggestion"
+  },
+  "feedback.basis": {
+    "duplicate": "feedback.basis.duplicate",
+    "not_reproducible": "feedback.basis.not_reproducible",
+    "out_of_scope": "feedback.basis.out_of_scope",
+    "suggestion_recorded": "feedback.basis.suggestion_recorded",
+    "clarified": "feedback.basis.clarified",
+    "withdrawn": "feedback.basis.withdrawn",
+    "revision_published": "feedback.basis.revision_published",
+    "service_fixed": "feedback.basis.service_fixed"
   }
 } satisfies Record<string,Record<string,StaticMessageKey>>;

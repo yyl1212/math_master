@@ -1,4 +1,6 @@
 "use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { getAuthContext } from '@/lib/auth/client';
 import { correctionAwait, withCorrectionDeadline } from '@/lib/correction/bytes';
@@ -88,7 +90,7 @@ function AccountBoundary({ actorId, management = false, children }: Props) {
         return () => { live = false; revision++; controller?.abort(); window.removeEventListener('math-master:auth-change', changed); window.removeEventListener('focus', verify); document.removeEventListener('visibilitychange', visible); channel?.close(); };
     }, [actorId, management, children, attempt, invalidate]);
     const blocked = checking || error !== null;
-    return <>{checking && <p role="status">Checking your correction account…</p>}{error && <CorrectionState error={error} onRetry={() => setAttempt(n => n + 1)}/>}{everVerified && !discarded && <div hidden={blocked} inert={blocked}><CorrectionAccountContext.Provider value={{ actorId, roles, checking: blocked, invalidate }}>{children}</CorrectionAccountContext.Provider></div>}</>;
+    return <>{checking && <p role="status"><UiText notice={uiMessage("correction-account.checking.your.correction.account.da4282",{})}/></p>}{error && <CorrectionState error={error} onRetry={() => setAttempt(n => n + 1)}/>}{everVerified && !discarded && <div hidden={blocked} inert={blocked}><CorrectionAccountContext.Provider value={{ actorId, roles, checking: blocked, invalidate }}>{children}</CorrectionAccountContext.Provider></div>}</>;
 }
 // Keep same-account drafts mounted during verification; actor changes replace the boundary.
 export function useCorrectionRead() {

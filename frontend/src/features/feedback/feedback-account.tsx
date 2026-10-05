@@ -1,4 +1,6 @@
 "use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { getAuthContext } from '@/lib/auth/client';
 import { readFeedback } from '@/lib/feedback/client';
@@ -37,7 +39,7 @@ function FeedbackAccountBoundary({ actorId, review = false, children }: AccountP
     return () => { live = false; revision++; window.removeEventListener('math-master:auth-change', changed); window.removeEventListener('focus', verify); document.removeEventListener('visibilitychange', visible); channel?.close(); };
   }, [actorId, review, invalidate, children, attempt]);
   if (error) return <FeedbackState error={error} onRetry={() => setAttempt(n => n + 1)}/>;
-  return verified ? <FeedbackAccountContext.Provider value={{ actorId, invalidate }}>{children}</FeedbackAccountContext.Provider> : <p role="status">Checking your feedback account…</p>;
+  return verified ? <FeedbackAccountContext.Provider value={{ actorId, invalidate }}>{children}</FeedbackAccountContext.Provider> : <p role="status"><UiText notice={uiMessage("feedback-account.checking.your.feedback.account.08c898",{})}/></p>;
 }
 // Every delivery is tied to the server-rendered actor and the mounted page.
 export function useFeedbackRead() {
