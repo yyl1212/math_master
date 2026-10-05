@@ -106,16 +106,20 @@ def stop_writes(root: Path,revision: str,sudo: bool) -> None:
 
 def rollback(root: Path,revision: str,sudo: bool,state: dict) -> None:
     if revision not in [state.get('current'),state.get('previous')]:raise DeployError('unknown-rollback-release')
-    container=database_container(root,revision,sudo)
-    migration=int(snapshot.sql(container,'math_master_preview','math_master_preview','SELECT coalesce(max(version_id) FILTER (WHERE is_applied),0) FROM goose_db_version;',sudo))
-    if migration!=expected_migration(root,revision):
-        stop_writes(root,state.get('runningRevision') or revision,sudo)
-        state.update(status='manual-recovery-required',failureStage='schema-incompatible')
-        save_state(root,state)
-        raise DeployError('schema-incompatible')
-    run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api','web','gateway'],sudo,'rollback-health-failed')
-    trusted_check(common.ORIGIN)
-    publish_current(root,revision,state)
+    try:
+        container=database_container(root,revision,sudo)
+        migration=int(snapshot.sql(container,'math_master_preview','math_master_preview','SELECT coalesce(max(version_id) FILTER (WHERE is_applied),0) FROM goose_db_version;',sudo))
+        if migration!=expected_migration(root,revision):raise DeployError('schema-incompatible')
+        run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api','web','gateway'],sudo,'rollback-health-failed')
+        trusted_check(common.ORIGIN)
+        publish_current(root,revision,state)
+    except (ValueError,OSError,subprocess.SubprocessError) as error:
+        try:
+            stop_writes(root,revision,sudo)
+        finally:
+            state.update(status='manual-recovery-required',failureStage=str(error) if isinstance(error,DeployError) else 'rollback-failed')
+            save_state(root,state)
+        raise
 
 
 def recover(root: Path,revision: str,sudo: bool,state: dict) -> None:
@@ -153,7 +157,7 @@ def prepare(root: Path,revision: str,sudo: bool,state: dict) -> None:
 
 def start(root: Path,revision: str,sudo: bool,state: dict,baseline: Path | None) -> None:
     container=database_container(root,revision,sudo)
-    source_revision=state.get('runningRevision') or state.get('current')
+    source_revision=state.get('runningRevision') or state.get('current') or state.get('baselineSourceCommit')
     if not state.get('bootstrapVerified'):
         if baseline is None:raise DeployError('first-start-requires-baseline')
         data=snapshot.load_backup(baseline)
@@ -163,8 +167,9 @@ def start(root: Path,revision: str,sudo: bool,state: dict,baseline: Path | None)
         source_revision=data['sourceCommit'];save_state(root,state)
     if source_revision is None:raise DeployError('unknown-database-provenance')
     backup=root/'backups'/'predeploy'/(datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')+'-'+uuid.uuid4().hex[:8])
-    snapshot.capture(container,'math_master_preview','math_master_preview',backup,source_revision,sudo,kind='predeploy')
     try:
+        stop_writes(root,revision,sudo)
+        snapshot.capture(container,'math_master_preview','math_master_preview',backup,source_revision,sudo,kind='predeploy')
         run_compose(root,revision,['run','--rm','--no-deps','--entrypoint','/app/bin/migrate','api','--dir','/app/db/migrations','up'],sudo,'migration-failed')
         run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api','web'],sudo,'application-health-failed')
         state.update(attempt=revision,runningRevision=revision,status='ready');save_state(root,state)

@@ -104,6 +104,61 @@ class DeployTests(unittest.TestCase):
             self.assertNotIn('-v',args)
             self.assertNotIn('down -v',args)
 
+    def first_deploy_fixture(self):
+        self.state.update(current=None,previous=None,runningRevision=None,bootstrapVerified=False)
+        self.write_state()
+        if (self.root/'current').is_symlink():(self.root/'current').unlink()
+        return {'sourceCommit':OLD,'dumpSha256':'b'*64,'migrationVersion':8}
+
+    def test_first_deploy_retry_retains_database_provenance(self):
+        deploy=self.implementation()
+        for fault in ['backup','health','activate']:
+            with self.subTest(fault=fault):
+                baseline=self.first_deploy_fixture()
+                def transport(root,revision,args,sudo=False,acme='production'):
+                    result=self.transport(root,revision,args,sudo,acme)
+                    if fault=='health' and args[:2]==['up','-d'] and 'web' in args:result.returncode=1
+                    return result
+                captures=[deploy.snapshot.SnapshotError('backup-failed')] if fault=='backup' else [{'ok':True}]
+                with patch.object(common,'compose',side_effect=transport),patch.object(deploy.snapshot,'load_backup',return_value=baseline),patch.object(deploy.snapshot,'inspect',return_value={'ok':True}),patch.object(deploy.snapshot,'capture',side_effect=captures),patch.object(deploy,'trusted_check',side_effect=deploy.DeployError('trusted-https-check-failed')):
+                    status,_=self.invoke('start','--revision',NEW,'--baseline',str(self.root/'baseline'))
+                    if fault=='activate':
+                        self.assertEqual(status,0)
+                        self.assertEqual(self.invoke('activate','--revision',NEW,'--acme','production')[0],1)
+                    else:self.assertEqual(status,1)
+                with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'capture',return_value={'ok':True}):
+                    status,_=self.invoke('start','--revision',NEW)
+                self.assertEqual(status,0,'verified first-deploy baseline must support retry')
+                self.assertEqual(json.loads(self.state_path.read_text())['runningRevision'],NEW)
+
+    def test_explicit_rollback_failure_stops_and_records(self):
+        deploy=self.implementation()
+        for fault in ['health','tls']:
+            with self.subTest(fault=fault):
+                self.commands=[]
+                self.state.update(current=NEW,previous=OLD,runningRevision=NEW);self.write_state()
+                def transport(root,revision,args,sudo=False,acme='production'):
+                    result=self.transport(root,revision,args,sudo,acme)
+                    if fault=='health' and args[:2]==['up','-d'] and 'web' in args:result.returncode=1
+                    return result
+                checker=patch.object(deploy,'trusted_check',side_effect=deploy.DeployError('trusted-https-check-failed')) if fault=='tls' else patch.object(deploy,'trusted_check',return_value={'ok':True})
+                with patch.object(common,'compose',side_effect=transport),patch.object(deploy.snapshot,'sql',return_value='8'),checker:
+                    self.assertEqual(self.invoke('rollback','--revision',OLD)[0],1)
+                state=json.loads(self.state_path.read_text())
+                self.assertEqual(state['current'],NEW)
+                self.assertEqual(state['status'],'manual-recovery-required')
+                self.assertTrue(any(args[:1]==['stop'] and all(v in args for v in ['gateway','web','api']) for _,args,_ in self.commands))
+
+    def test_start_stops_public_writes_before_migration(self):
+        deploy=self.implementation()
+        with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'capture',return_value={'ok':True}):
+            self.assertEqual(self.invoke('start','--revision',NEW)[0],0)
+        stopped=[i for i,(_,args,_) in enumerate(self.commands) if args[:1]==['stop'] and all(v in args for v in ['gateway','web','api'])]
+        migrated=[i for i,(_,args,_) in enumerate(self.commands) if '/app/bin/migrate' in args]
+        self.assertTrue(stopped,'public traffic must stop before schema migration')
+        self.assertLess(stopped[0],migrated[0])
+        self.assertFalse(any(args[:1]==['up'] and 'gateway' in args for _,args,_ in self.commands))
+
     def test_secrets_are_not_logged(self):
         deploy=self.implementation()
         secret='test-secret-that-must-not-appear'

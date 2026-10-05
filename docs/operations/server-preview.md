@@ -91,7 +91,7 @@ prepare 冻结配置、串行构建 api/web/gateway，并仅启动 db。PostgreS
   --root "$MATH_PREVIEW_ROOT" --revision "$MATH_PREVIEW_REVISION" --acme staging --sudo
 ```
 
-start 先核对恢复基线，保留发版前快照，再显式向上迁移和启动 api/web。首次快照的来源提交记录为原本机运行版本，Compose 使用候选版本配置；两个版本概念分开。此时 current 尚未指向新版本。
+start 先核对恢复基线，关闭 gateway/web/api 的公网入口与写入，停写后保留发版前快照，再显式向上迁移和启动 api/web。更新存在短暂停机窗口，候选版本通过健康与可信 HTTPS 验证后恢复入口。首次快照的来源提交记录为原本机运行版本，Compose 使用候选版本配置；两个版本概念分开。此时 current 尚未指向新版本；首次失败后保留已核验的基线来源，修复故障后可重新 start。
 
 staging 的证书为测试证书。查看该次网关日志中的证书获取成功结果，确认实际 80/443 入站挑战可达后再切换：
 
@@ -132,4 +132,4 @@ Caddy 自动管理显式 Let’s Encrypt `shortlived` 证书；公网 IP 证书�
 
 明确回退的上一版本完整 SHA，执行 `deploy.sh rollback --root /opt/math_master --revision <上一版本> --sudo`。先核对真实迁移版本与该 release 的迁移文件版本；相符后只换 api/web/gateway 镜像及对应配置，并验证健康/TLS。数据库卷、证书卷和用户数据保留。
 
-若结构不兼容、恢复不一致或回退仍失败，停止应用写入、保留备份与现场，单独制定从隔离恢复结果切换的方案。禁止真库迁移 down、compose down -v 或自动覆盖恢复。首次无旧服务时，失败结果为停止公网入口及写入，不能承诺退回不存在的版本。
+手动与自动回退的健康/TLS失败都停止 gateway/web/api，并保存具体失败阶段。若结构不兼容、恢复不一致或回退仍失败，停止应用写入、保留备份与现场，单独制定从隔离恢复结果切换的方案。禁止真库迁移 down、compose down -v 或自动覆盖恢复。首次无旧服务时，失败结果为停止公网入口及写入，不能承诺退回不存在的版本。
