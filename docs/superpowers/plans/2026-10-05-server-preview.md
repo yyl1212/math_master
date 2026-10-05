@@ -8,7 +8,7 @@
 
 **技术栈：**Go 1.27.1、Node.js 24.17.0、既有 Next.js 16.3.7、PostgreSQL 17.11、Caddy 2.11.7、Docker Compose v2、Python 3 标准库与 shell 入口脚本。
 
-**依据：**[已确认方案](../specs/2026-10-05-server-preview-design.md)。日期：2026-10-05。状态：方案及其兼容性范围已获用户确认；本计划待审阅，尚未实施。此前只读预检基线为 master `9f71cf4f2b29c5101cc87a4511c0b32d786ddeb0`。
+**依据：**[已确认方案](../specs/2026-10-05-server-preview-design.md)。日期：2026-10-05。状态：方案及其兼容性范围已获用户确认；本计划已获用户确认，沿用 Native 开始实施。此前只读预检基线为 master `9f71cf4f2b29c5101cc87a4511c0b32d786ddeb0`。
 
 ## 全局约束
 
@@ -64,19 +64,19 @@ flowchart LR
     T6 --> Iteration[后续题库阅读、内容复核与优化]
 ```
 
-## 任务 1：可运行的生产镜像
+## Task 1: 可运行的生产镜像
 
 **文件：**新增 `.dockerignore`、三个 Dockerfile、`ops/tests/image_smoke.py`；修改 `frontend/next.config.ts`。
 
 **接口：**从仓库根目录构建；输出 `math-master-api:<revision>`、`math-master-web:<revision>`、`math-master-gateway:<revision>`，三者含 OCI revision 标签。API 镜像工作目录 `/app`，仅提供 `/app/bin/{server,migrate,admin-init,correction-maintenance}` 与 `/app/db/migrations`；web 入口为 standalone 的 `node server.js`；gateway 提供 `/usr/bin/caddy`。镜像烟测 CLI：`python3 ops/tests/image_smoke.py --revision <40位提交号>`，成功退出 0，报告版本和通过项，不输出环境值。
 
-- [ ] **1. 写镜像烟测。**验证四个 Go 程序可找到、不存在 `e2e-harness`，web 在容器内部 `/login` 返回 200 且其引用的 CSS/公式字体能读取，gateway 报告 `v2.11.7`；临时容器使用随机名称并只清理自己创建的对象。
-- [ ] **2. 运行失败检查。**用现有验证包装器运行上述烟测，预期因待构建镜像缺失而失败，记录具体缺失项。
-- [ ] **3. 实现生产构建。**Go builder 同时复制 `backend/` 与被 go.mod 引用的 `schemas/`，使用显式程序白名单和 `CGO_ENABLED=0`。Next.js 配置增加 `output: "standalone"`，保留 `poweredByHeader: false`；复制 standalone 与 `.next/static`，当前没有 `frontend/public/`，按可选目录处理。Caddy 按固定摘要校验官方静态程序包并安装 CA 根证书；全部 runtime 以非 root 用户运行并具备所需目录权限。
-- [ ] **4. 构建并验证。**按 API、web、gateway 顺序，每次单独通过包装器执行 `docker build --platform linux/amd64`，标签使用实际提交号；web 构建设 `NODE_OPTIONS=--max-old-space-size=1536`。烟测退出 0；构建上下文确认排除 `.git`、`.superpowers`、`.env*`（示例除外）、`config/*.local.json`、输入资料、dump、缓存及测试结果。
-- [ ] **5. 提交任务。**只提交本任务文件，提交信息 `build: 增加服务器预览生产镜像`。
+- [x] **1. 写镜像烟测。**验证四个 Go 程序可找到、不存在 `e2e-harness`，web 在容器内部 `/login` 返回 200 且其引用的 CSS/公式字体能读取，gateway 报告 `v2.11.7`；临时容器使用随机名称并只清理自己创建的对象。
+- [x] **2. 运行失败检查。**用现有验证包装器运行上述烟测，预期因待构建镜像缺失而失败，记录具体缺失项。
+- [x] **3. 实现生产构建。**Go builder 同时复制 `backend/` 与被 go.mod 引用的 `schemas/`，使用显式程序白名单和 `CGO_ENABLED=0`。Next.js 配置增加 `output: "standalone"`，保留 `poweredByHeader: false`；复制 standalone 与 `.next/static`，当前没有 `frontend/public/`，按可选目录处理。Caddy 按固定摘要校验官方静态程序包并安装 CA 根证书；全部 runtime 以非 root 用户运行并具备所需目录权限。
+- [x] **4. 构建并验证。**按 API、web、gateway 顺序，每次单独通过包装器执行 `docker build --platform linux/amd64`，标签使用实际提交号；web 构建设 `NODE_OPTIONS=--max-old-space-size=1536`。烟测退出 0；构建上下文确认排除 `.git`、`.superpowers`、`.env*`（示例除外）、`config/*.local.json`、输入资料、dump、缓存及测试结果。
+- [x] **5. 提交任务。**只提交本任务文件，提交信息 `build: 增加服务器预览生产镜像`。
 
-## 任务 2：内部编排、配置校验和 HTTPS 网关
+## Task 2: 内部编排、配置校验和 HTTPS 网关
 
 **文件：**新增 `compose.yaml`、`ops/Caddyfile`、`ops/.env.example`、`ops/common.py`、`ops/tests/test_config.py`。
 
@@ -84,14 +84,14 @@ flowchart LR
 
 配置允许键仅为 `AUTH_PUBLIC_ORIGIN`、`POSTGRES_DB`、`POSTGRES_USER`、`POSTGRES_PASSWORD`、`DB_LC_COLLATE`、`DB_LC_CTYPE`。数据库/用户名固定 `math_master_preview`，密码为新生成的 64 位小写十六进制；locale 来自源快照，接受单个合法 locale 标识。DATABASE_URL 由 Compose 这些值生成，不在命令参数中传递；生产监听和 APP_ENV 固定在编排文件。动态 release/ACME 参数由已校验的 CLI 生成，不继承调用方的开发配置。
 
-- [ ] **1. 写配置失败测试。**`test_rejects_executable_or_insecure_env` 验证 `$()`、反引号、重复/未知键、HTTP origin、非 0600 文件、符号链接均在 Docker 调用前被拒绝且没有副作用；`test_ignores_inherited_development_settings` 验证调用者的 APP_ENV/DATABASE_URL 不覆盖部署配置；`test_only_gateway_publishes_ports` 从实际 Compose 解析结果核对端口和持久卷。
-- [ ] **2. 运行失败测试。**`node tools/verify/run.mjs -- python3 -m unittest discover -s ops/tests -p 'test_config.py' -v`，预期尚未实现 common/Compose 而失败。
-- [ ] **3. 实现 common 与编排。**固定项目名，PostgreSQL 卷名 `math-master-preview-pgdata`；Go `/readyz`、web 容器内 `/login`、db `pg_isready` 为健康检查。gateway 独享外部网络，api/web/db 使用内部网络；健康依赖不隐式执行迁移。Compose 读取指定 env 文件，清除相关继承变量；sudo 仅显式转交已经校验的非秘密 release/ACME 变量。
-- [ ] **4. 实现网关配置。**Caddy 全部请求反代 web，不另建直达 Go 的公网路由；显式 `issuer acme`、`profile shortlived`，staging 使用 `https://acme-staging-v02.api.letsencrypt.org/directory`，production 使用 `https://acme-v02.api.letsencrypt.org/directory`。两者证书卷分别为 `math-master-preview-caddy-staging`、`math-master-preview-caddy-production`；新卷目录授予 runtime UID 写权限，容器内设置 `net.ipv4.ip_unprivileged_port_start=0` 以允许非 root 网关监听 80/443，不改变宿主机参数。
-- [ ] **5. 验证配置。**配置测试及容器中的 `caddy validate` 退出 0；实际 Compose 解析只在内存核对，不打印密码，staging/production 卷名不同。后续真实验证不得复用测试证书。
-- [ ] **6. 提交任务。**提交信息 `feat: 配置服务器内部编排与公网 HTTPS`。
+- [x] **1. 写配置失败测试。**`test_rejects_executable_or_insecure_env` 验证 `$()`、反引号、重复/未知键、HTTP origin、非 0600 文件、符号链接均在 Docker 调用前被拒绝且没有副作用；`test_ignores_inherited_development_settings` 验证调用者的 APP_ENV/DATABASE_URL 不覆盖部署配置；`test_only_gateway_publishes_ports` 从实际 Compose 解析结果核对端口和持久卷。
+- [x] **2. 运行失败测试。**`node tools/verify/run.mjs -- python3 -m unittest discover -s ops/tests -p 'test_config.py' -v`，预期尚未实现 common/Compose 而失败。
+- [x] **3. 实现 common 与编排。**固定项目名，PostgreSQL 卷名 `math-master-preview-pgdata`；Go `/readyz`、web 容器内 `/login`、db `pg_isready` 为健康检查。gateway 独享外部网络，api/web/db 使用内部网络；健康依赖不隐式执行迁移。Compose 读取指定 env 文件，清除相关继承变量；sudo 仅显式转交已经校验的非秘密 release/ACME 变量。
+- [x] **4. 实现网关配置。**Caddy 全部请求反代 web，不另建直达 Go 的公网路由；显式 `issuer acme`、`profile shortlived`，staging 使用 `https://acme-staging-v02.api.letsencrypt.org/directory`，production 使用 `https://acme-v02.api.letsencrypt.org/directory`。两者证书卷分别为 `math-master-preview-caddy-staging`、`math-master-preview-caddy-production`；新卷目录授予 runtime UID 写权限，容器内设置 `net.ipv4.ip_unprivileged_port_start=0` 以允许非 root 网关监听 80/443，不改变宿主机参数。
+- [x] **5. 验证配置。**配置测试及容器中的 `caddy validate` 退出 0；实际 Compose 解析只在内存核对，不打印密码，staging/production 卷名不同。后续真实验证不得复用测试证书。
+- [x] **6. 提交任务。**提交信息 `feat: 配置服务器内部编排与公网 HTTPS`。
 
-## 任务 3：一致性备份与受保护恢复
+## Task 3: 一致性备份与受保护恢复
 
 **文件：**新增 `ops/database-snapshot.py`、`ops/backup.sh`、`ops/restore-drill.sh`、`ops/tests/test_snapshot.py`。
 
@@ -99,27 +99,27 @@ flowchart LR
 
 manifest schemaVersion=1：数据库编码/locale/PostgreSQL 版本、实际源运行提交、迁移版本、创建时间、dump 摘要；每个 public 表的行数和规范化行摘要；工作区 id/revision/status/包版本、素材字节摘要、账号角色和公开 head 数量。完整清单为私有文件，只向 Git 输出数量和一致性布尔结果。目录已存在时拒绝覆盖。
 
-- [ ] **1. 写备份与恢复保护测试。**`test_snapshot_stays_consistent_during_write` 在随机隔离库并发插入后证明 dump 与清单来自同一快照；`test_failed_capture_is_not_published` 模拟导出失败/写入失败，旧备份不变、无成功目录；`test_rejects_corrupt_or_nonempty_target` 验证损坏摘要、locale 不同、错误容器和已有 public 对象均不执行恢复；`test_drill_cleanup_keeps_foreign_volumes` 验证只清理匹配本次标签的对象。
-- [ ] **2. 运行失败测试。**通过包装器运行 `python3 -m unittest discover -s ops/tests -p 'test_snapshot.py' -v`，预期 helper 未实现而失败。数据库集成测试使用新建随机测试容器，禁止连接本机 R1。
-- [ ] **3. 实现快照与保留。**持有一个只读 repeatable-read 事务并执行 `pg_export_snapshot()`；pg_dump `--format=custom --snapshot` 与清单查询导入同一 snapshot，全部结束后才释放事务。固定 UTC/ISO/UTF-8，对规范化行排序后流式计算摘要，不打印原始行；同文件系统临时目录成功后原子提交。保留 7 个日副本和 4 个周副本，predeploy 不参与自动轮换。
-- [ ] **4. 实现受保护恢复。**先验 dump 摘要和 PG/locale；restore 仅接受 `math-master-preview` 的 db 容器/固定库名，或本次随机演练标签及随机库名，且目标必须为空。使用 `pg_restore --no-owner --no-acl --exit-on-error`，随后 inspect 逐表、逐工作区和素材核对；序列验证不落后于相应主键，不对非 MVCC 序列宣称逐字节快照一致。drill 创建无宿主端口、`--network none` 的新 PG 容器与新卷，实际完成恢复；数据库密码经受限临时 env 文件传递。
-- [ ] **5. 验证一致性及目标保护。**全部快照单元测试退出 0；随机 PG 容器的实际并发写入/导出/恢复测试退出 0，清单与恢复库摘要一致。所有临时对象清理后本机 R1 和服务器预览卷均未被删除。
-- [ ] **6. 提交任务。**提交信息 `feat: 增加一致性备份与隔离恢复演练`。
+- [x] **1. 写备份与恢复保护测试。**`test_snapshot_stays_consistent_during_write` 在随机隔离库并发插入后证明 dump 与清单来自同一快照；`test_failed_capture_is_not_published` 模拟导出失败/写入失败，旧备份不变、无成功目录；`test_rejects_corrupt_or_nonempty_target` 验证损坏摘要、locale 不同、错误容器和已有 public 对象均不执行恢复；`test_drill_cleanup_keeps_foreign_volumes` 验证只清理匹配本次标签的对象。
+- [x] **2. 运行失败测试。**通过包装器运行 `python3 -m unittest discover -s ops/tests -p 'test_snapshot.py' -v`，预期 helper 未实现而失败。数据库集成测试使用新建随机测试容器，禁止连接本机 R1。
+- [x] **3. 实现快照与保留。**持有一个只读 repeatable-read 事务并执行 `pg_export_snapshot()`；pg_dump `--format=custom --snapshot` 与清单查询导入同一 snapshot，全部结束后才释放事务。固定 UTC/ISO/UTF-8，对规范化行排序后流式计算摘要，不打印原始行；同文件系统临时目录成功后原子提交。保留 7 个日副本和 4 个周副本，predeploy 不参与自动轮换。
+- [x] **4. 实现受保护恢复。**先验 dump 摘要和 PG/locale；restore 仅接受 `math-master-preview` 的 db 容器/固定库名，或本次随机演练标签及随机库名，且目标必须为空。使用 `pg_restore --no-owner --no-acl --exit-on-error`，随后 inspect 逐表、逐工作区和素材核对；序列验证不落后于相应主键，不对非 MVCC 序列宣称逐字节快照一致。drill 创建无宿主端口、`--network none` 的新 PG 容器与新卷，实际完成恢复；数据库密码经受限临时 env 文件传递。
+- [x] **5. 验证一致性及目标保护。**全部快照单元测试退出 0；随机 PG 容器的实际并发写入/导出/恢复测试退出 0，清单与恢复库摘要一致。所有临时对象清理后本机 R1 和服务器预览卷均未被删除。
+- [x] **6. 提交任务。**提交信息 `feat: 增加一致性备份与隔离恢复演练`。
 
-## 任务 4：部署、失败处理、回退和日常备份
+## Task 4: 部署、失败处理、回退和日常备份
 
 **文件：**新增 `ops/deploy.py`、`ops/deploy.sh`、备份 service/timer、`docs/operations/server-preview.md`、`ops/tests/test_deploy.py`。
 
 **接口：**`deploy.sh prepare|start|activate|rollback --root <目录> --revision <40位提交号> [--sudo]`；activate 另需 `--acme staging|production`，首次 start 另需 `--baseline <已恢复快照目录>`。Python 主函数 `main(argv: list[str]) -> int` 复用任务 2 的 common 和任务 3 的 CLI；各阶段加同一部署锁，不通过 shell eval/source 读取配置。prepare 将已校验的 `shared/.env` 保存为 0600 的 `shared/configs/<revision>.env`，同提交的不同配置拒绝覆盖；之后只读取版本副本。`shared/deployment.json` 记录尝试、已验证基线、当前/上一 release、对应配置摘要和非秘密结果；`current` 仅在 production 健康核验后指向成功 release。
 
-- [ ] **1. 写部署失败测试。**`test_invalid_release_does_not_mutate` 验证非法 sha、路径穿越/符号链接、并发部署在 Docker 前被拒绝；`test_failed_health_keeps_current_release` 验证失败不前移 current；`test_rollback_keeps_database_and_cert_volumes` 验证未调用 down/down -v/迁移 down；`test_secrets_are_not_logged` 用包含密码的失败输出验证公开日志只含阶段及退出码。
-- [ ] **2. 运行失败测试。**通过包装器运行 `python3 -m unittest discover -s ops/tests -p 'test_deploy.py' -v`，预期 deploy 尚未实现而失败。
-- [ ] **3. 实现部署状态机。**prepare 串行构建三镜像并只启动 db；start 首次必须 inspect 与 baseline 一致，随后留 predeploy 备份、显式 `/app/bin/migrate --dir /app/db/migrations up`、启动 api/web 并等待健康；后续 start 必须确认已登记的预览库并先备份。activate 选择固定 CA/卷并启动 gateway，production 的普通 TLS/健康检查成功后才更新 current。失败有上一版本时恢复其应用镜像/配置并重新核验，无上一版本时停止应用写入及公网入口，保留 db；回退失败停止写入并报告具体阶段。
-- [ ] **4. 实现备份 timer 与运行手册。**service 使用 ubuntu 和 `--sudo`，调用已确认 current 的 backup；timer 每日 `02:00:00 Asia/Shanghai`，`Persistent=true`，周日生成周副本。手册写明 env 创建、版本归档、源 locale、首次恢复、staging/production 切换、正常登录、备份下载、证书到期/续期检查及失败回退；首次无 previous 时不能承诺自动回退到旧服务。
-- [ ] **5. 验证部署与回退。**部署单元测试退出 0；在临时测试 root 通过 Docker 调用模拟器执行准备、启动、健康失败及回退，检查确切命令、数据保留条件、current 和上一 release/config。不让测试修改真实 Compose 项目；真实 Docker/PG 恢复在任务 3、5 验证，实际部署及 systemd 验证在任务 6 完成。
-- [ ] **6. 提交任务。**提交信息 `feat: 增加服务器部署回退与每日备份`。
+- [x] **1. 写部署失败测试。**`test_invalid_release_does_not_mutate` 验证非法 sha、路径穿越/符号链接、并发部署在 Docker 前被拒绝；`test_failed_health_keeps_current_release` 验证失败不前移 current；`test_rollback_keeps_database_and_cert_volumes` 验证未调用 down/down -v/迁移 down；`test_secrets_are_not_logged` 用包含密码的失败输出验证公开日志只含阶段及退出码。
+- [x] **2. 运行失败测试。**通过包装器运行 `python3 -m unittest discover -s ops/tests -p 'test_deploy.py' -v`，预期 deploy 尚未实现而失败。
+- [x] **3. 实现部署状态机。**prepare 串行构建三镜像并只启动 db；start 首次必须 inspect 与 baseline 一致，随后留 predeploy 备份、显式 `/app/bin/migrate --dir /app/db/migrations up`、启动 api/web 并等待健康；后续 start 必须确认已登记的预览库并先备份。activate 选择固定 CA/卷并启动 gateway，production 的普通 TLS/健康检查成功后才更新 current。失败有上一版本时恢复其应用镜像/配置并重新核验，无上一版本时停止应用写入及公网入口，保留 db；回退失败停止写入并报告具体阶段。
+- [x] **4. 实现备份 timer 与运行手册。**service 使用 ubuntu 和 `--sudo`，调用已确认 current 的 backup；timer 每日 `02:00:00 Asia/Shanghai`，`Persistent=true`，周日生成周副本。手册写明 env 创建、版本归档、源 locale、首次恢复、staging/production 切换、正常登录、备份下载、证书到期/续期检查及失败回退；首次无 previous 时不能承诺自动回退到旧服务。
+- [x] **5. 验证部署与回退。**部署单元测试退出 0；在临时测试 root 通过 Docker 调用模拟器执行准备、启动、健康失败及回退，检查确切命令、数据保留条件、current 和上一 release/config。不让测试修改真实 Compose 项目；真实 Docker/PG 恢复在任务 3、5 验证，实际部署及 systemd 验证在任务 6 完成。
+- [x] **6. 提交任务。**提交信息 `feat: 增加服务器部署回退与每日备份`。
 
-## 任务 5：部署验收器、相关回归和代码交付
+## Task 5: 部署验收器、相关回归和代码交付
 
 **文件：**新增 `ops/verify-deployment.py`、`ops/tests/test_verify.py`、`.github/workflows/deployment.yml`；更新 `docs/operations/evidence/server-preview/`。
 
@@ -133,7 +133,7 @@ manifest schemaVersion=1：数据库编码/locale/PostgreSQL 版本、实际源�
 - [ ] **6. 审查整分支。**使用 requesting-code-review 做一次独立整分支审查；修复阻塞/重要问题并重跑受影响检查，保存无秘密结论。
 - [ ] **7. 提交并交付 PR。**提交信息 `test: 验证服务器预览部署与既有功能`。SSH 推送分支，创建中文 PR 并 attach_artifact；核对实际 head 的新旧 CI 全部成功及无冲突，取得具体合并授权后 squash 合并并记录确切部署提交。
 
-## 任务 6：真实服务器上线及数据/运维验收
+## Task 6: 真实服务器上线及数据/运维验收
 
 **文件：**更新中文运行手册、开发路线图和无秘密 `docs/operations/evidence/server-preview/rollout.json`；实际配置/数据/日志只存本机受限目录和服务器 shared/backups。
 
