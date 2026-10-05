@@ -5541,5 +5541,146 @@ export const enMessages = {
   "feedback.basis.service_fixed": {
     "text": "service fixed",
     "params": []
+  },
+  "knowledge-view.derivations.109f27": {
+    "text": "Derivations",
+    "params": []
+  },
+  "knowledge-view.related.ideas.e17c80": {
+    "text": "Related ideas",
+    "params": []
+  },
+  "page.you.are.signed.in.2d55cb": {
+    "text": "You are signed in",
+    "params": []
+  },
+  "audit.illustration": {
+    "text": "Mathematical illustration",
+    "params": []
+  },
+  "audit.fixedIllustration": {
+    "text": "Fixed mathematical illustration {id}",
+    "params": [
+      "id"
+    ]
+  },
+  "audit.mapping.label": {
+    "text": "{side} {field} {number}",
+    "params": [
+      "side",
+      "field",
+      "number"
+    ]
+  },
+  "audit.mapping.caption": {
+    "text": "{side} {field}",
+    "params": [
+      "side",
+      "field"
+    ]
+  },
+  "audit.mapping.publication": {
+    "text": "{side} publication {number}",
+    "params": [
+      "side",
+      "number"
+    ]
+  },
+  "audit.mapping.publicationCaption": {
+    "text": "{side} publication ID",
+    "params": [
+      "side"
+    ]
+  },
+  "correction.side.original": {
+    "text": "original",
+    "params": []
+  },
+  "correction.side.replacement": {
+    "text": "replacement",
+    "params": []
+  },
+  "correction.field.id": {
+    "text": "id",
+    "params": []
+  },
+  "correction.field.version": {
+    "text": "version",
+    "params": []
+  },
+  "correction.field.sha256": {
+    "text": "sha256",
+    "params": []
+  },
+  "audit.skipped": {
+    "text": "Skipped",
+    "params": []
+  },
+  "audit.notPassed": {
+    "text": "Not passed",
+    "params": []
+  },
+  "audit.practice": {
+    "text": "practice",
+    "params": []
+  },
+  "audit.assessment": {
+    "text": "assessment",
+    "params": []
+  },
+  "audit.unsaved": {
+    "text": " · Unsaved changes",
+    "params": []
+  },
+  "audit.unsavedQuestion": {
+    "text": "· Unsaved changes",
+    "params": []
+  },
+  "audit.legacy": {
+    "text": " · Legacy authorship needs verification",
+    "params": []
+  },
+  "audit.none": {
+    "text": "None",
+    "params": []
+  },
+  "audit.noneConfigured": {
+    "text": "None configured",
+    "params": []
+  },
+  "audit.coverFound": {
+    "text": "Five-question cover found",
+    "params": []
+  },
+  "audit.coverNeedsWork": {
+    "text": "Five-question cover needs work",
+    "params": []
+  },
+  "audit.objective.label": {
+    "text": "{label} objective index {number}",
+    "params": [
+      "label",
+      "number"
+    ]
+  },
+  "audit.source.title": {
+    "text": "Source title unverified",
+    "params": []
+  },
+  "audit.source.author": {
+    "text": "Author unverified",
+    "params": []
+  },
+  "audit.source.license": {
+    "text": "License unverified",
+    "params": []
+  },
+  "audit.source.attribution": {
+    "text": "Attribution unverified",
+    "params": []
+  },
+  "layout.description": {
+    "text": "Explore a connected map of mathematics, from foundations to new frontiers.",
+    "params": []
   }
 } as const;

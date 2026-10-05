@@ -1,0 +1,416 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "2cf65972e389102fb5aaf5e96edde5ec6d77d58f",
+  "frontend": {
+    "unitTests": 398,
+    "files": 87,
+    "typecheck": true,
+    "productionBuild": true,
+    "productionDependencyVulnerabilities": 0,
+    "apiGeneratedUnchanged": true
+  },
+  "nodeTests": 94,
+  "operationsTests": 22,
+  "languageBrowser": [
+    {
+      "index": 0,
+      "batch": [
+        "ui-language-public.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 6
+    },
+    {
+      "index": 1,
+      "batch": [
+        "ui-language-auth.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 8
+    },
+    {
+      "index": 2,
+      "batch": [
+        "ui-language-content.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 21
+    },
+    {
+      "index": 3,
+      "batch": [
+        "ui-language-question.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 21
+    },
+    {
+      "index": 4,
+      "batch": [
+        "ui-language-learning.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 20
+    },
+    {
+      "index": 5,
+      "batch": [
+        "ui-language-feedback.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 2,
+      "seconds": 9
+    },
+    {
+      "index": 6,
+      "batch": [
+        "ui-language-correction.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 17
+    }
+  ],
+  "englishBrowser": [
+    {
+      "index": 0,
+      "batch": [
+        "catalogue.spec.ts",
+        "reading.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 16,
+      "seconds": 36
+    },
+    {
+      "index": 1,
+      "batch": [
+        "auth.spec.ts",
+        "auth-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 28
+    },
+    {
+      "index": 2,
+      "batch": [
+        "content-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 40
+    },
+    {
+      "index": 3,
+      "batch": [
+        "content-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 32
+    },
+    {
+      "index": 4,
+      "batch": [
+        "content-release.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 31
+    },
+    {
+      "index": 5,
+      "batch": [
+        "content-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 38
+    },
+    {
+      "index": 6,
+      "batch": [
+        "question-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 34
+    },
+    {
+      "index": 7,
+      "batch": [
+        "question-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 36
+    },
+    {
+      "index": 8,
+      "batch": [
+        "question-release.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 47
+    },
+    {
+      "index": 9,
+      "batch": [
+        "question-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 47
+    },
+    {
+      "index": 10,
+      "batch": [
+        "learning-progress.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 26
+    },
+    {
+      "index": 11,
+      "batch": [
+        "learning-practice.spec.ts",
+        "learning-assessment.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 40
+    },
+    {
+      "index": 12,
+      "batch": [
+        "learning-diagnostic.spec.ts",
+        "learning-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 64
+    },
+    {
+      "index": 13,
+      "batch": [
+        "learning-review-regressions.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 30
+    },
+    {
+      "index": 14,
+      "batch": [
+        "feedback-user.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 14,
+      "seconds": 76
+    },
+    {
+      "index": 15,
+      "batch": [
+        "feedback-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 46
+    },
+    {
+      "index": 16,
+      "batch": [
+        "feedback-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 62
+    },
+    {
+      "index": 17,
+      "batch": [
+        "correction-user.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 29
+    },
+    {
+      "index": 18,
+      "batch": [
+        "correction-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 18
+    },
+    {
+      "index": 19,
+      "batch": [
+        "notification-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 47
+    },
+    {
+      "index": 20,
+      "batch": [
+        "content-acceptance-reading.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 41
+    },
+    {
+      "index": 21,
+      "batch": [
+        "content-acceptance-learning.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 67
+    }
+  ],
+  "go": [
+    {
+      "batch": 0,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/cmd/server\t1.707s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/correction\t2.362s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/notification\t0.518s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/feedback\t2.848s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/assessment\t4.413s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/learning\t4.012s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/question\t1.244s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/auth\t2.553s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/content\t2.283s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/publication\t3.248s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/config\t3.624s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/httpapi\t64.529s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/e2etest\t118.908s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/testutil\t5.185s"
+      ]
+    },
+    {
+      "batch": 1,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t149.148s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/cli\t21.037s"
+      ]
+    },
+    {
+      "batch": 2,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t78.307s"
+      ]
+    },
+    {
+      "batch": 3,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t26.802s"
+      ]
+    },
+    {
+      "batch": 4,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t10.788s"
+      ]
+    },
+    {
+      "batch": 5,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t90.571s"
+      ]
+    },
+    {
+      "batch": 6,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t124.452s"
+      ]
+    },
+    {
+      "batch": 7,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/contentaudit\t1.380s"
+      ]
+    },
+    {
+      "batch": 8,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t13.546s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/cli\t5.090s"
+      ]
+    },
+    {
+      "batch": 9,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t66.119s"
+      ]
+    },
+    {
+      "batch": 10,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/contentreview\t77.322s"
+      ]
+    },
+    {
+      "batch": 11,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t121.920s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/cli\t0.681s"
+      ]
+    },
+    {
+      "batch": 12,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t126.971s"
+      ]
+    },
+    {
+      "batch": 13,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t41.897s"
+      ]
+    }
+  ],
+  "capacityTests": [
+    "TestFeedbackCapacity",
+    "TestLearningCapacitySourceVolume",
+    "TestLearningCapacityMaxPool",
+    "TestContentAuditCapacity",
+    "TestCorrectionCapacityImpact",
+    "TestCorrectionCapacityNotifications"
+  ],
+  "databaseBoundary": "专用临时 PostgreSQL 127.0.0.1:55434/math_master_test_ui_language_base，测试各自创建并清理随机隔离库",
+  "unchangedAreas": [
+    "backend",
+    "api",
+    "content",
+    "db"
+  ],
+  "reviewStatus": "待一次独立整分支审查",
+  "deliveryStatus": "待 SSH 实现 PR，未部署服务器"
+}

@@ -28,7 +28,7 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
       </nav>
       <div className="page-heading">
         <p className="eyebrow"><UiText notice={uiMessage("domain-view.learning.domain.value.8bbbb2",{v0:uiValue(String(d.order).padStart(2, "0"))})}/></p>
-        <h1>{d.name}</h1>
+        <h1 lang="en">{d.name}</h1>
         <p className="zh" lang="zh-CN">
           {d.nameZh}
         </p>

@@ -34,7 +34,7 @@ export function PathView({ result,personal }: { result: ApiResult<PathData>;pers
       </nav>
       <header className="page-heading">
         <p className="eyebrow"><UiText notice={uiMessage("path-view.learning.path.8c4705",{})}/></p>
-        <h1>{path.title}</h1>
+        <h1 lang="en">{path.title}</h1>
         {path.titleZh && (
           <p className="zh" lang="zh-CN">
             {path.titleZh}

@@ -1,4 +1,5 @@
 "use client";
+
 import {UiText} from "@/lib/i18n/ui-text";
 import {uiMessage,uiValue} from "@/lib/i18n/format";
 import {useUiI18n} from "@/lib/i18n/provider";
@@ -40,7 +41,7 @@ export function KnowledgeView({
       <nav className="breadcrumbs" aria-label={t("domain-view.breadcrumb.2bd873",{})}>
         <Link prefetch={false} href="/knowledge"><UiText notice={uiMessage("nav.knowledgeMap",{})}/></Link>
         <span aria-hidden="true">/</span>
-        <span>{k.title}</span>
+        <span lang="en">{k.title}</span>
       </nav>
       <header className="page-heading">
         <div className={styles.meta}>
@@ -165,10 +166,10 @@ export function KnowledgeView({
                       <div className={styles.relationGroup} key={kind}>
                         <h3>
                           {kind === "prerequisite"
-                            ? "Prerequisites"
+                            ? t("path-view.prerequisites.865514",{})
                             : kind === "derivation"
-                              ? "Derivations"
-                              : "Related ideas"}
+                              ? t("knowledge-view.derivations.109f27",{})
+                              : t("knowledge-view.related.ideas.e17c80",{})}
                         </h3>
                         <ul>
                           {refs.map((r) => (

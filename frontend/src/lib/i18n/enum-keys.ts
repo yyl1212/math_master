@@ -153,5 +153,14 @@ export const enumKeys={
     "withdrawn": "feedback.basis.withdrawn",
     "revision_published": "feedback.basis.revision_published",
     "service_fixed": "feedback.basis.service_fixed"
+  },
+  "correction.side": {
+    "original": "correction.side.original",
+    "replacement": "correction.side.replacement"
+  },
+  "correction.field": {
+    "id": "correction.field.id",
+    "version": "correction.field.version",
+    "sha256": "correction.field.sha256"
   }
 } satisfies Record<string,Record<string,StaticMessageKey>>;

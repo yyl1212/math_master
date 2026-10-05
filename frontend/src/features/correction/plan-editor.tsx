@@ -2,6 +2,7 @@
 import {UiText} from "@/lib/i18n/ui-text";
 import {uiMessage,uiValue} from "@/lib/i18n/format";
 import {useUiI18n} from "@/lib/i18n/provider";
+import {formatUiEnum} from "@/lib/i18n/enums";
 import Link from 'next/link';
 import { useContext, useState, useEffect } from 'react';
 import { correctionClient } from '@/lib/correction/client';
@@ -16,7 +17,7 @@ export function MappingFields({ value, onChange }: {
     value: Mapping[];
     onChange: (value: Mapping[]) => void;
 }) {
- const {t}=useUiI18n();
+ const {t,locale}=useUiI18n();
 
     const setIdentity = (index: number, side: 'original' | 'replacement', field: 'id' | 'version' | 'sha256', raw: string) => {
         const current = value[index];
@@ -26,12 +27,12 @@ export function MappingFields({ value, onChange }: {
         const updated = field === 'version' ? { ...identity, version: Number(raw) } : field === 'id' ? { ...identity, id: raw } : { ...identity, sha256: raw };
         onChange(value.map((m, i) => i !== index ? m : side === 'original' ? { ...m, original: updated } : { ...m, replacement: { ...m.replacement, identity: updated } }));
     };
-    return <section><h3><UiText notice={uiMessage("plan-editor.exact.instance.mappings.bdfd3a",{})}/></h3><p><UiText notice={uiMessage("plan-editor.keep.question.meaning.and.parameters.unchanged.only.an.independen.89968d",{})}/></p>{value.map((m, i) => <fieldset key={i}><legend><UiText notice={uiMessage("plan-editor.mapping.value.fc087c",{v0:uiValue(i + 1)})}/></legend>{(['original', 'replacement'] as const).map(side => { const identity = side === 'original' ? m.original : m.replacement.identity; return <div key={side}><h4>{side === 'original' ? t("plan-editor.original.instance.4f3d6e",{}) : t("plan-editor.approved.replacement.f4ed84",{})}</h4>{(['id', 'version', 'sha256'] as const).map(field => <label className={styles.field} key={field}>{side} {field}<input aria-label={side + ' ' + field + ' ' + (i + 1)} type={field === 'version' ? 'number' : 'text'} value={identity[field]} onChange={e => setIdentity(i, side, field, e.target.value)}/></label>)}<label className={styles.field}>{side}<UiText notice={uiMessage("plan-editor.publication.id.8130b8",{})}/><input aria-label={side + ' publication ' + (i + 1)} value={side === 'original' ? m.originalPublicationId : m.replacement.publicationId} onChange={e => onChange(value.map((v, n) => n !== i ? v : side === 'original' ? { ...v, originalPublicationId: e.target.value } : { ...v, replacement: { ...v.replacement, publicationId: e.target.value } }))}/></label></div>; })}<button type="button" className={styles.remove} onClick={() => onChange(value.filter((_, n) => n !== i))}><UiText notice={uiMessage("plan-editor.remove.mapping.value.5a5ea7",{v0:uiValue(i + 1)})}/></button></fieldset>)}<button type="button" className="button secondary" disabled={value.length >= 50} onClick={() => onChange([...value, { original: { id: '', version: 1, sha256: '' }, originalPublicationId: '', replacement: { identity: { id: '', version: 1, sha256: '' }, publicationId: '' } }])}><UiText notice={uiMessage("plan-editor.add.instance.mapping.77231b",{})}/></button></section>;
+    return <section><h3><UiText notice={uiMessage("plan-editor.exact.instance.mappings.bdfd3a",{})}/></h3><p><UiText notice={uiMessage("plan-editor.keep.question.meaning.and.parameters.unchanged.only.an.independen.89968d",{})}/></p>{value.map((m, i) => <fieldset key={i}><legend><UiText notice={uiMessage("plan-editor.mapping.value.fc087c",{v0:uiValue(i + 1)})}/></legend>{(['original', 'replacement'] as const).map(side => { const identity = side === 'original' ? m.original : m.replacement.identity; return <div key={side}><h4>{side === 'original' ? t("plan-editor.original.instance.4f3d6e",{}) : t("plan-editor.approved.replacement.f4ed84",{})}</h4>{(['id', 'version', 'sha256'] as const).map(field => <label className={styles.field} key={field}><UiText notice={uiMessage("audit.mapping.caption",{side:formatUiEnum(locale,"correction.side",side),field:formatUiEnum(locale,"correction.field",field)})}/><input aria-label={t("audit.mapping.label",{side:formatUiEnum(locale,"correction.side",side),field:formatUiEnum(locale,"correction.field",field),number:i+1})} type={field === 'version' ? 'number' : 'text'} value={identity[field]} onChange={e => setIdentity(i, side, field, e.target.value)}/></label>)}<label className={styles.field}><UiText notice={uiMessage("audit.mapping.publicationCaption",{side:formatUiEnum(locale,"correction.side",side)})}/><input aria-label={t("audit.mapping.publication",{side:formatUiEnum(locale,"correction.side",side),number:i+1})} value={side === 'original' ? m.originalPublicationId : m.replacement.publicationId} onChange={e => onChange(value.map((v, n) => n !== i ? v : side === 'original' ? { ...v, originalPublicationId: e.target.value } : { ...v, replacement: { ...v.replacement, publicationId: e.target.value } }))}/></label></div>; })}<button type="button" className={styles.remove} onClick={() => onChange(value.filter((_, n) => n !== i))}><UiText notice={uiMessage("plan-editor.remove.mapping.value.5a5ea7",{v0:uiValue(i + 1)})}/></button></fieldset>)}<button type="button" className="button secondary" disabled={value.length >= 50} onClick={() => onChange([...value, { original: { id: '', version: 1, sha256: '' }, originalPublicationId: '', replacement: { identity: { id: '', version: 1, sha256: '' }, publicationId: '' } }])}><UiText notice={uiMessage("plan-editor.add.instance.mapping.77231b",{})}/></button></section>;
 }
 export function PlanEditor({ initial }: {
     initial: PlanMetadataView;
 }) {
- const {t}=useUiI18n();
+ const {t,locale}=useUiI18n();
 
     const account = useContext(CorrectionAccountContext), read = useCorrectionRead(), [metadata, setMetadata] = useState(initial), [detail, setDetail] = useState<PlanDetail | null>(null), [reason, setReason] = useState(''), [mappings, setMappings] = useState<Mapping[]>([]), [loading, setLoading] = useState(false), [error, setError] = useState<CorrectionRequestError | null>(null), [revision, setRevision] = useState(false), [created, setCreated] = useState<PlanMetadata | null>(null);
     useEffect(() => { setMetadata(initial); }, [initial]);

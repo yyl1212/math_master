@@ -1,5 +1,5 @@
 import {UiText} from "@/lib/i18n/ui-text";
-import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {uiMessage,uiValue,formatUiNotice} from "@/lib/i18n/format";
 import type { ReactNode } from "react";
 
 import { SiteHeader } from "@/components/site-header";
@@ -26,4 +26,4 @@ export default async function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-export async function generateMetadata(){return getUiMetadata("page.home");}
+export async function generateMetadata(){const locale=await readRequestUiLocale();return {...await getUiMetadata("page.home"),description:formatUiNotice(locale,uiMessage("layout.description",{}))};}

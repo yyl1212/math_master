@@ -1,3 +1,4 @@
+import {languageBatches} from "./ui-language-ci.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
@@ -46,7 +47,7 @@ function validate(b,f,p){
  const bc=commands(b),fc=commands(f);
  const browser=fc.filter(c=>c.includes('e2e')).map(c=>{const child=wrapped(c);assert.deepEqual(child.slice(0,7),['env','-u','NO_COLOR','npm','run','e2e','--']);return child.slice(7)});
  assert.deepEqual(browser.slice(0,20),batches,'old 20 browser batches');
- assert.deepEqual(browser.slice(20),[['content-acceptance-reading.spec.ts'],['content-acceptance-learning.spec.ts']],'new browser batches');
+ assert.deepEqual(browser.slice(20),[['content-acceptance-reading.spec.ts'],['content-acceptance-learning.spec.ts'],...languageBatches],'new browser batches');
  const tests=bc.filter(c=>c.includes('go')&&c[c.indexOf('go')+1]==='test');
  for(const c of tests){const child=wrapped(c);assert.deepEqual(child.slice(0,5),['env','CGO_ENABLED=0','GOTOOLCHAIN=go1.27.1','go','test']);assert.equal(option(c,'-timeout'),'5m');assert.equal(option(c,'-count'),'1');assert(!c.includes('--timeout-ms'))}
  for(const name of ['^TestFeedbackCapacity$','^TestLearningCapacitySourceVolume$','^TestLearningCapacityMaxPool$','^TestCorrectionCapacityImpact$','^TestCorrectionCapacityNotifications$'])assert.equal(tests.filter(c=>option(c,'-run')===name).length,1,'old capacity '+name);

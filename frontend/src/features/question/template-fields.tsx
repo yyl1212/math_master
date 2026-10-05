@@ -26,7 +26,7 @@ export function ObjectiveIndices({ label, value, onChange }: {
     onChange: (v: number[]) => void;
 }) {
  const {t:uiT}=useUiI18n();
- return <Rows label={uiT("template-fields.value.objective.index.b0b812",{v0:uiValue(label)})} items={value} onChange={onChange} create={() => 0}>{(v, i, change) => <label className={styles.check}>{label}<UiText notice={uiMessage("template-fields.objective.index.eab754",{})}/>{i + 1}<input aria-label={`${label} objective index ${i + 1}`} type="number" min={0} max={2147483647} step={1} value={Number.isFinite(v) ? v : ""} onChange={e => change(e.target.value === "" ? NaN : Number(e.target.value))}/></label>}</Rows>; }
+ return <Rows label={uiT("template-fields.value.objective.index.b0b812",{v0:uiValue(label)})} items={value} onChange={onChange} create={() => 0}>{(v, i, change) => <label className={styles.check}>{label}<UiText notice={uiMessage("template-fields.objective.index.eab754",{})}/>{i + 1}<input aria-label={uiT("audit.objective.label",{label,number:i+1})} type="number" min={0} max={2147483647} step={1} value={Number.isFinite(v) ? v : ""} onChange={e => change(e.target.value === "" ? NaN : Number(e.target.value))}/></label>}</Rows>; }
 export function CoverageFields({ label, value, onChange }: {
     label: string;
     value: Template["coverage"];
