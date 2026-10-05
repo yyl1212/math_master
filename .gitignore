@@ -23,3 +23,7 @@ frontend/*.tsbuildinfo
 tests/e2e/*.local.json
 test-results/
 playwright-report/
+
+# Python 运维工具产生的字节码
+__pycache__/
+*.py[cod]
