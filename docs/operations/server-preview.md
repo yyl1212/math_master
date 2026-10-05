@@ -32,7 +32,7 @@ Ubuntu 安装步骤：仅安装 Docker/Compose 所需依赖，不执行整机升
 
 ```bash
 sudo apt-get update
-sudo apt-get install --no-install-recommends docker.io docker-compose-v2
+sudo apt-get install --no-install-recommends docker.io docker-compose-v2 docker-buildx
 sudo systemctl enable --now docker
 sudo install -d -m 0700 -o ubuntu -g ubuntu /opt/math_master
 sudo install -d -m 0700 -o ubuntu -g ubuntu /opt/math_master/releases /opt/math_master/shared /opt/math_master/backups

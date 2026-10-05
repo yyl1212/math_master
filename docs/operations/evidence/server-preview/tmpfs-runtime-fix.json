@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-05",
+  "deploymentCommit": "eb353d88b1a9d20372a53fd1021a761c04af2d84",
+  "stage": "application-container-creation",
+  "error": "invalid mount path size=64m: mount path must be absolute",
+  "rootCause": "Compose 流式列表把未加引号的含逗号临时挂载配置拆成两个列表项",
+  "fix": "对 api/web 的 /tmp 挂载值添加 YAML 引号，保留既定容量、只读根文件系统与服务权限",
+  "regression": {
+    "composeParseBeforeFix": "api/web 两个子测试失败",
+    "runtimeImageBeforeFix": "docker-operation-failed",
+    "operationsAfterFix": {
+      "passed": 22,
+      "failed": 0
+    },
+    "runtimeImageAfterFix": {
+      "passed": true,
+      "testImageCommit": "e935b4818d03e57fcbbfb0cc7531203816baefa6",
+      "deploymentImage": false,
+      "mountsFromProductionCompose": true,
+      "stylesheets": 2,
+      "katexFonts": 20
+    }
+  },
+  "review": {
+    "kind": "实施者针对差异审查与实际容器验证",
+    "additionalIndependentReview": false,
+    "scope": "挂载解析与容器创建，无业务/迁移/角色变更"
+  },
+  "serverData": {
+    "restoreDrillPassed": true,
+    "restoredTableDigestsMatched": 83,
+    "workspaces": 6,
+    "assets": 9,
+    "knowledge": 30,
+    "units": 30,
+    "paths": 1,
+    "fixedQuestions": 450,
+    "templates": 24,
+    "blueprints": 30,
+    "migrationVersion": 8,
+    "roles": [
+      "admin",
+      "editor",
+      "learner"
+    ],
+    "publishedKnowledgeHeads": 0,
+    "publishedQuestionHeads": 0,
+    "databaseRetained": true,
+    "applicationWritesStopped": true
+  },
+  "previewAccepted": false,
+  "formalContentAccepted": false,
+  "remaining": "合并修复后使用准确 master 归档重建并继续 start、TLS、正常登录和运维验收"
+}
