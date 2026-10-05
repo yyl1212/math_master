@@ -100,6 +100,8 @@ staging 的证书为测试证书。查看该次网关日志中的证书获取成
   --root "$MATH_PREVIEW_ROOT" --revision "$MATH_PREVIEW_REVISION" --acme production --sudo
 ```
 
+公网 IP 客户端可能不发送 SNI；网关在全局配置 `default_sni {$PUBLIC_HOST}`，明确使用已配置的公网 IP 证书。配置依据为 [Caddy 官方 default_sni 文档](https://caddyserver.com/docs/caddyfile/options#default-sni)。实际生产验收继续使用系统 CA 与 IP SAN 校验；镜像测试的一次性证书仅由该测试上下文显式信任。
+
 两个 CA 使用独立证书数据卷，切换时重建 gateway。可信 HTTPS、公开入口、静态资源、匿名权限和 Cookie 检查成功后才设置 current。不要用测试 CA 或忽略证书错误代替 production 验收。
 
 ## 6. 验收与正常登录
@@ -107,6 +109,8 @@ staging 的证书为测试证书。查看该次网关日志中的证书获取成
 在普通外部客户端运行 `ops/verify-deployment.py --origin https://43.135.142.53 --out <新私有证据文件> --requests 40 --concurrency 2`，单请求 5 秒。检查 HTTP 跳转、可信 IP SAN/到期日、公开页、CSS/KaTeX 字体及匿名草稿 API 401。阅读页匿名状态沿用登录提示，不要求自动重定向。
 
 用户在真实 HTTPS 登录页用 yyl1212 与当前密码登录。核对 learner/editor/admin、草稿状态与 revision、标题搜索、知识点切换及原创 SVG；操作人员不提取 Cookie 或重置密码。正常登录未确认时，完整预览验收保持 pending。
+
+网站要求云侧入站允许 TCP 80/443（IPv4 来源 `0.0.0.0/0`）。2026-10-05 实际外部探测两端口均可达；主机 UFW 未启用，现有防护链只处理 SSH，因此本次无需新增防火墙规则。保留现有 SSH 防护。
 
 另从外部验证 3000/8080/5432/2019 没有应用服务暴露，记录容器内存、重启次数、实际迁移版本、40 次只读请求的失败数及延迟。数据数量以此次新快照为准，不用旧截图替代。
 
