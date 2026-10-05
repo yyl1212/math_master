@@ -2,11 +2,43 @@
 """真实镜像契约烟测；只清理本次创建的临时容器。"""
 import argparse
 import json
+import os
+from pathlib import Path
+import shutil
 import re
 import subprocess
 import sys
+import tempfile
 import time
 import uuid
+
+
+OPS = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(OPS))
+import common
+
+
+def runtime_mounts(revision: str) -> dict[str, list[str]]:
+    # 解析生产 Compose，容器烟测必须使用真实挂载配置。
+    with tempfile.TemporaryDirectory(dir='/private/tmp' if Path('/private/tmp').exists() else None) as folder:
+        root = Path(folder)
+        config_path = root / 'shared' / 'configs' / (revision + '.env')
+        config_path.parent.mkdir(parents=True, mode=0o700)
+        values = {'AUTH_PUBLIC_ORIGIN': common.ORIGIN, 'POSTGRES_DB': 'math_master_preview',
+                  'POSTGRES_USER': 'math_master_preview', 'POSTGRES_PASSWORD': 'a' * 64,
+                  'DB_LC_COLLATE': 'en_US.utf8', 'DB_LC_CTYPE': 'en_US.utf8'}
+        descriptor = os.open(config_path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(descriptor, 'w') as stream:
+            stream.write(''.join(key + '=' + value + '\n' for key, value in values.items()))
+        release = root / 'releases' / revision
+        release.mkdir(parents=True)
+        shutil.copyfile(OPS.parent / 'compose.yaml', release / 'compose.yaml')
+        result = common.compose(root, revision, ['config', '--format', 'json'])
+        if result.returncode:
+            raise RuntimeError('runtime-compose-invalid')
+        config = json.loads(result.stdout)
+        return {part: [argument for mount in config['services'][part]['tmpfs']
+                       for argument in ['--tmpfs', mount]] for part in ['api', 'web']}
 
 
 def docker(*args: str) -> bytes:
@@ -25,7 +57,8 @@ def check(revision: str) -> dict:
             raise RuntimeError(f'{part}-image-missing') from None
         if label != revision:
             raise RuntimeError(f'{part}-revision-mismatch')
-    docker('run', '--rm', '--network', 'none', '--read-only', '--entrypoint', 'sh', images['api'], '-ec',
+    mounts = runtime_mounts(revision)
+    docker('run', '--rm', '--network', 'none', '--read-only', *mounts['api'], '--entrypoint', 'sh', images['api'], '-ec',
            'test "$(id -u)" -ne 0; for name in server migrate admin-init correction-maintenance; do test -x /app/bin/$name; done; test ! -e /app/bin/e2e-harness; test -f /app/db/migrations/00008_correction_notifications.sql')
     version = docker('run', '--rm', '--network', 'none', '--read-only', images['gateway'], 'version').decode().strip()
     if not version.startswith('v2.11.7 '):
@@ -33,7 +66,7 @@ def check(revision: str) -> dict:
     name = f'math-master-image-smoke-{uuid.uuid4().hex}'
     created = False
     try:
-        docker('run', '--detach', '--name', name, '--network', 'none', '--read-only', '--tmpfs', '/tmp:rw,size=64m',
+        docker('run', '--detach', '--name', name, '--network', 'none', '--read-only', *mounts['web'],
                '--env', 'APP_ENV=production', '--env', 'AUTH_PUBLIC_ORIGIN=https://43.135.142.53',
                '--env', 'GO_API_INTERNAL_URL=http://api:8080', '--env', 'HOSTNAME=0.0.0.0', '--env', 'PORT=3000', images['web'])
         created = True

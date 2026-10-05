@@ -87,6 +87,19 @@ class ConfigTests(unittest.TestCase):
         self.assertNotIn('invalid-dev-url', config['services']['api']['environment']['DATABASE_URL'])
         self.assertNotIn('inherited-wrong-password', config['services']['api']['environment']['DATABASE_URL'])
 
+    def test_application_tmpfs_mounts_are_absolute_and_bounded(self):
+        result = self.implementation().compose(self.root, REVISION, ['config', '--format', 'json'])
+        self.assertEqual(result.returncode, 0)
+        config = json.loads(result.stdout)
+        for service in ['api', 'web']:
+            with self.subTest(service=service):
+                mounts = config['services'][service]['tmpfs']
+                self.assertTrue(all(mount.split(':', 1)[0].startswith('/') for mount in mounts),
+                                'Docker rejects relative tmpfs mount destinations')
+                self.assertIn('/tmp:rw,size=64m', mounts)
+        self.assertIn('/app/.next/cache:rw,size=64m,uid=1000,gid=1000,mode=0700',
+                      config['services']['web']['tmpfs'])
+
     def test_only_gateway_publishes_ports(self):
         module = self.implementation()
         result = module.compose(self.root, REVISION, ['config', '--format', 'json'])

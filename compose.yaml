@@ -41,7 +41,7 @@ services:
       timeout: 3s
       retries: 12
     read_only: true
-    tmpfs: [/tmp:rw,size=64m]
+    tmpfs: ['/tmp:rw,size=64m']
     mem_limit: 512m
     restart: unless-stopped
     networks: [app]
@@ -67,7 +67,7 @@ services:
       timeout: 6s
       retries: 12
     read_only: true
-    tmpfs: [/tmp:rw,size=64m, '/app/.next/cache:rw,size=64m,uid=1000,gid=1000,mode=0700']
+    tmpfs: ['/tmp:rw,size=64m', '/app/.next/cache:rw,size=64m,uid=1000,gid=1000,mode=0700']
     mem_limit: 768m
     restart: unless-stopped
     networks: [app]
