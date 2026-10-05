@@ -1,0 +1,754 @@
+{
+  "schemaVersion": 1,
+  "pages": [
+    {
+      "file": "frontend/src/app/account/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/admin/publications/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/admin/publications/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/admin/question-publications/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/admin/question-publications/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/admin/question-withdrawals/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/admin/users/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/admin/withdrawals/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/assessments/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/assessments/[id]/result/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/corrections/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/domains/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/editor/drafts/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/editor/drafts/[id]/preview/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/editor/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/editor/questions/drafts/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/editor/questions/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/feedback/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/feedback/new/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/feedback/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/knowledge/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/knowledge/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/learn/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/learning-history/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/login/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/notifications/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/paths/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/practice/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/register/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/corrections/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/corrections/[id]/plans/[planId]/[version]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/corrections/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/feedback/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/feedback/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/questions/[id]/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/app/review/questions/page.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "rawDataAreas": [],
+      "scenarios": []
+    }
+  ],
+  "components": [
+    {
+      "file": "frontend/src/components/auth-status.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/components/content-state.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/components/content-status.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/components/learning-hub.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/components/site-header.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/assessment/answer-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/assessment/assessment-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/assessment/result-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/auth/account-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/auth/admin-users.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/auth/auth-state.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/auth/credentials-form.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/catalogue/domain-view.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/catalogue/knowledge-map.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/command-controls.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/content-preview.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/content-state.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/diff-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/draft-editor.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/draft-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/draft-reading-view.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/field-controls.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/package-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/page-access.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/path-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/publication-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/review-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/source-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/submission-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/unit-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/content/withdrawal-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/case-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/case-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/correction-account.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/correction-asset.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/evidence-link.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/plan-editor.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/qualification-link.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/result-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/review-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/correction/status.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/feedback/discussion-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/feedback/feedback-account.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/feedback/new-form.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/feedback/report-link.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/feedback/review-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/feedback/status.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/feedback/ticket-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/attempt-asset.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/history-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/knowledge-controls.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/knowledge-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/learning-account.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/learning-status.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/overview-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/learning/path-progress.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/notification/inbox.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/notification/notification-account.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/practice/practice-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/blueprint-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/command-controls.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/coverage-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/diff-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/draft-editor.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/draft-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/fixed-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/generation-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/page-access.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/publication-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/question-state.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/review-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/submission-list.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/template-fields.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/question/withdrawal-panel.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/reading/asset-image.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/reading/knowledge-view.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/reading/path-connections.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/reading/path-view.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    },
+    {
+      "file": "frontend/src/features/reading/safe-markdown.tsx",
+      "complete": false,
+      "messageKeys": [],
+      "scenarios": []
+    }
+  ]
+}
