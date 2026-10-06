@@ -115,6 +115,10 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-feedback.spec.ts
       - name: 中英文纠错通知双视口验证
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-correction.spec.ts
+      - name: 三级主题双视口导航
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-navigation.spec.ts
+      - name: 主题编辑发布中英文双视口
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-taxonomy.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

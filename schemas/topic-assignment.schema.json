@@ -1,0 +1,888 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-master.local/schemas/topic-assignment.schema.json",
+  "$ref": "#/$defs/AssignmentInput",
+  "$defs": {
+    "Node": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "code": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nameZh": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "auxiliary",
+            "other"
+          ]
+        },
+        "level": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3
+          ]
+        },
+        "parentId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name",
+        "nameZh",
+        "kind",
+        "level",
+        "parentId"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "kind": {
+                  "const": "primary"
+                },
+                "level": {
+                  "const": 1
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}-XX$"
+                },
+                "parentId": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "primary"
+                },
+                "level": {
+                  "const": 2
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}[A-Z]xx$"
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "primary"
+                },
+                "level": {
+                  "const": 3
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}[A-Z][0-9]{2}$",
+                  "not": {
+                    "pattern": "99$"
+                  }
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "auxiliary"
+                },
+                "level": {
+                  "const": 2
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}-[0-9]{2}$"
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "other"
+                },
+                "level": {
+                  "const": 3
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}[A-Z]99$"
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "PairRef": {
+      "type": "object",
+      "properties": {
+        "knowledgeHead": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "taxonomyHead": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "taxonomyVersionId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "knowledgeHead",
+        "taxonomyHead",
+        "taxonomyVersionId"
+      ],
+      "additionalProperties": false
+    },
+    "KnowledgeRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "SourceRecordRef": {
+      "type": "object",
+      "properties": {
+        "sourceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "workFamilyId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "recordId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1024,
+          "pattern": "[^\\x00]",
+          "allOf": [
+            {
+              "not": {
+                "pattern": "^/|:|\\\\|(?:^|/)\\.{1,2}(?:/|$)|//|/$"
+              }
+            }
+          ]
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "sourceId",
+        "workFamilyId",
+        "recordId",
+        "path",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "AssignmentInput": {
+      "type": "object",
+      "properties": {
+        "knowledge": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            },
+            "version": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 2147483647
+            }
+          },
+          "required": [
+            "id",
+            "version"
+          ],
+          "additionalProperties": false
+        },
+        "topicIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^msc-[0-9]{2}[a-z][0-9]{2}$",
+            "not": {
+              "pattern": "99$"
+            }
+          },
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "sourceRefs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/SourceRecordRef"
+          },
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true
+        },
+        "sourceBatchSHA": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "required": [
+        "knowledge",
+        "topicIds",
+        "sourceRefs",
+        "sourceBatchSHA"
+      ],
+      "additionalProperties": false
+    },
+    "Summary": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "code": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "nameZh": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "auxiliary",
+            "other"
+          ]
+        },
+        "level": {
+          "type": "integer",
+          "enum": [
+            1,
+            2,
+            3
+          ]
+        },
+        "parentId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "ancestors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Node"
+          },
+          "minItems": 0,
+          "maxItems": 2
+        },
+        "publishedKnowledgeCount": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "hasChildren": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "code",
+        "name",
+        "nameZh",
+        "kind",
+        "level",
+        "parentId",
+        "ancestors",
+        "publishedKnowledgeCount",
+        "hasChildren"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "oneOf": [
+            {
+              "properties": {
+                "kind": {
+                  "const": "primary"
+                },
+                "level": {
+                  "const": 1
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}-XX$"
+                },
+                "parentId": {
+                  "type": "null"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "primary"
+                },
+                "level": {
+                  "const": 2
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}[A-Z]xx$"
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "primary"
+                },
+                "level": {
+                  "const": 3
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}[A-Z][0-9]{2}$",
+                  "not": {
+                    "pattern": "99$"
+                  }
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "auxiliary"
+                },
+                "level": {
+                  "const": 2
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}-[0-9]{2}$"
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            },
+            {
+              "properties": {
+                "kind": {
+                  "const": "other"
+                },
+                "level": {
+                  "const": 3
+                },
+                "code": {
+                  "pattern": "^[0-9]{2}[A-Z]99$"
+                },
+                "parentId": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "Page": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Summary"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "pair": {
+          "$ref": "#/$defs/PairRef"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "limit",
+        "offset",
+        "pair"
+      ],
+      "additionalProperties": false
+    },
+    "KnowledgePage": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/KnowledgeSummary"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "pair": {
+          "$ref": "#/$defs/PairRef"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "limit",
+        "offset",
+        "pair"
+      ],
+      "additionalProperties": false
+    },
+    "Detail": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "$ref": "#/$defs/Summary"
+        },
+        "pair": {
+          "$ref": "#/$defs/PairRef"
+        }
+      },
+      "required": [
+        "summary",
+        "pair"
+      ],
+      "additionalProperties": false
+    },
+    "KnowledgeSummary": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "title": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "titleZh": {
+          "type": "string",
+          "not": {
+            "pattern": "\u0000"
+          }
+        },
+        "topicIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "sha256",
+        "title",
+        "titleZh",
+        "topicIds"
+      ],
+      "additionalProperties": false
+    },
+    "DraftInput": {
+      "type": "object",
+      "properties": {
+        "expectedDraftRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "expectedAssignmentRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "taxonomyVersionId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "member": {
+          "$ref": "#/$defs/AssignmentInput"
+        }
+      },
+      "required": [
+        "expectedDraftRevision",
+        "expectedAssignmentRevision",
+        "taxonomyVersionId",
+        "member"
+      ],
+      "additionalProperties": false
+    },
+    "DraftView": {
+      "type": "object",
+      "properties": {
+        "draftId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "draftRevision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "assignmentRevision": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "taxonomyVersionId": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "members": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AssignmentInput"
+          },
+          "minItems": 0,
+          "maxItems": 100
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "readyToSubmit": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "draftId",
+        "draftRevision",
+        "assignmentRevision",
+        "taxonomyVersionId",
+        "members",
+        "digest",
+        "readyToSubmit"
+      ],
+      "additionalProperties": false
+    },
+    "PrepareInput": {
+      "type": "object",
+      "properties": {
+        "submissionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 0,
+          "maxItems": 20,
+          "uniqueItems": true
+        },
+        "expectedPair": {
+          "$ref": "#/$defs/PairRef"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1000
+        }
+      },
+      "required": [
+        "submissionIds",
+        "expectedPair",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "ActivateInput": {
+      "type": "object",
+      "properties": {
+        "expectedPair": {
+          "$ref": "#/$defs/PairRef"
+        },
+        "manifestSHA": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1000
+        }
+      },
+      "required": [
+        "expectedPair",
+        "manifestSHA",
+        "reason"
+      ],
+      "additionalProperties": false
+    },
+    "ReleaseView": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "published"
+          ]
+        },
+        "pair": {
+          "$ref": "#/$defs/PairRef"
+        },
+        "manifestSHA": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "assignmentsSHA": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "knowledgePublicationId": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "diff": {
+          "type": "object",
+          "properties": {
+            "added": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/KnowledgeRef"
+              },
+              "minItems": 0,
+              "maxItems": 1000
+            },
+            "removed": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/KnowledgeRef"
+              },
+              "minItems": 0,
+              "maxItems": 1000
+            },
+            "changedTopicMemberships": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "knowledge": {
+                    "$ref": "#/$defs/KnowledgeRef"
+                  },
+                  "oldTopicIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                    },
+                    "minItems": 0,
+                    "maxItems": 16,
+                    "uniqueItems": true
+                  },
+                  "newTopicIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-z0-9-]{0,63}$"
+                    },
+                    "minItems": 0,
+                    "maxItems": 16,
+                    "uniqueItems": true
+                  }
+                },
+                "required": [
+                  "knowledge",
+                  "oldTopicIds",
+                  "newTopicIds"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 0,
+              "maxItems": 1000
+            }
+          },
+          "required": [
+            "added",
+            "removed",
+            "changedTopicMemberships"
+          ],
+          "additionalProperties": false
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "status",
+        "pair",
+        "manifestSHA",
+        "assignmentsSHA",
+        "knowledgePublicationId",
+        "diff",
+        "createdAt"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

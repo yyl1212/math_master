@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "status": "user_confirmed_design_plan_pending_review",
+  "taxonomy": "MSC2020",
+  "regularTopics": {
+    "level1": 63,
+    "level2": 534,
+    "specific": 4969
+  },
+  "auxiliaryNodes": 503,
+  "otherBucketNodes": 534,
+  "completeNodeCount": 6603,
+  "rawClassificationSHA256": "f7c889354c202551fe01f89bad2ae95ccadec4c57ac1f6f9de38bbd658d3c78c",
+  "sourceDirectoryReference": "Materials/Collection_Metadata/MSC2020",
+  "sourceFiles": [
+    {
+      "name": "MSC2020_Complete_Taxonomy.json",
+      "sha256": "e2c3098c48c5fcb28eff83b644f0cff24b7009366c8447597cd5bc9c3a8ff89f"
+    },
+    {
+      "name": "MSC2020_SOURCE_KNOWLEDGE_MAPPINGS.json",
+      "sha256": "c1d818d5338c4896c90833bd7d979f858feb2c9dd1e2297276eeb6c3fdd0b127"
+    },
+    {
+      "name": "MSC2020_DUAL_SOURCE_COVERAGE_MATRIX.json",
+      "sha256": "4f62339988e7eb053cebd4322951475735815c9a254b133d5effd577c2d300a3"
+    },
+    {
+      "name": "INDEPENDENT_SOURCE_REGISTRY_CURRENT.json",
+      "sha256": "78f68f01d2a971a3f307b3566d2365c0d4344ded3b140af79079a5d8d7afafe7"
+    }
+  ],
+  "acceptedSourceBatch": 127,
+  "sourceUpdatedUTC": "2026-10-06T13:18:28.725655+00:00",
+  "sourceReadStable": true,
+  "verified": {
+    "rawClassificationAgreement": true,
+    "taxonomyReferenceAgreement": true,
+    "mappingCoverageSummaryAgreement": true,
+    "missingParentCount": 0
+  },
+  "interpretations": [
+    "15 个磁盘存储分组不作为网站最终分类。",
+    "来源覆盖、网站审核发布与个人学习完成分别记录。",
+    "来源数量及覆盖状态绑定本次读取的已接受批次，不表示实时整理完成。"
+  ]
+}

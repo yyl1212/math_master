@@ -61,7 +61,7 @@ export function useContentCommand() {
             setRetry(false);
         } } };
 }
-function PasswordDialog({ close, verified }: {
+export function PasswordDialog({ close, verified }: {
     close: () => void;
     verified: () => void;
 }) {

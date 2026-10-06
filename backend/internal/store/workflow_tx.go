@@ -9,6 +9,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 	"time"
 )
 
@@ -27,7 +28,7 @@ func workflowError(err error) error {
 	if errors.Is(err, ErrImmutableConflict) {
 		return publication.ErrImmutableConflict
 	}
-	for _, known := range []error{correction.ErrNotConfigured, publication.ErrDraftConflict, publication.ErrReviewConflict, publication.ErrImmutableConflict, publication.ErrIdempotencyConflict, publication.ErrVersionConflict, publication.ErrPublicationStale, publication.ErrContentNotReady, publication.ErrContentInvalid, publication.ErrReviewRequired, publication.ErrContentLimitExceeded, publication.ErrContentNotConfigured} {
+	for _, known := range []error{taxonomy.ErrInvalid, taxonomy.ErrNotConfigured, taxonomy.ErrLimit, taxonomy.ErrHeadStale, taxonomy.ErrConflict, taxonomy.ErrIdempotencyConflict, correction.ErrNotConfigured, publication.ErrDraftConflict, publication.ErrReviewConflict, publication.ErrImmutableConflict, publication.ErrIdempotencyConflict, publication.ErrVersionConflict, publication.ErrPublicationStale, publication.ErrContentNotReady, publication.ErrContentInvalid, publication.ErrReviewRequired, publication.ErrContentLimitExceeded, publication.ErrContentNotConfigured} {
 		if errors.Is(err, known) {
 			return known
 		}

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {wrapTopicCompatibilityReader} from './topic-learning-compatibility.mjs';
 import {createHash} from 'node:crypto';
 export const exceptionPath='docs/operations/evidence/admin-content-review/compatibility-exceptions.json';
 const approvedPaths=[
@@ -8,6 +9,7 @@ const approvedPaths=[
 const newMigration='db/migrations/00009_admin_content_review.sql';
 const digest=b=>createHash('sha256').update(b).digest('hex');
 export function compareApprovedBytes(baseline,reader) {
+ reader=wrapTopicCompatibilityReader(reader);
  const exception=JSON.parse(reader(exceptionPath));
  assert.deepEqual(Object.keys(exception).sort(),['baseCommit','files','newFiles','schemaVersion']);
  assert.equal(exception.schemaVersion,1);

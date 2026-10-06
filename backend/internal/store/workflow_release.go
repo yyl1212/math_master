@@ -483,6 +483,39 @@ func (s *Store) PrepareRelease(ctx context.Context, a publication.Access, input 
 	})
 	return out, err
 }
+
+// 在调用者事务内激活，身份、近期认证和审计仍由工作流入口管理。
+func (s *Store) activateWorkflowReleaseTx(ctx context.Context, tx *sql.Tx, id string, input publication.ActivateInput) (publication.PublicationView, error) {
+	var out publication.PublicationView
+	view, err := readWorkflowPublication(ctx, tx, id)
+	if err != nil {
+		return out, err
+	}
+	head, err := workflowHead(ctx, tx)
+	if err != nil {
+		return out, err
+	}
+	if view.Status != "draft" || !sameWorkflowHead(view.Manifest.BaseHead, head) || !sameWorkflowHead(head, input.ExpectedHead) || view.ManifestSHA != input.ExpectedManifestSHA {
+		return out, publication.ErrPublicationStale
+	}
+	candidate, err := s.loadWorkflowCandidate(ctx, tx, &id)
+	if err != nil {
+		return out, err
+	}
+	if err = workflowValidateCandidate(ctx, tx, candidate, true); err != nil {
+		return out, err
+	}
+	if _, err = tx.ExecContext(ctx, `UPDATE publication_snapshots SET status='published' WHERE id=$1 AND status='draft'`, id); err != nil {
+		return out, err
+	}
+	if _, err = tx.ExecContext(ctx, `INSERT INTO publication_heads VALUES(true,$1) ON CONFLICT(singleton) DO UPDATE SET snapshot_id=EXCLUDED.snapshot_id`, id); err != nil {
+		return out, err
+	}
+	out = view
+	out.Status = "published"
+	return out, nil
+}
+
 func (s *Store) ActivateRelease(ctx context.Context, a publication.Access, id string, input publication.ActivateInput) (publication.PublicationView, error) {
 	var out publication.PublicationView
 	if !publication.ValidID(id) || !validWorkflowHead(input.ExpectedHead) || !publication.ValidSHA(input.ExpectedManifestSHA) || !publication.ValidNote(input.Reason) {
@@ -495,6 +528,9 @@ func (s *Store) ActivateRelease(ctx context.Context, a publication.Access, id st
 		return out, err
 	}
 	err = s.workflowTx(ctx, a, publication.ActivateReleaseAction, related, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
+		if err := rejectIndependentActivationTx(ctx, tx); err != nil {
+			return err
+		}
 		prior, found, err := workflowJSONReplay[publication.PublicationView](s, ctx, tx, u, a, publication.ActivateReleaseAction, id, input)
 		if err != nil {
 			return err
@@ -503,32 +539,10 @@ func (s *Store) ActivateRelease(ctx context.Context, a publication.Access, id st
 			out = prior
 			return nil
 		}
-		view, err := readWorkflowPublication(ctx, tx, id)
+		out, err = s.activateWorkflowReleaseTx(ctx, tx, id, input)
 		if err != nil {
 			return err
 		}
-		head, err := workflowHead(ctx, tx)
-		if err != nil {
-			return err
-		}
-		if view.Status != "draft" || !sameWorkflowHead(view.Manifest.BaseHead, head) || !sameWorkflowHead(head, input.ExpectedHead) || view.ManifestSHA != input.ExpectedManifestSHA {
-			return publication.ErrPublicationStale
-		}
-		candidate, err := s.loadWorkflowCandidate(ctx, tx, &id)
-		if err != nil {
-			return err
-		}
-		if err = workflowValidateCandidate(ctx, tx, candidate, true); err != nil {
-			return err
-		}
-		if _, err = tx.ExecContext(ctx, `UPDATE publication_snapshots SET status='published' WHERE id=$1 AND status='draft'`, id); err != nil {
-			return err
-		}
-		if _, err = tx.ExecContext(ctx, `INSERT INTO publication_heads VALUES(true,$1) ON CONFLICT(singleton) DO UPDATE SET snapshot_id=EXCLUDED.snapshot_id`, id); err != nil {
-			return err
-		}
-		out = view
-		out.Status = "published"
 		if err = workflowEvent(ctx, tx, u, a, publication.ActivateReleaseAction, "publication", id, "", out.ManifestSHA, "draft", "published", input.Reason, now); err != nil {
 			return err
 		}

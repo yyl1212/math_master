@@ -156,6 +156,9 @@ func (s *Store) SubmitDraft(ctx context.Context, a publication.Access, id string
 				return err
 			}
 		}
+		if err = freezeDraftTopicsTx(ctx, tx, id, subID, d.Revision, d); err != nil {
+			return err
+		}
 		_, err = tx.ExecContext(ctx, `INSERT INTO content_submission_members SELECT $1,m.package_id,m.package_version,m.kind,m.id,m.version,CASE m.kind WHEN 'knowledge' THEN k.sha256 WHEN 'unit' THEN u.sha256 WHEN 'path' THEN p.sha256 ELSE m.asset_sha256 END FROM package_members m LEFT JOIN knowledge_versions k ON m.kind='knowledge' AND k.id=m.id AND k.version=m.version LEFT JOIN unit_versions u ON m.kind='unit' AND u.id=m.id AND u.version=m.version LEFT JOIN path_versions p ON m.kind='path' AND p.id=m.id AND p.version=m.version WHERE m.package_id=$2 AND m.package_version=$3`, subID, d.Package.ID, d.Package.Version)
 		if err != nil {
 			return err

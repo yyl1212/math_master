@@ -1,3 +1,4 @@
+import {inverseTopicWorkflow} from "./topic-learning-compatibility.mjs";
 export const languageBatches=['public','auth','content','question','learning','feedback','correction'].map(name=>['ui-language-'+name+'.spec.ts']);
 export const originalBatches=[['catalogue','reading'],['auth','auth-security'],['content-authoring'],['content-review'],['content-release'],['content-security'],['question-authoring'],['question-review'],['question-release'],['question-security'],['learning-progress'],['learning-practice','learning-assessment'],['learning-diagnostic','learning-security'],['learning-review-regressions'],['feedback-user'],['feedback-review'],['feedback-security'],['correction-user'],['correction-review'],['notification-security'],['content-acceptance-reading'],['content-acceptance-learning']].map(batch=>batch.map(name=>name+'.spec.ts'));
 export const e2eCommand=batch=>'node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- '+batch.join(' ');
@@ -18,4 +19,4 @@ export function readPlaywrightPolicy(source){
 }
 const languageStepLabels=['公共阅读','账户','知识后台','题库','学习测评','反馈','纠错通知'];
 export const languageWorkflowSteps=languageBatches.map((batch,i)=>'      - name: 中英文'+languageStepLabels[i]+'双视口验证\n        run: '+e2eCommand(batch)+'\n');
-export function removeApprovedLanguageSteps(source){let original=source;for(const step of languageWorkflowSteps){if(original.split(step).length!==2)throw Error('language step missing, duplicated or changed');original=original.replace(step,'');}return original;}
+export function removeApprovedLanguageSteps(source){let original=inverseTopicWorkflow(source,".github/workflows/frontend.yml");for(const step of languageWorkflowSteps){if(original.split(step).length!==2)throw Error('language step missing, duplicated or changed');original=original.replace(step,'');}return original;}

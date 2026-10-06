@@ -1,9 +1,10 @@
+import {inverseTopicWorkflow} from "./topic-learning-compatibility.mjs";
 import {removeApprovedLanguageSteps} from "./ui-language-ci.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root),'utf8');
+const root=new URL('../../',import.meta.url),read=p=>{const value=readFileSync(new URL(p,root),'utf8');return p.startsWith('.github/workflows/')?inverseTopicWorkflow(value,p):value};
 const baseline=JSON.parse(read('docs/operations/evidence/p6b/compatibility-baseline.json'));
 const backend=read('.github/workflows/backend.yml'),frontend=read('.github/workflows/frontend.yml');
 const addition=' tools/verify/content-review.test.mjs tools/verify/content-review-ci.test.mjs';

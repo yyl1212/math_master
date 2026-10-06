@@ -1,0 +1,14 @@
+import {test,expect,fitsViewport} from "./fixtures";
+import {createDraft,actor} from "./content-helpers";
+
+test("topic search and unsaved assignment selections survive locale changes",async({page,scene})=>{
+ await scene("topic-catalogue");await page.goto("/knowledge");await page.getByLabel("Search topics and knowledge").fill("13C60");await page.getByRole("button",{name:"中文",exact:true}).click();await expect(page.getByLabel("检索主题与知识点")).toHaveValue("13C60");await page.getByRole("button",{name:"搜索",exact:true}).click();await expect(page.locator(".domain-card")).toHaveCount(1);await expect(page).toHaveTitle("知识地图 | Math Master");await fitsViewport(page);
+ await page.context().clearCookies();await createDraft(page);await page.getByLabel("Specific topic IDs").first().fill("msc-13c60");await page.getByRole("button",{name:"中文",exact:true}).click();await expect(page.getByLabel("具体主题编号").first()).toHaveValue("msc-13c60");await expect(page.getByRole("button",{name:"提交审核",exact:true})).toBeDisabled();await fitsViewport(page);
+});
+
+test("paired publication reason and history follow the interface language",async({page,scene})=>{
+ await scene("topic-catalogue");await actor(page,"content_admin");await page.goto("/admin/publications");await page.getByLabel("Publication reason").fill("Preserve this original operator input while switching language.");await page.getByRole("button",{name:"中文",exact:true}).click();await expect(page.getByLabel("发布理由")).toHaveValue("Preserve this original operator input while switching language.");await expect(page.getByRole("heading",{name:"知识与主题成对发布",exact:true})).toBeVisible();await fitsViewport(page);
+});
+test("a prepared pair keeps its reason and activates only after a separate confirmed click",async({page,scene})=>{
+ await scene("topic-catalogue");await actor(page,"content_admin");await page.goto("/admin/publications");const reason="Prepare and activate only this isolated catalogue replacement.";await page.getByLabel("Publication reason").fill(reason);await page.getByRole("button",{name:"Prepare paired publication",exact:true}).click();await expect(page.getByText("Pair prepared. Inspect topic changes before activation.",{exact:true})).toBeVisible();await expect(page.getByLabel("Publication reason")).toHaveValue(reason);await page.getByRole("button",{name:"Activate paired publication",exact:true}).click();await expect(page.getByRole("dialog")).toBeVisible();await page.getByLabel("Your password",{exact:true}).fill("Test-only 中文数学密码 with spaces");await page.getByRole("button",{name:"Verify password",exact:true}).click();await expect(page.getByRole("dialog")).toHaveCount(0);await expect(page.getByText("Knowledge and topic heads activated together.",{exact:true})).toHaveCount(0);await page.getByRole("button",{name:"Activate paired publication",exact:true}).click();await expect(page.getByText("Knowledge and topic heads activated together.",{exact:true})).toBeVisible();await fitsViewport(page);
+});
