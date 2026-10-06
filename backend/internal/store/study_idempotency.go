@@ -6,12 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/study"
-	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 )
 
 func studyReplay[T any](ctx context.Context, tx *sql.Tx, actor string, a study.Access, action study.Action, id string, in any) (T, bool, error) {
 	var out T
-	sha, e := taxonomy.Digest(in)
+	sha, e := study.InputDigest(in)
 	if e != nil {
 		return out, false, e
 	}
@@ -38,7 +37,7 @@ func studyRemember(ctx context.Context, tx *sql.Tx, actor string, a study.Access
 			return study.ErrInvalid
 		}
 	}
-	sha, e := taxonomy.Digest(in)
+	sha, e := study.InputDigest(in)
 	if e != nil {
 		return e
 	}

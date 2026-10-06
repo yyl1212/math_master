@@ -286,63 +286,15 @@ func studyDetail(actor string, r study.StudyRecord, scope studyScope) study.Stud
 	if k, ok := scope.knowledge[r.KnowledgeID]; ok {
 		out.CurrentKnowledge = &k
 		out.Available = true
-		out.MaterialChanged = study.MaterialChanged(r.CompletedRef, &k.KnowledgeRef)
+		ack := r.CompletedRef
+		if r.LastReviewRef != nil && r.LastReviewedAt != nil && (r.LastCompletedAt == nil || r.LastReviewedAt.After(*r.LastCompletedAt)) {
+			ack = r.LastReviewRef
+		}
+		out.MaterialChanged = study.MaterialChanged(ack, &k.KnowledgeRef)
 	}
 	return out
 }
 func studyEventTx(ctx context.Context, tx *sql.Tx, actor string, a study.Access, action study.Action, k study.KnowledgeRef, taxVersion, kind string, noteRevision *int64, reviewID *string, now time.Time) error {
 	_, e := tx.ExecContext(ctx, `INSERT INTO study_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,taxonomy_version_id,kind,recorded_at,note_revision,review_id,source_kind,action,idempotency_key) VALUES(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,'native',$10,$11)`, actor, k.ID, k.Version, k.SHA256, taxVersion, kind, now, noteRevision, reviewID, action, a.IdempotencyKey)
 	return e
-}
-func (s *Store) BeginStudy(ctx context.Context, a study.Access, id string, in study.CommandInput) (study.StudyDetail, error) {
-	var out study.StudyDetail
-	if !study.ValidKnowledgeID(id) || in.Knowledge.ID != id || study.ValidateCommand(in) != nil {
-		return out, study.ErrInvalid
-	}
-	e := s.studyTx(ctx, a, study.Begin, func(ctx context.Context, tx *sql.Tx, u auth.User, now time.Time) error {
-		scope, e := studyScopeTx(ctx, tx)
-		if e != nil {
-			return e
-		}
-		current, ok := scope.knowledge[id]
-		if !ok {
-			return auth.ErrNotFound
-		}
-		if scope.pair.KnowledgeHead == nil || *scope.pair.KnowledgeHead != in.ExpectedKnowledgeHead || current.KnowledgeRef != in.Knowledge {
-			return study.ErrVersionStale
-		}
-		replay, found, e := studyReplay[study.StudyDetail](ctx, tx, u.ID, a, study.Begin, id, in)
-		if e != nil {
-			return e
-		}
-		if found {
-			out = replay
-			return nil
-		}
-		r, e := studyReadRecordTx(ctx, tx, u.ID, id, true)
-		if e != nil {
-			return e
-		}
-		first := r.State == study.Unlearned
-		if first {
-			if r.Sequence != in.ExpectedSequence {
-				return study.ErrStateConflict
-			}
-			r.State = study.Learning
-			r.Sequence++
-			r.FirstStartedAt = &now
-		}
-		r.LastReadAt = &now
-		if e = studySaveRecordTx(ctx, tx, u.ID, r, current.KnowledgeRef, now); e != nil {
-			return e
-		}
-		if first {
-			if e = studyEventTx(ctx, tx, u.ID, a, study.Begin, current.KnowledgeRef, scope.pair.TaxonomyVersionID, "started", nil, nil, now); e != nil {
-				return e
-			}
-		}
-		out = studyDetail(u.ID, r, scope)
-		return studyRemember(ctx, tx, u.ID, a, study.Begin, id, in, out)
-	})
-	return out, e
 }
