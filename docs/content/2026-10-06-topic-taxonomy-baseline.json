@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "date": "2026-10-06",
-  "status": "user_confirmed_taxonomy_design_pending_review",
+  "status": "user_confirmed_design_plan_pending_review",
   "taxonomy": "MSC2020",
   "regularTopics": {
     "level1": 63,
