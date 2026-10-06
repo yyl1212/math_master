@@ -497,5 +497,22 @@
       "seconds": 18
     }
   ],
-  "integrationBaseRechecked": "2cf65972e389102fb5aaf5e96edde5ec6d77d58f"
+  "integrationBaseRechecked": "2cf65972e389102fb5aaf5e96edde5ec6d77d58f",
+  "ciLearningTitleRepair": {
+    "date": "2026-10-06",
+    "failedRun": 37380856752,
+    "originalHead": "2d086a9e4afc6409de14ec0bd18161ab2c504bfb",
+    "cause": "一级标题与列表二级标题同名，按名称的严格定位在完成渲染后匹配到两个元素",
+    "reproduction": {
+      "failed": 2,
+      "passed": 2
+    },
+    "fix": "列表区域检查二级标题，页面标题明确level:1；原业务断言、时限、分组及零重试保持",
+    "verification": {
+      "languageLearningBrowser": 4,
+      "frontendTests": 403,
+      "nodeTests": 94
+    },
+    "details": "ci-learning-title.md"
+  }
 }
