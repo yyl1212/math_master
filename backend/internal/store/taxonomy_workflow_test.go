@@ -78,6 +78,64 @@ func TestTopicAssignmentStaleRevision(t *testing.T) {
 		t.Fatal("stale classification submitted", e)
 	}
 }
+func TestTopicAssignmentDisabledGuardFailsClosed(t *testing.T) {
+	for _, action := range []string{"save", "submit", "review"} {
+		t.Run(action, func(t *testing.T) {
+			f := newTopicWorkflowFixture(t)
+			d := f.draft()
+			f.save(d)
+			var sub publication.SubmissionView
+			if action == "review" {
+				var e error
+				sub, e = f.repo.SubmitDraft(f.ctx, f.Access("author_a", false), d.ID, publication.SubmitInput{ExpectedRevision: d.Revision, ExpectedDigest: d.Gate.Digest})
+				if e != nil {
+					t.Fatal(e)
+				}
+			}
+			if action == "review" {
+				f.exec("ALTER TABLE taxonomy_review_bindings DISABLE TRIGGER taxonomy_review_immutable")
+			} else {
+				f.exec("ALTER TABLE taxonomy_submission_assignments DISABLE TRIGGER taxonomy_submission_immutable")
+			}
+			var e error
+			switch action {
+			case "save":
+				in := publication.SaveDraftInput{DraftInput: f.input, ExpectedRevision: d.Revision}
+				in.Package.Knowledge[0].Scope += " Changed scope."
+				_, e = f.repo.SaveDraft(f.ctx, f.Access("author_a", false), d.ID, in)
+			case "submit":
+				_, e = f.repo.SubmitDraft(f.ctx, f.Access("author_a", false), d.ID, publication.SubmitInput{ExpectedRevision: d.Revision, ExpectedDigest: d.Gate.Digest})
+			case "review":
+				_, e = f.repo.DecideReview(f.ctx, f.Access("reviewer_a", false), sub.ID, approvedReviewInput())
+			}
+			if !errors.Is(e, taxonomy.ErrNotConfigured) {
+				t.Fatal("disabled guard silently bypassed taxonomy", e)
+			}
+			var count int
+			if action == "review" {
+				if e = f.db.QueryRow("SELECT count(*) FROM content_review_decisions WHERE submission_id=$1", sub.ID).Scan(&count); e != nil {
+					t.Fatal(e)
+				}
+			} else {
+				if e = f.db.QueryRow("SELECT count(*) FROM content_submissions WHERE workspace_id=$1", d.ID).Scan(&count); e != nil {
+					t.Fatal(e)
+				}
+			}
+			if count != 0 {
+				t.Fatal("failure committed workflow evidence", count)
+			}
+			if action == "save" {
+				var revision int64
+				if e = f.db.QueryRow("SELECT revision FROM content_workspaces WHERE id=$1", d.ID).Scan(&revision); e != nil {
+					t.Fatal(e)
+				}
+				if revision != d.Revision {
+					t.Fatal("failed save committed", revision)
+				}
+			}
+		})
+	}
+}
 func TestTopicFrozenAssignmentIgnoresWorkspace(t *testing.T) {
 	f := newTopicWorkflowFixture(t)
 	d := f.draft()

@@ -8,7 +8,7 @@
 
 **Tech Stack（技术栈）：** Go 1.27.1、PostgreSQL 17.11、Next.js 16.3.7、React 19.3.0、TypeScript 5.9.3、Node.js 24.17.0；沿用现有 Vitest、Playwright、Zod、goose、pgx，不新增运行依赖。
 
-**Spec（设计）：** [用户已确认的主题学习重构设计](../specs/2026-10-06-topic-learning-refactor-design.md)，2026-10-06 获书面确认。本计划待审。前置：[阶段A](2026-10-06-topic-taxonomy.md)通过交付门禁；未合并依赖时只做明确依赖的草稿MR，不自行合并。
+**Spec（设计）：** [用户已确认的主题学习重构设计](../specs/2026-10-06-topic-learning-refactor-design.md)，2026-10-06 获书面确认。本计划已获用户书面确认。前置：[阶段A](2026-10-06-topic-taxonomy.md)通过交付门禁；未合并依赖时只做明确依赖的草稿MR，不自行合并。
 
 ## 全局约束
 

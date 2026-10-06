@@ -103,6 +103,40 @@ func TestTopicLegacyActivationCannotBypassPair(t *testing.T) {
 		t.Fatal("legacy activation bypass", e)
 	}
 }
+func TestTopicLegacyActivationBeforePairedPublication(t *testing.T) {
+	f := newTopicWorkflowFixture(t)
+	// The study capability is installed before the experience is switched.
+	// It cannot masquerade as a previously published taxonomy head.
+	f.exec("UPDATE topic_learning_state SET study_enabled=true WHERE singleton")
+	old := f.Prepare(f.Approved("author_a", "reviewer_a"), nil)
+	_, e := f.repo.ActivateRelease(f.ctx, f.Access("admin_a", true), old.ID, publication.ActivateInput{ExpectedHead: nil, ExpectedManifestSHA: old.ManifestSHA, Reason: "Installed study capability keeps healthy legacy publication available until a pair is published."})
+	if e != nil {
+		t.Fatal("study capability alone retired legacy activation", e)
+	}
+}
+func TestTopicLegacyActivationMissingHeadFailsClosed(t *testing.T) {
+	for _, missing := range []string{"table", "row"} {
+		t.Run(missing, func(t *testing.T) {
+			f := newTopicWorkflowFixture(t)
+			p := f.preparePair(f.initialPair(), f.topicApproved("msc-00a00").ID)
+			f.activatePair(p)
+			old := f.Prepare(f.Approved("author_a", "reviewer_a"), p.KnowledgePublicationID)
+			if missing == "table" {
+				f.exec("ALTER TABLE taxonomy_heads RENAME TO hidden_taxonomy_heads")
+			} else {
+				f.exec("DELETE FROM taxonomy_heads")
+			}
+			_, e := f.repo.ActivateRelease(f.ctx, f.Access("admin_a", true), old.ID, publication.ActivateInput{ExpectedHead: p.KnowledgePublicationID, ExpectedManifestSHA: old.ManifestSHA, Reason: "Damaged taxonomy heads must not permit independent activation."})
+			var kh string
+			if scan := f.db.QueryRow("SELECT snapshot_id FROM publication_heads WHERE singleton").Scan(&kh); scan != nil {
+				t.Fatal(scan)
+			}
+			if !errors.Is(e, taxonomy.ErrNotConfigured) || kh != *p.KnowledgePublicationID {
+				t.Fatal("damaged taxonomy allowed independent activation", e, kh)
+			}
+		})
+	}
+}
 func TestTopicWithdrawalKeepsHistory(t *testing.T) {
 	f := newTopicWorkflowFixture(t)
 	sub := f.topicApproved("msc-00a00")

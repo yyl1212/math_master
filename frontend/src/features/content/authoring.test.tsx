@@ -5,6 +5,7 @@ import { DraftList } from "./draft-list";
 import { importDraftInput, exportDraftInput } from "./asset-transfer";
 import { draftView, draftInput, fixtureID, fixtureSVG } from "@/lib/content/test-fixtures";
 import { contentFailure } from "@/lib/content/schemas";
+import type {DraftTopicInput} from "@/lib/taxonomy/types";
 import { AuthStatus } from "@/components/auth-status";
 const mocks = vi.hoisted(() => ({ request: vi.fn(), asset: vi.fn(), refresh: vi.fn(), push: vi.fn(), context: vi.fn() }));
 vi.mock("@/lib/content/client", () => ({ contentRequest: mocks.request, readContentAsset: mocks.asset }));
@@ -89,4 +90,19 @@ it("blocks submission while a topic selection has unsaved changes",()=>{
  expect(screen.getByRole("button",{name:"Submit for review"})).toBeEnabled();
  fireEvent.change(screen.getByLabelText("Specific topic IDs"),{target:{value:"msc-00a01"}});
  expect(screen.getByRole("button",{name:"Submit for review"})).toBeDisabled();
+});
+it.each([1,2])("reconfirms upgraded knowledge from v%s with its saved version while preserving topic candidates",async initialVersion=>{
+ const view=draftView();view.package.knowledge[0].version=initialVersion;
+ const member={knowledge:{id:view.package.knowledge[0].id,version:1},topicIds:["msc-00a00"],sourceRefs:[{sourceId:"source",workFamilyId:"work",recordId:"original",path:"data.json",sha256:"c".repeat(64)}],sourceBatchSHA:"b".repeat(64)};
+ const topics={draftId:view.id,draftRevision:1,assignmentRevision:1,taxonomyVersionId:"a".repeat(64),members:[member],digest:"d".repeat(64),readyToSubmit:false};
+ const save=vi.fn(async (input:DraftTopicInput)=>({...topics,members:[input.member],assignmentRevision:2,readyToSubmit:true}));
+ render(<DraftEditor initial={view} topics={topics} onSaveTopics={save}/>);
+ fireEvent.change(screen.getByLabelText("Specific topic IDs"),{target:{value:"msc-00a01"}});
+ if(initialVersion===1){const saved=structuredClone(view);saved.revision=2;saved.package.knowledge[0].version=2;fireEvent.change(screen.getByLabelText("Knowledge 1 title"),{target:{value:"Revised original fractions"}});mocks.request.mockResolvedValue({ok:true,data:saved,status:200,requestId:"a".repeat(32)});fireEvent.click(screen.getByRole("button",{name:"Save draft"}));await waitFor(()=>expect(screen.getByRole("button",{name:"Save topic assignment"})).toBeEnabled());topics.draftRevision=2;}
+ fireEvent.click(screen.getByRole("button",{name:"Save topic assignment"}));
+ await screen.findByText("Topic assignment saved.");
+ expect(save.mock.calls[0][0].member.knowledge).toEqual({id:member.knowledge.id,version:2});
+ expect(save.mock.calls[0][0].member.topicIds).toEqual(["msc-00a01"]);
+ expect(save.mock.calls[0][0].member.sourceBatchSHA).toBe(member.sourceBatchSHA);
+ expect(screen.getByRole("button",{name:"Submit for review"})).toBeEnabled();
 });

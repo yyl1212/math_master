@@ -37,6 +37,32 @@ func taxonomyConfigured(ctx context.Context, tx *sql.Tx) error {
 	}
 	return nil
 }
+
+// Legacy databases without any taxonomy structure may keep using v1. Once
+// installed, a missing table or protection is damage, not a downgrade signal.
+func optionalTaxonomyConfigured(ctx context.Context, tx *sql.Tx) (bool, error) {
+	e := taxonomyConfigured(ctx, tx)
+	if e == nil {
+		return true, nil
+	}
+	if !errors.Is(e, taxonomy.ErrNotConfigured) {
+		return false, e
+	}
+	var n int
+	if err := tx.QueryRowContext(ctx, "SELECT count(*) FROM unnest($1::text[]) name WHERE to_regclass('public.'||name) IS NOT NULL", taxonomyTables).Scan(&n); err != nil {
+		return false, err
+	}
+	if n == 0 {
+		return false, nil
+	}
+	return false, taxonomy.ErrNotConfigured
+}
+
+func taxonomyPairEvidenceTx(ctx context.Context, tx *sql.Tx) (bool, error) {
+	var active bool
+	e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM taxonomy_releases WHERE status='published') OR EXISTS(SELECT 1 FROM topic_learning_state WHERE experience_mode='topics')`).Scan(&active)
+	return active, e
+}
 func taxonomyError(e error) error {
 	if e == nil {
 		return nil

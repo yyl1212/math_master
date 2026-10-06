@@ -215,9 +215,8 @@ func (s *Store) SaveDraftTopics(ctx context.Context, a publication.Access, id st
 	return out, e
 }
 func refreshDraftTopicsTx(ctx context.Context, tx *sql.Tx, before, after publication.DraftView) error {
-	if e := taxonomyConfigured(ctx, tx); errors.Is(e, taxonomy.ErrNotConfigured) {
-		return nil
-	} else if e != nil {
+	configured, e := optionalTaxonomyConfigured(ctx, tx)
+	if e != nil || !configured {
 		return e
 	}
 	for _, k := range after.Package.Knowledge {
@@ -232,9 +231,8 @@ func refreshDraftTopicsTx(ctx context.Context, tx *sql.Tx, before, after publica
 	return nil
 }
 func freezeDraftTopicsTx(ctx context.Context, tx *sql.Tx, draftID, submissionID string, revision int64, d publication.DraftView) error {
-	if e := taxonomyConfigured(ctx, tx); errors.Is(e, taxonomy.ErrNotConfigured) {
-		return nil
-	} else if e != nil {
+	configured, e := optionalTaxonomyConfigured(ctx, tx)
+	if e != nil || !configured {
 		return e
 	}
 	view, e := topicDraftViewTx(ctx, tx, d)

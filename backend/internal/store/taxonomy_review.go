@@ -28,13 +28,12 @@ func (s *Store) ReadSubmissionTopics(ctx context.Context, a publication.Access, 
 	return out, e
 }
 func bindTopicReviewTx(ctx context.Context, tx *sql.Tx, submissionID, reviewID string) error {
-	if e := taxonomyConfigured(ctx, tx); errors.Is(e, taxonomy.ErrNotConfigured) {
-		return nil
-	} else if e != nil {
+	configured, e := optionalTaxonomyConfigured(ctx, tx)
+	if e != nil || !configured {
 		return e
 	}
 	var digest string
-	e := tx.QueryRowContext(ctx, "SELECT digest FROM taxonomy_submission_assignments WHERE submission_id=$1", submissionID).Scan(&digest)
+	e = tx.QueryRowContext(ctx, "SELECT digest FROM taxonomy_submission_assignments WHERE submission_id=$1", submissionID).Scan(&digest)
 	if errors.Is(e, sql.ErrNoRows) {
 		return nil
 	}

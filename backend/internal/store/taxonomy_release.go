@@ -14,18 +14,23 @@ import (
 )
 
 func rejectIndependentActivationTx(ctx context.Context, tx *sql.Tx) error {
-	var exists bool
-	if e := tx.QueryRowContext(ctx, "SELECT to_regclass('public.taxonomy_heads') IS NOT NULL").Scan(&exists); e != nil {
+	configured, e := optionalTaxonomyConfigured(ctx, tx)
+	if e != nil || !configured {
 		return e
 	}
-	if !exists {
-		return nil
-	}
+	var exists bool
 	if e := tx.QueryRowContext(ctx, "SELECT EXISTS(SELECT 1 FROM taxonomy_heads)").Scan(&exists); e != nil {
 		return e
 	}
 	if exists {
 		return publication.ErrPublicationStale
+	}
+	evidence, e := taxonomyPairEvidenceTx(ctx, tx)
+	if e != nil {
+		return e
+	}
+	if evidence {
+		return taxonomy.ErrNotConfigured
 	}
 	return nil
 }
@@ -502,30 +507,20 @@ func (s *Store) ActivateTopicRelease(ctx context.Context, a publication.Access, 
 	return out, e
 }
 func applyTopicWithdrawalTx(ctx context.Context, tx *sql.Tx, knowledgeHead string, removed []taxonomy.KnowledgeRef) error {
-	if e := taxonomyConfigured(ctx, tx); errors.Is(e, taxonomy.ErrNotConfigured) {
-		for _, table := range []string{"taxonomy_heads", "taxonomy_releases", "topic_learning_state"} {
-			var exists bool
-			if err := tx.QueryRowContext(ctx, "SELECT to_regclass($1) IS NOT NULL", "public."+table).Scan(&exists); err != nil {
-				return err
-			}
-			if !exists {
-				continue
-			}
-			query := map[string]string{"taxonomy_heads": "SELECT EXISTS(SELECT 1 FROM taxonomy_heads)", "taxonomy_releases": "SELECT EXISTS(SELECT 1 FROM taxonomy_releases WHERE status='published')", "topic_learning_state": "SELECT EXISTS(SELECT 1 FROM topic_learning_state WHERE experience_mode='topics' OR study_enabled)"}[table]
-			if err := tx.QueryRowContext(ctx, query).Scan(&exists); err != nil {
-				return err
-			}
-			if exists {
-				return taxonomy.ErrNotConfigured
-			}
-		}
-		return nil
-	} else if e != nil {
+	configured, e := optionalTaxonomyConfigured(ctx, tx)
+	if e != nil || !configured {
 		return e
 	}
 	var head string
-	e := tx.QueryRowContext(ctx, "SELECT release_id::text FROM taxonomy_heads").Scan(&head)
+	e = tx.QueryRowContext(ctx, "SELECT release_id::text FROM taxonomy_heads").Scan(&head)
 	if errors.Is(e, sql.ErrNoRows) {
+		evidence, err := taxonomyPairEvidenceTx(ctx, tx)
+		if err != nil {
+			return err
+		}
+		if evidence {
+			return taxonomy.ErrNotConfigured
+		}
 		return nil
 	}
 	if e != nil {
