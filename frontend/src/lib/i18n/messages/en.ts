@@ -1,4 +1,18 @@
 export const enMessages = {
+  "topic.publication.title": {"text": "Paired knowledge and topic publication", "params": []},
+  "topic.publication.version": {"text": "Taxonomy version SHA", "params": []},
+  "topic.publication.submissions": {"text": "Approved submission IDs", "params": []},
+  "topic.publication.prepare": {"text": "Prepare paired publication", "params": []},
+  "topic.publication.activate": {"text": "Activate paired publication", "params": []},
+  "topic.publication.failed": {"text": "Paired publication failed. Your input is preserved.", "params": []},
+  "topic.publication.stale": {"text": "Published heads changed. Refresh and prepare a new pair.", "params": []},
+  "topic.publication.prepared": {"text": "Pair prepared. Inspect topic changes before activation.", "params": []},
+  "topic.publication.published": {"text": "Knowledge and topic heads activated together.", "params": []},
+  "topic.publication.refresh": {"text": "Refresh published pair", "params": []},
+  "topic.diff.added": {"text": "Added knowledge", "params": []},
+  "topic.diff.removed": {"text": "Removed knowledge", "params": []},
+  "topic.diff.changed": {"text": "Changed topic assignments", "params": []},
+
   "topic.assignment.title": {"text": "Knowledge topic assignment", "params": []},
   "topic.assignment.ids": {"text": "Specific topic IDs", "params": []},
   "topic.assignment.version": {"text": "Taxonomy version SHA", "params": []},

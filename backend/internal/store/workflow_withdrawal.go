@@ -6,6 +6,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 	"time"
 )
 
@@ -149,6 +150,15 @@ func (s *Store) WithdrawVersion(ctx context.Context, a publication.Access, input
 			return err
 		}
 		if _, err = tx.ExecContext(ctx, `INSERT INTO publication_heads VALUES(true,$1) ON CONFLICT(singleton) DO UPDATE SET snapshot_id=EXCLUDED.snapshot_id`, view.ID); err != nil {
+			return err
+		}
+		removed := []taxonomy.KnowledgeRef{}
+		for _, change := range candidate.Diff.Changes {
+			if change.Kind == "knowledge" && change.Before != nil && change.After == nil {
+				removed = append(removed, taxonomy.KnowledgeRef{ID: change.ID, Version: change.Before.Version, SHA256: change.Before.SHA256})
+			}
+		}
+		if err = applyTopicWithdrawalTx(ctx, tx, view.ID, removed); err != nil {
 			return err
 		}
 		out = publication.WithdrawalResult{EventID: eventID, PreviousHead: head, Publication: view}

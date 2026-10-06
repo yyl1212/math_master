@@ -1,5 +1,19 @@
 import type {MessageKey} from "../types";
 export const zhMessages = {
+  "topic.publication.title": "知识与主题成对发布",
+  "topic.publication.version": "分类版本摘要",
+  "topic.publication.submissions": "已批准送审记录编号",
+  "topic.publication.prepare": "准备成对发布",
+  "topic.publication.activate": "激活成对发布",
+  "topic.publication.failed": "成对发布未完成，输入已保留。",
+  "topic.publication.stale": "当前发布已变化，请刷新后重新准备成对候选。",
+  "topic.publication.prepared": "成对候选已准备，请先检查主题差异再激活。",
+  "topic.publication.published": "知识与主题发布已同步激活。",
+  "topic.publication.refresh": "刷新当前成对发布",
+  "topic.diff.added": "新增知识",
+  "topic.diff.removed": "移出知识",
+  "topic.diff.changed": "主题归属变化",
+
   "topic.assignment.title": "知识点主题归属",
   "topic.assignment.ids": "具体主题编号",
   "topic.assignment.version": "分类版本摘要",

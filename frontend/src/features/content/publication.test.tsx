@@ -30,3 +30,27 @@ it("TestPublicationPagerUsesEffectiveLimitAndSelectsReturnedSnapshot",async()=>{
  await waitFor(()=>expect(mocks.request).toHaveBeenCalledWith({kind:"listPublications",query:{limit:1,offset:1}}));
  expect(screen.getByLabelText("Selected snapshot")).toHaveValue(next.id);expect(screen.getByText(/Manifest SHA:/)).toBeVisible();
 });
+import {TopicPublicationPanel} from "./publication-panel";
+import {DiffPanel} from "./diff-panel";
+const topicPair={knowledgeHead:null,taxonomyHead:null,taxonomyVersionId:"a".repeat(64)};
+const topicRelease={id:fixtureID,status:"draft" as const,pair:topicPair,manifestSHA:"b".repeat(64),assignmentsSHA:"c".repeat(64),knowledgePublicationId:null,diff:{added:[{id:"fractions",version:1,sha256:"d".repeat(64)}],removed:[],changedTopicMemberships:[{knowledge:{id:"numbers",version:1,sha256:"e".repeat(64)},oldTopicIds:["msc-00a00"],newTopicIds:["msc-00a01"]}]},createdAt:"2026-10-01T00:00:00Z"};
+it("shows accurate topic additions and membership changes",()=>{
+ render(<DiffPanel diff={publicationView().diff} topics={topicRelease.diff}/>);
+ expect(screen.queryByText("fractions v1")).toBeVisible();
+ expect(screen.queryByText("msc-00a00 → msc-00a01")).toBeVisible();
+});
+it("prepares an empty topic catalogue and never activates automatically after password verification",async()=>{
+ let prepared:unknown,writes=0;
+ render(<TopicPublicationPanel pair={topicPair} onPrepare={async inValue=>{prepared=inValue;return {ok:true,data:topicRelease}}} onActivate={async()=>{writes++;return {ok:false,status:403,code:"REAUTH_REQUIRED",message:"reauth",requestId:"a"}}}/>);
+ fireEvent.change(screen.getByLabelText("Publication reason"),{target:{value:"Publish an empty isolated catalogue first."}});
+ fireEvent.click(screen.getByRole("button",{name:"Prepare paired publication"}));
+ await screen.findByRole("button",{name:"Activate paired publication"});
+ expect(prepared).toEqual({submissionIds:[],expectedPair:topicPair,reason:"Publish an empty isolated catalogue first."});
+ fireEvent.click(screen.getByRole("button",{name:"Activate paired publication"}));
+ await screen.findByRole("dialog");
+ fireEvent.change(screen.getByLabelText("Your password"),{target:{value:"technical test password"}});
+ mocks.auth.mockResolvedValue({ok:true,data:{validUntil:"2026-10-01T12:00:00Z"}});
+ fireEvent.click(screen.getByRole("button",{name:"Verify password"}));
+ await waitFor(()=>expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+ expect(writes).toBe(1);
+});
