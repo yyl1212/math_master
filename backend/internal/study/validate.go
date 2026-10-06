@@ -28,5 +28,5 @@ func ValidateNote(body string) error {
 	if !taxonomy.ValidText(body) || len(body) > 64<<10 || utf8.RuneCountInString(body) > 16000 {
 		return ErrInvalid
 	}
-	return nil
+	return validateNoteMarkup(body)
 }
