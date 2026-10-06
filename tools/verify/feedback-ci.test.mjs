@@ -1,8 +1,9 @@
+import {inverseTopicWorkflow} from "./topic-learning-compatibility.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync, readdirSync} from 'node:fs';
 const root=new URL('../../',import.meta.url);
-const read=p=>readFileSync(new URL(p,root),'utf8');
+const read=p=>{const value=readFileSync(new URL(p,root),'utf8');return p.startsWith('.github/workflows/')?inverseTopicWorkflow(value,p):value};
 const backend=read('.github/workflows/backend.yml');
 const frontend=read('.github/workflows/frontend.yml');
 const playwright=read('tests/e2e/playwright.config.ts');

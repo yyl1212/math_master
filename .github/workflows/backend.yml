@@ -49,7 +49,7 @@ jobs:
       - name: 内容与 HTTP 校验
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil -timeout 5m -count=1
       - name: 真实 PostgreSQL 集成验证
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip "^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)" -timeout 5m -count=1
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -skip "^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|TaxonomyCapacity)" -timeout 5m -count=1
       - name: 学习测评真实数据库回归
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Learning|Assessment)' -skip '^TestLearningCapacity' -timeout 5m -count=1
       - name: 反馈真实数据库回归
@@ -68,6 +68,12 @@ jobs:
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestContentAuditCapacity$' -timeout 5m -count=1 -v
       - name: 全量复核准备与证据纯层
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/contentreview -timeout 5m -count=1
+      - name: 主题分类捕获与兼容门禁
+        run: node tools/verify/run.mjs -- node --test tools/topic-ingest/*.test.mjs tools/verify/topic-learning-compatibility.test.mjs tools/verify/topic-learning-ci.test.mjs
+      - name: 主题分类真实数据库与CLI
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/taxonomy ./internal/store ./internal/cli -run '^Test(Taxonomy|Topic)' -skip '^TestTaxonomyCapacity' -timeout 5m -count=1
+      - name: 完整分类与最大知识容量
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTaxonomyCapacity6603With1000Knowledge$' -timeout 5m -count=1 -v
       - name: 构建
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build ./cmd/...
 

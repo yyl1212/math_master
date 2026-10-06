@@ -29,3 +29,24 @@ func TestTopicCatalogueRealScene(t *testing.T) {
 		t.Fatal("scene is not a real published pair", e, response.StatusCode)
 	}
 }
+func TestTopicControlIsPrivate(t *testing.T) {
+	s, _, _, _ := startHarness(t)
+	response, e := http.Get(s.ControlURL + "/taxonomy/state")
+	if e != nil {
+		t.Fatal("control request failed")
+	}
+	response.Body.Close()
+	if response.StatusCode != 401 {
+		t.Fatal("anonymous control exposed", response.StatusCode)
+	}
+	req, _ := http.NewRequest("GET", s.ControlURL+"/taxonomy/state", nil)
+	req.Header.Set("Authorization", "Bearer "+s.Token)
+	response, e = http.DefaultClient.Do(req)
+	if e != nil {
+		t.Fatal("authorized control failed")
+	}
+	defer response.Body.Close()
+	if response.StatusCode != 200 {
+		t.Fatal("taxonomy control missing", response.StatusCode)
+	}
+}

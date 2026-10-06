@@ -603,6 +603,24 @@ func Run(ctx context.Context, c Config) (result error) {
 		w.Header().Set("Cache-Control", "no-store")
 		_ = json.NewEncoder(w).Encode(v)
 	})
+	control.HandleFunc("GET /taxonomy/state", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			http.Error(w, "Unauthorized", 401)
+			return
+		}
+		mu.RLock()
+		defer mu.RUnlock()
+		ctx, stop := context.WithTimeout(r.Context(), 2*time.Second)
+		defer stop()
+		v, e := readTaxonomyControl(ctx, db)
+		if e != nil {
+			http.Error(w, "Taxonomy state unavailable", 503)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Cache-Control", "no-store")
+		_ = json.NewEncoder(w).Encode(v)
+	})
 	state := runtimeState{APIURL: "http://" + apiListener.Addr().String(), ControlURL: "http://" + controlListener.Addr().String(), Token: token, Database: name, AssetSHA: normal.Package().Assets[0].SHA256, KnowledgeID: "equivalent-fractions", PathID: normal.Package().Paths[0].ID}
 	f, e := os.OpenFile(c.StateFile, os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0600)
 	if e != nil {

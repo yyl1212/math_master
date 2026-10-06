@@ -1,8 +1,9 @@
+import {inverseTopicWorkflow} from "./topic-learning-compatibility.mjs";
 import {languageBatches} from "./ui-language-ci.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
-const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root),'utf8');
+const root=new URL('../../',import.meta.url),read=p=>{const value=readFileSync(new URL(p,root),'utf8');return p.startsWith('.github/workflows/')?inverseTopicWorkflow(value,p):value};
 const backend=read('.github/workflows/backend.yml'),frontend=read('.github/workflows/frontend.yml'),playwright=read('tests/e2e/playwright.config.ts');
 const batches=[['catalogue','reading'],['auth','auth-security'],['content-authoring'],['content-review'],['content-release'],['content-security'],['question-authoring'],['question-review'],['question-release'],['question-security'],['learning-progress'],['learning-practice','learning-assessment'],['learning-diagnostic','learning-security'],['learning-review-regressions'],['feedback-user'],['feedback-review'],['feedback-security'],['correction-user'],['correction-review'],['notification-security']].map(v=>v.map(f=>f+'.spec.ts'));
 function runs(source){
