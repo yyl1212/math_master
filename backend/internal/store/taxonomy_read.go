@@ -151,6 +151,11 @@ func topicQuery(q taxonomy.Query) (taxonomy.Query, error) {
 	}
 	if q.Level == 0 && q.ParentID == "" && q.Q == "" {
 		q.Level = 1
+		if q.Kind == "auxiliary" {
+			q.Level = 2
+		} else if q.Kind == "other" {
+			q.Level = 3
+		}
 	}
 	return q, nil
 }
@@ -175,11 +180,29 @@ func (s *Store) ListTopics(ctx context.Context, q taxonomy.Query) (taxonomy.Page
 		}
 		var found []taxonomy.TopicNode
 		needle := strings.ToLower(q.Q)
+		titleMatches := map[string]bool{}
+		if needle != "" {
+			for _, k := range state.knowledge {
+				if strings.Contains(strings.ToLower(k.Title+" "+k.TitleZh), needle) {
+					for _, id := range k.TopicIDs {
+						for depth := 0; depth < 3; depth++ {
+							titleMatches[id] = true
+							n := state.nodes[id]
+							if n.ParentID == nil {
+								break
+							}
+							id = *n.ParentID
+						}
+					}
+				}
+			}
+		}
+
 		for _, n := range state.nodes {
 			if n.Kind != q.Kind || (q.Level != 0 && n.Level != q.Level) || (q.ParentID != "" && (n.ParentID == nil || *n.ParentID != q.ParentID)) {
 				continue
 			}
-			if needle != "" && !strings.Contains(strings.ToLower(n.Code+" "+n.Name+" "+n.NameZh), needle) {
+			if needle != "" && !titleMatches[n.ID] && !strings.Contains(strings.ToLower(n.Code+" "+n.Name+" "+n.NameZh), needle) {
 				continue
 			}
 			found = append(found, n)

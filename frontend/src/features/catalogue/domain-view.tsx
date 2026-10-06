@@ -6,6 +6,7 @@ import Link from "next/link";
 import type { ApiResult, DomainDetail } from "@/lib/api/types";
 import { ContentStatus } from "@/components/content-status";
 import { ContentState } from "@/components/content-state";
+import type {TopicDetail} from "@/lib/taxonomy/types";
 import styles from "@/styles/catalogue.module.css";
 export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
  const {t}=useUiI18n();
@@ -111,3 +112,5 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
     </>
   );
 }
+
+export function TopicDomainView({details}:{details:TopicDetail[]}){const {t,locale}=useUiI18n();return <><div className="page-heading"><h1>{t("topic.map.explore",{})}</h1><p>{t("topic.alias.note",{})}</p></div><div className="domain-grid">{details.map(({summary:n})=><article className="domain-card" key={n.id}><code>{n.code}</code><h2><Link prefetch={false} href={"/topics/"+n.id}>{locale==="zh-CN"&&n.nameZh?n.nameZh:n.name}</Link></h2><p>{t(n.publishedKnowledgeCount===1?"public.publishedOne":"public.publishedMany",{count:n.publishedKnowledgeCount})}</p></article>)}</div><Link prefetch={false} href="/knowledge">{t("nav.knowledgeMap",{})}</Link></>}

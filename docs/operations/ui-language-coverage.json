@@ -579,6 +579,20 @@
       "scenarios": [
         "tests/e2e/ui-language-question.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/app/topics/[id]/page.tsx",
+      "module": "taxonomy",
+      "complete": true,
+      "messageKeys": [
+        "page.topics.id"
+      ],
+      "rawDataAreas": [
+        "MSC分类代码、已捕获的中英文名称、知识原始标题与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-taxonomy.spec.ts"
+      ]
     }
   ],
   "components": [
@@ -3443,6 +3457,50 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/catalogue/topic-view.tsx",
+      "module": "taxonomy",
+      "complete": true,
+      "messageKeys": [
+        "topic.map.intro",
+        "topic.map.search"
+      ],
+      "rawDataAreas": [
+        "分类代码、中英文名称、知识标题与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-taxonomy.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/topic-fields.tsx",
+      "module": "taxonomy",
+      "complete": true,
+      "messageKeys": [
+        "topic.assignment.title",
+        "topic.assignment.ids"
+      ],
+      "rawDataAreas": [
+        "知识版本、源记录JSON、分类及批次摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-taxonomy.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/topic-workspace.tsx",
+      "module": "taxonomy",
+      "complete": true,
+      "messageKeys": [
+        "publication-panel.snapshot.history.d81e02"
+      ],
+      "rawDataAreas": [
+        "原知识草稿、归属修订、发布历史标识和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-taxonomy.spec.ts"
       ]
     }
   ]

@@ -1,10 +1,22 @@
 package taxonomy
 
-import "context"
+import (
+	"context"
+	"github.com/yyl1212/math_master/backend/internal/publication"
+)
 
-type Service struct{ repo Repository }
+type Service struct {
+	repo  Repository
+	guard *publication.Service
+}
 
-func NewService(r Repository) *Service { return &Service{repo: r} }
+func NewService(r Repository, shared ...*publication.Service) *Service {
+	gate := publication.NewService(nil)
+	if len(shared) > 0 && shared[0] != nil {
+		gate = shared[0]
+	}
+	return &Service{repo: r, guard: gate}
+}
 func (s *Service) ListTopics(ctx context.Context, q Query) (Page[TopicSummary], error) {
 	return s.repo.ListTopics(ctx, q)
 }

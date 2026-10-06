@@ -1790,6 +1790,134 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v2/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTopicsV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/topics/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["readTopicV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/topics/{id}/knowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTopicKnowledgeV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/content/topic-assignments/drafts/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["readDraftTopicsV2"];
+        put: operations["saveDraftTopicsV2"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/content/topic-assignments/submissions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["readSubmissionTopicsV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/admin/publications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["listTopicReleasesV2"];
+        put?: never;
+        post: operations["prepareTopicReleaseV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/admin/publications/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["readTopicReleaseV2"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/admin/publications/{id}/activate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["activateTopicReleaseV2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -4733,6 +4861,20 @@ export interface components {
             };
             /** Format: date-time */
             createdAt: string;
+        };
+        TopicReleasePage: {
+            items: components["schemas"]["TopicReleaseView"][];
+            total: number;
+            limit: number;
+            offset: number;
+            pair: components["schemas"]["TopicPairRef"];
+        };
+        TopicError: {
+            error: {
+                code: string;
+                message: string;
+                requestId: string;
+            };
         };
     };
     responses: {
@@ -14119,6 +14261,1256 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+        };
+    };
+    listTopicsV2: {
+        parameters: {
+            query?: {
+                /** @description 重复及未知参数拒绝 */
+                q?: string;
+                /** @description 重复及未知参数拒绝 */
+                parentId?: string;
+                /** @description 重复及未知参数拒绝 */
+                level?: number;
+                /** @description 重复及未知参数拒绝 */
+                kind?: "primary" | "auxiliary" | "other";
+                /** @description 重复及未知参数拒绝 */
+                limit?: number;
+                /** @description 重复及未知参数拒绝 */
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicPage"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    readTopicV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicDetail"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    listTopicKnowledgeV2: {
+        parameters: {
+            query?: {
+                /** @description 重复及未知参数拒绝 */
+                q?: string;
+                /** @description 重复及未知参数拒绝 */
+                limit?: number;
+                /** @description 重复及未知参数拒绝 */
+                offset?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicKnowledgePage"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    readDraftTopicsV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicDraftView"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    saveDraftTopicsV2: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicDraftInput"];
+            };
+        };
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicDraftView"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    readSubmissionTopicsV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicDraftView"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    listTopicReleasesV2: {
+        parameters: {
+            query?: {
+                /** @description 重复及未知参数拒绝 */
+                limit?: number;
+                /** @description 重复及未知参数拒绝 */
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicReleasePage"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    prepareTopicReleaseV2: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicPrepareInput"];
+            };
+        };
+        responses: {
+            /** @description 成功 */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicReleaseView"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    readTopicReleaseV2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicReleaseView"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    activateTopicReleaseV2: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TopicActivateInput"];
+            };
+        };
+        responses: {
+            /** @description 成功 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicReleaseView"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
+                };
+            };
+            /** @description 固定错误；不含内部诊断或私有来源 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TopicError"];
                 };
             };
         };

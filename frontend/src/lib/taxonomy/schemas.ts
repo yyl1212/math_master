@@ -28,8 +28,10 @@ export const knowledgeSummarySchema=z.object({id,version,sha256:sha,title:text,t
 export const knowledgePageSchema=z.object({items:z.array(knowledgeSummarySchema).max(100),total:count,limit:count.min(1).max(100),offset:count,pair:pairSchema}).strict().refine(v=>v.items.length<=v.limit&&v.items.length<=v.total);
 export const draftTopicInputSchema=z.object({expectedDraftRevision:count.min(1),expectedAssignmentRevision:count,taxonomyVersionId:sha,member:assignmentInputSchema}).strict();
 export const draftTopicViewSchema=z.object({draftId:uuid,draftRevision:count.min(1),assignmentRevision:count,taxonomyVersionId:sha,members:z.array(assignmentInputSchema).max(100),digest:sha,readyToSubmit:z.boolean()}).strict();
-const reason=text.refine(v=>[...v].length>=10&&[...v].length<=1000&&v.trim()!=="");
+const reason=text.refine(v=>[...v].length>=10&&[...v].length<=1000&&new TextEncoder().encode(v).byteLength<=3000&&v.trim()!=="");
 export const prepareInputSchema=z.object({submissionIds:z.array(uuid).max(20).refine(unique),expectedPair:pairSchema,reason}).strict();
 export const activateInputSchema=z.object({expectedPair:pairSchema,manifestSHA:sha,reason}).strict();
 const change=z.object({knowledge:knowledgeRefSchema,oldTopicIds:z.array(id),newTopicIds:z.array(id)}).strict();
 export const releaseViewSchema=z.object({id:uuid,status:z.enum(["draft","published"]),pair:pairSchema,manifestSHA:sha,assignmentsSHA:sha,knowledgePublicationId:uuid.nullable(),diff:z.object({added:z.array(knowledgeRefSchema),removed:z.array(knowledgeRefSchema),changedTopicMemberships:z.array(change)}).strict(),createdAt:z.iso.datetime({offset:true})}).strict();
+
+export const releasePageSchema=z.object({items:z.array(releaseViewSchema).max(100),total:count,limit:count.min(1).max(100),offset:count.max(100000),pair:pairSchema}).strict().refine(v=>v.items.length<=v.limit&&v.items.length<=v.total);

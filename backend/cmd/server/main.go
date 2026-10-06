@@ -24,6 +24,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
+	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 )
 
 func main() {
@@ -64,6 +65,7 @@ func run() error {
 	}
 	publicationService := publication.NewService(repo)
 	options.Content = &httpapi.ContentOptions{Service: publicationService, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production", Configured: contentConfigured}
+	options.Taxonomy = &httpapi.TaxonomyOptions{Service: taxonomy.NewService(repo, publicationService), PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
 	questionCtx, questionCancel := context.WithTimeout(ctx, 8*time.Second)
 	questionConfigured, questionErr := httpapi.QuestionReady(questionCtx, db)
 	questionCancel()

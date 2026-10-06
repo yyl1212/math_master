@@ -243,3 +243,37 @@ func TestTopicPairCurrentSelfReviewLosesAdmin(t *testing.T) {
 		t.Fatal("self-review bypassed current admin check", e)
 	}
 }
+func TestTopicReleaseHistoryPaged(t *testing.T) {
+	f := newTopicWorkflowFixture(t)
+	p := f.preparePair(f.initialPair())
+	f.activatePair(p)
+	q := f.preparePair(taxonomy.PairRef{KnowledgeHead: p.KnowledgePublicationID, TaxonomyHead: &p.ID, TaxonomyVersionID: f.v.ID})
+	f.activatePair(q)
+	page, e := f.repo.ListTopicReleases(f.ctx, f.Access("admin_a", false), taxonomy.Query{Limit: 1})
+	if e != nil || page.Total != 2 || len(page.Items) != 1 || page.Limit != 1 || page.Pair.TaxonomyHead == nil || *page.Pair.TaxonomyHead != q.ID {
+		t.Fatal(page, e)
+	}
+}
+func TestTaxonomySearchKnowledgeTitle(t *testing.T) {
+	f := newTopicWorkflowFixture(t)
+	p := f.preparePair(f.initialPair(), f.topicApproved("msc-00a00").ID)
+	f.activatePair(p)
+	page, e := f.repo.ListTopics(f.ctx, taxonomy.Query{Q: f.input.Package.Knowledge[0].TitleZh, Level: 3})
+	if e != nil || len(page.Items) != 1 || page.Items[0].ID != "msc-00a00" {
+		t.Fatal("knowledge title missing from topic search", page, e)
+	}
+}
+func TestTaxonomyNonPrimaryDefaultLevel(t *testing.T) {
+	f := newTopicWorkflowFixture(t)
+	p := f.preparePair(f.initialPair())
+	f.activatePair(p)
+	for _, item := range []struct {
+		kind  string
+		total int
+	}{{"auxiliary", 503}, {"other", 534}} {
+		page, e := f.repo.ListTopics(f.ctx, taxonomy.Query{Kind: item.kind})
+		if e != nil || page.Total != item.total {
+			t.Fatal("wrong category default", page, e)
+		}
+	}
+}

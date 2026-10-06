@@ -573,3 +573,70 @@ func applyTopicWithdrawalTx(ctx context.Context, tx *sql.Tx, knowledgeHead strin
 	}
 	return activateTopicHeadTx(ctx, tx, d.View.ID)
 }
+func (s *Store) ListTopicReleases(ctx context.Context, a publication.Access, q taxonomy.Query) (taxonomy.ReleasePage, error) {
+	out := taxonomy.ReleasePage{Items: []taxonomy.ReleaseView{}}
+	if q.Limit < 0 || q.Limit > 100 || q.Offset < 0 || q.Offset > 100000 || q.Q != "" || q.Kind != "" || q.ParentID != "" || q.Level != 0 {
+		return out, taxonomy.ErrInvalid
+	}
+	if q.Limit == 0 {
+		q.Limit = 20
+	}
+	out.Limit = q.Limit
+	out.Offset = q.Offset
+	e := s.workflowReadTx(ctx, a, publication.ListPublicationsAction, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+		if e := taxonomyConfigured(ctx, tx); e != nil {
+			return e
+		}
+		var version string
+		e := tx.QueryRowContext(ctx, "SELECT COALESCE((SELECT r.taxonomy_version_id FROM taxonomy_heads h JOIN taxonomy_releases r ON r.id=h.release_id AND r.status='published'),(SELECT id FROM taxonomy_versions ORDER BY created_at DESC,id DESC LIMIT 1))").Scan(&version)
+		if e != nil {
+			return taxonomy.ErrNotConfigured
+		}
+		out.Pair, e = topicCurrentPairTx(ctx, tx, version)
+		if e != nil {
+			return e
+		}
+		if e = tx.QueryRowContext(ctx, "SELECT count(*) FROM taxonomy_releases").Scan(&out.Total); e != nil {
+			return e
+		}
+		rows, e := tx.QueryContext(ctx, "SELECT id::text FROM taxonomy_releases ORDER BY created_at DESC,id DESC LIMIT $1 OFFSET $2", q.Limit, q.Offset)
+		if e != nil {
+			return e
+		}
+		ids := []string{}
+		for rows.Next() {
+			var id string
+			if e = rows.Scan(&id); e != nil {
+				rows.Close()
+				return e
+			}
+			ids = append(ids, id)
+		}
+		e = rows.Err()
+		rows.Close()
+		if e != nil {
+			return e
+		}
+		for _, id := range ids {
+			d, e := readTopicReleaseTx(ctx, tx, id)
+			if e != nil {
+				return e
+			}
+			out.Items = append(out.Items, d.View)
+			raw, e := json.Marshal(out)
+			if e != nil {
+				return e
+			}
+			if len(raw) > 2<<20 {
+				out.Items = out.Items[:len(out.Items)-1]
+				if len(out.Items) == 0 {
+					return taxonomy.ErrLimit
+				}
+				out.Limit = len(out.Items)
+				break
+			}
+		}
+		return nil
+	})
+	return out, e
+}

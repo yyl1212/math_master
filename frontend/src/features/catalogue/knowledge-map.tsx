@@ -8,8 +8,14 @@ import type { ApiResult, DomainList } from "@/lib/api/types";
 import { ContentState } from "@/components/content-state";
 import { ContentStatus } from "@/components/content-status";
 import type { CatalogueStatus } from "./query";
+import {TopicMap} from "./topic-view";
+import type {TaxonomyResult,TopicPage} from "@/lib/taxonomy/types";
 import styles from "@/styles/catalogue.module.css";
-export function KnowledgeMap({
+export function KnowledgeMap(props:{topics:TaxonomyResult<TopicPage>;q:string;level?:number;kind?:string}|{result:ApiResult<DomainList>;q:string;status:CatalogueStatus;personal?:React.ReactNode}){
+ if("topics" in props)return <TopicMap result={props.topics} q={props.q} level={props.level} kind={props.kind}/>;
+ return <LegacyKnowledgeMap {...props}/>;
+}
+function LegacyKnowledgeMap({
   result,
   q,
   status,personal,

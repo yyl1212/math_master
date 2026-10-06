@@ -62,7 +62,7 @@ export function TopicPublicationPanel({pair,initial,onPrepare,onActivate,onRefre
   const signature=JSON.stringify({kind,id:kind==="activate"?candidate?.id:"",input});if(pending.current?.signature!==signature)pending.current={signature,key:crypto.randomUUID()};
   lock.current=true;setBusy(true);setNotice(null);trigger.current=document.activeElement as HTMLElement;
   try{const result=kind==="prepare"?await onPrepare(input as TopicPrepareInput,pending.current.key):await onActivate(candidate!.id,input as TopicActivateInput,pending.current.key);
-   if(result.ok){setCandidate(result.data);setStale(false);setNotice(kind==="prepare"?"prepared":"published");pending.current=null;}
+   if(result.ok){setCandidate(result.data);setStale(false);setNotice(kind==="prepare"?"prepared":"published");if(kind==="activate")setCurrent({knowledgeHead:result.data.knowledgePublicationId,taxonomyHead:result.data.id,taxonomyVersionId:result.data.pair.taxonomyVersionId});pending.current=null;}
    else if(result.code==="REAUTH_REQUIRED"){setVerify(true);}else if(result.code==="PUBLICATION_STALE"){setStale(true);setNotice("stale");}else setNotice("failed");
   }catch{setNotice("failed")}finally{lock.current=false;setBusy(false)}
  }

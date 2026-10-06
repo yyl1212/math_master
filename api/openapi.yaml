@@ -22322,6 +22322,1586 @@
           }
         }
       }
+    },
+    "/api/v2/topics": {
+      "get": {
+        "operationId": "listTopicsV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "按字面匹配，最多512个UTF-8字节"
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "parentId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "primary",
+                "auxiliary",
+                "other"
+              ]
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            },
+            "description": "重复及未知参数拒绝"
+          }
+        ]
+      }
+    },
+    "/api/v2/topics/{id}": {
+      "get": {
+        "operationId": "readTopicV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicDetail"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/topics/{id}/knowledge": {
+      "get": {
+        "operationId": "listTopicKnowledgeV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicKnowledgePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "description": "按字面匹配，最多512个UTF-8字节"
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            },
+            "description": "重复及未知参数拒绝"
+          }
+        ]
+      }
+    },
+    "/api/v2/content/topic-assignments/drafts/{id}": {
+      "get": {
+        "operationId": "readDraftTopicsV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "saveDraftTopicsV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicDraftInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/content/topic-assignments/submissions/{id}": {
+      "get": {
+        "operationId": "readSubmissionTopicsV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicDraftView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/admin/publications": {
+      "get": {
+        "operationId": "listTopicReleasesV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicReleasePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            },
+            "description": "重复及未知参数拒绝"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "default": 0
+            },
+            "description": "重复及未知参数拒绝"
+          }
+        ]
+      },
+      "post": {
+        "operationId": "prepareTopicReleaseV2",
+        "responses": {
+          "201": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicReleaseView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicPrepareInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/admin/publications/{id}": {
+      "get": {
+        "operationId": "readTopicReleaseV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicReleaseView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/admin/publications/{id}/activate": {
+      "post": {
+        "operationId": "activateTopicReleaseV2",
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicReleaseView"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "固定错误；不含内部诊断或私有来源",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TopicActivateInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -36899,6 +38479,72 @@
           "knowledgePublicationId",
           "diff",
           "createdAt"
+        ],
+        "additionalProperties": false
+      },
+      "TopicReleasePage": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "$ref": "#/components/schemas/TopicReleaseView"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "pair": {
+            "$ref": "#/components/schemas/TopicPairRef"
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset",
+          "pair"
+        ],
+        "additionalProperties": false
+      },
+      "TopicError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "error"
         ],
         "additionalProperties": false
       }

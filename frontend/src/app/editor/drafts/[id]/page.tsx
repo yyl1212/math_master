@@ -7,6 +7,9 @@ import { readServerContent } from "@/lib/content/server-client";
 import type { DraftPage, DraftView, SubmissionPage, SubmissionView, PublicationPage, PublicationView } from "@/lib/content/types";
 import { contentUUID } from "@/lib/content/schemas";
 import { DraftList } from "@/features/content/draft-list";
+import {TopicDraftEditor} from "@/features/content/topic-workspace";
+import {readServerTopicManagement} from "@/lib/taxonomy/management-server-client";
+import type {DraftTopicView} from "@/lib/taxonomy/types";
 import { DraftEditor } from "@/features/content/draft-editor";
 import { SubmissionList } from "@/features/content/submission-list";
 import { ReviewPanel } from "@/features/content/review-panel";
@@ -21,4 +24,4 @@ export default async function Page({ params }: {
 }) { const { id } = await params; if (!contentUUID.test(id))
     return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<ContentState status={404}/>}</>; const access = await contentPageAccess(["editor", "admin"]); if ("error" in access)
     return <><UiPageTitle messageKey="page.editor.drafts.id"/>{access.error}</>; const draft = await readServerContent<DraftView>({ kind: "readDraft", id }, access.cookie); if (!draft.ok)
-    return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<ContentState status={draft.status} code={draft.code}/>}</>; return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<DraftEditor key={id} initial={draft.data} canEdit={access.user.roles.includes("editor") && draft.data.ownerId === access.user.id}/>}</>; }
+    return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<ContentState status={draft.status} code={draft.code}/>}</>; const topics=await readServerTopicManagement<DraftTopicView>({kind:"readDraft",id},access.cookie);if(topics.ok)return <><UiPageTitle messageKey="page.editor.drafts.id"/><TopicDraftEditor initial={draft.data} topics={topics.data} canEdit={access.user.roles.includes("editor")&&draft.data.ownerId===access.user.id}/></>;if(topics.code!=="TAXONOMY_NOT_CONFIGURED")return <ContentState status={topics.status}/>; return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<DraftEditor key={id} initial={draft.data} canEdit={access.user.roles.includes("editor") && draft.data.ownerId === access.user.id}/>}</>; }
