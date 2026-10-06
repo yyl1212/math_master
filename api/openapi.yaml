@@ -38547,6 +38547,782 @@
           "error"
         ],
         "additionalProperties": false
+      },
+      "StudyState": {
+        "type": "string",
+        "enum": [
+          "unlearned",
+          "learning",
+          "completed",
+          "reviewing"
+        ]
+      },
+      "StudyRecord": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "knowledgeId",
+          "state",
+          "sequence",
+          "firstStartedAt",
+          "firstCompletedAt",
+          "lastCompletedAt",
+          "lastReadAt",
+          "lastReviewedAt",
+          "completedRef",
+          "lastReviewRef",
+          "lastReviewId",
+          "activeReviewId"
+        ],
+        "properties": {
+          "knowledgeId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "state": {
+            "$ref": "#/components/schemas/StudyState"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "firstStartedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "firstCompletedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastCompletedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReadAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReviewedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "completedRef": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TopicKnowledgeRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReviewRef": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TopicKnowledgeRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReviewId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "activeReviewId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "StudyDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "record",
+          "currentKnowledge",
+          "pair",
+          "available",
+          "materialChanged"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "record": {
+            "$ref": "#/components/schemas/StudyRecord"
+          },
+          "currentKnowledge": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TopicKnowledgeSummary"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pair": {
+            "$ref": "#/components/schemas/TopicPairRef"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "materialChanged": {
+            "type": "boolean"
+          }
+        }
+      },
+      "StudyCommandInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "knowledge",
+          "expectedKnowledgeHead",
+          "expectedSequence"
+        ],
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/TopicKnowledgeRef"
+          },
+          "expectedKnowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "StudyReviewInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "knowledge",
+          "expectedKnowledgeHead",
+          "expectedSequence",
+          "reviewId"
+        ],
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/TopicKnowledgeRef"
+          },
+          "expectedKnowledgeHead": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "reviewId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        }
+      },
+      "StudyTopicProgress": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "topicId",
+          "total",
+          "completed",
+          "learning",
+          "reviewing",
+          "added",
+          "removed",
+          "completedRatio"
+        ],
+        "properties": {
+          "topicId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "completed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "learning": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "reviewing": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "added": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "removed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "completedRatio": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "StudyTopicsPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyTopicProgress"
+            },
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "StudyKnowledgePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyDetail"
+            },
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "StudyContentReminder": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "changeId",
+          "knowledgeId",
+          "kind",
+          "recordedAt",
+          "currentRef",
+          "reviewed"
+        ],
+        "properties": {
+          "changeId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledgeId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "updated",
+              "withdrawn"
+            ]
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "currentRef": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TopicKnowledgeRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reviewed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "StudyOverview": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "pair",
+          "mode",
+          "total",
+          "completed",
+          "learning",
+          "reviewing",
+          "unavailable",
+          "unclassified",
+          "materialChanged",
+          "reminders"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "pair": {
+            "$ref": "#/components/schemas/TopicPairRef"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "legacy",
+              "topics"
+            ]
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "completed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "learning": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "reviewing": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "unavailable": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "unclassified": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "materialChanged": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "reminders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyContentReminder"
+            },
+            "maxItems": 1000
+          }
+        }
+      },
+      "StudyHistoryEntry": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "knowledge",
+          "taxonomyVersionId",
+          "kind",
+          "occurredAt",
+          "noteRevision",
+          "reviewId",
+          "sourceKind",
+          "originEventId"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/TopicKnowledgeRef"
+          },
+          "taxonomyVersionId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Native events bind their classification version. Legacy events use null when no contemporaneous classification existed."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "started",
+              "completed",
+              "review-started",
+              "review-finished",
+              "note-saved",
+              "note-deleted"
+            ]
+          },
+          "occurredAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "noteRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reviewId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sourceKind": {
+            "type": "string",
+            "enum": [
+              "native",
+              "legacy"
+            ]
+          },
+          "originEventId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "sourceKind": {
+                  "const": "native"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "taxonomyVersionId": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "originEventId": {
+                  "type": "null"
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "originEventId": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "StudyHistoryPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "items",
+          "limit",
+          "nextCursor"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyHistoryEntry"
+            },
+            "maxItems": 50
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512,
+                "pattern": "^[ -~]*$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "StudyNoteInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expectedRevision",
+          "knowledge",
+          "body"
+        ],
+        "properties": {
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/TopicKnowledgeRef"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 16000,
+            "description": "At most 16000 Unicode scalar values and 65536 UTF-8 bytes; no NUL or invalid Unicode."
+          }
+        }
+      },
+      "StudyNoteDeleteInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "expectedRevision"
+        ],
+        "properties": {
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "StudyNoteView": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "knowledgeId",
+          "revision",
+          "body",
+          "knowledge",
+          "updatedAt"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledgeId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 16000,
+            "description": "At most 16000 Unicode scalar values and 65536 UTF-8 bytes; no NUL or invalid Unicode."
+          },
+          "knowledge": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TopicKnowledgeRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "updatedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "StudyNoteReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "knowledgeId",
+          "revision",
+          "deleted",
+          "updatedAt"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledgeId": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       }
     },
     "securitySchemes": {

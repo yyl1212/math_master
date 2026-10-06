@@ -4876,6 +4876,136 @@ export interface components {
                 requestId: string;
             };
         };
+        /** @enum {string} */
+        StudyState: "unlearned" | "learning" | "completed" | "reviewing";
+        StudyRecord: {
+            knowledgeId: string;
+            state: components["schemas"]["StudyState"];
+            sequence: number;
+            firstStartedAt: string | null;
+            firstCompletedAt: string | null;
+            lastCompletedAt: string | null;
+            lastReadAt: string | null;
+            lastReviewedAt: string | null;
+            completedRef: components["schemas"]["TopicKnowledgeRef"] | null;
+            lastReviewRef: components["schemas"]["TopicKnowledgeRef"] | null;
+            lastReviewId: string | null;
+            activeReviewId: string | null;
+        };
+        StudyDetail: {
+            actorId: string;
+            record: components["schemas"]["StudyRecord"];
+            currentKnowledge: components["schemas"]["TopicKnowledgeSummary"] | null;
+            pair: components["schemas"]["TopicPairRef"];
+            available: boolean;
+            materialChanged: boolean;
+        };
+        StudyCommandInput: {
+            knowledge: components["schemas"]["TopicKnowledgeRef"];
+            expectedKnowledgeHead: string;
+            expectedSequence: number;
+        };
+        StudyReviewInput: {
+            knowledge: components["schemas"]["TopicKnowledgeRef"];
+            expectedKnowledgeHead: string;
+            expectedSequence: number;
+            reviewId: string;
+        };
+        StudyTopicProgress: {
+            topicId: string;
+            total: number;
+            completed: number;
+            learning: number;
+            reviewing: number;
+            added: number;
+            removed: number;
+            completedRatio: number | null;
+        };
+        StudyTopicsPage: {
+            actorId: string;
+            items: components["schemas"]["StudyTopicProgress"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        StudyKnowledgePage: {
+            actorId: string;
+            items: components["schemas"]["StudyDetail"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        StudyContentReminder: {
+            changeId: string;
+            knowledgeId: string;
+            /** @enum {string} */
+            kind: "updated" | "withdrawn";
+            /** Format: date-time */
+            recordedAt: string;
+            currentRef: components["schemas"]["TopicKnowledgeRef"] | null;
+            reviewed: boolean;
+        };
+        StudyOverview: {
+            actorId: string;
+            pair: components["schemas"]["TopicPairRef"];
+            /** @enum {string} */
+            mode: "legacy" | "topics";
+            total: number;
+            completed: number;
+            learning: number;
+            reviewing: number;
+            unavailable: number;
+            unclassified: number;
+            materialChanged: number;
+            reminders: components["schemas"]["StudyContentReminder"][];
+        };
+        StudyHistoryEntry: {
+            id: string;
+            knowledge: components["schemas"]["TopicKnowledgeRef"];
+            /** @description Native events bind their classification version. Legacy events use null when no contemporaneous classification existed. */
+            taxonomyVersionId: string | null;
+            /** @enum {string} */
+            kind: "started" | "completed" | "review-started" | "review-finished" | "note-saved" | "note-deleted";
+            /** Format: date-time */
+            occurredAt: string;
+            noteRevision: number | null;
+            reviewId: string | null;
+            /** @enum {string} */
+            sourceKind: "native" | "legacy";
+            originEventId: string | null;
+        } & unknown;
+        StudyHistoryPage: {
+            actorId: string;
+            items: components["schemas"]["StudyHistoryEntry"][];
+            limit: number;
+            nextCursor: string | null;
+        };
+        StudyNoteInput: {
+            expectedRevision: number;
+            knowledge: components["schemas"]["TopicKnowledgeRef"];
+            /** @description At most 16000 Unicode scalar values and 65536 UTF-8 bytes; no NUL or invalid Unicode. */
+            body: string;
+        };
+        StudyNoteDeleteInput: {
+            expectedRevision: number;
+        };
+        StudyNoteView: {
+            actorId: string;
+            knowledgeId: string;
+            revision: number;
+            /** @description At most 16000 Unicode scalar values and 65536 UTF-8 bytes; no NUL or invalid Unicode. */
+            body: string;
+            knowledge: components["schemas"]["TopicKnowledgeRef"] | null;
+            updatedAt: string | null;
+        };
+        StudyNoteReceipt: {
+            actorId: string;
+            knowledgeId: string;
+            revision: number;
+            deleted: boolean;
+            /** Format: date-time */
+            updatedAt: string;
+        };
     };
     responses: {
         /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */

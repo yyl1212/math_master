@@ -39,7 +39,7 @@
 
 study.Access{TokenHash auth.Digest,CSRF auth.Secret,IdempotencyKey,RequestID string} 独立定义；不依赖 question.Access。study.KnowledgeRef 复用 taxonomy.KnowledgeRef。StudyRecord={knowledgeId,state,sequence,firstStartedAt,firstCompletedAt,lastCompletedAt,lastReadAt,lastReviewedAt,completedRef,lastReviewRef,lastReviewId,activeReviewId}，时间字段在Go中为*time.Time，在JSON中为ISO8601字符串或null，由数据库产生。StudyDetail={actorId,record,currentKnowledge:taxonomy.KnowledgeSummary或null,pair,available,materialChanged}，不在列表携带完整知识正文。ListQuery={TopicID,State,Q string,ReviewOnly bool,Limit,Offset int}；Page[T]={ActorID string,Items []T,Total,Limit,Offset int}。ReviewOnly=true只查询本人已有开始或完成记录，Q按标题及已有中文对照作字面匹配。CommandInput={knowledge:KnowledgeRef,expectedKnowledgeHead:string,expectedSequence:int64}；对首次未学习的 expectedSequence=0。ReviewInput 在 CommandInput 上增加 reviewId；客户端不得生成 actorId 作为授权。
 
-### 任务 B1 个人学习合同与状态机
+### Task 1 B1 个人学习合同与状态机
 
 **Files（文件）：**
 - Create：backend/internal/study/model.go
@@ -67,7 +67,7 @@ if got != study.Completed { t.Fatal("ordinary reread reset completion", got) }
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；Go/TS 对同一边界样例一致；api:generate 与 typecheck 通过；原学习DTO保持历史读取合同。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 定义简单学习状态合同'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 B2 学习结构、身份与事务
+### Task 2 B2 学习结构、身份与事务
 
 **Files（文件）：**
 - Create：db/migrations/00011_topic_study.sql
@@ -92,7 +92,7 @@ if started.State != study.Learning { t.Fatal("new study depends on question bank
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；空Up/Down仅随机库、非空拒绝；关闭题库能力不影响新study；原账户与匿名正文回归通过。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 建立独立个人学习事务'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 B3 开始完成与一轮复习
+### Task 3 B3 开始完成与一轮复习
 
 **Files（文件）：**
 - Create：backend/internal/store/study_actions.go
@@ -114,7 +114,7 @@ if got.FirstCompletedAt == nil || !got.FirstCompletedAt.Equal(first) || eventCou
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；实际 PostgreSQL 竞争和失败回滚通过；触发事件数符合断言，不伪造旧资格；单次请求超时可同键确认而不重复完成。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 记录知识学习与复习动作'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 B4 主题进度、时间线和内容变化投影
+### Task 4 B4 主题进度、时间线和内容变化投影
 
 **Files（文件）：**
 - Create：backend/internal/store/study_read.go
@@ -140,7 +140,7 @@ if userEventCountBefore != userEventCountAfter { t.Fatal("GET appended events") 
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；分页所有权、UTC排序和数据库时间通过；待归类、不可用、升级仍可查看私人摘要；数据量500用户/1000知识时单页查询<=8秒、响应<=2MiB。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 汇总主题进度与知识时间线'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 B5 私人笔记保存冲突与删除
+### Task 5 B5 私人笔记保存冲突与删除
 
 **Files（文件）：**
 - Create：backend/internal/store/study_notes.go
@@ -163,7 +163,7 @@ if storedBodyAfterDelete != "" { t.Fatal("deleted text retained") }
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；存储、幂等表、事件和诊断检查不泄露正文；角色变更/强制改密阻止写；并发ABA测试通过。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 保存私人知识笔记'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 B6 私有学习 API、账户边界与阅读控件
+### Task 6 B6 私有学习 API、账户边界与阅读控件
 
 **Files（文件）：**
 - Create：backend/internal/httpapi/study_routes.go
@@ -200,7 +200,7 @@ expect(screen.queryByDisplayValue(oldActorNote)).not.toBeInTheDocument();
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；npm run api:generate、typecheck及两组件测试通过；使用mock仅验证请求边界，实际身份和提交行为在B8真实浏览器验证；400/401/403/404/409/428/429/503词条按模块校验。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 接入知识学习与笔记界面'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 B7 我的学习、复习检索、历史与登录
+### Task 7 B7 我的学习、复习检索、历史与登录
 
 **Files（文件）：**
 - Create：frontend/src/features/study/overview.tsx
@@ -236,7 +236,7 @@ expect(await page.getByRole('button', {name: 'Start review'}).count()).toBe(0);
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；运行 topic-study-navigation.spec.ts、原 auth.spec.ts 和 auth-security.spec.ts；各批独立480秒，密码流程和语言未保存输入保持。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 提供主题学习中心与复习历史'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 B8 个人学习真实回归与门禁
+### Task 8 B8 个人学习真实回归与门禁
 
 **Files（文件）：**
 - Create：backend/internal/e2etest/study_fixture.go
