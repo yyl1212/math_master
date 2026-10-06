@@ -15,7 +15,7 @@ it("shares exact scalar and UTF8 note limits and returns receipts without text",
 });
 
 it("keeps unknown legacy classification explicit without accepting missing native evidence",()=>{
- const event={id:actor,knowledge:ref,taxonomyVersionId:null,kind:"completed",occurredAt:"2026-10-06T12:00:00Z",noteRevision:null,reviewId:null,sourceKind:"legacy",originEventId:actor};
+ const event={id:actor,knowledge:ref,taxonomyVersionId:null,taxonomyHead:null,kind:"completed",occurredAt:"2026-10-06T12:00:00Z",noteRevision:null,reviewId:null,sourceKind:"legacy",originEventId:actor};
  expect(historyEntrySchema.safeParse(event).success).toBe(true);
  expect(historyEntrySchema.safeParse({...event,sourceKind:"native",originEventId:null}).success).toBe(false);
 });

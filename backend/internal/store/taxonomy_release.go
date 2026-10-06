@@ -486,6 +486,10 @@ func (s *Store) ActivateTopicRelease(ctx context.Context, a publication.Access, 
 		if e = topicReleaseEvidenceTx(ctx, tx, d, true); e != nil {
 			return e
 		}
+		beforeKnowledge, e := topicKnowledgeSetTx(ctx, tx, pair.KnowledgeHead)
+		if e != nil {
+			return e
+		}
 		if !sameWorkflowHead(d.View.KnowledgePublicationID, pair.KnowledgeHead) {
 			if d.View.KnowledgePublicationID == nil {
 				return taxonomy.ErrInvalid
@@ -496,6 +500,15 @@ func (s *Store) ActivateTopicRelease(ctx context.Context, a publication.Access, 
 		}
 		if e = activateTopicHeadTx(ctx, tx, id); e != nil {
 			return e
+		}
+		afterKnowledge, e := topicKnowledgeSetTx(ctx, tx, d.View.KnowledgePublicationID)
+		if e != nil {
+			return e
+		}
+		if d.View.KnowledgePublicationID != nil {
+			if e = appendStudyContentChangesTx(ctx, tx, beforeKnowledge, afterKnowledge, *d.View.KnowledgePublicationID); e != nil {
+				return e
+			}
 		}
 		out = d.View
 		out.Status = "published"

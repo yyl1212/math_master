@@ -4973,6 +4973,7 @@ export interface components {
             /** @enum {string} */
             sourceKind: "native" | "legacy";
             originEventId: string | null;
+            taxonomyHead: string | null;
         } & unknown;
         StudyHistoryPage: {
             actorId: string;

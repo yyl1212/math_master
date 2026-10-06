@@ -126,6 +126,7 @@ type HistoryEntry struct {
 	ID                string       `json:"id"`
 	Knowledge         KnowledgeRef `json:"knowledge"`
 	TaxonomyVersionID *string      `json:"taxonomyVersionId"`
+	TaxonomyHead      *string      `json:"taxonomyHead"`
 	Kind              string       `json:"kind"`
 	OccurredAt        time.Time    `json:"occurredAt"`
 	NoteRevision      *int64       `json:"noteRevision"`

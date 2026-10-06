@@ -122,7 +122,7 @@ func (s *Store) studyCommand(ctx context.Context, a study.Access, id string, act
 			}
 		}
 		if changed {
-			if e = studyEventTx(ctx, tx, u.ID, a, action, current.KnowledgeRef, scope.pair.TaxonomyVersionID, event, nil, eventReviewID, now); e != nil {
+			if e = studyEventTx(ctx, tx, u.ID, a, action, current.KnowledgeRef, scope.pair.TaxonomyVersionID, *scope.pair.TaxonomyHead, event, nil, eventReviewID, now); e != nil {
 				return e
 			}
 		}

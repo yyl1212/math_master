@@ -294,7 +294,7 @@ func studyDetail(actor string, r study.StudyRecord, scope studyScope) study.Stud
 	}
 	return out
 }
-func studyEventTx(ctx context.Context, tx *sql.Tx, actor string, a study.Access, action study.Action, k study.KnowledgeRef, taxVersion, kind string, noteRevision *int64, reviewID *string, now time.Time) error {
-	_, e := tx.ExecContext(ctx, `INSERT INTO study_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,taxonomy_version_id,kind,recorded_at,note_revision,review_id,source_kind,action,idempotency_key) VALUES(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,'native',$10,$11)`, actor, k.ID, k.Version, k.SHA256, taxVersion, kind, now, noteRevision, reviewID, action, a.IdempotencyKey)
+func studyEventTx(ctx context.Context, tx *sql.Tx, actor string, a study.Access, action study.Action, k study.KnowledgeRef, taxVersion, taxHead, kind string, noteRevision *int64, reviewID *string, now time.Time) error {
+	_, e := tx.ExecContext(ctx, `INSERT INTO study_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,taxonomy_version_id,taxonomy_head,kind,recorded_at,note_revision,review_id,source_kind,action,idempotency_key) VALUES(gen_random_uuid(),$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,'native',$11,$12)`, actor, k.ID, k.Version, k.SHA256, taxVersion, taxHead, kind, now, noteRevision, reviewID, action, a.IdempotencyKey)
 	return e
 }

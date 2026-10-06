@@ -106,6 +106,10 @@ func (s *Store) WithdrawVersion(ctx context.Context, a publication.Access, input
 		if !sameWorkflowHead(head, input.ExpectedHead) {
 			return publication.ErrPublicationStale
 		}
+		beforeKnowledge, err := topicKnowledgeSetTx(ctx, tx, head)
+		if err != nil {
+			return err
+		}
 		sha, err := workflowWithdrawalTarget(ctx, tx, input.Target)
 		if err != nil {
 			return err
@@ -159,6 +163,13 @@ func (s *Store) WithdrawVersion(ctx context.Context, a publication.Access, input
 			}
 		}
 		if err = applyTopicWithdrawalTx(ctx, tx, view.ID, removed); err != nil {
+			return err
+		}
+		afterKnowledge, err := topicKnowledgeSetTx(ctx, tx, &view.ID)
+		if err != nil {
+			return err
+		}
+		if err = appendStudyContentChangesTx(ctx, tx, beforeKnowledge, afterKnowledge, view.ID); err != nil {
 			return err
 		}
 		out = publication.WithdrawalResult{EventID: eventID, PreviousHead: head, Publication: view}
