@@ -52,6 +52,9 @@ func (s *Store) DecideReview(ctx context.Context, a publication.Access, id strin
 		if err != nil {
 			return err
 		}
+		if err = bindTopicReviewTx(ctx, tx, id, reviewID); err != nil {
+			return err
+		}
 		status := "approved"
 		if input.Decision == "return" {
 			status = "returned"

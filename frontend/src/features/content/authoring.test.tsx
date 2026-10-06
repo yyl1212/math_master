@@ -78,3 +78,15 @@ it("opens the saved reader directly from the workspace list", () => {
     expect(screen.queryByRole("link", { name: "Read saved draft" })).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Read saved draft" })).toHaveAttribute("href", "/editor/drafts/11111111-1111-4111-8111-111111111111/preview");
 });
+it("requires the current saved revision topic assignments before submitting",()=>{
+ const view=draftView();render(<DraftEditor initial={view} topics={{draftId:view.id,draftRevision:1,assignmentRevision:0,taxonomyVersionId:"a".repeat(64),members:[],digest:"d".repeat(64),readyToSubmit:false}} onSaveTopics={async()=>{throw new Error("unavailable")}}/>);
+ expect(screen.getByRole("button",{name:"Submit for review"})).toBeDisabled();
+ expect(screen.getByRole("button",{name:"Save topic assignment"})).toBeVisible();
+});
+it("blocks submission while a topic selection has unsaved changes",()=>{
+ const view=draftView(),member={knowledge:{id:view.package.knowledge[0].id,version:1},topicIds:["msc-00a00"],sourceRefs:[],sourceBatchSHA:"b".repeat(64)};
+ render(<DraftEditor initial={view} topics={{draftId:view.id,draftRevision:1,assignmentRevision:1,taxonomyVersionId:"a".repeat(64),members:[member],digest:"d".repeat(64),readyToSubmit:true}} onSaveTopics={async()=>{throw new Error("unavailable")}}/>);
+ expect(screen.getByRole("button",{name:"Submit for review"})).toBeEnabled();
+ fireEvent.change(screen.getByLabelText("Specific topic IDs"),{target:{value:"msc-00a01"}});
+ expect(screen.getByRole("button",{name:"Submit for review"})).toBeDisabled();
+});

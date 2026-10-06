@@ -1,4 +1,17 @@
 export const enMessages = {
+  "topic.assignment.title": {"text": "Knowledge topic assignment", "params": []},
+  "topic.assignment.ids": {"text": "Specific topic IDs", "params": []},
+  "topic.assignment.version": {"text": "Taxonomy version SHA", "params": []},
+  "topic.assignment.batch": {"text": "Source batch SHA", "params": []},
+  "topic.assignment.sources": {"text": "Exact source references (JSON)", "params": []},
+  "topic.assignment.save": {"text": "Save topic assignment", "params": []},
+  "topic.assignment.saved": {"text": "Topic assignment saved.", "params": []},
+  "topic.assignment.failed": {"text": "Topic assignment was not saved. Keep your selections and try again.", "params": []},
+  "topic.assignment.invalid": {"text": "Enter valid specific topics and exact captured source references.", "params": []},
+  "topic.assignment.pending": {"text": "Topic assignment is incomplete; verify it before submitting.", "params": []},
+  "topic.assignment.frozen": {"text": "Frozen topic assignment", "params": []},
+  "topic.assignment.check": {"text": "Relationships review also checks the frozen topic assignments below.", "params": []},
+
   "nav.knowledgeMap": {
     "text": "Knowledge Map",
     "params": []

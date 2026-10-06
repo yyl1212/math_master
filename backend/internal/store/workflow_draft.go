@@ -324,6 +324,9 @@ func (s *Store) SaveDraft(ctx context.Context, a publication.Access, id string, 
 		if err = s.writeWorkflowAssets(ctx, tx, id, input.Package, bytes); err != nil {
 			return err
 		}
+		if err = refreshDraftTopicsTx(ctx, tx, prior, out); err != nil {
+			return err
+		}
 		if err = workflowEvent(ctx, tx, u, a, publication.SaveDraftAction, "draft", id, prior.Gate.Digest, out.Gate.Digest, fmt.Sprintf("editing:%d", prior.Revision), fmt.Sprintf("editing:%d", out.Revision), "", now); err != nil {
 			return err
 		}

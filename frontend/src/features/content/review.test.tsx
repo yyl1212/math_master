@@ -43,3 +43,8 @@ it("administrator without reviewer cannot approve their own content", () => {
  render(<ReviewPanel submission={s} user={{...reviewer,roles:["learner","admin"]}}/>);
  expect(screen.queryByRole("button",{name:"Approve submission"})).not.toBeInTheDocument();
 });
+it("shows frozen classification separately and includes it in relationships review",()=>{
+ const sub=submissionView();render(<ReviewPanel submission={sub} user={reviewer} topics={{draftId:sub.workspaceId,draftRevision:1,assignmentRevision:1,taxonomyVersionId:"a".repeat(64),members:[],digest:"d".repeat(64),readyToSubmit:true}}/>);
+ expect(screen.queryByRole("heading",{name:"Frozen topic assignment"})).toBeVisible();
+ expect(screen.getByText("Relationships review also checks the frozen topic assignments below.")).toBeVisible();
+});

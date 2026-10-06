@@ -1,5 +1,18 @@
 import type {MessageKey} from "../types";
 export const zhMessages = {
+  "topic.assignment.title": "知识点主题归属",
+  "topic.assignment.ids": "具体主题编号",
+  "topic.assignment.version": "分类版本摘要",
+  "topic.assignment.batch": "来源批次摘要",
+  "topic.assignment.sources": "准确来源记录（JSON）",
+  "topic.assignment.save": "保存主题归属",
+  "topic.assignment.saved": "主题归属已保存。",
+  "topic.assignment.failed": "主题归属未保存，请保留选择后重试。",
+  "topic.assignment.invalid": "请填写有效具体主题及已捕获的准确来源记录。",
+  "topic.assignment.pending": "主题归属尚未完成，请核对后再送审。",
+  "topic.assignment.frozen": "冻结主题归属",
+  "topic.assignment.check": "关联关系审核同时核对下方冻结的主题归属。",
+
   "nav.knowledgeMap": "知识地图",
   "common.itemNumber": "第 {number} 项",
   "common.namedItem": "项目：{name}",
