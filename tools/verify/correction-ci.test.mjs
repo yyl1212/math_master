@@ -1,3 +1,4 @@
+import {languageBatches} from "./ui-language-ci.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
@@ -66,7 +67,7 @@ function validate(b,f,p) {
  }
  assert.deepEqual([...f.matchAll(/^\s+timeout-minutes:\s*(\d+)/gm)].map(m=>Number(m[1])),[30],'frontend job deadline');
  const browser=commands(f).filter(c=>c.includes('e2e')).map(c=>{const child=wrapped(c);assert.deepEqual(child.slice(0,7),['env','-u','NO_COLOR','npm','run','e2e','--'],'executable browser prefix');const files=child.slice(7);assert(files.every(v=>/^[a-z-]+\.spec\.ts$/.test(v)),'browser selection override');assert(!c.includes('--timeout-ms'),'wrapper deadline override');return files});
- assert.deepEqual(browser.slice(0,20),batches,'all 20 original-prefix browser batches');assert.deepEqual(browser.slice(20),[['content-acceptance-reading.spec.ts'],['content-acceptance-learning.spec.ts']],'only two approved new browser batches');
+ assert.deepEqual(browser.slice(0,20),batches,'all 20 original-prefix browser batches');assert.deepEqual(browser.slice(20),[['content-acceptance-reading.spec.ts'],['content-acceptance-learning.spec.ts'],...languageBatches],'two content and seven language batches');
  for(const step of f.split(/^      - /m))if(commands('      - '+step).some(c=>c.includes('e2e')))assert.doesNotMatch(step,/^\s+if:/m,'conditional required browser verification');
  for(const[key,value]of [['workers',1],['retries',0],['globalTimeout',480000]])assert.equal(Number(p.match(new RegExp('\\b'+key+'\\s*:\\s*(\\d+)'))?.[1]),value,'Playwright '+key);
  const old=goTests(jobs.get('verify')),fresh=goTests(jobs.get('correction_verify'));goTests(f);

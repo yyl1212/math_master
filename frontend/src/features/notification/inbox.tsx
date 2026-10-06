@@ -1,4 +1,8 @@
 "use client";
+import {UiEnum} from "@/lib/i18n/enums";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {useUiI18n} from "@/lib/i18n/provider";
 import Link from 'next/link';
 import { useContext, useState, useEffect } from 'react';
 import { notificationClient } from '@/lib/notification/client';
@@ -13,6 +17,8 @@ export function Inbox({ initial, count }: {
     initial: Page<Metadata>;
     count: number;
 }) {
+ const {t}=useUiI18n();
+
     const account = useContext(CorrectionAccountContext), read = useCorrectionRead(), [page, setPage] = useState(initial), [unread, setUnread] = useState(count), [loading, setLoading] = useState(false), [error, setError] = useState<CorrectionRequestError | null>(null);
     useEffect(() => { setPage(initial); setUnread(count); }, [initial, count]);
     const command = useNotificationCommand(account?.actorId ?? '', async (receipt, signal) => {
@@ -51,5 +57,5 @@ export function Inbox({ initial, count }: {
             setLoading(false);
         }
     }
-    return <main className={styles.workbench}><h1>Notifications</h1><p aria-live="polite">{unread} unread notifications</p><button type="button" className="button secondary" disabled={loading || account?.checking} onClick={() => void reload()}>Reload notifications</button>{error && <CorrectionState error={error} onRetry={() => void reload()}/>}<ul className={styles.list}>{page.items.map(note => <li key={note.id}><h2>{text[note.type]}</h2><p>{note.readAt ? 'Read' : 'Unread'} · <time dateTime={note.createdAt}>{new Date(note.createdAt).toLocaleString('en')}</time></p>{note.resultId && <Link prefetch={false} href={'/corrections/' + note.resultId}>View correction</Link>}{!note.readAt && <button type="button" className="button secondary" disabled={command.busy || !!command.pending} onClick={() => void command.run(note.id)}>Mark as read</button>}</li>)}</ul>{page.items.length === 0 && <p>You have no notifications yet.</p>}{page.nextCursor && <button type="button" disabled={loading || account?.checking} onClick={() => void reload(page.nextCursor!)}>Next notifications</button>}<CorrectionCommandStatus command={command}/></main>;
+    return <main className={styles.workbench}><h1><UiText notice={uiMessage("page.notifications",{})}/></h1><p aria-live="polite"><UiText notice={uiMessage("inbox.value.unread.notifications.39c4b8",{v0:uiValue(unread)})}/></p><button type="button" className="button secondary" disabled={loading || account?.checking} onClick={() => void reload()}><UiText notice={uiMessage("inbox.reload.notifications.7aeb54",{})}/></button>{error && <CorrectionState error={error} onRetry={() => void reload()}/>}<ul className={styles.list}>{page.items.map(note => <li key={note.id}><h2><UiEnum group="notification.type" value={note.type}/></h2><p>{note.readAt ? t("inbox.read.9b9a8d",{}) : t("inbox.unread.1b9f38",{})} · <time dateTime={note.createdAt}>{new Date(note.createdAt).toLocaleString('en')}</time></p>{note.resultId && <Link prefetch={false} href={'/corrections/' + note.resultId}><UiText notice={uiMessage("evidence-link.view.correction.13dc93",{})}/></Link>}{!note.readAt && <button type="button" className="button secondary" disabled={command.busy || !!command.pending} onClick={() => void command.run(note.id)}><UiText notice={uiMessage("inbox.mark.as.read.50c8b8",{})}/></button>}</li>)}</ul>{page.items.length === 0 && <p><UiText notice={uiMessage("inbox.you.have.no.notifications.yet.9654ca",{})}/></p>}{page.nextCursor && <button type="button" disabled={loading || account?.checking} onClick={() => void reload(page.nextCursor!)}><UiText notice={uiMessage("inbox.next.notifications.8c2b27",{})}/></button>}<CorrectionCommandStatus command={command}/></main>;
 }

@@ -465,3 +465,5 @@ main {
     scroll-behavior: auto !important;
   }
 }
+
+.language-switch{display:flex;gap:.25rem;align-items:center;flex-wrap:wrap;white-space:nowrap}.language-switch button{font:inherit;font-size:.8rem;background:transparent;border:1px solid var(--line,#d4d9df);border-radius:.4rem;padding:.3rem .45rem;color:inherit;cursor:pointer}.language-switch button[aria-pressed="true"]{background:var(--ink,#193a32);color:#fff}.language-switch button:focus-visible{outline:2px solid currentColor;outline-offset:2px}

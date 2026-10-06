@@ -1,3 +1,7 @@
+"use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {useUiI18n} from "@/lib/i18n/provider";
 import Markdown from "react-markdown";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -31,7 +35,7 @@ type AstNode = {
   lang?: string;
   children?: AstNode[];
 };
-function limitMath() {
+function limitMath(label:string) {
   return (tree: AstNode) => {
     const walk = (parent: AstNode) => {
       parent.children?.forEach((node, index) => {
@@ -47,7 +51,7 @@ function limitMath() {
             );
           if (value.length > 4096 || bad) {
             const text =
-              "Formula could not be displayed." +
+              label +
               (value.length <= 4096 ? " " + value : "");
             parent.children![index] =
               node.type === "inlineMath"
@@ -74,12 +78,13 @@ export function SafeMarkdown({
   assets: AssetView[];
   assetScope?: AssetScope;
 }) {
+  const {t,locale}=useUiI18n();
   const available = new Map(assets.map((a) => [a.id, a]));
   return (
-    <div className={styles.markdown}>
+    <div className={styles.markdown} lang="en">
       <Markdown
         skipHtml
-        remarkPlugins={[remarkMath, limitMath]}
+        remarkPlugins={[remarkMath, ()=>limitMath(t("safe-markdown.formula.could.not.be.displayed.1952de",{}))]}
         rehypePlugins={[
           [
             rehypeKatex,
@@ -107,9 +112,7 @@ export function SafeMarkdown({
             return asset ? (
               <AssetImage asset={asset} alt={alt ?? ""} assetScope={assetScope} />
             ) : (
-              <span className={styles.figureError}>
-                Illustration is not available.
-              </span>
+              <span className={styles.figureError} lang={locale}><UiText notice={uiMessage("safe-markdown.illustration.is.not.available.ef0518",{})}/></span>
             );
           },
           a: ({ href, children }) =>
@@ -127,8 +130,7 @@ export function SafeMarkdown({
             ),
           span: ({ className, children, ...props }) =>
             className?.split(" ").includes("katex-error") ? (
-              <span className={styles.formulaError}>
-                Formula could not be displayed. <code>{children}</code>
+              <span className={styles.formulaError} lang={locale}><UiText notice={uiMessage("safe-markdown.formula.could.not.be.displayed.1952de",{})}/><code>{children}</code>
               </span>
             ) : (
               <span {...props} className={className}>

@@ -1,3 +1,7 @@
+"use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {useUiI18n} from "@/lib/i18n/provider";
 import Link from "next/link";
 import Form from "next/form";
 import type { ApiResult, DomainList } from "@/lib/api/types";
@@ -14,6 +18,8 @@ export function KnowledgeMap({
   q: string;
   status: CatalogueStatus;personal?:React.ReactNode;
 }) {
+ const {t}=useUiI18n();
+
   const domains = result.ok
     ? result.data.items
         .filter((d) => status === "all" || d.contentStatus === status)
@@ -22,9 +28,9 @@ export function KnowledgeMap({
   return (
     <>
       <div className="page-heading">
-        <p className="eyebrow">A CONNECTED WORLD OF MATHEMATICS</p>
-        <h1>Knowledge Map</h1>
-        <p>Choose a domain. Explore its ideas, then follow a learning path.</p>
+        <p className="eyebrow"><UiText notice={uiMessage("knowledge-map.a.connected.world.of.mathematics.4cd45c",{})}/></p>
+        <h1><UiText notice={uiMessage("nav.knowledgeMap",{})}/></h1>
+        <p><UiText notice={uiMessage("knowledge-map.choose.a.domain.explore.its.ideas.then.follow.a.learning.path.529a69",{})}/></p>
       </div>
       {personal}
       <Form
@@ -35,7 +41,7 @@ export function KnowledgeMap({
         className={styles.toolbar}
       >
         <div className={styles.search}>
-          <label htmlFor="domain-search">Search learning domains</label>
+          <label htmlFor="domain-search"><UiText notice={uiMessage("knowledge-map.search.learning.domains.13c880",{})}/></label>
           <div className={styles.searchInput}>
             <span aria-hidden="true">⌕</span>
             <input
@@ -43,22 +49,20 @@ export function KnowledgeMap({
               type="search"
               name="q"
               defaultValue={q}
-              placeholder="Search English or Chinese topics"
+              placeholder={t("knowledge-map.search.english.or.chinese.topics.c67f21",{})}
               maxLength={512}
             />
           </div>
         </div>
         <div className={styles.filter}>
-          <label htmlFor="domain-status">Content status</label>
+          <label htmlFor="domain-status"><UiText notice={uiMessage("knowledge-map.content.status.5efa57",{})}/></label>
           <select id="domain-status" name="status" defaultValue={status}>
-            <option value="all">All domains</option>
-            <option value="planned">In development</option>
-            <option value="published">Published</option>
+            <option value="all"><UiText notice={uiMessage("knowledge-map.all.domains.0f97da",{})}/></option>
+            <option value="planned"><UiText notice={uiMessage("knowledge-map.in.development.5259ae",{})}/></option>
+            <option value="published"><UiText notice={uiMessage("knowledge-map.published.2ef42e",{})}/></option>
           </select>
         </div>
-        <button className="button" type="submit">
-          Search
-        </button>
+        <button className="button" type="submit"><UiText notice={uiMessage("knowledge-map.search.49c266",{})}/></button>
       </Form>
       {!result.ok ? (
         <ContentState
@@ -72,9 +76,9 @@ export function KnowledgeMap({
         <>
           <div className={styles.results}>
             <span>
-              {domains.length} {domains.length === 1 ? "domain" : "domains"}
+              <UiText notice={uiMessage(domains.length===1?"public.domainOne":"public.domainMany",{count:domains.length})}/>
             </span>
-            <span>Groups for learning, with room for connections.</span>
+            <span><UiText notice={uiMessage("knowledge-map.groups.for.learning.with.room.for.connections.8ec81a",{})}/></span>
           </div>
           <div className="domain-grid">
             {domains.map((d) => (
@@ -102,10 +106,7 @@ export function KnowledgeMap({
                   ))}
                 </ul>
                 <div className="card-bottom">
-                  <span>
-                    {d.publishedKnowledgeCount} published knowledge{" "}
-                    {d.publishedKnowledgeCount === 1 ? "point" : "points"}
-                  </span>
+                  <span><UiText notice={uiMessage(d.publishedKnowledgeCount===1?"public.publishedOne":"public.publishedMany",{count:d.publishedKnowledgeCount})}/></span>
                   <span aria-hidden="true">↗</span>
                 </div>
               </article>
@@ -113,10 +114,7 @@ export function KnowledgeMap({
           </div>
         </>
       )}
-      <p className={styles.mapNote}>
-        These domains are practical learning groups. Connections across domains
-        are part of the journey.
-      </p>
+      <p className={styles.mapNote}><UiText notice={uiMessage("knowledge-map.these.domains.are.practical.learning.groups.connections.across.do.a8e178",{})}/></p>
     </>
   );
 }

@@ -1,4 +1,10 @@
 "use client";
+import {uiError} from "@/lib/i18n/errors";
+import {LanguageSwitch} from "@/components/language-switch";
+import type {UiNotice} from "@/lib/i18n/types";
+
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
 import { useState, useRef, useEffect } from "react";
 import { authRequest } from "@/lib/auth/client";
 import { createPendingCommand, retryPendingCommand, type PendingCommand } from "./pending-command";
@@ -8,7 +14,7 @@ import type { ContentRoute, ContentResult } from "@/lib/content/types";
 import styles from "@/styles/content.module.css";
 export function useContentCommand() {
     const busyRef = useRef(false), pending = useRef<PendingCommand | null>(null), success = useRef<((v: unknown) => void | Promise<void>) | null>(null), trigger = useRef<HTMLElement | null>(null);
-    const [busy, setBusy] = useState(false), [error, setError] = useState<string | null>(null), [message, setMessage] = useState<string | null>(null), [retry, setRetry] = useState(false), [verify, setVerify] = useState(false);
+    const [busy, setBusy] = useState(false), [error, setError] = useState<UiNotice | null>(null), [message, setMessage] = useState<UiNotice | null>(null), [retry, setRetry] = useState(false), [verify, setVerify] = useState(false);
     const [failure, setFailure] = useState<Extract<ContentResult<never>, {
         ok: false;
     }> | null>(null);
@@ -30,7 +36,7 @@ export function useContentCommand() {
             }
             else {
                 setFailure(result);
-                setError(result.message);
+                setError(uiError("content",result));
                 setRetry(result.status === 503 || result.status === 429);
                 if (result.code === "REAUTHENTICATION_REQUIRED") {
                     setVerify(true);
@@ -44,13 +50,13 @@ export function useContentCommand() {
     }
     async function run(route: ContentRoute, input: unknown, onSuccess: (v: unknown) => void | Promise<void>) { if (busyRef.current)
         return; const error = contentInputError(route.kind, input); if (error) {
-        setError(contentPolicies[error].message);
+        setError(uiError("content",{code:error}));
         return;
     } const command = createPendingCommand(route, input); pending.current = command; success.current = onSuccess; await execute(command); }
     function close() { setVerify(false); setError(null); setTimeout(() => trigger.current?.focus(), 0); }
-    const controls = <><FormMessage message={error} error/><FormMessage message={message}/>{retry && <div className={styles.actions}><p>Retry sends the original input and request key.</p><button className="button secondary" disabled={busy} onClick={() => { if (pending.current)
-        void execute(pending.current); }}>Retry previous request</button><button className="button secondary" disabled={busy} onClick={() => { pending.current = null; setRetry(false); setError(null); }}>Discard pending request</button></div>}{verify && <PasswordDialog close={close} verified={() => { close(); setMessage("Password verified. Submit your change again."); }}/>}</>;
-    return { busy, run, controls, message: setMessage, error: setError, failure, clearPending() { if (!busyRef.current) {
+    const controls = <><FormMessage notice={error} error/><FormMessage notice={message}/>{retry && <div className={styles.actions}><p><UiText notice={uiMessage("command-controls.retry.sends.the.original.input.and.request.key.18c664",{})}/></p><button className="button secondary" disabled={busy} onClick={() => { if (pending.current)
+        void execute(pending.current); }}><UiText notice={uiMessage("command-controls.retry.previous.request.34b089",{})}/></button><button className="button secondary" disabled={busy} onClick={() => { pending.current = null; setRetry(false); setError(null); }}><UiText notice={uiMessage("command-controls.discard.pending.request.b43e94",{})}/></button></div>}{verify && <PasswordDialog close={close} verified={() => { close(); setMessage(uiMessage("auth.verified",{})); }}/>}</>;
+    return { busy, run, controls, message: (v:UiNotice|string|null)=>setMessage(typeof v==="string"?{kind:"literal",text:v}:v), error: (v:UiNotice|string|null)=>setError(typeof v==="string"?{kind:"literal",text:v}:v), failure, clearPending() { if (!busyRef.current) {
             pending.current = null;
             setRetry(false);
         } } };
@@ -59,7 +65,7 @@ function PasswordDialog({ close, verified }: {
     close: () => void;
     verified: () => void;
 }) {
-    const [password, setPassword] = useState(""), [busy, setBusy] = useState(false), [error, setError] = useState<string | null>(null);
+    const [password, setPassword] = useState(""), [busy, setBusy] = useState(false), [error, setError] = useState<UiNotice | null>(null);
     const lock = useRef(false), input = useRef<HTMLInputElement>(null);
     useEffect(() => { input.current?.focus(); return () => { }; }, []);
     function cancel() { if (lock.current)
@@ -76,18 +82,18 @@ function PasswordDialog({ close, verified }: {
             e.preventDefault();
             first?.focus();
         }
-    } }}><h2 id="content-verify-title">Verify your password</h2><p>Verification lasts five minutes. Submit your change separately.</p><form onSubmit={async (e) => { e.preventDefault(); if (lock.current)
+    } }}><h2 id="content-verify-title"><UiText notice={uiMessage("admin-users.verify.your.password.0ed67a",{})}/></h2><p><UiText notice={uiMessage("command-controls.verification.lasts.five.minutes.submit.your.change.separately.9ee53e",{})}/></p><form onSubmit={async (e) => { e.preventDefault(); if (lock.current)
         return; lock.current = true; setBusy(true); try {
         const result = await authRequest({ kind: "reauth" }, { password });
         setPassword("");
         if (result.ok)
             verified();
         else
-            setError(result.message);
+            setError(uiError("auth",result));
     }
     finally {
         lock.current = false;
         setBusy(false);
         setPassword("");
-    } }}><label htmlFor="content-verify-password">Your password</label><input ref={input} id="content-verify-password" type="password" autoComplete="current-password" required value={password} disabled={busy} onChange={e => setPassword(e.target.value)}/><FormMessage message={error} error/><div className={styles.actions}><button className="button" disabled={busy}>Verify password</button><button className="button secondary" type="button" disabled={busy} onClick={cancel}>Cancel</button></div></form></section></div>;
+    } }}><label htmlFor="content-verify-password"><UiText notice={uiMessage("admin-users.your.password.bbda70",{})}/></label><input ref={input} id="content-verify-password" type="password" autoComplete="current-password" required value={password} disabled={busy} onChange={e => setPassword(e.target.value)}/><LanguageSwitch/><FormMessage notice={error} error/><div className={styles.actions}><button className="button" disabled={busy}><UiText notice={uiMessage("admin-users.verify.password.f226eb",{})}/></button><button className="button secondary" type="button" disabled={busy} onClick={cancel}><UiText notice={uiMessage("admin-users.cancel.19766e",{})}/></button></div></form></section></div>;
 }

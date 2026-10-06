@@ -1,3 +1,4 @@
+import {removeApprovedLanguageSteps} from "./ui-language-ci.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -16,7 +17,7 @@ function validate(b,f){
  const node=b.split('\n').find(l=>l.includes('run: node tools/verify/run.mjs -- node --test'));
  assert(node?.endsWith(addition),'new Node checks at old command tail');
  assert.equal(sha(b.replace(batch,'').replace(addition,'')),baseline.backendWorkflowSHA256,'all old backend batches, names, arguments and budgets unchanged');
- assert.equal(sha(f),baseline.frontendWorkflowSHA256,'all 22 original browser batches and budgets unchanged');
+ assert.equal(sha(removeApprovedLanguageSteps(f)),baseline.frontendWorkflowSHA256,'all 22 original browser batches and budgets unchanged');
  for(const name of ['FeedbackCapacity','LearningCapacitySourceVolume','LearningCapacityMaxPool','CorrectionCapacityImpact','CorrectionCapacityNotifications','ContentAuditCapacity'])assert.equal(b.split("-run '^Test"+name+"$'").length,2,name+' not omitted or duplicated');
  const wide=b.split('\n').find(l=>l.includes('go test ./internal/store ./internal/cli -skip'));
  assert(wide?.includes('-skip "^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit)"'),'unchanged broad integration selection includes TestContentReview');

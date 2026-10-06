@@ -1,0 +1,11 @@
+import {render,screen,fireEvent,waitFor} from "@testing-library/react";import {it,expect,vi} from "vitest";
+const mocks=vi.hoisted(()=>({request:vi.fn(),push:vi.fn(),refresh:vi.fn()}));vi.mock("@/lib/question/client",()=>({requestQuestion:mocks.request}));vi.mock("next/navigation",()=>({useRouter:()=>mocks}));
+import {DraftEditor} from "@/features/question/draft-editor";import {GenerationPanel} from "@/features/question/generation-panel";
+import {componentDraft,readyGate,publicGoals} from "@/features/question/test-fixtures";import {questionFailure} from "@/lib/question/schemas";
+import {UiLocaleProvider} from "./provider";import {LanguageSwitch} from "@/components/language-switch";
+it("localized-question-fields-preserve-template-and-choice-values",()=>{
+ vi.spyOn(globalThis,"fetch").mockResolvedValue(Response.json({data:publicGoals()}));const d=componentDraft(),before=JSON.stringify(d);render(<UiLocaleProvider initialLocale="en"><LanguageSwitch/><DraftEditor initial={d} canEdit/></UiLocaleProvider>);const prompt=screen.getByLabelText("Template 1 prompt"),params=screen.getByLabelText("Template 1 parameter 1 values");fireEvent.change(prompt,{target:{value:"Save draft {{left}} + {{right}}"}});fireEvent.click(screen.getByRole("button",{name:"中文"}));expect(screen.getByRole("button",{name:"保存草稿"})).toBeVisible();expect(prompt).toHaveValue("Save draft {{left}} + {{right}}");expect(params).toHaveValue("-1/2\n1/2\n1\n2\n3");expect(JSON.stringify(d)).toBe(before);
+});
+it("existing-question-error-and-generation-check-retain-data",async()=>{
+ mocks.request.mockReset();mocks.request.mockResolvedValue(questionFailure("QUESTION_DRAFT_CONFLICT"));const report=readyGate(),before=JSON.stringify(report);render(<UiLocaleProvider initialLocale="en"><LanguageSwitch/><DraftEditor initial={componentDraft()} canEdit/><GenerationPanel report={report} revision={7}/></UiLocaleProvider>);fireEvent.click(screen.getByRole("button",{name:"Save draft"}));await waitFor(()=>expect(screen.getByRole("alert")).toBeVisible());fireEvent.click(screen.getByRole("button",{name:"中文"}));expect(screen.getByRole("alert")).toHaveTextContent("题目草稿已变更");expect(screen.getByRole("heading",{name:"已保存修订 7 · 生成核验"})).toBeVisible();expect(JSON.stringify(report)).toBe(before);
+});

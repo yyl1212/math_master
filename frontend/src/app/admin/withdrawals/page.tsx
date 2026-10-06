@@ -1,3 +1,6 @@
+import {getUiMetadata} from "@/lib/i18n/server";
+import {UiPageTitle} from "@/components/ui-page-title";
+export async function generateMetadata(){return getUiMetadata("page.admin.withdrawals");}
 import { contentPageAccess } from "@/features/content/page-access";
 import { ContentState } from "@/features/content/content-state";
 import { readServerContent } from "@/lib/content/server-client";
@@ -10,12 +13,12 @@ import { ReviewPanel } from "@/features/content/review-panel";
 import { PublicationPanel } from "@/features/content/publication-panel";
 import { WithdrawalPanel } from "@/features/content/withdrawal-panel";
 export const dynamic = "force-dynamic";
-export const metadata = { title: "Withdraw fixed content" };
+
 export default async function Page() { const access = await contentPageAccess(["admin"]); if ("error" in access)
-    return access.error; const result = await readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie); if (!result.ok)
-    return <ContentState status={result.status} code={result.code}/>; if (result.data.head && !result.data.items.some(p => p.id === result.data.head)) {
+    return <><UiPageTitle messageKey="page.admin.withdrawals"/>{access.error}</>; const result = await readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie); if (!result.ok)
+    return <><UiPageTitle messageKey="page.admin.withdrawals"/>{<ContentState status={result.status} code={result.code}/>}</>; if (result.data.head && !result.data.items.some(p => p.id === result.data.head)) {
     const head = await readServerContent<PublicationView>({ kind: "readPublication", id: result.data.head }, access.cookie);
     if (!head.ok)
-        return <ContentState status={head.status} code={head.code}/>;
+        return <><UiPageTitle messageKey="page.admin.withdrawals"/>{<ContentState status={head.status} code={head.code}/>}</>;
     result.data.items.unshift(head.data);
-} return <WithdrawalPanel initial={result.data}/>; }
+} return <><UiPageTitle messageKey="page.admin.withdrawals"/>{<WithdrawalPanel initial={result.data}/>}</>; }

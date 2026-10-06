@@ -1,4 +1,11 @@
 "use client";
+import type {UiNotice} from "@/lib/i18n/types";
+import {LanguageSwitch} from "@/components/language-switch";
+import {UiEnum} from "@/lib/i18n/enums";
+import {uiError} from "@/lib/i18n/errors";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {useUiI18n} from "@/lib/i18n/provider";
 import Link from 'next/link';
 import { useContext, useEffect, useId, useRef, useState } from 'react';
 import { authRequest } from '@/lib/auth/client';
@@ -13,12 +20,14 @@ import type { ResultMetadata } from '@/lib/correction/types';
 export const correctionStatusLabels = { corrected_passed: 'Corrected result · Passed', corrected_failed: 'Corrected result · Not passed', retake_required: 'Retake required', review_material: 'Review material', checked_unaffected: 'Checked · Unaffected', awaiting_review: 'Checking · Awaiting independent review' } satisfies Record<ResultMetadata['status'], string>;
 export function CorrectionStatus({ status }: {
     status: ResultMetadata['status'];
-}) { return <span data-correction-status={status}>{correctionStatusLabels[status]}</span>; }
+}) { return <span data-correction-status={status}><UiEnum group="correction.status" value={status}/></span>; }
 export type CorrectionErrorView = Pick<CorrectionRequestError, 'code' | 'message' | 'retryAt'>;
 export function CorrectionState({ error, onRetry }: {
     error: CorrectionErrorView;
     onRetry?: () => void;
-}) { const router = useRouter(); return <section className="content-state" role="alert"><p>{error.message}</p>{error.retryAt && <p>Try after {new Date(error.retryAt).toLocaleString('en')}</p>}{error.code === 'AUTHENTICATION_REQUIRED' ? <Link prefetch={false} href="/login">Sign in</Link> : ['PASSWORD_CHANGE_REQUIRED', 'FORBIDDEN', 'REAUTHENTICATION_REQUIRED'].includes(error.code) ? <Link prefetch={false} href="/account">{error.code === 'REAUTHENTICATION_REQUIRED' ? 'Verify your password' : 'View account'}</Link> : <button type="button" className="button secondary" onClick={onRetry ?? (() => router.refresh())}>Reload page</button>}</section>; }
+}) {
+ const {t}=useUiI18n();
+ const router = useRouter(); return <section className="content-state" role="alert"><p><UiText notice={uiError("correction",error)}/></p>{error.retryAt && <p><UiText notice={uiMessage("learning-status.try.after.value.ea24ae",{v0:uiValue(new Date(error.retryAt).toLocaleString('en'))})}/></p>}{error.code === 'AUTHENTICATION_REQUIRED' ? <Link prefetch={false} href="/login"><UiText notice={uiMessage("page.login",{})}/></Link> : ['PASSWORD_CHANGE_REQUIRED', 'FORBIDDEN', 'REAUTHENTICATION_REQUIRED'].includes(error.code) ? <Link prefetch={false} href="/account">{error.code === 'REAUTHENTICATION_REQUIRED' ? t("admin-users.verify.your.password.0ed67a",{}) : t("auth-state.view.account.407143",{})}</Link> : <button type="button" className="button secondary" onClick={onRetry ?? (() => router.refresh())}><UiText notice={uiMessage("status.reload.page.437d0d",{})}/></button>}</section>; }
 type CommandState = {
     busy: boolean;
     error: CorrectionRequestError | null;
@@ -30,13 +39,17 @@ type CommandState = {
 export function CorrectionCommandStatus({ command }: {
     command: CommandState;
 }) {
+ const {t}=useUiI18n();
+
  const [verify,setVerify]=useState(false),[verified,setVerified]=useState(false),trigger=useRef<HTMLButtonElement>(null);
- return <div aria-live="polite">{verify && <Reauthenticate close={() => { setVerify(false); trigger.current?.focus(); }} verified={() => { setVerified(true); setVerify(false); trigger.current?.focus(); }}/>}{verified && command.pending !== null && <p>Password verified. Retry the preserved request.</p>}{command.busy && <p role="status">Checking and saving…</p>}{command.error && <div role="alert"><p>{command.confirmed ? 'Your change was saved. Retry the same request to load the latest status.' : command.error.code === 'SERVICE_UNAVAILABLE' ? 'No confirmation received. You can retry the same request.' : command.error.message}</p>{command.error.retryAt && <p>Try after {new Date(command.error.retryAt).toLocaleString('en')}</p>}{command.error.code === 'REAUTHENTICATION_REQUIRED' && <button ref={trigger} type="button" className="button secondary" disabled={command.busy} onClick={() => setVerify(true)}>Verify your password</button>}{!!command.pending && <div className="button-group"><button type="button" className="button secondary" disabled={command.busy} onClick={() => void command.retry()}>Retry same request</button>{!command.confirmed && <button type="button" className="button secondary" disabled={command.busy} onClick={command.clear}>Edit as a new request</button>}</div>}</div>}</div>; }
+ return <div aria-live="polite">{verify && <Reauthenticate close={() => { setVerify(false); trigger.current?.focus(); }} verified={() => { setVerified(true); setVerify(false); trigger.current?.focus(); }}/>}{verified && command.pending !== null && <p><UiText notice={uiMessage("status.password.verified.retry.the.preserved.request.15ada6",{})}/></p>}{command.busy && <p role="status"><UiText notice={uiMessage("status.checking.and.saving.ff6df1",{})}/></p>}{command.error && <div role="alert"><p>{command.confirmed ? t("status.your.change.was.saved.retry.the.same.request.to.load.the.latest.s.01d912",{}) : command.error.code === 'SERVICE_UNAVAILABLE' ? t("learning-status.no.confirmation.received.you.can.retry.the.same.request.e68eb0",{}) : <UiText notice={uiError("correction",command.error)}/>}</p>{command.error.retryAt && <p><UiText notice={uiMessage("learning-status.try.after.value.ea24ae",{v0:uiValue(new Date(command.error.retryAt).toLocaleString('en'))})}/></p>}{command.error.code === 'REAUTHENTICATION_REQUIRED' && <button ref={trigger} type="button" className="button secondary" disabled={command.busy} onClick={() => setVerify(true)}><UiText notice={uiMessage("admin-users.verify.your.password.0ed67a",{})}/></button>}{!!command.pending && <div className="button-group"><button type="button" className="button secondary" disabled={command.busy} onClick={() => void command.retry()}><UiText notice={uiMessage("learning-status.retry.same.request.16003a",{})}/></button>{!command.confirmed && <button type="button" className="button secondary" disabled={command.busy} onClick={command.clear}><UiText notice={uiMessage("status.edit.as.a.new.request.356c78",{})}/></button>}</div>}</div>}</div>; }
 function Reauthenticate({ close, verified }: {
     close: () => void;
     verified: () => void;
 }) {
-    const account = useContext(CorrectionAccountContext), [password, setPassword] = useState(''), [busy, setBusy] = useState(false), [error, setError] = useState<string | null>(null), input = useRef<HTMLInputElement>(null), lock = useRef(false), live = useRef(true), controller = useRef<AbortController | null>(null), id = useId();
+ const {t}=useUiI18n();
+
+    const account = useContext(CorrectionAccountContext), [password, setPassword] = useState(''), [busy, setBusy] = useState(false), [error, setError] = useState<UiNotice | null>(null), input = useRef<HTMLInputElement>(null), lock = useRef(false), live = useRef(true), controller = useRef<AbortController | null>(null), id = useId();
     useEffect(() => { input.current?.focus(); return () => { live.current = false; controller.current?.abort(); }; }, []);
     return <div className={styles.backdrop}><section className={styles.dialog} role="dialog" aria-modal="true" aria-labelledby={id + '-title'} onKeyDown={e => {
             if (e.key === 'Escape' && !lock.current) {
@@ -54,7 +67,7 @@ function Reauthenticate({ close, verified }: {
                     first?.focus();
                 }
             }
-        }}><h2 id={id + '-title'}>Verify your password</h2><p>Verification lasts five minutes. Retry the preserved command separately.</p><form onSubmit={e => {
+        }}><h2 id={id + '-title'}><UiText notice={uiMessage("admin-users.verify.your.password.0ed67a",{})}/></h2><p><UiText notice={uiMessage("status.verification.lasts.five.minutes.retry.the.preserved.command.separ.043e8e",{})}/></p><form onSubmit={e => {
             e.preventDefault();
             if (lock.current || !account)
                 return;
@@ -62,7 +75,7 @@ function Reauthenticate({ close, verified }: {
             setError(null);
             if (!validPrivateInput('reauth', { password: entered })) {
                 setPassword('');
-                setError('Passwords must contain 15–128 characters.');
+                setError(uiMessage("auth.input.password",{}));
                 return;
             }
             lock.current = true;
@@ -83,7 +96,7 @@ function Reauthenticate({ close, verified }: {
                     if (['AUTHENTICATION_REQUIRED', 'PASSWORD_CHANGE_REQUIRED'].includes(closed.code))
                         account.invalidate();
                     else
-                        setError(closed.message);
+                        setError(uiError("correction",closed));
                 }
             }).finally(() => {
                 if (live.current) {
@@ -92,5 +105,5 @@ function Reauthenticate({ close, verified }: {
                     lock.current = false;
                 }
             });
-        }}><label htmlFor={id + '-password'}>Your password</label><input ref={input} id={id + '-password'} type="password" autoComplete="current-password" required value={password} disabled={busy} onChange={e => setPassword(e.target.value)}/>{error && <p role="alert">{error}</p>}<div className={styles.actions}><button className="button" disabled={busy}>Verify password</button><button type="button" className="button secondary" disabled={busy} onClick={() => { setPassword(''); close(); }}>Cancel</button></div></form></section></div>;
+        }}><label htmlFor={id + '-password'}><UiText notice={uiMessage("admin-users.your.password.bbda70",{})}/></label><input ref={input} id={id + '-password'} type="password" autoComplete="current-password" required value={password} disabled={busy} onChange={e => setPassword(e.target.value)}/><LanguageSwitch/>{error && <p role="alert"><UiText notice={error}/></p>}<div className={styles.actions}><button className="button" disabled={busy}><UiText notice={uiMessage("admin-users.verify.password.f226eb",{})}/></button><button type="button" className="button secondary" disabled={busy} onClick={() => { setPassword(''); close(); }}><UiText notice={uiMessage("admin-users.cancel.19766e",{})}/></button></div></form></section></div>;
 }

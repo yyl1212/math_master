@@ -1,3 +1,6 @@
+"use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
 import Link from "next/link";
 import type { ApiResult, DomainList } from "@/lib/api/types";
 import { ContentState } from "./content-state";
@@ -16,26 +19,18 @@ export function LearningHub({ result }: { result: ApiResult<DomainList> }) {
     <>
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className="eyebrow">CURIOUS MINDS, CONNECTED IDEAS</p>
-          <h1>
-            A clear path through
-            <br />
-            <em>mathematics.</em>
+          <p className="eyebrow"><UiText notice={uiMessage("learning-hub.curious.minds.connected.ideas.55351d",{})}/></p>
+          <h1><UiText notice={uiMessage("learning-hub.a.clear.path.through.983c9a",{})}/><br />
+            <em><UiText notice={uiMessage("learning-hub.mathematics.4d3cd6",{})}/></em>
           </h1>
-          <p>
-            Build understanding, one idea at a time. Explore the foundations,
-            follow the connections, and find a direction that inspires you.
-          </p>
-          <Link prefetch={false} href="/knowledge" className="button">
-            Explore knowledge <span aria-hidden="true">↗</span>
+          <p><UiText notice={uiMessage("learning-hub.build.understanding.one.idea.at.a.time.explore.the.foundations.fo.88ab73",{})}/></p>
+          <Link prefetch={false} href="/knowledge" className="button"><UiText notice={uiMessage("learning-hub.explore.knowledge.dfe344",{})}/><span aria-hidden="true">↗</span>
           </Link>
-          <p><Link prefetch={false} href="/learn">Continue your learning</Link></p>
-          <p className={styles.heroNote}>
-            From first principles to new frontiers.
-          </p>
+          <p><Link prefetch={false} href="/learn"><UiText notice={uiMessage("learning-hub.continue.your.learning.f95b7e",{})}/></Link></p>
+          <p className={styles.heroNote}><UiText notice={uiMessage("learning-hub.from.first.principles.to.new.frontiers.15da58",{})}/></p>
         </div>
         <div className={styles.heroArt} aria-hidden="true">
-          <div className={styles.artLabel}>EVERY IDEA HAS A CONNECTION</div>
+          <div className={styles.artLabel}><UiText notice={uiMessage("learning-hub.every.idea.has.a.connection.69c99c",{})}/></div>
           <svg viewBox="0 0 460 340">
             <defs>
               <pattern
@@ -93,19 +88,19 @@ export function LearningHub({ result }: { result: ApiResult<DomainList> }) {
             </text>
           </svg>
           <div className={styles.artFooter}>
-            <span>Explore.</span>
-            <span>Understand.</span>
-            <span>Connect.</span>
+            <span><UiText notice={uiMessage("learning-hub.explore.e6e7d0",{})}/></span>
+            <span><UiText notice={uiMessage("learning-hub.understand.57e3c1",{})}/></span>
+            <span><UiText notice={uiMessage("learning-hub.connect.23c10a",{})}/></span>
           </div>
         </div>
       </section>
       <section aria-labelledby="domains-heading">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">YOUR STARTING POINT</p>
-            <h2 id="domains-heading">{result.data.total} learning domains</h2>
+            <p className="eyebrow"><UiText notice={uiMessage("learning-hub.your.starting.point.7ae59f",{})}/></p>
+            <h2 id="domains-heading"><UiText notice={uiMessage("learning-hub.value.learning.domains.b173e5",{v0:uiValue(result.data.total)})}/></h2>
           </div>
-          <p>One connected map. Many ways to learn.</p>
+          <p><UiText notice={uiMessage("learning-hub.one.connected.map.many.ways.to.learn.e5a2a7",{})}/></p>
         </div>
         <div className="domain-grid">
           {domains.map((d) => (
@@ -128,10 +123,7 @@ export function LearningHub({ result }: { result: ApiResult<DomainList> }) {
                 {d.topics.map((t) => t.name).join(" · ")}
               </p>
               <div className="card-bottom">
-                <span>
-                  {d.publishedKnowledgeCount} published knowledge{" "}
-                  {d.publishedKnowledgeCount === 1 ? "point" : "points"}
-                </span>
+                <span><UiText notice={uiMessage(d.publishedKnowledgeCount===1?"public.publishedOne":"public.publishedMany",{count:d.publishedKnowledgeCount})}/></span>
                 <span aria-hidden="true">↗</span>
               </div>
             </article>
@@ -141,11 +133,8 @@ export function LearningHub({ result }: { result: ApiResult<DomainList> }) {
       <aside className={styles.learningNote}>
         <span aria-hidden="true">✦</span>
         <div>
-          <h2>Understanding comes first.</h2>
-          <p>
-            Learning domains are open to explore. Mathematical content appears
-            here after review, with its conditions, sources, and version.
-          </p>
+          <h2><UiText notice={uiMessage("learning-hub.understanding.comes.first.fc29d3",{})}/></h2>
+          <p><UiText notice={uiMessage("learning-hub.learning.domains.are.open.to.explore.mathematical.content.appears.a8c425",{})}/></p>
         </div>
       </aside>
     </>

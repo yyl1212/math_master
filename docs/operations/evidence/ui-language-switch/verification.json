@@ -1,0 +1,519 @@
+{
+  "schemaVersion": 1,
+  "baseCommit": "2cf65972e389102fb5aaf5e96edde5ec6d77d58f",
+  "frontend": {
+    "unitTests": 403,
+    "files": 88,
+    "typecheck": true,
+    "productionBuild": true,
+    "productionDependencyVulnerabilities": 0,
+    "apiGeneratedUnchanged": true
+  },
+  "nodeTests": 94,
+  "operationsTests": 22,
+  "languageBrowser": [
+    {
+      "index": 0,
+      "batch": [
+        "ui-language-public.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 7
+    },
+    {
+      "index": 1,
+      "batch": [
+        "ui-language-auth.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 9
+    },
+    {
+      "index": 2,
+      "batch": [
+        "ui-language-content.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 21
+    },
+    {
+      "index": 3,
+      "batch": [
+        "ui-language-question.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 21
+    },
+    {
+      "index": 4,
+      "batch": [
+        "ui-language-learning.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 19
+    },
+    {
+      "index": 5,
+      "batch": [
+        "ui-language-feedback.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 2,
+      "seconds": 8
+    },
+    {
+      "index": 6,
+      "batch": [
+        "ui-language-correction.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 17
+    }
+  ],
+  "englishBrowser": [
+    {
+      "index": 0,
+      "batch": [
+        "catalogue.spec.ts",
+        "reading.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 16,
+      "seconds": 36
+    },
+    {
+      "index": 1,
+      "batch": [
+        "auth.spec.ts",
+        "auth-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 28
+    },
+    {
+      "index": 2,
+      "batch": [
+        "content-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 40
+    },
+    {
+      "index": 3,
+      "batch": [
+        "content-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 32
+    },
+    {
+      "index": 4,
+      "batch": [
+        "content-release.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 31
+    },
+    {
+      "index": 5,
+      "batch": [
+        "content-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 38
+    },
+    {
+      "index": 6,
+      "batch": [
+        "question-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 34
+    },
+    {
+      "index": 7,
+      "batch": [
+        "question-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 36
+    },
+    {
+      "index": 8,
+      "batch": [
+        "question-release.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 47
+    },
+    {
+      "index": 9,
+      "batch": [
+        "question-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 47
+    },
+    {
+      "index": 10,
+      "batch": [
+        "learning-progress.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 26
+    },
+    {
+      "index": 11,
+      "batch": [
+        "learning-practice.spec.ts",
+        "learning-assessment.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 40
+    },
+    {
+      "index": 12,
+      "batch": [
+        "learning-diagnostic.spec.ts",
+        "learning-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 64
+    },
+    {
+      "index": 13,
+      "batch": [
+        "learning-review-regressions.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 30
+    },
+    {
+      "index": 14,
+      "batch": [
+        "feedback-user.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 14,
+      "seconds": 76
+    },
+    {
+      "index": 15,
+      "batch": [
+        "feedback-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 46
+    },
+    {
+      "index": 16,
+      "batch": [
+        "feedback-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 62
+    },
+    {
+      "index": 17,
+      "batch": [
+        "correction-user.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 29
+    },
+    {
+      "index": 18,
+      "batch": [
+        "correction-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 18
+    },
+    {
+      "index": 19,
+      "batch": [
+        "notification-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 47
+    },
+    {
+      "index": 20,
+      "batch": [
+        "content-acceptance-reading.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 41
+    },
+    {
+      "index": 21,
+      "batch": [
+        "content-acceptance-learning.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 67
+    }
+  ],
+  "go": [
+    {
+      "batch": 0,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/cmd/server\t1.707s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/correction\t2.362s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/notification\t0.518s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/feedback\t2.848s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/assessment\t4.413s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/learning\t4.012s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/question\t1.244s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/auth\t2.553s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/content\t2.283s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/publication\t3.248s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/config\t3.624s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/httpapi\t64.529s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/e2etest\t118.908s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/testutil\t5.185s"
+      ]
+    },
+    {
+      "batch": 1,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t149.148s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/cli\t21.037s"
+      ]
+    },
+    {
+      "batch": 2,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t78.307s"
+      ]
+    },
+    {
+      "batch": 3,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t26.802s"
+      ]
+    },
+    {
+      "batch": 4,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t10.788s"
+      ]
+    },
+    {
+      "batch": 5,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t90.571s"
+      ]
+    },
+    {
+      "batch": 6,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t124.452s"
+      ]
+    },
+    {
+      "batch": 7,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/contentaudit\t1.380s"
+      ]
+    },
+    {
+      "batch": 8,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t13.546s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/cli\t5.090s"
+      ]
+    },
+    {
+      "batch": 9,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t66.119s"
+      ]
+    },
+    {
+      "batch": 10,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/contentreview\t77.322s"
+      ]
+    },
+    {
+      "batch": 11,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t121.920s",
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/cli\t0.681s"
+      ]
+    },
+    {
+      "batch": 12,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t126.971s"
+      ]
+    },
+    {
+      "batch": 13,
+      "passed": true,
+      "packageResults": [
+        "ok  \tgithub.com/yyl1212/math_master/backend/internal/store\t41.897s"
+      ]
+    }
+  ],
+  "capacityTests": [
+    "TestFeedbackCapacity",
+    "TestLearningCapacitySourceVolume",
+    "TestLearningCapacityMaxPool",
+    "TestContentAuditCapacity",
+    "TestCorrectionCapacityImpact",
+    "TestCorrectionCapacityNotifications"
+  ],
+  "databaseBoundary": "专用临时 PostgreSQL 127.0.0.1:55434/math_master_test_ui_language_base，测试各自创建并清理随机隔离库",
+  "unchangedAreas": [
+    "backend",
+    "api",
+    "content",
+    "db"
+  ],
+  "reviewStatus": "唯一独立整分支审查完成：无Critical；系统错误、动态状态及来源字段重要项经单轮TDD修复，五项RED→GREEN；未再审",
+  "deliveryStatus": "实现完成独立审查与本地回归；远端PR及CI以GitHub实际记录为准，未部署服务器",
+  "reviewedHead": "63efa1281fd758fade34963c8af45bfc4e2edd57",
+  "reviewFixTests": [
+    "late publication errors",
+    "content namespace refresh errors",
+    "nondefault question states",
+    "correction plan/job states",
+    "source field display names"
+  ],
+  "postReviewEnglishStatus": "审查修复后八组受影响默认英文回归共50项全部通过，保留原分组、双视口、零重试及预算",
+  "postReviewEnglishBrowser": [
+    {
+      "index": 6,
+      "batch": [
+        "question-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 34
+    },
+    {
+      "index": 7,
+      "batch": [
+        "question-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 36
+    },
+    {
+      "index": 8,
+      "batch": [
+        "question-release.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 48
+    },
+    {
+      "index": 10,
+      "batch": [
+        "learning-progress.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 25
+    },
+    {
+      "index": 11,
+      "batch": [
+        "learning-practice.spec.ts",
+        "learning-assessment.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 39
+    },
+    {
+      "index": 13,
+      "batch": [
+        "learning-review-regressions.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 29
+    },
+    {
+      "index": 17,
+      "batch": [
+        "correction-user.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 6,
+      "seconds": 30
+    },
+    {
+      "index": 18,
+      "batch": [
+        "correction-review.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 18
+    }
+  ],
+  "integrationBaseRechecked": "2cf65972e389102fb5aaf5e96edde5ec6d77d58f",
+  "ciLearningTitleRepair": {
+    "date": "2026-10-06",
+    "failedRun": 37380856752,
+    "originalHead": "2d086a9e4afc6409de14ec0bd18161ab2c504bfb",
+    "cause": "一级标题与列表二级标题同名，按名称的严格定位在完成渲染后匹配到两个元素",
+    "reproduction": {
+      "failed": 2,
+      "passed": 2
+    },
+    "fix": "列表区域检查二级标题，页面标题明确level:1；原业务断言、时限、分组及零重试保持",
+    "verification": {
+      "languageLearningBrowser": 4,
+      "frontendTests": 403,
+      "nodeTests": 94
+    },
+    "details": "ci-learning-title.md"
+  },
+  "katexSecurityUpgrade": "katex-security-upgrade.json"
+}

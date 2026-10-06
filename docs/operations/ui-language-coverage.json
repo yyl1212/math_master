@@ -1,0 +1,3449 @@
+{
+  "schemaVersion": 1,
+  "pages": [
+    {
+      "file": "frontend/src/app/account/page.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "page.account"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/publications/[id]/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.admin.publications.id"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/publications/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.admin.publications"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/question-publications/[id]/page.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "page.admin.question-publications.id"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/question-publications/page.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "page.admin.question-publications"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/question-withdrawals/page.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "page.admin.question-withdrawals"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/users/page.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "page.admin.users"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/withdrawals/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.admin.withdrawals"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/assessments/[id]/page.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "page.assessments.id"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/assessments/[id]/result/page.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "page.assessments.id.result"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/corrections/[id]/page.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "page.corrections.id"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/domains/[id]/page.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "page.domains.id"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/editor/drafts/[id]/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.editor.drafts.id"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/editor/drafts/[id]/preview/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.editor.drafts.id.preview"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/editor/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.editor"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/editor/questions/drafts/[id]/page.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "page.editor.questions.drafts.id"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/editor/questions/page.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "page.editor.questions"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/feedback/[id]/page.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "page.feedback.id"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/feedback/new/page.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "page.feedback.new"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/feedback/page.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "page.feedback"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/knowledge/[id]/page.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "page.illustration.0ffea7",
+        "page.knowledge.id",
+        "page.lesson.feedback.14669c",
+        "page.unit.c57306"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/knowledge/page.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "page.invalid.search.parameters.29e585",
+        "page.knowledge",
+        "page.please.shorten.your.search.or.reset.the.filters.bd6ccd",
+        "page.reset.search.92df98"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/learn/page.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "learning.page.routePages",
+        "learning.page.savedPages",
+        "page.back.to.my.learning.e67643",
+        "page.choose.a.reviewed.route.then.select.join.route.to.save.your.progr.8cbbe5",
+        "page.invalid.learning.parameters.29cb84",
+        "page.learn",
+        "page.next.nodes.dbf84b",
+        "page.next.routes.e5621d",
+        "page.one.idea.at.a.time.070016",
+        "page.previous.nodes.44fb9e",
+        "page.previous.routes.eb58cc",
+        "page.reset.learning.view.061672",
+        "page.see.what.you.have.read.assessed.and.unlocked.fe8551",
+        "page.value.saved.version.value.04f7f0",
+        "page.your.saved.routes.57bbd0"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/learning-history/page.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "page.invalid.history.parameters.7f8f9a",
+        "page.learning-history",
+        "page.reset.history.view.bc760c",
+        "page.your.saved.versions.and.assessment.records.85765b"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/login/page.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "auth-state.view.account.407143",
+        "page.login",
+        "page.you.are.signed.in.2d55cb"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/notifications/page.tsx",
+      "module": "notification",
+      "complete": true,
+      "messageKeys": [
+        "page.notifications"
+      ],
+      "rawDataAreas": [
+        "所属用户、通知类型值、关联标识、已读状态与时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/page.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "page.home"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/paths/[id]/page.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "page.paths.id",
+        "page.route.feedback.729fbd"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/practice/[id]/page.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "page.practice.id"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/register/page.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "auth-state.view.account.407143",
+        "page.register",
+        "page.you.are.signed.in.2d55cb"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/[id]/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.review.id"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/corrections/[id]/page.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "page.review.corrections.id"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/corrections/[id]/plans/[planId]/[version]/page.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "page.review.corrections.id.plans.planId.version"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/corrections/page.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "page.review.corrections"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/feedback/[id]/page.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "page.review.feedback.id"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/feedback/page.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "page.review.feedback"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/page.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "page.review"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/questions/[id]/page.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "page.review.questions.id"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/review/questions/page.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "page.review.questions"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "file": "frontend/src/components/auth-status.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "auth-status.accounts.unavailable.5b2487",
+        "auth-status.checking.account.d18f41",
+        "auth-status.edit.content.f57e8e",
+        "auth-status.learning.history.35b7a5",
+        "auth-status.manage.users.58606e",
+        "auth-status.my.learning.c60fdf",
+        "auth-status.publish.content.35b610",
+        "auth-status.publish.question.bank.545b0c",
+        "auth-status.review.content.9e6e6c",
+        "auth-status.review.questions.e2fd5a",
+        "auth-status.sign.in.bfd402",
+        "auth-status.write.questions.4f6b81"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/content-state.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "content-state.explore.knowledge.7bd0d2",
+        "content-state.try.again.d8b839",
+        "public.help.empty",
+        "public.help.noResults",
+        "public.help.notFound",
+        "public.help.unavailable",
+        "public.state.empty",
+        "public.state.noResults",
+        "public.state.notFound",
+        "public.state.unavailable"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/content-status.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "knowledge-map.in.development.5259ae",
+        "knowledge-map.published.2ef42e"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/language-switch.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "locale.label"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/learning-hub.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "learning-hub.a.clear.path.through.983c9a",
+        "learning-hub.build.understanding.one.idea.at.a.time.explore.the.foundations.fo.88ab73",
+        "learning-hub.connect.23c10a",
+        "learning-hub.continue.your.learning.f95b7e",
+        "learning-hub.curious.minds.connected.ideas.55351d",
+        "learning-hub.every.idea.has.a.connection.69c99c",
+        "learning-hub.explore.e6e7d0",
+        "learning-hub.explore.knowledge.dfe344",
+        "learning-hub.from.first.principles.to.new.frontiers.15da58",
+        "learning-hub.learning.domains.are.open.to.explore.mathematical.content.appears.a8c425",
+        "learning-hub.mathematics.4d3cd6",
+        "learning-hub.one.connected.map.many.ways.to.learn.e5a2a7",
+        "learning-hub.understand.57e3c1",
+        "learning-hub.understanding.comes.first.fc29d3",
+        "learning-hub.value.learning.domains.b173e5",
+        "learning-hub.your.starting.point.7ae59f",
+        "public.publishedMany",
+        "public.publishedOne"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/site-header.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "nav.knowledgeMap",
+        "site-header.a.world.of.ideas.883eb5",
+        "site-header.corrections.review.fc4dc2",
+        "site-header.feedback.review.19092b",
+        "site-header.learn.ce78af",
+        "site-header.learning.hub.0af988",
+        "site-header.main.navigation.eb3559",
+        "site-header.math.master.home.f407d7",
+        "site-header.my.reports.cc6e3f",
+        "site-header.notifications.788011",
+        "site-header.website.feedback.aea375"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/ui-nav.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "learning.page.routePages",
+        "learning.page.savedPages"
+      ],
+      "rawDataAreas": [
+        "导航链接与子节点原值，功能辅助名称使用明确 UiNotice"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/ui-page-title.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "page.account",
+        "page.admin.publications",
+        "page.admin.publications.id",
+        "page.admin.question-publications",
+        "page.admin.question-publications.id",
+        "page.admin.question-withdrawals",
+        "page.admin.users",
+        "page.admin.withdrawals",
+        "page.assessments.id",
+        "page.assessments.id.result",
+        "page.corrections.id",
+        "page.domains.id",
+        "page.editor",
+        "page.editor.drafts.id",
+        "page.editor.drafts.id.preview",
+        "page.editor.questions",
+        "page.editor.questions.drafts.id",
+        "page.feedback",
+        "page.feedback.id",
+        "page.feedback.new",
+        "page.home",
+        "page.knowledge",
+        "page.knowledge.id",
+        "page.learn",
+        "page.learning-history",
+        "page.login",
+        "page.notifications",
+        "page.paths.id",
+        "page.practice.id",
+        "page.register",
+        "page.review",
+        "page.review.corrections",
+        "page.review.corrections.id",
+        "page.review.corrections.id.plans.planId.version",
+        "page.review.feedback",
+        "page.review.feedback.id",
+        "page.review.id",
+        "page.review.questions",
+        "page.review.questions.id"
+      ],
+      "rawDataAreas": [
+        "仅接受明确 PageTitleKey，不接受知识标题或用户正文"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts",
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/assessment/answer-fields.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "answer-fields.answer.for.question.value.273662",
+        "answer-fields.value.at.most.128.characters.your.spelling.is.preserved.4b1382",
+        "learning.answer.number",
+        "learning.answer.percentage",
+        "result-panel.question.value.016509"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/assessment/assessment-panel.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "assessment-panel.abandon.assessment.d4090a",
+        "assessment-panel.five.question.assessment.96921d",
+        "assessment-panel.result.not.confirmed.a5d341",
+        "assessment-panel.return.to.the.lesson.e2abbd",
+        "assessment-panel.skip.question.946648",
+        "assessment-panel.submit.all.five.answers.together.select.skip.for.any.question.you.0824a1",
+        "assessment-panel.submit.five.answers.e8b79c",
+        "assessment-panel.this.assessment.is.value.abee64",
+        "assessment-panel.view.result.fdb7ea",
+        "knowledge-controls.diagnostic.assessment.856c34",
+        "knowledge-controls.learning.check.3fa22f",
+        "knowledge-controls.review.assessment.77cf32",
+        "learning.attempt.abandoned",
+        "learning.attempt.active",
+        "learning.attempt.answered",
+        "learning.attempt.completed",
+        "learning.attempt.enrolled",
+        "learning.attempt.expired",
+        "learning.attempt.revealed",
+        "learning.attempt.started",
+        "learning.attempt.submitted",
+        "page.illustration.0ffea7",
+        "practice-panel.expires.at.2e4e2e"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/assessment/result-panel.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "audit.skipped",
+        "page.assessments.id.result",
+        "page.illustration.0ffea7",
+        "result-panel.answer.and.explanation.are.unavailable.because.the.saved.source.w.9cb9a8",
+        "result-panel.assessment.affected.1237e8",
+        "result-panel.correct.aca01a",
+        "result-panel.correct.answer.value.5463b6",
+        "result-panel.correct.answer.valuevalue.25351e",
+        "result-panel.failed.031a8f",
+        "result-panel.four.correct.answers.out.of.five.are.required.to.pass.7d4df2",
+        "result-panel.historical.unlocks.remain.in.your.learning.record.including.after.ba32e5",
+        "result-panel.incorrect.a8a57d",
+        "result-panel.knowledge.qualification.recorded.03cba2",
+        "result-panel.passed.436fe7",
+        "result-panel.question.value.016509",
+        "result-panel.return.to.my.learning.a18bde",
+        "result-panel.review.the.current.lesson.85bd8a",
+        "result-panel.saved.evidence.value.review.the.current.lesson.before.another.ass.c0db55",
+        "result-panel.saved.result.needs.review.e535eb",
+        "result-panel.the.original.score.is.preserved.this.saved.evidence.may.no.longer.a42a52",
+        "result-panel.this.assessment.could.not.be.graded.reliably.start.a.fresh.assess.b8d898",
+        "result-panel.unlocked.when.submitted.d7ae9a",
+        "result-panel.your.answer.value.3bb7a4"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/auth/account-panel.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "account-panel.change.password.3f9c99",
+        "account-panel.change.your.password.to.continue.1c1b58",
+        "account-panel.changing.your.password.signs.you.out.on.every.device.sign.in.agai.c2a7e1",
+        "account-panel.current.password.72ed2b",
+        "account-panel.new.password.3dd9df",
+        "account-panel.sign.out.48f0d3",
+        "account-panel.sign.out.everywhere.af180f",
+        "account-panel.your.account.cee7fd",
+        "auth-status.manage.users.58606e",
+        "auth.input.password",
+        "auth.role.admin",
+        "auth.role.editor",
+        "auth.role.learner",
+        "auth.role.reviewer",
+        "credentials-form.15.128.characters.spaces.and.unicode.characters.are.welcome.66a06f"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/auth/admin-users.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.account.9af211",
+        "admin-users.accounts.8a7c8b",
+        "admin-users.accounts.bc62a3",
+        "admin-users.administration.bbdbcb",
+        "admin-users.cancel.19766e",
+        "admin-users.manage.roles.and.help.verified.account.owners.regain.access.3f1280",
+        "admin-users.next.1ff57a",
+        "admin-users.no.matching.accounts.277fda",
+        "admin-users.ownership.verification.7438d7",
+        "admin-users.password.change.required.77288b",
+        "admin-users.previous.a57b08",
+        "admin-users.reason.f81ab8",
+        "admin-users.reset.password.e0edfe",
+        "admin-users.roles.c25337",
+        "admin-users.save.roles.1a0378",
+        "admin-users.search.usernames.adb993",
+        "admin-users.temporary.password.b20862",
+        "admin-users.the.reason.above.also.applies.to.this.reset.6ef8fa",
+        "admin-users.verification.lasts.five.minutes.you.will.submit.your.change.separ.332ca5",
+        "admin-users.verify.ownership.outside.this.website.before.resetting.an.account.0883de",
+        "admin-users.verify.password.f226eb",
+        "admin-users.verify.your.password.0ed67a",
+        "admin-users.your.password.bbda70",
+        "auth-status.checking.account.d18f41",
+        "auth.input.admin",
+        "auth.input.password",
+        "auth.role.admin",
+        "auth.role.editor",
+        "auth.role.learner",
+        "auth.role.reviewer",
+        "auth.saved",
+        "auth.verified",
+        "knowledge-map.search.49c266",
+        "page.admin.users"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/auth/auth-state.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "account-panel.your.account.cee7fd",
+        "auth-state.clear.sign.in.cookie.b7ae51",
+        "auth-state.explore.mathematics.088a8c",
+        "auth-state.view.account.407143",
+        "auth.state.anonymous",
+        "auth.state.invalidCookie",
+        "content-state.try.again.d8b839",
+        "page.login"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/auth/credentials-form.tsx",
+      "module": "auth",
+      "complete": true,
+      "messageKeys": [
+        "auth.input.credentials",
+        "credentials-form.15.128.characters.spaces.and.unicode.characters.are.welcome.66a06f",
+        "credentials-form.already.have.an.account.04a38d",
+        "credentials-form.create.an.account.to.begin.your.next.chapter.16d5e3",
+        "credentials-form.explore.the.knowledge.map.d12c1a",
+        "credentials-form.from.first.principles.to.new.frontiers.explore.a.connected.world..c2f0a1",
+        "credentials-form.make.room.for.mathematics.56b94d",
+        "credentials-form.new.to.math.master.733bb8",
+        "credentials-form.password.e7cf3e",
+        "credentials-form.please.wait.4660a9",
+        "credentials-form.sign.in.to.your.math.master.account.ced01b",
+        "credentials-form.username.e3b89e",
+        "credentials-form.welcome.back.dfdbca",
+        "page.login",
+        "page.register",
+        "site-header.a.world.of.ideas.883eb5"
+      ],
+      "rawDataAreas": [
+        "用户名、密码输入、用户标识、角色提交值与会话"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-auth.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/catalogue/domain-view.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "domain-view.breadcrumb.2bd873",
+        "domain-view.current.content.f491db",
+        "domain-view.explore.another.direction.these.links.describe.connections.rather.a7437c",
+        "domain-view.explore.the.topics.freely.learning.paths.connect.the.ideas.when.r.7e8cfb",
+        "domain-view.learning.domain.value.8bbbb2",
+        "domain-view.learning.paths.5f23ab",
+        "domain-view.learning.paths.are.in.development.a67b76",
+        "domain-view.related.domains.97e705",
+        "domain-view.reviewed.content.will.appear.here.as.this.domain.grows.ad70f5",
+        "domain-view.topics.to.explore.773408",
+        "domain-view.version.value.d2b5e7",
+        "nav.knowledgeMap",
+        "public.publishedMany",
+        "public.publishedOne",
+        "site-header.learning.hub.0af988"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/catalogue/knowledge-map.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "knowledge-map.a.connected.world.of.mathematics.4cd45c",
+        "knowledge-map.all.domains.0f97da",
+        "knowledge-map.choose.a.domain.explore.its.ideas.then.follow.a.learning.path.529a69",
+        "knowledge-map.content.status.5efa57",
+        "knowledge-map.groups.for.learning.with.room.for.connections.8ec81a",
+        "knowledge-map.in.development.5259ae",
+        "knowledge-map.published.2ef42e",
+        "knowledge-map.search.49c266",
+        "knowledge-map.search.english.or.chinese.topics.c67f21",
+        "knowledge-map.search.learning.domains.13c880",
+        "knowledge-map.these.domains.are.practical.learning.groups.connections.across.do.a8e178",
+        "nav.knowledgeMap",
+        "public.domainMany",
+        "public.domainOne",
+        "public.publishedMany",
+        "public.publishedOne"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/command-controls.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.cancel.19766e",
+        "admin-users.verify.password.f226eb",
+        "admin-users.verify.your.password.0ed67a",
+        "admin-users.your.password.bbda70",
+        "auth.verified",
+        "command-controls.discard.pending.request.b43e94",
+        "command-controls.retry.previous.request.34b089",
+        "command-controls.retry.sends.the.original.input.and.request.key.18c664",
+        "command-controls.verification.lasts.five.minutes.submit.your.change.separately.9ee53e"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/content-preview.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "content-preview.accessed.value.5dc1f8",
+        "content-preview.content.needs.work.before.review.bb2a94",
+        "content-preview.domains.value.topics.value.e9a533",
+        "content-preview.knowledge.relationships.242c96",
+        "content-preview.knowledge.value.vvalue.assets.value.523132",
+        "content-preview.learning.objectives.d38eb0",
+        "content-preview.machine.checks.passed.reviewer.approval.is.still.required.184ba1",
+        "content-preview.no.additional.conditions.declared.c0637b",
+        "content-preview.no.learning.paths.in.this.package.09d6d0",
+        "content-preview.no.relationships.declared.4d1ca5",
+        "content-preview.no.sources.yet.810fee",
+        "content-preview.readiness.check.2f70ae",
+        "content-preview.safe.preview.eeb51b",
+        "content-preview.save.new.illustrations.to.preview.their.bound.bytes.deb444",
+        "content-preview.scope.b073f6",
+        "content-preview.showing.the.first.100.issues.be469a",
+        "content-preview.sources.caf85b",
+        "content-preview.statement.6171b2",
+        "content-preview.structural.issues.value.completeness.issues.value.human.checks.va.6fe5e4",
+        "content-preview.system.6725e7",
+        "content-preview.value.value.version.value.f7a6b1",
+        "content-preview.value.value.vvalue.afac6e",
+        "content-preview.value.version.value.1d1973",
+        "content-preview.value.vvalue.bde90b",
+        "content-preview.value.vvalue.domains.value.206a60",
+        "domain-view.learning.paths.5f23ab",
+        "knowledge-view.conditions.97d4be",
+        "knowledge-view.counterexamples.1e428c",
+        "knowledge-view.examples.e68ee0",
+        "knowledge-view.proof.7fbb3c"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要",
+        "原始自动校验报告 code/path/message 与导出 JSON 作为固定证据保持原文"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/content-state.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "auth-state.explore.mathematics.088a8c",
+        "content-state.content.is.not.available.3b7767",
+        "content-state.content.management.is.temporarily.unavailable.0bcb14",
+        "content-state.try.again.d8b839"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/diff-panel.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.reason.f81ab8",
+        "diff-panel.added.value.replaced.value.removed.value.83f44a",
+        "diff-panel.after.7b68fe",
+        "diff-panel.before.9bb725",
+        "diff-panel.member.7c968f"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/draft-editor.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "audit.legacy",
+        "audit.unsaved",
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "content.field.accessedAt",
+        "content.field.attribution",
+        "content.field.author",
+        "content.field.batchSha256",
+        "content.field.id",
+        "content.field.kind",
+        "content.field.legacyId",
+        "content.field.license",
+        "content.field.note",
+        "content.field.path",
+        "content.field.proof",
+        "content.field.relativePath",
+        "content.field.scope",
+        "content.field.sha256",
+        "content.field.statement",
+        "content.field.system",
+        "content.field.title",
+        "content.field.titleZh",
+        "content.field.url",
+        "draft-editor.asset.086710",
+        "draft-editor.asset.d59386",
+        "draft-editor.asset.value.4a6e21",
+        "draft-editor.asset.value.knowledge.5e272b",
+        "draft-editor.asset.value.value.bb5eb5",
+        "draft-editor.authors.value.catalogue.sha.valuevalue.bf61d0",
+        "draft-editor.back.to.workspaces.174743",
+        "draft-editor.catalogue.version.0654f3",
+        "draft-editor.check.readiness.1e2cac",
+        "draft-editor.content.workspace.af267d",
+        "draft-editor.draft.fields.476e2c",
+        "draft-editor.draft.saved.check.readiness.before.submitting.2f6566",
+        "draft-editor.draftinput.exported.f36ce4",
+        "draft-editor.export.json.ff2565",
+        "draft-editor.illustration.imported.use.new.owner.and.unit.versions.when.its.me.7446be",
+        "draft-editor.import.draftinput.json.5ab8cb",
+        "draft-editor.json.imported.save.this.draft.to.run.machine.checks.710f77",
+        "draft-editor.keep.package.and.member.versions.explicit.content.changes.require.b77a94",
+        "draft-editor.original.illustrations.558c7d",
+        "draft-editor.read.saved.draft.daf801",
+        "draft-editor.readiness.check.complete.f8a29a",
+        "draft-editor.review.always.uses.a.frozen.copy.of.the.saved.revision.86413e",
+        "draft-editor.revision.value.valuevalue.7bf409",
+        "draft-editor.save.before.reading.checking.or.submitting.3f949b",
+        "draft-editor.save.draft.3de100",
+        "draft-editor.submit.for.review.40447e",
+        "draft-editor.svg.file.4b0cda",
+        "page.editor.drafts.id"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/draft-list.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.next.1ff57a",
+        "admin-users.previous.a57b08",
+        "content-preview.value.version.value.1d1973",
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "draft-editor.read.saved.draft.daf801",
+        "draft-list.adopt.an.imported.package.70604f",
+        "draft-list.adopt.package.60672c",
+        "draft-list.adoption.reason.e89c31",
+        "draft-list.authoring.67b82c",
+        "draft-list.choose.a.trusted.imported.catalogue.version.5f3f9e",
+        "draft-list.create.draft.07d07a",
+        "draft-list.create.workspace.4b8922",
+        "draft-list.new.catalogue.version.a016bc",
+        "draft-list.new.package.afcdcc",
+        "draft-list.new.package.id.c42b51",
+        "draft-list.new.package.version.12a769",
+        "draft-list.no.workspaces.yet.ded050",
+        "draft-list.original.content.begins.here.saving.and.independent.review.have.s.c2ee37",
+        "draft-list.revision.value.value.value.machine.issues.0d005f",
+        "draft-list.the.package.id.and.version.above.identify.the.immutable.imported..a9c4df",
+        "page.editor"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/draft-reading-view.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "draft-reading-view.all.workspaces.415c8e",
+        "draft-reading-view.back.to.workspace.0f0c0c",
+        "draft-reading-view.browse.knowledge.7bae8a",
+        "draft-reading-view.copy.this.reference.into.your.site.feedback.site.feedback.does.no.2e75aa",
+        "draft-reading-view.english.id.caaeb8",
+        "draft-reading-view.feedback.on.this.preview.124f01",
+        "draft-reading-view.give.site.feedback.26c82b",
+        "draft-reading-view.knowledge.points.da18c7",
+        "draft-reading-view.next.knowledge.point.9a368f",
+        "draft-reading-view.no.knowledge.points.in.this.saved.draft.982d22",
+        "draft-reading-view.no.matching.knowledge.points.try.a.different.title.or.id.81c59a",
+        "draft-reading-view.preview.reference.0fdc50",
+        "draft-reading-view.previous.knowledge.point.30303e",
+        "draft-reading-view.private.draft.preview.9b4ed0",
+        "draft-reading-view.read.only.preview.of.the.saved.revision.unsaved.edits.are.not.inc.a4ec9b",
+        "draft-reading-view.saved.revision.value.status.value.c0ecaa",
+        "draft-reading-view.search.knowledge.points.aa0709",
+        "draft-reading-view.showing.value.of.value.knowledge.points.bcc8df",
+        "draft-reading-view.value.package.version.value.7321bb",
+        "draft-reading-view.value.vvalue.value.a961d3",
+        "page.editor.drafts.id.preview"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/field-controls.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "field.add",
+        "field.id",
+        "field.numbered",
+        "field.remove",
+        "field.version"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/package-fields.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "content.field.accessedAt",
+        "content.field.attribution",
+        "content.field.author",
+        "content.field.batchSha256",
+        "content.field.id",
+        "content.field.kind",
+        "content.field.legacyId",
+        "content.field.license",
+        "content.field.note",
+        "content.field.path",
+        "content.field.proof",
+        "content.field.relativePath",
+        "content.field.scope",
+        "content.field.sha256",
+        "content.field.statement",
+        "content.field.system",
+        "content.field.title",
+        "content.field.titleZh",
+        "content.field.url",
+        "domain-view.learning.paths.5f23ab",
+        "field.named",
+        "package-fields.knowledge.e0f895",
+        "package-fields.knowledge.value.dcb3fa",
+        "package-fields.learning.units.a95e2f",
+        "package-fields.package.id.7a35d0",
+        "package-fields.package.version.359c57",
+        "package-fields.path.a0af9f",
+        "package-fields.path.value.73d0e4",
+        "package-fields.schema.version.value.cc82ae",
+        "package-fields.unit.385cfd",
+        "package-fields.unit.value.4b7fc7",
+        "package-fields.value.condition.b7f86b",
+        "package-fields.value.objective.8deb98",
+        "package-fields.value.relation.5dd358",
+        "package-fields.value.relation.value.kind.5f8baa",
+        "package-fields.value.relation.value.target.4649cf",
+        "package-fields.value.source.5a7bf3",
+        "package-fields.value.source.value.40de80",
+        "package-fields.value.topic.id.722de7",
+        "package-fields.value.type.dcad78",
+        "page.knowledge.id",
+        "path-fields.value.domain.id.066d9c",
+        "path-fields.value.id.0ad111",
+        "path-fields.value.version.f8a7ae"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/page-access.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "account-panel.your.account.cee7fd",
+        "auth-state.clear.sign.in.cookie.b7ae51",
+        "auth-state.explore.mathematics.088a8c",
+        "auth-state.view.account.407143",
+        "auth.state.anonymous",
+        "auth.state.invalidCookie",
+        "content-state.try.again.d8b839",
+        "page.login"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ],
+      "delegates": [
+        "frontend/src/features/auth/auth-state.tsx"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/path-fields.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "path-fields.value.chinese.title.74d780",
+        "path-fields.value.domain.id.066d9c",
+        "path-fields.value.id.0ad111",
+        "path-fields.value.node.ce3c13",
+        "path-fields.value.node.value.5f4a60",
+        "path-fields.value.title.ed4f63",
+        "path-fields.value.version.f8a7ae"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/publication-panel.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "publication-panel.activate.snapshot.bd0268",
+        "publication-panel.approved.submissions.86299b",
+        "publication-panel.fixed.manifest.and.review.evidence.8aaddf",
+        "publication-panel.loading.approved.batches.e29b0b",
+        "publication-panel.manifest.sha.value.22188b",
+        "publication-panel.next.approved.batches.570a44",
+        "publication-panel.next.snapshots.28f079",
+        "publication-panel.no.approved.submissions.fc2830",
+        "publication-panel.no.content.has.been.published.yet.e8904f",
+        "publication-panel.no.snapshots.yet.dce32a",
+        "publication-panel.prepare.snapshot.93466e",
+        "publication-panel.previous.approved.batches.ee33bf",
+        "publication-panel.previous.snapshots.1ead42",
+        "publication-panel.publication.72e134",
+        "publication-panel.publication.reason.8ae504",
+        "publication-panel.published.content.changed.prepare.a.new.snapshot.b8bb36",
+        "publication-panel.refresh.current.head.a29f92",
+        "publication-panel.review.record.8f17cd",
+        "publication-panel.reviewed.publication.snapshots.8acf21",
+        "publication-panel.selected.snapshot.b60236",
+        "publication-panel.snapshot.activated.current.head.refreshed.cd5ead",
+        "publication-panel.snapshot.history.d81e02",
+        "publication-panel.snapshot.prepared.inspect.the.fixed.difference.before.activation.13cb36",
+        "publication-panel.v.e40f81",
+        "publication-panel.value.catalogue.version.value.9b204b",
+        "publication-panel.withdraw.a.fixed.version.2cca43"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/review-panel.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "content-preview.value.version.value.1d1973",
+        "content.check.explanations",
+        "content.check.illustrations",
+        "content.check.mathematics",
+        "content.check.relationships",
+        "content.check.sources",
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "page.editor",
+        "page.review",
+        "review-panel.administrator.self.review.c05816",
+        "review-panel.administrator.self.review.decision.3f56c1",
+        "review-panel.approve.submission.bce550",
+        "review-panel.authors.6f5a07",
+        "review-panel.authors.cannot.review.their.own.or.inherited.content.2a304e",
+        "review-panel.back.to.submissions.0d99b1",
+        "review-panel.catalogue.sha.90659b",
+        "review-panel.complete.every.check.before.approval.d2af4e",
+        "review-panel.create.revision.workspace.bdecb5",
+        "review-panel.final.review.decision.599ee2",
+        "review-panel.fixed.submission.4d5920",
+        "review-panel.frozen.digest.203dee",
+        "review-panel.frozen.source.mapping.and.illustration.metadata.6b0aa5",
+        "review-panel.independence.statement.3adc69",
+        "review-panel.return.for.changes.af8999",
+        "review-panel.review.note.c2d4c5",
+        "review-panel.review.responsibility.statement.0a0fb9",
+        "review-panel.review.saved.640b4e",
+        "review-panel.reviewer.value.184bca",
+        "review-panel.self.review.decision.fde99a",
+        "review-panel.this.approval.records.an.administrator.reviewing.their.own.conten.f9ff22",
+        "review-panel.value.frozen.revision.value.catalogue.version.value.7db94e",
+        "review-panel.verify.historical.authorship.before.approval.9994ab"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/source-fields.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "content.field.accessedAt",
+        "content.field.attribution",
+        "content.field.author",
+        "content.field.batchSha256",
+        "content.field.id",
+        "content.field.kind",
+        "content.field.legacyId",
+        "content.field.license",
+        "content.field.note",
+        "content.field.path",
+        "content.field.proof",
+        "content.field.relativePath",
+        "content.field.scope",
+        "content.field.sha256",
+        "content.field.statement",
+        "content.field.system",
+        "content.field.title",
+        "content.field.titleZh",
+        "content.field.url",
+        "field.named",
+        "source-fields.private.source.mapping.a8b054",
+        "source-fields.source.mapping.a69a8e",
+        "source-fields.source.mapping.value.830c78",
+        "source-fields.source.mapping.value.knowledge.49b15e",
+        "source-fields.source.mapping.value.value.b90966",
+        "source-fields.value.kind.033e78"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/submission-list.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.next.1ff57a",
+        "admin-users.previous.a57b08",
+        "content-preview.value.version.value.1d1973",
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "submission-list.each.submission.fixes.the.entire.batch.sources.authors.and.illust.330fde",
+        "submission-list.frozen.digest.value.bfb773",
+        "submission-list.independent.review.queue.2ca777",
+        "submission-list.no.matching.submissions.0c6f73",
+        "submission-list.submission.status.eeb12e",
+        "submission-list.submissions.541db6",
+        "submission-list.value.revision.value.6706c2"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/unit-fields.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "path-fields.value.id.0ad111",
+        "path-fields.value.version.f8a7ae",
+        "unit-fields.value.angle.df71ec",
+        "unit-fields.value.angle.value.body.e39e0c",
+        "unit-fields.value.angle.value.kind.c74f64",
+        "unit-fields.value.asset.id.8ccbdd",
+        "unit-fields.value.counterexample.c715cc",
+        "unit-fields.value.example.7998ee",
+        "unit-fields.value.knowledge.f59083"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/withdrawal-panel.tsx",
+      "module": "content",
+      "complete": true,
+      "messageKeys": [
+        "content-preview.value.value.vvalue.afac6e",
+        "content.enum.active",
+        "content.enum.approve",
+        "content.enum.approved",
+        "content.enum.asset",
+        "content.enum.axiom",
+        "content.enum.concept",
+        "content.enum.corollary",
+        "content.enum.definition",
+        "content.enum.derivation",
+        "content.enum.draft",
+        "content.enum.editing",
+        "content.enum.external",
+        "content.enum.knowledge",
+        "content.enum.mathematical-thinking",
+        "content.enum.method",
+        "content.enum.original",
+        "content.enum.path",
+        "content.enum.pending",
+        "content.enum.prerequisite",
+        "content.enum.related",
+        "content.enum.return",
+        "content.enum.returned",
+        "content.enum.submitted",
+        "content.enum.theorem",
+        "content.enum.unit",
+        "content.enum.withdrawn",
+        "publication-panel.no.content.has.been.published.yet.e8904f",
+        "publication-panel.withdraw.a.fixed.version.2cca43",
+        "withdrawal-panel.back.to.publications.ebb489",
+        "withdrawal-panel.based.on.head.value.afc16c",
+        "withdrawal-panel.choose.a.published.member.95163c",
+        "withdrawal-panel.content.correction.c9be22",
+        "withdrawal-panel.exact.target.93f4b6",
+        "withdrawal-panel.inspect.the.full.removal.before.withdrawing.518633",
+        "withdrawal-panel.preview.withdrawal.69c4c0",
+        "withdrawal-panel.problem.version.ff5f6e",
+        "withdrawal-panel.published.member.2d0d52",
+        "withdrawal-panel.refresh.head.and.clear.preview.43cd61",
+        "withdrawal-panel.target.id.32a090",
+        "withdrawal-panel.target.kind.607b91",
+        "withdrawal-panel.target.svg.sha.7c995e",
+        "withdrawal-panel.target.version.2acb4e",
+        "withdrawal-panel.withdraw.version.8e7a90",
+        "withdrawal-panel.withdrawal.complete.current.head.refreshed.0518f3",
+        "withdrawal-panel.withdrawal.is.permanent.for.this.target.dependent.content.leaves..ba7e1a",
+        "withdrawal-panel.withdrawal.preview.6e7687",
+        "withdrawal-panel.withdrawal.reason.6fb3ad"
+      ],
+      "rawDataAreas": [
+        "内容包、草稿输入、Markdown、来源映射、JSON、SVG、审核与发布理由、revision 和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-content.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/case-list.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "case-list.a.grading.issue.uses.the.server.registration.time.withdrawn.sourc.cce17d",
+        "case-list.all.mathematics.evidence.9fc01d",
+        "case-list.approved.basis.available.c1fcbf",
+        "case-list.awaiting.an.approved.basis.0eaba0",
+        "case-list.case.type.858985",
+        "case-list.follow.affected.learning.evidence.from.a.registered.issue.to.an.i.e9df91",
+        "case-list.grading.rule.2115fc",
+        "case-list.grading.rule.review.ab2fe4",
+        "case-list.grading.scope.ea1ec5",
+        "case-list.knowledge.id.d157a6",
+        "case-list.knowledge.sha256.46465c",
+        "case-list.knowledge.version.acf62a",
+        "case-list.learning.content.ace9d7",
+        "case-list.next.cases.f41e3e",
+        "case-list.no.correction.cases.yet.19127d",
+        "case-list.one.knowledge.version.0c6041",
+        "case-list.open.correction.case.7931bb",
+        "case-list.register.a.correction.case.c8261a",
+        "case-list.register.correction.case.abccfa",
+        "case-list.reload.correction.cases.01b77f",
+        "case-list.rule.version.1.exact.rational.and.single.choice.grading.80f013",
+        "case-list.withdrawn.source.749b87",
+        "case-list.withdrawn.source.review.966bbb",
+        "page.review.corrections",
+        "review-panel.question.bank.d8c022",
+        "review-panel.withdrawal.event.id.935c33",
+        "review-panel.withdrawal.source.77a1ed"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/case-panel.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "case-list.approved.basis.available.c1fcbf",
+        "case-panel.awaiting.approval.ae25c9",
+        "case-panel.correction.plans.dfd490",
+        "case-panel.create.correction.plan.23b28c",
+        "case-panel.draft.a.correction.plan.af8cb8",
+        "case-panel.error.category.value.e53a05",
+        "case-panel.impact.processing.5455c8",
+        "case-panel.more.jobs.a1464e",
+        "case-panel.more.plans.4b0125",
+        "case-panel.next.attempt.value.cd648a",
+        "case-panel.no.correction.plan.yet.91fe2a",
+        "case-panel.open.correction.plan.5cd0c5",
+        "case-panel.original.attempts.created.before.value.are.within.scope.007445",
+        "case-panel.plan.reason.dc2c72",
+        "case-panel.plan.version.value.value.b562a0",
+        "case-panel.processing.retries.preserve.completed.evidence.and.the.audit.hist.e975f9",
+        "case-panel.reload.case.status.665567",
+        "case-panel.retry.processing.593933",
+        "case-panel.sequence.value.value.exact.instance.mappings.7c40db",
+        "case-panel.value.evidence.records.checked.attempt.value.8.5baf30",
+        "correction.jobState.failed",
+        "correction.jobState.queued",
+        "correction.jobState.retry_wait",
+        "correction.jobState.running",
+        "correction.jobState.succeeded",
+        "correction.jobType.approved_plan",
+        "correction.jobType.attempt_terminal",
+        "correction.jobType.rule_impact",
+        "correction.jobType.withdrawal_impact",
+        "correction.plan.approved",
+        "correction.plan.draft",
+        "correction.plan.pending",
+        "correction.plan.rejected",
+        "new-form.value.4000.characters.9daa9f",
+        "page.review.corrections",
+        "page.review.corrections.id"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/correction-account.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "correction-account.checking.your.correction.account.da4282"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/correction-asset.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "attempt-asset.question.illustration.b088b7",
+        "safe-markdown.illustration.is.not.available.ef0518"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/evidence-link.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "evidence-link.check.corrections.cddc7d",
+        "evidence-link.checking.corrections.e0e9d6",
+        "evidence-link.corrections.for.saved.evidence.09b140",
+        "evidence-link.more.corrections.56d196",
+        "evidence-link.no.correction.results.yet.be7993",
+        "evidence-link.view.correction.13dc93"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/plan-editor.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "audit.mapping.caption",
+        "audit.mapping.label",
+        "audit.mapping.publication",
+        "audit.mapping.publicationCaption",
+        "case-panel.plan.reason.dc2c72",
+        "correction.field.id",
+        "correction.field.sha256",
+        "correction.field.version",
+        "correction.plan.approved",
+        "correction.plan.draft",
+        "correction.plan.pending",
+        "correction.plan.rejected",
+        "correction.side.original",
+        "correction.side.replacement",
+        "new-form.value.4000.characters.9daa9f",
+        "page.review.corrections.id",
+        "plan-editor.add.instance.mapping.77231b",
+        "plan-editor.approved.basis.and.draft.538ca7",
+        "plan-editor.approved.replacement.f4ed84",
+        "plan-editor.correction.plan.version.value.8aa1ce",
+        "plan-editor.create.new.plan.version.88490f",
+        "plan-editor.draft.a.new.plan.version.6ef060",
+        "plan-editor.exact.instance.mappings.bdfd3a",
+        "plan-editor.keep.question.meaning.and.parameters.unchanged.only.an.independen.89968d",
+        "plan-editor.mapping.value.fc087c",
+        "plan-editor.mappings.e7ca2a",
+        "plan-editor.new.plan.version.a46c49",
+        "plan-editor.open.new.plan.version.4e2487",
+        "plan-editor.original.instance.4f3d6e",
+        "plan-editor.read.plan.details.5c6186",
+        "plan-editor.reload.plan.status.082e03",
+        "plan-editor.remove.mapping.value.5a5ea7",
+        "plan-editor.review.decision.value.f55c2d",
+        "plan-editor.save.plan.draft.8fd425",
+        "plan-editor.sequence.value.b4d4eb",
+        "plan-editor.submit.for.independent.review.7dad26",
+        "plan-editor.this.draft.has.not.been.sealed.4a1611"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/qualification-link.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "qualification-link.original.assessment.cebd35",
+        "qualification-link.view.corrected.qualification.742e9a"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/result-panel.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "audit.notPassed",
+        "audit.skipped",
+        "result-panel.correct.aca01a",
+        "result-panel.corrected.result.def77c",
+        "result-panel.current.validity.value.a14551",
+        "result-panel.learning.correction.c9d5ff",
+        "result-panel.not.correct.f9cade",
+        "result-panel.original.answer.value.80de39",
+        "result-panel.original.result.34bd06",
+        "result-panel.original.value.vvalue.effective.value.vvalue.28ac10",
+        "result-panel.passed.436fe7",
+        "result-panel.previous.correction.c0de64",
+        "result-panel.question.value.016509",
+        "result-panel.reload.correction.status.e893ee",
+        "result-panel.return.to.the.updated.material.before.continuing.57ef79",
+        "result-panel.review.corrected.answers.83394a",
+        "result-panel.review.knowledge.4b5f8a",
+        "result-panel.review.the.current.knowledge.and.take.a.new.assessment.when.it.be.c48272",
+        "result-panel.score.value.5.value.68a83e",
+        "result-panel.the.same.original.answers.were.checked.against.the.independently..edd1c9",
+        "result-panel.this.correction.currently.cannot.provide.a.learning.qualification.8712ec",
+        "result-panel.your.original.answers.are.preserved.while.the.basis.is.independen.dfaf01"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/review-panel.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "page.review",
+        "review-panel.approve.correction.d71667",
+        "review-panel.approve.only.after.checking.the.exact.published.sources.creators..0f5188",
+        "review-panel.independent.review.reason.08bd46",
+        "review-panel.reject.correction.0558f4"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/correction/status.tsx",
+      "module": "correction",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.cancel.19766e",
+        "admin-users.verify.password.f226eb",
+        "admin-users.verify.your.password.0ed67a",
+        "admin-users.your.password.bbda70",
+        "auth-state.view.account.407143",
+        "auth.input.password",
+        "correction.status.awaiting_review",
+        "correction.status.checked_unaffected",
+        "correction.status.corrected_failed",
+        "correction.status.corrected_passed",
+        "correction.status.retake_required",
+        "correction.status.review_material",
+        "learning-status.no.confirmation.received.you.can.retry.the.same.request.e68eb0",
+        "learning-status.retry.same.request.16003a",
+        "learning-status.try.after.value.ea24ae",
+        "page.login",
+        "status.checking.and.saving.ff6df1",
+        "status.edit.as.a.new.request.356c78",
+        "status.password.verified.retry.the.preserved.request.15ada6",
+        "status.reload.page.437d0d",
+        "status.verification.lasts.five.minutes.retry.the.preserved.command.separ.043e8e",
+        "status.your.change.was.saved.retry.the.same.request.to.load.the.latest.s.01d912"
+      ],
+      "rawDataAreas": [
+        "原始答案、依据、实例映射、审阅理由、计划及结果标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/feedback/discussion-panel.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "discussion-panel.add.details.78056f",
+        "discussion-panel.additional.details.00fcfc",
+        "discussion-panel.back.to.reports.b62a50",
+        "discussion-panel.basis.5690cd",
+        "discussion-panel.current.basis.value.9e8023",
+        "discussion-panel.discussion.5eb6cf",
+        "discussion-panel.event.133a15",
+        "discussion-panel.next.discussion.page.007355",
+        "discussion-panel.publication.6dbeee",
+        "discussion-panel.read.discussion.60768c",
+        "discussion-panel.reading.874bfa",
+        "discussion-panel.related.report.db9c9f",
+        "discussion-panel.reload.report.status.60577f",
+        "discussion-panel.replacement.aa0aec",
+        "discussion-panel.report.author.24263d",
+        "discussion-panel.review.team.4433d3",
+        "discussion-panel.withdrawal.f3cdbc",
+        "feedback.basis.clarified",
+        "feedback.basis.duplicate",
+        "feedback.basis.not_reproducible",
+        "feedback.basis.out_of_scope",
+        "feedback.basis.revision_published",
+        "feedback.basis.service_fixed",
+        "feedback.basis.suggestion_recorded",
+        "feedback.basis.withdrawn",
+        "new-form.value.4000.characters.9daa9f",
+        "page.review.feedback.id",
+        "ticket-list.event.5a4db3"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/feedback/feedback-account.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "feedback-account.checking.your.feedback.account.08c898"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/feedback/new-form.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "feedback.category.accessibility",
+        "feedback.category.answer_error",
+        "feedback.category.explanation",
+        "feedback.category.grading_error",
+        "feedback.category.illustration",
+        "feedback.category.math_error",
+        "feedback.category.other",
+        "feedback.category.reference",
+        "feedback.category.site",
+        "feedback.category.suggestion",
+        "feedback.category.technical_issue",
+        "feedback.category.typo",
+        "feedback.category.unclear_explanation",
+        "new-form.category.292c06",
+        "new-form.describe.what.happened.and.what.would.help.your.original.report.s.3a0e68",
+        "new-form.details.45989d",
+        "new-form.refresh.report.target.42c32c",
+        "new-form.refreshing.report.target.facb17",
+        "new-form.report.target.refreshed.review.the.version.before.submitting.agai.33a9e0",
+        "new-form.submit.report.b41fd5",
+        "new-form.title.7e8cd2",
+        "new-form.value.120.characters.67f5dd",
+        "new-form.value.400.characters.c1548a",
+        "new-form.value.4000.characters.9daa9f",
+        "new-form.where.on.the.page.2e6785",
+        "page.feedback.new"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/feedback/report-link.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "page.feedback.new"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/feedback/review-panel.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "feedback.basis.clarified",
+        "feedback.basis.duplicate",
+        "feedback.basis.not_reproducible",
+        "feedback.basis.out_of_scope",
+        "feedback.basis.revision_published",
+        "feedback.basis.service_fixed",
+        "feedback.basis.suggestion_recorded",
+        "feedback.basis.withdrawn",
+        "feedback.status.closed",
+        "feedback.status.new",
+        "feedback.status.processing",
+        "feedback.status.resolved",
+        "feedback.status.waiting_details",
+        "new-form.value.4000.characters.9daa9f",
+        "review-panel.content.47bd29",
+        "review-panel.duplicate.report.id.2eed31",
+        "review-panel.handle.this.report.3fef67",
+        "review-panel.question.bank.d8c022",
+        "review-panel.replacement.id.114847",
+        "review-panel.replacement.kind.cdfd5f",
+        "review-panel.replacement.publication.id.6723c8",
+        "review-panel.replacement.sha256.1002ff",
+        "review-panel.replacement.version.bd1b6d",
+        "review-panel.report.status.22a134",
+        "review-panel.resolution.basis.47ef7d",
+        "review-panel.review.reply.6bf2f2",
+        "review-panel.save.handling.result.fe5bce",
+        "review-panel.use.an.independently.approved.already.published.replacement.b34ac2",
+        "review-panel.value.choose.an.available.status.bb7389",
+        "review-panel.withdrawal.event.id.935c33",
+        "review-panel.withdrawal.source.77a1ed"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/feedback/status.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "auth-state.view.account.407143",
+        "feedback.status.closed",
+        "feedback.status.new",
+        "feedback.status.processing",
+        "feedback.status.resolved",
+        "feedback.status.waiting_details",
+        "learning-status.no.confirmation.received.you.can.retry.the.same.request.e68eb0",
+        "learning-status.retry.same.request.16003a",
+        "learning-status.saving.23e392",
+        "learning-status.try.after.value.ea24ae",
+        "page.login",
+        "status.edit.as.a.new.request.356c78",
+        "status.reload.page.437d0d",
+        "status.your.change.was.saved.retry.the.same.request.to.load.the.latest.s.01d912"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/feedback/ticket-list.tsx",
+      "module": "feedback",
+      "complete": true,
+      "messageKeys": [
+        "feedback.category.accessibility",
+        "feedback.category.answer_error",
+        "feedback.category.explanation",
+        "feedback.category.grading_error",
+        "feedback.category.illustration",
+        "feedback.category.math_error",
+        "feedback.category.other",
+        "feedback.category.reference",
+        "feedback.category.site",
+        "feedback.category.suggestion",
+        "feedback.category.technical_issue",
+        "feedback.category.typo",
+        "feedback.category.unclear_explanation",
+        "feedback.status.closed",
+        "feedback.status.new",
+        "feedback.status.processing",
+        "feedback.status.resolved",
+        "feedback.status.waiting_details",
+        "new-form.category.292c06",
+        "page.feedback",
+        "ticket-list.all.categories.9d5097",
+        "ticket-list.all.statuses.8ee573",
+        "ticket-list.event.5a4db3",
+        "ticket-list.feedback.review.queue.55f05a",
+        "ticket-list.filter.queue.f927f0",
+        "ticket-list.new.report.16f776",
+        "ticket-list.next.reports.4eb46c",
+        "ticket-list.no.reports.match.this.queue.11ebb7",
+        "ticket-list.no.reports.yet.be893e",
+        "ticket-list.status.920e41"
+      ],
+      "rawDataAreas": [
+        "原始标题、详情、留言、处理说明、来源和事件标识"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/learning/attempt-asset.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "attempt-asset.question.illustration.b088b7",
+        "safe-markdown.illustration.is.not.available.ef0518"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/learning/history-list.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.next.1ff57a",
+        "admin-users.previous.a57b08",
+        "history-list.history.pages.714bf6",
+        "history-list.no.personal.learning.records.yet.b85eae",
+        "history-list.value.utc.c16e72",
+        "history-list.version.value.value.value.ea7ec3",
+        "history-list.view.attempt.b17a6b",
+        "history-list.view.learning.record.95f5a9",
+        "learning.attempt.abandoned",
+        "learning.attempt.active",
+        "learning.attempt.answered",
+        "learning.attempt.completed",
+        "learning.attempt.enrolled",
+        "learning.attempt.expired",
+        "learning.attempt.revealed",
+        "learning.attempt.started",
+        "learning.attempt.submitted",
+        "page.learning-history"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/learning/knowledge-controls.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "knowledge-controls.a.reviewed.five.question.assessment.is.not.available.for.this.kno.efc816",
+        "knowledge-controls.additional.reviewed.questions.are.needed.for.these.goals.b62d13",
+        "knowledge-controls.assessment.goals.bc235e",
+        "knowledge-controls.assessment.mode.87c89f",
+        "knowledge-controls.build.understanding.d3f7f9",
+        "knowledge-controls.check.your.understanding.b15e3d",
+        "knowledge-controls.continue.current.assessment.38cce9",
+        "knowledge-controls.diagnostic.assessment.856c34",
+        "knowledge-controls.five.eligible.questions.are.not.available.92f917",
+        "knowledge-controls.historical.learning.record.1cce1f",
+        "knowledge-controls.learning.check.3fa22f",
+        "knowledge-controls.mark.as.learned.0636c7",
+        "knowledge-controls.needs.assessment.ca948f",
+        "knowledge-controls.personal.knowledge.record.ac5aa8",
+        "knowledge-controls.practice.and.assessment.24449e",
+        "knowledge-controls.previously.viewed.answers.need.time.before.they.can.be.used.in.an.5f58dc",
+        "knowledge-controls.read.freely.your.learning.record.changes.when.you.choose.an.actio.8d30c1",
+        "knowledge-controls.reading.completion.recorded.f65e0d",
+        "knowledge-controls.ready.5fa7aa",
+        "knowledge-controls.review.assessment.77cf32",
+        "knowledge-controls.review.the.current.explanation.8c3a53",
+        "knowledge-controls.saved.grading.evidence.is.awaiting.independent.correction.review.464d20",
+        "knowledge-controls.set.value.value.31aca9",
+        "knowledge-controls.start.five.question.assessment.09a806",
+        "knowledge-controls.start.learning.ac1796",
+        "knowledge-controls.start.single.question.practice.5312a9",
+        "knowledge-controls.this.is.a.saved.version.8b4989",
+        "knowledge-controls.try.after.95e48e",
+        "knowledge-controls.view.learning.history.31b66d",
+        "knowledge-controls.work.through.the.prerequisites.or.use.a.diagnostic.assessment.to..f48ccf",
+        "knowledge-controls.your.learning.record.0e3a28"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/learning/knowledge-list.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "knowledge-list.explore.your.full.learning.map.d9ec05",
+        "knowledge-list.knowledge.learning.states.57e222",
+        "knowledge-list.knowledge.pages.10ab02",
+        "knowledge-list.next.knowledge.points.da8759",
+        "knowledge-list.no.reviewed.knowledge.points.are.available.yet.3cee4b",
+        "knowledge-list.previous.knowledge.points.4419a5",
+        "knowledge-list.review.learning.record.de4302",
+        "knowledge-list.your.knowledge.map.cbbacd"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/learning/learning-account.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ],
+      "noOwnText": true
+    },
+    {
+      "file": "frontend/src/features/learning/learning-status.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "auth-state.view.account.407143",
+        "learning-status.checking.your.learning.account.3df2f8",
+        "learning-status.continue.current.attempt.9545db",
+        "learning-status.learning.is.temporarily.unavailable.5d2180",
+        "learning-status.learning.records.are.not.available.yet.d0dd91",
+        "learning-status.locked.a424e3",
+        "learning-status.no.confirmation.received.you.can.retry.the.same.request.e68eb0",
+        "learning-status.previously.unlocked.ecd216",
+        "learning-status.retry.same.request.16003a",
+        "learning-status.saving.23e392",
+        "learning-status.sign.in.to.keep.your.learning.records.c763b1",
+        "learning-status.try.after.value.ea24ae",
+        "learning-status.unavailable.ca1844",
+        "learning-status.unlocked.531c7b",
+        "learning-status.use.the.format.shown.beside.the.question.949e24",
+        "learning.state.learned",
+        "learning.state.learning",
+        "learning.state.mastered",
+        "learning.state.needs-review",
+        "learning.state.unlearned",
+        "page.login"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/learning/overview-panel.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "audit.assessment",
+        "audit.practice",
+        "overview-panel.continue.value.5d2b50",
+        "overview-panel.knowledge.points.4c5586",
+        "overview-panel.learning.overview.f9c4ad",
+        "overview-panel.learning.routes.13f0bd",
+        "overview-panel.no.reviewed.routes.are.available.yet.f42dab",
+        "overview-panel.reviewed.learning.content.will.appear.as.it.becomes.available.fdce83",
+        "overview-panel.value.historically.unlocked.16f06c",
+        "overview-panel.value.knowledge.points.started.79dd20",
+        "overview-panel.value.passed.70be87",
+        "overview-panel.value.read.0fdd28",
+        "overview-panel.view.all.learning.history.7a7600",
+        "overview-panel.your.progress.433a72"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/learning/path-progress.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "path-progress.explore.the.current.route.eec21f",
+        "path-progress.fixed.route.progress.367920",
+        "path-progress.join.learning.route.d8d3be",
+        "path-progress.join.route.5560fe",
+        "path-progress.keep.your.route.progress.a80a0c",
+        "path-progress.new.route.version.available.67ae0e",
+        "path-progress.save.this.route.version.with.value.knowledge.points.reading.it.do.96b512",
+        "path-progress.saved.evidence.needs.a.current.review.8dbbf3",
+        "path-progress.saved.route.version.value.555a99",
+        "path-progress.value.value.historically.unlocked.abdc56",
+        "path-progress.value.value.passed.bb2e62",
+        "path-progress.value.value.read.8ae4d9",
+        "path-progress.view.saved.learning.record.3badde",
+        "path-progress.your.saved.version.is.unchanged.b5be92"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notification/inbox.tsx",
+      "module": "notification",
+      "complete": true,
+      "messageKeys": [
+        "evidence-link.view.correction.13dc93",
+        "inbox.mark.as.read.50c8b8",
+        "inbox.next.notifications.8c2b27",
+        "inbox.read.9b9a8d",
+        "inbox.reload.notifications.7aeb54",
+        "inbox.unread.1b9f38",
+        "inbox.value.unread.notifications.39c4b8",
+        "inbox.you.have.no.notifications.yet.9654ca",
+        "notification.type.checking",
+        "notification.type.corrected",
+        "notification.type.path_unavailable",
+        "notification.type.retake",
+        "notification.type.review_material",
+        "page.notifications"
+      ],
+      "rawDataAreas": [
+        "所属用户、通知类型值、关联标识、已读状态与时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notification/notification-account.tsx",
+      "module": "notification",
+      "complete": true,
+      "messageKeys": [
+        "correction-account.checking.your.correction.account.da4282"
+      ],
+      "rawDataAreas": [
+        "所属用户、通知类型值、关联标识、已读状态与时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-correction.spec.ts"
+      ],
+      "delegates": [
+        "frontend/src/features/correction/correction-account.tsx"
+      ]
+    },
+    {
+      "file": "frontend/src/features/practice/practice-panel.tsx",
+      "module": "learning",
+      "complete": true,
+      "messageKeys": [
+        "page.illustration.0ffea7",
+        "practice-panel.abandon.practice.8b007f",
+        "practice-panel.expires.at.2e4e2e",
+        "practice-panel.practice.ended.answer.revealed.3e12d9",
+        "practice-panel.practice.supports.understanding.it.does.not.grant.assessment.qual.9691a0",
+        "practice-panel.reveal.answer.848e09",
+        "practice-panel.reveal.answer.ends.this.practice.immediately.c91381",
+        "practice-panel.review.the.lesson.or.start.another.practice.70e26d",
+        "practice-panel.single.question.practice.7f9c5a",
+        "practice-panel.submit.answer.b896ad"
+      ],
+      "rawDataAreas": [
+        "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-learning.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/blueprint-fields.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "blueprint-fields.instance.sources.identify.fixed.questions.generated.questions.ent.d26e6b",
+        "blueprint-fields.rule.version.1.5.questions.4.correct.answers.required.current.fiv.b49274",
+        "blueprint-fields.value.core.97243e",
+        "blueprint-fields.value.coverage.explanation.e9faf5",
+        "blueprint-fields.value.five.distinct.questions.ac02dd",
+        "blueprint-fields.value.source.value.kind.276627",
+        "package-fields.value.source.5a7bf3",
+        "package-fields.value.source.value.40de80",
+        "path-fields.value.id.0ad111",
+        "path-fields.value.version.f8a7ae",
+        "question.enum.add",
+        "question.enum.blueprint",
+        "question.enum.compare",
+        "question.enum.core",
+        "question.enum.distinct_operands",
+        "question.enum.divide",
+        "question.enum.instance",
+        "question.enum.left",
+        "question.enum.minus_one",
+        "question.enum.missing_operand",
+        "question.enum.multiply",
+        "question.enum.negate",
+        "question.enum.nonnegative_result",
+        "question.enum.nonzero_divisor",
+        "question.enum.numeric",
+        "question.enum.percentage",
+        "question.enum.plus_one",
+        "question.enum.rational",
+        "question.enum.rational_arithmetic",
+        "question.enum.rational_comparison",
+        "question.enum.reciprocal",
+        "question.enum.right",
+        "question.enum.single_choice",
+        "question.enum.subtract",
+        "question.enum.supplementary",
+        "question.enum.template",
+        "unit-fields.value.knowledge.f59083"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/command-controls.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "admin-users.cancel.19766e",
+        "admin-users.verify.password.f226eb",
+        "admin-users.verify.your.password.0ed67a",
+        "admin-users.your.password.bbda70",
+        "command-controls.discard.local.pending.request.14700a",
+        "command-controls.password.verified.retry.the.preserved.command.when.ready.aef9f8",
+        "command-controls.retry.previous.request.34b089",
+        "command-controls.retry.sends.the.same.input.and.request.key.no.write.is.retried.au.4ced2e",
+        "command-controls.stop.waiting.d4af24",
+        "command-controls.the.previous.command.is.preserved.03b9de",
+        "command-controls.the.result.is.unconfirmed.stopping.or.timing.out.does.not.prove.t.fba207",
+        "command-controls.try.again.after.value.seconds.a723d0",
+        "command-controls.verification.lasts.five.minutes.the.preserved.command.is.sent.onl.64a5cc"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/coverage-panel.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "audit.none",
+        "content-preview.value.vvalue.bde90b",
+        "coverage-panel.approved.templates.value.fixed.questions.value.published.knowledg.47b5a4",
+        "coverage-panel.core.objectives.value.covered.value.e199da",
+        "coverage-panel.counts.reflect.approved.published.questions.whose.current.knowled.630f4d",
+        "coverage-panel.knowledge.head.b7020e",
+        "coverage-panel.next.coverage.nodes.dff886",
+        "coverage-panel.no.assessment.blueprint.configured.723360",
+        "coverage-panel.node.counts.may.overlap.global.counts.use.distinct.question.ident.746aef",
+        "coverage-panel.not.ready.for.assessment.386442",
+        "coverage-panel.previous.coverage.nodes.67c2fb",
+        "coverage-panel.published.question.coverage.567402",
+        "coverage-panel.published.trusted.instances.value.0943fe",
+        "coverage-panel.question.head.6001f1",
+        "coverage-panel.ready.for.five.questions.16340b",
+        "coverage-panel.refresh.coverage.7fbd1b",
+        "coverage-panel.snapshots.changed.refresh.from.the.first.page.before.comparing.co.a168f3",
+        "coverage-panel.supplementary.objectives.value.3fa75c",
+        "coverage-panel.valid.questions.value.fixed.value.generated.value.blueprint.pool..dd1cd1",
+        "coverage-panel.value.coverage.rows.offset.value.d50be7"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要",
+        "原始自动校验报告 code/path/message 与导出 JSON 作为固定证据保持原文"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/diff-panel.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "diff-panel.after.84507c",
+        "diff-panel.before.a2bcd3",
+        "diff-panel.decision.f78582",
+        "diff-panel.fixed.mathematical.differences.15d782",
+        "diff-panel.fixed.members.and.approval.evidence.4d4bdb",
+        "diff-panel.frozen.digest.35e32d",
+        "diff-panel.inherited.from.5be696",
+        "diff-panel.loading.fixed.differences.90b335",
+        "diff-panel.next.changes.d0a346",
+        "diff-panel.next.members.5909b2",
+        "diff-panel.none.dc937b",
+        "diff-panel.package.98d9ee",
+        "diff-panel.previous.changes.35f067",
+        "diff-panel.previous.members.9423b1",
+        "diff-panel.sha.483ee8",
+        "diff-panel.snapshot.data.does.not.match.the.selected.manifest.707687",
+        "diff-panel.submission.fb1f17",
+        "diff-panel.value.changes.offset.value.3a4d07",
+        "diff-panel.value.members.offset.value.approval.provenance.can.change.without.d13b68",
+        "diff-panel.value.value.vvalue.610089",
+        "publication-panel.v.e40f81"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/draft-editor.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "audit.unsavedQuestion",
+        "content-preview.value.version.value.1d1973",
+        "draft-editor.apply.editable.json.94e26f",
+        "draft-editor.assessment.blueprints.fcd71c",
+        "draft-editor.back.to.question.workspaces.7f7e32",
+        "draft-editor.blueprint.b1ece0",
+        "draft-editor.blueprint.value.ee770e",
+        "draft-editor.catalogue.version.0654f3",
+        "draft-editor.copy.current.fields.to.json.7379fb",
+        "draft-editor.draft.saved.validate.the.new.saved.revision.3180f2",
+        "draft-editor.editable.json.and.source.mapping.ceb2f0",
+        "draft-editor.editable.question.data.imported.save.and.validate.this.revision.b.a2437c",
+        "draft-editor.editable.question.json.ff0b13",
+        "draft-editor.editable.question.package.e30c58",
+        "draft-editor.export.editable.json.65164d",
+        "draft-editor.finite.question.templates.3f552e",
+        "draft-editor.fixed.question.b25887",
+        "draft-editor.fixed.question.value.944706",
+        "draft-editor.fixed.questions.67f48f",
+        "draft-editor.import.and.export.contain.editable.question.data.and.source.mappi.9b4d59",
+        "draft-editor.import.question.json.file.3dea76",
+        "draft-editor.invalid.or.oversized.editable.question.json.the.current.input.was.899b5c",
+        "draft-editor.open.frozen.submission.c1dfbc",
+        "draft-editor.owner.value.authors.value.2be751",
+        "draft-editor.question.authoring.932915",
+        "draft-editor.question.json.exceeds.the.request.size.limit.e70c01",
+        "draft-editor.rational.arithmetic.rational.comparison.missing.operand.05a6d3",
+        "draft-editor.reload.saved.version.3c845b",
+        "draft-editor.save.draft.3de100",
+        "draft-editor.saved.revision.value.value.value.b3456a",
+        "draft-editor.saved.version.reloaded.your.editable.input.was.preserved.c167eb",
+        "draft-editor.saving.machine.validation.and.independent.approval.are.separate.s.d9d962",
+        "draft-editor.submit.for.review.40447e",
+        "draft-editor.template.5cde0f",
+        "draft-editor.template.value.7d9545",
+        "draft-editor.the.saved.revision.was.frozen.for.independent.review.23df27",
+        "draft-editor.this.workspace.is.read.only.for.this.account.or.has.already.been..be1962",
+        "draft-editor.validate.saved.revision.0603de",
+        "draft-editor.verify.historical.authorship.and.original.sources.before.approval.248a00",
+        "package-fields.package.id.7a35d0",
+        "package-fields.package.version.359c57",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/draft-list.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "content-preview.value.version.value.1d1973",
+        "draft-list.adopt.an.imported.question.package.35dce8",
+        "draft-list.adopt.package.60672c",
+        "draft-list.adoption.reason.e89c31",
+        "draft-list.build.exact.questions.validate.the.finite.batch.and.submit.it.for.03a844",
+        "draft-list.create.draft.07d07a",
+        "draft-list.create.question.workspace.2b8d7c",
+        "draft-list.editor.permission.is.required.to.create.or.change.questions.0931c2",
+        "draft-list.new.catalogue.version.a016bc",
+        "draft-list.new.editable.package.9d8c64",
+        "draft-list.new.question.package.id.fc85e8",
+        "draft-list.new.question.package.version.6b2659",
+        "draft-list.next.workspaces.e03049",
+        "draft-list.no.question.workspaces.yet.84226e",
+        "draft-list.previous.workspaces.fa8a2d",
+        "draft-list.revision.value.value.value.machine.issues.0d005f",
+        "draft-list.trusted.question.bank.a62caf",
+        "draft-list.use.the.exact.package.id.and.version.above.historical.authorship..5ae8a4",
+        "page.editor.questions",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/fixed-fields.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "fixed-fields.conceptual.choices.require.an.independent.human.mathematics.revie.61ec90",
+        "fixed-fields.independent.verification.witness.078cd5",
+        "fixed-fields.use.a.mathematical.verification.witness.750a96",
+        "fixed-fields.value.answer.denominator.589df2",
+        "fixed-fields.value.answer.numerator.b7eb62",
+        "fixed-fields.value.choice.a4beb3",
+        "fixed-fields.value.choice.value.id.8e997c",
+        "fixed-fields.value.choice.value.text.108530",
+        "fixed-fields.value.correct.choice.id.77215b",
+        "fixed-fields.value.witness.family.aa4e0d",
+        "fixed-fields.value.witness.operation.4515de",
+        "fixed-fields.value.witness.parameter.80503f",
+        "fixed-fields.value.witness.parameter.value.exact.value.2e0a8a",
+        "fixed-fields.value.witness.parameter.value.name.d93d1a",
+        "fixed-fields.value.witness.unknown.side.b51c41",
+        "path-fields.value.id.0ad111",
+        "path-fields.value.version.f8a7ae",
+        "question.enum.add",
+        "question.enum.blueprint",
+        "question.enum.compare",
+        "question.enum.core",
+        "question.enum.distinct_operands",
+        "question.enum.divide",
+        "question.enum.instance",
+        "question.enum.left",
+        "question.enum.minus_one",
+        "question.enum.missing_operand",
+        "question.enum.multiply",
+        "question.enum.negate",
+        "question.enum.nonnegative_result",
+        "question.enum.nonzero_divisor",
+        "question.enum.numeric",
+        "question.enum.percentage",
+        "question.enum.plus_one",
+        "question.enum.rational",
+        "question.enum.rational_arithmetic",
+        "question.enum.rational_comparison",
+        "question.enum.reciprocal",
+        "question.enum.right",
+        "question.enum.single_choice",
+        "question.enum.subtract",
+        "question.enum.supplementary",
+        "question.enum.template",
+        "template-fields.value.answer.type.e7124b",
+        "template-fields.value.explanation.cedb6c",
+        "template-fields.value.numeric.format.fa8de6",
+        "template-fields.value.primary.knowledge.99f3ec",
+        "template-fields.value.prompt.31f4c5"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/generation-panel.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "audit.coverFound",
+        "audit.coverNeedsWork",
+        "audit.fixedIllustration",
+        "audit.none",
+        "audit.noneConfigured",
+        "audit.source.attribution",
+        "audit.source.author",
+        "audit.source.license",
+        "audit.source.title",
+        "content-preview.accessed.value.5dc1f8",
+        "content-preview.structural.issues.value.completeness.issues.value.human.checks.va.6fe5e4",
+        "content-preview.value.vvalue.bde90b",
+        "content.check.sources",
+        "generation-panel.availability.follows.the.current.public.publication.check.attribu.c068b3",
+        "generation-panel.core.objective.indices.value.value.3f0422",
+        "generation-panel.effective.instances.value.fixed.value.generated.value.a62299",
+        "generation-panel.fixed.illustrations.fd3664",
+        "generation-panel.generated.previews.become.trusted.publication.content.only.after..03fe9c",
+        "generation-panel.independent.verification.witness.and.fixed.coverage.8269b5",
+        "generation-panel.machine.checks.passed.reviewer.approval.is.required.deef63",
+        "generation-panel.no.sources.declared.source.verification.is.required.f5603d",
+        "generation-panel.primary.knowledge.value.vvalue.60e3e9",
+        "generation-panel.question.package.bytes.value.frozen.bytes.value.42a43d",
+        "generation-panel.questions.need.work.before.submission.d2b52f",
+        "generation-panel.raw.combinations.value.excluded.value.independently.verified.inst.58393d",
+        "generation-panel.saved.revision.value.generation.check.22a232",
+        "generation-panel.showing.the.first.100.issues.totals.include.every.issue.b82545",
+        "generation-panel.supplementary.objective.indices.value.d292f7",
+        "generation-panel.value.value.excluded.combinations.671ebe",
+        "generation-panel.verified.answer.value.6f716c",
+        "generation-panel.version.value.sha.value.777514",
+        "template-fields.generator.version.value.verifier.version.value.bda518"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要",
+        "原始自动校验报告 code/path/message 与导出 JSON 作为固定证据保持原文"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/page-access.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "account-panel.your.account.cee7fd",
+        "auth-state.clear.sign.in.cookie.b7ae51",
+        "auth-state.explore.mathematics.088a8c",
+        "auth-state.view.account.407143",
+        "auth.state.anonymous",
+        "auth.state.invalidCookie",
+        "content-state.try.again.d8b839",
+        "page.login"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ],
+      "delegates": [
+        "frontend/src/features/auth/auth-state.tsx"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/publication-panel.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "diff-panel.added.value.replaced.value.removed.value.83f44a",
+        "publication-panel.activate.snapshot.bd0268",
+        "publication-panel.approved.submissions.86299b",
+        "publication-panel.base.knowledge.head.da6971",
+        "publication-panel.base.question.head.c7e74a",
+        "publication-panel.current.knowledge.head.1a83a3",
+        "publication-panel.current.published.bank.value.templates.value.trusted.instances.va.30647f",
+        "publication-panel.current.question.head.51281d",
+        "publication-panel.current.snapshot.identity.does.not.match.f378f9",
+        "publication-panel.frozen.review.583f9b",
+        "publication-panel.loading.approved.submissions.523773",
+        "publication-panel.manifest.sha.aafd9c",
+        "publication-panel.next.approved.submissions.d59bee",
+        "publication-panel.next.snapshots.28f079",
+        "publication-panel.no.approved.submissions.fc2830",
+        "publication-panel.no.snapshots.on.this.page.2f19fb",
+        "publication-panel.open.fixed.snapshot.d13edd",
+        "publication-panel.prepare.snapshot.93466e",
+        "publication-panel.previous.approved.submissions.75d73f",
+        "publication-panel.previous.snapshots.1ead42",
+        "publication-panel.publication.reason.8ae504",
+        "publication-panel.published.snapshots.changed.refresh.both.heads.and.prepare.a.new..126274",
+        "publication-panel.question.publication.ef452a",
+        "publication-panel.refresh.both.current.heads.13c170",
+        "publication-panel.select.1.20.independently.approved.submissions.inherited.members..a32964",
+        "publication-panel.selected.value.snapshot.978a63",
+        "publication-panel.snapshot.activated.both.current.heads.refreshed.550507",
+        "publication-panel.snapshot.history.d81e02",
+        "publication-panel.snapshot.prepared.inspect.its.complete.fixed.difference.and.evide.4818f7",
+        "publication-panel.trusted.question.snapshots.dca705",
+        "publication-panel.v.e40f81",
+        "publication-panel.value.submissions.selected.across.pages.f7aa8e",
+        "publication-panel.value.templates.value.instances.value.blueprints.d899e0",
+        "publication-panel.withdraw.a.question.version.permanently.114e83",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/question-state.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "auth-state.explore.mathematics.088a8c",
+        "content-state.try.again.d8b839",
+        "question-state.question.data.is.not.available.fa945f",
+        "question-state.question.management.is.temporarily.unavailable.53681c",
+        "question-state.the.trusted.question.bank.is.not.configured.yet.3d8238"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/review-panel.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "audit.none",
+        "content-preview.value.version.value.1d1973",
+        "draft-editor.verify.historical.authorship.and.original.sources.before.approval.248a00",
+        "page.review",
+        "publication-panel.v.e40f81",
+        "question.check.coverage",
+        "question.check.explanations",
+        "question.check.generation",
+        "question.check.illustrations",
+        "question.check.mathematics",
+        "question.check.objectives",
+        "question.check.sources",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted",
+        "review-panel.administrator.self.review.c05816",
+        "review-panel.administrator.self.review.decision.3f56c1",
+        "review-panel.administrator.self.review.saved.ea6679",
+        "review-panel.approve.submission.bce550",
+        "review-panel.authors.6f5a07",
+        "review-panel.authors.cannot.review.their.own.or.inherited.questions.c8a07b",
+        "review-panel.back.to.question.submissions.c8d01f",
+        "review-panel.batch.sha.value.source.sha.value.8530e4",
+        "review-panel.bound.question.instances.f83db5",
+        "review-panel.catalogue.sha.90659b",
+        "review-panel.complete.all.six.checks.before.approval.8b89bd",
+        "review-panel.complete.frozen.package.blueprints.and.reference.identities.519804",
+        "review-panel.complete.frozen.template.and.engine.specification.5bf1c8",
+        "review-panel.constraints.value.523e1b",
+        "review-panel.create.revision.workspace.bdecb5",
+        "review-panel.distractors.value.403375",
+        "review-panel.exact.parameters.value.f63e08",
+        "review-panel.final.review.decision.599ee2",
+        "review-panel.frozen.digest.203dee",
+        "review-panel.frozen.learning.objectives.14da3e",
+        "review-panel.frozen.question.review.f18dbf",
+        "review-panel.frozen.source.mapping.1dd892",
+        "review-panel.generation.review.statement.434467",
+        "review-panel.generator.versions.3bf6e1",
+        "review-panel.independence.statement.3adc69",
+        "review-panel.independent.review.saved.ba7d40",
+        "review-panel.index.f48749",
+        "review-panel.instance.data.does.not.match.this.frozen.submission.a1ce90",
+        "review-panel.next.instances.98b8ca",
+        "review-panel.no.source.mapping.declared.verify.original.provenance.independent.bb78ac",
+        "review-panel.previous.instances.e6cf69",
+        "review-panel.resume.returned.workspace.716887",
+        "review-panel.return.for.changes.af8999",
+        "review-panel.review.note.c2d4c5",
+        "review-panel.review.responsibility.statement.0a0fb9",
+        "review-panel.reviewer.value.184bca",
+        "review-panel.self.review.decision.fde99a",
+        "review-panel.showing.value.of.value.instances.offset.value.every.instance.is.a.39637c",
+        "review-panel.submission.returned.for.changes.690b53",
+        "review-panel.this.approval.records.an.administrator.reviewing.their.own.conten.f9ff22",
+        "review-panel.value.frozen.revision.value.catalogue.version.value.7db94e",
+        "review-panel.verifier.versions.f87830",
+        "review-panel.when.no.templates.are.present.explain.explicitly.why.generation.d.691385"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/submission-list.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "content-preview.value.vvalue.bde90b",
+        "question.state.active",
+        "question.state.approved",
+        "question.state.editing",
+        "question.state.pending",
+        "question.state.prepared",
+        "question.state.published",
+        "question.state.returned",
+        "question.state.submitted",
+        "submission-list.approved.87b42e",
+        "submission-list.digest.value.b74ba8",
+        "submission-list.frozen.question.submissions.250eef",
+        "submission-list.independent.question.review.queue.006495",
+        "submission-list.next.submissions.ea5832",
+        "submission-list.no.submissions.in.this.view.28cce2",
+        "submission-list.pending.331551",
+        "submission-list.previous.submissions.8d9ab0",
+        "submission-list.returned.361023",
+        "submission-list.review.uses.immutable.submitted.questions.and.every.bound.instanc.50a797",
+        "submission-list.status.8bdde2",
+        "submission-list.value.frozen.revision.value.cfefdf"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/template-fields.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "audit.objective.label",
+        "content.field.accessedAt",
+        "content.field.attribution",
+        "content.field.author",
+        "content.field.batchSha256",
+        "content.field.id",
+        "content.field.kind",
+        "content.field.legacyId",
+        "content.field.license",
+        "content.field.note",
+        "content.field.path",
+        "content.field.proof",
+        "content.field.relativePath",
+        "content.field.scope",
+        "content.field.sha256",
+        "content.field.statement",
+        "content.field.system",
+        "content.field.title",
+        "content.field.titleZh",
+        "content.field.url",
+        "package-fields.value.source.5a7bf3",
+        "package-fields.value.source.value.40de80",
+        "path-fields.value.id.0ad111",
+        "path-fields.value.version.f8a7ae",
+        "question.enum.add",
+        "question.enum.blueprint",
+        "question.enum.compare",
+        "question.enum.core",
+        "question.enum.distinct_operands",
+        "question.enum.divide",
+        "question.enum.instance",
+        "question.enum.left",
+        "question.enum.minus_one",
+        "question.enum.missing_operand",
+        "question.enum.multiply",
+        "question.enum.negate",
+        "question.enum.nonnegative_result",
+        "question.enum.nonzero_divisor",
+        "question.enum.numeric",
+        "question.enum.percentage",
+        "question.enum.plus_one",
+        "question.enum.rational",
+        "question.enum.rational_arithmetic",
+        "question.enum.rational_comparison",
+        "question.enum.reciprocal",
+        "question.enum.right",
+        "question.enum.single_choice",
+        "question.enum.subtract",
+        "question.enum.supplementary",
+        "question.enum.template",
+        "template-fields.answer.placeholders.belong.in.the.explanation.values.remain.exact.c1d000",
+        "template-fields.generator.version.value.verifier.version.value.bda518",
+        "template-fields.load.published.objectives.a9108a",
+        "template-fields.objective.index.eab754",
+        "template-fields.this.exact.published.knowledge.version.is.unavailable.validation..44e7ec",
+        "template-fields.value.answer.type.e7124b",
+        "template-fields.value.constraint.9fe5b9",
+        "template-fields.value.constraint.value.27d9e1",
+        "template-fields.value.coverage.3b6324",
+        "template-fields.value.coverage.value.f228fd",
+        "template-fields.value.coverage.value.knowledge.6e063b",
+        "template-fields.value.distractor.46ec27",
+        "template-fields.value.distractor.value.acc9f0",
+        "template-fields.value.explanation.cedb6c",
+        "template-fields.value.family.ea310d",
+        "template-fields.value.finite.exact.parameters.572b12",
+        "template-fields.value.fixed.illustration.022155",
+        "template-fields.value.illustration.value.id.ba47fd",
+        "template-fields.value.illustration.value.sha.a322ab",
+        "template-fields.value.numeric.format.fa8de6",
+        "template-fields.value.objective.index.b0b812",
+        "template-fields.value.operation.e1cc41",
+        "template-fields.value.parameter.b27ed8",
+        "template-fields.value.parameter.value.name.93d5c0",
+        "template-fields.value.parameter.value.values.1a245e",
+        "template-fields.value.primary.knowledge.99f3ec",
+        "template-fields.value.prompt.31f4c5",
+        "template-fields.value.source.value.value.83babd",
+        "template-fields.value.unit.f2dadb",
+        "template-fields.value.unit.value.7da153",
+        "template-fields.value.unknown.side.48d786"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/question/withdrawal-panel.tsx",
+      "module": "question",
+      "complete": true,
+      "messageKeys": [
+        "common.unavailable",
+        "coverage-panel.knowledge.head.b7020e",
+        "coverage-panel.question.head.6001f1",
+        "diff-panel.value.value.vvalue.610089",
+        "question.enum.add",
+        "question.enum.blueprint",
+        "question.enum.compare",
+        "question.enum.core",
+        "question.enum.distinct_operands",
+        "question.enum.divide",
+        "question.enum.instance",
+        "question.enum.left",
+        "question.enum.minus_one",
+        "question.enum.missing_operand",
+        "question.enum.multiply",
+        "question.enum.negate",
+        "question.enum.nonnegative_result",
+        "question.enum.nonzero_divisor",
+        "question.enum.numeric",
+        "question.enum.percentage",
+        "question.enum.plus_one",
+        "question.enum.rational",
+        "question.enum.rational_arithmetic",
+        "question.enum.rational_comparison",
+        "question.enum.reciprocal",
+        "question.enum.right",
+        "question.enum.single_choice",
+        "question.enum.subtract",
+        "question.enum.supplementary",
+        "question.enum.template",
+        "withdrawal-panel.a.node.may.no.longer.have.five.valid.questions.after.withdrawal.p.54a61b",
+        "withdrawal-panel.affected.blueprints.value.30f428",
+        "withdrawal-panel.affected.instances.value.d7268d",
+        "withdrawal-panel.affected.templates.value.9c33ae",
+        "withdrawal-panel.back.to.trusted.question.snapshots.d7fd67",
+        "withdrawal-panel.browse.current.members.944018",
+        "withdrawal-panel.complete.impact.totals.a7beee",
+        "withdrawal-panel.current.fixed.members.2494e0",
+        "withdrawal-panel.current.question.head.value.2cd82b",
+        "withdrawal-panel.exact.version.to.withdraw.f7625e",
+        "withdrawal-panel.exact.version.withdrawn.permanently.refresh.published.coverage.to.fc0086",
+        "withdrawal-panel.impact.digest.c7887e",
+        "withdrawal-panel.next.current.members.9edb05",
+        "withdrawal-panel.next.impact.changes.15deab",
+        "withdrawal-panel.permanent.question.withdrawal.33c686",
+        "withdrawal-panel.preview.changed.read.a.fresh.impact.before.withdrawing.25242a",
+        "withdrawal-panel.preview.withdrawal.69c4c0",
+        "withdrawal-panel.previous.current.members.eb0309",
+        "withdrawal-panel.previous.impact.changes.ab7233",
+        "withdrawal-panel.target.id.32a090",
+        "withdrawal-panel.target.kind.607b91",
+        "withdrawal-panel.target.version.2acb4e",
+        "withdrawal-panel.template.withdrawal.removes.its.generated.instances.and.dependent.865351",
+        "withdrawal-panel.value.fixed.changes.offset.value.totals.include.all.pages.6666c8",
+        "withdrawal-panel.withdraw.an.exact.question.version.d8e270",
+        "withdrawal-panel.withdraw.permanently.07fd73",
+        "withdrawal-panel.withdrawal.reason.6fb3ad",
+        "withdrawal-panel.you.may.identify.a.historical.version.that.is.no.longer.in.the.cu.67dc63"
+      ],
+      "rawDataAreas": [
+        "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-question.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/reading/asset-image.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "asset-image.illustration.is.temporarily.unavailable.b89403",
+        "audit.illustration"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/reading/knowledge-view.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "domain-view.breadcrumb.2bd873",
+        "domain-view.version.value.d2b5e7",
+        "knowledge-view.accessed.value.908096",
+        "knowledge-view.back.to.the.knowledge.map.8bf2a2",
+        "knowledge-view.conditions.97d4be",
+        "knowledge-view.connections.dc2731",
+        "knowledge-view.core.statement.e943c8",
+        "knowledge-view.counterexamples.1e428c",
+        "knowledge-view.derivations.109f27",
+        "knowledge-view.examples.e68ee0",
+        "knowledge-view.explanations.de30ae",
+        "knowledge-view.learning.goals.9e640a",
+        "knowledge-view.mathematical.system.eec854",
+        "knowledge-view.on.this.page.073c74",
+        "knowledge-view.on.this.page.b5658f",
+        "knowledge-view.proof.7fbb3c",
+        "knowledge-view.read.the.idea.understand.its.conditions.and.follow.the.connection.466280",
+        "knowledge-view.related.ideas.e17c80",
+        "knowledge-view.scope.system.6be795",
+        "knowledge-view.sources.use.31f2b5",
+        "knowledge-view.the.core.idea.6956da",
+        "nav.knowledgeMap",
+        "path-view.prerequisites.865514"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/reading/path-connections.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ],
+      "noOwnText": true
+    },
+    {
+      "file": "frontend/src/features/reading/path-view.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "domain-view.breadcrumb.2bd873",
+        "domain-view.version.value.d2b5e7",
+        "nav.knowledgeMap",
+        "path-view.connections.show.prerequisites.for.this.path.version.reading.a.kn.477376",
+        "path-view.knowledge.prerequisites.5450ad",
+        "path-view.learning.path.8c4705",
+        "path-view.no.prior.knowledge.required.1da6b0",
+        "path-view.prerequisites.865514",
+        "path-view.read.freely.and.follow.the.prerequisites.to.connect.the.ideas.ab5874",
+        "path-view.value.knowledge.points.38db06",
+        "path-view.vvalue.55a29f"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/reading/safe-markdown.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [
+        "safe-markdown.formula.could.not.be.displayed.1952de",
+        "safe-markdown.illustration.is.not.available.ef0518"
+      ],
+      "rawDataAreas": [
+        "英文标题与已有中文对照",
+        "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-public.spec.ts"
+      ]
+    }
+  ]
+}

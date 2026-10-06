@@ -1,9 +1,15 @@
+"use client";
+import {UiText} from "@/lib/i18n/ui-text";
+import {uiMessage,uiValue} from "@/lib/i18n/format";
+import {useUiI18n} from "@/lib/i18n/provider";
 import Link from "next/link";
 import type { ApiResult, DomainDetail } from "@/lib/api/types";
 import { ContentStatus } from "@/components/content-status";
 import { ContentState } from "@/components/content-state";
 import styles from "@/styles/catalogue.module.css";
 export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
+ const {t}=useUiI18n();
+
   if (!result.ok)
     return (
       <ContentState
@@ -13,22 +19,16 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
   const d = result.data;
   return (
     <>
-      <nav className="breadcrumbs" aria-label="Breadcrumb">
-        <Link prefetch={false} href="/">
-          Learning Hub
-        </Link>
+      <nav className="breadcrumbs" aria-label={t("domain-view.breadcrumb.2bd873",{})}>
+        <Link prefetch={false} href="/"><UiText notice={uiMessage("site-header.learning.hub.0af988",{})}/></Link>
         <span aria-hidden="true">/</span>
-        <Link prefetch={false} href="/knowledge">
-          Knowledge Map
-        </Link>
+        <Link prefetch={false} href="/knowledge"><UiText notice={uiMessage("nav.knowledgeMap",{})}/></Link>
         <span aria-hidden="true">/</span>
         <span>{d.name}</span>
       </nav>
       <div className="page-heading">
-        <p className="eyebrow">
-          LEARNING DOMAIN {String(d.order).padStart(2, "0")}
-        </p>
-        <h1>{d.name}</h1>
+        <p className="eyebrow"><UiText notice={uiMessage("domain-view.learning.domain.value.8bbbb2",{v0:uiValue(String(d.order).padStart(2, "0"))})}/></p>
+        <h1 lang="en">{d.name}</h1>
         <p className="zh" lang="zh-CN">
           {d.nameZh}
         </p>
@@ -37,7 +37,7 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
       <div className={styles.detailGrid}>
         <div className={styles.detailMain}>
           <section className="panel">
-            <h2>Topics to explore</h2>
+            <h2><UiText notice={uiMessage("domain-view.topics.to.explore.773408",{})}/></h2>
             <div className={styles.topics}>
               {d.topics.map((t) => (
                 <article key={t.id}>
@@ -50,7 +50,7 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
             </div>
           </section>
           <section className="panel">
-            <h2>Learning paths</h2>
+            <h2><UiText notice={uiMessage("domain-view.learning.paths.5f23ab",{})}/></h2>
             {d.paths.length ? (
               <div className={styles.paths}>
                 {d.paths.map((path) => (
@@ -65,9 +65,7 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
                       <p className="zh" lang="zh-CN">
                         {path.titleZh}
                       </p>
-                      <span className={styles.version}>
-                        Version {path.version}
-                      </span>
+                      <span className={styles.version}><UiText notice={uiMessage("domain-view.version.value.d2b5e7",{v0:uiValue(path.version)})}/></span>
                     </div>
                     <span aria-hidden="true">↗</span>
                   </Link>
@@ -77,8 +75,8 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
               <div className={styles.inDevelopment}>
                 <span aria-hidden="true">◇</span>
                 <div>
-                  <h3>Learning paths are in development.</h3>
-                  <p>Reviewed content will appear here as this domain grows.</p>
+                  <h3><UiText notice={uiMessage("domain-view.learning.paths.are.in.development.a67b76",{})}/></h3>
+                  <p><UiText notice={uiMessage("domain-view.reviewed.content.will.appear.here.as.this.domain.grows.ad70f5",{})}/></p>
                 </div>
               </div>
             )}
@@ -86,26 +84,16 @@ export function DomainView({ result }: { result: ApiResult<DomainDetail> }) {
         </div>
         <aside className={styles.detailSide}>
           <section className="panel">
-            <p className="eyebrow">CURRENT CONTENT</p>
+            <p className="eyebrow"><UiText notice={uiMessage("domain-view.current.content.f491db",{})}/></p>
             <p className={styles.knowledgeCount}>
-              {d.publishedKnowledgeCount}
-              <span>
-                published knowledge{" "}
-                {d.publishedKnowledgeCount === 1 ? "point" : "points"}
-              </span>
+              <UiText notice={uiMessage(d.publishedKnowledgeCount===1?"public.publishedOne":"public.publishedMany",{count:d.publishedKnowledgeCount})}/>
             </p>
-            <p className={styles.asideNote}>
-              Explore the topics freely. Learning paths connect the ideas when
-              reviewed content is available.
-            </p>
+            <p className={styles.asideNote}><UiText notice={uiMessage("domain-view.explore.the.topics.freely.learning.paths.connect.the.ideas.when.r.7e8cfb",{})}/></p>
           </section>
           {d.relatedDomainIds.length > 0 && (
             <section className="panel">
-              <h2>Related domains</h2>
-              <p className={styles.asideNote}>
-                Explore another direction. These links describe connections,
-                rather than prerequisites.
-              </p>
+              <h2><UiText notice={uiMessage("domain-view.related.domains.97e705",{})}/></h2>
+              <p className={styles.asideNote}><UiText notice={uiMessage("domain-view.explore.another.direction.these.links.describe.connections.rather.a7437c",{})}/></p>
               <ul className={styles.related}>
                 {d.relatedDomainIds.map((id) => (
                   <li key={id}>
