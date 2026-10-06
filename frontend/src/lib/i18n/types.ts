@@ -5,5 +5,5 @@ export type StaticMessageKey={[K in MessageKey]:(typeof enMessages)[K]["params"]
 /** Opaque, compact DTO: uiMessage checks key-specific parameters at construction. */
 declare const uiMessageBrand:unique symbol;
 export type UiMessage={readonly kind:"system";readonly key:MessageKey;readonly values:Readonly<Record<string,string|number>>;readonly [uiMessageBrand]:true};
-export type UiErrorNamespace="public"|"auth"|"content"|"question"|"learning"|"feedback"|"correction"|"notification";
+export type UiErrorNamespace="study"|"public"|"auth"|"content"|"question"|"learning"|"feedback"|"correction"|"notification";
 export type UiNotice=UiMessage|{kind:"error";namespace:UiErrorNamespace;code:string;requestId?:string;retryAfter?:number}|{kind:"literal";text:string};

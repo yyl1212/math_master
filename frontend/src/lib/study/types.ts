@@ -20,3 +20,4 @@ export type ListQuery={topicId?:string;state?:State;q?:string;reviewOnly?:boolea
 export type HistoryQuery={knowledgeId?:string;topicId?:string;from?:string;to?:string;kind?:string;cursor?:string;limit?:number};
 export type StudyErrorCode=import("../content/types").ContentErrorCode|"REAUTH_REQUIRED"|"STUDY_INVALID"|"STUDY_NOT_CONFIGURED"|"STUDY_STATE_CONFLICT"|"STUDY_VERSION_STALE"|"STUDY_IDEMPOTENCY_CONFLICT"|"STUDY_NOTE_CONFLICT";
 export type StudyResult<T>={ok:true;data:T}|{ok:false;status:number;code:StudyErrorCode;message:string;requestId:string;retryAfter?:number};
+export type StudyRoute={kind:"overview"}|{kind:"topics"|"knowledge";query?:ListQuery}|{kind:"history";query?:HistoryQuery}|{kind:"readKnowledge"|"readNote"|"begin"|"complete"|"startReview"|"finishReview"|"saveNote"|"deleteNote";id:string};

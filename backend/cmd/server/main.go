@@ -24,6 +24,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 )
 
@@ -82,6 +83,11 @@ func run() error {
 		return errors.New("learning initialization failed")
 	}
 	options.Learning = &httpapi.LearningOptions{Learning: learningService, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
+	studyService, studyErr := study.NewService(repo)
+	if studyErr != nil {
+		return errors.New("study initialization failed")
+	}
+	options.Study = &httpapi.StudyOptions{Service: studyService, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
 	feedbackService, feedbackErr := feedback.NewService(repo)
 	if feedbackErr != nil {
 		return errors.New("feedback initialization failed")

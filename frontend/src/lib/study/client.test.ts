@@ -1,0 +1,6 @@
+import {it,expect,vi,afterEach} from "vitest";
+import {studyRequest} from "./client";
+const mocks=vi.hoisted(()=>({context:vi.fn()}));vi.mock("../auth/client",()=>({getAuthContext:mocks.context}));afterEach(()=>{vi.unstubAllGlobals();vi.useRealTimers()});
+const actor="11111111-1111-4111-8111-111111111111",input={knowledge:{id:"fractions",version:1,sha256:"a".repeat(64)},expectedKnowledgeHead:actor,expectedSequence:0};
+it("refuses to send a captured command under a changed actor",async()=>{const fetcher=vi.fn();vi.stubGlobal("fetch",fetcher);mocks.context.mockResolvedValue({ok:true,data:{user:{id:"22222222-2222-4222-8222-222222222222",mustChangePassword:false},csrfToken:"A".repeat(43)}});const result=await studyRequest({kind:"begin",id:"fractions"},input,actor,actor);expect(result.ok).toBe(false);expect(fetcher).not.toHaveBeenCalled()});
+it("the total deadline includes a stalled identity preparation",async()=>{vi.useFakeTimers();const fetcher=vi.fn();vi.stubGlobal("fetch",fetcher);mocks.context.mockReturnValue(new Promise(()=>{}));const pending=studyRequest({kind:"begin",id:"fractions"},input,actor,actor);await vi.advanceTimersByTimeAsync(10000);const result=await pending;expect(result.ok).toBe(false);expect(fetcher).not.toHaveBeenCalled()});

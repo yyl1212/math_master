@@ -1,5 +1,26 @@
 import type {StaticMessageKey} from "./types";
 export const errorKeys={
+  "study": {
+    "STUDY_INVALID": "study.error.STUDY_INVALID",
+    "STUDY_NOT_CONFIGURED": "study.error.STUDY_NOT_CONFIGURED",
+    "STUDY_STATE_CONFLICT": "study.error.STUDY_STATE_CONFLICT",
+    "STUDY_VERSION_STALE": "study.error.STUDY_VERSION_STALE",
+    "STUDY_IDEMPOTENCY_CONFLICT": "study.error.STUDY_IDEMPOTENCY_CONFLICT",
+    "STUDY_NOTE_CONFLICT": "study.error.STUDY_NOTE_CONFLICT",
+    "REAUTH_REQUIRED": "study.error.REAUTH_REQUIRED",
+    "SERVICE_UNAVAILABLE": "study.unavailable",
+    "AUTHENTICATION_REQUIRED": "auth.error.AUTHENTICATION_REQUIRED",
+    "PASSWORD_CHANGE_REQUIRED": "auth.error.PASSWORD_CHANGE_REQUIRED",
+    "CSRF_FAILED": "auth.error.CSRF_FAILED",
+    "FORBIDDEN": "auth.error.forbidden",
+    "NOT_FOUND": "auth.error.notFound",
+    "RATE_LIMITED": "auth.error.RATE_LIMITED",
+    "INVALID_REQUEST": "auth.error.INVALID_REQUEST",
+    "INVALID_COOKIE": "auth.error.INVALID_COOKIE",
+    "AUTH_NOT_CONFIGURED": "auth.error.AUTH_NOT_CONFIGURED",
+    "PAYLOAD_TOO_LARGE": "content.error.PAYLOAD_TOO_LARGE",
+    "METHOD_NOT_ALLOWED": "auth.error.METHOD_NOT_ALLOWED"
+  },
   "auth": {
     "INVALID_REQUEST": "auth.error.INVALID_REQUEST",
     "INVALID_COOKIE": "auth.error.INVALID_COOKIE",

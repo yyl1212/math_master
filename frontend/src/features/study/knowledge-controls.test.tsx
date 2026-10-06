@@ -1,0 +1,13 @@
+import {render,screen,fireEvent,waitFor} from "@testing-library/react";
+import {renderToString} from "react-dom/server";
+import {it,expect,vi,beforeEach} from "vitest";
+import {KnowledgeStudyControls} from "./knowledge-controls";
+import {StudyAccountContext} from "./account-boundary";
+import type {StudyDetail} from "@/lib/study/types";
+const mocks=vi.hoisted(()=>({request:vi.fn()}));vi.mock("@/lib/study/client",()=>({studyRequest:mocks.request}));
+const actor="11111111-1111-4111-8111-111111111111";
+const detail:StudyDetail={actorId:actor,record:{knowledgeId:"fractions",state:"unlearned",sequence:0,firstStartedAt:null,firstCompletedAt:null,lastCompletedAt:null,lastReadAt:null,lastReviewedAt:null,completedRef:null,lastReviewRef:null,lastReviewId:null,activeReviewId:null},currentKnowledge:{id:"fractions",version:1,sha256:"a".repeat(64),title:"Fractions",titleZh:"分数",topicIds:["msc-00a00"]},pair:{knowledgeHead:actor,taxonomyHead:actor,taxonomyVersionId:"b".repeat(64)},available:true,materialChanged:false};
+beforeEach(()=>mocks.request.mockReset());
+it("actual_read_begins_once and uncertain confirmation uses the same request key",async()=>{mocks.request.mockResolvedValue({ok:false,status:503,code:"SERVICE_UNAVAILABLE",message:"Service temporarily unavailable.",requestId:"unavailable"});const Wrapper=({children}:{children:React.ReactNode})=><StudyAccountContext.Provider value={{actorId:actor,invalidate:()=>{}}}>{children}</StudyAccountContext.Provider>;const view=render(<KnowledgeStudyControls detail={detail}/>,{wrapper:Wrapper});await waitFor(()=>expect(mocks.request).toHaveBeenCalledTimes(1));view.rerender(<KnowledgeStudyControls detail={detail}/>);expect(mocks.request).toHaveBeenCalledTimes(1);fireEvent.click(await screen.findByRole("button",{name:"Retry same request"}));await waitFor(()=>expect(mocks.request).toHaveBeenCalledTimes(2));expect(mocks.request.mock.calls[0][2]).toBe(mocks.request.mock.calls[1][2]);expect(mocks.request.mock.calls[0][1]).toEqual(mocks.request.mock.calls[1][1])});
+it("anonymous_and_ssr_do_not_begin",()=>{renderToString(<KnowledgeStudyControls detail={detail}/>);render(<KnowledgeStudyControls detail={detail}/>);expect(mocks.request).not.toHaveBeenCalled()});
+it("does not begin a newer version while the reader still displays older material",async()=>{const changed=structuredClone(detail);changed.currentKnowledge!.version=2;render(<StudyAccountContext.Provider value={{actorId:actor,invalidate:()=>{}}}><KnowledgeStudyControls detail={changed} readingKnowledge={{id:"fractions",version:1}}/></StudyAccountContext.Provider>);await new Promise(resolve=>setTimeout(resolve,0));expect(mocks.request).not.toHaveBeenCalled()});

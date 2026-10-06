@@ -1918,6 +1918,178 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v2/study/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        get: operations["studyGetOverview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        get: operations["studyGetTopics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/knowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        get: operations["studyGetKnowledge"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        get: operations["studyGetHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/knowledge/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        get: operations["studyGetKnowledgeKnowledge"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/knowledge/{id}/begin": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        post: operations["studyPostKnowledgeKnowledgeBegin"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/knowledge/{id}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        post: operations["studyPostKnowledgeKnowledgeComplete"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/knowledge/{id}/review/start": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        post: operations["studyPostKnowledgeKnowledgeReviewStart"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/knowledge/{id}/review/finish": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        post: operations["studyPostKnowledgeKnowledgeReviewFinish"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v2/study/knowledge/{id}/note": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        get: operations["studyGetKnowledgeKnowledgeNote"];
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        put: operations["studyPutKnowledgeKnowledgeNote"];
+        post?: never;
+        /** @description Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB. */
+        delete: operations["studyDeleteKnowledgeKnowledgeNote"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -5006,6 +5178,14 @@ export interface components {
             deleted: boolean;
             /** Format: date-time */
             updatedAt: string;
+        };
+        StudyError: {
+            error: {
+                /** @enum {string} */
+                code: "STUDY_INVALID" | "STUDY_NOT_CONFIGURED" | "STUDY_STATE_CONFLICT" | "STUDY_VERSION_STALE" | "STUDY_IDEMPOTENCY_CONFLICT" | "STUDY_NOTE_CONFLICT" | "REAUTH_REQUIRED" | "AUTHENTICATION_REQUIRED" | "INVALID_REQUEST" | "INVALID_COOKIE" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "PAYLOAD_TOO_LARGE" | "RATE_LIMITED" | "AUTH_NOT_CONFIGURED" | "SERVICE_UNAVAILABLE";
+                message: string;
+                requestId: string;
+            };
         };
     };
     responses: {
@@ -15642,6 +15822,1403 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["TopicError"];
+                };
+            };
+        };
+    };
+    studyGetOverview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyOverview"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyGetTopics: {
+        parameters: {
+            query?: {
+                topicId?: string;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyTopicsPage"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyGetKnowledge: {
+        parameters: {
+            query?: {
+                topicId?: string;
+                state?: components["schemas"]["StudyState"];
+                q?: string;
+                reviewOnly?: boolean;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyKnowledgePage"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyGetHistory: {
+        parameters: {
+            query?: {
+                knowledgeId?: string;
+                topicId?: string;
+                from?: string;
+                to?: string;
+                kind?: string;
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyHistoryPage"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyGetKnowledgeKnowledge: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyDetail"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyPostKnowledgeKnowledgeBegin: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description At most 128 KiB for note saves and 8 KiB for other commands; no actor input. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyCommandInput"];
+            };
+        };
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyDetail"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyPostKnowledgeKnowledgeComplete: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description At most 128 KiB for note saves and 8 KiB for other commands; no actor input. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyCommandInput"];
+            };
+        };
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyDetail"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyPostKnowledgeKnowledgeReviewStart: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description At most 128 KiB for note saves and 8 KiB for other commands; no actor input. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyCommandInput"];
+            };
+        };
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyDetail"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyPostKnowledgeKnowledgeReviewFinish: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description At most 128 KiB for note saves and 8 KiB for other commands; no actor input. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyReviewInput"];
+            };
+        };
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyDetail"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyGetKnowledgeKnowledgeNote: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyNoteView"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyPutKnowledgeKnowledgeNote: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description At most 128 KiB for note saves and 8 KiB for other commands; no actor input. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyNoteInput"];
+            };
+        };
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyNoteReceipt"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+        };
+    };
+    studyDeleteKnowledgeKnowledgeNote: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        /** @description At most 128 KiB for note saves and 8 KiB for other commands; no actor input. */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyNoteDeleteInput"];
+            };
+        };
+        responses: {
+            /** @description Private owner-bound study data. */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyNoteReceipt"];
+                };
+            };
+            /** @description Fixed private study error. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            428: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
+                };
+            };
+            /** @description Fixed private study error. */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyError"];
                 };
             };
         };

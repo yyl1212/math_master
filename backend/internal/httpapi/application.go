@@ -10,6 +10,7 @@ import (
 )
 
 type AuthOptions struct {
+	Study        *StudyOptions
 	Taxonomy     *TaxonomyOptions
 	Correction   *CorrectionOptions
 	Notification *NotificationOptions
@@ -52,6 +53,14 @@ func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) ht
 	public := NewHandler(reader, pinger)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
+		if path == "/api/v2/study" || strings.HasPrefix(path, "/api/v2/study/") {
+			o := StudyOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
+			if options.Study != nil {
+				o = *options.Study
+			}
+			serveStudy(w, r, o)
+			return
+		}
 		if path == "/api/v2/topics" || strings.HasPrefix(path, "/api/v2/topics/") || path == "/api/v2/admin/publications" || strings.HasPrefix(path, "/api/v2/admin/publications/") || path == "/api/v2/content/topic-assignments" || strings.HasPrefix(path, "/api/v2/content/topic-assignments/") {
 			o := TaxonomyOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
 			if options.Taxonomy != nil {

@@ -1,0 +1,15 @@
+"use client";
+import {useContext,useEffect,useRef,useState} from "react";
+import {StudyAccountContext} from "./account-boundary";
+import {studyRequest} from "@/lib/study/client";
+import {studyRouteRequest,studyInputError,studyFailure} from "@/lib/study/protocol";
+import type {StudyRoute,StudyResult} from "@/lib/study/types";
+type Pending={route:StudyRoute;input:unknown;key:string;actorId:string};
+function freeze<T>(value:T):T{if(value&&typeof value==="object"){Object.values(value).forEach(freeze);Object.freeze(value)}return value}
+export function useStudyCommand<T>(onSuccess:(value:T)=>void){const account=useContext(StudyAccountContext),[pending,setPending]=useState<Pending|null>(null),[busy,setBusy]=useState(false),[error,setError]=useState<Extract<StudyResult<never>,{ok:false}>|null>(null),current=useRef<Pending|null>(null),running=useRef(false),live=useRef(true),generation=useRef(0),controller=useRef<AbortController|null>(null),success=useRef(onSuccess);success.current=onSuccess;
+ const clear=()=>{generation.current++;controller.current?.abort();current.current=null;running.current=false;setPending(null);setBusy(false);setError(null)};
+ useEffect(()=>{live.current=true;window.addEventListener("math-master:auth-change",clear);return()=>{live.current=false;generation.current++;controller.current?.abort();current.current=null;window.removeEventListener("math-master:auth-change",clear)}},[]);
+ async function execute(command:Pending){if(running.current||!account||account.actorId!==command.actorId)return;running.current=true;setBusy(true);setError(null);const g=generation.current,abort=new AbortController();controller.current=abort;try{const value=await studyRequest<T>(command.route,command.input,command.key,command.actorId,abort.signal);if(!live.current||generation.current!==g)return;if(value.ok){if(!value.data||typeof value.data!=="object"||!("actorId"in value.data)||value.data.actorId!==command.actorId){clear();account.invalidate();return};current.current=null;setPending(null);success.current(value.data)}else{setError(value);if(value.code==="AUTHENTICATION_REQUIRED"||value.code==="PASSWORD_CHANGE_REQUIRED"){clear();account.invalidate()}else if(value.code!=="SERVICE_UNAVAILABLE"&&value.code!=="RATE_LIMITED"){current.current=null;setPending(null)}}}catch{if(live.current&&generation.current===g)setError(studyFailure())}finally{if(live.current&&generation.current===g){running.current=false;setBusy(false)}}}
+ async function run(route:StudyRoute,input:unknown){if(!account||running.current||current.current)return;const target=studyRouteRequest(route),invalid=studyInputError(route.kind,input);if(!target||target.method==="GET"||invalid){setError(studyFailure(invalid??"INVALID_REQUEST"));return};const command:Pending={route:freeze(structuredClone(route)),input:freeze(structuredClone(input)),key:crypto.randomUUID(),actorId:account.actorId};current.current=command;setPending(command);await execute(command)}
+ return {run,retrySameRequest:async()=>{if(current.current)await execute(current.current)},pending,busy,error,clear};
+}

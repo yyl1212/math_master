@@ -23902,6 +23902,1797 @@
           }
         ]
       }
+    },
+    "/api/v2/study/overview": {
+      "get": {
+        "operationId": "studyGetOverview",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyOverview"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/api/v2/study/topics": {
+      "get": {
+        "operationId": "studyGetTopics",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyTopicsPage"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/study/knowledge": {
+      "get": {
+        "operationId": "studyGetKnowledge",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyKnowledgePage"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/StudyState"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "reviewOnly",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/study/history": {
+      "get": {
+        "operationId": "studyGetHistory",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyHistoryPage"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "knowledgeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topicId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/study/knowledge/{id}": {
+      "get": {
+        "operationId": "studyGetKnowledgeKnowledge",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyDetail"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/study/knowledge/{id}/begin": {
+      "post": {
+        "operationId": "studyPostKnowledgeKnowledgeBegin",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyDetail"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "At most 128 KiB for note saves and 8 KiB for other commands; no actor input.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyCommandInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/study/knowledge/{id}/complete": {
+      "post": {
+        "operationId": "studyPostKnowledgeKnowledgeComplete",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyDetail"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "At most 128 KiB for note saves and 8 KiB for other commands; no actor input.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyCommandInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/study/knowledge/{id}/review/start": {
+      "post": {
+        "operationId": "studyPostKnowledgeKnowledgeReviewStart",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyDetail"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "At most 128 KiB for note saves and 8 KiB for other commands; no actor input.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyCommandInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/study/knowledge/{id}/review/finish": {
+      "post": {
+        "operationId": "studyPostKnowledgeKnowledgeReviewFinish",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyDetail"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "At most 128 KiB for note saves and 8 KiB for other commands; no actor input.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyReviewInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/study/knowledge/{id}/note": {
+      "get": {
+        "operationId": "studyGetKnowledgeKnowledgeNote",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyNoteView"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "studyPutKnowledgeKnowledgeNote",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyNoteReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "At most 128 KiB for note saves and 8 KiB for other commands; no actor input.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyNoteInput"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "studyDeleteKnowledgeKnowledgeNote",
+        "description": "Private, no-store; same-origin writes require CSRF and an idempotency key. Go total deadline 8 seconds; Next/client 10 seconds; response at most 2 MiB.",
+        "responses": {
+          "200": {
+            "description": "Private owner-bound study data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyNoteReceipt"
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Fixed private study error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyError"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "At most 128 KiB for note saves and 8 KiB for other commands; no actor input.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyNoteDeleteInput"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -39337,6 +41128,56 @@
           "updatedAt": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "StudyError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "STUDY_INVALID",
+                  "STUDY_NOT_CONFIGURED",
+                  "STUDY_STATE_CONFLICT",
+                  "STUDY_VERSION_STALE",
+                  "STUDY_IDEMPOTENCY_CONFLICT",
+                  "STUDY_NOTE_CONFLICT",
+                  "REAUTH_REQUIRED",
+                  "AUTHENTICATION_REQUIRED",
+                  "INVALID_REQUEST",
+                  "INVALID_COOKIE",
+                  "CSRF_FAILED",
+                  "FORBIDDEN",
+                  "PASSWORD_CHANGE_REQUIRED",
+                  "NOT_FOUND",
+                  "METHOD_NOT_ALLOWED",
+                  "PAYLOAD_TOO_LARGE",
+                  "RATE_LIMITED",
+                  "AUTH_NOT_CONFIGURED",
+                  "SERVICE_UNAVAILABLE"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              }
+            }
           }
         }
       }
