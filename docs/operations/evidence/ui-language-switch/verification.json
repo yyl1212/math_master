@@ -514,5 +514,6 @@
       "nodeTests": 94
     },
     "details": "ci-learning-title.md"
-  }
+  },
+  "katexSecurityUpgrade": "katex-security-upgrade.json"
 }

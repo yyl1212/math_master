@@ -1,0 +1,146 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "approvedScope": "既有KaTeX固定0.18.2并统一直接与间接引用，完整验证后按既有授权合并PR36",
+  "advisory": "https://github.com/advisories/GHSA-238p-pmpm-9mq7",
+  "versionBefore": "0.16.47",
+  "versionAfter": "0.18.2",
+  "changedLockedPackages": [
+    "katex"
+  ],
+  "auditBefore": {
+    "info": 0,
+    "low": 4,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 4
+  },
+  "auditAfter": {
+    "info": 0,
+    "low": 0,
+    "moderate": 0,
+    "high": 0,
+    "critical": 0,
+    "total": 0
+  },
+  "frontendTests": 403,
+  "nodeTests": 94,
+  "typecheck": true,
+  "productionBuild": true,
+  "generatedApiUnchanged": true,
+  "browser": [
+    {
+      "index": 0,
+      "batch": [
+        "catalogue.spec.ts",
+        "reading.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 16,
+      "seconds": 36
+    },
+    {
+      "index": 1,
+      "batch": [
+        "auth.spec.ts",
+        "auth-security.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 28
+    },
+    {
+      "index": 2,
+      "batch": [
+        "content-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 12,
+      "seconds": 39
+    },
+    {
+      "index": 3,
+      "batch": [
+        "question-authoring.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 34
+    },
+    {
+      "index": 4,
+      "batch": [
+        "content-acceptance-reading.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 40
+    },
+    {
+      "index": 5,
+      "batch": [
+        "ui-language-public.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 8,
+      "seconds": 7
+    },
+    {
+      "index": 6,
+      "batch": [
+        "ui-language-auth.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 8
+    },
+    {
+      "index": 7,
+      "batch": [
+        "ui-language-content.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 21
+    },
+    {
+      "index": 8,
+      "batch": [
+        "ui-language-question.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 21
+    },
+    {
+      "index": 9,
+      "batch": [
+        "ui-language-learning.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 21
+    },
+    {
+      "index": 10,
+      "batch": [
+        "ui-language-feedback.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 2,
+      "seconds": 8
+    },
+    {
+      "index": 11,
+      "batch": [
+        "ui-language-correction.spec.ts"
+      ],
+      "exitCode": 0,
+      "passed": 4,
+      "seconds": 17
+    }
+  ],
+  "review": "依赖差异及公共入口、CSS、现有安全选项核对；仅版本、统一引用与证据变更，应用/Go/API/数据代码保持",
+  "remoteGate": "等待PR36最新head的全部实际CI成功，不能用本机结果代替"
+}
