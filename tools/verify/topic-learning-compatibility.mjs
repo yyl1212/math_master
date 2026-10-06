@@ -1,6 +1,6 @@
 import assert from'node:assert/strict';import{createHash}from'node:crypto';import{readFileSync,readdirSync,lstatSync}from'node:fs';import{join,resolve,relative}from'node:path';import{fileURLToPath}from'node:url';
 const baselinePath='api/topic-learning-compatibility-baseline.json';
-export const TOPIC_COMPATIBILITY_POLICY_SHA='13e455a3491887ce043aaa67fb29a72e50b0a0609dc333fbb5f335da6dd421b6';
+export const TOPIC_COMPATIBILITY_POLICY_SHA='07cdc648fde9463875ec5797a0d3be4d152d5b96c1f27caffd7bd57116210c6c';
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])):value;
 const digest=value=>sha(Buffer.from(JSON.stringify(canonical(value))));
