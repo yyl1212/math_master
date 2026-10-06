@@ -47,7 +47,7 @@
 
 taxonomy_heads 首次激活后旧 ActivateRelease 必须拒绝单独切换知识 head。新配对激活内部复用现有事务原语；相同锁顺序为旧管理锁、旧内容发布锁、分类 head、相关工作区/账户，不新增可由请求指定的任意锁。
 
-### 任务 A1 捕获已接受分类批次
+### Task 1 A1 捕获已接受分类批次
 
 **Files（文件）：**
 - Create：tools/topic-ingest/capture.mjs
@@ -68,7 +68,7 @@ await assert.rejects(() => captureTopicBatch(stagedFixture()), /BATCH_NOT_ACCEPT
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；四类拒绝场景和稳定捕获通过，检查 sourceRoot 下无新增、删除或改写；对输出存在返回 OUTPUT_EXISTS，不覆盖上一批。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 增加主题分类批次捕获'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 A2 归一化主记录与生成可编辑草稿
+### Task 2 A2 归一化主记录与生成可编辑草稿
 
 **Files（文件）：**
 - Create：tools/topic-ingest/adapters.mjs
@@ -91,7 +91,7 @@ assert.equal(result.records.some(r => r.originalId === 'software-capability-1'),
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；检查每包知识<=100、原 JSON 主记录摘要可追溯、原索引未改；node 工具测试全通过。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 适配主题知识记录与草稿'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 A3 固定分类及归属合同
+### Task 3 A3 固定分类及归属合同
 
 **Files（文件）：**
 - Create：schemas/topic-catalogue.schema.json
@@ -122,7 +122,7 @@ if node.Code != "13C60" || node.ID != "msc-13c60" { t.Fatal(node) }
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；JSON Schema 与 Go 拒绝同一批错误输入；运行 npm run api:generate 更新生成类型，再 typecheck；旧合同差异只允许追加具名合同。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 定义三级主题与归属合同'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 A4 分类持久化与分层查询
+### Task 4 A4 分类持久化与分层查询
 
 **Files（文件）：**
 - Create：db/migrations/00010_topic_taxonomy.sql
@@ -153,7 +153,7 @@ if beforeSHA != afterSHA { t.Fatal("classification rewrote mathematics") }
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；旧00001—00009 SHA 不变、迁移只在随机库运行；删除非空历史被拒绝；查询不包含草稿标题、来源私有路径或原始资料。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 存储主题分类并提供分层查询'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 A5 冻结知识主题归属并参加审核
+### Task 5 A5 冻结知识主题归属并参加审核
 
 **Files（文件）：**
 - Create：backend/internal/store/taxonomy_workspace.go
@@ -182,7 +182,7 @@ if frozenDigestBefore != frozenDigestAfter { t.Fatal("frozen topics changed") }
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；再运行 topic-fields.test.tsx 与既有内容作者/审核用例；归属失败整次送审回滚，旧数学和作者继承记录不被洗掉。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 让知识主题归属进入冻结审核'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 A6 知识与归属配对发布及撤回
+### Task 6 A6 知识与归属配对发布及撤回
 
 **Files（文件）：**
 - Create：backend/internal/taxonomy/release.go
@@ -207,7 +207,7 @@ if !sameWorkflowHead(beforeKnowledge, afterKnowledge) || beforeTaxonomy != after
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；并发和故障用实际 SQL barrier 验证，不靠 sleep；保留 TestActivationReplayDoesNotRestoreOldHead、TestActivationInheritedApprovalSurvivesReviewerRoleLoss；密码验证不自动激活。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 配对发布知识与主题归属'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 A7 公开主题 API 和三级浏览页面
+### Task 7 A7 公开主题 API 和三级浏览页面
 
 **Files（文件）：**
 - Create：backend/internal/httpapi/taxonomy_routes.go
@@ -254,7 +254,7 @@ expect(await page.getByText('13C60', {exact: true}).count()).toBe(1);
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；运行 npm run api:generate、typecheck、目标单元和 topic-navigation.spec.ts；双视口与中英文通过；私有管理路由匿名401，公开结果无 sourceRefs。先构建 e2e-harness 和生产 frontend 再运行浏览器，命令见总计划。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 提供三级主题地图与详情'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 A8 分类交付回归与容量门禁
+### Task 8 A8 分类交付回归与容量门禁
 
 **Files（文件）：**
 - Create：tools/verify/topic-learning-compatibility.mjs
