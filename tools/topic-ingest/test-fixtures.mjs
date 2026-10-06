@@ -12,7 +12,7 @@ export async function acceptedFixture(t) {
   await fs.mkdir(metadataDir,{recursive:true}); await fs.mkdir(join(knowledgeDir,'Fixture'),{recursive:true});
   const csv = Buffer.from('fixture classification\n13-XX\tCommutative algebra\n13Cxx\tModules\n13C60\tModule categories\n');
   const csvSHA = hash(csv);
-  const taxonomy = {metadata:{taxonomy:'MSC2020',source_checksums_sha256:{'MSC_2020.csv':csvSHA}},entries:[
+  const taxonomy = {metadata:{taxonomy:'MSC2020',attribution:'Original technical fixture',license:'Original fixture',source_checksums_sha256:{'MSC_2020.csv':csvSHA}},entries:[
     {code:'13-XX',label_en:'Commutative algebra',node_kind:'top_level',parent_code:null,top_level_code:'13-XX',is_terminal:false},
     {code:'13Cxx',label_en:'Modules',node_kind:'intermediate',parent_code:'13-XX',top_level_code:'13-XX',is_terminal:false},
     {code:'13C60',label_en:'Module categories',node_kind:'named_alpha_leaf',parent_code:'13Cxx',top_level_code:'13-XX',is_terminal:true}
