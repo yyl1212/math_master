@@ -29,6 +29,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"github.com/yyl1212/math_master/backend/internal/store"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
 )
@@ -284,6 +285,22 @@ func Run(ctx context.Context, c Config) (result error) {
 				return err
 			}
 		}
+		if scene == "topic-study" || scene == "topic-study-unclassified" {
+			setup, stop := context.WithTimeout(ctx, 40*time.Second)
+			defer stop()
+			if e := resetTopicStudy(setup, db, s, accounts, accountAdmin, root, normal, scene == "topic-study-unclassified"); e != nil {
+				return e
+			}
+			contentUnavailable = false
+			authUnavailable = false
+			unavailable = false
+			feedbackUnavailable = false
+			holdLearning.Store(false)
+			holdFeedback.Store(false)
+			holdCorrection.Store(false)
+			holdSave.Store(false)
+			return nil
+		}
 		if scene == "topic-catalogue" {
 			setup, stop := context.WithTimeout(ctx, 40*time.Second)
 			defer stop()
@@ -466,7 +483,11 @@ func Run(ctx context.Context, c Config) (result error) {
 	if err != nil {
 		return errors.New("notification service unavailable")
 	}
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
+	studyService, studyErr := study.NewService(s)
+	if studyErr != nil {
+		return errors.New("study fixture service unavailable")
+	}
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Study: &httpapi.StudyOptions{Service: studyService, PublicOrigin: fixtureOrigin}, Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()

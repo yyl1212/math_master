@@ -21,6 +21,9 @@ func jsonMarshalTaxonomy(v any) (json.RawMessage, error) {
 }
 func dispatchPublicTaxonomy(ctx context.Context, s *taxonomy.Service, r taxonomyRoute, q taxonomy.Query) (any, error) {
 	switch r.kind {
+	case "readExperience":
+		mode, e := s.ReadExperienceMode(ctx)
+		return map[string]taxonomy.ExperienceMode{"mode": mode}, e
 	case "listTopics":
 		return s.ListTopics(ctx, q)
 	case "readTopic":

@@ -27,7 +27,7 @@ export function CredentialsForm({ mode }: { mode: "register" | "login" }) {
       if (!validPrivateInput(mode, input)) { setError(uiMessage("auth.input.credentials",{})); return; }
       const result = await authRequest({ kind: mode }, input);
       if (!result.ok) { setError(uiError("auth",result)); return; }
-      notifyAuthChanged(); router.replace(mode === "register" ? "/login" : "/account"); router.refresh();
+      notifyAuthChanged(); router.replace(mode === "register" ? "/login" : (result.data as {mustChangePassword?:boolean}).mustChangePassword ? "/account" : "/learn"); router.refresh();
     } finally { setPassword(""); pending.current = false; setBusy(false); }
   }
   return <section className={styles.credentials}><div className={styles.intro}><p className="eyebrow"><UiText notice={uiMessage("site-header.a.world.of.ideas.883eb5",{})}/></p>

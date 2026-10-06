@@ -1,0 +1,11 @@
+"use client";
+import Link from "next/link";
+import {useContext,useEffect,useRef,useState} from "react";
+import {StudyAccountContext} from "./account-boundary";
+import {useUiI18n} from "@/lib/i18n/provider";
+import {studyRequest} from "@/lib/study/client";
+import {NoteEditor} from "./note-editor";
+import {StudyNotice} from "./overview";
+import type {KnowledgePage,NoteView,StudyResult} from "@/lib/study/types";
+function PrivateNote({id}:{id:string}){const{t}=useUiI18n(),account=useContext(StudyAccountContext),[value,setValue]=useState<StudyResult<NoteView>|null>(null),[busy,setBusy]=useState(false),live=useRef(true);useEffect(()=>{live.current=true;return()=>{live.current=false}},[]);async function read(){if(!account||busy)return;setBusy(true);const result=await studyRequest<NoteView>({kind:"readNote",id},undefined,undefined,account.actorId);if(live.current){setValue(result);setBusy(false)}};return <div><button type="button" className="button secondary" disabled={busy} onClick={()=>void read()}>{t("study.note.open",{})}</button>{value&&(value.ok?<NoteEditor knowledgeId={id} initialNote={value.data}/>:<StudyNotice result={value}/>)}</div>}
+export function StudyKnowledgeList({page}:{page:KnowledgePage}){const{t,locale}=useUiI18n(),labels={unlearned:"study.state.unlearned",learning:"study.state.learning",completed:"study.state.completed",reviewing:"study.state.reviewing"}as const;return <section className="panel"><h2>{t("study.knowledge",{})}</h2>{page.items.length?<div className="domain-grid">{page.items.map(item=><article className="domain-card" key={item.record.knowledgeId}><h3>{item.currentKnowledge?<Link prefetch={false} href={"/knowledge/"+item.record.knowledgeId}>{locale==="zh-CN"&&item.currentKnowledge.titleZh?item.currentKnowledge.titleZh:item.currentKnowledge.title} v{item.currentKnowledge.version}</Link>:item.record.knowledgeId}</h3><p>{t(labels[item.record.state],{})}</p>{item.materialChanged&&<p>{t("study.materialChanged",{})}</p>}{!item.available&&<p>{t("study.withdrawn",{})}</p>}{item.currentKnowledge?.topicIds.length===0&&<p>{t("study.unclassified",{})}</p>}{item.record.firstStartedAt!==null&&<PrivateNote id={item.record.knowledgeId}/>}</article>)}</div>:<p>{t("study.empty.search",{})}</p>}</section>}

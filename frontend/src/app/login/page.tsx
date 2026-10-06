@@ -4,6 +4,7 @@ import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 export async function generateMetadata(){return getUiMetadata("page.login");}
 import Link from "next/link";
+import {redirect} from "next/navigation";
 import { headers } from "next/headers";
 import { readServerSession } from "@/lib/auth/server-client";
 import { CredentialsForm } from "@/features/auth/credentials-form";
@@ -13,6 +14,6 @@ export const dynamic = "force-dynamic";
 export default async function Page() {
   const session = await readServerSession((await headers()).get("cookie") ?? "");
   if (!session.ok) return <><UiPageTitle messageKey="page.login"/>{<AuthState kind={session.code === "INVALID_COOKIE" ? "invalid-cookie" : "unavailable"} />}</>;
-  if (session.data) return <><UiPageTitle messageKey="page.login"/>{<section className="content-state"><h1><UiText notice={uiMessage("page.you.are.signed.in.2d55cb",{})}/></h1><p>{session.data.username}</p><Link className="button" prefetch={false} href="/account"><UiText notice={uiMessage("auth-state.view.account.407143",{})}/></Link></section>}</>;
+  if(session.data)redirect(session.data.mustChangePassword?"/account":"/learn");
   return <><UiPageTitle messageKey="page.login"/>{<CredentialsForm mode="login" />}</>;
 }

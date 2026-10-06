@@ -13,6 +13,8 @@ import {KnowledgeStudyControls} from "@/features/study/knowledge-controls";
 import {readServerStudy} from "@/lib/study/server-client";
 import type {Overview,StudyDetail,NoteView} from "@/lib/study/types";
 import {headers} from "next/headers";
+import {readExperienceMode} from "@/lib/study/mode";
+import {StudyUnavailable} from "@/features/study/pages";
 import { notFound } from "next/navigation";
 import { getGoClient } from "@/lib/api/server-client";
 import { KnowledgeView } from "@/features/reading/knowledge-view";
@@ -25,8 +27,8 @@ export default async function Page({
 }) {
   const result = await getGoClient().getKnowledge((await params).id);
   if (!result.ok && result.kind === "not-found") notFound();
-  const actor=await learningActor();const detail=result.ok&&actor.ok?await getLearningClient().readLearningKnowledge(result.data.knowledge.id,result.data.knowledge.version):null;let personal:React.ReactNode=actor.ok&&detail?<LearningBoundary actorId={actor.id}>{detail.ok?<KnowledgeControls detail={detail.data}/>:<LearningNotice result={detail}/>}</LearningBoundary>:undefined;
-  if(result.ok&&actor.ok){const cookie=(await headers()).get("cookie")??"";const overview=await readServerStudy<Overview>({kind:"overview"},cookie);if(overview.ok&&overview.data.mode==="topics"){const study=await readServerStudy<StudyDetail>({kind:"readKnowledge",id:result.data.knowledge.id},cookie);const note=await readServerStudy<NoteView>({kind:"readNote",id:result.data.knowledge.id},cookie);personal=study.ok?<StudyAccountBoundary actorId={actor.id}><KnowledgeStudyControls detail={study.data} readingKnowledge={{id:result.data.knowledge.id,version:result.data.knowledge.version}} initialNote={note.ok?note.data:undefined}/></StudyAccountBoundary>:undefined;}}
-
+  const mode=await readExperienceMode();
+  const actor=await learningActor();let personal:React.ReactNode;
+  if(mode===null){personal=<StudyUnavailable/>}else if(mode==="topics"&&result.ok&&actor.ok){const cookie=(await headers()).get("cookie")??"";const[study,note]=await Promise.all([readServerStudy<StudyDetail>({kind:"readKnowledge",id:result.data.knowledge.id},cookie),readServerStudy<NoteView>({kind:"readNote",id:result.data.knowledge.id},cookie)]);personal=study.ok?<StudyAccountBoundary actorId={actor.id}><KnowledgeStudyControls detail={study.data} readingKnowledge={{id:result.data.knowledge.id,version:result.data.knowledge.version}} initialNote={note.ok?note.data:undefined}/></StudyAccountBoundary>:<StudyUnavailable/>;}else if(mode==="legacy"){const detail=result.ok&&actor.ok?await getLearningClient().readLearningKnowledge(result.data.knowledge.id,result.data.knowledge.version):null;personal=actor.ok&&detail?<LearningBoundary actorId={actor.id}>{detail.ok?<KnowledgeControls detail={detail.data}/>:<LearningNotice result={detail}/>}</LearningBoundary>:undefined;}
   return <><UiPageTitle messageKey="page.knowledge.id"/>{<><KnowledgeView result={result} personal={personal} />{result.ok&&<section className="panel"><h2><UiText notice={uiMessage("page.lesson.feedback.14669c",{})}/></h2><ReportLink source={{kind:'knowledge',id:result.data.knowledge.id}}/>{result.data.units.map(unit=><p key={unit.id}><UiText notice={uiMessage("page.unit.c57306",{})}/>{unit.id} <ReportLink source={{kind:'knowledge',id:result.data.knowledge.id,partKind:'unit',partId:unit.id}}/></p>)}{result.data.assets.map(asset=><p key={asset.id}><UiText notice={uiMessage("page.illustration.0ffea7",{})}/>{asset.id} <ReportLink source={{kind:'knowledge',id:result.data.knowledge.id,partKind:'asset',partId:asset.id}}/></p>)}</section>}</>}</>;
 }

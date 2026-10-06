@@ -297,7 +297,8 @@
         "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-public.spec.ts"
+        "tests/e2e/ui-language-public.spec.ts",
+        "tests/e2e/ui-language-study.spec.ts"
       ]
     },
     {
@@ -343,7 +344,8 @@
         "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-learning.spec.ts"
+        "tests/e2e/ui-language-learning.spec.ts",
+        "tests/e2e/ui-language-study.spec.ts"
       ]
     },
     {
@@ -360,7 +362,8 @@
         "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-learning.spec.ts"
+        "tests/e2e/ui-language-learning.spec.ts",
+        "tests/e2e/ui-language-study.spec.ts"
       ]
     },
     {
@@ -3501,6 +3504,140 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-taxonomy.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/account-boundary.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.checking"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/feedback.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.saving",
+        "study.retry"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/history-list.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.history",
+        "study.history.rule"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/knowledge-controls.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.complete",
+        "study.review.start"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/knowledge-list.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.knowledge",
+        "study.note.open"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/note-editor.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.note.label",
+        "study.note.save"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/overview.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.overview",
+        "study.progress.rule"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/pages.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.mode.learn",
+        "study.history"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/topic-progress.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.topics",
+        "study.progress.baseline"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
       ]
     }
   ]

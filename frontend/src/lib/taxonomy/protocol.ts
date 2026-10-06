@@ -13,7 +13,8 @@ export function normalizeTopicQuery(query:TopicQuery={},kind="listTopics"):Topic
 }
 export function taxonomyRouteRequest(route:TaxonomyRoute|TopicManagementRoute):{path:string;method:string;kind:string}|null{
  if(!route||typeof route!=="object")return null;const keys=Object.keys(route),allowed=(names:string[])=>keys.every(k=>names.includes(k));let path="",method="GET";
- if(route.kind==="listTopics"||route.kind==="listKnowledge"||route.kind==="listReleases"){
+ if(route.kind==="readExperience"){if(!allowed(["kind"]))return null;path="/api/v2/topics/experience-mode"}
+ else if(route.kind==="listTopics"||route.kind==="listKnowledge"||route.kind==="listReleases"){
   if(!allowed(route.kind==="listKnowledge"?["kind","id","query"]:["kind","query"]))return null;
   if(route.kind==="listKnowledge"&&!topicIdPattern.test(route.id))return null;
   const q=normalizeTopicQuery(route.query,route.kind);if(!q)return null;const params=new URLSearchParams();for(const[key,value]of Object.entries(q)){if(value!==undefined)params.set(key,String(value))}
@@ -34,7 +35,7 @@ export function topicInputError(kind:string,input:unknown):TaxonomyErrorCode|nul
  if(!Object.hasOwn(inputs,kind))return "INVALID_REQUEST";const schema=inputs[kind as keyof typeof inputs];if(!schema.safeParse(input).success)return "INVALID_REQUEST";
  if(new TextEncoder().encode(contentCanonicalJSON(input)).byteLength>8192)return "PAYLOAD_TOO_LARGE";return null;
 }
-const outputs={listTopics:topicPageSchema,readTopic:topicDetailSchema,listKnowledge:knowledgePageSchema,readDraft:draftTopicViewSchema,saveDraft:draftTopicViewSchema,readSubmission:draftTopicViewSchema,listReleases:releasePageSchema,readRelease:releaseViewSchema,prepareRelease:releaseViewSchema,activateRelease:releaseViewSchema};
+const outputs={readExperience:z.object({mode:z.enum(["legacy","topics"])}).strict(),listTopics:topicPageSchema,readTopic:topicDetailSchema,listKnowledge:knowledgePageSchema,readDraft:draftTopicViewSchema,saveDraft:draftTopicViewSchema,readSubmission:draftTopicViewSchema,listReleases:releasePageSchema,readRelease:releaseViewSchema,prepareRelease:releaseViewSchema,activateRelease:releaseViewSchema};
 const errorSchema=z.object({error:z.object({code:z.enum(Object.keys(taxonomyPolicies) as [TaxonomyErrorCode,...TaxonomyErrorCode[]]),message:z.string().refine(validContentString),requestId:z.string().regex(/^(?:[a-f0-9]{32}|unavailable)$/)}).strict()}).strict().refine(v=>v.error.message===taxonomyPolicies[v.error.code].message);
 export async function readTaxonomyResponse(response:Response,kind:string,signal:AbortSignal):Promise<{result:TaxonomyResult<unknown>;payload:unknown}>{
  const requestId=contentResponseHeaders(response);if(response.headers.get("Cache-Control")!=="private, no-store"||!/^application\/json(?:;\s*charset=(?:utf-8|"utf-8"))?$/i.test(response.headers.get("Content-Type")??""))throw new Error("Invalid topic response.");
@@ -48,7 +49,7 @@ export function resolveTopicProxyRoute(request:Request,segments:string[],area:"p
  let route:TaxonomyRoute|TopicManagementRoute;const [id,operation]=segments;
  if(segments.some(s=>s===""))return "NOT_FOUND";
  if(area==="public"){
-  if(segments.length===0)route={kind:"listTopics"};else if(segments.length===1)route={kind:"readTopic",id};else if(segments.length===2&&operation==="knowledge")route={kind:"listKnowledge",id};else return "NOT_FOUND";
+  if(segments.length===1&&id==="experience-mode")route={kind:"readExperience"};else if(segments.length===0)route={kind:"listTopics"};else if(segments.length===1)route={kind:"readTopic",id};else if(segments.length===2&&operation==="knowledge")route={kind:"listKnowledge",id};else return "NOT_FOUND";
  }else if(area==="assignments"){
   if(segments.length!==2||!["drafts","submissions"].includes(id))return "NOT_FOUND";route={kind:id==="submissions"?"readSubmission":request.method==="PUT"?"saveDraft":"readDraft",id:operation};
  }else{

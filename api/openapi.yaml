@@ -25693,6 +25693,34 @@
           }
         }
       }
+    },
+    "/api/v2/topics/experience-mode": {
+      "get": {
+        "operationId": "readExperienceMode",
+        "description": "Public safe mode only; no cookies or identity are parsed. Missing previously enabled capabilities fail closed.",
+        "responses": {
+          "200": {
+            "description": "Current experience mode.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicExperienceMode"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Mode is unavailable.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -41178,6 +41206,22 @@
                 "type": "string"
               }
             }
+          }
+        }
+      },
+      "TopicExperienceMode": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode"
+        ],
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "legacy",
+              "topics"
+            ]
           }
         }
       }

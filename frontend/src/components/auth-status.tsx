@@ -16,7 +16,7 @@ export function AuthStatus() {
     return () => { live = false; window.removeEventListener("math-master:auth-change", refresh); };
   }, [path]);
   return <div className={styles.status} aria-live="polite">{!state ? <span><UiText notice={uiMessage("auth-status.checking.account.d18f41",{})}/></span> : !state.ok ? <Link prefetch={false} href="/account"><UiText notice={uiMessage("auth-status.accounts.unavailable.5b2487",{})}/></Link> : state.data.user ? <>
-    <Link prefetch={false} href="/account">{state.data.user.username}</Link>
+    <Link prefetch={false} href={state.data.user.mustChangePassword?"/account":"/learn"}>{state.data.user.username}</Link>
     {!state.data.user.mustChangePassword&&state.data.user.roles.includes("learner")&&<><Link prefetch={false} href="/learn"><UiText notice={uiMessage("auth-status.my.learning.c60fdf",{})}/></Link><Link prefetch={false} href="/learning-history"><UiText notice={uiMessage("auth-status.learning.history.35b7a5",{})}/></Link></>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor"><UiText notice={uiMessage("auth-status.edit.content.f57e8e",{})}/></Link>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review"><UiText notice={uiMessage("auth-status.review.content.9e6e6c",{})}/></Link>}

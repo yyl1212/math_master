@@ -25,12 +25,17 @@ var taxonomyResetTableNames = []string{
 }
 
 // 分类与数学内容全为隔离测试数据，使用真实送审/审核/激活，不作真实数学批准。
-func resetTopicCatalogue(ctx context.Context, db *sql.DB, s *store.Store, accounts *auth.Service, admin *auth.AdminService, root string, normal content.ValidatedPackage) error {
+func resetTopicCatalogue(ctx context.Context, db *sql.DB, s *store.Store, accounts *auth.Service, admin *auth.AdminService, root string, normal content.ValidatedPackage, extras ...bool) error {
 	if e := resetWorkflow(ctx, db, accounts, admin); e != nil {
 		return e
 	}
 	if _, e := s.ImportDraft(ctx, normal); e != nil {
 		return e
+	}
+	if len(extras) > 0 && extras[0] {
+		if e := publishAwaitingTopic(ctx, s, accounts, root); e != nil {
+			return e
+		}
 	}
 	in, e := learningFixtureInput(root)
 	if e != nil {
@@ -99,6 +104,12 @@ func resetTopicCatalogue(ctx context.Context, db *sql.DB, s *store.Store, accoun
 		return e
 	}
 	pair := taxonomy.PairRef{TaxonomyVersionID: version.ID}
+	var previous string
+	if e = db.QueryRowContext(ctx, "SELECT snapshot_id FROM publication_heads WHERE singleton").Scan(&previous); e == nil {
+		pair.KnowledgeHead = &previous
+	} else if e != sql.ErrNoRows {
+		return e
+	}
 	release, e := s.PrepareTopicRelease(ctx, manager, taxonomy.PrepareInput{SubmissionIDs: []string{sub.ID}, ExpectedPair: pair, Reason: "Prepare original isolated catalogue and knowledge together."})
 	if e != nil {
 		return e

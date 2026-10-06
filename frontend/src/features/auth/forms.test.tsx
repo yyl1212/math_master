@@ -24,7 +24,7 @@ describe("TestCredentialForms", () => {
     expect(mocks.request).toHaveBeenCalledTimes(1);
     expect(mocks.request).toHaveBeenCalledWith({ kind: mode }, { username: "Learner_One", password });
     resolve({ ok: true, data: user });
-    await waitFor(() => expect(mocks.replace).toHaveBeenCalledWith(mode === "register" ? "/login" : "/account"));
+    await waitFor(() => expect(mocks.replace).toHaveBeenCalledWith(mode === "register" ? "/login" : "/learn"));
     expect(screen.getByLabelText("Password")).toHaveValue("");
     expect(mocks.changed).toHaveBeenCalledTimes(1);
   });
@@ -71,3 +71,5 @@ describe("TestAccountPanel", () => {
     await waitFor(() => expect(mocks.replace).toHaveBeenCalledWith("/"));
   });
 });
+
+it("temporary password login enters the account password flow",async()=>{mocks.request.mockResolvedValue({ok:true,data:{...user,mustChangePassword:true}});render(<CredentialsForm mode="login"/>);fireEvent.change(screen.getByLabelText("Username"),{target:{value:"learner_one"}});fireEvent.change(screen.getByLabelText("Password"),{target:{value:password}});fireEvent.submit(screen.getByLabelText("Password").closest("form")!);await waitFor(()=>expect(mocks.replace).toHaveBeenCalledWith("/account"))});

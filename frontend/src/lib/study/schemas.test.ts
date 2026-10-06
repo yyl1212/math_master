@@ -19,3 +19,5 @@ it("keeps unknown legacy classification explicit without accepting missing nativ
  expect(historyEntrySchema.safeParse(event).success).toBe(true);
  expect(historyEntrySchema.safeParse({...event,sourceKind:"native",originEventId:null}).success).toBe(false);
 });
+import {topicsPageSchema} from "./schemas";
+it("accepts exact one quarter completed progress while reviewing",()=>{const page={actorId:actor,items:[{topicId:"msc-00",total:4,completed:1,learning:0,reviewing:1,added:0,removed:0,completedRatio:0.25}],total:1,limit:100,offset:0};expect(topicsPageSchema.safeParse(page).success).toBe(true)});

@@ -1,0 +1,6 @@
+"use client";
+import Link from "next/link";
+import {useUiI18n} from "@/lib/i18n/provider";
+import type {TopicProgress as Progress} from "@/lib/study/types";
+import type {TopicSummary} from "@/lib/taxonomy/types";
+export function TopicProgress({progress,names=[]}:{progress:Progress[];names?:TopicSummary[]}){const{t,locale}=useUiI18n(),labels=new Map(names.map(n=>[n.id,locale==="zh-CN"&&n.nameZh?n.nameZh:n.name]));return <section className="panel"><h2>{t("study.topics",{})}</h2><p>{t("study.progress.baseline",{})}</p><div className="domain-grid">{progress.map(p=><article className="domain-card" key={p.topicId}><h3><Link prefetch={false} href={"/learn?topicId="+p.topicId}>{labels.get(p.topicId)??p.topicId}</Link></h3><p>{p.completed}/{p.total} · {p.completedRatio===null?t("study.empty",{}):new Intl.NumberFormat(locale,{style:"percent",maximumFractionDigits:0}).format(p.completedRatio)}</p>{p.total>0&&<progress max={p.total} value={p.completed} aria-label={t("study.progress",{})}/>}<p>{t("study.state.learning",{})} {p.learning} · {t("study.state.reviewing",{})} {p.reviewing}</p>{(p.added>0||p.removed>0)&&<p>{t("study.added",{})} {p.added} · {t("study.removed",{})} {p.removed}</p>}</article>)}</div></section>}

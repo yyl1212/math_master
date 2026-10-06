@@ -59,7 +59,9 @@ export async function signIn(page: Page, username: string, password: string) {
   await page.getByLabel("Username", { exact: true }).fill(username);
   await page.getByLabel("Password", { exact: true }).fill(password);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
-  await expect(page).toHaveURL(/\/account$/);
+  await expect(page).toHaveURL(/\/(?:learn|account)$/);
+  // Account workflow scenarios explicitly open their target after checking login.
+  await page.goto("/account");
 }
 export async function safeScreenshot(page: Page, info: { outputPath: (name: string) => string }, name: string) {
   if (!process.env.CI) await page.screenshot({ path: info.outputPath(name + ".png"), fullPage: true, mask: [page.locator("input, textarea")] });

@@ -19,5 +19,5 @@ export type ReleasePage=S<"TopicReleasePage">;
 export type TaxonomyErrorCode=import("../content/types").ContentErrorCode|"REAUTH_REQUIRED"|"TAXONOMY_INVALID"|"TAXONOMY_NOT_CONFIGURED";
 export type TaxonomyResult<T>={ok:true;data:T}|{ok:false;status:number;code:TaxonomyErrorCode;message:string;requestId:string;retryAfter?:number};
 export type TopicQuery={parentId?:string;level?:number;kind?:"primary"|"auxiliary"|"other";q?:string;limit?:number;offset?:number};
-export type TaxonomyRoute={kind:"listTopics";query?:TopicQuery}|{kind:"readTopic";id:string}|{kind:"listKnowledge";id:string;query?:TopicQuery};
+export type TaxonomyRoute={kind:"readExperience"}|{kind:"listTopics";query?:TopicQuery}|{kind:"readTopic";id:string}|{kind:"listKnowledge";id:string;query?:TopicQuery};
 export type TopicManagementRoute={kind:"listReleases";query?:Pick<TopicQuery,"limit"|"offset">}|{kind:"readDraft"|"saveDraft";id:string}|{kind:"readSubmission";id:string}|{kind:"prepareRelease"}|{kind:"activateRelease"|"readRelease";id:string};

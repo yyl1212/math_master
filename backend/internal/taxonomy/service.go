@@ -26,3 +26,13 @@ func (s *Service) ReadTopic(ctx context.Context, id string) (TopicDetail, error)
 func (s *Service) ListTopicKnowledge(ctx context.Context, id string, q Query) (Page[KnowledgeSummary], error) {
 	return s.repo.ListTopicKnowledge(ctx, id, q)
 }
+
+func (s *Service) ReadExperienceMode(ctx context.Context) (ExperienceMode, error) {
+	repo, ok := s.repo.(interface {
+		ReadExperienceMode(context.Context) (ExperienceMode, error)
+	})
+	if !ok {
+		return "", ErrNotConfigured
+	}
+	return repo.ReadExperienceMode(ctx)
+}

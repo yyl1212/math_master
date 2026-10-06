@@ -29,6 +29,8 @@ type taxonomyRoute struct {
 func routeTaxonomy(path, method string) (taxonomyRoute, error) {
 	var r taxonomyRoute
 	switch {
+	case path == "/api/v2/topics/experience-mode":
+		r = taxonomyRoute{kind: "readExperience", method: "GET", public: true}
 	case path == "/api/v2/topics":
 		r = taxonomyRoute{kind: "listTopics", method: "GET", public: true, list: true}
 	case strings.HasPrefix(path, "/api/v2/topics/"):

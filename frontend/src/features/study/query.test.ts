@@ -1,0 +1,5 @@
+import {it,expect} from "vitest";
+import {parseStudyQuery} from "./query";
+it("validates literal multibyte queries and exact known filters",()=>{expect(parseStudyQuery({mode:"review",q:"中".repeat(170),topicId:"msc-13c60"})?.mode).toBe("review");for(const query of [{q:"中".repeat(171)},{mode:"tests"},{mode:["learn","review"]},{state:"mastered"},{actorId:"forged"},{limit:"51",cursor:"history"}])expect(parseStudyQuery(query as never)).toBeNull()});
+it("keeps date boundaries in UTC and prevents ambiguous histories",()=>{const q=parseStudyQuery({from:"2026-10-06",to:"2026-10-06"});expect(q?.from).toBe("2026-10-06T00:00:00.000Z");expect(q?.to).toBe("2026-10-07T00:00:00.000Z");for(const query of [{from:"2026-02-30"},{from:"2026-10-07",to:"2026-10-06"},{cursor:"中"}])expect(parseStudyQuery(query)).toBeNull()});
+it("accepts optional blank form filters while keeping list and history budgets distinct",()=>{expect(parseStudyQuery({q:"",topicId:"",state:""})?.mode).toBe("learn");expect(parseStudyQuery({limit:"100"})?.limit).toBe(100);expect(parseStudyQuery({limit:"51"},"history")).toBeNull()});
