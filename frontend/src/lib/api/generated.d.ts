@@ -4540,6 +4540,200 @@ export interface components {
                 retryAt?: string;
             };
         };
+        TopicNode: {
+            id: string;
+            code: string;
+            name: string;
+            nameZh: string;
+            /** @enum {string} */
+            kind: "primary" | "auxiliary" | "other";
+            /** @enum {integer} */
+            level: 1 | 2 | 3;
+            parentId: string | null;
+        } & ({
+            /** @constant */
+            kind?: "primary";
+            /** @constant */
+            level?: 1;
+            code?: unknown;
+            parentId?: null;
+        } | {
+            /** @constant */
+            kind?: "primary";
+            /** @constant */
+            level?: 2;
+            code?: unknown;
+            parentId?: string;
+        } | {
+            /** @constant */
+            kind?: "primary";
+            /** @constant */
+            level?: 3;
+            code?: unknown;
+            parentId?: string;
+        } | {
+            /** @constant */
+            kind?: "auxiliary";
+            /** @constant */
+            level?: 2;
+            code?: unknown;
+            parentId?: string;
+        } | {
+            /** @constant */
+            kind?: "other";
+            /** @constant */
+            level?: 3;
+            code?: unknown;
+            parentId?: string;
+        });
+        TopicPairRef: {
+            knowledgeHead: string | null;
+            taxonomyHead: string | null;
+            taxonomyVersionId: string;
+        };
+        TopicKnowledgeRef: {
+            id: string;
+            version: number;
+            sha256: string;
+        };
+        TopicSourceRecordRef: {
+            sourceId: string;
+            workFamilyId: string;
+            recordId: string;
+            path: string & unknown;
+            sha256: string;
+        };
+        TopicAssignmentInput: {
+            knowledge: {
+                id: string;
+                version: number;
+            };
+            topicIds: string[];
+            sourceRefs: components["schemas"]["TopicSourceRecordRef"][];
+            sourceBatchSHA: string;
+        };
+        TopicSummary: {
+            id: string;
+            code: string;
+            name: string;
+            nameZh: string;
+            /** @enum {string} */
+            kind: "primary" | "auxiliary" | "other";
+            /** @enum {integer} */
+            level: 1 | 2 | 3;
+            parentId: string | null;
+            ancestors: components["schemas"]["TopicNode"][];
+            publishedKnowledgeCount: number;
+            hasChildren: boolean;
+        } & ({
+            /** @constant */
+            kind?: "primary";
+            /** @constant */
+            level?: 1;
+            code?: unknown;
+            parentId?: null;
+        } | {
+            /** @constant */
+            kind?: "primary";
+            /** @constant */
+            level?: 2;
+            code?: unknown;
+            parentId?: string;
+        } | {
+            /** @constant */
+            kind?: "primary";
+            /** @constant */
+            level?: 3;
+            code?: unknown;
+            parentId?: string;
+        } | {
+            /** @constant */
+            kind?: "auxiliary";
+            /** @constant */
+            level?: 2;
+            code?: unknown;
+            parentId?: string;
+        } | {
+            /** @constant */
+            kind?: "other";
+            /** @constant */
+            level?: 3;
+            code?: unknown;
+            parentId?: string;
+        });
+        TopicPage: {
+            items: components["schemas"]["TopicSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+            pair: components["schemas"]["TopicPairRef"];
+        };
+        TopicKnowledgePage: {
+            items: components["schemas"]["TopicKnowledgeSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+            pair: components["schemas"]["TopicPairRef"];
+        };
+        TopicDetail: {
+            summary: components["schemas"]["TopicSummary"];
+            pair: components["schemas"]["TopicPairRef"];
+        };
+        TopicKnowledgeSummary: {
+            id: string;
+            version: number;
+            sha256: string;
+            title: string;
+            titleZh: string;
+            topicIds: string[];
+        };
+        TopicDraftInput: {
+            expectedDraftRevision: number;
+            expectedAssignmentRevision: number;
+            taxonomyVersionId: string;
+            member: components["schemas"]["TopicAssignmentInput"];
+        };
+        TopicDraftView: {
+            /** Format: uuid */
+            draftId: string;
+            draftRevision: number;
+            assignmentRevision: number;
+            taxonomyVersionId: string;
+            members: components["schemas"]["TopicAssignmentInput"][];
+            digest: string;
+            readyToSubmit: boolean;
+        };
+        TopicPrepareInput: {
+            submissionIds: string[];
+            expectedPair: components["schemas"]["TopicPairRef"];
+            reason: string;
+        };
+        TopicActivateInput: {
+            expectedPair: components["schemas"]["TopicPairRef"];
+            manifestSHA: string;
+            reason: string;
+        };
+        TopicReleaseView: {
+            /** Format: uuid */
+            id: string;
+            /** @enum {string} */
+            status: "draft" | "published";
+            pair: components["schemas"]["TopicPairRef"];
+            manifestSHA: string;
+            assignmentsSHA: string;
+            knowledgePublicationId: string | null;
+            diff: {
+                added: components["schemas"]["TopicKnowledgeRef"][];
+                removed: components["schemas"]["TopicKnowledgeRef"][];
+                changedTopicMemberships: {
+                    knowledge: components["schemas"]["TopicKnowledgeRef"];
+                    oldTopicIds: string[];
+                    newTopicIds: string[];
+                }[];
+            };
+            /** Format: date-time */
+            createdAt: string;
+        };
     };
     responses: {
         /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */
