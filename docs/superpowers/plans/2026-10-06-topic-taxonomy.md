@@ -76,7 +76,7 @@ await assert.rejects(() => captureTopicBatch(stagedFixture()), /BATCH_NOT_ACCEPT
 - Create：tools/topic-ingest/adapters.test.mjs
 - Create：tools/topic-ingest/build-drafts.test.mjs
 
-**Interfaces（接口）：** normalizePrimaryFile({bytes,packageId,sourceId,path,sha256}): {records:NormalizedRecord[],auxiliary:AuxiliaryRecord[],issues:Issue[]}；NormalizedRecord={originalId,sourceId,title,originalKind,statement,conditions,proof,proofScope,sourceLocations,rawSHA}。buildDraftInputs({capture,records,resolutions,legacyCatalogue}): TopicDraftEnvelope[]；TopicDraftEnvelope={kind:'topic-draft',schemaVersion:1,draft:publication.DraftInput,assignments:AssignmentInput[],sourceBatchSHA}，每包最多100 知识。resolutions 显式给出网站 ID、合法数学 type 和具体主题，不猜测未知类型。
+**Interfaces（接口）：** normalizePrimaryFile({bytes,packageId,sourceId,path,sha256}): {records:NormalizedRecord[],auxiliary:AuxiliaryRecord[],issues:Issue[]}；NormalizedRecord={originalId,sourceId,title,originalKind,statement,conditions,proof,proofScope,sourceLocations,rawSHA}。buildDraftInputs({capture,records,resolutions,legacyCatalogue}): {packages:TopicDraftEnvelope[],issues:Issue[]}；错误出口按执行账本裁定补齐。TopicDraftEnvelope={kind:'topic-draft',schemaVersion:1,draft:publication.DraftInput,assignments:AssignmentInput[],sourceBatchSHA}，每包最多100 知识。resolutions 显式给出网站 ID、合法数学 type 和具体主题，不猜测未知类型。
 
 - [ ] **步骤1 写行为失败测试。** knowledge_points 与 records 各有原记录保留测试；assert auxiliary.length===104 对原创104 条能力夹具成立且它们不进入数学草稿；同作品同 ID 的副本去重，不同作品同标题不合并；缺少明确类型或具体主题解析时输出 issue，不伪造 proof、第二角度或来源批准。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
