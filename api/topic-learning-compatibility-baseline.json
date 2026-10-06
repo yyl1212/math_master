@@ -2388,8 +2388,8 @@
     },
     ".github/workflows/backend.yml": {
       "taxonomy": {
-        "sha256": "a6f684f7d4ada45f83151c7f09b91c2034340a60a9f03610a7a07335f0603dba",
-        "reason": "远端旧宽批次五分钟累计超时；按全部清单70项分批、容量独立，不增加预算或移除测试"
+        "sha256": "1394fcc9604a42c4d656ff848c569c33342a7bdacef1ad8acce5cdd176465cb2",
+        "reason": "远端旧宽批次五分钟累计超时；按全部清单70项分批、容量独立，不增加预算或移除测试；固定基线变异测试需要完整Git历史"
       }
     },
     ".github/workflows/frontend.yml": {
