@@ -2388,8 +2388,8 @@
     },
     ".github/workflows/backend.yml": {
       "taxonomy": {
-        "sha256": "40d21f21b1b593b5e0d1fec6f26a6c08b856f896d1c731f9e5dad77be752cf8f",
-        "reason": "新增主题阶段的精确验证/保护映射，保留旧验证与时限"
+        "sha256": "a6f684f7d4ada45f83151c7f09b91c2034340a60a9f03610a7a07335f0603dba",
+        "reason": "远端旧宽批次五分钟累计超时；按全部清单70项分批、容量独立，不增加预算或移除测试"
       }
     },
     ".github/workflows/frontend.yml": {
@@ -2529,6 +2529,8 @@
       "tools/topic-ingest/capture.test.mjs",
       "tools/topic-ingest/json.mjs",
       "tools/topic-ingest/test-fixtures.mjs",
+      "tools/verify/go-batches.mjs",
+      "tools/verify/go-batches.test.mjs",
       "tools/verify/topic-learning-ci.test.mjs",
       "tools/verify/topic-learning-compatibility.mjs",
       "tools/verify/topic-learning-compatibility.test.mjs"
