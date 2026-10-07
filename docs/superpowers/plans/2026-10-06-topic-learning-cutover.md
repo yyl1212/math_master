@@ -41,7 +41,7 @@ topics模式下拒绝旧路线加入、旧个人开始/完成和解锁写、练�
 
 MODULE_RETIRED 在旧相关错误合同中仅追加具名410响应；它是显式批准的退出兼容变化，不使用503伪装未配置。最终切换前仍为legacy行为，方便原回归验证；最终切换后旧UI显示退出说明，不提供新提交。
 
-### 任务 C1 反馈按来源拆分能力
+### Task 1 C1 反馈按来源拆分能力
 
 **Files（文件）：**
 - Modify：backend/internal/store/feedback_tx.go
@@ -55,19 +55,19 @@ MODULE_RETIRED 在旧相关错误合同中仅追加具名410响应；它是显�
 
 **Interfaces（接口）：** feedbackBaseConfigured(ctx,tx) error 只检查账户/内容/反馈；feedbackSourceConfigured(ctx,tx,b feedback.Binding) error 在practice/assessment历史绑定时核验原learning/question/correction守卫。网站和知识来源既有接口、分类网站反馈引用{topicId,taxonomyVersionId}只作为展示定位，不自动决定数学替代发布。
 
-- [ ] **步骤1 写行为失败测试。** TestFeedbackTopicModeWithoutQuestionBank：网站/知识工单与纯文本讨论正常；TestFeedbackTopicModeLegacyOverlap：活动旧检测重合仍409、不交付文本；TestFeedbackTopicModeOwnerCannotHandle、自有主题定位及准确知识版本保留。
+- [x] **步骤1 写行为失败测试。** TestFeedbackTopicModeWithoutQuestionBank：网站/知识工单与纯文本讨论正常；TestFeedbackTopicModeLegacyOverlap：活动旧检测重合仍409、不交付文本；TestFeedbackTopicModeOwnerCannotHandle、自有主题定位及准确知识版本保留。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
 
 ```go
 if status != 409 || responseContainsDiscussion { t.Fatal("legacy overlap bypassed") }
 ```
 
-- [ ] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedbackTopicMode' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
-- [ ] **步骤3 实现交付单元。** 拆掉无条件feedbackConfigured旧题库依赖，在真实Binding解析后按来源守卫；站点工单不因退休模块失败。原题目曝光事务保持，失败不交付；回复和状态变更保持五状态、序号及同键回执。
-- [ ] **步骤4 验证通过。** 重跑步骤2命令；旧 TestFeedbackExposureFailureClosed、OriginalTemplateExposure、ExpiredActive 回归通过；topic-feedback.spec.ts真实双视口通过，不能靠不调用曝光函数替代安全检查。
-- [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 按来源解耦内容反馈'。提交前 git diff --check 通过，只纳入该任务文件。
+- [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedbackTopicMode' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
+- [x] **步骤3 实现交付单元。** 拆掉无条件feedbackConfigured旧题库依赖，在真实Binding解析后按来源守卫；站点工单不因退休模块失败。原题目曝光事务保持，失败不交付；回复和状态变更保持五状态、序号及同键回执。
+- [x] **步骤4 验证通过。** 重跑步骤2命令；旧 TestFeedbackExposureFailureClosed、OriginalTemplateExposure、ExpiredActive 回归通过；topic-feedback.spec.ts真实双视口通过，不能靠不调用曝光函数替代安全检查。
+- [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 按来源解耦内容反馈'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 C2 显式退出旧写接口和题库界面
+### Task 2 C2 显式退出旧写接口和题库界面
 
 **Files（文件）：**
 - Create：backend/internal/httpapi/topic-retirement.go
@@ -119,7 +119,7 @@ if !bytes.Equal(beforeAnswers, afterAnswers) { t.Fatal("legacy facts changed") }
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；新MODULE_RETIRED有中英文词条且生成类型通过；topic-retirement.spec.ts和旧答案/撤回/曝光安全用例分别执行；省略客户端权限不能绕过服务检查。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 退出路线测评与题库新写流程'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 C3 迁入真实学习事件
+### Task 3 C3 迁入真实学习事件
 
 **Files（文件）：**
 - Create：db/migrations/00012_topic_cutover.sql
@@ -145,7 +145,7 @@ if firstRun.CreatedEvents != firstCount || secondRun.CreatedEvents != 0 { t.Fata
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；每批终止/重跑从原游标继续；同微秒事件不漏；原答案/结果表对比完全相同。CLI无工作返回processed=0、done实际值，不宣称有限批次等于全库完成。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 迁入真实学习时间线'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 C4 体验切换检查与有限命令
+### Task 4 C4 体验切换检查与有限命令
 
 **Files（文件）：**
 - Create：backend/internal/store/topic_cutover.go
@@ -170,7 +170,7 @@ if missingSchema && modeAfter != "legacy" { t.Fatal("unsafe cutover") }
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；基于topics模式再次执行返回原切换记录，不更新日期或让旧mode恢复；实际旧写在事务内拒绝，新study与反馈独立可用。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 增加受控主题学习切换'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 C5 内容回顾提醒与保留后台整合
+### Task 5 C5 内容回顾提醒与保留后台整合
 
 **Files（文件）：**
 - Create：frontend/src/features/study/content-reminders.tsx
@@ -203,7 +203,7 @@ expect(markReadRequests).toHaveLength(0);
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；topic-content-corrections.spec.ts真实双视口通过；旧内容编写/审核/撤回回归，私人正文不进入提醒列表；新草稿paths=[]仍能完成正常送审。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 整合内容回顾与知识纠错后台'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 C6 部署兼容与阶段门禁
+### Task 6 C6 部署兼容与阶段门禁
 
 **Files（文件）：**
 - Modify：ops/deploy.py
@@ -230,7 +230,7 @@ self.assertEqual(database_digest_before, database_digest_after)
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；运维全部目标测试、Node兼容门禁通过；用临时镜像/隔离库验证恢复，真实服务器保持原状；原一worker、480秒和数据库保护不放宽。
 - [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'test: 核验主题切换与部署兼容'。提交前 git diff --check 通过，只纳入该任务文件。
 
-### 任务 C7 完整用户流程回归与交付
+### Task 7 C7 完整用户流程回归与交付
 
 **Files（文件）：**
 - Create：tests/e2e/topic-learning-cutover.spec.ts

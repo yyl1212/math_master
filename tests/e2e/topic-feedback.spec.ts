@@ -1,0 +1,7 @@
+import {test,expect,fitsViewport} from "./fixtures";
+import {actor,report,discussion,wireFeedback} from "./feedback-helpers";
+import type {Context} from "../../frontend/src/lib/feedback/types";
+test("topic mode reports keep taxonomy location and exact knowledge without a question publication",async({page,scene})=>{
+ await scene("topic-study");await actor(page,"auth_learner");await page.goto("/topics/msc-00a00");const href=await page.getByRole("link",{name:"Report a problem",exact:true}).getAttribute("href");expect(href).toContain("topicId=msc-00a00");expect(href).toMatch(/taxonomyVersionId=[a-f0-9]{64}/);await page.goto(href!);const location=await page.getByLabel("Where on the page?",{exact:true}).inputValue();expect(location).toMatch(/^MSC2020 msc-00a00 @ [a-f0-9]{64}$/);const site=await report(page,href!,"Original taxonomy location report","Original classification suggestion.");const siteDiscussion=await discussion(page,site);expect(siteDiscussion.status).toBe(200);expect(siteDiscussion.data.data.location).toBe(location);
+ const source=await wireFeedback<Context>(page,"/api/v1/feedback/contexts/knowledge/learning-root");expect(source.status).toBe(200);expect(source.data.data.target.kind).toBe("knowledge");expect(source.data.data.target.identity?.version).toBe(1);expect(source.data.data.source.kind).toBe("publication");const id=await report(page,"/feedback/new?kind=knowledge&id=learning-root","Original knowledge report","Original exact material explanation request.");expect((await discussion(page,id)).status).toBe(200);await fitsViewport(page);
+});

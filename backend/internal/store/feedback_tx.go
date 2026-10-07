@@ -13,22 +13,43 @@ import (
 
 var feedbackTables = []string{"feedback_tickets", "feedback_events", "feedback_idempotency", "feedback_rate_limits"}
 
-func feedbackConfigured(ctx context.Context, tx *sql.Tx) (bool, error) {
+func feedbackBaseConfigured(ctx context.Context, tx *sql.Tx) error {
 	var n int
-	if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM unnest($1::text[]) name WHERE to_regclass('public.'||name) IS NOT NULL`, feedbackTables).Scan(&n); e != nil {
-		return false, e
+	tables := append(append([]string{}, feedbackTables...), "auth_users", "content_workspaces", "knowledge_versions", "publication_heads", "content_publication_manifests")
+	if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM unnest($1::text[]) name WHERE to_regclass('public.'||name) IS NOT NULL`, tables).Scan(&n); e != nil {
+		return e
 	}
-	if n != 4 {
-		return false, feedback.ErrNotConfigured
+	if n != len(tables) {
+		return feedback.ErrNotConfigured
+	}
+	var intact bool
+	if e := tx.QueryRowContext(ctx, `SELECT to_regprocedure('public.feedback_target_proof(jsonb,jsonb,uuid,boolean)') IS NOT NULL AND to_regprocedure('public.learning_content_approved(text,text,text,integer,text)') IS NOT NULL`).Scan(&intact); e != nil {
+		return e
+	}
+	if !intact {
+		return feedback.ErrNotConfigured
+	}
+	return nil
+}
+func feedbackConfigured(ctx context.Context, tx *sql.Tx) (bool, error) {
+	e := feedbackBaseConfigured(ctx, tx)
+	return e == nil, e
+}
+func feedbackSourceConfigured(ctx context.Context, tx *sql.Tx, b feedback.Binding) error {
+	if b.Source.Kind != "practice" && b.Source.Kind != "assessment" && b.Instance == nil {
+		return nil
 	}
 	ok, e := learningConfigured(ctx, tx)
 	if e != nil || !ok {
-		return false, feedback.ErrNotConfigured
+		return feedback.ErrNotConfigured
 	}
 	if e = questionConfigured(ctx, tx); e != nil {
-		return false, feedback.ErrNotConfigured
+		return feedback.ErrNotConfigured
 	}
-	return true, nil
+	if _, e = correctionConfigured(ctx, tx); e != nil {
+		return feedback.ErrNotConfigured
+	}
+	return nil
 }
 func feedbackError(e error) error {
 	if e == nil {

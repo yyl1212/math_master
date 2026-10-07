@@ -11,13 +11,13 @@ import { FeedbackCommandStatus, FeedbackState } from './status';
 import { feedbackInputSchemas } from '@/lib/feedback/schemas';
 import { FeedbackRequestError, type Context, type CreateInput, type Metadata } from '@/lib/feedback/types';
 import styles from '@/styles/content.module.css';
-export function NewFeedbackForm({ context, sourcePath }: { context: Context; sourcePath: string }) {
+export function NewFeedbackForm({ context, sourcePath, initialLocation="" }: { context: Context; sourcePath: string; initialLocation?:string }) {
  const {t}=useUiI18n();
 
   const account = useContext(FeedbackAccountContext), router = useRouter(), read = useFeedbackRead();
   const [currentContext, setCurrentContext] = useState(context), [refreshingTarget, setRefreshingTarget] = useState(false), [targetError, setTargetError] = useState<FeedbackRequestError | null>(null), [targetRefreshed, setTargetRefreshed] = useState(false);
   useEffect(() => { setCurrentContext(context); }, [context]);
-  const [title, setTitle] = useState(''), [message, setMessage] = useState(''), [location, setLocation] = useState(''), [category, setCategory] = useState<CreateInput['category']>(context.target.kind === 'site' ? 'technical_issue' : 'math_error');
+  const [title, setTitle] = useState(''), [message, setMessage] = useState(''), [location, setLocation] = useState(initialLocation), [category, setCategory] = useState<CreateInput['category']>(context.target.kind === 'site' ? 'technical_issue' : 'math_error');
   const command = useFeedbackCommand(account?.actorId ?? '', async (receipt, signal) => { const latest = await read<Metadata>('/api/v1/feedback/tickets/' + receipt.ticket.id, signal); if (latest) router.push('/feedback/' + latest.data.id); });
   const input: CreateInput = { target: currentContext.target, source: currentContext.source, category, title, message, location }, locked = command.busy || !!command.pending || refreshingTarget;
   async function refreshTarget() {

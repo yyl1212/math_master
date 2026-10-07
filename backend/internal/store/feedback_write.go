@@ -78,7 +78,11 @@ func feedbackTargetValidity(ctx context.Context, tx *sql.Tx, b feedback.Binding)
 		refs = append(refs, map[string]any{"kind": "asset", "id": a.ID, "version": nil, "sha256": a.SHA256})
 	}
 	var withdrawn bool
-	e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM jsonb_to_recordset($1::jsonb) r(kind text,id text,version integer,sha256 text) WHERE EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind=r.kind AND w.sha256=r.sha256 AND (r.kind='asset' OR w.target_id=r.id AND w.target_version=r.version)) OR EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.kind=r.kind AND w.target_id=r.id AND w.target_version=r.version AND w.sha256=r.sha256))`, body(refs)).Scan(&withdrawn)
+	questionWithdrawal := ""
+	if b.Instance != nil {
+		questionWithdrawal = ` OR EXISTS(SELECT 1 FROM question_withdrawals w WHERE w.kind=r.kind AND w.target_id=r.id AND w.target_version=r.version AND w.sha256=r.sha256)`
+	}
+	e := tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM jsonb_to_recordset($1::jsonb) r(kind text,id text,version integer,sha256 text) WHERE EXISTS(SELECT 1 FROM content_withdrawals w WHERE w.kind=r.kind AND w.sha256=r.sha256 AND (r.kind='asset' OR w.target_id=r.id AND w.target_version=r.version))`+questionWithdrawal+`)`, body(refs)).Scan(&withdrawn)
 	if e != nil {
 		return "", e
 	}

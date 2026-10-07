@@ -54,6 +54,9 @@ func feedbackResolveTarget(ctx context.Context, tx *sql.Tx, actor string, t feed
 	if e := feedback.ValidateTargetSource(t, s); e != nil {
 		return b, e
 	}
+	if e := feedbackSourceConfigured(ctx, tx, b); e != nil {
+		return b, e
+	}
 	if t.Kind == "site" {
 		return b, nil
 	}

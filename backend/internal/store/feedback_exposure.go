@@ -9,6 +9,9 @@ import (
 )
 
 func feedbackDiscussionExposure(ctx context.Context, tx *sql.Tx, reader string, b feedback.Binding) error {
+	if e := feedbackSourceConfigured(ctx, tx, b); e != nil {
+		return e
+	}
 	if b.Instance == nil {
 		return nil
 	}

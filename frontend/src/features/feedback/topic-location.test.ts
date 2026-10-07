@@ -1,0 +1,3 @@
+import {it,expect} from "vitest";
+import {topicFeedbackLocation} from "./topic-location";
+it("validates topic identity and leaves ordinary report locations empty",()=>{expect(topicFeedbackLocation({})).toBe("");expect(topicFeedbackLocation({kind:"site",area:"other",topicId:"msc-00a00",taxonomyVersionId:"a".repeat(64)})).toBe("MSC2020 msc-00a00 @ "+"a".repeat(64));for(const q of[{kind:"knowledge",topicId:"msc-00a00",taxonomyVersionId:"a".repeat(64)},{kind:"site",area:"other",topicId:"../../private",taxonomyVersionId:"a".repeat(64)},{kind:"site",area:"other",topicId:"msc-00a00"}])expect(()=>topicFeedbackLocation(q)).toThrow()});
