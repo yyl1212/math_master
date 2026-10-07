@@ -3653,7 +3653,7 @@
         "旧知识标识、版本、原答案和成绩、UTC时间；原记录不翻译或改写，私人笔记不进入档案公开字段"
       ],
       "scenarios": [
-        "tests/e2e/topic-retirement.spec.ts"
+        "tests/e2e/ui-language-cutover.spec.ts"
       ]
     },
     {
@@ -3669,7 +3669,7 @@
         "旧知识标识、版本、原答案和成绩、UTC时间；原记录不翻译或改写，私人笔记不进入档案公开字段"
       ],
       "scenarios": [
-        "tests/e2e/topic-retirement.spec.ts"
+        "tests/e2e/ui-language-cutover.spec.ts"
       ]
     },
     {
@@ -3684,7 +3684,7 @@
         "知识标识、准确版本与UTC时间；提醒不含私人笔记，旧档案只读"
       ],
       "scenarios": [
-        "tests/e2e/topic-content-corrections.spec.ts"
+        "tests/e2e/ui-language-cutover.spec.ts"
       ]
     },
     {
@@ -3700,7 +3700,7 @@
         "知识标识、准确版本与UTC时间；提醒不含私人笔记，旧档案只读"
       ],
       "scenarios": [
-        "tests/e2e/topic-content-corrections.spec.ts"
+        "tests/e2e/ui-language-cutover.spec.ts"
       ]
     }
   ]

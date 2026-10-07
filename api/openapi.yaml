@@ -469,6 +469,9 @@
                     "status": {
                       "type": "string",
                       "const": "ready"
+                    },
+                    "topic": {
+                      "$ref": "#/components/schemas/TopicSchemaHealth"
                     }
                   },
                   "required": [
@@ -489,6 +492,9 @@
                     "status": {
                       "type": "string",
                       "const": "unavailable"
+                    },
+                    "topic": {
+                      "$ref": "#/components/schemas/TopicSchemaHealth"
                     }
                   },
                   "required": [
@@ -41485,6 +41491,34 @@
               "legacy",
               "topics"
             ]
+          }
+        }
+      },
+      "TopicSchemaHealth": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "taxonomy",
+          "study",
+          "retirement",
+          "schemaReady",
+          "topicsMode"
+        ],
+        "properties": {
+          "taxonomy": {
+            "type": "boolean"
+          },
+          "study": {
+            "type": "boolean"
+          },
+          "retirement": {
+            "type": "boolean"
+          },
+          "schemaReady": {
+            "type": "boolean"
+          },
+          "topicsMode": {
+            "type": "boolean"
           }
         }
       }

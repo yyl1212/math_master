@@ -5208,6 +5208,13 @@ export interface components {
             /** @enum {string} */
             mode: "legacy" | "topics";
         };
+        TopicSchemaHealth: {
+            taxonomy: boolean;
+            study: boolean;
+            retirement: boolean;
+            schemaReady: boolean;
+            topicsMode: boolean;
+        };
     };
     responses: {
         /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */
@@ -5848,6 +5855,7 @@ export interface operations {
                     "application/json": {
                         /** @constant */
                         status: "ready";
+                        topic?: components["schemas"]["TopicSchemaHealth"];
                     };
                 };
             };
@@ -5860,6 +5868,7 @@ export interface operations {
                     "application/json": {
                         /** @constant */
                         status: "unavailable";
+                        topic?: components["schemas"]["TopicSchemaHealth"];
                     };
                 };
             };

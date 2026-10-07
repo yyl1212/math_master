@@ -1,10 +1,11 @@
+import {inverseTopicAPI} from "./topic-learning-compatibility.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync, readdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {compareCorrectionContracts, inverseApprovedCorrectionChanges} from './correction-compatibility.mjs';
 const root=new URL('../../',import.meta.url),read=p=>readFileSync(new URL(p,root),'utf8');
-const baseline=JSON.parse(read('api/correction-compatibility-baseline.json')),api=JSON.parse(read('api/openapi.yaml'));
+const baseline=JSON.parse(read('api/correction-compatibility-baseline.json')),api=inverseTopicAPI(JSON.parse(read('api/openapi.yaml')));
 test('P5a product baseline retains 88 paths, 220 schemas, 32 responses and three security schemes with only approved pointers',()=>{
  assert.equal(baseline.baseCommit,'dad438d13b37d1053e3bf42e7c32e3829e4518a6');assert.deepEqual(baseline.counts,{paths:88,schemas:220,responses:32,securitySchemes:3});
  for(const [s,n]of Object.entries(baseline.counts))assert.equal(Object.keys(baseline.sections[s]).length,n);

@@ -38,6 +38,8 @@ class DeployTests(unittest.TestCase):
             shutil.copyfile(OPS.parent/'compose.yaml',release/'compose.yaml')
             shutil.copytree(OPS.parent/'db'/'migrations',release/'db'/'migrations')
             config=shared/'configs'/(revision+'.env');config.write_text(BODY);config.chmod(0o600)
+        profile=patch.object(module,'topic_database_state',return_value={'requiredMigration':SCHEMA,'mode':'legacy'})
+        profile.start();self.addCleanup(profile.stop)
         self.commands=[]
         self.state_path=shared/'deployment.json'
         self.state={'schemaVersion':1,'current':OLD,'previous':None,'runningRevision':OLD,'bootstrapVerified':True,'status':'active'}
@@ -53,7 +55,7 @@ class DeployTests(unittest.TestCase):
 
     def transport(self,root,revision,args,sudo=False,acme='production'):
         self.commands.append((revision,args,acme))
-        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else b''
+        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
         return subprocess.CompletedProcess(args,0,stdout,b'')
 
     def invoke(self,*args):
@@ -181,5 +183,30 @@ class DeployTests(unittest.TestCase):
         self.assertTrue(any(args[:1]==['stop'] for _,args,_ in self.commands))
         self.assertFalse(any(revision==OLD and args[:1]==['up'] for revision,args,_ in self.commands))
 
+    def test_topic_old_binary_keeps_gateway_isolated(self):
+        deploy=self.implementation();self.state.update(current=NEW,previous=OLD,runningRevision=NEW);self.write_state();marker=self.root/'shared'/'database.marker';marker.write_bytes(b'original database fingerprint')
+        before=marker.read_bytes()
+        with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'sql',return_value=str(SCHEMA)),patch.object(deploy,'topic_database_state',return_value={'requiredMigration':12,'mode':'topics'}),patch.object(deploy,'runtime_topic_health',return_value={'taxonomy':True,'study':True,'retirement':False,'schemaReady':True,'topicsMode':True}):
+            self.assertEqual(self.invoke('rollback','--revision',OLD)[0],1)
+        self.assertEqual(marker.read_bytes(),before)
+        self.assertFalse(any(args[:2]==['up','-d'] and 'gateway' in args for _,args,_ in self.commands))
+        self.assertEqual(json.loads(self.state_path.read_text())['status'],'manual-recovery-required')
+    def test_topic_partial_schema_keeps_maintenance(self):
+        deploy=self.implementation()
+        with patch.object(common,'compose',side_effect=self.transport),patch.object(deploy.snapshot,'sql',return_value=str(SCHEMA)),patch.object(deploy,'runtime_topic_health',return_value={'taxonomy':True,'study':True,'retirement':True,'schemaReady':False,'topicsMode':False}):
+            self.assertEqual(self.invoke('rollback','--revision',OLD)[0],1)
+        self.assertFalse(any(args[:2]==['up','-d'] and 'gateway' in args for _,args,_ in self.commands))
 
-if __name__=='__main__':unittest.main()
+class TopicCompatibilityTests(unittest.TestCase):
+    def test_topic_mode_old_binary_rejected(self):
+        self.assertFalse(module.topicSchemaCompatibility(12,{'taxonomy':True,'study':True,'retirement':False},'topics'))
+        self.assertFalse(module.topicSchemaCompatibility(13,{'taxonomy':True,'study':True,'retirement':True},'topics'))
+    def test_topic_schema_partial_keeps_maintenance(self):
+        self.assertFalse(module.topicSchemaCompatibility(11,{'taxonomy':True,'study':True,'retirement':True},'topics'))
+        self.assertFalse(module.topicSchemaCompatibility(12,{'taxonomy':True,'study':False,'retirement':True},'legacy'))
+    def test_compatible_binary_keeps_database(self):
+        self.assertTrue(module.topicSchemaCompatibility(12,{'taxonomy':True,'study':True,'retirement':True},'topics'))
+        self.assertTrue(module.topicSchemaCompatibility(9,{'taxonomy':False,'study':False,'retirement':False},'legacy'))
+
+
+if __name__=="__main__":unittest.main()

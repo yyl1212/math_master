@@ -19,6 +19,9 @@ type Reader interface {
 func NewHandler(reader Reader, pinger Pinger) http.Handler {
 	mux := http.NewServeMux()
 	health := NewHealthHandler(pinger)
+	if topics, ok := reader.(TopicHealthReader); ok {
+		health = NewHealthHandler(pinger, topics)
+	}
 	mux.Handle("GET /healthz", health)
 	mux.Handle("GET /readyz", health)
 	mux.HandleFunc("GET /api/v1/assets/{sha256}", func(w http.ResponseWriter, r *http.Request) { publicAsset(w, r, reader) })

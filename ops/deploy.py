@@ -25,6 +25,46 @@ class DeployError(ValueError):
     pass
 
 
+def topicSchemaCompatibility(actualMigration: int,targetCapabilities: dict,mode: str) -> bool:
+    if type(actualMigration) is not int or not 1<=actualMigration<=12 or mode not in ['legacy','topics']:return False
+    if set(targetCapabilities)!={'taxonomy','study','retirement'} or any(type(v) is not bool for v in targetCapabilities.values()):return False
+    if mode=='topics' and actualMigration<12:return False
+    required={'taxonomy':actualMigration>=10,'study':actualMigration>=11,'retirement':actualMigration>=12 or mode=='topics'}
+    return all(not needed or targetCapabilities[name] for name,needed in required.items())
+
+
+def topic_database_state(container: str,sudo: bool) -> dict:
+    version=int(snapshot.sql(container,'math_master_preview','math_master_preview','SELECT coalesce(max(version_id) FILTER (WHERE is_applied),0) FROM goose_db_version;',sudo))
+    names=json.loads(snapshot.sql(container,'math_master_preview','math_master_preview',"SELECT coalesce(json_agg(attname),'[]'::json) FROM pg_attribute WHERE attrelid=to_regclass('public.goose_db_version') AND attname IN ('topic_study_enabled','topic_cutover_enabled') AND NOT attisdropped;",sudo))
+    required=version
+    for column,minimum in [('topic_study_enabled',11),('topic_cutover_enabled',12)]:
+        if column in names:
+            value=snapshot.sql(container,'math_master_preview','math_master_preview','SELECT coalesce(bool_or('+column+'),false) FROM goose_db_version WHERE version_id=0;',sudo).strip()
+            if value=='t':required=max(required,minimum)
+            elif value!='f':raise DeployError('topic-state-unavailable')
+    exists=snapshot.sql(container,'math_master_preview','math_master_preview',"SELECT to_regclass('public.topic_learning_state') IS NOT NULL;",sudo).strip()
+    if exists=='t':mode=snapshot.sql(container,'math_master_preview','math_master_preview','SELECT experience_mode FROM topic_learning_state WHERE singleton;',sudo).strip()
+    elif exists=='f' and required<10:mode='legacy'
+    else:raise DeployError('topic-state-unavailable')
+    if mode not in ['legacy','topics']:raise DeployError('topic-state-unavailable')
+    return {'requiredMigration':required,'mode':mode}
+
+
+def runtime_topic_health(root: Path,revision: str,sudo: bool) -> dict:
+    raw=run_compose(root,revision,['exec','-T','api','wget','-qO-','http://127.0.0.1:8080/readyz'],sudo,'topic-readiness-unavailable')
+    if len(raw)>8192:raise DeployError('topic-readiness-unavailable')
+    result=json.loads(raw);topic=result.get('topic')
+    if topic is None:return {'taxonomy':False,'study':False,'retirement':False,'schemaReady':result.get('status')=='ready','topicsMode':False}
+    if set(topic)!={'taxonomy','study','retirement','schemaReady','topicsMode'} or any(type(v) is not bool for v in topic.values()) or result.get('status')!='ready':raise DeployError('topic-readiness-unavailable')
+    return topic
+
+
+def verify_topic_runtime(root: Path,revision: str,sudo: bool,container: str) -> None:
+    actual=topic_database_state(container,sudo);health=runtime_topic_health(root,revision,sudo)
+    capabilities={key:health[key] for key in ['taxonomy','study','retirement']}
+    if not health['schemaReady'] or health['topicsMode']!=(actual['mode']=='topics') or not topicSchemaCompatibility(actual['requiredMigration'],capabilities,actual['mode']):raise DeployError('topic-schema-incompatible')
+
+
 def load_state(root: Path) -> dict:
     path=common.safe_path(root/'shared'/'deployment.json')
     if not path.exists():
@@ -107,9 +147,12 @@ def stop_writes(root: Path,revision: str,sudo: bool) -> None:
 def rollback(root: Path,revision: str,sudo: bool,state: dict) -> None:
     if revision not in [state.get('current'),state.get('previous')]:raise DeployError('unknown-rollback-release')
     try:
+        stop_writes(root,state.get("runningRevision") or revision,sudo)
         container=database_container(root,revision,sudo)
         migration=int(snapshot.sql(container,'math_master_preview','math_master_preview','SELECT coalesce(max(version_id) FILTER (WHERE is_applied),0) FROM goose_db_version;',sudo))
         if migration!=expected_migration(root,revision):raise DeployError('schema-incompatible')
+        run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api'],sudo,'rollback-health-failed')
+        verify_topic_runtime(root,revision,sudo,container)
         run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api','web','gateway'],sudo,'rollback-health-failed')
         trusted_check(common.ORIGIN)
         publish_current(root,revision,state)
@@ -171,6 +214,8 @@ def start(root: Path,revision: str,sudo: bool,state: dict,baseline: Path | None)
         stop_writes(root,revision,sudo)
         snapshot.capture(container,'math_master_preview','math_master_preview',backup,source_revision,sudo,kind='predeploy')
         run_compose(root,revision,['run','--rm','--no-deps','--entrypoint','/app/bin/migrate','api','--dir','/app/db/migrations','up'],sudo,'migration-failed')
+        run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api'],sudo,'application-health-failed')
+        verify_topic_runtime(root,revision,sudo,container)
         run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api','web'],sudo,'application-health-failed')
         state.update(attempt=revision,runningRevision=revision,status='ready');save_state(root,state)
     except (ValueError,OSError,subprocess.SubprocessError):
@@ -182,6 +227,7 @@ def activate(root: Path,revision: str,sudo: bool,state: dict,acme: str) -> None:
     if not state.get('bootstrapVerified') or state.get('runningRevision')!=revision:
         raise DeployError('application-not-ready-for-activation')
     try:
+        verify_topic_runtime(root,revision,sudo,database_container(root,revision,sudo))
         # 强制重建，确保切换 issuer 和相应证书卷，不延用 staging 容器。
         run_compose(root,revision,['up','-d','--no-deps','--force-recreate','--wait','--wait-timeout','120','gateway'],sudo,'gateway-health-failed',acme)
         if acme=='production':

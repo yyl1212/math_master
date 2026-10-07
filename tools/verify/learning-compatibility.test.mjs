@@ -1,3 +1,4 @@
+import {inverseTopicAPI} from "./topic-learning-compatibility.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync} from 'node:fs';
@@ -8,7 +9,7 @@ const baseline=JSON.parse(read('api/learning-compatibility-baseline.json'));
 const api=JSON.parse(read('api/openapi.yaml'));
 const canonical=v=>Array.isArray(v)?v.map(canonical):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canonical(v[k])])):v;
 const digest=v=>createHash('sha256').update(JSON.stringify(canonical(v))).digest('hex');
-function compare(actual){for(const [section,entries] of Object.entries(baseline.sections)){const values=section==='paths'?actual.paths:actual.components[section];for(const [key,sha] of Object.entries(entries))assert.equal(digest(values[key]),sha,section+': '+key)}}
+function compare(actual){actual=inverseTopicAPI(actual);for(const [section,entries] of Object.entries(baseline.sections)){const values=section==='paths'?actual.paths:actual.components[section];for(const [key,sha] of Object.entries(entries))assert.equal(digest(values[key]),sha,section+': '+key)}}
 test('all 54 old paths, 147 schemas, 22 responses and three security schemes retain exact values',()=>{assert.deepEqual(baseline.counts,{paths:54,schemas:147,responses:22,securitySchemes:3});compare(api)});
 test('one deliberately changed old field is detected',()=>{const changed=structuredClone(api);changed.components.schemas.QuestionIdentity.properties.version.type='string';assert.throws(()=>compare(changed),/QuestionIdentity/)});
 test('original migrations and mathematical purposes remain unchanged',()=>{for(const [p,sha] of Object.entries(baseline.files))assert.equal(createHash('sha256').update(read(p)).digest('hex'),sha,p);for(const [p,names]of Object.entries(baseline.mathematicalPurposes)){const source=readdirSync(new URL(p,root)).filter(f=>f.endsWith('.go')&&!f.endsWith('_test.go')).map(f=>read(p+f)).join('\n');const actual=[...new Set([...source.matchAll(/"([a-z-]+-v\d+)"/g)].map(m=>m[1]))].sort();assert.deepEqual(actual,names)}});

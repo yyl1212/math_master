@@ -1,3 +1,4 @@
+import {inverseTopicAPI} from "./topic-learning-compatibility.mjs";
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -9,7 +10,7 @@ const baseline = JSON.parse(read('api/feedback-compatibility-baseline.json'));
 const api = JSON.parse(read('api/openapi.yaml'));
 const canonical = v => Array.isArray(v) ? v.map(canonical) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map(k => [k, canonical(v[k])])) : v;
 const digest = v => createHash('sha256').update(JSON.stringify(canonical(v))).digest('hex');
-function compare(source) {
+function compare(source) {source=inverseTopicAPI(source);
   const actual = inverseApprovedCorrectionChanges(source);
   for (const [section, entries] of Object.entries(baseline.sections)) {
     const values = section === 'paths' ? actual.paths : actual.components[section];

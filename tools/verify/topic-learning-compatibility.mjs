@@ -1,6 +1,6 @@
 import assert from'node:assert/strict';import{createHash}from'node:crypto';import{readFileSync,readdirSync,lstatSync}from'node:fs';import{join,resolve,relative}from'node:path';import{fileURLToPath}from'node:url';
 const baselinePath='api/topic-learning-compatibility-baseline.json';
-export const TOPIC_COMPATIBILITY_POLICY_SHA='782c4b1fba612a842c4184e9c8cce10e6218c9e18bc805d40755698b773c0ed2';
+export const TOPIC_COMPATIBILITY_POLICY_SHA='7e75038ab16812428fa8b6b4cffb7e05ffe7b493d8caae75317504d59777494d';
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])):value;
 const digest=value=>sha(Buffer.from(JSON.stringify(canonical(value))));
@@ -8,7 +8,14 @@ function policy(reader){const raw=reader(baselinePath);assert.equal(sha(raw),TOP
 function approved(p,path,stage){const order=['taxonomy','study','cutover'],at=order.indexOf(stage);assert(at>=0,'unknown topic stage');return order.slice(0,at+1).map(s=>p.exceptions[path]?.[s]?.sha256).filter(Boolean)}
 // 旧门禁仍使用旧基线；只有已登记准确目标摘要的新增改动可恢复至审核前字节再比较。
 export function wrapTopicCompatibilityReader(reader,stage=process.env.TOPIC_COMPATIBILITY_STAGE??'taxonomy'){
- const p=policy(reader);return path=>{const bytes=reader(path),current=sha(bytes),snapshot=p.legacySnapshots[path];if(snapshot&&approved(p,path,stage).includes(current)&&current!==p.files[path]){const original=Buffer.from(snapshot.base64,'base64');assert.equal(sha(original),snapshot.sha256,path+' original snapshot');assert.equal(snapshot.sha256,p.files[path],path+' original baseline');return original}return bytes}
+ const p=policy(reader);return path=>{const bytes=reader(path),current=sha(bytes),snapshot=p.legacySnapshots[path];if(snapshot&&approved(p,path,stage).includes(current)&&current!==p.files[path]){const original=Buffer.from(snapshot.base64,'base64');assert.equal(sha(original),snapshot.sha256,path+' original snapshot');assert.equal(snapshot.sha256,p.files[path],path+' original baseline');return original}
+ if(path==='api/openapi.yaml'&&snapshot&&stage==='cutover'){
+  const original=Buffer.from(snapshot.base64,'base64');assert.equal(sha(original),p.files[path],path+' original API snapshot');
+  let current,base;try{current=JSON.parse(bytes);base=JSON.parse(original)}catch{return bytes}
+  for(const[key,targets]of Object.entries(p.apiExceptions)){const at=key.indexOf('/'),section=key.slice(0,at),name=key.slice(at+1),target=targets[stage];if(!target)continue;const values=section==='paths'?current.paths:current.components?.[section],previous=section==='paths'?base.paths:base.components?.[section];if(values&&previous&&digest(values[name])===target)values[name]=previous[name]}
+  return Buffer.from(JSON.stringify(current));
+ }
+ return bytes}
 }
 function inventory(root){const skip=new Set(['.git','.superpowers','.agents','.codex','node_modules','.next','bin','test-results','playwright-report','coverage']);const out=[];function walk(folder){for(const entry of readdirSync(folder,{withFileTypes:true})){if(skip.has(entry.name))continue;const path=join(folder,entry.name);if(entry.isDirectory())walk(path);else out.push(relative(root,path).replaceAll('\\','/'))}}walk(root);return out}
 export function verifyTopicCompatibility({root=fileURLToPath(new URL('../../',import.meta.url)),stage=process.env.TOPIC_COMPATIBILITY_STAGE??'taxonomy'}={}){
@@ -27,4 +34,11 @@ if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){c
 
 export function inverseTopicWorkflow(source,path){
  const root=fileURLToPath(new URL('../../',import.meta.url)),p=policy(name=>readFileSync(join(root,name)));const snapshot=p.legacySnapshots[path];if(snapshot&&['taxonomy','study','cutover'].some(stage=>approved(p,path,stage).includes(sha(Buffer.from(source))))){const old=Buffer.from(snapshot.base64,'base64');assert.equal(sha(old),p.files[path],path+' original workflow');return old.toString('utf8')}return source;
+}
+
+export function inverseTopicAPI(actual,stage=process.env.TOPIC_COMPATIBILITY_STAGE??'taxonomy'){
+ if(stage!=='cutover')return actual;
+ const root=fileURLToPath(new URL('../../',import.meta.url)),p=policy(name=>readFileSync(join(root,name))),snapshot=p.legacySnapshots['api/openapi.yaml'];assert(snapshot,'original API snapshot');const raw=Buffer.from(snapshot.base64,'base64');assert.equal(sha(raw),p.files['api/openapi.yaml']);const previous=JSON.parse(raw),current=structuredClone(actual);
+ for(const[key,targets]of Object.entries(p.apiExceptions)){const at=key.indexOf('/'),section=key.slice(0,at),name=key.slice(at+1),target=targets[stage];if(!target)continue;const values=section==='paths'?current.paths:current.components?.[section],old=section==='paths'?previous.paths:previous.components?.[section];if(values&&old&&digest(values[name])===target)values[name]=old[name]}
+ return current;
 }

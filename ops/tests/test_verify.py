@@ -35,6 +35,7 @@ class VerifyTests(unittest.TestCase):
         return module
 
     def transport(self,url,**kwargs):
+        if url.endswith('/readyz'):return response(200,json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False}}).encode())
         if url.startswith('http://'):
             return response(308,Location=ORIGIN+'/login')
         if url.endswith('/api/v1/auth/context'):
@@ -100,3 +101,10 @@ class VerifyTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+class TopicReadinessTests(unittest.TestCase):
+    def test_topic_readiness_contains_only_safe_booleans(self):
+        good={'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':True}
+        self.assertEqual(module.verify_topic_readiness({'status':'ready','topic':good}),good)
+        for topic in [{**good,'privateNote':'must not be evidence'},{**good,'retirement':False},{**good,'schemaReady':False},{**good,'study':'true'}]:
+            with self.assertRaises(module.VerifyError):module.verify_topic_readiness({'status':'ready','topic':topic})

@@ -128,7 +128,7 @@ def check(revision: str) -> dict:
             raise RuntimeError(f'{part}-revision-mismatch')
     mounts = runtime_mounts(revision)
     docker('run', '--rm', '--network', 'none', '--read-only', *mounts['api'], '--entrypoint', 'sh', images['api'], '-ec',
-           'test "$(id -u)" -ne 0; for name in server migrate admin-init correction-maintenance; do test -x /app/bin/$name; done; test ! -e /app/bin/e2e-harness; test -f /app/db/migrations/00008_correction_notifications.sql')
+           'test "$(id -u)" -ne 0; for name in server migrate admin-init correction-maintenance topic-catalogue-import topic-learning-maintenance; do test -x /app/bin/$name; done; test ! -e /app/bin/e2e-harness; test -f /app/db/migrations/00008_correction_notifications.sql; test -f /app/db/migrations/00012_topic_cutover.sql')
     version = docker('run', '--rm', '--network', 'none', '--read-only', images['gateway'], 'version').decode().strip()
     if not version.startswith('v2.11.7 '):
         raise RuntimeError('gateway-version-mismatch')

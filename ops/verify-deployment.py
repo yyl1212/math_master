@@ -78,10 +78,19 @@ def read_ok(url: str) -> dict:
     return response
 
 
+def verify_topic_readiness(value: dict) -> dict:
+    if not isinstance(value,dict) or value.get('status')!='ready':raise VerifyError('topic-readiness-unavailable')
+    topic=value.get('topic')
+    if topic is None:return {}
+    if not isinstance(topic,dict) or set(topic)!={'taxonomy','study','retirement','schemaReady','topicsMode'} or any(type(v) is not bool for v in topic.values()) or not topic['schemaReady'] or topic['topicsMode'] and not all(topic[k] for k in ['taxonomy','study','retirement']):raise VerifyError('topic-schema-incompatible')
+    return topic
+
+
 def check(origin: str,requests: int,concurrency: int) -> dict:
     if origin!=common.ORIGIN or not 1<=requests<=100 or not 1<=concurrency<=4:
         raise VerifyError('invalid-verification-input')
     certificate=tls(origin)
+    topic=verify_topic_readiness(json.loads(read_ok(origin+"/readyz")["body"]))
     redirect=request('http://43.135.142.53/login')
     if redirect['status'] not in [301,302,307,308] or redirect['headers'].get('Location')!=origin+'/login':
         raise VerifyError('http-redirect-invalid')
