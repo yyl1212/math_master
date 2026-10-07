@@ -19,3 +19,26 @@ test("topic deep links, Chinese search and legacy domain navigation",async({page
  await page.goto("/domains/linear-algebra");await expect(page.getByRole("link",{name:"原创主题 15-XX",exact:true})).toHaveAttribute("href","/topics/msc-15");await fitsViewport(page);
  await page.goto("/topics/msc-00a00");await expect(page.getByRole("link",{name:"加法练习 v1",exact:true})).toHaveAttribute("href","/knowledge/learning-root");
 });
+
+test("map ancestry and independent detail searches use the actual published catalogue",async({page,scene})=>{
+ await scene("topic-catalogue");
+ await page.goto("/knowledge?q=13C60");
+ const path=page.getByRole("navigation",{name:"Topic hierarchy"});
+ await expect(path.getByRole("link",{name:"13-XX Original fixture theme 13-XX",exact:true})).toHaveAttribute("href","/topics/msc-13");
+ await expect(path.getByRole("link",{name:"13Cxx Original fixture subtheme 13Cxx",exact:true})).toHaveAttribute("href","/topics/msc-13c");
+ await fitsViewport(page);
+ await page.goto("/topics/msc-00a");
+ await expect(page.getByRole("link",{name:"Addition basics v1",exact:true})).toBeVisible();
+ await page.getByRole("search",{name:"Search subtopics"}).getByRole("searchbox").fill("no-such-topic");
+ await page.getByRole("search",{name:"Search subtopics"}).getByRole("button").click();
+ await expect(page.getByText("No topics match your search.")).toBeVisible();
+ await expect(page.getByRole("link",{name:"Addition basics v1",exact:true})).toBeVisible();
+ await page.getByRole("search",{name:"Search knowledge"}).getByRole("searchbox").fill("no-such-knowledge");
+ await page.getByRole("search",{name:"Search knowledge"}).getByRole("button").click();
+ await expect(page.getByText("No published knowledge matches your search.")).toBeVisible();
+ await expect(page.getByRole("search",{name:"Search subtopics"}).getByRole("searchbox")).toHaveValue("no-such-topic");
+ await expect(page).toHaveURL(/childrenQ=no-such-topic/);
+ await page.getByRole("button",{name:"中文",exact:true}).click();
+ await expect(page.getByRole("search",{name:"检索知识内容"}).getByRole("searchbox")).toHaveValue("no-such-knowledge");
+ await fitsViewport(page);
+});

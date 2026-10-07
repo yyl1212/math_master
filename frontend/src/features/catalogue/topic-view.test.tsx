@@ -1,4 +1,4 @@
-import {render,screen,fireEvent} from "@testing-library/react";
+import {render,screen,within} from "@testing-library/react";
 import {it,expect} from "vitest";
 import {TopicMap,TopicView} from "./topic-view";
 import {UiLocaleProvider} from "@/lib/i18n/provider";
@@ -11,4 +11,28 @@ it("shows current classification totals and paged topic navigation without learn
 it("shows a deep link ancestry and empty reviewed content in Chinese",()=>{
  render(<UiLocaleProvider initialLocale="zh-CN"><TopicView detail={{summary:leaf,pair}} childrenPage={{items:[],total:0,limit:20,offset:0,pair}} knowledge={{items:[],total:0,limit:20,offset:0,pair}}/></UiLocaleProvider>);
  expect(screen.getByRole("link",{name:"原创主题"})).toHaveAttribute("href","/topics/msc-13");expect(screen.queryByText("此主题暂无已发布知识点。")).toBeVisible();expect(screen.getAllByText("13C60",{exact:true})).toHaveLength(1);
+});
+
+it("shows the full ancestry of a specific map search result in both languages",()=>{
+ const result={ok:true as const,data:{items:[leaf],total:1,limit:20,offset:0,pair}};
+ const {rerender}=render(<TopicMap result={result} q="13C60"/>);
+ const path=screen.getByRole("navigation",{name:"Topic hierarchy"});
+ expect(within(path).getByRole("link",{name:"13-XX Original fixture theme"})).toHaveAttribute("href","/topics/msc-13");
+ expect(within(path).getByRole("link",{name:"13Cxx Original fixture theme"})).toHaveAttribute("href","/topics/msc-13c");
+ expect(within(path).getByText("13C60 Original fixture specific")).toBeVisible();
+ rerender(<UiLocaleProvider initialLocale="zh-CN"><TopicMap result={result} q="13C60"/></UiLocaleProvider>);
+ const translated=screen.getByRole("navigation",{name:"主题层级路径"});
+ expect(within(translated).getByRole("link",{name:"13Cxx 原创二级主题"})).toHaveAttribute("href","/topics/msc-13c");
+ expect(within(translated).getByText("13C60 具体主题示例")).toBeVisible();
+});
+it("keeps the two detail searches and their pagination independent",()=>{
+ render(<TopicView detail={{summary:{...root,ancestors:[],hasChildren:true,publishedKnowledgeCount:0},pair}} childrenPage={{items:[leaf],total:80,limit:20,offset:20,pair}} knowledge={{items:[],total:80,limit:20,offset:40,pair}} childrenQ="模" knowledgeQ="加法"/>);
+ const children=screen.getByRole("search",{name:"Search subtopics"}) as HTMLFormElement;
+ const knowledge=screen.getByRole("search",{name:"Search knowledge"}) as HTMLFormElement;
+ expect(Object.fromEntries(new FormData(children))).toEqual({childrenQ:"模",knowledgeQ:"加法",knowledgeOffset:"40"});
+ expect(Object.fromEntries(new FormData(knowledge))).toEqual({knowledgeQ:"加法",childrenQ:"模",offset:"20"});
+ const nextChildren=new URL(screen.getByRole("link",{name:"Next topics"}).getAttribute("href")!,"https://example.test");
+ const nextKnowledge=new URL(screen.getByRole("link",{name:"Next knowledge"}).getAttribute("href")!,"https://example.test");
+ expect(Object.fromEntries(nextChildren.searchParams)).toEqual({childrenQ:"模",knowledgeQ:"加法",offset:"40",knowledgeOffset:"40"});
+ expect(Object.fromEntries(nextKnowledge.searchParams)).toEqual({childrenQ:"模",knowledgeQ:"加法",offset:"20",knowledgeOffset:"60"});
 });

@@ -8,6 +8,10 @@ export function parseTopicPageQuery(params:Record<string,string|string[]|undefin
  if(!normalizeTopicQuery(query))return {ok:false};return {ok:true,query,q,level:query.level,kind}
 }
 export const sameTopicPair=(a:PairRef,b:PairRef)=>a.knowledgeHead===b.knowledgeHead&&a.taxonomyHead===b.taxonomyHead&&a.taxonomyVersionId===b.taxonomyVersionId;
-export function parseTopicDetailOffsets(params:Record<string,string|string[]|undefined>):{offset:number;knowledgeOffset:number}|null{
- if(Object.entries(params).some(([key,v])=>!["offset","knowledgeOffset"].includes(key)||Array.isArray(v)))return null;const out={offset:0,knowledgeOffset:0};for(const key of ["offset","knowledgeOffset"] as const){const v=params[key];if(v!==undefined){if(typeof v!=="string"||!/^[0-9]+$/.test(v)||Number(v)>100000)return null;out[key]=Number(v)}}return out;
+export function parseTopicDetailOffsets(params:Record<string,string|string[]|undefined>):{offset:number;knowledgeOffset:number;childrenQ:string;knowledgeQ:string}|null{
+ if(Object.entries(params).some(([key,v])=>!["offset","knowledgeOffset","childrenQ","knowledgeQ"].includes(key)||Array.isArray(v)))return null;
+ const out={offset:0,knowledgeOffset:0,childrenQ:"",knowledgeQ:""};
+ for(const key of ["offset","knowledgeOffset"] as const){const v=params[key];if(v!==undefined){if(typeof v!=="string"||!/^[0-9]+$/.test(v)||Number(v)>100000)return null;out[key]=Number(v)}}
+ for(const key of ["childrenQ","knowledgeQ"] as const){const v=params[key]??"";if(typeof v!=="string"||!validContentString(v)||v&&!normalizeTopicQuery({q:v}))return null;out[key]=v}
+ return out;
 }
