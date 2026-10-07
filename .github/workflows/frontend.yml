@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
+      TOPIC_COMPATIBILITY_STAGE: study
       CGO_ENABLED: '0'
       GOTOOLCHAIN: go1.27.1
       NEXT_TELEMETRY_DISABLED: '1'
@@ -119,6 +120,8 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-navigation.spec.ts
       - name: 主题编辑发布中英文双视口
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-taxonomy.spec.ts
+      - name: 真实主题学习与私人笔记
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-study-navigation.spec.ts topic-study-progress.spec.ts topic-study-notes.spec.ts topic-study-security.spec.ts ui-language-study.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

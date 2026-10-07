@@ -215,6 +215,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	contentUnavailable := false
 	var holdSave atomic.Bool
 	var holdLearning atomic.Bool
+	var holdStudy atomic.Bool
 	var holdFeedback atomic.Bool
 	var holdCorrection atomic.Bool
 	feedbackUnavailable := false
@@ -347,6 +348,10 @@ func Run(ctx context.Context, c Config) (result error) {
 			contentUnavailable = false
 			authUnavailable = false
 			unavailable = false
+			return nil
+		}
+		if scene == "study-hold-next-write" {
+			holdStudy.Store(true)
 			return nil
 		}
 		if scene == "learning-hold-next-write" {
@@ -510,7 +515,7 @@ func Run(ctx context.Context, c Config) (result error) {
 
 		// Commit through the real handler before dropping a delayed response. The
 		// next request must prove idempotent replay, rather than mock a success.
-		if ((r.Method == "POST" || r.Method == "PUT") && (strings.HasPrefix(r.URL.Path, "/api/v1/corrections/") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications/")) && holdCorrection.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
+		if ((r.Method == "POST" || r.Method == "PUT" || r.Method == "DELETE") && strings.HasPrefix(r.URL.Path, "/api/v2/study/") && holdStudy.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT") && (strings.HasPrefix(r.URL.Path, "/api/v1/corrections/") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications/")) && holdCorrection.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
 			captured := httptest.NewRecorder()
 			actual.ServeHTTP(captured, r)
 			if captured.Code == http.StatusOK || captured.Code == http.StatusCreated {
@@ -623,6 +628,21 @@ func Run(ctx context.Context, c Config) (result error) {
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Cache-Control", "no-store")
 		_ = json.NewEncoder(w).Encode(v)
+	})
+	control.HandleFunc("POST /study/publication/{operation}", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			http.Error(w, "Unauthorized", 401)
+			return
+		}
+		mu.Lock()
+		defer mu.Unlock()
+		ctx, stop := context.WithTimeout(r.Context(), 40*time.Second)
+		defer stop()
+		if e := changeStudyPublication(ctx, db, s, accounts, r.PathValue("operation")); e != nil {
+			http.Error(w, "Study fixture publication unavailable", 503)
+			return
+		}
+		w.WriteHeader(204)
 	})
 	control.HandleFunc("GET /taxonomy/state", func(w http.ResponseWriter, r *http.Request) {
 		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {

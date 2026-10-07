@@ -1,17 +1,17 @@
 import assert from'node:assert/strict';import{createHash}from'node:crypto';import{readFileSync,readdirSync,lstatSync}from'node:fs';import{join,resolve,relative}from'node:path';import{fileURLToPath}from'node:url';
 const baselinePath='api/topic-learning-compatibility-baseline.json';
-export const TOPIC_COMPATIBILITY_POLICY_SHA='07cdc648fde9463875ec5797a0d3be4d152d5b96c1f27caffd7bd57116210c6c';
+export const TOPIC_COMPATIBILITY_POLICY_SHA='351f4344f508732e3385e5adf661087d94dd786aee30d19afde765f3062ef4f7';
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(k=>[k,canonical(value[k])])):value;
 const digest=value=>sha(Buffer.from(JSON.stringify(canonical(value))));
 function policy(reader){const raw=reader(baselinePath);assert.equal(sha(raw),TOPIC_COMPATIBILITY_POLICY_SHA,'topic compatibility baseline policy');const p=JSON.parse(raw);assert.equal(p.schemaVersion,1);assert.equal(p.baseCommit,'bca91cc98d75af53963789f28cdda5ca96871e17');return p}
 function approved(p,path,stage){const order=['taxonomy','study','cutover'],at=order.indexOf(stage);assert(at>=0,'unknown topic stage');return order.slice(0,at+1).map(s=>p.exceptions[path]?.[s]?.sha256).filter(Boolean)}
 // 旧门禁仍使用旧基线；只有已登记准确目标摘要的新增改动可恢复至审核前字节再比较。
-export function wrapTopicCompatibilityReader(reader,stage='taxonomy'){
+export function wrapTopicCompatibilityReader(reader,stage=process.env.TOPIC_COMPATIBILITY_STAGE??'taxonomy'){
  const p=policy(reader);return path=>{const bytes=reader(path),current=sha(bytes),snapshot=p.legacySnapshots[path];if(snapshot&&approved(p,path,stage).includes(current)&&current!==p.files[path]){const original=Buffer.from(snapshot.base64,'base64');assert.equal(sha(original),snapshot.sha256,path+' original snapshot');assert.equal(snapshot.sha256,p.files[path],path+' original baseline');return original}return bytes}
 }
 function inventory(root){const skip=new Set(['.git','.superpowers','.agents','.codex','node_modules','.next','bin','test-results','playwright-report','coverage']);const out=[];function walk(folder){for(const entry of readdirSync(folder,{withFileTypes:true})){if(skip.has(entry.name))continue;const path=join(folder,entry.name);if(entry.isDirectory())walk(path);else out.push(relative(root,path).replaceAll('\\','/'))}}walk(root);return out}
-export function verifyTopicCompatibility({root=fileURLToPath(new URL('../../',import.meta.url)),stage='taxonomy'}={}){
+export function verifyTopicCompatibility({root=fileURLToPath(new URL('../../',import.meta.url)),stage=process.env.TOPIC_COMPATIBILITY_STAGE??'taxonomy'}={}){
  root=resolve(root);const reader=path=>{assert(!path.startsWith('/')&&!path.split('/').includes('..'),'unsafe baseline path');const full=join(root,path);assert(lstatSync(full).isFile(),path+' must be a regular file');return readFileSync(full)};const p=policy(reader),changed=[];
  for(const[path,original]of Object.entries(p.files)){const actual=sha(reader(path));assert(actual===original||approved(p,path,stage).includes(actual),'unapproved bytes: '+path);if(actual!==original)changed.push(path)}
  const api=JSON.parse(reader('api/openapi.yaml'));for(const[section,entries]of Object.entries(p.apiSections)){const values=section==='paths'?api.paths:api.components[section];for(const[name,original]of Object.entries(entries)){const target=p.apiExceptions[section+'/'+name]?.[stage];assert.equal(digest(values?.[name]),target??original,'original API: '+section+'/'+name)}}
