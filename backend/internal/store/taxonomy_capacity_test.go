@@ -72,13 +72,17 @@ func TestTaxonomyCapacity6603With1000Knowledge(t *testing.T) {
 		if end > len(submissions) {
 			end = len(submissions)
 		}
+		prepareStarted := time.Now()
 		p, e := f.repo.PrepareTopicRelease(whole, f.Access("admin_a", false), taxonomy.PrepareInput{SubmissionIDs: submissions[at:end], ExpectedPair: pair, Reason: "Prepare maximum original isolated taxonomy fixture."})
 		if e != nil {
-			t.Fatal("capacity prepare", e)
+			t.Fatalf("capacity prepare: submissions=%d elapsed=%s error=%v", end-at, time.Since(prepareStarted), e)
 		}
+		t.Log("capacity prepare", end-at, time.Since(prepareStarted))
+		activationStarted := time.Now()
 		if _, e = f.repo.ActivateTopicRelease(whole, f.Access("admin_a", true), p.ID, taxonomy.ActivateInput{ExpectedPair: pair, ManifestSHA: p.ManifestSHA, Reason: "Activate maximum original isolated taxonomy fixture."}); e != nil {
 			t.Fatal("capacity activate", e)
 		}
+		t.Log("capacity activate", time.Since(activationStarted))
 		pair.KnowledgeHead = p.KnowledgePublicationID
 		pair.TaxonomyHead = &p.ID
 	}

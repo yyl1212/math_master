@@ -2254,6 +2254,10 @@
       "taxonomy": {
         "sha256": "6fb90a90a1e00db2b56388166764448b761d7cab87d774708ac4150ca391250e",
         "reason": "按已确认三级主题设计新增独立归属、配对发布或界面接线；保留原数学与历史资料"
+      },
+      "study": {
+        "sha256": "a84baa0b28a70f0f1717ab528be8d59aa3336c4ac8efff79ca0ad0add7d39dbc",
+        "reason": "B满容量CI准备事务失败；以同一事务批量插入相同成员并去重同一冻结提交审核者查询，原字段、约束、触发器、审核、8秒预算与数学字节保持。"
       }
     },
     "backend/internal/store/workflow_review.go": {
