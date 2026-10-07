@@ -130,6 +130,7 @@ jobs:
     timeout-minutes: 30
     env:
       TOPIC_COMPATIBILITY_STAGE: cutover
+      TOPIC_CUTOVER_CAPACITY_RECEIPT: ${{ runner.temp }}/topic-cutover-capacity.json
       CGO_ENABLED: '0'
       GOTOOLCHAIN: go1.27.1
       TEST_DATABASE_URL: postgres://math_master:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
@@ -165,7 +166,12 @@ jobs:
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/study ./internal/store -run '^TestStudy' -skip '^TestStudyCapacity' -timeout 5m -count=1
       - name: 有限旧事实迁入CLI
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run '^TestStudyMigration' -timeout 5m -count=1
-      - name: 十万旧学习事实有限迁入容量
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacity$' -timeout 5m -count=1 -v
+      - name: 十万旧学习事实准备（独立5分钟）
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacityPrepare$' -timeout 5m -count=1 -v
+      - name: 十万旧学习事实迁入（独立5分钟）
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacityMigrate$' -timeout 5m -count=1 -v
+      - name: 清理容量专用测试库
+        if: always()
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacityCleanup$' -timeout 1m -count=1
       - name: 个人主题学习最大存储读取
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestStudyCapacityReadPages$' -timeout 5m -count=1 -v

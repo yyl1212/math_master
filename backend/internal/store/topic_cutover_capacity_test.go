@@ -9,12 +9,18 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
+	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/study"
+	"os"
 	"testing"
 	"time"
 )
 
-func TestTopicCutoverCapacity(t *testing.T) {
+func TestTopicCutoverCapacityPrepare(t *testing.T) {
+	path := os.Getenv(cutoverCapacityReceiptEnv)
+	if path == "" {
+		t.Fatal("capacity receipt path required")
+	}
 	ctx := context.Background()
 	f, _ := studyCapacityPublished(t, ctx)
 	f.exec(`WITH users AS(INSERT INTO auth_users(id,username,password_phc) SELECT gen_random_uuid(),'cutover_capacity_'||lpad(n::text,4,'0'),u.password_phc FROM generate_series(1,499) n CROSS JOIN auth_users u WHERE u.id=$1 RETURNING id) INSERT INTO auth_user_roles(user_id,role) SELECT id,'learner' FROM users`, f.ids["author_a"])
@@ -173,6 +179,26 @@ func TestTopicCutoverCapacity(t *testing.T) {
 	if f.count("SELECT count(*) FROM learning_events") != 100000 {
 		t.Fatal("source event count")
 	}
+	persistCapacityFixture(t, f.db, path)
+}
+
+func TestTopicCutoverCapacityMigrate(t *testing.T) {
+	path := os.Getenv(cutoverCapacityReceiptEnv)
+	if path == "" {
+		t.Fatal("capacity receipt path required")
+	}
+	// Register cleanup before opening, including identity or assertion failures.
+	t.Cleanup(func() { cleanupCapacityFixture(t, path) })
+	db, receipt := openCapacityFixture(t, path)
+	if capacitySourceDigest(t, db) != receipt.SourceSHA {
+		t.Fatal("capacity source changed between stages")
+	}
+	ctx := context.Background()
+	f := &workflowFixture{authFixture: &authFixture{t: t, db: db, ctx: ctx, repo: store.New(db)}}
+	if f.count("SELECT count(*) FROM learning_events") != 100000 || f.count("SELECT count(DISTINCT owner_user_id) FROM learning_events") != 500 || f.count("SELECT count(*) FROM study_events") != 0 || f.count("SELECT count(*) FROM study_legacy_event_links") != 0 {
+		t.Fatal("capacity handoff incomplete or reused")
+	}
+	var e error
 	changes := f.count("SELECT count(*) FROM study_content_changes")
 	migrationStarted := time.Now()
 	total := 0
@@ -194,6 +220,9 @@ func TestTopicCutoverCapacity(t *testing.T) {
 	}
 	if total != 100000 || !report.Done || f.count("SELECT count(*) FROM study_events WHERE kind='completed'") != 0 || f.count("SELECT count(*) FROM study_legacy_event_links") != 100000 || f.count("SELECT count(*) FROM study_content_changes") != changes {
 		t.Fatal("capacity facts/done/fanout mismatch")
+	}
+	if capacitySourceDigest(t, db) != receipt.SourceSHA {
+		t.Fatal("original source changed during migration")
 	}
 	t.Log("migrated100000", time.Since(migrationStarted), "max50 batch", maxBatch)
 	replay, e := f.repo.MigrateLegacyStudyBatch(ctx, 50, nil)

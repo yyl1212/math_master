@@ -10,3 +10,12 @@ test('pinned historical baseline is available in a fresh CI checkout',()=>{const
 test('topic capacity runs in its own bounded job without removing original checks',()=>{const b=read('.github/workflows/backend.yml');const original=b.slice(0,b.indexOf('  correction_verify:'));assert(!original.includes('- name: 个人主题学习最大存储读取'));const topic=b.slice(b.indexOf('  topic_verify:'));assert(topic.includes('timeout-minutes: 30'));assert(topic.includes('-run \'^TestTaxonomyCapacity6603With1000Knowledge$\''));assert(topic.includes('-run \'^TestStudyCapacityReadPages$\''));for(const name of ['最大合法内容工作流','最大合法题库工作流','题库候选容量','首批只读最大合法内容与题库'])assert(original.includes(name));});
 
 test('trusted build revision and topic readiness unit tests are retained in CI',()=>{const b=read('.github/workflows/backend.yml');const runs=b.split('\n').filter(line=>line.trim().startsWith('run:')&&line.includes('go test '));assert(runs.some(line=>line.includes('./internal/buildmeta')&&line.includes('-timeout 5m -count=1')));assert(runs.some(line=>line.includes('./internal/httpapi')&&line.includes('-timeout 5m -count=1')));for(const line of runs){for(const path of line.match(/\.\/[a-zA-Z0-9_/-]+/g)??[]){assert(statSync(root+'backend/'+path).isDirectory(),'Go CI package directory exists: '+path)}}});
+
+test('cutover capacity preparation and migration have independent five minute budgets and unconditional cleanup',()=>{
+ const b=read('.github/workflows/backend.yml');
+ const topic=b.slice(b.indexOf('  topic_verify:'));
+ assert(topic.includes("-run '^TestTopicCutoverCapacityPrepare$' -timeout 5m -count=1 -v"));
+ assert(topic.includes("-run '^TestTopicCutoverCapacityMigrate$' -timeout 5m -count=1 -v"));
+ assert(/if: always\(\)[\s\S]*-run '\^TestTopicCutoverCapacityCleanup\$' -timeout 1m/.test(topic));
+ assert(!topic.includes("-run '^TestTopicCutoverCapacity$'"));
+});
