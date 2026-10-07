@@ -2,8 +2,10 @@ package store_test
 
 import (
 	"context"
+	"crypto/rand"
 	"encoding/base64"
 	"encoding/json"
+	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/question"
@@ -96,41 +98,76 @@ func TestTopicCutoverCapacity(t *testing.T) {
 	}
 	base := time.Now().UTC().Add(-24 * time.Hour).Truncate(time.Microsecond)
 	seedStarted := time.Now()
-	// Capacity rows are original sealed started facts with all original constraints,
-	// never invented completed states or assessment-derived completions.
-	for i, k := range points {
+	// Two source transactions use the two bounded database CPUs. Knowledge
+	// refs differ, every original seal/record/dependency guard stays enabled,
+	// and only preparation is parallel; all 2,000 migration batches stay serial.
+	seed := func(i int, k question.Identity) error {
+
 		publication := publications[k.ID]
 		values := []map[string]any{}
 		for j, owner := range owners {
-			id := f.ID()
+			id, e := auth.NewID(rand.Reader)
+			if e != nil {
+				return e
+			}
 			at := base.Add(time.Duration(i*500+j) * time.Microsecond)
 			raw, sha, e := learning.CanonicalLearningEvent(learning.EventSeal{ID: id, ActorID: owner, Knowledge: k, KnowledgePublicationID: publication, Units: []question.Identity{}, Assets: []question.AssetRef{}, Kind: "started", RecordedAt: at})
 			if e != nil {
-				t.Fatal(e)
+				return e
 			}
 			values = append(values, map[string]any{"id": id, "owner": owner, "kid": k.ID, "version": k.Version, "sha": k.SHA256, "publication": publication, "seal": json.RawMessage(raw), "bytes": base64.StdEncoding.EncodeToString(raw), "digest": sha, "at": at})
 		}
-		raw, _ := json.Marshal(values)
+		raw, e := json.Marshal(values)
+		if e != nil {
+			return e
+		}
 		tx, e := f.db.BeginTx(ctx, nil)
 		if e != nil {
-			t.Fatal(e)
+			return e
 		}
 		const selected = `jsonb_to_recordset($1::jsonb) x(id uuid,owner uuid,kid text,version integer,sha text,publication text,seal jsonb,bytes text,digest text,at timestamptz)`
 		if _, e = tx.Exec(`INSERT INTO learning_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,knowledge_publication_id,kind,seal,seal_bytes,seal_sha256,recorded_at) SELECT id,owner,kid,version,sha,publication,'started',seal,decode(bytes,'base64'),digest,at FROM `+selected, string(raw)); e != nil {
 			tx.Rollback()
-			t.Fatal(e)
+			return e
 		}
 		if _, e = tx.Exec(`INSERT INTO learning_records(owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,started_event_id,started_at) SELECT owner,kid,version,sha,id,at FROM `+selected, string(raw)); e != nil {
 			tx.Rollback()
-			t.Fatal(e)
+			return e
 		}
 		if _, e = tx.Exec(`INSERT INTO learning_evidence_dependencies(evidence_kind,evidence_id,owner_user_id,kind,id,version,sha256) SELECT 'learning-event',x.id,x.owner,d.kind,d.id,d.version,d.sha256 FROM `+selected+` CROSS JOIN LATERAL learning_seal_dependencies(x.seal,true) d`, string(raw)); e != nil {
 			tx.Rollback()
-			t.Fatal(e)
+			return e
 		}
 		if e = tx.Commit(); e != nil {
-			t.Fatal(e)
+			return e
 		}
+		return nil
+	}
+	jobs := make(chan int)
+	results := make(chan error, 2)
+	for worker := 0; worker < 2; worker++ {
+		go func() {
+			var first error
+			for i := range jobs {
+				if first == nil {
+					first = seed(i, points[i])
+				}
+			}
+			results <- first
+		}()
+	}
+	for i := range points {
+		jobs <- i
+	}
+	close(jobs)
+	var seedError error
+	for worker := 0; worker < 2; worker++ {
+		if e := <-results; e != nil && seedError == nil {
+			seedError = e
+		}
+	}
+	if seedError != nil {
+		t.Fatal(seedError)
 	}
 	t.Log("sealed source100000", time.Since(seedStarted))
 	if f.count("SELECT count(*) FROM learning_events") != 100000 {
