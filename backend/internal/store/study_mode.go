@@ -58,6 +58,9 @@ func readExperienceModeTx(ctx context.Context, tx *sql.Tx, lock bool) (taxonomy.
 	if _, e = optionalStudyConfigured(ctx, tx); e != nil {
 		return "", studyError(e)
 	}
+	if _, e = optionalCutoverConfigured(ctx, tx); e != nil {
+		return "", studyError(e)
+	}
 	if mode == taxonomy.ModeTopics {
 		if e = studyConfigured(ctx, tx); e != nil {
 			return "", studyError(e)

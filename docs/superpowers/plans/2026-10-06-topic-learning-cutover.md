@@ -132,7 +132,7 @@ if !bytes.Equal(beforeAnswers, afterAnswers) { t.Fatal("legacy facts changed") }
 
 **Interfaces（接口）：** MigrateLegacyStudyBatch(ctx,limit int,cursor *study.LegacyCursor) (study.MigrationReport,error)；cursor=(recordedAt,eventID)，limit1..50，每事务8秒，全部命令540秒；report={processed,createdEvents,linkedEvents,conflicts,cursor,done}。CLI topic-learning-maintenance migrate --batches=1..10 --limit=1..50、inspect、verify；DATABASE_URL仅从受保护环境读取，不支持命令行口令。
 
-- [ ] **步骤1 写行为失败测试。** TestStudyMigrationOnlyExplicitFacts：只迁learning_events started/completed；仅passed/diagnostic/unlocked不生成completed；TestStudyMigrationRetainsTimeAndVersion、RerunIdempotent、ExistingStudyNotOverwritten、WithdrawnKnowledgeHistory。断言原事件SHA/时间/计数不变，新事件带originEventId及sourceKind='legacy'。
+- [x] **步骤1 写行为失败测试。** TestStudyMigrationOnlyExplicitFacts：只迁learning_events started/completed；仅passed/diagnostic/unlocked不生成completed；TestStudyMigrationRetainsTimeAndVersion、RerunIdempotent、ExistingStudyNotOverwritten、WithdrawnKnowledgeHistory。断言原事件SHA/时间/计数不变，新事件带originEventId及sourceKind='legacy'。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
 
 ```go
@@ -140,10 +140,10 @@ if migrated.CompletedCount != explicitCompletionCount { t.Fatal("assessment pass
 if firstRun.CreatedEvents != firstCount || secondRun.CreatedEvents != 0 { t.Fatal("migration not idempotent") }
 ```
 
-- [ ] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^TestStudyMigration' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
-- [ ] **步骤3 实现交付单元。** 在00012建立user+legacyEvent唯一映射、迁入批次断点和只追加事件。迁入写由系统维护记录标识，不伪造用户会话；与用户新命令使用相同账户和record锁。存在更新的新记录时不覆盖state、sequence、笔记或最近字段，只补历史来源；按时间选择第一次开始/完成，保留首次和最近事实。
-- [ ] **步骤4 验证通过。** 重跑步骤2命令；每批终止/重跑从原游标继续；同微秒事件不漏；原答案/结果表对比完全相同。CLI无工作返回processed=0、done实际值，不宣称有限批次等于全库完成。
-- [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 迁入真实学习时间线'。提交前 git diff --check 通过，只纳入该任务文件。
+- [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^TestStudyMigration' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
+- [x] **步骤3 实现交付单元。** 在00012建立user+legacyEvent唯一映射、迁入批次断点和只追加事件。迁入写由系统维护记录标识，不伪造用户会话；与用户新命令使用相同账户和record锁。存在更新的新记录时不覆盖state、sequence、笔记或最近字段，只补历史来源；按时间选择第一次开始/完成，保留首次和最近事实。
+- [x] **步骤4 验证通过。** 重跑步骤2命令；每批终止/重跑从原游标继续；同微秒事件不漏；原答案/结果表对比完全相同。CLI无工作返回processed=0、done实际值，不宣称有限批次等于全库完成。
+- [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 迁入真实学习时间线'。提交前 git diff --check 通过，只纳入该任务文件。
 
 ### Task 4 C4 体验切换检查与有限命令
 
