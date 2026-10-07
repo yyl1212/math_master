@@ -91,3 +91,21 @@ test('capture accepts the recorded source8 reconciliation pin but not arbitrary 
  registry.previous_catalog_snapshot_before_source8_reconciliation={sha256:'d'.repeat(64),book_id_count:-1};await fs.writeFile(p,JSON.stringify(registry));
  await assert.rejects(()=>captureTopicBatch({...f,outDir:join(f.base,'invalid-pin')}),/INVALID_SOURCE_JSON/);
 });
+
+const revisionNotice=()=>({revision_id:'original-revision-161',knowledge_record_id:'original-record-1',approved_local_correction_applied:true,native_primary_relative_path:'Knowledge_JSON/Fixture/original.json',new_primary_sha256:'e'.repeat(64),new_primary_bytes:120,source_notice_relative_path:'Materials/Original/revision.json',new_qualified_source_rows:0,new_dual_source_credit:0,direct_qualification_remains_excluded:true});
+async function putNotice(f,notice,indexes=[1,2,3]){for(const i of indexes){const p=join(f.metadataDir,metadataNames[i]),d=JSON.parse(await fs.readFile(p));d.current_native_record_revision_notice=notice;await fs.writeFile(p,JSON.stringify(d))}}
+test('capture preserves a consistent native revision notice without granting source credit',async t=>{
+ const f=await acceptedFixture(t),notice=revisionNotice();await putNotice(f,notice);
+ const result=await captureTopicBatch(f);assert.equal(result.accepted,true);assert.equal(result.batch,7);
+ for(const i of [1,2,3]){const d=JSON.parse(await fs.readFile(join(f.outDir,'files/Materials/Collection_Metadata/MSC2020',metadataNames[i])));assert.deepEqual(d.current_native_record_revision_notice,notice)}
+});
+test('capture rejects malformed or counting native revision notices before output',async t=>{
+ const f=await acceptedFixture(t);
+ for(const notice of [null,[],{...revisionNotice(),unknown:true},{...revisionNotice(),approved_local_correction_applied:'true'},{...revisionNotice(),native_primary_relative_path:'../private.json'},{...revisionNotice(),new_primary_sha256:'invalid'},{...revisionNotice(),new_primary_bytes:(64<<20)+1},{...revisionNotice(),new_qualified_source_rows:1},{...revisionNotice(),new_dual_source_credit:1},{...revisionNotice(),direct_qualification_remains_excluded:false}]){
+  await putNotice(f,notice);await assert.rejects(()=>captureTopicBatch(f),/INVALID_NATIVE_REVISION_NOTICE/);await assert.rejects(()=>fs.stat(f.outDir),{code:'ENOENT'});
+ }
+});
+test('capture refuses missing or inconsistent revision notices across source metadata',async t=>{
+ const f=await acceptedFixture(t);await putNotice(f,revisionNotice(),[1]);await assert.rejects(()=>captureTopicBatch(f),/NATIVE_REVISION_NOTICE_MISMATCH/);
+ await putNotice(f,revisionNotice());await putNotice(f,{...revisionNotice(),new_primary_sha256:'f'.repeat(64)},[3]);await assert.rejects(()=>captureTopicBatch(f),/NATIVE_REVISION_NOTICE_MISMATCH/);
+});

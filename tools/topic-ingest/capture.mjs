@@ -15,6 +15,12 @@ const safe=p=>typeof p==='string'&&p.length>0&&!p.includes('\0')&&!p.includes('\
 const fail=code=>{throw new Error(code);};
 const inside=(root,p)=>{const r=relative(root,p);return !r||(!isAbsolute(r)&&r!=='..'&&!r.startsWith('../'));};
 const fingerprint=s=>[s.dev,s.ino,s.size,s.mtimeNs,s.ctimeNs].join(':');
+const revisionNoticeKey='current_native_record_revision_notice';
+function validateRevisionNotice(n){
+  const keys=['revision_id','knowledge_record_id','approved_local_correction_applied','native_primary_relative_path','new_primary_sha256','new_primary_bytes','source_notice_relative_path','new_qualified_source_rows','new_dual_source_credit','direct_qualification_remains_excluded'];
+  if(!n||Array.isArray(n)||typeof n!=='object'||Object.keys(n).sort().join(',')!==keys.sort().join(','))fail('INVALID_NATIVE_REVISION_NOTICE');
+  if(['revision_id','knowledge_record_id'].some(k=>typeof n[k]!=='string'||n[k].length===0||Buffer.byteLength(n[k])>256)||typeof n.approved_local_correction_applied!=='boolean'||!safe(n.native_primary_relative_path)||!safe(n.source_notice_relative_path)||!sha(n.new_primary_sha256)||!Number.isSafeInteger(n.new_primary_bytes)||n.new_primary_bytes<0||n.new_primary_bytes>PRIMARY_LIMIT||n.new_qualified_source_rows!==0||n.new_dual_source_credit!==0||n.direct_qualification_remains_excluded!==true)fail('INVALID_NATIVE_REVISION_NOTICE');
+}
 const fields={
   [NAMES[0]]:new Set(['metadata','entries']),
   [NAMES[1]]:new Set(['schema_version','updated_utc','classification_raw_sha256','summary','sources','mappings','scope_note','taxonomy_attribution','taxonomy_license','limited_support_noncounting_candidates','auxiliary_semantic_mappings','staged_only','candidate_batch','candidate_scope','formal_integration_performed','transaction_created_utc','local_only_storage_current']),
@@ -26,7 +32,9 @@ function metadata(bytes,name) {
   if(!data||Array.isArray(data)||typeof data!=='object')fail('INVALID_SOURCE_JSON');
   for(const key of Object.keys(data)){
     const historical=name===NAMES[3]&&(/^previous_catalog_snapshot_before_batch\d+$/.test(key)||key==='previous_catalog_snapshot_before_source8_reconciliation');
-    if(!fields[name].has(key)&&!historical)fail('UNKNOWN_METADATA_FIELD');
+    const revisionNotice=name!==NAMES[0]&&key===revisionNoticeKey;
+    if(revisionNotice)validateRevisionNotice(data[key]);
+    if(!fields[name].has(key)&&!historical&&!revisionNotice)fail('UNKNOWN_METADATA_FIELD');
     if(historical){
       const pin=data[key];
       if(key==='previous_catalog_snapshot_before_source8_reconciliation'){
@@ -76,6 +84,8 @@ export async function captureTopicBatch({sourceRoot,outDir,selectedPrimaryPaths=
   const captures=new Map(),remember=async(path,limit=METADATA_LIMIT)=>{const c=await regular(root,path,limit,signal);captures.set(path,c);return c;};
   const metaBytes=await Promise.all(NAMES.map(n=>remember(META+'/'+n)));
   const [taxonomy,mappings,matrix,registry]=metaBytes.map((c,i)=>metadata(c.bytes,NAMES[i]));
+  const notices=[mappings,matrix,registry].map(m=>m[revisionNoticeKey]);
+  if(notices.some(n=>n!==undefined)&&!notices.every(n=>isDeepStrictEqual(n,notices[0])))fail('NATIVE_REVISION_NOTICE_MISMATCH');
   for(const m of [mappings,matrix,registry])if(m.staged_only!==false||m.formal_integration_performed!==true)fail('BATCH_NOT_ACCEPTED');
   const batch=mappings.candidate_batch;
   if(!Number.isSafeInteger(batch)||batch<1||matrix.candidate_batch!==batch||registry.candidate_batch!==batch||matrix.last_completed_batch!==batch)fail('BATCH_MISMATCH');
