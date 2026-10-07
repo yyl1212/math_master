@@ -33,6 +33,12 @@ func cutoverConfigured(ctx context.Context, tx *sql.Tx) error {
 	if n != 5 {
 		return study.ErrNotConfigured
 	}
+	if e := tx.QueryRowContext(ctx, `SELECT NOT EXISTS(SELECT 1 FROM jsonb_each_text($1::jsonb) g WHERE NOT EXISTS(SELECT 1 FROM pg_constraint c WHERE c.conrelid=to_regclass('public.'||split_part(g.key,'/',1)) AND c.conname=split_part(g.key,'/',2) AND c.convalidated AND c.contype::text||':'||md5(pg_get_constraintdef(c.oid))=g.value OFFSET 0))`, string(body(topicSchemaConstraintGuards))).Scan(&intact); e != nil {
+		return e
+	}
+	if !intact {
+		return study.ErrNotConfigured
+	}
 	return nil
 }
 func optionalCutoverConfigured(ctx context.Context, tx *sql.Tx) (bool, error) {

@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"github.com/yyl1212/math_master/backend/internal/buildmeta"
 	"net"
 	"net/url"
 	"os"
@@ -11,6 +12,7 @@ import (
 )
 
 type Config struct {
+	CodeSHA                 string
 	CorrectionWorkerEnabled bool
 	AppEnv                  string
 	PublicOrigin            string
@@ -20,7 +22,7 @@ type Config struct {
 }
 
 func Load() (Config, error) {
-	c := Config{HTTPAddr: os.Getenv("HTTP_ADDR"), DatabaseURL: os.Getenv("DATABASE_URL"), ShutdownTimeout: 5 * time.Second}
+	c := Config{CodeSHA: buildmeta.CodeSHA(), HTTPAddr: os.Getenv("HTTP_ADDR"), DatabaseURL: os.Getenv("DATABASE_URL"), ShutdownTimeout: 5 * time.Second}
 	c.CorrectionWorkerEnabled = true
 	if value := os.Getenv("CORRECTION_WORKER_ENABLED"); value != "" {
 		switch value {

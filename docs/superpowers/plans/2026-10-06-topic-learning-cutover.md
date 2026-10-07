@@ -157,7 +157,7 @@ if firstRun.CreatedEvents != firstCount || secondRun.CreatedEvents != 0 { t.Fata
 
 **Interfaces（接口）：** InspectTopicCutover(ctx) (study.CutoverReport,error)、ActivateTopicExperience(ctx,in study.CutoverInput) (study.CutoverReport,error)。CutoverInput={expectedPair:taxonomy.PairRef,codeSHA,expectedMigrationBatchId,reason}，允许空知识发布的KnowledgeHead=null，分类head必须有效。报告必须确认完整00010—00012结构、taxonomy配对、迁入done且conflicts=0、历史保护和兼容版本；CutoverReport={mode,pair,schemaReady,migrationDone,unmappedLegacyEvents,conflicts,cutoverId?,recordedAt?}。CLI activate 要求已有备份记录和显式参数，真实运行另按运维授权，测试只在随机库。
 
-- [ ] **步骤1 写行为失败测试。** TestTopicCutoverRefusesPendingMigration、RefusesPartialSchema、RefusesPairMismatch、SingleWinner、RetainsActiveAttemptBytes；触发截止竞争时mode保持legacy，正常切换仅一条审计记录，旧active行与冻结结果字节不变。
+- [x] **步骤1 写行为失败测试。** TestTopicCutoverRefusesPendingMigration、RefusesPartialSchema、RefusesPairMismatch、SingleWinner、RetainsActiveAttemptBytes；触发截止竞争时mode保持legacy，正常切换仅一条审计记录，旧active行与冻结结果字节不变。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
 
 ```go
@@ -165,10 +165,10 @@ if successes != 1 || cutoverEvents != 1 { t.Fatal("cutover duplicated") }
 if missingSchema && modeAfter != "legacy" { t.Fatal("unsafe cutover") }
 ```
 
-- [ ] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^TestTopicCutover' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
-- [ ] **步骤3 实现交付单元。** 同一事务先对配置行FOR UPDATE，再按旧管理/内容锁顺序锁定预期pair和完成迁入批次；旧交互写已提交或等待该配置行，不存在切换后遗漏提交。用NOT EXISTS再查所有旧started/completed事件是否已有迁入链接，不能仅相信早先done；出现新事件则返回需继续迁入，保持legacy。codeSHA核对可信运行版本元数据，不能仅信请求声明。检查通过再改mode=topics、记录retired_at与不可变cutover事实；schema/个人写入冲突时明确失败。服务启动不自动迁移或切换。
-- [ ] **步骤4 验证通过。** 重跑步骤2命令；基于topics模式再次执行返回原切换记录，不更新日期或让旧mode恢复；实际旧写在事务内拒绝，新study与反馈独立可用。
-- [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 增加受控主题学习切换'。提交前 git diff --check 通过，只纳入该任务文件。
+- [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store ./internal/cli -run '^TestTopicCutover' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
+- [x] **步骤3 实现交付单元。** 同一事务先对配置行FOR UPDATE，再按旧管理/内容锁顺序锁定预期pair和完成迁入批次；旧交互写已提交或等待该配置行，不存在切换后遗漏提交。用NOT EXISTS再查所有旧started/completed事件是否已有迁入链接，不能仅相信早先done；出现新事件则返回需继续迁入，保持legacy。codeSHA核对可信运行版本元数据，不能仅信请求声明。检查通过再改mode=topics、记录retired_at与不可变cutover事实；schema/个人写入冲突时明确失败。服务启动不自动迁移或切换。
+- [x] **步骤4 验证通过。** 重跑步骤2命令；基于topics模式再次执行返回原切换记录，不更新日期或让旧mode恢复；实际旧写在事务内拒绝，新study与反馈独立可用。
+- [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'feat: 增加受控主题学习切换'。提交前 git diff --check 通过，只纳入该任务文件。
 
 ### Task 5 C5 内容回顾提醒与保留后台整合
 

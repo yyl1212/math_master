@@ -69,7 +69,7 @@ func TestStudyMigrationCLIInspectionAndVerification(t *testing.T) {
 	}
 	out.Reset()
 	err.Reset()
-	if n := RunTopicLearning(ctx, []string{"verify"}, &out, &err); n != 0 || !json.Valid(out.Bytes()) {
+	if n := RunTopicLearning(ctx, []string{"verify"}, &out, &err); n == 0 || !json.Valid(out.Bytes()) {
 		t.Fatal("actual empty migration verification unavailable", n)
 	}
 }

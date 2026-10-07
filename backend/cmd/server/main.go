@@ -48,7 +48,7 @@ func run() error {
 	db.SetConnMaxLifetime(5 * time.Minute)
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
-	repo := store.New(db)
+	repo := store.NewWithTrustedCodeSHA(db, c.CodeSHA)
 	options := httpapi.AuthOptions{ExperienceMode: repo, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
 	if c.PublicOrigin != "" {
 		hasher := auth.NewArgon2Hasher(rand.Reader)
