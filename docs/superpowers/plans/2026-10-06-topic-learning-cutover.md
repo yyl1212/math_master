@@ -246,17 +246,17 @@ self.assertEqual(database_digest_before, database_digest_after)
 
 **Interfaces（接口）：** 最终验收消费A、B、C所有合同；harness scene='topic-cutover' 先真实生成旧学习/检测历史，再执行有限迁入和activate，不手工写completed来伪造成功。TestTopicCutoverCapacity 用原创1,000知识/500用户/100,000事件，迁入每批50、单事务8秒。
 
-- [ ] **步骤1 写行为失败测试。** 浏览器完整登录→主题→阅读→笔记→完成→复习→时间线→反馈→内容修订提示；旧学习事实迁入、旧诊断不算完成、历史结果保留、旧写410、多人笔记隔离、语言与手机布局。容量断言单批超时可重跑、断点连续、发布提醒不随用户数逐行插入。
+- [x] **步骤1 写行为失败测试。** 浏览器完整登录→主题→阅读→笔记→完成→复习→时间线→反馈→内容修订提示；旧学习事实迁入、旧诊断不算完成、历史结果保留、旧写410、多人笔记隔离、语言与手机布局。容量断言单批超时可重跑、断点连续、发布提醒不随用户数逐行插入。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
 
 ```go
 if batchSize > 50 || elapsed > 8*time.Second { t.Fatal("migration batch exceeds budget") }
 ```
 
-- [ ] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacity$' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
-- [ ] **步骤3 实现交付单元。** 按总计划矩阵完成两种模式所有回归，对同一最终提交开展一次独立代码审查；修复后复跑问题及受影响检查。验收记录代码SHA、每批命令/退出码/耗时、实际覆盖及限制，不使用真实课程或真实账号构造数据。
+- [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacity$' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
+- [x] **步骤3 实现交付单元。** 按总计划矩阵完成两种模式所有回归，对同一最终提交开展一次独立代码审查；修复后复跑问题及受影响检查。验收记录代码SHA、每批命令/退出码/耗时、实际覆盖及限制，不使用真实课程或真实账号构造数据。
 - [ ] **步骤4 验证通过。** 重跑步骤2命令；最终本机矩阵、远端最新提交CI和独立审查通过后创建实现MR。MR只交付代码与迁移；合并、真实批准、实际切换和部署分别等待对应授权，不伪称网站已上线重构。
-- [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'test: 完成主题学习迁移回归'。提交前 git diff --check 通过，只纳入该任务文件。
+- [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'test: 完成主题学习迁移回归'。提交前 git diff --check 通过，只纳入该任务文件。
 
 ## 最终交付条件
 

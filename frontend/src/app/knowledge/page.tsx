@@ -1,5 +1,4 @@
 import {readExperienceMode} from "@/lib/study/mode";
-import {StudyUnavailable} from "@/features/study/pages";
 import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 import {getGoClient} from "@/lib/api/server-client";
@@ -12,7 +11,7 @@ import type {TopicPage} from "@/lib/taxonomy/types";
 export async function generateMetadata(){return getUiMetadata("page.knowledge")}
 export const dynamic="force-dynamic";
 export default async function Page({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}){
- const mode=await readExperienceMode();if(mode===null)return <StudyUnavailable/>;
+ const mode=await readExperienceMode();if(mode===null)return <ContentState kind="unavailable"/>;
  const params=await searchParams,query=parseTopicPageQuery(params);if(!query.ok)return <><UiPageTitle messageKey="page.knowledge"/><ContentState kind="unavailable"/></>;
  const topics=await readServerTaxonomy<TopicPage>({kind:"listTopics",query:query.query});
  if(mode==="legacy"&&!topics.ok&&topics.code==="TAXONOMY_NOT_CONFIGURED"){

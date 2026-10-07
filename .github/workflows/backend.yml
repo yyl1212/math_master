@@ -158,12 +158,14 @@ jobs:
       - name: 主题分类捕获与兼容门禁
         run: node tools/verify/run.mjs -- node --test tools/topic-ingest/*.test.mjs tools/verify/topic-learning-compatibility.test.mjs tools/verify/topic-learning-ci.test.mjs tools/verify/go-batches.test.mjs
       - name: 主题分类真实数据库与CLI
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/taxonomy ./internal/store ./internal/cli -run '^Test(Taxonomy|Topic)' -skip '^TestTaxonomyCapacity' -timeout 5m -count=1
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/taxonomy ./internal/store ./internal/cli -run '^Test(Taxonomy|Topic)' -skip '^Test(TaxonomyCapacity|TopicCutoverCapacity)' -timeout 5m -count=1
       - name: 完整分类与最大知识容量
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTaxonomyCapacity6603With1000Knowledge$' -timeout 5m -count=1 -v
       - name: 个人主题学习真实数据库
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/study ./internal/store -run '^TestStudy' -skip '^TestStudyCapacity' -timeout 5m -count=1
       - name: 有限旧事实迁入CLI
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -run '^TestStudyMigration' -timeout 5m -count=1
+      - name: 十万旧学习事实有限迁入容量
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacity$' -timeout 5m -count=1 -v
       - name: 个人主题学习最大存储读取
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestStudyCapacityReadPages$' -timeout 5m -count=1 -v

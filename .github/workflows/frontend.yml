@@ -124,6 +124,12 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-study-navigation.spec.ts topic-study-progress.spec.ts topic-study-notes.spec.ts topic-study-security.spec.ts ui-language-study.spec.ts
       - name: 主题退出与知识反馈回顾
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-retirement.spec.ts topic-feedback.spec.ts topic-content-corrections.spec.ts
+      - name: 真实迁入切换学习流程
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-learning-cutover.spec.ts
+      - name: 原诊断受保护档案
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-learning-archive.spec.ts
+      - name: 退出和知识纠错中英文双视口
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-cutover.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

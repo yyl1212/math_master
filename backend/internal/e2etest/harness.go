@@ -188,7 +188,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	if e = store.Up(setup, db, filepath.Join(root, "db/migrations")); e != nil {
 		return errors.New("harness migration failed")
 	}
-	s := store.New(db)
+	s := store.NewWithTrustedCodeSHA(db, fixtureCutoverCodeSHA)
 	accounts, accountAdmin, e := fixtureAccounts(s)
 	if e != nil {
 		return e
@@ -349,6 +349,11 @@ func Run(ctx context.Context, c Config) (result error) {
 			authUnavailable = false
 			unavailable = false
 			return nil
+		}
+		if scene == "topic-cutover" {
+			setup, stop := context.WithTimeout(ctx, 40*time.Second)
+			defer stop()
+			return resetTopicCutover(setup, db, s, accounts, accountAdmin, root, normal)
 		}
 		if scene == "topic-retirement-enable" {
 			setup, stop := context.WithTimeout(ctx, 40*time.Second)

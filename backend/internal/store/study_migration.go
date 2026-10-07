@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/study"
-	"sort"
+	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 	"time"
 )
 
@@ -77,7 +77,16 @@ func (s *Store) MigrateLegacyStudyBatch(ctx context.Context, limit int, cursor *
 	if _, e = tx.ExecContext(ctx, "SET LOCAL lock_timeout='1s'"); e != nil {
 		return out, studyError(e)
 	}
-	if _, e = readExperienceModeTx(ctx, tx, true); e != nil {
+	// Maintenance requires A/B/C, but does not need to materialize the public
+	// knowledge scope for every finite batch. Lock the same mode fence first.
+	var mode taxonomy.ExperienceMode
+	if e = tx.QueryRowContext(ctx, "SELECT experience_mode FROM topic_learning_state WHERE singleton FOR SHARE").Scan(&mode); e != nil {
+		return out, studyError(e)
+	}
+	if mode != taxonomy.ModeLegacy && mode != taxonomy.ModeTopics {
+		return out, study.ErrNotConfigured
+	}
+	if e = taxonomyConfigured(ctx, tx); e != nil {
 		return out, studyError(e)
 	}
 	if e = cutoverConfigured(ctx, tx); e != nil {
@@ -143,82 +152,165 @@ func (s *Store) MigrateLegacyStudyBatch(ctx context.Context, limit int, cursor *
 	for id := range owners {
 		ids = append(ids, id)
 	}
-	sort.Strings(ids)
-	for _, id := range ids {
-		var locked string
-		if e = tx.QueryRowContext(ctx, "SELECT id::text FROM auth_users WHERE id=$1 FOR UPDATE", id).Scan(&locked); e != nil {
+	rows, e = tx.QueryContext(ctx, "SELECT id::text FROM auth_users WHERE id=ANY($1::uuid[]) ORDER BY id FOR UPDATE", ids)
+	if e != nil {
+		return out, studyError(e)
+	}
+	locked := 0
+	for rows.Next() {
+		locked++
+	}
+	e = rows.Err()
+	rows.Close()
+	if e != nil || locked != len(ids) {
+		return out, study.ErrNotConfigured
+	}
+
+	selected := []map[string]any{}
+	for _, f := range facts {
+		selected = append(selected, map[string]any{"id": f.id, "owner": f.actor, "kid": f.ref.ID})
+	}
+	selectedJSON := string(body(selected))
+	const selection = `jsonb_to_recordset($1::jsonb) x(id uuid,owner uuid,kid text)`
+	links := map[string]string{}
+	rows, e = tx.QueryContext(ctx, `SELECT l.legacy_event_id::text,l.source_sha FROM `+selection+` JOIN study_legacy_event_links l ON l.owner_user_id=x.owner AND l.legacy_event_id=x.id`, selectedJSON)
+	if e != nil {
+		return out, studyError(e)
+	}
+	for rows.Next() {
+		var id, sha string
+		if e = rows.Scan(&id, &sha); e != nil {
+			rows.Close()
 			return out, studyError(e)
 		}
+		links[id] = sha
 	}
+	e = rows.Err()
+	rows.Close()
+	if e != nil {
+		return out, studyError(e)
+	}
+	type projected struct {
+		record  study.StudyRecord
+		managed bool
+		ref     study.KnowledgeRef
+		actor   string
+		dirty   bool
+	}
+	records := map[string]*projected{}
+	key := func(actor, id string) string { return actor + "/" + id }
+	rows, e = tx.QueryContext(ctx, `SELECT r.owner_user_id::text,r.knowledge_id,r.body,
+ EXISTS(SELECT 1 FROM study_legacy_event_links l WHERE l.owner_user_id=r.owner_user_id AND l.knowledge_id=r.knowledge_id AND l.projected_record)
+ AND NOT EXISTS(SELECT 1 FROM study_events e WHERE e.owner_user_id=r.owner_user_id AND e.knowledge_id=r.knowledge_id AND e.source_kind='native')
+ AND NOT EXISTS(SELECT 1 FROM study_idempotency i WHERE i.owner_user_id=r.owner_user_id AND i.knowledge_id=r.knowledge_id)
+ AND NOT EXISTS(SELECT 1 FROM study_notes n WHERE n.owner_user_id=r.owner_user_id AND n.knowledge_id=r.knowledge_id)
+ FROM study_records r JOIN (SELECT DISTINCT owner,kid FROM `+selection+`) x ON x.owner=r.owner_user_id AND x.kid=r.knowledge_id ORDER BY r.owner_user_id,r.knowledge_id FOR UPDATE OF r`, selectedJSON)
+	if e != nil {
+		return out, studyError(e)
+	}
+	for rows.Next() {
+		var actor, id string
+		var raw []byte
+		var managed bool
+		var record study.StudyRecord
+		if e = rows.Scan(&actor, &id, &raw, &managed); e != nil {
+			rows.Close()
+			return out, studyError(e)
+		}
+		if json.Unmarshal(raw, &record) != nil || record.KnowledgeID != id || !study.ValidState(record.State) {
+			rows.Close()
+			return out, study.ErrNotConfigured
+		}
+		records[key(actor, id)] = &projected{record: record, managed: managed && record.Sequence == 0 && record.LastReadAt == nil, actor: actor}
+	}
+	e = rows.Err()
+	rows.Close()
+	if e != nil {
+		return out, studyError(e)
+	}
+	newEvents := []map[string]any{}
 	for _, f := range facts {
-		var eventID, sha string
-		e = tx.QueryRowContext(ctx, "SELECT study_event_id::text,source_sha FROM study_legacy_event_links WHERE owner_user_id=$1 AND legacy_event_id=$2", f.actor, f.id).Scan(&eventID, &sha)
-		if e == nil {
+		if sha, exists := links[f.id]; exists {
 			if sha != f.sourceSHA {
 				return out, study.ErrNotConfigured
 			}
 			out.LinkedEvents++
-		} else if !errors.Is(e, sql.ErrNoRows) {
-			return out, studyError(e)
 		} else {
-			var raw []byte
-			e = tx.QueryRowContext(ctx, "SELECT body FROM study_records WHERE owner_user_id=$1 AND knowledge_id=$2 FOR UPDATE", f.actor, f.ref.ID).Scan(&raw)
-			fresh := errors.Is(e, sql.ErrNoRows)
-			if e != nil && !fresh {
-				return out, studyError(e)
+			r := records[key(f.actor, f.ref.ID)]
+			if r == nil {
+				r = &projected{record: study.StudyRecord{KnowledgeID: f.ref.ID, State: study.Unlearned}, managed: true, actor: f.actor}
+				records[key(f.actor, f.ref.ID)] = r
 			}
-			record := study.StudyRecord{KnowledgeID: f.ref.ID, State: study.Unlearned}
-			if !fresh && json.Unmarshal(raw, &record) != nil {
-				return out, study.ErrNotConfigured
-			}
-			managed := fresh
-			if !fresh && record.Sequence == 0 && record.LastReadAt == nil {
-				if e = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM study_legacy_event_links WHERE owner_user_id=$1 AND knowledge_id=$2 AND projected_record) AND NOT EXISTS(SELECT 1 FROM study_events WHERE owner_user_id=$1 AND knowledge_id=$2 AND source_kind='native') AND NOT EXISTS(SELECT 1 FROM study_idempotency WHERE owner_user_id=$1 AND knowledge_id=$2) AND NOT EXISTS(SELECT 1 FROM study_notes WHERE owner_user_id=$1 AND knowledge_id=$2)`, f.actor, f.ref.ID).Scan(&managed); e != nil {
-					return out, studyError(e)
-				}
-			}
-			if managed {
+			if r.managed {
 				at := f.at
 				if f.kind == "started" {
-					if record.FirstStartedAt == nil || at.Before(*record.FirstStartedAt) {
-						record.FirstStartedAt = &at
+					if r.record.FirstStartedAt == nil || at.Before(*r.record.FirstStartedAt) {
+						r.record.FirstStartedAt = &at
 					}
-					if record.FirstCompletedAt == nil {
-						record.State = study.Learning
+					if r.record.FirstCompletedAt == nil {
+						r.record.State = study.Learning
 					}
-				}
-				if f.kind == "completed" {
-					if record.FirstCompletedAt == nil || at.Before(*record.FirstCompletedAt) {
-						record.FirstCompletedAt = &at
+				} else {
+					if r.record.FirstCompletedAt == nil || at.Before(*r.record.FirstCompletedAt) {
+						r.record.FirstCompletedAt = &at
 					}
-					if record.LastCompletedAt == nil || !at.Before(*record.LastCompletedAt) {
-						record.LastCompletedAt = &at
+					if r.record.LastCompletedAt == nil || !at.Before(*r.record.LastCompletedAt) {
+						r.record.LastCompletedAt = &at
 						ref := f.ref
-						record.CompletedRef = &ref
+						r.record.CompletedRef = &ref
 					}
-					record.State = study.Completed
+					r.record.State = study.Completed
 				}
-				lastRef := f.ref
-				if record.CompletedRef != nil {
-					lastRef = *record.CompletedRef
+				r.ref = f.ref
+				if r.record.CompletedRef != nil {
+					r.ref = *r.record.CompletedRef
 				}
-				if e = studySaveRecordTx(ctx, tx, f.actor, record, lastRef, started); e != nil {
-					return out, studyError(e)
-				}
+				r.dirty = true
 			}
-			if e = tx.QueryRowContext(ctx, `INSERT INTO study_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,kind,recorded_at,source_kind,origin_event_id,action,idempotency_key) VALUES(gen_random_uuid(),$1,$2,$3,$4,$5,$6,'legacy',$7,'legacy-migration',$7) RETURNING id::text`, f.actor, f.ref.ID, f.ref.Version, f.ref.SHA256, f.kind, f.at, f.id).Scan(&eventID); e != nil {
-				return out, studyError(e)
+			eventID, err := workflowID()
+			if err != nil {
+				return out, err
 			}
-			if _, e = tx.ExecContext(ctx, `INSERT INTO study_legacy_event_links(owner_user_id,legacy_event_id,study_event_id,knowledge_id,source_sha,knowledge_publication_id,projected_record,batch_id,recorded_at,linked_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)`, f.actor, f.id, eventID, f.ref.ID, f.sourceSHA, f.pub, managed, out.BatchID, f.at, started); e != nil {
-				return out, studyError(e)
-			}
+			newEvents = append(newEvents, map[string]any{"id": eventID, "owner": f.actor, "kid": f.ref.ID, "version": f.ref.Version, "sha": f.ref.SHA256, "kind": f.kind, "at": f.at, "origin": f.id, "sourceSHA": f.sourceSHA, "publication": f.pub, "projected": r.managed})
 			out.CreatedEvents++
 		}
 		out.Processed++
 		out.Cursor = &study.LegacyCursor{RecordedAt: f.at, EventID: f.id}
 	}
-	if e = tx.QueryRowContext(ctx, `SELECT NOT EXISTS(SELECT 1 FROM learning_events e WHERE e.kind IN ('started','completed') AND NOT EXISTS(SELECT 1 FROM study_legacy_event_links l WHERE l.owner_user_id=e.owner_user_id AND l.legacy_event_id=e.id))`).Scan(&out.Done); e != nil {
-		return out, studyError(e)
+	saves := []map[string]any{}
+	for _, r := range records {
+		if r.dirty {
+			saves = append(saves, map[string]any{"owner": r.actor, "kid": r.record.KnowledgeID, "state": r.record.State, "sequence": r.record.Sequence, "body": r.record, "ref": r.ref})
+		}
+	}
+	if len(saves) > 0 {
+		if _, e = tx.ExecContext(ctx, `INSERT INTO study_records(owner_user_id,knowledge_id,state,sequence,body,last_known_ref,updated_at) SELECT owner,kid,state,sequence,body,ref,$2 FROM jsonb_to_recordset($1::jsonb) x(owner uuid,kid text,state text,sequence bigint,body jsonb,ref jsonb) ON CONFLICT(owner_user_id,knowledge_id) DO UPDATE SET state=EXCLUDED.state,sequence=EXCLUDED.sequence,body=EXCLUDED.body,last_known_ref=EXCLUDED.last_known_ref,updated_at=EXCLUDED.updated_at`, string(body(saves)), started); e != nil {
+			return out, studyError(e)
+		}
+	}
+	if len(newEvents) > 0 {
+		raw := string(body(newEvents))
+		const events = `jsonb_to_recordset($1::jsonb) x(id uuid,owner uuid,kid text,version integer,sha text,kind text,at timestamptz,origin uuid,"sourceSHA" text,publication text,projected boolean)`
+		if _, e = tx.ExecContext(ctx, `INSERT INTO study_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,kind,recorded_at,source_kind,origin_event_id,action,idempotency_key) SELECT id,owner,kid,version,sha,kind,at,'legacy',origin,'legacy-migration',origin FROM `+events, raw); e != nil {
+			return out, studyError(e)
+		}
+		if _, e = tx.ExecContext(ctx, `INSERT INTO study_legacy_event_links(owner_user_id,legacy_event_id,study_event_id,knowledge_id,source_sha,knowledge_publication_id,projected_record,batch_id,recorded_at,linked_at) SELECT owner,origin,id,kid,"sourceSHA",publication,projected,$2,at,$3 FROM `+events, raw, out.BatchID, started); e != nil {
+			return out, studyError(e)
+		}
+	}
+	// An indexed look ahead avoids rescanning the already imported prefix on
+	// every batch. At the end we still check the entire source, including late
+	// facts before the caller's cursor; Done can never hide them.
+	var ahead bool
+	if out.Cursor != nil {
+		if e = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM learning_events WHERE kind IN ('started','completed') AND (recorded_at,id)>($1,$2::uuid) AND NOT EXISTS(SELECT 1 FROM study_legacy_event_links l WHERE l.owner_user_id=learning_events.owner_user_id AND l.legacy_event_id=learning_events.id))`, out.Cursor.RecordedAt, out.Cursor.EventID).Scan(&ahead); e != nil {
+			return out, studyError(e)
+		}
+	}
+	if !ahead {
+		if e = tx.QueryRowContext(ctx, `SELECT NOT EXISTS(SELECT 1 FROM learning_events e WHERE e.kind IN ('started','completed') AND NOT EXISTS(SELECT 1 FROM study_legacy_event_links l WHERE l.owner_user_id=e.owner_user_id AND l.legacy_event_id=e.id))`).Scan(&out.Done); e != nil {
+			return out, studyError(e)
+		}
 	}
 	completed, e := dbClock(ctx, tx)
 	if e != nil {

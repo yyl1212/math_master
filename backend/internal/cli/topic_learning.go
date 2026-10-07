@@ -24,7 +24,9 @@ func RunTopicLearning(ctx context.Context, args []string, stdout, stderr io.Writ
 	f := flag.NewFlagSet("topic-learning-maintenance", flag.ContinueOnError)
 	f.SetOutput(io.Discard)
 	batches, limit := 1, 50
-	var expectedPair, codeSHA, batchID, reason, backupPath string
+	var expectedPair, codeSHA, batchID, reason, backupPath, cursorJSON string
+	var cursor *study.LegacyCursor
+	f.StringVar(&cursorJSON, "cursor", "", "")
 	f.StringVar(&expectedPair, "expected-pair", "", "")
 	f.StringVar(&codeSHA, "code-sha", "", "")
 	f.StringVar(&batchID, "migration-batch", "", "")
@@ -40,6 +42,25 @@ func RunTopicLearning(ctx context.Context, args []string, stdout, stderr io.Writ
 	}
 	if operation == "activate" && (expectedPair == "" || codeSHA == "" || batchID == "" || reason == "" || backupPath == "" || len(expectedPair) > 8192) {
 		return topicLearningArgumentError(stderr)
+	}
+	if operation != "migrate" && cursorJSON != "" {
+		return topicLearningArgumentError(stderr)
+	}
+	if cursorJSON != "" {
+		if len(cursorJSON) > 512 {
+			return topicLearningArgumentError(stderr)
+		}
+		var saved study.LegacyCursor
+		decoder := json.NewDecoder(strings.NewReader(cursorJSON))
+		decoder.DisallowUnknownFields()
+		if e := decoder.Decode(&saved); e != nil || !study.ValidID(saved.EventID) || saved.RecordedAt.IsZero() {
+			return topicLearningArgumentError(stderr)
+		}
+		var trailing any
+		if decoder.Decode(&trailing) != io.EOF {
+			return topicLearningArgumentError(stderr)
+		}
+		cursor = &saved
 	}
 	cfg, e := config.Load()
 	if e != nil {
@@ -97,7 +118,6 @@ func RunTopicLearning(ctx context.Context, args []string, stdout, stderr io.Writ
 		return 0
 	}
 	var last study.MigrationReport
-	var cursor *study.LegacyCursor
 	count := 0
 	for count < batches {
 		last, e = repo.MigrateLegacyStudyBatch(ctx, limit, cursor)
@@ -119,6 +139,6 @@ func RunTopicLearning(ctx context.Context, args []string, stdout, stderr io.Writ
 	return 0
 }
 func topicLearningArgumentError(stderr io.Writer) int {
-	write(stderr, map[string]string{"code": "INVALID_ARGUMENT", "message": "Use migrate --batches=1..10 --limit=1..50, inspect, verify, or activate with explicit pair/code/migration/reason/backup parameters."})
+	write(stderr, map[string]string{"code": "INVALID_ARGUMENT", "message": "Use migrate --batches=1..10 --limit=1..50 [--cursor=JSON], inspect, verify, or activate with explicit pair/code/migration/reason/backup parameters."})
 	return 2
 }

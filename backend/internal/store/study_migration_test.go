@@ -1,6 +1,7 @@
 package store_test
 
 import (
+	"context"
 	"encoding/json"
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"github.com/yyl1212/math_master/backend/internal/study"
@@ -224,5 +225,47 @@ func TestStudyMigrationCapabilitiesAndRollback(t *testing.T) {
 	}
 	if f.count("SELECT count(*) FROM study_records") != 0 || f.count("SELECT count(*) FROM study_events") != 0 || f.count("SELECT count(*) FROM study_migration_batches") != 0 || before != legacyFactsDigest(f) {
 		t.Fatal("migration not atomic")
+	}
+}
+
+func TestStudyMigrationDoneIncludesUnmappedPrefixAndLinkedSuffix(t *testing.T) {
+	f := newLearningFixture(t)
+	f.explicitLegacy("learner_a")
+	var cursor study.LegacyCursor
+	if e := f.db.QueryRow(`SELECT recorded_at,id::text FROM learning_events ORDER BY recorded_at DESC,id DESC LIMIT 1`).Scan(&cursor.RecordedAt, &cursor.EventID); e != nil {
+		t.Fatal(e)
+	}
+	skipped, e := f.repo.MigrateLegacyStudyBatch(f.ctx, 50, &cursor)
+	if e != nil || skipped.Done || skipped.Processed != 0 {
+		t.Fatal("unmapped prefix hidden by cursor", skipped, e)
+	}
+	imported, e := f.repo.MigrateLegacyStudyBatch(f.ctx, 50, nil)
+	if e != nil || !imported.Done || imported.CreatedEvents != 2 {
+		t.Fatal(imported, e)
+	}
+	replay, e := f.repo.MigrateLegacyStudyBatch(f.ctx, 1, nil)
+	if e != nil || !replay.Done || replay.LinkedEvents != 1 || replay.CreatedEvents != 0 {
+		t.Fatal("linked suffix mistaken for pending source", replay, e)
+	}
+}
+
+func TestStudyMigrationDeadlineRollsBackAndSameCursorRetries(t *testing.T) {
+	f := newLearningFixture(t)
+	f.explicitLegacy("learner_a")
+	before := legacyFactsDigest(f)
+	f.exec(`CREATE FUNCTION delay_legacy_link() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN PERFORM pg_sleep(1); RETURN NEW; END $$`)
+	f.exec(`CREATE TRIGGER delay_legacy_link BEFORE INSERT ON study_legacy_event_links FOR EACH ROW EXECUTE FUNCTION delay_legacy_link()`)
+	ctx, cancel := context.WithTimeout(f.ctx, 150*time.Millisecond)
+	defer cancel()
+	if _, e := f.repo.MigrateLegacyStudyBatch(ctx, 50, nil); e == nil {
+		t.Fatal("deadline unexpectedly committed")
+	}
+	if f.count("SELECT count(*) FROM study_records") != 0 || f.count("SELECT count(*) FROM study_events") != 0 || f.count("SELECT count(*) FROM study_migration_batches") != 0 || before != legacyFactsDigest(f) {
+		t.Fatal("timed out batch left partial facts")
+	}
+	f.exec("DROP TRIGGER delay_legacy_link ON study_legacy_event_links")
+	r, e := f.repo.MigrateLegacyStudyBatch(f.ctx, 50, nil)
+	if e != nil || !r.Done || r.CreatedEvents != 2 {
+		t.Fatal("same cursor retry lost facts", r, e)
 	}
 }

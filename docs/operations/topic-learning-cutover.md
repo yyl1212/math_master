@@ -22,6 +22,15 @@
 /app/bin/topic-learning-maintenance verify
 ```
 
+若报告`done=false`，下一次命令须把`lastBatch.cursor`原样传入，继续最后已提交的断点：
+
+```sh
+/app/bin/topic-learning-maintenance migrate --batches=5 --limit=50 \
+  --cursor='{"recordedAt":"<报告中的UTC时间>","eventId":"<报告中的准确UUID>"}'
+```
+
+失败批次不会保存任何投影或审计，使用上一次已提交游标重跑。若尾批`processed=0`但仍`done=false`，说明游标以前尚有未映射来源，去掉`--cursor`从头重核，不跳过遗漏。重复历史来源只计linked，不新增事件。
+
 迁入只取旧`started/completed`，保留原来源ID、知识版本和数据库时间。检测通过、诊断和解锁不能生成新完成。已有新状态、最近阅读、回执或笔记优先，迁入只补历史。旧事件当时没有分类则分类指针保持null。
 
 切换必须提供核对过的完整参数：

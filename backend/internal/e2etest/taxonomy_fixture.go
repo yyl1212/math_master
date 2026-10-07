@@ -37,6 +37,9 @@ func resetTopicCatalogue(ctx context.Context, db *sql.DB, s *store.Store, accoun
 			return e
 		}
 	}
+	return publishTopicCatalogueFixture(ctx, db, s, accounts, root)
+}
+func publishTopicCatalogueFixture(ctx context.Context, db *sql.DB, s *store.Store, accounts *auth.Service, root string) error {
 	in, e := learningFixtureInput(root)
 	if e != nil {
 		return e
