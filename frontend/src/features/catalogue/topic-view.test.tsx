@@ -36,3 +36,13 @@ it("keeps the two detail searches and their pagination independent",()=>{
  expect(Object.fromEntries(nextChildren.searchParams)).toEqual({childrenQ:"模",knowledgeQ:"加法",offset:"40",knowledgeOffset:"40"});
  expect(Object.fromEntries(nextKnowledge.searchParams)).toEqual({childrenQ:"模",knowledgeQ:"加法",offset:"20",knowledgeOffset:"60"});
 });
+
+it("preserves the map return link for root topics",()=>{
+ render(<TopicView detail={{summary:{...root,ancestors:[],hasChildren:true,publishedKnowledgeCount:1},pair}} childrenPage={{items:[{...leaf,publishedKnowledgeCount:2}],total:1,limit:20,offset:0,pair}} knowledge={{items:[],total:0,limit:20,offset:0,pair}}/>);
+ expect(screen.getByRole("link",{name:"Knowledge Map"})).toHaveAttribute("href","/knowledge");
+});
+it("preserves the meaning of published counts on the title and child cards",()=>{
+ render(<TopicView detail={{summary:{...root,ancestors:[],hasChildren:true,publishedKnowledgeCount:1},pair}} childrenPage={{items:[{...leaf,publishedKnowledgeCount:2}],total:1,limit:20,offset:0,pair}} knowledge={{items:[],total:0,limit:20,offset:0,pair}}/>);
+ expect(screen.getByText("1 published knowledge point")).toBeVisible();
+ expect(screen.getByText("2 published knowledge points")).toBeVisible();
+});

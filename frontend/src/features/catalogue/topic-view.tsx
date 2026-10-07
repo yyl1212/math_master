@@ -30,7 +30,7 @@ export function TopicView({detail,childrenPage,knowledge,childrenQ="",knowledgeQ
   return action+(query.size?"?"+query:"");
  }
  return <>
-  <div className="page-heading"><p className="eyebrow">{n.code}</p><h1>{topicName(n,locale)}</h1><nav aria-label={t("topic.map.hierarchy",{})}>{n.ancestors.map(a=><span key={a.id}><Link prefetch={false} href={"/topics/"+a.id}>{topicName(a,locale)}</Link> / </span>)}</nav></div>
+  <nav className="breadcrumbs" aria-label={t("domain-view.breadcrumb.2bd873",{})}><Link prefetch={false} href="/knowledge">{t("nav.knowledgeMap",{})}</Link>{n.ancestors.map(a=><span key={a.id}> / <Link prefetch={false} href={"/topics/"+a.id}>{topicName(a,locale)}</Link></span>)}</nav><div className="page-heading"><p className="eyebrow"><code>{n.code}</code></p><h1>{topicName(n,locale)}</h1><p>{t(n.publishedKnowledgeCount===1?"public.publishedOne":"public.publishedMany",{count:n.publishedKnowledgeCount})}</p></div>
   <div className={styles.detailGrid}><div className={styles.detailMain}>
    <section className="panel"><h2>{t("topic.map.children",{})}</h2>
     <Form role="search" aria-label={t("topic.map.searchChildren",{})} action={action} prefetch={false} className={styles.toolbar}>
@@ -39,7 +39,7 @@ export function TopicView({detail,childrenPage,knowledge,childrenQ="",knowledgeQ
      <button className="button" type="submit">{t("knowledge-map.search.49c266",{})}</button>
     </Form>
     <p className={styles.results}>{childrenPage.total}</p>
-    {childrenPage.items.length===0?<p>{t("topic.map.noResults",{})}</p>:<div className={styles.topics}>{childrenPage.items.map(c=><article key={c.id}><code>{c.code}</code><h3><Link prefetch={false} href={"/topics/"+c.id}>{topicName(c,locale)}</Link></h3><p>{c.publishedKnowledgeCount}</p></article>)}</div>}
+    {childrenPage.items.length===0?<p>{t("topic.map.noResults",{})}</p>:<div className={styles.topics}>{childrenPage.items.map(c=><article key={c.id}><code>{c.code}</code><h3><Link prefetch={false} href={"/topics/"+c.id}>{topicName(c,locale)}</Link></h3><p>{t(c.publishedKnowledgeCount===1?"public.publishedOne":"public.publishedMany",{count:c.publishedKnowledgeCount})}</p></article>)}</div>}
     <nav className={styles.toolbar}>{childrenPage.offset>0&&<Link prefetch={false} href={url("offset",Math.max(0,childrenPage.offset-childrenPage.limit))}>{t("topic.map.previous",{})}</Link>}{childrenPage.offset+childrenPage.limit<childrenPage.total&&<Link prefetch={false} href={url("offset",childrenPage.offset+childrenPage.limit)}>{t("topic.map.next",{})}</Link>}</nav>
    </section>
    <section className="panel"><h2>{t("topic.map.knowledge",{})}</h2>

@@ -70,12 +70,12 @@ flowchart LR
 
 ### Task 3: 整合与上线准备
 
-**Files:** 更新 docs/operations/website-guide.md，新增 docs/operations/2026-10-08-topic-learning-rollout.md；仅具名更新 api/topic-learning-compatibility-baseline.json 与校验器policy PIN。
+**Files:** 生产预检阻塞修复 ops/Caddyfile 与实际路由验收 ops/tests/image_smoke.py；更新 docs/operations/website-guide.md，新增 docs/operations/2026-10-08-topic-learning-rollout.md；仅具名更新 api/topic-learning-compatibility-baseline.json 与校验器policy PIN。
 
 **Interfaces:** 沿用 ops/deploy.sh、database-snapshot.py、topic-catalogue install、正常admin配对发布及topic-learning-maintenance。
 
 - [x] 步骤1：记录需求逐项覆盖与服务器当前版本、备份、实际源批次路径和发布前提，不输出私有资料。
-- [ ] 步骤2：建立整合MR指向master，说明替代37—40依赖链及处理冲突的方式，等待同一最新SHA六项CI。
+- [ ] 步骤2：先用实际Caddy证明准确健康GET此前错投前端，新增两条精确GET代理并核对应用、私有API、其他方法仍走前端；再建立整合MR指向master，说明替代37—40依赖链及处理冲突的方式，等待同一最新SHA六项CI。
 - [ ] 步骤3：一次独立整分支增量审查，无Critical/Important未解决后完成兼容审核；只一次必要修复RED→GREEN。
 - [ ] 步骤4：提交最终文档与证据，保持新提交同一CI门禁。
 

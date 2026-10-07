@@ -50,7 +50,7 @@ def docker(*args: str) -> bytes:
     return result.stdout
 
 
-def check_ip_tls(image: str) -> dict:
+def check_ip_tls(image: str, web_image: str) -> dict:
     # 本机隔离夹具仅显式信任一次性测试证书；生产验收仍使用系统 CA。
     with tempfile.TemporaryDirectory(dir='/private/tmp' if Path('/private/tmp').exists() else None) as folder:
         root = Path(folder)
@@ -75,10 +75,29 @@ def check_ip_tls(image: str) -> dict:
             server['automatic_https'] = {'disable': True}
         (fixture / 'config.json').write_text(json.dumps(config))
         (fixture / 'config.json').chmod(0o644)
-        name = 'math-master-ip-tls-smoke-' + uuid.uuid4().hex
-        created = False
+        token = uuid.uuid4().hex
+        name = 'math-master-ip-tls-smoke-' + token
+        upstream = 'math-master-route-upstream-' + token
+        network = 'math-master-route-network-' + token
+        created = upstream_created = network_created = False
         try:
+            docker('network', 'create', '--internal', network)
+            network_created = True
+            probe = r'''
+const http = require('node:http');
+for (const [port, source] of [[8080, 'api'], [3000, 'web']]) {
+  http.createServer((request, response) => {
+    response.setHeader('Content-Type', 'text/plain');
+    response.end(source + ':' + request.url);
+  }).listen(port, '0.0.0.0');
+}
+'''
+            docker('run', '--detach', '--name', upstream, '--network', network,
+                   '--network-alias', 'api', '--network-alias', 'web', '--read-only',
+                   '--entrypoint', 'node', web_image, '-e', probe)
+            upstream_created = True
             docker('run', '--detach', '--name', name, '--read-only',
+                   '--network', 'bridge',
                    '--sysctl', 'net.ipv4.ip_unprivileged_port_start=0',
                    '--tmpfs', '/data:rw,size=16m,uid=10001,gid=10001,mode=0700',
                    '--tmpfs', '/config:rw,size=16m,uid=10001,gid=10001,mode=0700',
@@ -86,6 +105,7 @@ def check_ip_tls(image: str) -> dict:
                    '--mount', f'type=bind,src={fixture},dst=/fixture,readonly',
                    image, 'run', '--config', '/fixture/config.json')
             created = True
+            docker('network', 'connect', network, name)
             ready = False
             for _ in range(20):
                 try:
@@ -111,10 +131,39 @@ def check_ip_tls(image: str) -> dict:
                 try:handshake(context, hostname)
                 except ssl.SSLCertVerificationError:pass
                 else:raise RuntimeError('invalid-ip-certificate-accepted')
+            def upstream_ready():
+                try:
+                    docker('exec', upstream, 'node', '-e',
+                           'fetch("http://127.0.0.1:8080/readyz").then(r=>{if(r.status!==200)process.exit(1)}).catch(()=>process.exit(1))')
+                    return True
+                except RuntimeError:return False
+            for _ in range(20):
+                if upstream_ready():break
+                time.sleep(.25)
+            else:raise RuntimeError('route-upstream-not-ready')
+            for method, path, source in [('GET', '/readyz', 'api'), ('GET', '/healthz', 'api'),
+                                         ('GET', '/login', 'web'), ('GET', '/readyz/private', 'web'),
+                                         ('GET', '/api/v1/content/private', 'web'), ('POST', '/readyz', 'web')]:
+                with socket.create_connection(('127.0.0.1', port), timeout=5) as transport:
+                    with ssl.create_default_context(cafile=str(certificate)).wrap_socket(
+                            transport, server_hostname='43.135.142.53') as connection:
+                        connection.sendall((method+' '+path+' HTTP/1.0\r\nHost: 43.135.142.53\r\nContent-Length: 0\r\nConnection: close\r\n\r\n').encode())
+                        raw = b''
+                        while True:
+                            chunk = connection.recv(8192)
+                            if not chunk:break
+                            raw += chunk
+                            if len(raw)>16384:raise RuntimeError('route-response-too-large')
+                headers, separator, body = raw.partition(b'\r\n\r\n')
+                if not separator or b' 200 ' not in headers.split(b'\r\n', 1)[0] or body != (source+':'+path).encode():
+                    raise RuntimeError('gateway-health-route-invalid')
             return {'ipClientTLS': True, 'unknownCARejected': True, 'wrongIPRejected': True,
-                    'tlsFixtureCertificateOnly': True}
+                    'tlsFixtureCertificateOnly': True, 'exactHealthRoutes': True,
+                    'applicationRoutesPreserved': True}
         finally:
             if created:docker('rm', '--force', name)
+            if upstream_created:docker('rm', '--force', upstream)
+            if network_created:docker('network', 'rm', network)
 
 
 def check(revision: str) -> dict:
@@ -132,7 +181,7 @@ def check(revision: str) -> dict:
     version = docker('run', '--rm', '--network', 'none', '--read-only', images['gateway'], 'version').decode().strip()
     if not version.startswith('v2.11.7 '):
         raise RuntimeError('gateway-version-mismatch')
-    tls_result = check_ip_tls(images['gateway'])
+    tls_result = check_ip_tls(images['gateway'], images['web'])
     name = f'math-master-image-smoke-{uuid.uuid4().hex}'
     created = False
     try:
