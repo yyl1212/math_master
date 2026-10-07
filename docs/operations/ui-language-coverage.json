@@ -3671,6 +3671,37 @@
       "scenarios": [
         "tests/e2e/topic-retirement.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/features/study/content-reminders.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.reminders.title",
+        "study.reminders.readonly"
+      ],
+      "rawDataAreas": [
+        "知识标识、准确版本与UTC时间；提醒不含私人笔记，旧档案只读"
+      ],
+      "scenarios": [
+        "tests/e2e/topic-content-corrections.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/topic-area.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.corrections.content",
+        "study.corrections.archive",
+        "study.notifications.archive"
+      ],
+      "rawDataAreas": [
+        "知识标识、准确版本与UTC时间；提醒不含私人笔记，旧档案只读"
+      ],
+      "scenarios": [
+        "tests/e2e/topic-content-corrections.spec.ts"
+      ]
     }
   ]
 }

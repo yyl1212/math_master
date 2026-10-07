@@ -11,7 +11,8 @@ import { CorrectionAccountContext, useCorrectionRead } from './correction-accoun
 import { useCorrectionCommand } from './pending-command';
 import { CorrectionState, CorrectionCommandStatus } from './status';
 import styles from '@/styles/content.module.css';
-export function CaseList({ initial }: {
+export function CaseList({ initial,topicMode=false }: {
+ topicMode?:boolean;
     initial: Page<CaseMetadata>;
 }) {
  const {t}=useUiI18n();
@@ -29,7 +30,7 @@ export function CaseList({ initial }: {
         setPage(v => ({ ...v, items: [latest.data, ...v.items.filter(i => i.id !== latest.data.id)] }));
     });
     const input = caseInputSchema.safeParse(kind === 'withdrawal' ? { kind, withdrawal: { space, id: withdrawalId }, rule: null } : { kind, withdrawal: null, rule: scope === 'all' ? { ruleVersion: 1, kind: scope, knowledge: null } : { ruleVersion: 1, kind: scope, knowledge: { id: knowledgeId, version, sha256: sha } } });
-    const locked = command.busy || !!command.pending || !!account?.checking, canEdit = account?.roles.includes('admin');
+    const locked = command.busy || !!command.pending || !!account?.checking, canEdit = !topicMode&&account?.roles.includes('admin');
     const reload = async () => {
         if (loading)
             return;
@@ -48,7 +49,7 @@ export function CaseList({ initial }: {
         }
     };
     return <main className={styles.workbench}><h1><UiText notice={uiMessage("page.review.corrections",{})}/></h1><p><UiText notice={uiMessage("case-list.follow.affected.learning.evidence.from.a.registered.issue.to.an.i.e9df91",{})}/></p><button type="button" className="button secondary" disabled={loading || account?.checking} onClick={() => void reload()}><UiText notice={uiMessage("case-list.reload.correction.cases.01b77f",{})}/></button>{error && <CorrectionState error={error} onRetry={() => void reload()}/>}
- <ul className={styles.list}>{page.items.map(c => <li key={c.id}><Link prefetch={false} href={'/review/corrections/' + c.id}>{c.kind === 'grading_rule' ? t("case-list.grading.rule.review.ab2fe4",{}) : t("case-list.withdrawn.source.review.966bbb",{})}</Link><p className={styles.metadata}>{c.id} · {c.hasApprovedPlan ? t("case-list.approved.basis.available.c1fcbf",{}) : t("case-list.awaiting.an.approved.basis.0eaba0",{})}</p><time dateTime={c.createdAt}>{new Date(c.createdAt).toLocaleString('en')}</time></li>)}</ul>{page.items.length === 0 && <p><UiText notice={uiMessage("case-list.no.correction.cases.yet.19127d",{})}/></p>}{page.nextCursor && <Link prefetch={false} href={'/review/corrections?cursor=' + page.nextCursor}><UiText notice={uiMessage("case-list.next.cases.f41e3e",{})}/></Link>}
+ <ul className={styles.list}>{page.items.map(c => <li key={c.id}><Link prefetch={false} href={'/review/corrections/' + c.id}>{c.kind === 'grading_rule' ? t("case-list.grading.rule.review.ab2fe4",{}) : t("case-list.withdrawn.source.review.966bbb",{})}</Link><p className={styles.metadata}>{c.id} · {c.hasApprovedPlan ? t("case-list.approved.basis.available.c1fcbf",{}) : t("case-list.awaiting.an.approved.basis.0eaba0",{})}</p><time dateTime={c.createdAt}>{new Date(c.createdAt).toLocaleString('en')}</time></li>)}</ul>{page.items.length === 0 && <p><UiText notice={uiMessage("case-list.no.correction.cases.yet.19127d",{})}/></p>}{page.nextCursor && <Link prefetch={false} href={'/review/corrections?'+(topicMode?'archive=legacy&':'')+'cursor='+page.nextCursor}><UiText notice={uiMessage("case-list.next.cases.f41e3e",{})}/></Link>}
  {canEdit && <section className={styles.card}><h2><UiText notice={uiMessage("case-list.register.a.correction.case.c8261a",{})}/></h2><p><UiText notice={uiMessage("case-list.a.grading.issue.uses.the.server.registration.time.withdrawn.sourc.cce17d",{})}/></p><form onSubmit={e => {
                 e.preventDefault();
                 if (input.success)

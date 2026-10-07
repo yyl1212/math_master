@@ -7,11 +7,11 @@ import {useUiI18n} from "@/lib/i18n/provider";
 import {DraftEditor} from "./draft-editor";
 import {TopicPublicationPanel} from "./publication-panel";
 import styles from "@/styles/content.module.css";
-export function TopicDraftEditor({initial,topics,canEdit}:{initial:DraftView;topics:DraftTopicView;canEdit:boolean}){
+export function TopicDraftEditor({initial,topics,canEdit,topicMode=false}:{initial:DraftView;topics:DraftTopicView;canEdit:boolean;topicMode?:boolean}){
  const pending=useRef(new Map<string,{signature:string;key:string}>());
  async function save(input:DraftTopicInput){const id=input.member.knowledge.id,signature=JSON.stringify(input);if(pending.current.get(id)?.signature!==signature)pending.current.set(id,{signature,key:crypto.randomUUID()});const result=await topicManagementRequest<DraftTopicView>({kind:"saveDraft",id:initial.id},input,pending.current.get(id)!.key);if(!result.ok)throw new Error("Topic assignment failed.");pending.current.delete(id);return result.data}
  async function read(){const result=await topicManagementRequest<DraftTopicView>({kind:"readDraft",id:initial.id});if(!result.ok)throw new Error("Topic assignment unavailable.");return result.data}
- return <DraftEditor initial={initial} canEdit={canEdit} topics={topics} onSaveTopics={save} onReadTopics={read}/>
+ return <DraftEditor topicMode={topicMode} initial={initial} canEdit={canEdit} topics={topics} onSaveTopics={save} onReadTopics={read}/>
 }
 export function TopicPublicationWorkspace({initial}:{initial:ReleasePage}){
  const {t}=useUiI18n(),[page,setPage]=useState(initial),[selected,setSelected]=useState(initial.items[0]?.id??""),[error,setError]=useState(false),[busy,setBusy]=useState(false),[selectionEpoch,setEpoch]=useState(0);

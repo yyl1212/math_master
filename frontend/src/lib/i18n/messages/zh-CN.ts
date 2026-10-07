@@ -1,6 +1,12 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "study.reminders.title": "内容回顾提醒",
+  "study.reminders.readonly": "查看提醒不会标记已复习。请阅读当前材料后主动结束复习。",
+  "study.corrections.content": "知识反馈通过正常编辑、独立审核、发布或撤回处理，解决工单不会直接发布内容。",
+  "study.corrections.archive": "受保护的旧纠错档案",
+  "study.notifications.archive": "旧通知档案",
+  "study.paths.readonly": "旧路线仅作为只读参考，新知识草稿可以不包含路线。",
   "study.retired.title": "此模块已停用",
   "study.retired.body": "请按主题继续学习，原有记录仍可在受保护的档案中查看。",
   "study.archive.title": "旧学习档案",

@@ -18,7 +18,8 @@ type Data = {
     plans: Page<PlanMetadata>;
     jobs: Page<JobMetadata>;
 };
-export function CasePanel({ initial }: {
+export function CasePanel({ initial,topicMode=false }: {
+ topicMode?:boolean;
     initial: Data;
 }) {
  const {t,locale}=useUiI18n();
@@ -45,7 +46,7 @@ export function CasePanel({ initial }: {
             throw new CorrectionRequestError();
         setData(v => ({ ...v, jobs: out.data }));
     });
-    const canAdmin = account?.roles.includes('admin'), canEdit = account?.roles.some(r => r === 'editor' || r === 'admin'), input = planInputSchema.safeParse({ expectedSequence: null, parent: null, algorithmVersion: 1, mappings, reason }), locked = create.busy || !!create.pending || !!account?.checking;
+    const canAdmin = account?.roles.includes('admin'), canEdit = !topicMode&&account?.roles.some(r => r === 'editor' || r === 'admin'), input = planInputSchema.safeParse({ expectedSequence: null, parent: null, algorithmVersion: 1, mappings, reason }), locked = create.busy || !!create.pending || !!account?.checking;
     async function reload() {
         if (loading)
             return;

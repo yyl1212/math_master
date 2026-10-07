@@ -190,7 +190,7 @@ if missingSchema && modeAfter != "legacy" { t.Fatal("unsafe cutover") }
 
 **Interfaces（接口）：** ContentReminders({items:StudyContentReminder[]})；StudyContentReminder={changeId,knowledgeId,kind:'updated'|'withdrawn',recordedAt,currentRef?,reviewed:boolean}。查看提醒只读，完成复习由既有FinishStudyReview产生；topics模式不展示score/retake资格操作。内容工作区保留原数学字段、来源及主题选择，旧path字段仅历史读取，不要求新稿生成路线。
 
-- [ ] **步骤1 写行为失败测试。** 提醒中文/英文切换不mark-read、不complete；已完成知识材料升级保留completed但显示更新；撤回正文不可读、私人笔记仍可读；知识修订须正常审核与发布，resolved工单不能直接发布。旧纠错Original/Corrected历史只对本人且遵守原重合保护。
+- [x] **步骤1 写行为失败测试。** 提醒中文/英文切换不mark-read、不complete；已完成知识材料升级保留completed但显示更新；撤回正文不可读、私人笔记仍可读；知识修订须正常审核与发布，resolved工单不能直接发布。旧纠错Original/Corrected历史只对本人且遵守原重合保护。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
 
 ```ts
@@ -198,10 +198,10 @@ expect(afterReview.Completed).toBe(beforeReview.Completed);
 expect(markReadRequests).toHaveLength(0);
 ```
 
-- [ ] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/study/content-reminders.test.tsx。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
-- [ ] **步骤3 实现交付单元。** 把当前学习回顾提醒放在我的学习，旧通知页在topics模式导向该入口并保留历史通知只读链接。纠错后台围绕知识工单、现有撤回和替代发布提供定位，停用新判分方案与题目映射编辑；既有worker关闭/开启都不影响新study判断。原审核角色与管理员自审例外保持。
-- [ ] **步骤4 验证通过。** 重跑步骤2命令；topic-content-corrections.spec.ts真实双视口通过；旧内容编写/审核/撤回回归，私人正文不进入提醒列表；新草稿paths=[]仍能完成正常送审。
-- [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 整合内容回顾与知识纠错后台'。提交前 git diff --check 通过，只纳入该任务文件。
+- [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/study/content-reminders.test.tsx。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
+- [x] **步骤3 实现交付单元。** 把当前学习回顾提醒放在我的学习，旧通知页在topics模式导向该入口并保留历史通知只读链接。纠错后台围绕知识工单、现有撤回和替代发布提供定位，停用新判分方案与题目映射编辑；既有worker关闭/开启都不影响新study判断。原审核角色与管理员自审例外保持。
+- [x] **步骤4 验证通过。** 重跑步骤2命令；topic-content-corrections.spec.ts真实双视口通过；旧内容编写/审核/撤回回归，私人正文不进入提醒列表；新草稿paths=[]仍能完成正常送审。
+- [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 整合内容回顾与知识纠错后台'。提交前 git diff --check 通过，只纳入该任务文件。
 
 ### Task 6 C6 部署兼容与阶段门禁
 

@@ -1,4 +1,10 @@
 export const enMessages = {
+  "study.reminders.title": {"text": "Content to revisit", "params": []},
+  "study.reminders.readonly": {"text": "Viewing reminders does not mark material as reviewed. Read the current material and finish a review explicitly.", "params": []},
+  "study.corrections.content": {"text": "Resolve knowledge reports through normal editing, independent review, publication or withdrawal. Resolving a report does not publish content.", "params": []},
+  "study.corrections.archive": {"text": "Protected correction archive", "params": []},
+  "study.notifications.archive": {"text": "Legacy notifications", "params": []},
+  "study.paths.readonly": {"text": "Legacy routes are read-only reference metadata. New knowledge drafts can use an empty route list.", "params": []},
   "study.retired.title": {"text": "This module has been retired.", "params": []},
   "study.retired.body": {"text": "Continue learning by topic. Your protected historical records remain available.", "params": []},
   "study.archive.title": {"text": "Legacy learning archive", "params": []},

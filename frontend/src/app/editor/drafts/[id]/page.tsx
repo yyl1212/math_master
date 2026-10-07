@@ -1,3 +1,5 @@
+import {readExperienceMode} from "@/lib/study/mode";
+import {StudyUnavailable} from "@/features/study/pages";
 import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 export async function generateMetadata(){return getUiMetadata("page.editor.drafts.id");}
@@ -21,7 +23,7 @@ export default async function Page({ params }: {
     params: Promise<{
         id: string;
     }>;
-}) { const { id } = await params; if (!contentUUID.test(id))
+}) { const mode=await readExperienceMode();if(mode===null)return <StudyUnavailable/>;const { id } = await params; if (!contentUUID.test(id))
     return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<ContentState status={404}/>}</>; const access = await contentPageAccess(["editor", "admin"]); if ("error" in access)
     return <><UiPageTitle messageKey="page.editor.drafts.id"/>{access.error}</>; const draft = await readServerContent<DraftView>({ kind: "readDraft", id }, access.cookie); if (!draft.ok)
-    return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<ContentState status={draft.status} code={draft.code}/>}</>; const topics=await readServerTopicManagement<DraftTopicView>({kind:"readDraft",id},access.cookie);if(topics.ok)return <><UiPageTitle messageKey="page.editor.drafts.id"/><TopicDraftEditor initial={draft.data} topics={topics.data} canEdit={access.user.roles.includes("editor")&&draft.data.ownerId===access.user.id}/></>;if(topics.code!=="TAXONOMY_NOT_CONFIGURED")return <ContentState status={topics.status}/>; return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<DraftEditor key={id} initial={draft.data} canEdit={access.user.roles.includes("editor") && draft.data.ownerId === access.user.id}/>}</>; }
+    return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<ContentState status={draft.status} code={draft.code}/>}</>; const topics=await readServerTopicManagement<DraftTopicView>({kind:"readDraft",id},access.cookie);if(topics.ok)return <><UiPageTitle messageKey="page.editor.drafts.id"/><TopicDraftEditor topicMode={mode==="topics"} initial={draft.data} topics={topics.data} canEdit={access.user.roles.includes("editor")&&draft.data.ownerId===access.user.id}/></>;if(mode==="topics"||topics.code!=="TAXONOMY_NOT_CONFIGURED")return <ContentState status={topics.status}/>; return <><UiPageTitle messageKey="page.editor.drafts.id"/>{<DraftEditor topicMode={false} key={id} initial={draft.data} canEdit={access.user.roles.includes("editor") && draft.data.ownerId === access.user.id}/>}</>; }
