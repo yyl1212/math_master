@@ -217,7 +217,7 @@ expect(markReadRequests).toHaveLength(0);
 
 **Interfaces（接口）：** topicSchemaCompatibility(actualMigration:int,targetCapabilities:{taxonomy,study,retirement}:bool,mode:str)->bool，在ops/deploy.py集中；旧程序无retirement且当前mode=topics时拒绝恢复私人流量。部署状态保留原snapshot/migration核验，不增加自动down或数据库清理。新的/readyz能力项只含安全schema与mode布尔，不含source路径/用户内容。
 
-- [ ] **步骤1 写行为失败测试。** test_topic_mode_old_binary_rejected、test_topic_schema_partial_keeps_maintenance、test_compatible_binary_keeps_database；兼容门禁断言旧迁移、FrozenBody、成绩、原始来源指纹不允许变化。精确列批准修改的旧接口错误合同和旧activation行为，其他文件不新增泛化例外。
+- [x] **步骤1 写行为失败测试。** test_topic_mode_old_binary_rejected、test_topic_schema_partial_keeps_maintenance、test_compatible_binary_keeps_database；兼容门禁断言旧迁移、FrozenBody、成绩、原始来源指纹不允许变化。精确列批准修改的旧接口错误合同和旧activation行为，其他文件不新增泛化例外。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
 
 ```python
@@ -225,10 +225,10 @@ self.assertFalse(topicSchemaCompatibility(12, old_capabilities, 'topics'))
 self.assertEqual(database_digest_before, database_digest_after)
 ```
 
-- [ ] **步骤2 确认失败。** 运行 node tools/verify/run.mjs -- python3 -m unittest discover -s ops/tests -p 'test_*.py' -v。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
-- [ ] **步骤3 实现交付单元。** 编写先备份、inspect、有限迁入、verify、activate、健康及恢复核验的中文手册；回退仅兼容新旧schema的应用，真实库不Down。CI将原业务场景保持legacy验证，另加topics退役场景；不用删除旧安全测试解决字节门禁冲突。
-- [ ] **步骤4 验证通过。** 重跑步骤2命令；运维全部目标测试、Node兼容门禁通过；用临时镜像/隔离库验证恢复，真实服务器保持原状；原一worker、480秒和数据库保护不放宽。
-- [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'test: 核验主题切换与部署兼容'。提交前 git diff --check 通过，只纳入该任务文件。
+- [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs -- python3 -m unittest discover -s ops/tests -p 'test_*.py' -v。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
+- [x] **步骤3 实现交付单元。** 编写先备份、inspect、有限迁入、verify、activate、健康及恢复核验的中文手册；回退仅兼容新旧schema的应用，真实库不Down。CI将原业务场景保持legacy验证，另加topics退役场景；不用删除旧安全测试解决字节门禁冲突。
+- [x] **步骤4 验证通过。** 重跑步骤2命令；运维全部目标测试、Node兼容门禁通过；用临时镜像/隔离库验证恢复，真实服务器保持原状；原一worker、480秒和数据库保护不放宽。
+- [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'test: 核验主题切换与部署兼容'。提交前 git diff --check 通过，只纳入该任务文件。
 
 ### Task 7 C7 完整用户流程回归与交付
 
