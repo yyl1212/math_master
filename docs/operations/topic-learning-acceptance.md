@@ -259,3 +259,7 @@ aa61214十万容量在源commit阶段触发原5分钟超时，尚未进入迁入
 初次clone后清理因专用2GiB临时盘被此前超时遗留随机库占满失败；已仅按原配置重建本任务2CPU/2GiB/50649临时PG，未触及实际开发库55432/55433。再次prepare原库清理、migration副本清理及文件删除均成功。最新两步CI仍需相同提交全部六项成功，旧SHA状态不替代。
 
 - Ruling: 用户明确选择准备与迁入各独立5分钟，拆为Prepare/Migrate两个命名测试，同topic_verify私有600交接文件仅随机库名/nonce/源SHA；准备关闭源连接后克隆自有随机测试库，原库仍由原testutil删除；迁入核库内nonce/源SHA及100000/500/零旧迁入，再2000×50串行验证；正常及CI always有限清理 — 用户选项直接覆盖原单测试步骤，保持原最大1000/32MiB/500/100000及全部守卫和8秒，不使用已还原的填充缩减实验 — 若交接身份不严会碰其他数据，随机库名/严格配置/600属主/非符号链接/字段与canonical字节/nonce和SHA均校验，删除只允许本测试库；未知身份拒绝，文件不上传/不含凭据。
+
+两步容量交接路径由step运行时$RUNNER_TEMP写入$GITHUB_ENV，避免job env不支持runner上下文导致的workflow静态拒绝。新增具名上下文门禁实际RED→GREEN；没有改变预算、规模或迁入代码。
+
+- Ruling: 两步容量私有路径在step运行时由$RUNNER_TEMP写入$GITHUB_ENV，不在job env使用runner表达式 — 59983ff后端workflow零job静态拒绝，job上下文runner不可用；新增具名context门禁实际RED后修正 — 若上下文仍错整workflow明确拒绝，预算/案例/源交接身份不变，完整工具门禁及远端实际启动核验。

@@ -2500,7 +2500,7 @@
         "reason": "完整原verify job已用近30分钟，新增主题学习容量被取消；仅把A/B新增五个主题步骤移入独立topic_verify job，同样30分钟/5m/全部容量，原业务步骤保持。"
       },
       "cutover": {
-        "sha256": "73475847640598b56ea3ce7e259b8d54f656494ebf63d00bc55dda7bd4bf915f",
+        "sha256": "98c33d5c29cd965c5828ad03e5bf124b04fab076eba8bb615e47c8cc79accbdc",
         "reason": "用户明确选择准备与迁入各独立5分钟；原最大规模/守卫保持，私有nonce交接专用随机库及always有限清理，原所有其他步骤/预算不变。"
       }
     },

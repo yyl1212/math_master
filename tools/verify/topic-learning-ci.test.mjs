@@ -18,4 +18,8 @@ test('cutover capacity preparation and migration have independent five minute bu
  assert(topic.includes("-run '^TestTopicCutoverCapacityMigrate$' -timeout 5m -count=1 -v"));
  assert(/if: always\(\)[\s\S]*-run '\^TestTopicCutoverCapacityCleanup\$' -timeout 1m/.test(topic));
  assert(!topic.includes("-run '^TestTopicCutoverCapacity$'"));
+ const jobEnv=topic.slice(topic.indexOf('    env:'),topic.indexOf('    services:'));
+ assert(!jobEnv.includes('${{ runner.'),'runner context belongs to step runtime');
+ assert(topic.includes('TOPIC_CUTOVER_CAPACITY_RECEIPT=$RUNNER_TEMP/topic-cutover-capacity.json'));
+ assert(topic.includes('>> \"$GITHUB_ENV\"')); 
 });
