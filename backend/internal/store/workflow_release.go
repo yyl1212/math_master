@@ -378,11 +378,19 @@ func (s *Store) insertWorkflowPublication(ctx context.Context, tx *sql.Tx, u aut
 	if _, err = tx.ExecContext(ctx, `INSERT INTO publication_snapshots VALUES($1,$2,$3)`, id, candidate.Manifest.CatalogueVersion, status); err != nil {
 		return out, err
 	}
+	// One bounded statement preserves the same member values and all row/constraint
+	// triggers, without thousands of network round trips inside the 8-second tx.
+	members := make([]map[string]any, 0, len(candidate.Manifest.Members))
 	for _, member := range candidate.Manifest.Members {
 		m := member.Identity
-		if _, err = tx.ExecContext(ctx, `INSERT INTO publication_members VALUES($1,$2,$3,$4,$5,$6,'active')`, id, m.PackageID, m.PackageVersion, m.Kind, m.ID, m.Version); err != nil {
-			return out, err
-		}
+		members = append(members, map[string]any{"package_id": m.PackageID, "package_version": m.PackageVersion, "kind": m.Kind, "id": m.ID, "version": m.Version})
+	}
+	memberBytes, err := json.Marshal(members)
+	if err != nil {
+		return out, err
+	}
+	if _, err = tx.ExecContext(ctx, `INSERT INTO publication_members(snapshot_id,package_id,package_version,kind,id,version,availability) SELECT $1,x.package_id,x.package_version,x.kind,x.id,x.version,'active' FROM jsonb_to_recordset($2::jsonb) x(package_id text,package_version integer,kind text,id text,version integer)`, id, string(memberBytes)); err != nil {
+		return out, err
 	}
 	_, err = tx.ExecContext(ctx, `INSERT INTO content_publication_manifests(snapshot_id,base_head,manifest,manifest_bytes,sha256,diff,creator_user_id,created_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8)`, id, candidate.Manifest.BaseHead, string(raw), raw, sha, body(candidate.Diff), u.ID, now)
 	return out, err
@@ -404,7 +412,12 @@ func (s *Store) workflowReleaseReviewers(ctx context.Context, a publication.Acce
 				}
 			}
 		}
+		seen := map[string]bool{}
 		for _, id := range ids {
+			if seen[id] {
+				continue
+			}
+			seen[id] = true
 			var reviewer string
 			err := tx.QueryRowContext(ctx, `SELECT reviewer_user_id::text FROM content_review_decisions WHERE submission_id=$1 AND decision='approve'`, id).Scan(&reviewer)
 			if err == sql.ErrNoRows {
