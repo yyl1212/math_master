@@ -21,5 +21,5 @@ test('cutover capacity preparation and migration have independent five minute bu
  const jobEnv=topic.slice(topic.indexOf('    env:'),topic.indexOf('    services:'));
  assert(!jobEnv.includes('${{ runner.'),'runner context belongs to step runtime');
  assert(topic.includes('TOPIC_CUTOVER_CAPACITY_RECEIPT=$RUNNER_TEMP/topic-cutover-capacity.json'));
- assert(topic.includes('>> \"$GITHUB_ENV\"')); 
+ assert(topic.includes('>> \"$GITHUB_ENV\"'));
 });
