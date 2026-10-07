@@ -1,3 +1,6 @@
+import {readExperienceMode} from "@/lib/study/mode";
+import {StudyUnavailable} from "@/features/study/pages";
+import {RetiredModule} from "@/features/study/retired-module";
 import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 export async function generateMetadata(){return getUiMetadata("page.admin.question-publications.id");}
@@ -11,7 +14,7 @@ import type { PublicationPage as ContentPublicationPage } from "@/lib/content/ty
 import type { PublicationPage, PublicationSummary } from "@/lib/question/types";
 import { questionUUID } from "@/lib/question/schemas";
 
-export default async function Page({ params }: {
+async function LegacyPage({ params }: {
     params: Promise<{
         id: string;
     }>;
@@ -21,3 +24,5 @@ export default async function Page({ params }: {
     return <><UiPageTitle messageKey="page.admin.question-publications.id"/>{<QuestionState status={selected.status} code={selected.code}/>}</>; if (!r.ok)
     return <><UiPageTitle messageKey="page.admin.question-publications.id"/>{<QuestionState status={r.status} code={r.code}/>}</>; if (!k.ok)
     return <><UiPageTitle messageKey="page.admin.question-publications.id"/>{<QuestionState status={k.status} code={k.code}/>}</>; return <><UiPageTitle messageKey="page.admin.question-publications.id"/>{<PublicationPanel initial={r.data} knowledgeHead={k.data.head} selectedPublication={selected.data}/>}</>; }
+
+export default async function Page(props:Parameters<typeof LegacyPage>[0]){const mode=await readExperienceMode();if(mode===null)return <StudyUnavailable/>;if(mode==="topics")return <RetiredModule/>;return <LegacyPage {...props}/>}

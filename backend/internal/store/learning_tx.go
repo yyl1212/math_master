@@ -9,6 +9,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"time"
 )
 
@@ -55,7 +56,7 @@ func learningError(err error) error {
 	if err == nil {
 		return nil
 	}
-	for _, known := range []error{correction.ErrNotConfigured, learning.ErrNotConfigured, learning.ErrVersionStale, learning.ErrPrerequisitesUnmet, learning.ErrAssessmentNotReady, learning.ErrAssessmentActive, learning.ErrAssessmentExpired, learning.ErrStateConflict, learning.ErrAnswerFormatInvalid, question.ErrIdempotencyConflict, question.ErrInvalid, question.ErrLimitExceeded, question.ErrImmutableConflict} {
+	for _, known := range []error{study.ErrModuleRetired, study.ErrNotConfigured, correction.ErrNotConfigured, learning.ErrNotConfigured, learning.ErrVersionStale, learning.ErrPrerequisitesUnmet, learning.ErrAssessmentNotReady, learning.ErrAssessmentActive, learning.ErrAssessmentExpired, learning.ErrStateConflict, learning.ErrAnswerFormatInvalid, question.ErrIdempotencyConflict, question.ErrInvalid, question.ErrLimitExceeded, question.ErrImmutableConflict} {
 		if errors.Is(err, known) {
 			return err
 		}
@@ -107,6 +108,11 @@ func (s *Store) learningTx(ctx context.Context, a question.Access, action learni
 		return learningError(err)
 	}
 	defer tx.Rollback()
+	if !learning.IsRead(action) {
+		if e := topicLegacyWriteGuard(ctx, tx, true); e != nil {
+			return e
+		}
+	}
 	enabled, err := learningConfigured(ctx, tx)
 	if err != nil {
 		return learningError(err)
@@ -152,6 +158,11 @@ func (s *Store) LearningPreflight(ctx context.Context, a question.Access, action
 		return auth.User{}, learningError(err)
 	}
 	defer tx.Rollback()
+	if !learning.IsRead(action) {
+		if e := topicLegacyWriteGuard(ctx, tx, false); e != nil {
+			return auth.User{}, e
+		}
+	}
 	enabled, err := learningConfigured(ctx, tx)
 	if err != nil {
 		return auth.User{}, learningError(err)

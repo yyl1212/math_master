@@ -1,5 +1,10 @@
-import type {MessageKey} from "../types";
+import type {
+MessageKey} from "../types";
 export const zhMessages = {
+  "study.retired.title": "此模块已停用",
+  "study.retired.body": "请按主题继续学习，原有记录仍可在受保护的档案中查看。",
+  "study.archive.title": "旧学习档案",
+  "study.archive.active": "此旧尝试不再接受新操作，原状态与答案保持不变。",
   "study.overview": "学习概览",
   "study.total": "可学习知识点",
   "study.topics": "主题学习进度",

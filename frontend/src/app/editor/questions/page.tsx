@@ -1,3 +1,6 @@
+import {readExperienceMode} from "@/lib/study/mode";
+import {StudyUnavailable} from "@/features/study/pages";
+import {RetiredModule} from "@/features/study/retired-module";
 import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 export async function generateMetadata(){return getUiMetadata("page.editor.questions");}
@@ -8,6 +11,8 @@ export const dynamic = "force-dynamic";
 import { DraftList } from "@/features/question/draft-list";
 import type { DraftPage } from "@/lib/question/types";
 
-export default async function Page() { const access = await questionPageAccess(["editor", "admin"]); if ("error" in access)
+async function LegacyPage() { const access = await questionPageAccess(["editor", "admin"]); if ("error" in access)
     return <><UiPageTitle messageKey="page.editor.questions"/>{access.error}</>; const canEdit = access.user.roles.includes("editor"), r = await readServerQuestion<DraftPage>({ kind: "listDrafts", query: { scope: canEdit ? "mine" : "all", limit: 20 } }, access.cookie); if (!r.ok)
     return <><UiPageTitle messageKey="page.editor.questions"/>{<QuestionState status={r.status} code={r.code}/>}</>; return <><UiPageTitle messageKey="page.editor.questions"/>{<DraftList initial={r.data} canEdit={canEdit}/>}</>; }
+
+export default async function Page(){const mode=await readExperienceMode();if(mode===null)return <StudyUnavailable/>;if(mode==="topics")return <RetiredModule/>;return <LegacyPage/>}

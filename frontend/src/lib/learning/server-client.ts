@@ -7,8 +7,9 @@ import { validateContentSVG } from "../content/svg";
 import { learningAwait } from "./bytes";
 import { learningFailure, learningRouteRequest, readLearningResponse } from "./schemas";
 import type { LearningReadClient, LearningResult, LearningRoute } from "./types";
-async function read<T>(route: LearningRoute): Promise<LearningResult<T>> { const target = learningRouteRequest(route); if (!target || target.method !== "GET")
-    return learningFailure("INVALID_REQUEST"); const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 10000); try {
+async function read<T>(route: LearningRoute,outerSignal?:AbortSignal): Promise<LearningResult<T>> { const target = learningRouteRequest(route); if (!target || target.method !== "GET")
+    return learningFailure("INVALID_REQUEST"); const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 10000); const abort=()=>controller.abort();outerSignal?.addEventListener("abort",abort,{once:true});try {
+    if(outerSignal?.aborted)return learningFailure();
     const config = getAuthConfig(), origin = getGoOrigin(), jar = await learningAwait(cookies(), controller.signal), cookie = selectAuthCookies(jar.toString(), config.production, true);
     const response = await learningAwait(fetch(origin + target.path, { method: "GET", headers: { Accept: route.kind === "readAsset" ? "image/svg+xml" : "application/json", ...(cookie ? { Cookie: cookie } : {}) }, cache: "no-store", redirect: "error", signal: controller.signal }), controller.signal);
     return await readLearningResponse(response, route, controller.signal, validateContentSVG) as LearningResult<T>;
@@ -17,11 +18,11 @@ catch (e) {
     return learningFailure(e instanceof AuthNotConfiguredError ? "AUTH_NOT_CONFIGURED" : "SERVICE_UNAVAILABLE");
 }
 finally {
-    clearTimeout(timer);
+    clearTimeout(timer);outerSignal?.removeEventListener("abort",abort);
 } }
 // No client or private response is stored globally; cookies are read for each call.
-export function getLearningClient(): LearningReadClient {
+export function getLearningClient(signal?:AbortSignal): LearningReadClient {
     return {
-        readLearningOverview: () => read({ kind: "readOverview" }), listLearningKnowledge: query => read({ kind: "listKnowledge", query }), readLearningKnowledge: (id, version) => read({ kind: "readKnowledge", id, version }), listLearningPaths: query => read({ kind: "listPaths", query }), readLearningPath: id => read({ kind: "readPath", id }), listLearningPathNodes: (id, query) => read({ kind: "listPathNodes", id, query }), readPractice: id => read({ kind: "readPractice", id }), readAssessment: id => read({ kind: "readAssessment", id }), readAssessmentResult: id => read({ kind: "readAssessmentResult", id }), listLearningHistory: query => read({ kind: "listHistory", query }), readLearningAsset: (id, sha) => read({ kind: "readAsset", id, sha })
+        readLearningOverview: () => read({ kind: "readOverview" },signal), listLearningKnowledge: query => read({ kind: "listKnowledge", query },signal), readLearningKnowledge: (id, version) => read({ kind: "readKnowledge", id, version },signal), listLearningPaths: query => read({ kind: "listPaths", query },signal), readLearningPath: id => read({ kind: "readPath", id },signal), listLearningPathNodes: (id, query) => read({ kind: "listPathNodes", id, query },signal), readPractice: id => read({ kind: "readPractice", id },signal), readAssessment: id => read({ kind: "readAssessment", id },signal), readAssessmentResult: id => read({ kind: "readAssessmentResult", id },signal), listLearningHistory: query => read({ kind: "listHistory", query },signal), readLearningAsset: (id, sha) => read({ kind: "readAsset", id, sha },signal)
     };
 }

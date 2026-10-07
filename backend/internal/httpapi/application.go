@@ -10,18 +10,19 @@ import (
 )
 
 type AuthOptions struct {
-	Study        *StudyOptions
-	Taxonomy     *TaxonomyOptions
-	Correction   *CorrectionOptions
-	Notification *NotificationOptions
-	Feedback     *FeedbackOptions
-	Learning     *LearningOptions
-	Question     *QuestionOptions
-	Content      *ContentOptions
-	Accounts     *auth.Service
-	Admin        *auth.AdminService
-	PublicOrigin string
-	Production   bool
+	ExperienceMode ExperienceModeReader
+	Study          *StudyOptions
+	Taxonomy       *TaxonomyOptions
+	Correction     *CorrectionOptions
+	Notification   *NotificationOptions
+	Feedback       *FeedbackOptions
+	Learning       *LearningOptions
+	Question       *QuestionOptions
+	Content        *ContentOptions
+	Accounts       *auth.Service
+	Admin          *auth.AdminService
+	PublicOrigin   string
+	Production     bool
 }
 type privateRoute struct{ kind, method, target string }
 
@@ -52,6 +53,14 @@ func routePrivate(path string) (privateRoute, bool) {
 func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) http.Handler {
 	public := NewHandler(reader, pinger)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if options.ExperienceMode != nil && retirementPolicy("topics", RetirementRoute{Method: r.Method, Path: r.URL.Path}) == "retired" {
+			ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
+			defer cancel()
+			r = r.WithContext(ctx)
+		}
+		if serveTopicRetirement(w, r, options.ExperienceMode) {
+			return
+		}
 		path := r.URL.Path
 		if path == "/api/v2/study" || strings.HasPrefix(path, "/api/v2/study/") {
 			o := StudyOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}

@@ -106,7 +106,7 @@ if status != 409 || responseContainsDiscussion { t.Fatal("legacy overlap bypasse
 
 **Interfaces（接口）：** retirementPolicy(mode taxonomy.ExperienceMode,route RetirementRoute) ('allow'|'retired'|'historical-read') 根据精确方法与路由判断，不按前缀一刀切；RetirementRoute={Method,Path,Module,Action string}仅由服务端路由解析生成，taxonomy.ExperienceMode='legacy'|'topics'在A3定义。study.ErrModuleRetired是服务层共同哨兵错误，HTTP退休响应={error:{code:'MODULE_RETIRED',message:'This module has been retired.',requestId}}，HTTP410、no-store。Store.ReadExperienceMode(ctx)返回模式，不写DB。数据库事务内写服务还需核验模式，不能只在HTTP上挡请求。
 
-- [ ] **步骤1 写行为失败测试。** TestTopicRetirementExactRouteMatrix 对C范围逐路径/方法断言，legacy允许原成功、topics写410、历史GET受保护、账户和知识发布仍可用；TestTopicRetirementConcurrentCutover 在服务事务barrier后切换，旧写不能提交。浏览器旧active显示停用、原score/answers字节不变、导航无题库/路线。
+- [x] **步骤1 写行为失败测试。** TestTopicRetirementExactRouteMatrix 对C范围逐路径/方法断言，legacy允许原成功、topics写410、历史GET受保护、账户和知识发布仍可用；TestTopicRetirementConcurrentCutover 在服务事务barrier后切换，旧写不能提交。浏览器旧active显示停用、原score/answers字节不变、导航无题库/路线。
 关键断言（放入本任务上列具名测试，局部变量由该用例安排）：
 
 ```go
@@ -114,10 +114,10 @@ if mode == "topics" && status != 410 { t.Fatal("retired write accepted", status)
 if !bytes.Equal(beforeAnswers, afterAnswers) { t.Fatal("legacy facts changed") }
 ```
 
-- [ ] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi ./internal/store -run '^TestTopicRetirement' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
-- [ ] **步骤3 实现交付单元。** 加入请求及事务内当前模式核验，模式改变后幂等重放仍410，不复活旧写。受退出影响的交互写事务先对experience配置行FOR SHARE，再沿用旧锁顺序，持有至提交；仅从未启用新层且无配置的旧库默认legacy，永久标记已启用但配置或结构缺失时503，不退回旧写。旧历史新路径 /learning-history?archive=legacy&attempt=... 明确标档案、本人访问、终态结果走原保护；旧API列表保留安全元数据。新纠错页仅显示知识修订/撤回与回顾提醒，已有旧案件提供受保护历史入口，旧后台重试仅现有任务。
-- [ ] **步骤4 验证通过。** 重跑步骤2命令；新MODULE_RETIRED有中英文词条且生成类型通过；topic-retirement.spec.ts和旧答案/撤回/曝光安全用例分别执行；省略客户端权限不能绕过服务检查。
-- [ ] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 退出路线测评与题库新写流程'。提交前 git diff --check 通过，只纳入该任务文件。
+- [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi ./internal/store -run '^TestTopicRetirement' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
+- [x] **步骤3 实现交付单元。** 加入请求及事务内当前模式核验，模式改变后幂等重放仍410，不复活旧写。受退出影响的交互写事务先对experience配置行FOR SHARE，再沿用旧锁顺序，持有至提交；仅从未启用新层且无配置的旧库默认legacy，永久标记已启用但配置或结构缺失时503，不退回旧写。旧历史新路径 /learning-history?archive=legacy&attempt=... 明确标档案、本人访问、终态结果走原保护；旧API列表保留安全元数据。新纠错页仅显示知识修订/撤回与回顾提醒，已有旧案件提供受保护历史入口，旧后台重试仅现有任务。
+- [x] **步骤4 验证通过。** 重跑步骤2命令；新MODULE_RETIRED有中英文词条且生成类型通过；topic-retirement.spec.ts和旧答案/撤回/曝光安全用例分别执行；省略客户端权限不能绕过服务检查。
+- [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'refactor: 退出路线测评与题库新写流程'。提交前 git diff --check 通过，只纳入该任务文件。
 
 ### Task 3 C3 迁入真实学习事件
 

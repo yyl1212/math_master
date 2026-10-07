@@ -29,6 +29,7 @@ const (
 )
 
 var (
+	ErrModuleRetired       = errors.New("module retired")
 	ErrInvalid             = errors.New("invalid study input")
 	ErrNotConfigured       = errors.New("study not configured")
 	ErrStateConflict       = errors.New("study state conflict")

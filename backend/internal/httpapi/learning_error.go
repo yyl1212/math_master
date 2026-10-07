@@ -6,6 +6,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"net/http"
 )
 
@@ -16,6 +17,8 @@ func learningError(w http.ResponseWriter, r *http.Request, e error) {
 	var active *learning.ActiveAttemptError
 	var notReady *learning.NotReadyError
 	switch {
+	case errors.Is(e, study.ErrModuleRetired):
+		status, code, message = 410, "MODULE_RETIRED", "This module has been retired."
 	case errors.Is(e, learning.ErrNotConfigured):
 		status, code, message = 503, "LEARNING_NOT_CONFIGURED", "Learning is temporarily unavailable."
 	case errors.Is(e, learning.ErrVersionStale):

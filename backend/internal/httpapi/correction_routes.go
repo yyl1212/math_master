@@ -220,7 +220,8 @@ func serveCorrection(w http.ResponseWriter, r *http.Request, o CorrectionOptions
 	r = r.Clone(ctx)
 	r.Header = r.Header.Clone()
 	r.Header.Set("X-Request-ID", id)
-	_ = http.NewResponseController(w).SetReadDeadline(time.Now().Add(8 * time.Second))
+	deadline, _ := ctx.Deadline()
+	_ = http.NewResponseController(w).SetReadDeadline(deadline)
 	fail := func(e error) {
 		if ctx.Err() != nil {
 			e = auth.ErrUnavailable

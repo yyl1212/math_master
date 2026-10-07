@@ -3639,6 +3639,38 @@
       "scenarios": [
         "tests/e2e/ui-language-study.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/features/study/retired-module.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.retired.title",
+        "study.retired.body",
+        "study.archive.title"
+      ],
+      "rawDataAreas": [
+        "旧知识标识、版本、原答案和成绩、UTC时间；原记录不翻译或改写，私人笔记不进入档案公开字段"
+      ],
+      "scenarios": [
+        "tests/e2e/topic-retirement.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/legacy-archive.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.archive.title",
+        "study.archive.active",
+        "study.retired.body"
+      ],
+      "rawDataAreas": [
+        "旧知识标识、版本、原答案和成绩、UTC时间；原记录不翻译或改写，私人笔记不进入档案公开字段"
+      ],
+      "scenarios": [
+        "tests/e2e/topic-retirement.spec.ts"
+      ]
     }
   ]
 }

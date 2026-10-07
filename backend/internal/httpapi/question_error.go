@@ -5,6 +5,7 @@ import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/question"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"net/http"
 )
 
@@ -13,6 +14,8 @@ var errQuestionPayloadTooLarge = errors.New("question request too large")
 func questionError(w http.ResponseWriter, r *http.Request, e error) {
 	status, code, message := 0, "", ""
 	switch {
+	case errors.Is(e, study.ErrModuleRetired):
+		status, code, message = 410, "MODULE_RETIRED", "This module has been retired."
 	case errors.Is(e, question.ErrDraftConflict):
 		status, code, message = 409, "QUESTION_DRAFT_CONFLICT", "This draft has changed. Reload before continuing."
 	case errors.Is(e, question.ErrPublicationStale):

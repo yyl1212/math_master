@@ -163,6 +163,7 @@ export const questionPolicies: Record<QuestionErrorCode, {
     status: number;
     message: string;
 }> = {
+ MODULE_RETIRED: {status:410,message:"This module has been retired."},
     "INVALID_REQUEST": {
         "status": 400,
         "message": "Invalid request."

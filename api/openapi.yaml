@@ -6657,6 +6657,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -6757,6 +6767,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -6951,6 +6971,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -7050,6 +7080,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -7159,6 +7199,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -7584,6 +7634,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -7693,6 +7753,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -8213,6 +8283,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -8322,6 +8402,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -8432,6 +8522,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -8532,6 +8632,16 @@
           },
           "503": {
             "$ref": "#/components/responses/QuestionError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuestionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9010,6 +9120,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9117,6 +9237,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9224,6 +9354,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9604,6 +9744,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9794,6 +9944,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -9900,6 +10060,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -10006,6 +10176,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -10103,6 +10283,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -10293,6 +10483,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -10399,6 +10599,16 @@
           },
           "503": {
             "$ref": "#/components/responses/LearningError503"
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LearningError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -16151,6 +16361,16 @@
                 }
               }
             }
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -17172,6 +17392,16 @@
                 }
               }
             }
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -17857,6 +18087,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
             "content": {
               "application/json": {
                 "schema": {
@@ -18558,6 +18798,16 @@
                 }
               }
             }
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -18908,6 +19158,16 @@
                 }
               }
             },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CorrectionError"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。",
             "content": {
               "application/json": {
                 "schema": {
@@ -32220,7 +32480,8 @@
           "RATE_LIMITED",
           "QUESTION_BANK_NOT_CONFIGURED",
           "AUTH_NOT_CONFIGURED",
-          "SERVICE_UNAVAILABLE"
+          "SERVICE_UNAVAILABLE",
+          "MODULE_RETIRED"
         ]
       },
       "QuestionError": {
@@ -34727,7 +34988,8 @@
           "USERNAME_UNAVAILABLE",
           "ALREADY_AUTHENTICATED",
           "LAST_ADMIN_REQUIRED",
-          "REAUTHENTICATION_REQUIRED"
+          "REAUTHENTICATION_REQUIRED",
+          "MODULE_RETIRED"
         ]
       },
       "LearningError": {
@@ -39351,7 +39613,8 @@
                   "CORRECTION_CONFLICT",
                   "CORRECTION_SOURCE_STALE",
                   "CORRECTION_ANSWER_OVERLAP",
-                  "CORRECTION_LEASE_LOST"
+                  "CORRECTION_LEASE_LOST",
+                  "MODULE_RETIRED"
                 ]
               },
               "message": {

@@ -49,7 +49,7 @@ func run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 	repo := store.New(db)
-	options := httpapi.AuthOptions{PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
+	options := httpapi.AuthOptions{ExperienceMode: repo, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
 	if c.PublicOrigin != "" {
 		hasher := auth.NewArgon2Hasher(rand.Reader)
 		options.Accounts, err = auth.NewService(repo, hasher, rand.Reader)

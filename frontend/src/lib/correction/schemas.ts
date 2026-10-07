@@ -198,7 +198,7 @@ function responseSchema(action: CorrectionRoute['action']) { switch (action) {
     case 'readOwnDetail': return resultDetailSchema;
     case 'readOwnAsset': throw new CorrectionRequestError('INVALID_REQUEST');
 } }
-const errorCodes = ['INVALID_REQUEST', 'INVALID_COOKIE', 'AUTHENTICATION_REQUIRED', 'CSRF_FAILED', 'FORBIDDEN', 'NOT_FOUND', 'METHOD_NOT_ALLOWED', 'PASSWORD_CHANGE_REQUIRED', 'RATE_LIMITED', 'IDEMPOTENCY_CONFLICT', 'SERVICE_UNAVAILABLE', 'REAUTHENTICATION_REQUIRED', 'CORRECTION_NOT_CONFIGURED', 'CORRECTION_CONFLICT', 'CORRECTION_SOURCE_STALE', 'CORRECTION_ANSWER_OVERLAP', 'CORRECTION_LEASE_LOST'] as const;
+const errorCodes = ['MODULE_RETIRED','INVALID_REQUEST', 'INVALID_COOKIE', 'AUTHENTICATION_REQUIRED', 'CSRF_FAILED', 'FORBIDDEN', 'NOT_FOUND', 'METHOD_NOT_ALLOWED', 'PASSWORD_CHANGE_REQUIRED', 'RATE_LIMITED', 'IDEMPOTENCY_CONFLICT', 'SERVICE_UNAVAILABLE', 'REAUTHENTICATION_REQUIRED', 'CORRECTION_NOT_CONFIGURED', 'CORRECTION_CONFLICT', 'CORRECTION_SOURCE_STALE', 'CORRECTION_ANSWER_OVERLAP', 'CORRECTION_LEASE_LOST'] as const;
 const errorSchema = z.object({ error: z.object({ code: z.enum(errorCodes), message: text, requestId: z.string().regex(/^(?:[0-9a-f]{32}|unavailable)$/), retryAt: timeSchema.optional() }).strict() }).strict();
 export async function readPrivateCorrectionJSON(response: Response, signal: AbortSignal): Promise<unknown> {
     try {

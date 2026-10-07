@@ -71,6 +71,7 @@ export const errorKeys={
     "TRANSFER_UNAVAILABLE": "content.error.TRANSFER_UNAVAILABLE"
   },
   "question": {
+ "MODULE_RETIRED":"study.retired.title",
     "INVALID_REQUEST": "question.error.INVALID_REQUEST",
     "INVALID_COOKIE": "question.error.INVALID_COOKIE",
     "AUTHENTICATION_REQUIRED": "question.error.AUTHENTICATION_REQUIRED",
@@ -97,6 +98,7 @@ export const errorKeys={
     "SERVICE_UNAVAILABLE": "question.error.SERVICE_UNAVAILABLE"
   },
   "learning": {
+ "MODULE_RETIRED":"study.retired.title",
     "LEARNING_NOT_CONFIGURED": "learning.error.LEARNING_NOT_CONFIGURED",
     "LEARNING_VERSION_STALE": "learning.error.LEARNING_VERSION_STALE",
     "LEARNING_PREREQUISITES_UNMET": "learning.error.LEARNING_PREREQUISITES_UNMET",
@@ -142,6 +144,7 @@ export const errorKeys={
     "FEEDBACK_ANSWER_OVERLAP": "feedback.error.FEEDBACK_ANSWER_OVERLAP"
   },
   "correction": {
+ "MODULE_RETIRED":"study.retired.title",
     "INVALID_REQUEST": "correction.error.INVALID_REQUEST",
     "INVALID_COOKIE": "correction.error.INVALID_COOKIE",
     "AUTHENTICATION_REQUIRED": "correction.error.AUTHENTICATION_REQUIRED",

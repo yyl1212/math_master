@@ -3371,7 +3371,7 @@ export interface components {
         };
         QuestionEmptyInput: Record<string, never>;
         /** @enum {string} */
-        QuestionErrorCode: "INVALID_REQUEST" | "INVALID_COOKIE" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "QUESTION_DRAFT_CONFLICT" | "QUESTION_PUBLICATION_STALE" | "REVIEW_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "IMMUTABLE_CONFLICT" | "VERSION_CONFLICT" | "PAYLOAD_TOO_LARGE" | "QUESTION_INVALID" | "QUESTION_NOT_READY" | "QUESTION_LIMIT_EXCEEDED" | "REVIEW_REQUIRED" | "REAUTHENTICATION_REQUIRED" | "RATE_LIMITED" | "QUESTION_BANK_NOT_CONFIGURED" | "AUTH_NOT_CONFIGURED" | "SERVICE_UNAVAILABLE";
+        QuestionErrorCode: "INVALID_REQUEST" | "INVALID_COOKIE" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "QUESTION_DRAFT_CONFLICT" | "QUESTION_PUBLICATION_STALE" | "REVIEW_CONFLICT" | "IDEMPOTENCY_CONFLICT" | "IMMUTABLE_CONFLICT" | "VERSION_CONFLICT" | "PAYLOAD_TOO_LARGE" | "QUESTION_INVALID" | "QUESTION_NOT_READY" | "QUESTION_LIMIT_EXCEEDED" | "REVIEW_REQUIRED" | "REAUTHENTICATION_REQUIRED" | "RATE_LIMITED" | "QUESTION_BANK_NOT_CONFIGURED" | "AUTH_NOT_CONFIGURED" | "SERVICE_UNAVAILABLE" | "MODULE_RETIRED";
         QuestionError: {
             error: {
                 /** @constant */
@@ -3884,7 +3884,7 @@ export interface components {
             progress: components["schemas"]["LearningProgressUpdate"];
         };
         /** @enum {string} */
-        LearningErrorCode: "LEARNING_NOT_CONFIGURED" | "LEARNING_VERSION_STALE" | "LEARNING_PREREQUISITES_UNMET" | "ASSESSMENT_NOT_READY" | "ASSESSMENT_ACTIVE" | "ASSESSMENT_EXPIRED" | "ASSESSMENT_STATE_CONFLICT" | "ANSWER_FORMAT_INVALID" | "INVALID_REQUEST" | "INVALID_COOKIE" | "INVALID_CREDENTIALS" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "IDEMPOTENCY_CONFLICT" | "PAYLOAD_TOO_LARGE" | "RATE_LIMITED" | "SERVICE_UNAVAILABLE" | "AUTH_NOT_CONFIGURED" | "USERNAME_UNAVAILABLE" | "ALREADY_AUTHENTICATED" | "LAST_ADMIN_REQUIRED" | "REAUTHENTICATION_REQUIRED";
+        LearningErrorCode: "LEARNING_NOT_CONFIGURED" | "LEARNING_VERSION_STALE" | "LEARNING_PREREQUISITES_UNMET" | "ASSESSMENT_NOT_READY" | "ASSESSMENT_ACTIVE" | "ASSESSMENT_EXPIRED" | "ASSESSMENT_STATE_CONFLICT" | "ANSWER_FORMAT_INVALID" | "INVALID_REQUEST" | "INVALID_COOKIE" | "INVALID_CREDENTIALS" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "IDEMPOTENCY_CONFLICT" | "PAYLOAD_TOO_LARGE" | "RATE_LIMITED" | "SERVICE_UNAVAILABLE" | "AUTH_NOT_CONFIGURED" | "USERNAME_UNAVAILABLE" | "ALREADY_AUTHENTICATED" | "LAST_ADMIN_REQUIRED" | "REAUTHENTICATION_REQUIRED" | "MODULE_RETIRED";
         LearningError: {
             error: {
                 /** @constant */
@@ -4840,7 +4840,7 @@ export interface components {
         CorrectionError: {
             error: {
                 /** @enum {string} */
-                code: "INVALID_REQUEST" | "INVALID_COOKIE" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "PASSWORD_CHANGE_REQUIRED" | "RATE_LIMITED" | "IDEMPOTENCY_CONFLICT" | "SERVICE_UNAVAILABLE" | "REAUTHENTICATION_REQUIRED" | "CORRECTION_NOT_CONFIGURED" | "CORRECTION_CONFLICT" | "CORRECTION_SOURCE_STALE" | "CORRECTION_ANSWER_OVERLAP" | "CORRECTION_LEASE_LOST";
+                code: "INVALID_REQUEST" | "INVALID_COOKIE" | "AUTHENTICATION_REQUIRED" | "CSRF_FAILED" | "FORBIDDEN" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "PASSWORD_CHANGE_REQUIRED" | "RATE_LIMITED" | "IDEMPOTENCY_CONFLICT" | "SERVICE_UNAVAILABLE" | "REAUTHENTICATION_REQUIRED" | "CORRECTION_NOT_CONFIGURED" | "CORRECTION_CONFLICT" | "CORRECTION_SOURCE_STALE" | "CORRECTION_ANSWER_OVERLAP" | "CORRECTION_LEASE_LOST" | "MODULE_RETIRED";
                 message: string;
                 requestId: string;
                 /** Format: date-time */
@@ -8386,6 +8386,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -8428,6 +8437,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -8508,6 +8526,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -8549,6 +8576,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -8593,6 +8629,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -8751,6 +8796,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -8795,6 +8849,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -8990,6 +9053,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -9034,6 +9106,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -9076,6 +9157,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -9118,6 +9208,15 @@ export interface operations {
             404: components["responses"]["QuestionError404"];
             405: components["responses"]["QuestionError405"];
             409: components["responses"]["QuestionError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["QuestionError"];
+                };
+            };
             413: components["responses"]["QuestionError413"];
             422: components["responses"]["QuestionError422"];
             428: components["responses"]["QuestionError428"];
@@ -9306,6 +9405,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9349,6 +9457,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9392,6 +9509,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9542,6 +9668,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9620,6 +9755,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9663,6 +9807,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9706,6 +9859,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9747,6 +9909,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9825,6 +9996,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -9868,6 +10048,15 @@ export interface operations {
             404: components["responses"]["LearningError404"];
             405: components["responses"]["LearningError405"];
             409: components["responses"]["LearningError409"];
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LearningError"];
+                };
+            };
             413: components["responses"]["LearningError413"];
             428: components["responses"]["LearningError428"];
             429: components["responses"]["LearningError429"];
@@ -12113,6 +12302,15 @@ export interface operations {
                     "application/json": components["schemas"]["CorrectionError"];
                 };
             };
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
             /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
             428: {
                 headers: {
@@ -12521,6 +12719,15 @@ export interface operations {
                     "application/json": components["schemas"]["CorrectionError"];
                 };
             };
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
             /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
             428: {
                 headers: {
@@ -12789,6 +12996,15 @@ export interface operations {
                     "Cache-Control"?: "private, no-store";
                     "X-Content-Type-Options"?: "nosniff";
                     "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
                     [name: string]: unknown;
                 };
                 content: {
@@ -13069,6 +13285,15 @@ export interface operations {
                     "application/json": components["schemas"]["CorrectionError"];
                 };
             };
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
             /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
             428: {
                 headers: {
@@ -13203,6 +13428,15 @@ export interface operations {
                     "Cache-Control"?: "private, no-store";
                     "X-Content-Type-Options"?: "nosniff";
                     "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["CorrectionError"];
+                };
+            };
+            /** @description topics模式下该旧交互写功能已停用，原历史读取和冻结事实保留。 */
+            410: {
+                headers: {
                     [name: string]: unknown;
                 };
                 content: {

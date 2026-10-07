@@ -1,4 +1,8 @@
 export const enMessages = {
+  "study.retired.title": {"text": "This module has been retired.", "params": []},
+  "study.retired.body": {"text": "Continue learning by topic. Your protected historical records remain available.", "params": []},
+  "study.archive.title": {"text": "Legacy learning archive", "params": []},
+  "study.archive.active": {"text": "This old attempt is inactive for new commands. Its original state and answers are preserved.", "params": []},
   "study.overview": {"text": "Your study overview", "params": []},
   "study.total": {"text": "Available knowledge", "params": []},
   "study.topics": {"text": "Topic progress", "params": []},

@@ -9,6 +9,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/question"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"time"
 )
 
@@ -21,7 +22,7 @@ func questionError(err error) error {
 	if errors.Is(err, ErrImmutableConflict) {
 		return question.ErrImmutableConflict
 	}
-	for _, known := range []error{correction.ErrNotConfigured, learning.ErrNotConfigured, question.ErrDraftConflict, question.ErrPublicationStale, question.ErrReviewConflict, question.ErrIdempotencyConflict, question.ErrImmutableConflict, question.ErrVersionConflict, question.ErrInvalid, question.ErrNotReady, question.ErrLimitExceeded, question.ErrReviewRequired, question.ErrNotConfigured} {
+	for _, known := range []error{study.ErrModuleRetired, study.ErrNotConfigured, correction.ErrNotConfigured, learning.ErrNotConfigured, question.ErrDraftConflict, question.ErrPublicationStale, question.ErrReviewConflict, question.ErrIdempotencyConflict, question.ErrImmutableConflict, question.ErrVersionConflict, question.ErrInvalid, question.ErrNotReady, question.ErrLimitExceeded, question.ErrReviewRequired, question.ErrNotConfigured} {
 		if errors.Is(err, known) {
 			return known
 		}
@@ -68,6 +69,11 @@ func (s *Store) questionTx(ctx context.Context, a question.Access, action questi
 		return questionError(err)
 	}
 	defer tx.Rollback()
+	if !question.IsRead(action) {
+		if e := topicLegacyWriteGuard(ctx, tx, true); e != nil {
+			return e
+		}
+	}
 	if _, err = tx.ExecContext(ctx, `SET LOCAL lock_timeout='1s'`); err != nil {
 		return questionError(err)
 	}
@@ -100,6 +106,11 @@ func (s *Store) questionReadTx(ctx context.Context, a question.Access, action qu
 		return questionError(err)
 	}
 	defer tx.Rollback()
+	if !question.IsRead(action) {
+		if e := topicLegacyWriteGuard(ctx, tx, false); e != nil {
+			return e
+		}
+	}
 	if err = questionConfigured(ctx, tx); err != nil {
 		return questionError(err)
 	}
