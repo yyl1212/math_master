@@ -6,6 +6,7 @@ import (
 	"database/sql"
 	"encoding/base64"
 	"encoding/json"
+	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/question"
@@ -139,7 +140,17 @@ func (s *Store) ListFeedbackTickets(ctx context.Context, a question.Access, revi
 			cutTime = c.CreatedAt
 			cutID = c.ID
 		}
-		rows, e := tx.QueryContext(ctx, `SELECT id::text FROM feedback_tickets WHERE ($1::boolean OR owner_user_id=$2) AND ($3='' OR status=$3) AND ($4='' OR category=$4) AND ($5::timestamptz IS NULL OR (created_at,id)<($5::timestamptz,$6::uuid)) ORDER BY created_at DESC,id DESC LIMIT $7`, review, u.ID, feedbackQueryStatus(q), feedbackQueryCategory(q), cutTime, cutID, limit+1)
+		// A missing legacy capability must not hide independent site/knowledge
+		// reports. Filter only legacy sources before pagination; discussions and
+		// direct legacy metadata retain their original fail-closed guards.
+		legacyAvailable := true
+		if e := feedbackSourceConfigured(ctx, tx, feedback.Binding{Source: feedback.Source{Kind: "practice"}}); e != nil {
+			if !errors.Is(e, feedback.ErrNotConfigured) {
+				return e
+			}
+			legacyAvailable = false
+		}
+		rows, e := tx.QueryContext(ctx, `SELECT id::text FROM feedback_tickets WHERE ($1::boolean OR owner_user_id=$2) AND ($3='' OR status=$3) AND ($4='' OR category=$4) AND ($5::timestamptz IS NULL OR (created_at,id)<($5::timestamptz,$6::uuid)) AND ($8::boolean OR source->>'kind' NOT IN ('practice','assessment')) ORDER BY created_at DESC,id DESC LIMIT $7`, review, u.ID, feedbackQueryStatus(q), feedbackQueryCategory(q), cutTime, cutID, limit+1, legacyAvailable)
 		if e != nil {
 			return e
 		}

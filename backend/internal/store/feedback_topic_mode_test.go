@@ -70,3 +70,52 @@ func TestFeedbackTopicModeOwnerCannotHandle(t *testing.T) {
 		t.Fatal("self handling allowed", e)
 	}
 }
+
+func TestFeedbackTopicModeMixedListsPagePastRestrictedLegacy(t *testing.T) {
+	for _, missing := range []string{"question_heads", "learning_records"} {
+		t.Run(missing, func(t *testing.T) {
+			f := newFeedbackFixture(t)
+			knowledge, e := f.repo.CreateFeedback(f.ctx, f.Access("learner_a", false), f.feedbackInput())
+			if e != nil {
+				t.Fatal(e)
+			}
+			legacy := f.instanceFeedback()
+			context, e := f.repo.ReadFeedbackContext(f.ctx, f.Access("learner_a", false), feedback.ContextQuery{Kind: "site", Area: "other"})
+			if e != nil {
+				t.Fatal(e)
+			}
+			in := f.feedbackInput()
+			in.Target = context.Data.Target
+			in.Source = context.Data.Source
+			in.Category = "technical_issue"
+			site, e := f.repo.CreateFeedback(f.ctx, f.Access("learner_a", false), in)
+			if e != nil {
+				t.Fatal(e)
+			}
+			f.exec(`UPDATE topic_learning_state SET experience_mode='topics' WHERE singleton`)
+			f.exec("ALTER TABLE " + missing + " RENAME TO restricted_legacy_table")
+			for _, review := range []bool{false, true} {
+				actor := "learner_a"
+				if review {
+					actor = "reviewer_a"
+				}
+				first, e := f.repo.ListFeedbackTickets(f.ctx, f.Access(actor, false), review, feedback.ListQuery{Limit: 1})
+				if e != nil || len(first.Data.Items) != 1 || first.Data.Items[0].ID != site.Data.Ticket.ID || first.Data.NextCursor == nil {
+					t.Fatal("legacy entry blocked site page", review, e)
+				}
+				next, e := f.repo.ListFeedbackTickets(f.ctx, f.Access(actor, false), review, feedback.ListQuery{Limit: 1, Cursor: *first.Data.NextCursor})
+				if e != nil || len(next.Data.Items) != 1 || next.Data.Items[0].ID != knowledge.Data.Ticket.ID || next.Data.NextCursor != nil {
+					t.Fatal("filtered legacy entry broke knowledge cursor", review, e)
+				}
+				discussion, e := f.repo.ReadFeedbackEvents(f.ctx, f.Access(actor, false), legacy.ID, review, feedback.ListQuery{})
+				if !errors.Is(e, feedback.ErrNotConfigured) || discussion.Data.Title != "" || len(discussion.Data.Items) != 0 {
+					t.Fatal("restricted legacy discussion exposed", review, e)
+				}
+			}
+			other, e := f.repo.ListFeedbackTickets(f.ctx, f.Access("learner_b", false), false, feedback.ListQuery{})
+			if e != nil || len(other.Data.Items) != 0 {
+				t.Fatal("mixed list crossed owner", e)
+			}
+		})
+	}
+}

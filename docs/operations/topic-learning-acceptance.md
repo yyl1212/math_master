@@ -175,3 +175,53 @@ browser-35	0	14.248	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR 
 ### 后续裁决
 
 - Ruling: C7三公开首页/地图/旧板块模式未知时使用原ContentState unavailable及原重试按钮，继续不查询legacy fallback — 完整旧catalogue双视口真实RED，StudyUnavailable属私人学习且无重试，原公开可恢复故障界面必须保留；精确更新既有三具名页面SHA — 若错误会让topics故障回退旧目录，模式null直接return ContentState，不读旧API；全浏览器、兼容门禁核验。
+
+## 唯一独立终审与一次修复
+
+审查者为fresh gpt-6-astra/high，只读审查91219bc..3991b5c，未派生代理。Critical0、Important2、新增Minor0；核心来源迁入、配置屏障、旧保护与隔离恢复可靠。审查发现混合反馈列表被受限旧工单阻断，以及reviewed=true仍显示待回顾；CI构建版本/health测试遗漏按持续保障影响升为Important，同一遍次修复。
+
+- 混合反馈：真实双场景RED（question_heads/learning_records）→GREEN；在分页前只过滤旧保护不可用的practice/assessment，不改targetValidity/API，不删数据；本人/审核游标、另一账户隔离、旧讨论空输出保护均验证。原反馈全套39.257秒、独立容量11.495秒通过。
+- 回顾：组件真实RED→GREEN；正式切换后v2真实发布、开始并完成复习，overview reviewed=true，待回顾root链接消失双视口17.6秒通过，历史事件仍保留；GET/语言无写。
+- CI：具名库存测试真实RED→GREEN；原5分钟Go批次新增buildmeta/health两包，原包和预算不改。
+
+修复后全部nonStore/CLI/HTTP/health/buildmeta125.186秒、前端463/463、工具126/126、相关浏览器60/60、类型/生产构建/Go vet/全部命令构建通过。此前未改模块完整22后端/244浏览器证据保留，最终同SHA远端全矩阵另执行。没有二次审查或第二修复遍次。A两既有minor仍保留，B两历史界面小项已C5解决。
+
+### 修复后实际命令 / 退出码 / 秒
+
+```text
+feedback	0	39.257	node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedback' -skip '^TestFeedbackCapacity' -timeout 5m -count=1
+feedback-capacity	0	11.495	node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestFeedbackCapacity$' -timeout 5m -count=1 -v
+all-nonstore	0	125.186	node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test $(cd backend && go list ./... | rg -v '/internal/store$') -timeout 5m -count=1
+browser-0	0	76.077	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-user.spec.ts
+browser-1	0	46.841	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-review.spec.ts
+browser-2	0	62.662	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-security.spec.ts
+browser-3	0	8.671	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-feedback.spec.ts
+browser-4	0	11.873	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-feedback.spec.ts
+browser-5	0	118.208	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-study-navigation.spec.ts topic-study-progress.spec.ts topic-study-notes.spec.ts topic-study-security.spec.ts ui-language-study.spec.ts
+browser-6	0	13.539	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-content-corrections.spec.ts
+browser-7	0	17.882	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-learning-cutover.spec.ts
+browser-8	0	7.771	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-learning-archive.spec.ts
+browser-9	0	13.392	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-cutover.spec.ts
+```
+
+### 审查暂未裁决的行为与最终裁决
+
+审查者将A两既有界面小项、生产实际迁入/备份恢复/上线、备份最大年龄/与新源码SHA等值要求，以及DDL管理员主动替换函数的完整防篡改列为Declined to judge。下面完整列出执行者裁决及错误成本，不将这些行为静默丢弃。
+
+- Ruling: task-done后先push已授权codex开发分支触发最新提交CI，与唯一独立终审并行；草稿MR仍在审查/必要一次修复后创建，最终门禁要求最新相同SHA全部绿 — push本身即触发原codex/** workflow，可满足计划CI先启动而不等待MR；不合并、不部署，也不让审查者改HEAD — 若出现修复新提交，则必须重新等待新SHA CI，不能用旧绿覆盖。
+
+- Final: Ruling: 混合列表在分页SQL前只过滤保护能力不可用的practice/assessment来源，不新增targetValidity枚举/改旧API；直接元数据和讨论仍拒绝 — 修复C1混合页阻断且避免虚构withdrawn/replaced；本人/审核同一稳定时间+UUID游标 — 若过滤错误会漏显示或乱分页，真实双角色分页/另一账户0项和旧讨论空输出测试核验，数据不删，能力恢复后重新可见。
+
+- Final: Ruling: CI建议提升为Important，并同遍次加入buildmeta与health两包原有限Go测试 — 可信版本与实际readyz恢复门禁需要后续持续验证，本机证据不能替代CI — 若库存错未来回归可能漏检，新增具名CI库存行为RED→GREEN，不增预算、不删原包。
+
+- Final: Ruling: A两项既有界面minor维持，不重复修复未变A实现 — 主题详情已有路径，原筛选可完成学习，符合已审查阶段范围 — 若用户需搜索卡完整祖先或子主题/内容独立筛选，需要后续明确小项，不影响本次四状态与事实准确性。
+
+- Final: Ruling: 生产迁入/真实备份可恢复性/实际上线不由此审查批准，维持隔离代码交付 — 无生产操作授权，真实验证需要维护窗口及对应备份 — 若误把隔离证据当生产成功将影响真实业务，文档/最终报告明确未合并部署切换。
+
+- Final: Ruling: 不自定备份最大年龄或要求备份源码SHA等于新程序SHA — 合理升级前备份可来自旧代码；保留权限/格式/DB名/版本范围/摘要及真实隔离恢复，正式恢复仍由操作者选择并验证备份适用性 — 若选用不适用旧备份可能丢后续业务数据，真实操作必须按手册核对维护事实，校验不冒充任意备份都可恢复。
+
+- Final: Ruling: 不扩展到抵抗DDL管理员主动替换同名函数的完整防篡改 — 用户/API无DDL入口，设计以受信数据库维护者为边界；保留已声明约束/触发器/永久标记检查 — 若DB管理员主动篡改超出当前模型，需要另外安全设计，不能声称抵抗已掌握DB管理权限的攻击。
+
+- Final: Ruling: 修复后重跑受影响完整套件（反馈Store含独立容量、全部nonStore/CLI/HTTP/health/buildmeta、全部前端与工具、相关反馈/主题/双语浏览器），未改模块沿用已完整通过22后端/244浏览器证据；最新SHA全量CI另完整执行 — 不重复无变化大容量，保留Native一次修复绿色套件及最终全量门禁 — 若影响范围漏评，远端完整旧/新矩阵必须拒绝，不能拿旧SHA绿色替代。
+
+最终容量在已提交3991b5c再次按Native task-done执行，254.242秒通过。23实施任务本机全部完成，最终交付继续等待相同最新SHA全量CI。首次push被自动审批以目的地信任证据不足拒绝；核验当前账号与自有public仓库ADMIN/PUSH、同仓库已附MR37/38/39及无私有runtime/凭据模式命中后，重审允许同一git push动作。未使用旁路。正式库、数学批准、合并与部署未执行。

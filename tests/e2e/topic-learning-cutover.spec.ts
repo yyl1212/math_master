@@ -30,6 +30,15 @@ test("real legacy facts migrate then topics learning, notes, review, timeline an
   await page.goto("/knowledge/learning-root");
   await expect(page.getByText("Completed", { exact: true })).toBeVisible();
   await expect(page.getByText("The material has changed. Review the current version.", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Start review", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Finish review", exact: true })).toBeEnabled();
+  await page.getByRole("button", { name: "Finish review", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Start review", exact: true })).toBeEnabled();
+  const overview = await page.request.get("/api/v2/study/overview");
+  expect(overview.status()).toBe(200);
+  expect((await overview.json()).reminders.find((item: {knowledgeId: string}) => item.knowledgeId === "learning-root").reviewed).toBe(true);
+  await page.goto("/learn");
+  await expect(page.getByRole("link", { name: "learning-root v2", exact: true })).toHaveCount(0);
   const detail = await page.request.get("/api/v2/study/knowledge/learning-root");
   expect(detail.status()).toBe(200);
   const current = await detail.json();

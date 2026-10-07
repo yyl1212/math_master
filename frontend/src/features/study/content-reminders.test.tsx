@@ -7,3 +7,16 @@ function Switch(){const{setLocale}=useUiI18n();return <button onClick={()=>setLo
 it("content reminders remain read-only across locale changes and point to available material",()=>{const fetcher=vi.spyOn(globalThis,"fetch");render(<UiLocaleProvider initialLocale="en"><Switch/><ContentReminders items={[{changeId:"11111111-1111-4111-8111-111111111111",knowledgeId:"fractions",kind:"updated",recordedAt:"2026-10-06T10:00:00Z",currentRef:{id:"fractions",version:2,sha256:"a".repeat(64)},reviewed:false},{changeId:"22222222-2222-4222-8222-222222222222",knowledgeId:"withdrawn",kind:"withdrawn",recordedAt:"2026-10-06T10:00:00Z",currentRef:null,reviewed:false}]}/></UiLocaleProvider>);expect(screen.getByRole("heading",{name:"Content to revisit"})).toBeVisible();expect(screen.getByRole("link",{name:"fractions v2"})).toHaveAttribute("href","/knowledge/fractions");expect(screen.queryByRole("link",{name:"withdrawn"})).not.toBeInTheDocument();fireEvent.click(screen.getByRole("button",{name:"switch"}));expect(screen.getByRole("heading",{name:"内容回顾提醒"})).toBeVisible();expect(fetcher).not.toHaveBeenCalled();fetcher.mockRestore()});
 
 it("topics draft keeps legacy route data read-only without creating new routes",()=>{const change=vi.fn();render(<PackageFields topicMode value={{schemaVersion:1,id:"original",version:1,knowledge:[],units:[],paths:[],assets:[]}} onChange={change}/>);expect(screen.getByText("Legacy routes are read-only reference metadata. New knowledge drafts can use an empty route list.")).toBeVisible();expect(screen.queryByRole("button",{name:/add path/i})).not.toBeInTheDocument();expect(change).not.toHaveBeenCalled()});
+
+it("acknowledged material leaves the revisit region without any writes",()=>{
+ const fetcher=vi.spyOn(globalThis,"fetch");
+ const item={changeId:"11111111-1111-4111-8111-111111111111",knowledgeId:"fractions",kind:"updated" as const,recordedAt:"2026-10-06T10:00:00Z",currentRef:{id:"fractions",version:2,sha256:"a".repeat(64)},reviewed:false};
+ const view=render(<UiLocaleProvider initialLocale="en"><Switch/><ContentReminders items={[item]}/></UiLocaleProvider>);
+ expect(screen.getByRole("link",{name:"fractions v2"})).toBeVisible();
+ view.rerender(<UiLocaleProvider initialLocale="en"><Switch/><ContentReminders items={[{...item,reviewed:true}]}/></UiLocaleProvider>);
+ expect(screen.queryByRole("heading",{name:"Content to revisit"})).not.toBeInTheDocument();
+ expect(screen.queryByRole("link",{name:"fractions v2"})).not.toBeInTheDocument();
+ fireEvent.click(screen.getByRole("button",{name:"switch"}));
+ expect(screen.queryByRole("heading",{name:"内容回顾提醒"})).not.toBeInTheDocument();
+ expect(fetcher).not.toHaveBeenCalled();fetcher.mockRestore();
+});
