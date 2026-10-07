@@ -2194,7 +2194,7 @@
         "reason": "按已确认三级主题设计新增独立归属、配对发布或界面接线；保留原数学与历史资料"
       },
       "cutover": {
-        "sha256": "5eadb1da1b1b47d10f8b2ccd259ee5b8aa88f0b19ac9796cf41167050e2e25c0",
+        "sha256": "9cbb1b6b8ecb74ca1570e43c297f1f467d48abf45cbe24709c4cc64bd848b549",
         "reason": "已确认C7具名完整验收：真实旧命令迁入切换scene、独立十万源容量step、档案/双语step和中文使用入口；原业务检查及时限不改。"
       }
     },
@@ -2500,8 +2500,8 @@
         "reason": "完整原verify job已用近30分钟，新增主题学习容量被取消；仅把A/B新增五个主题步骤移入独立topic_verify job，同样30分钟/5m/全部容量，原业务步骤保持。"
       },
       "cutover": {
-        "sha256": "c00eba5f15fe508901b63dea2ff71201b0d25f855ec4b9ecaaacc476f9671e47",
-        "reason": "独立终审同一修复遍次：在原有限Go包测试中新增buildmeta/health单元，不删测试不增预算。"
+        "sha256": "d108835accdd72b62493db4164ec071791a9dabcda478ecfd399544bfa28dd3f",
+        "reason": "终审新增buildmeta单元，健康测试属于原httpapi包；远端不存在health包RED后移除错误路径并增加实际目录库存验证，原包/预算不变。"
       }
     },
     ".github/workflows/frontend.yml": {

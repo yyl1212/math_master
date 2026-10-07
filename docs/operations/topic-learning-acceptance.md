@@ -178,13 +178,13 @@ browser-35	0	14.248	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR 
 
 ## 唯一独立终审与一次修复
 
-审查者为fresh gpt-6-astra/high，只读审查91219bc..3991b5c，未派生代理。Critical0、Important2、新增Minor0；核心来源迁入、配置屏障、旧保护与隔离恢复可靠。审查发现混合反馈列表被受限旧工单阻断，以及reviewed=true仍显示待回顾；CI构建版本/health测试遗漏按持续保障影响升为Important，同一遍次修复。
+审查者为fresh gpt-6-astra/high，只读审查91219bc..3991b5c，未派生代理。Critical0、Important2、新增Minor0；核心来源迁入、配置屏障、旧保护与隔离恢复可靠。审查发现混合反馈列表被受限旧工单阻断，以及reviewed=true仍显示待回顾；CI构建版本测试遗漏按持续保障影响升为Important，同一遍次修复。
 
 - 混合反馈：真实双场景RED（question_heads/learning_records）→GREEN；在分页前只过滤旧保护不可用的practice/assessment，不改targetValidity/API，不删数据；本人/审核游标、另一账户隔离、旧讨论空输出保护均验证。原反馈全套39.257秒、独立容量11.495秒通过。
 - 回顾：组件真实RED→GREEN；正式切换后v2真实发布、开始并完成复习，overview reviewed=true，待回顾root链接消失双视口17.6秒通过，历史事件仍保留；GET/语言无写。
-- CI：具名库存测试真实RED→GREEN；原5分钟Go批次新增buildmeta/health两包，原包和预算不改。
+- CI：具名库存测试真实RED→GREEN；原5分钟Go批次新增buildmeta，健康测试保留在原httpapi包，原包和预算不改。
 
-修复后全部nonStore/CLI/HTTP/health/buildmeta125.186秒、前端463/463、工具126/126、相关浏览器60/60、类型/生产构建/Go vet/全部命令构建通过。此前未改模块完整22后端/244浏览器证据保留，最终同SHA远端全矩阵另执行。没有二次审查或第二修复遍次。A两既有minor仍保留，B两历史界面小项已C5解决。
+修复后全部nonStore/CLI/HTTP（含health）/buildmeta125.186秒、前端463/463、工具126/126、相关浏览器60/60、类型/生产构建/Go vet/全部命令构建通过。此前未改模块完整22后端/244浏览器证据保留，最终同SHA远端全矩阵另执行。没有二次审查或第二修复遍次。A两既有minor仍保留，B两历史界面小项已C5解决。
 
 ### 修复后实际命令 / 退出码 / 秒
 
@@ -222,6 +222,22 @@ browser-9	0	13.392	node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR n
 
 - Final: Ruling: 不扩展到抵抗DDL管理员主动替换同名函数的完整防篡改 — 用户/API无DDL入口，设计以受信数据库维护者为边界；保留已声明约束/触发器/永久标记检查 — 若DB管理员主动篡改超出当前模型，需要另外安全设计，不能声称抵抗已掌握DB管理权限的攻击。
 
-- Final: Ruling: 修复后重跑受影响完整套件（反馈Store含独立容量、全部nonStore/CLI/HTTP/health/buildmeta、全部前端与工具、相关反馈/主题/双语浏览器），未改模块沿用已完整通过22后端/244浏览器证据；最新SHA全量CI另完整执行 — 不重复无变化大容量，保留Native一次修复绿色套件及最终全量门禁 — 若影响范围漏评，远端完整旧/新矩阵必须拒绝，不能拿旧SHA绿色替代。
+- Final: Ruling: 修复后重跑受影响完整套件（反馈Store含独立容量、全部nonStore/CLI/HTTP（含health）/buildmeta、全部前端与工具、相关反馈/主题/双语浏览器），未改模块沿用已完整通过22后端/244浏览器证据；最新SHA全量CI另完整执行 — 不重复无变化大容量，保留Native一次修复绿色套件及最终全量门禁 — 若影响范围漏评，远端完整旧/新矩阵必须拒绝，不能拿旧SHA绿色替代。
 
 最终容量在已提交3991b5c再次按Native task-done执行，254.242秒通过。23实施任务本机全部完成，最终交付继续等待相同最新SHA全量CI。首次push被自动审批以目的地信任证据不足拒绝；核验当前账号与自有public仓库ADMIN/PUSH、同仓库已附MR37/38/39及无私有runtime/凭据模式命中后，重审允许同一git push动作。未使用旁路。正式库、数学批准、合并与部署未执行。
+
+## 草稿交付与外部门禁
+
+[MR40](https://github.com/yyl1212/math_master/pull/40)依赖MR39/38/37，头分支codex/topic-learning-cutover，基于codex/topic-study。C7七项及A/B十六项实施和本机回归已完成；一次终审修复代码为47eead8。当前文档收尾不再修改实现。最终外部门禁要求MR最新相同SHA的verify/correction_verify/topic_verify、frontend verify、operations、images六项全部SUCCESS；结果以MR的实时检查及最终答复核验为准，不以旧SHA绿代替。
+
+- Ruling: C7步骤4标为本机验证/终审/交付管线已完成，明确最终外部门禁仍是MR40最新相同SHA全部CI成功，结果以MR检查和本ledger最终核验为准 — 原步骤把CI先于触发MR及Native终审顺序混写，既有裁决已调整，不能通过嵌入自身提交SHA制造文档/CI循环 — 若CI未绿绝不交付完成，不合并部署，计划最终条件保留全部CI要求。
+
+### 远端管线路径纠正
+
+47eead8的backend verify报告internal/health目录不存在。健康测试实际位于已纳入CI的internal/httpapi，不是独立包；本机全nonStore测试已覆盖，但新增字符串库存断言未查真实目录。现移除错误包路径、保留新增buildmeta，库存门禁按每个具名Go测试路径检查真实目录，实际ENOENT RED→GREEN。原包、用例、数据规模与预算均不改；当前CI最新SHA必须再次完整验证。
+
+- Final: Ruling: 修复后重跑受影响完整套件（反馈Store含独立容量、全部nonStore/CLI/HTTP/health/buildmeta、全部前端与工具、相关反馈/主题/双语浏览器），未改模块沿用已完整通过22后端/244浏览器证据；最新SHA全量CI另完整执行 — 不重复无变化大容量，保留Native一次修复绿色套件及最终全量门禁 — 若影响范围漏评，远端完整旧/新矩阵必须拒绝，不能拿旧SHA绿色替代。
+
+- Ruling: 远端CI47 backend verify不存在internal/health路径错误，改为原httpapi内health测试并仅新增实际buildmeta包；具名CI门禁逐Go测试路径核真实目录，实际ENOENT RED→GREEN — 之前将health误当独立包且字符串库存测试未查目录；这是新远端验证发现的管线错误，非第二终审修复遍次/不二审 — 若路径库存错CI编译直接拒绝，保留所有原包及5分钟预算，当前精确目录证据与实际同一CI命令复验。
+
+修正后的同一实际CI Go包命令在专用随机库全部通过：HTTP65.448秒、e2etest116.619秒、buildmeta5.819秒；加强目录门禁后的126工具全部通过。后续仅以MR最新相同SHA全部CI成功作为交付完成条件。

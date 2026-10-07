@@ -50,7 +50,7 @@ jobs:
       - name: Go 静态检查
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...
       - name: 内容与 HTTP 校验
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil ./internal/buildmeta ./internal/health -timeout 5m -count=1
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil ./internal/buildmeta -timeout 5m -count=1
       - name: 常规 PostgreSQL 集成分批 1
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 0 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
       - name: 常规 PostgreSQL 集成分批 2

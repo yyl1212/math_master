@@ -255,7 +255,7 @@ if batchSize > 50 || elapsed > 8*time.Second { t.Fatal("migration batch exceeds 
 
 - [x] **步骤2 确认失败。** 运行 node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestTopicCutoverCapacity$' -timeout 5m -count=1。预期因本任务行为缺失失败；先排除环境、依赖和数据库未配置，不能把跳过当成红灯。
 - [x] **步骤3 实现交付单元。** 按总计划矩阵完成两种模式所有回归，对同一最终提交开展一次独立代码审查；修复后复跑问题及受影响检查。验收记录代码SHA、每批命令/退出码/耗时、实际覆盖及限制，不使用真实课程或真实账号构造数据。
-- [ ] **步骤4 验证通过。** 重跑步骤2命令；最终本机矩阵、远端最新提交CI和独立审查通过后创建实现MR。MR只交付代码与迁移；合并、真实批准、实际切换和部署分别等待对应授权，不伪称网站已上线重构。
+- [x] **步骤4 本机验证、终审与交付管线。** 步骤2复验、本机完整矩阵及一次独立终审修复已通过，草稿MR40已创建并触发全量CI。按Native顺序裁决，最终外部交付门禁仍须MR最新相同SHA全部CI成功，结果以MR检查及最终ledger核验为准。MR只交付代码与迁移；合并、真实批准、实际切换和部署分别等待对应授权，不伪称网站已上线重构。
 - [x] **步骤5 提交。** git add 本任务上述实际变更文件，再执行 git commit -m 'test: 完成主题学习迁移回归'。提交前 git diff --check 通过，只纳入该任务文件。
 
 ## 最终交付条件
