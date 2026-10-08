@@ -1,6 +1,6 @@
 # 服务器预览版运行手册
 
-日期：2026-10-05。目标入口：`https://43.135.142.53`。本手册对应 P7a；当前正在实施，实际上线以 [rollout.json](evidence/server-preview/rollout.json) 为准，该文件仅在取得现场证据后生成。
+日期：2026-10-05。目标入口：`https://43.135.142.53`。本手册对应 P7a；网站已于北京时间 2026-10-05 18:36 通过外部可信 HTTPS 检查开放，运行提交 `610aefff8da3358194a6ec8693f168c0f0cb5a39`。实测结果见 [rollout.json](evidence/server-preview/rollout.json)。正常登录和工作区恢复已由本人确认；知识点逐条切换、搜索及全部 SVG 视觉验收仍待补充，因此完整预览验收保持 pending。
 
 本阶段复制现有账号与六个私有草稿，保留密码、权限、作者关系和未审阅状态。公开课程仍按独立数学复核与既有发布流程推进；不能把网站可访问计为内容审核完成。
 
@@ -133,6 +133,20 @@ sudo systemctl list-timers math-master-backup.timer
 ## 8. 证书续期、重启与回退
 
 Caddy 自动管理显式 Let’s Encrypt `shortlived` 证书；公网 IP 证书寿命约 160 小时。保留 production 证书卷、外部 80/443 入站与 ACME 出站访问。用普通 TLS 检查记录实际 notAfter，检查网关错误和容器重启，重启四服务后再验证证书和数据保留。首次配置验收不等于已等待过完整续期周期。
+
+### 重启次序及内容服务验收
+
+本次直接并行重启四容器后，容器均 healthy，但内容接口返回 `503 CONTENT_NOT_CONFIGURED`。数据库表及数据完整；数据库就绪后重新启动 API，接口恢复 401，本人刷新工作区确认可用。应按以下次序执行，不能仅凭 healthy 判断内容服务已恢复：
+
+1. 停止 gateway/web/api 的入口与写入。
+2. 重启 db，并通过 `compose up -d --wait --wait-timeout 120 db` 等待真实数据库健康。
+3. 使用该版本冻结配置启动 api/web 并等待健康，再启动 gateway；不要将 db 与 api 同时 restart。
+4. 普通外部 TLS 客户端验证可信证书、页面、静态资源、安全 Cookie，匿名草稿 API 必须返回 401；503 表示内容服务未就绪，不表示匿名成功读取。
+5. 本人刷新已登录工作区并读取草稿，确认 revision 和未审阅标识。会话、密码和原数据保留。
+
+调用 Compose 时复用 `ops/common.py` 的 `compose(root, revision, args, sudo=True)`，选择 `shared/deployment.json` 中 current 的冻结配置，不 source 环境文件。整机重启后的内容模块自动恢复仍需后续兼容性方案和专门回归；若发生该 503，按上述次序恢复。当前手册不声称容器探针覆盖所有业务功能。
+
+本次证书实际到期时间为北京时间 2026-10-12 08:30:46，Caddy production 证书卷已持久化并配置自动续期；尚未等待过一个完整续期周期。每日备份服务已实际执行成功，首个每日备份的服务器隔离恢复及本机站外副本 SHA 校验通过。
 
 明确回退的上一版本完整 SHA，执行 `deploy.sh rollback --root /opt/math_master --revision <上一版本> --sudo`。先核对真实迁移版本与该 release 的迁移文件版本；相符后只换 api/web/gateway 镜像及对应配置，并验证健康/TLS。数据库卷、证书卷和用户数据保留。
 

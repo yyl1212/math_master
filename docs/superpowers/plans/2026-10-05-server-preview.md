@@ -125,13 +125,13 @@ manifest schemaVersion=1：数据库编码/locale/PostgreSQL 版本、实际源�
 
 **接口：**验收 CLI `python3 ops/verify-deployment.py --origin https://43.135.142.53 --out <新证据文件> --requests 40 --concurrency 2`，成功退出 0；每请求超时 5 秒，默认信任系统 CA。JSON schemaVersion=1，记录 revision、TLS/IP SAN/到期时间、重定向、公开页/资源、匿名权限/Cookie属性、请求数量/失败数/p50/p95/max；不保存 Cookie、CSRF、响应正文或凭据。`check(origin: str, requests: int, concurrency: int) -> dict` 供单元测试替换 HTTP 传输，负载仅 GET 公开只读路径。
 
-- [ ] **1. 写验收器失败测试。**`test_untrusted_tls_fails` 拒绝未知 CA/错误 IP SAN，不使用跳过校验；`test_anonymous_draft_is_private` 核对 `/api/v1/content/drafts/904d550b-226b-48c0-98e0-610af339826c` 为 401，阅读入口返回现有 `Sign in to view your account` 提示和 `/login` 链接且无草稿正文；`test_missing_static_asset_fails` 拒绝 CSS/KaTeX 字体 404；`test_evidence_omits_session_material` 验证敏感响应内容不写证据。
-- [ ] **2. 运行失败测试。**通过包装器运行 `python3 -m unittest discover -s ops/tests -p 'test_verify.py' -v`，预期尚未实现验收器而失败。
-- [ ] **3. 实现验收器。**HTTP 必须跳转到固定 HTTPS origin，login/register 返回 200，匿名 auth/context 的生产预认证 Cookie `__Host-mm_preauth` 具备 Secure、HttpOnly、SameSite=Lax、Path=/ 且无 Domain。请求头沿用网站要求；私有验证与只读负载分开计数。首次 TLS 签发失败不能用测试证书替代验收。
-- [ ] **4. 验证运维与既有回归。**包装运行全部 `ops/tests/test_*.py`，退出 0。分别执行 `node tools/verify/run.mjs --cwd frontend -- npm test -- --maxWorkers=1`、同 cwd 的 `npm run typecheck`、`npm run build`、`npm run api:generate`（生成文件无差异）。Go 执行 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi ./cmd/server -timeout 5m -count=1`；集成测试的 TEST_DATABASE_URL 仅指向独立的 `math_master_test_*` 测试库并使用既有随机隔离机制。包装运行 `node --test tools/verify/*.test.mjs tools/content-ingest/*.test.mjs` 的现有 13 项文件；按原 workflow 构建 `bin/e2e-harness`，分别包装 frontend 的 `npm run e2e -- auth.spec.ts auth-security.spec.ts` 和 `npm run e2e -- content-authoring.spec.ts`，覆盖 desktop/mobile，前后确认 R1 未被触及。
-- [ ] **5. 增加独立部署 CI。**新 workflow 执行 Python 运维单元测试、镜像构建/烟测和随机隔离 PG 恢复检查，工作量拆成每命令不超过 9 分钟的 job；不改原 frontend/backend workflow 或基线。核对 standalone 的运行时认证/私有 SVG，验证服务端文件没有依赖本机绝对路径。
-- [ ] **6. 审查整分支。**使用 requesting-code-review 做一次独立整分支审查；修复阻塞/重要问题并重跑受影响检查，保存无秘密结论。
-- [ ] **7. 提交并交付 PR。**提交信息 `test: 验证服务器预览部署与既有功能`。SSH 推送分支，创建中文 PR 并 attach_artifact；核对实际 head 的新旧 CI 全部成功及无冲突，取得具体合并授权后 squash 合并并记录确切部署提交。
+- [x] **1. 写验收器失败测试。**`test_untrusted_tls_fails` 拒绝未知 CA/错误 IP SAN，不使用跳过校验；`test_anonymous_draft_is_private` 核对 `/api/v1/content/drafts/904d550b-226b-48c0-98e0-610af339826c` 为 401，阅读入口返回现有 `Sign in to view your account` 提示和 `/login` 链接且无草稿正文；`test_missing_static_asset_fails` 拒绝 CSS/KaTeX 字体 404；`test_evidence_omits_session_material` 验证敏感响应内容不写证据。
+- [x] **2. 运行失败测试。**通过包装器运行 `python3 -m unittest discover -s ops/tests -p 'test_verify.py' -v`，预期尚未实现验收器而失败。
+- [x] **3. 实现验收器。**HTTP 必须跳转到固定 HTTPS origin，login/register 返回 200，匿名 auth/context 的生产预认证 Cookie `__Host-mm_preauth` 具备 Secure、HttpOnly、SameSite=Lax、Path=/ 且无 Domain。请求头沿用网站要求；私有验证与只读负载分开计数。首次 TLS 签发失败不能用测试证书替代验收。
+- [x] **4. 验证运维与既有回归。**包装运行全部 `ops/tests/test_*.py`，退出 0。分别执行 `node tools/verify/run.mjs --cwd frontend -- npm test -- --maxWorkers=1`、同 cwd 的 `npm run typecheck`、`npm run build`、`npm run api:generate`（生成文件无差异）。Go 执行 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/config ./internal/httpapi ./cmd/server -timeout 5m -count=1`；集成测试的 TEST_DATABASE_URL 仅指向独立的 `math_master_test_*` 测试库并使用既有随机隔离机制。包装运行 `node --test tools/verify/*.test.mjs tools/content-ingest/*.test.mjs` 的现有 13 项文件；按原 workflow 构建 `bin/e2e-harness`，分别包装 frontend 的 `npm run e2e -- auth.spec.ts auth-security.spec.ts` 和 `npm run e2e -- content-authoring.spec.ts`，覆盖 desktop/mobile，前后确认 R1 未被触及。
+- [x] **5. 增加独立部署 CI。**新 workflow 执行 Python 运维单元测试、镜像构建/烟测和随机隔离 PG 恢复检查，工作量拆成每命令不超过 9 分钟的 job；不改原 frontend/backend workflow 或基线。核对 standalone 的运行时认证/私有 SVG，验证服务端文件没有依赖本机绝对路径。
+- [x] **6. 审查整分支。**使用 requesting-code-review 做一次独立整分支审查；修复阻塞/重要问题并重跑受影响检查，保存无秘密结论。
+- [x] **7. 提交并交付 PR。**提交信息 `test: 验证服务器预览部署与既有功能`。SSH 推送分支，创建中文 PR 并 attach_artifact；核对实际 head 的新旧 CI 全部成功及无冲突，取得具体合并授权后 squash 合并并记录确切部署提交。
 
 ## Task 6: 真实服务器上线及数据/运维验收
 
@@ -139,15 +139,17 @@ manifest schemaVersion=1：数据库编码/locale/PostgreSQL 版本、实际源�
 
 **接口：**输入任务 5 的确切部署提交及任务 1—5 的已通过结果，使用已知主机指纹的 SSH 加密传输 Git 归档和新备份。最终输出实际 HTTPS 入口和预览验收记录；`previewAccepted=true` 只能在下面所有必要项完成后设置，正式内容验收 `formalContentAccepted=false`。
 
-- [ ] **1. 复核实施现场。**确认最新部署提交、服务器 80/443 及磁盘/内存、本机 R1 的实际运行版本与当前六草稿状态；源为 `math-master-r1-review-db` 的 `math_master_review_r1`，只进行只读导出，不读取过期管理员密码或用户会话。
-- [ ] **2. 准备服务器运行环境。**仅安装 Docker/Compose 所需包并启动 Docker，建立独立目录、新的随机数据库密码及受限 env；不升级无关软件、不改 SSH 防护链或已有 Netdata。Git 归档传入准确 release，记录包摘要；prepare 退出 0，source locale 与新 db 一致。
-- [ ] **3. 创建和传输新快照。**调用 capture，以同一 snapshot 的实际六工作区 revision/status、yyl1212 角色、素材和全表摘要为准；通过 SSH 传输并校验 SHA256SUMS。预期基线为 30 知识点/30 单元/9 SVG，题库 450 固定题/24 模板/30 蓝图；有新变动时记录新基线，不伪造旧计数。全量 dump 包含学习、审核和反馈历史。
-- [ ] **4. 完成恢复演练与真实恢复。**先在服务器调用 restore-drill，实际恢复和 inspect 全通过；随后 restore 到空预览库。启动应用前再次 inspect，角色、工作区、素材及所有表摘要一致，`publication_heads/question_heads` 保持源状态；管理员不重新初始化。失败不进入 start，也不修改本机库。
-- [ ] **5. 启动内部应用。**start 使用准确 baseline，显式向上迁移成功，api/web 健康；记录实际镜像和迁移版本、内存及重启次数。
-- [ ] **6. 验证 IP 证书与外部入口。**activate staging 完成 ACME 挑战；确认云侧 80/443 入站可达，若被阻断只定位具体规则处理。切换独立 production 证书卷，签发 IP SAN 证书，用普通 TLS 客户端完成自动验收器；不安装全局测试 CA 或忽略证书错误。另从外部确认 3000/8080/5432/Caddy 管理端口没有应用服务暴露。
+- [x] **1. 复核实施现场。**确认最新部署提交、服务器 80/443 及磁盘/内存、本机 R1 的实际运行版本与当前六草稿状态；源为 `math-master-r1-review-db` 的 `math_master_review_r1`，只进行只读导出，不读取过期管理员密码或用户会话。
+- [x] **2. 准备服务器运行环境。**仅安装 Docker/Compose 所需包并启动 Docker，建立独立目录、新的随机数据库密码及受限 env；不升级无关软件、不改 SSH 防护链或已有 Netdata。Git 归档传入准确 release，记录包摘要；prepare 退出 0，source locale 与新 db 一致。
+- [x] **3. 创建和传输新快照。**调用 capture，以同一 snapshot 的实际六工作区 revision/status、yyl1212 角色、素材和全表摘要为准；通过 SSH 传输并校验 SHA256SUMS。预期基线为 30 知识点/30 单元/9 SVG，题库 450 固定题/24 模板/30 蓝图；有新变动时记录新基线，不伪造旧计数。全量 dump 包含学习、审核和反馈历史。
+- [x] **4. 完成恢复演练与真实恢复。**先在服务器调用 restore-drill，实际恢复和 inspect 全通过；随后 restore 到空预览库。启动应用前再次 inspect，角色、工作区、素材及所有表摘要一致，`publication_heads/question_heads` 保持源状态；管理员不重新初始化。失败不进入 start，也不修改本机库。
+- [x] **5. 启动内部应用。**start 使用准确 baseline，显式向上迁移成功，api/web 健康；记录实际镜像和迁移版本、内存及重启次数。
+- [x] **6. 验证 IP 证书与外部入口。**activate staging 完成 ACME 挑战；确认云侧 80/443 入站可达，若被阻断只定位具体规则处理。切换独立 production 证书卷，签发 IP SAN 证书，用普通 TLS 客户端完成自动验收器；不安装全局测试 CA 或忽略证书错误。另从外部确认 3000/8080/5432/Caddy 管理端口没有应用服务暴露。
 - [ ] **7. 核对正常登录和私有阅读。**打开真实 HTTPS 登录页，由用户用当前密码正常登录 yyl1212；核对 learner/editor/admin、未勾选 reviewer，30 个知识点切换、标题搜索、revision/草稿标识及 9 SVG 阅读。只记录通过项，不提取 Cookie；如登录待用户完成，入口可交付但完整预览验收仍为 pending。
-- [ ] **8. 验证重启、备份与站外副本。**服务器 `systemd-analyze verify` 通过后启用备份 timer、实际运行一次并检查下次执行时间；服务器首个备份再做隔离恢复，复制到本机受限站外目录并核对摘要。重启四服务后验证数据、健康与同一可信证书保留；记录续期配置、160 小时左右证书的实际 notAfter 及人工复查命令，不声称已经等待过一次完整自动续期。
+- [x] **8. 验证重启、备份与站外副本。**服务器 `systemd-analyze verify` 通过后启用备份 timer、实际运行一次并检查下次执行时间；服务器首个备份再做隔离恢复，复制到本机受限站外目录并核对摘要。重启四服务后验证数据、健康与同一可信证书保留；记录续期配置、160 小时左右证书的实际 notAfter 及人工复查命令，不声称已经等待过一次完整自动续期。
 - [ ] **9. 完成有界负载与交付。**40 次只读请求、并发 2，报告实际失败数/延迟、容器峰值内存和数据库连接；失败检查修复后仅重跑受影响项。全部必要条件满足才设置 previewAccepted=true，更新实际入口、运行手册及路线图，通过独立证据 PR 保存无秘密结果；公开数学内容数量与正式验收按真实状态报告。
+
+现场状态（2026-10-05）：网站已开放，正常登录与工作区可用已由本人确认；完整逐点切换、双语搜索和全部 SVG 视觉验收未完成，Task 6 不标记 complete。重启的内容 503 已恢复并写入运行手册；技术交付与完整预览验收分别记录。
 
 ## 计划自审结论
 
