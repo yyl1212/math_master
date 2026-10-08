@@ -36,3 +36,7 @@
 ## 唯一独立审查修复
 
 审查Critical0/Important3/Minor0。三个Important已在同一遍次RED→GREEN修复：人工保存纠正会更新导入队列，之后正文保存保持该纠正；按当前保存知识清理已移除身份的dirty/候选/汇总；匹配dot的全部标签先校验，未知或非具体标签不能被过滤后借用记录标签自动归类。保留原不确定响应同键/同输入重试。没有二次独立审查。
+
+## 发布前安全补丁
+
+远端CI在旧提交6db的npm audit发现Next16.3.7安全公告。按[官方Next安全公告](https://github.com/vercel/next.js/security/advisories/GHSA-cjq9-62q9-8jv4)选择同16.3版本线最低修复16.3.8，没有使用audit fix --force或关闭审计。包与锁文件仅Next、其env及平台swc由16.3.7更新到16.3.8，其他声明依赖、Node24.17和React19保持。生产npm audit结果0漏洞；补丁后474前端、136工具及生产构建通过，实际导入/登录/公开阅读回归继续作为发版门禁。
