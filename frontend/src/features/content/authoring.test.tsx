@@ -144,3 +144,34 @@ it("retries an uncertain imported assignment without resaving the body or changi
  fireEvent.click(screen.getByRole("button",{name:"Retry unsaved assignments"}));await screen.findByText("Topic import: 1 assigned, 0 pending, 0 failed.");
  expect(mocks.request).toHaveBeenCalledTimes(1);expect(save).toHaveBeenCalledTimes(2);expect(save.mock.calls[0][0]).toEqual(save.mock.calls[1][0]);
 });
+
+function twoImportedMembers(){
+ const view=draftView(),input=draftInput(),batch="b".repeat(64),version="c".repeat(64);
+ const other=structuredClone(input.package.knowledge[0]);other.id="other-concept";other.title="Other original concept";input.package.knowledge.push(other);
+ const members=input.package.knowledge.map((k,i)=>({knowledge:{id:k.id,version:k.version},topicIds:["msc-00a00"],sourceBatchSHA:batch,sourceRefs:[{sourceId:"original-source",workFamilyId:"original-work",recordId:"original-"+i,path:"Original/data.json",sha256:"d".repeat(64)}]}));
+ input.sourceMap=members.map(m=>({knowledge:m.knowledge,batchSha256:batch,relativePath:"Original/data.json",sha256:"d".repeat(64),legacyId:m.sourceRefs[0].recordId,note:"Original technical fixture."}));
+ const topics={draftId:view.id,draftRevision:1,assignmentRevision:0,taxonomyVersionId:version,members:[] as typeof members,digest:"e".repeat(64),readyToSubmit:false};
+ const bytes=new TextEncoder().encode(JSON.stringify({kind:"topic-draft",schemaVersion:1,draft:input,assignments:members,sourceBatchSHA:batch,taxonomyVersionId:version}));const file=new File([bytes],"original.json",{type:"application/json"});Object.defineProperty(file,"arrayBuffer",{value:async()=>bytes.buffer});
+ return {view,input,members,topics,file};
+}
+it("removing an imported member does not leave hidden dirty state blocking submission",async()=>{
+ const {view,input,topics,file}=twoImportedMembers();const saved={...view,revision:2,package:{...input.package,knowledge:input.package.knowledge.slice(0,1)},sourceMap:input.sourceMap.slice(0,1)};
+ mocks.request.mockResolvedValue({ok:true,data:saved,status:200,requestId:"a".repeat(32)});
+ render(<DraftEditor initial={view} topics={topics} onReadTopics={async()=>({...topics,draftRevision:2})} onSaveTopics={async p=>({...topics,draftRevision:2,assignmentRevision:1,members:[p.member],readyToSubmit:true})}/>);
+ fireEvent.change(screen.getByLabelText("Import DraftInput JSON"),{target:{files:[file]}});await waitFor(()=>expect(screen.getAllByLabelText("Specific topic IDs")).toHaveLength(1));
+ await waitFor(()=>expect(screen.getByLabelText("Knowledge 2 title")).toBeVisible());
+ fireEvent.click(screen.getAllByRole("button",{name:/Remove knowledge/i})[1]);
+ fireEvent.click(screen.getByRole("button",{name:"Save draft"}));await screen.findByText("Topic import: 1 assigned, 0 pending, 0 failed.");
+ expect(screen.getByRole("button",{name:"Submit for review"})).toBeEnabled();
+});
+it("manual correction after partial import remains the candidate on a later body save",async()=>{
+ const {view,input,topics,file}=twoImportedMembers();let revision=2,assignmentRevision=0,failB=true;const stored=new Map<string,DraftTopicInput['member']>();const writes:DraftTopicInput[]=[];
+ mocks.request.mockImplementation(async()=>({ok:true,data:{...view,revision:revision++,package:input.package,sourceMap:input.sourceMap},status:200,requestId:"a".repeat(32)}));
+ const save=async(p:DraftTopicInput)=>{writes.push(structuredClone(p));if(p.member.knowledge.id==='other-concept'&&failB){failB=false;throw Error('uncertain B')}stored.set(p.member.knowledge.id,p.member);return {...topics,draftRevision:p.expectedDraftRevision,assignmentRevision:++assignmentRevision,members:[...stored.values()],readyToSubmit:stored.size===2}};
+ render(<DraftEditor initial={view} topics={topics} onReadTopics={async()=>({...topics,draftRevision:revision-1,assignmentRevision,members:[...stored.values()]})} onSaveTopics={save}/>);
+ fireEvent.change(screen.getByLabelText("Import DraftInput JSON"),{target:{files:[file]}});await waitFor(()=>expect(screen.getByLabelText("Knowledge 2 title")).toBeVisible());
+ fireEvent.click(screen.getByRole("button",{name:"Save draft"}));await screen.findByText("Topic import: 1 assigned, 0 pending, 1 failed.");
+ fireEvent.change(screen.getAllByLabelText("Specific topic IDs")[0],{target:{value:"msc-00a01"}});fireEvent.click(screen.getAllByRole("button",{name:"Save topic assignment"})[0]);await screen.findByText("Topic assignment saved.");
+ fireEvent.change(screen.getByLabelText("Knowledge 1 title"),{target:{value:"Original title edited"}});fireEvent.click(screen.getByRole("button",{name:"Save draft"}));await screen.findByText("Topic import: 2 assigned, 0 pending, 0 failed.");
+ expect(writes.filter(w=>w.member.knowledge.id===input.package.knowledge[0].id).at(-1)?.member.topicIds).toEqual(["msc-00a01"]);
+});

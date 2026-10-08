@@ -80,3 +80,13 @@ test('carries the installed taxonomy version for import without manual digest in
  assert.equal(buildDraftInputs(f).packages[0].taxonomyVersionId,'c'.repeat(64));
  f.taxonomyVersionId='invalid';assert.throws(()=>buildDraftInputs(f),/INVALID_TAXONOMY_VERSION/);
 });
+
+test('unknown or non-specific matching dot labels stay pending even with valid record tags',()=>{
+ const f=setup([{id:'r1',title:'Original',kind:'definition',statement:'Original',msc_codes:['13C60']}]);f.resolutions=[];
+ f.capture.sourceRecordIndex=[{sourceId:'source-a',workFamilyId:'work-a',recordId:'r1',path:'Fixture/knowledge.json',sha256:f.records[0].rawSHA}];
+ for(const invalid of ['99Z88','13Cxx','13C99']){
+  f.sourceMappings=[{source_id:'source-a',work_family_id:'work-a',msc_code:invalid,knowledge_record_ids:['r1'],knowledge_local_primary_paths:['Fixture/knowledge.json']}];
+  let result=buildDraftInputs(f);assert.deepEqual(result.packages[0].assignments,[]);assert.equal(result.issues.some(x=>x.code==='TOPIC_MAPPING_REQUIRED'),true);
+  f.sourceMappings.push({...f.sourceMappings[0],msc_code:'13C60'});result=buildDraftInputs(f);assert.deepEqual(result.packages[0].assignments,[]);
+ }
+});

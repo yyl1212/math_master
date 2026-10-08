@@ -6,6 +6,7 @@ const same=(a,b)=>a.length===b.length&&a.every((x,i)=>x===b[i]);
 export function automaticTopics(record,{capture,sourceMappings=[]}){
  const concrete=new Set((capture.nodes??[]).filter(n=>n.kind==='primary'&&n.level===3).map(n=>n.id));
  const matches=sourceMappings.filter(m=>m.source_id===record.sourceId&&Array.isArray(m.knowledge_record_ids)&&m.knowledge_record_ids.includes(record.originalId)&&Array.isArray(m.knowledge_local_primary_paths)&&m.knowledge_local_primary_paths.includes(record.path));
+ if(matches.some(m=>typeof m.msc_code!=='string'||!concrete.has(topicId(m.msc_code))))return {issue:'TOPIC_MAPPING_REQUIRED'};
  const dot=[...new Set(matches.map(m=>typeof m.msc_code==='string'?topicId(m.msc_code):'').filter(t=>concrete.has(t)))].sort();
  let direct=[];
  for(const field of ['msc_code','msc_codes']){
