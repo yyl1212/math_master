@@ -2986,8 +2986,8 @@
     },
     "ops/tests/image_smoke.py": {
       "cutover": {
-        "sha256": "986c239150993efdcdeb5d52006fb2d3cae5ff089b9b65f42764b88a1f6352bd",
-        "reason": "2026-10-08真实服务器预检发现readyz误路由；只为准确GET /healthz /readyz新增Go转发，原应用/私有API继续Next，实际Caddy+TLS/负向路由RED→GREEN审核。"
+        "sha256": "daa4294c3e9ce9af8e77de6d838c4645aa135a12f7508af206c8f00fef2d63d7",
+        "reason": "2026-10-08真实远端Linux镜像路由失败，添加仅受控fixture HTTP方法/路径/状态及模拟body/末尾网关错误诊断，不修改断言、不读取真实用户数据。"
       }
     },
     "backend/internal/store/feedback_read.go": {

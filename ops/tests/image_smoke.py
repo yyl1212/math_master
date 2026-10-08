@@ -156,6 +156,8 @@ for (const [port, source] of [[8080, 'api'], [3000, 'web']]) {
                             if len(raw)>16384:raise RuntimeError('route-response-too-large')
                 headers, separator, body = raw.partition(b'\r\n\r\n')
                 if not separator or b' 200 ' not in headers.split(b'\r\n', 1)[0] or body != (source+':'+path).encode():
+                    diagnostic=subprocess.run(['docker','logs','--tail','4',name],capture_output=True,timeout=10)
+                    print(json.dumps({'fixtureRoute':{'method':method,'path':path,'status':headers.split(b'\r\n',1)[0].decode(errors='replace'),'body':body.decode(errors='replace')[:200],'gatewayLog':(diagnostic.stdout+diagnostic.stderr).decode(errors='replace')[-800:]}}),flush=True)
                     raise RuntimeError('gateway-health-route-invalid')
             return {'ipClientTLS': True, 'unknownCARejected': True, 'wrongIPRejected': True,
                     'tlsFixtureCertificateOnly': True, 'exactHealthRoutes': True,
