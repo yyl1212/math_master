@@ -5,7 +5,7 @@ import {parseSourceJSON} from './json.mjs';
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const safe=p=>typeof p==='string'&&p!==''&&!isAbsolute(p)&&!p.includes('\\')&&!p.includes('\0')&&!p.split('/').some(x=>x===''||x==='.'||x==='..');
 const topicID=c=>'msc-'+c.toLowerCase().replace(/xx$/,'').replace(/-$/,'');
-export async function buildCatalogueArchive(snapshotDir) {
+async function readCatalogue(snapshotDir) {
  const file=join(snapshotDir,'manifest.json');if(!(await fs.lstat(file)).isFile()||(await fs.lstat(file)).isSymbolicLink())throw Error('INVALID_CAPTURE');
  const manifest=parseSourceJSON(await fs.readFile(file));
  if(manifest.accepted!==true||manifest.schemaVersion!==1||!Array.isArray(manifest.sourceFiles)||hash(JSON.stringify(manifest.sourceFiles))!==manifest.snapshotId)throw Error('INVALID_CAPTURE');
@@ -44,5 +44,12 @@ export async function buildCatalogueArchive(snapshotDir) {
    const key=JSON.stringify(ref);if(!seen.has(key)){sourceRecordIndex.push(ref);seen.add(key);}
   }
  }
- return {manifest,nodes,sourceRecordIndex,rawClassificationSHA:taxonomy.metadata.source_checksums_sha256['MSC_2020.csv'],attribution:taxonomy.metadata.attribution,license:taxonomy.metadata.license};
+ const archive={manifest,nodes,sourceRecordIndex,rawClassificationSHA:taxonomy.metadata.source_checksums_sha256['MSC_2020.csv'],attribution:taxonomy.metadata.attribution,license:taxonomy.metadata.license};
+ return {archive,sourceMappings:mappings.mappings??[]};
+}
+export async function buildCatalogueArchive(snapshotDir){return (await readCatalogue(snapshotDir)).archive;}
+// Private conversion context; these mappings do not extend the Go import wire format.
+export async function buildImportContext(snapshotDir){
+ const {archive,sourceMappings}=await readCatalogue(snapshotDir);
+ return {capture:{...archive.manifest,nodes:archive.nodes,sourceRecordIndex:archive.sourceRecordIndex},sourceMappings};
 }

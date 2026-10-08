@@ -106,3 +106,41 @@ it.each([1,2])("reconfirms upgraded knowledge from v%s with its saved version wh
  expect(save.mock.calls[0][0].member.sourceBatchSHA).toBe(member.sourceBatchSHA);
  expect(screen.getByRole("button",{name:"Submit for review"})).toBeEnabled();
 });
+
+it("automatically saves imported topic assignments with the new saved draft revision",async()=>{
+ const view=draftView(),input=draftInput();
+ const batch="b".repeat(64),version="c".repeat(64),kid=input.package.knowledge[0].id;
+ const member={knowledge:{id:kid,version:1},topicIds:["msc-00a00"],sourceBatchSHA:batch,sourceRefs:[{sourceId:"original-source",workFamilyId:"original-work",recordId:"original-1",path:"Original/data.json",sha256:"d".repeat(64)}]};
+ input.sourceMap=[{knowledge:member.knowledge,batchSha256:batch,relativePath:"Original/data.json",sha256:"d".repeat(64),legacyId:"original-1",note:"Original technical fixture only."}];
+ const topics={draftId:view.id,draftRevision:1,assignmentRevision:0,taxonomyVersionId:version,members:[],digest:"e".repeat(64),readyToSubmit:false};
+ const saved={...view,revision:2,package:input.package,sourceMap:input.sourceMap};
+ mocks.request.mockResolvedValue({ok:true,data:saved,status:200,requestId:"a".repeat(32)});
+ const read=vi.fn(async()=>({...topics,draftRevision:2}));
+ const save=vi.fn(async(p:DraftTopicInput)=>({...topics,draftRevision:2,assignmentRevision:1,members:[{sourceBatchSHA:p.member.sourceBatchSHA,sourceRefs:p.member.sourceRefs,topicIds:p.member.topicIds,knowledge:p.member.knowledge}],readyToSubmit:true}));
+ render(<DraftEditor initial={view} topics={topics} onSaveTopics={save} onReadTopics={read}/>);
+ const bytes=new TextEncoder().encode(JSON.stringify({kind:"topic-draft",schemaVersion:1,draft:input,assignments:[member],sourceBatchSHA:batch,taxonomyVersionId:version}));
+ const file=new File([bytes],"original-topic-draft.json",{type:"application/json"});Object.defineProperty(file,"arrayBuffer",{value:async()=>bytes.buffer});
+ fireEvent.change(screen.getByLabelText("Import DraftInput JSON"),{target:{files:[file]}});
+ await waitFor(()=>expect(screen.getByRole("button",{name:"Save draft"})).toBeEnabled());
+ await waitFor(()=>expect(screen.getByLabelText("Specific topic IDs")).toHaveValue("msc-00a00"));
+ fireEvent.click(screen.getByRole("button",{name:"Save draft"}));
+ await screen.findByText("Topic import: 1 assigned, 0 pending, 0 failed.");
+ expect(save.mock.calls[0][0]).toEqual({expectedDraftRevision:2,expectedAssignmentRevision:0,taxonomyVersionId:version,member});
+ expect(screen.getByRole("button",{name:"Submit for review"})).toBeEnabled();
+});
+
+it("retries an uncertain imported assignment without resaving the body or changing its input",async()=>{
+ const view=draftView(),input=draftInput(),kid=input.package.knowledge[0].id,batch="b".repeat(64),version="c".repeat(64);
+ const member={knowledge:{id:kid,version:1},topicIds:["msc-00a00"],sourceBatchSHA:batch,sourceRefs:[{sourceId:"original-source",workFamilyId:"original-work",recordId:"original-1",path:"Original/data.json",sha256:"d".repeat(64)}]};
+ input.sourceMap=[{knowledge:member.knowledge,batchSha256:batch,relativePath:"Original/data.json",sha256:"d".repeat(64),legacyId:"original-1",note:"Original technical fixture only."}];
+ const topics={draftId:view.id,draftRevision:1,assignmentRevision:0,taxonomyVersionId:version,members:[],digest:"e".repeat(64),readyToSubmit:false};
+ const saved={...view,revision:2,package:input.package,sourceMap:input.sourceMap};mocks.request.mockResolvedValue({ok:true,data:saved,status:200,requestId:"a".repeat(32)});
+ let calls=0;const save=vi.fn(async(p:DraftTopicInput)=>{if(++calls===1)throw Error("uncertain network result");return {...topics,draftRevision:2,assignmentRevision:1,members:[p.member],readyToSubmit:true}});
+ render(<DraftEditor initial={view} topics={topics} onSaveTopics={save} onReadTopics={async()=>({...topics,draftRevision:2})}/>);
+ const bytes=new TextEncoder().encode(JSON.stringify({kind:"topic-draft",schemaVersion:1,draft:input,assignments:[member],sourceBatchSHA:batch,taxonomyVersionId:version}));const file=new File([bytes],"original.json",{type:"application/json"});Object.defineProperty(file,"arrayBuffer",{value:async()=>bytes.buffer});
+ fireEvent.change(screen.getByLabelText("Import DraftInput JSON"),{target:{files:[file]}});await waitFor(()=>expect(screen.getByLabelText("Specific topic IDs")).toHaveValue("msc-00a00"));
+ fireEvent.click(screen.getByRole("button",{name:"Save draft"}));await screen.findByText("Topic import: 0 assigned, 0 pending, 1 failed.");
+ expect(screen.getByRole("button",{name:"Submit for review"})).toBeDisabled();
+ fireEvent.click(screen.getByRole("button",{name:"Retry unsaved assignments"}));await screen.findByText("Topic import: 1 assigned, 0 pending, 0 failed.");
+ expect(mocks.request).toHaveBeenCalledTimes(1);expect(save).toHaveBeenCalledTimes(2);expect(save.mock.calls[0][0]).toEqual(save.mock.calls[1][0]);
+});

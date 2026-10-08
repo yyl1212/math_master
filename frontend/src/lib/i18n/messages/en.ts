@@ -123,6 +123,8 @@ export const enMessages = {
   "topic.diff.removed": {"text": "Removed knowledge", "params": []},
   "topic.diff.changed": {"text": "Changed topic assignments", "params": []},
 
+  "topic.import.summary": {"text": "Topic import: {assigned} assigned, {pending} pending, {failed} failed.", "params": ["assigned", "pending", "failed"]},
+  "topic.import.retry": {"text": "Retry unsaved assignments", "params": []},
   "topic.assignment.title": {"text": "Knowledge topic assignment", "params": []},
   "topic.assignment.ids": {"text": "Specific topic IDs", "params": []},
   "topic.assignment.version": {"text": "Taxonomy version SHA", "params": []},

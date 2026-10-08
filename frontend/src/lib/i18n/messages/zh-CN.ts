@@ -125,6 +125,8 @@ export const zhMessages = {
   "topic.diff.removed": "移出知识",
   "topic.diff.changed": "主题归属变化",
 
+  "topic.import.summary": "主题导入：已归类 {assigned} 个，待确认或保存 {pending} 个，保存失败 {failed} 个。",
+  "topic.import.retry": "重试未保存的归属",
   "topic.assignment.title": "知识点主题归属",
   "topic.assignment.ids": "具体主题编号",
   "topic.assignment.version": "分类版本摘要",

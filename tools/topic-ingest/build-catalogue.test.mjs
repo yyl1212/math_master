@@ -18,3 +18,16 @@ test('rejects modified captured bytes without consulting or changing live source
  const f=await acceptedFixture(t);await captureTopicBatch(f);await fs.writeFile(join(f.outDir,'files/Knowledge_JSON',f.primary),'{}');
  await assert.rejects(()=>buildCatalogueArchive(f.outDir),/CAPTURE_BYTES_CHANGED/);
 });
+
+test('provides verified dot mappings to automatically classify the captured draft',async t=>{
+ const f=await acceptedFixture(t);await captureTopicBatch(f);
+ const {buildImportContext}=await import('./build-catalogue.mjs');
+ const context=await buildImportContext(f.outDir);
+ const {normalizePrimaryFile}=await import('./adapters.mjs');
+ const {buildDraftInputs}=await import('./build-drafts.mjs');
+ const bytes=await fs.readFile(join(f.outDir,'files/Knowledge_JSON',f.primary));
+ const records=normalizePrimaryFile({bytes,packageId:'fixture',sourceId:'fixture-source',path:f.primary,sha256:context.capture.sourceRecordIndex[0].sha256}).records;
+ const result=buildDraftInputs({...context,records,legacyCatalogue:{version:1}});
+ assert.equal(result.packages.length,1);assert.deepEqual(result.packages[0].assignments[0].topicIds,['msc-13c60']);
+ assert.equal(result.packages[0].assignments[0].sourceRefs[0].recordId,'record-1');
+});

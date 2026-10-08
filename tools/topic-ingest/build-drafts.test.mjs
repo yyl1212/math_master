@@ -29,7 +29,7 @@ test('same source ID and identical original record deduplicate but different wor
 });
 test('missing classification or type mapping reports issues instead of producing guessed content',()=>{
  const f=setup();f.resolutions=[];const r=buildDraftInputs(f);
- assert.equal(r.packages.length,0);assert.equal(r.issues[0].code,'MAPPING_REQUIRED');
+ assert.equal(r.packages.length,1);assert.deepEqual(r.packages[0].assignments,[]);assert.equal(r.issues[0].code,'TOPIC_MAPPING_REQUIRED');
  const g=setup();g.resolutions[0].type='unsupported';assert.equal(buildDraftInputs(g).issues[0].code,'TYPE_MAPPING_REQUIRED');
  const h=setup();h.resolutions[0].topicIds=['msc-unknown'];assert.equal(buildDraftInputs(h).issues[0].code,'TOPIC_MAPPING_REQUIRED');
 });
@@ -49,4 +49,34 @@ test('does not package records outside accepted capture and leaves caller record
  const f=setup(),before=JSON.stringify(f.records);f.capture.accepted=false;
  assert.throws(()=>buildDraftInputs(f),/BATCH_NOT_ACCEPTED/);assert.equal(JSON.stringify(f.records),before);
  const g=setup();g.capture.sourceFiles=[];assert.equal(buildDraftInputs(g).issues[0].code,'SOURCE_NOT_CAPTURED');
+});
+
+test('automatically binds a captured dot record mapping without per-record resolutions',()=>{
+ const f=setup();f.resolutions=[];
+ f.sourceMappings=[{source_id:'source-a',work_family_id:'work-a',msc_code:'13C60',knowledge_record_ids:['r1'],knowledge_local_primary_paths:['Fixture/knowledge.json']}];
+ f.capture.sourceRecordIndex=[{sourceId:'source-a',workFamilyId:'work-a',recordId:'r1',path:'Fixture/knowledge.json',sha256:f.records[0].rawSHA}];
+ const result=buildDraftInputs(f);assert.equal(result.packages.length,1);
+ const draft=result.packages[0];assert.match(draft.draft.package.knowledge[0].id,/^k-[a-f0-9]{56}$/);
+ assert.deepEqual(draft.assignments[0].topicIds,['msc-13c60']);assert.deepEqual(draft.assignments[0].sourceRefs,f.capture.sourceRecordIndex);
+ assert.deepEqual(draft.draft.sourceMap[0].knowledge,draft.assignments[0].knowledge);
+ assert.equal(draft.draft.package.knowledge[0].type,'definition');assert.equal('status' in draft.draft,false);
+});
+test('keeps an unmapped valid knowledge draft pending instead of discarding it',()=>{
+ const f=setup();f.resolutions=[];f.sourceMappings=[];
+ const result=buildDraftInputs(f);assert.equal(result.packages.length,1);assert.equal(result.packages[0].draft.package.knowledge.length,1);assert.deepEqual(result.packages[0].assignments,[]);
+ assert.equal(result.issues.some(x=>x.code==='TOPIC_MAPPING_REQUIRED'),true);
+});
+test('conflicting direct and dot tags are pending and missing captured references cannot be fabricated',()=>{
+ const f=setup([{id:'r1',title:'Original',kind:'definition',statement:'Original',msc_codes:['13C60']}]);f.resolutions=[];
+ f.capture.nodes.push({id:'msc-13c10',kind:'primary',level:3});
+ f.sourceMappings=[{source_id:'source-a',work_family_id:'work-a',msc_code:'13C10',knowledge_record_ids:['r1'],knowledge_local_primary_paths:['Fixture/knowledge.json']}];
+ f.capture.sourceRecordIndex=[{sourceId:'source-a',workFamilyId:'work-a',recordId:'r1',path:'Fixture/knowledge.json',sha256:f.records[0].rawSHA}];
+ let result=buildDraftInputs(f);assert.equal(result.packages.length,1);assert.deepEqual(result.packages[0].assignments,[]);assert.equal(result.issues.some(x=>x.code==='TOPIC_MAPPING_CONFLICT'),true);
+ f.sourceMappings[0].msc_code='13C60';f.capture.sourceRecordIndex=[];result=buildDraftInputs(f);assert.deepEqual(result.packages[0].assignments,[]);assert.equal(result.issues.some(x=>x.code==='SOURCE_REFERENCE_REQUIRED'),true);
+});
+
+test('carries the installed taxonomy version for import without manual digest input',()=>{
+ const f=setup();f.taxonomyVersionId='c'.repeat(64);
+ assert.equal(buildDraftInputs(f).packages[0].taxonomyVersionId,'c'.repeat(64));
+ f.taxonomyVersionId='invalid';assert.throws(()=>buildDraftInputs(f),/INVALID_TAXONOMY_VERSION/);
 });
