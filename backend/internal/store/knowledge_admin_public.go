@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"strings"
 	"time"
@@ -65,7 +66,7 @@ func topicPrefix(k string) string {
 	}
 	return k
 }
-func listCurrent(ctx context.Context, tx *sql.Tx, q knowledgeadmin.Query) (out knowledgeadmin.Page[knowledgeadmin.PublicKnowledge], e error) {
+func listCurrent(ctx context.Context, tx *sql.Tx, q knowledgeadmin.Query, owners ...string) (out knowledgeadmin.Page[knowledgeadmin.PublicKnowledge], e error) {
 	q, e = normalizeKnowledgeQuery(q)
 	if e != nil {
 		return
@@ -74,10 +75,14 @@ func listCurrent(ctx context.Context, tx *sql.Tx, q knowledgeadmin.Query) (out k
 	out = knowledgeadmin.Page[knowledgeadmin.PublicKnowledge]{Items: []knowledgeadmin.PublicKnowledge{}, Limit: q.Limit, Offset: q.Offset}
 	filter := managedFilter + " AND k.published AND k.deleted_at IS NULL"
 	args := []any{q.TopicKey, q.Q, q.Type, q.Difficulty}
+	if len(owners) > 0 {
+		filter += ` AND ($6='' OR coalesce((SELECT state FROM managed_study_records r WHERE r.owner_user_id=$5 AND r.knowledge_id=k.internal_id),'unlearned')=$6) AND (NOT $7 OR EXISTS(SELECT 1 FROM managed_study_records r WHERE r.owner_user_id=$5 AND r.knowledge_id=k.internal_id AND r.state IN ('completed','reviewing')))`
+		args = append(args, owners[0], q.State, q.ReviewOnly)
+	}
 	if e = tx.QueryRowContext(ctx, "SELECT count(*) FROM managed_knowledge k WHERE "+filter, args...).Scan(&out.Total); e != nil {
 		return
 	}
-	rows, e := tx.QueryContext(ctx, "SELECT "+managedColumns+" FROM managed_knowledge k WHERE "+filter+" ORDER BY updated_at DESC,internal_id LIMIT $5 OFFSET $6", append(args, q.Limit, q.Offset)...)
+	rows, e := tx.QueryContext(ctx, "SELECT "+managedColumns+" FROM managed_knowledge k WHERE "+filter+fmt.Sprintf(" ORDER BY updated_at DESC,internal_id LIMIT $%d OFFSET $%d", len(args)+1, len(args)+2), append(args, q.Limit, q.Offset)...)
 	if e != nil {
 		return
 	}

@@ -52,6 +52,22 @@ func feedbackLoadTicket(ctx context.Context, tx *sql.Tx, id string, lock bool) (
 	return t, nil
 }
 func feedbackTargetValidity(ctx context.Context, tx *sql.Tx, b feedback.Binding) (string, error) {
+	if b.Target.Kind == "managed-knowledge" {
+		var published, deleted bool
+		var sha string
+		e := tx.QueryRowContext(ctx, `SELECT published,deleted_at IS NOT NULL,content_sha256 FROM managed_knowledge WHERE internal_id=$1`, b.Target.ManagedRef.ID).Scan(&published, &deleted, &sha)
+		if e != nil {
+			return "", e
+		}
+		if !published || deleted {
+			return "withdrawn", nil
+		}
+		if sha != b.Target.ManagedRef.ContentSHA256 {
+			return "replaced", nil
+		}
+		return "current", nil
+	}
+
 	if b.Target.Kind == "site" {
 		return "not_applicable", nil
 	}

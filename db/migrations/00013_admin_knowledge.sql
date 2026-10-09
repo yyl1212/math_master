@@ -131,6 +131,10 @@ BEGIN
  AND managed_ref_valid(t->'managedRef',t#>>'{managedRef,id}') AND t#>>'{managedRef,id}' ~ '^k-[0-9a-f]{56}$'
  AND feedback_shape(s,ARRAY['kind','publicationId','attemptId','position']) AND s->>'kind'='managed' AND s->'publicationId'='null' AND s->'attemptId'='null' AND s->'position'='null') IS TRUE;
 END $$;
+ALTER FUNCTION feedback_label(jsonb) RENAME TO feedback_label_legacy;
+CREATE FUNCTION feedback_label(t jsonb) RETURNS text LANGUAGE sql IMMUTABLE AS $$
+ SELECT CASE WHEN t->>'kind'='managed-knowledge' THEN 'Knowledge '||(t#>>'{managedRef,id}') ELSE feedback_label_legacy(t) END
+$$;
 ALTER FUNCTION feedback_target_proof(jsonb,jsonb,uuid,boolean) RENAME TO feedback_target_proof_legacy;
 CREATE FUNCTION feedback_target_proof(t jsonb,s jsonb,owner uuid,creating boolean) RETURNS boolean LANGUAGE plpgsql STABLE AS $$
 BEGIN
@@ -155,6 +159,8 @@ DO $$ BEGIN
  IF EXISTS(SELECT 1 FROM knowledge_admin_state WHERE enabled_once) OR EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=0 AND managed_knowledge_enabled) OR EXISTS(SELECT 1 FROM managed_knowledge) THEN RAISE EXCEPTION 'managed knowledge migration cannot be rolled back after use'; END IF;
 END $$;
 ALTER TABLE feedback_tickets DROP CONSTRAINT feedback_managed_target_shape;
+DROP FUNCTION feedback_label(jsonb);
+ALTER FUNCTION feedback_label_legacy(jsonb) RENAME TO feedback_label;
 DROP FUNCTION feedback_target_proof(jsonb,jsonb,uuid,boolean);
 ALTER FUNCTION feedback_target_proof_legacy(jsonb,jsonb,uuid,boolean) RENAME TO feedback_target_proof;
 DROP FUNCTION feedback_target_shape(jsonb,jsonb);

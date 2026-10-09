@@ -172,6 +172,8 @@ type PublicKnowledge struct {
 	UpdatedAt  time.Time      `json:"updatedAt"`
 }
 type Query struct {
+	State                     string
+	ReviewOnly                bool
 	TopicKey, Q, Type, Status string
 	Difficulty, Limit, Offset int
 }

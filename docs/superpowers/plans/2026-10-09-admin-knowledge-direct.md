@@ -10,7 +10,7 @@
 
 **Source contract:** 已交付目录 `/Users/wiw/.codex/visualizations/2026/10/06/01a11073-c676-7413-8c14-8ca76c85e4a2/knowledge-format-v1` 中的源/manifest schema、MSC代码、SHA256SUMS 和校验金样。任务1复制准确规范字节并保留目录来源许可说明，不修改原交付文件。
 
-**Spec:** [已确认设计](../specs/2026-10-09-admin-knowledge-direct-design.md)。设计在 2026-10-09 经用户“确认”；本计划待审查，尚未开发产品代码。
+**Spec:** [已确认设计](../specs/2026-10-09-admin-knowledge-direct-design.md)。设计在 2026-10-09 经用户“确认”；实施计划已由用户确认，当前按任务实施；上线及生产清理尚未执行。
 
 ## 全局约束
 
@@ -182,20 +182,20 @@ flowchart LR
 ### Task 5:私人学习、历史与反馈完整适配
 
 **Create:** `backend/internal/knowledgeadmin/study.go`、`backend/internal/knowledgeadmin/study_test.go`；`backend/internal/store/knowledge_admin_study.go`、`backend/internal/store/knowledge_admin_notes.go`、`backend/internal/store/knowledge_admin_history.go`；`backend/internal/httpapi/knowledge_study_routes.go`。
-**Modify:** `backend/internal/study/state.go`、`backend/internal/study/state_test.go`、`backend/internal/feedback/model.go`、`backend/internal/store/feedback_targets.go`、`backend/internal/store/feedback_read.go`、`backend/internal/store/feedback_resolution.go`、`backend/internal/httpapi/feedback_json.go`、`api/openapi.yaml`、`frontend/src/lib/api/generated.d.ts`。
+**Modify:** `frontend/src/lib/feedback/types.ts`、`frontend/src/lib/feedback/schemas.ts`、`frontend/src/lib/feedback/schemas.test.ts`、`frontend/src/features/feedback/review-panel.tsx`；`backend/internal/study/state.go`、`backend/internal/study/state_test.go`、`backend/internal/feedback/model.go`、`backend/internal/feedback/validation.go`、`backend/internal/store/feedback_write.go`、`backend/internal/httpapi/feedback_routes.go`、`db/migrations/00013_admin_knowledge.sql`、`backend/internal/store/feedback_targets.go`、`backend/internal/store/feedback_read.go`、`backend/internal/store/feedback_resolution.go`、`backend/internal/httpapi/feedback_json.go`、`api/openapi.yaml`、`frontend/src/lib/api/generated.d.ts`。
 **Test — Create:** `backend/internal/store/knowledge_admin_study_test.go`、`backend/internal/store/knowledge_admin_notes_test.go`、`backend/internal/store/knowledge_admin_feedback_test.go`；`backend/internal/httpapi/knowledge_study_test.go`。
 
 **Consumes:** Ref、CurrentTopic、当前公开读取、原 study 状态规则与笔记格式限制；提取 `study.TransitionState(State,Action) (State,error)` 供新旧业务共用，原 ApplyState 签名和冻结引用比较不变。
 **Produces:** `ManagedStudyInput{Knowledge Ref; ExpectedSequence int64; ReviewID *string}`、`ManagedNoteInput{Knowledge Ref; ExpectedRevision int64; Body string}`；`StudyRepository` 方法 `ReadManagedOverview(ctx,access) (ManagedOverview,error)`、`ListManagedStudyTopics(ctx,access,query) (Page[ManagedProgress],error)`、`ListManagedStudyKnowledge(ctx,access,query) (Page[ManagedDetail],error)`、`ReadManagedStudy(ctx,access,id) (ManagedDetail,error)`、`ApplyManagedStudy(ctx,access,id,action,input) (ManagedDetail,error)`、`ReadManagedNote(ctx,access,id) (ManagedNote,error)`、`SaveManagedNote(ctx,access,id,input) (ManagedNote,error)`、`DeleteManagedNote(ctx,access,id,input) (ManagedNote,error)`、`ListManagedHistory(ctx,access,study.HistoryQuery) (ManagedHistoryPage,error)`；ctx=context.Context，access=Access，query=Query，id/action=string。
 `ManagedDetail` 沿用状态/时间字段、Ref、Available/MaterialChanged；history 的事件保存 managed Ref、当时 topicKeys/时间，cursor 使用时间+ID；overview 包括不可用/未分类/内容变更统计。
 
-- [ ] 写 `TestManagedStudyEditAndMove`：完成及笔记后编辑/移动主题，状态、owner、首次/末次完成时间、笔记 revision 不变；当前进度随主题改变，历史仍是当时 SHA/主题；重新阅读不生成完成。复习沿用合法四状态转换。
-- [ ] 写 `TestManagedPrivateNotesDuringUnpublish`：两用户互不可读、admin 也不可读他人笔记；下架与保存竞争返回明确 stale/unavailable，无丢失旧笔记；本人仍可查看历史及旧笔记，不能读下架正文。CAS、同键重试及危险笔记拒绝。
-- [ ] 写 `TestManagedFeedbackWithoutApproval`：已发布知识可提交 managed 反馈，正文变更时旧 SHA 拒绝；票据保留当时引用且不需要批准记录，后续下架可继续原讨论；原反馈分支通过原测试。
-- [ ] RED：`cd backend && CGO_ENABLED=0 go test ./internal/knowledgeadmin ./internal/store ./internal/httpapi -run 'TestManaged(Study|Private|Feedback)' -count=1 -timeout 5m`。
-- [ ] 实现接口和事务、事件/提醒/个人幂等；引用比较用当前 SHA，原状态规则用 TransitionState，不伪造 version。旧 v2 历史原样只读；新写全部 v3，旧学习写 managed 模式 410。反馈 proof 对 managed 分支验证真实当前知识，其余分支保持原语义；managedRef 在旧分支必须 omitempty，不能多出 null 字段破坏原严格 shape。
-- [ ] GREEN：重跑上述；独立批次运行原 study 与 feedback 相关测试，确认旧事件、原账户权限不受影响；再次生成 API。
-- [ ] 提交，commit：`feat: 保留当前知识的私人学习历史与反馈`。
+- [x] 写 `TestManagedStudyEditAndMove`：完成及笔记后编辑/移动主题，状态、owner、首次/末次完成时间、笔记 revision 不变；当前进度随主题改变，历史仍是当时 SHA/主题；重新阅读不生成完成。复习沿用合法四状态转换。
+- [x] 写 `TestManagedPrivateNotesDuringUnpublish`：两用户互不可读、admin 也不可读他人笔记；下架与保存竞争返回明确 stale/unavailable，无丢失旧笔记；本人仍可查看历史及旧笔记，不能读下架正文。CAS、同键重试及危险笔记拒绝。
+- [x] 写 `TestManagedFeedbackWithoutApproval`：已发布知识可提交 managed 反馈，正文变更时旧 SHA 拒绝；票据保留当时引用且不需要批准记录，后续下架可继续原讨论；原反馈分支通过原测试。
+- [x] RED：`cd backend && CGO_ENABLED=0 go test ./internal/knowledgeadmin ./internal/store ./internal/httpapi -run 'TestManaged(Study|Private|Feedback)' -count=1 -timeout 5m`。
+- [x] 实现接口和事务、事件/提醒/个人幂等；引用比较用当前 SHA，原状态规则用 TransitionState，不伪造 version。旧 v2 历史原样只读；新写全部 v3，旧学习写 managed 模式 410。反馈 proof 对 managed 分支验证真实当前知识，其余分支保持原语义；managedRef 在旧分支必须 omitempty，不能多出 null 字段破坏原严格 shape。
+- [x] GREEN：重跑上述；独立批次运行原 study 与 feedback 相关测试，确认旧事件、原账户权限不受影响；再次生成 API。
+- [x] 提交，commit：`feat: 保留当前知识的私人学习历史与反馈`。
 
 ### Task 6:简化管理界面与学习者页面
 

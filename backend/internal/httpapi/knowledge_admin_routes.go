@@ -16,6 +16,7 @@ import (
 )
 
 type KnowledgeOptions struct {
+	Study        knowledgeadmin.StudyRepository
 	Service      *knowledgeadmin.Service
 	Current      knowledgeadmin.CurrentRepository
 	PublicOrigin string

@@ -54,6 +54,9 @@ func normalizeKnowledgeQuery(q knowledgeadmin.Query) (knowledgeadmin.Query, erro
 	if q.Limit < 1 || q.Limit > 100 || q.Offset < 0 || q.Offset > 1000000 || len(q.Q) > 256 || q.Difficulty < 0 || q.Difficulty > 5 {
 		return q, knowledgeadmin.ErrInvalid
 	}
+	if q.State != "" && q.State != "unlearned" && q.State != "learning" && q.State != "completed" && q.State != "reviewing" {
+		return q, knowledgeadmin.ErrInvalid
+	}
 	if q.Status != "" && q.Status != "published" && q.Status != "unpublished" && q.Status != "deleted" {
 		return q, knowledgeadmin.ErrInvalid
 	}

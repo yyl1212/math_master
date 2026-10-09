@@ -2364,6 +2364,195 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/study/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readManagedOverview */
+        get: operations["readManagedOverview"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/topics": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** listManagedStudyTopics */
+        get: operations["listManagedStudyTopics"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** listManagedStudyKnowledge */
+        get: operations["listManagedStudyKnowledge"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readManagedStudy */
+        get: operations["readManagedStudy"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/begin": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** beginManagedStudy */
+        post: operations["beginManagedStudy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/complete": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** completeManagedStudy */
+        post: operations["completeManagedStudy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/start-review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** startreviewManagedStudy */
+        post: operations["startreviewManagedStudy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/finish-review": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** finishreviewManagedStudy */
+        post: operations["finishreviewManagedStudy"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/note": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readManagedNote */
+        get: operations["readManagedNote"];
+        /** saveManagedNote */
+        put: operations["saveManagedNote"];
+        post?: never;
+        /** deleteManagedNote */
+        delete: operations["deleteManagedNote"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** listManagedHistory */
+        get: operations["listManagedHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/feedback/contexts/managed-knowledge/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** @description 读取当前已发布知识的反馈上下文，不要求旧批准或知识版本。 */
+        get: operations["readManagedFeedbackContext"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -4388,6 +4577,13 @@ export interface components {
             identity: components["schemas"]["FeedbackInstanceIdentity"];
             area: null;
             part: components["schemas"]["FeedbackAssetPart"] | null;
+        } | {
+            /** @constant */
+            kind: "managed-knowledge";
+            identity: null;
+            area: null;
+            part: null;
+            managedRef: components["schemas"]["ManagedRef"];
         };
         FeedbackSource: {
             /** @constant */
@@ -4414,6 +4610,12 @@ export interface components {
             publicationId: null;
             attemptId: string;
             position: number;
+        } | {
+            /** @constant */
+            kind: "managed";
+            publicationId: null;
+            attemptId: null;
+            position: null;
         };
         FeedbackContext: {
             target: components["schemas"]["FeedbackTarget"];
@@ -5797,6 +5999,104 @@ export interface components {
             editToken: string;
             /** Format: date-time */
             updatedAt: string;
+        };
+        ManagedStudyRecord: {
+            knowledgeId: string;
+            /** @enum {string} */
+            state: "unlearned" | "learning" | "completed" | "reviewing";
+            sequence: number;
+            firstStartedAt: string | null;
+            firstCompletedAt: string | null;
+            lastCompletedAt: string | null;
+            lastReadAt: string | null;
+            lastReviewedAt: string | null;
+            completedRef: components["schemas"]["ManagedRef"] | null;
+            lastReviewRef: components["schemas"]["ManagedRef"] | null;
+            lastReviewId: string | null;
+            activeReviewId: string | null;
+        };
+        ManagedStudyDetail: {
+            actorId: string;
+            record: components["schemas"]["ManagedStudyRecord"];
+            currentKnowledge: components["schemas"]["ManagedPublicKnowledge"] | null;
+            available: boolean;
+            materialChanged: boolean;
+        };
+        ManagedStudyInput: {
+            knowledge: components["schemas"]["ManagedRef"];
+            expectedSequence: number;
+            /** Format: uuid */
+            reviewId?: string;
+        };
+        ManagedNoteInput: {
+            knowledge: components["schemas"]["ManagedRef"];
+            expectedRevision: number;
+            body: string;
+        };
+        ManagedNote: {
+            actorId: string;
+            knowledgeId: string;
+            body: string;
+            revision: number;
+            knowledge: components["schemas"]["ManagedRef"] | null;
+            deleted: boolean;
+            available: boolean;
+            updatedAt: string | null;
+        };
+        ManagedProgress: {
+            topicKey: string;
+            total: number;
+            completed: number;
+            learning: number;
+            reviewing: number;
+            completedRatio: number | null;
+        };
+        ManagedReminder: {
+            knowledgeId: string;
+            kind: string;
+            /** Format: date-time */
+            recordedAt: string;
+        };
+        ManagedOverview: {
+            actorId: string;
+            total: number;
+            completed: number;
+            learning: number;
+            reviewing: number;
+            unavailable: number;
+            unclassified: number;
+            materialChanged: number;
+            reminders: components["schemas"]["ManagedReminder"][];
+        };
+        ManagedHistoryEntry: {
+            id: string;
+            knowledge: components["schemas"]["ManagedRef"];
+            topicKeys: string[];
+            /** @enum {string} */
+            kind: "started" | "completed" | "review-started" | "review-finished" | "note-saved" | "note-deleted";
+            noteRevision: number | null;
+            reviewId: string | null;
+            /** Format: date-time */
+            recordedAt: string;
+            /** @constant */
+            sourceKind: "managed";
+        };
+        ManagedHistoryPage: {
+            actorId: string;
+            items: components["schemas"]["ManagedHistoryEntry"][];
+            nextCursor: string | null;
+        };
+        ManagedStudyPage: {
+            items: components["schemas"]["ManagedStudyDetail"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        ManagedProgressPage: {
+            items: components["schemas"]["ManagedProgress"][];
+            total: number;
+            limit: number;
+            offset: number;
         };
     };
     responses: {
@@ -19820,6 +20120,1436 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readManagedOverview: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedOverview"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    listManagedStudyTopics: {
+        parameters: {
+            query?: {
+                topicKey?: string;
+                q?: string;
+                type?: string;
+                difficulty?: number;
+                limit?: number;
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProgressPage"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    listManagedStudyKnowledge: {
+        parameters: {
+            query?: {
+                topicKey?: string;
+                q?: string;
+                type?: string;
+                difficulty?: number;
+                limit?: number;
+                offset?: number;
+                state?: "unlearned" | "learning" | "completed" | "reviewing";
+                reviewOnly?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedStudyPage"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readManagedStudy: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedStudyDetail"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    beginManagedStudy: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManagedStudyInput"];
+            };
+        };
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedStudyDetail"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    completeManagedStudy: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManagedStudyInput"];
+            };
+        };
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedStudyDetail"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    startreviewManagedStudy: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManagedStudyInput"];
+            };
+        };
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedStudyDetail"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    finishreviewManagedStudy: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManagedStudyInput"];
+            };
+        };
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedStudyDetail"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readManagedNote: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedNote"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    saveManagedNote: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManagedNoteInput"];
+            };
+        };
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedNote"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    deleteManagedNote: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ManagedNoteInput"];
+            };
+        };
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedNote"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    listManagedHistory: {
+        parameters: {
+            query?: {
+                knowledgeId?: string;
+                topicKey?: string;
+                kind?: string;
+                cursor?: string;
+                from?: string;
+                to?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 当前操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedHistoryPage"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readManagedFeedbackContext: {
+        parameters: {
+            query?: {
+                partKind?: "unit" | "asset";
+                partId?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 原安全回执或实时私有读取；不会自动交付讨论原文。 */
+            200: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackContextEnvelope"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            400: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            401: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            403: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            404: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            405: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            409: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            428: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            429: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+            /** @description 闭合错误；不回显输入、答案或私有正文。 */
+            503: {
+                headers: {
+                    "Cache-Control"?: "private, no-store";
+                    "X-Content-Type-Options"?: "nosniff";
+                    "X-Request-ID"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["FeedbackError"];
                 };
             };
         };

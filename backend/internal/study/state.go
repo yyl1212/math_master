@@ -4,6 +4,12 @@ func ValidState(s State) bool {
 	return s == Unlearned || s == Learning || s == Completed || s == Reviewing
 }
 func ApplyState(s State, a Action, completedRef, currentRef KnowledgeRef) (State, error) {
+	if a == Complete && s == Reviewing && completedRef != currentRef {
+		return s, ErrStateConflict
+	}
+	return TransitionState(s, a)
+}
+func TransitionState(s State, a Action) (State, error) {
 	if !ValidState(s) {
 		return s, ErrInvalid
 	}
@@ -18,10 +24,7 @@ func ApplyState(s State, a Action, completedRef, currentRef KnowledgeRef) (State
 			return s, ErrStateConflict
 		}
 		if s == Reviewing {
-			if completedRef == currentRef {
-				return s, nil
-			}
-			return s, ErrStateConflict
+			return s, nil
 		}
 		return Completed, nil
 	case StartReview:
