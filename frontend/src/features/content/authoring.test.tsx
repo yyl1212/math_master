@@ -8,6 +8,7 @@ import { contentFailure } from "@/lib/content/schemas";
 import type {DraftTopicInput} from "@/lib/taxonomy/types";
 import { AuthStatus } from "@/components/auth-status";
 const mocks = vi.hoisted(() => ({ request: vi.fn(), asset: vi.fn(), refresh: vi.fn(), push: vi.fn(), context: vi.fn() }));
+vi.mock("@/lib/knowledge-admin/mode-client",()=>({useContentMode:()=>false}));
 vi.mock("@/lib/content/client", () => ({ contentRequest: mocks.request, readContentAsset: mocks.asset }));
 vi.mock("next/navigation", () => ({ useRouter: () => mocks, usePathname: () => "/editor" }));
 vi.mock("@/lib/auth/client", () => ({ getAuthContext: mocks.context }));

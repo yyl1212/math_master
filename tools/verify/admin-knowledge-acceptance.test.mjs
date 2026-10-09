@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {verifyAdminKnowledgeAcceptance} from './admin-knowledge-acceptance.mjs';
+test('managed acceptance preserves original migrations and strict data identity',()=>{const r=verifyAdminKnowledgeAcceptance();assert.equal(r.ok,true);assert.equal(r.originalMigrations,12);assert.equal(r.classification.specific,4969);assert.equal(r.classification.other,534)});

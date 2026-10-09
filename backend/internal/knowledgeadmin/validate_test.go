@@ -35,3 +35,16 @@ func TestClassificationIndexAndOtherKind(t *testing.T) {
 		}
 	}
 }
+
+func TestCurrentSourcesRejectUnknownDescriptions(t *testing.T) {
+	d, e := DecodeSource(bytes.NewReader(sourceBytes(t)))
+	if e != nil {
+		t.Fatal(e)
+	}
+	for _, value := range []string{"unknown", "待核实", "\x00"} {
+		in := CurrentInput{ExternalID: d.KnowledgePoints[0].ID, Point: d.KnowledgePoints[0], Sources: []PublicSource{{SourceID: d.Source.SourceID, Title: value, Citation: "可核实的来源说明"}}}
+		if ValidateCurrent(in) == nil {
+			t.Fatalf("accepted unavailable source description %q", value)
+		}
+	}
+}

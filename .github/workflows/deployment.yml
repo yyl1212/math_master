@@ -6,6 +6,8 @@ on:
     branches: [master]
 permissions:
   contents: read
+env:
+  TOPIC_COMPATIBILITY_STAGE: managed
 jobs:
   operations:
     runs-on: ubuntu-latest

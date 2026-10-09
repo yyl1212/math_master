@@ -241,6 +241,11 @@ func ValidateCurrent(i CurrentInput) error {
 	if len(i.Sources) == 0 {
 		return invalid("/sources")
 	}
+	for _, source := range i.Sources {
+		if strings.TrimSpace(source.SourceID) == "" || strings.TrimSpace(source.Title) == "" || strings.TrimSpace(source.Citation) == "" || knownValues(source.Title, "title", "/sources/title") != nil || knownValues(source.Citation, "citation", "/sources/citation") != nil {
+			return invalid("/sources")
+		}
+	}
 	for _, s := range i.Sources {
 		if s.SourceID == "" || s.Title == "" || s.Citation == "" || s.URL != nil && !safeSourceURL(*s.URL) {
 			return invalid("/sources")
@@ -264,10 +269,10 @@ func validateRelations(d SourceDocument) error {
 			seen[k] = true
 			if r.Status == "confirmed" && r.TargetSourceID == d.Source.SourceID {
 				target, ok := ids[r.TargetID]
-				if !ok || target.Version != r.TargetVersion {
+				if ok && target.Version != r.TargetVersion {
 					return invalid("/relations")
 				}
-				if r.Kind == "prerequisite" {
+				if ok && r.Kind == "prerequisite" {
 					graph[p.ID] = append(graph[p.ID], r.TargetID)
 				}
 			}

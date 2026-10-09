@@ -1,4 +1,5 @@
 "use client";
+import {useContentMode} from "@/lib/knowledge-admin/mode-client";
 import {useExperienceMode} from "@/features/study/experience-mode";
 import {UiText} from "@/lib/i18n/ui-text";
 import {uiMessage,uiValue} from "@/lib/i18n/format";
@@ -9,9 +10,7 @@ import { getAuthContext } from "@/lib/auth/client";
 import type { AuthContext, AuthResult } from "@/lib/auth/types";
 import styles from "@/styles/auth.module.css";
 export function AuthStatus() {
-  const [managed,setManaged]=useState<boolean|null>(null);
- useEffect(()=>{let live=true;void fetch("/api/v3/content-mode",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(v=>{if(live)setManaged(v?.mode==="managed"?true:v?.mode==="legacy"?false:null)}).catch(()=>{if(live)setManaged(null)});return()=>{live=false}},[]);
- const path = usePathname(),mode=useExperienceMode(path), [state, setState] = useState<AuthResult<AuthContext> | null>(null);
+ const path = usePathname(),managed=useContentMode(path),mode=useExperienceMode(path), [state, setState] = useState<AuthResult<AuthContext> | null>(null);
   useEffect(() => {
     let live = true, revision = 0;
     const refresh = () => { const current = ++revision; void getAuthContext().then(result => { if (live && revision === current) setState(result); }); };

@@ -130,3 +130,23 @@ func TestDecodeSourceExplicitOtherAndRawIDs(t *testing.T) {
 		t.Fatal(e)
 	}
 }
+
+func TestDecodeSourceRetainsDeclaredRelationsAcrossSplitFiles(t *testing.T) {
+	var d map[string]any
+	if e := json.Unmarshal(sourceBytes(t), &d); e != nil {
+		t.Fatal(e)
+	}
+	points := d["knowledge_points"].([]any)
+	p := points[0].(map[string]any)
+	target := points[1].(map[string]any)
+	p["relations"] = []any{map[string]any{"kind": "related", "target_source_id": d["source"].(map[string]any)["source_id"], "target_id": target["id"], "target_version": target["version"], "status": "confirmed", "reason": "已核实的关系，目标知识位于同一规范快照的另一文件。"}}
+	d["knowledge_points"] = points[:1]
+	b, e := json.Marshal(d)
+	if e != nil {
+		t.Fatal(e)
+	}
+	v, e := DecodeSource(bytes.NewReader(b))
+	if e != nil || len(v.KnowledgePoints[0].Relations) != 1 {
+		t.Fatal("a valid split file rejected an external declaration", e)
+	}
+}
