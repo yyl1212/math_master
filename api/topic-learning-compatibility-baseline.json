@@ -3050,7 +3050,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "dde0597a45a79e45e7d5a1e838dfc1b543aaa208968f6f1319fe8e1bcb74c19f"
+        "sha256": "07386dc28881be1e504413028763e288ef5507a0515c84e62c2eeb27288d9f4f"
       }
     },
     "ops/verify-deployment.py": {
@@ -3059,7 +3059,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "23da271c32ead480a425065a6be167eebc94d3fd640ebcce35613edf0bf4d254"
+        "sha256": "895641205457950681676cccae51519eca2729bc9bbda5f671e6cf8021783a8d"
       }
     },
     "tools/verify/learning-compatibility.test.mjs": {
@@ -4746,8 +4746,8 @@
     "frontend/src/features/content/topic-workspace.tsx": "cd4ee33433dfb2ab280af1a38a0f67628b4f565a11c70f0d0dda5e2fc1d1e726",
     "frontend/src/features/feedback/topic-location.test.ts": "44732334ea636f1115ed94acd443b50a2142352e61cdd8c55cc75c4d47093899",
     "frontend/src/features/feedback/topic-location.ts": "0d043e4276b21fc1a3a1e4e93b216b95af2353497779a65999afb562ed908081",
-    "frontend/src/features/knowledge-admin/edit.tsx": "b633aaa98c722180b9490c70507cb4fd4b7b45ddb00a46c0b6f1a1e4a6dd673b",
-    "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "edeeac5cdc1cbc582107b050a5d5887cb229a360b3b08e04af658244c1b71f25",
+    "frontend/src/features/knowledge-admin/edit.tsx": "00d92e19c38e7d8dab17fc42e0319378503aa2fadd171f9da63c326b568cc864",
+    "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "7928a78605e8d0376fb71339168bf6c9aa61873f4b96620b0b8160b0315c2cfc",
     "frontend/src/features/knowledge-admin/list.tsx": "99c8b7ecf7043d4511f72eb5ef7d3b5069654c18518beb0cfd3d99343f0237a4",
     "frontend/src/features/knowledge-admin/upload.tsx": "35cf666611073c9ed6b0e2a09a76358fe404329b4ee10fabbb75235de3007a08",
     "frontend/src/features/reading/current-knowledge-view.tsx": "440d9dde5b179d6400eb448b95563e911f2a6f0be91190532ffc0198aeff0b44",
@@ -4838,7 +4838,7 @@
     "tests/e2e/topic-study-progress.spec.ts": "ddf09cbb5c744c588cb0dc10b0d822bccf66f33cc87cf6cdc1b78cbba3de2255",
     "tests/e2e/topic-study-security.spec.ts": "280a358ed5751afe71b92c8efb7949a6cc747a07fb8fd32dc817249a3d078b60",
     "tests/e2e/ui-language-cutover.spec.ts": "9d9f3b9085ccd1ff68c4cdf0289ba9d3edc63483d7f814a1386c69e0f1073118",
-    "tests/e2e/ui-language-managed.spec.ts": "edc0e483b88f3c5d41a57621fcd6b531ddf1cd4ea0029ce1397b05c281c899a8",
+    "tests/e2e/ui-language-managed.spec.ts": "87b48ea38c422adf4dadffe4b5eeb21b78b605608c47da48918baf1ab9170fe1",
     "tests/e2e/ui-language-study.spec.ts": "5dceeeb7fe580a2bdd37d6d5f62aacf0e340c1ef1c75e239b57c1b16e76b8de2",
     "tests/e2e/ui-language-taxonomy.spec.ts": "acbc7ffd96d8bea01302a18074ac1c33eb9e0f7cf096953442990c5036f74bd3",
     "tools/topic-ingest/adapters.mjs": "d795204ee9c45a439169104b3be5d8b2fb7b9a8ed4c1e0799500d8ee11b76abe",

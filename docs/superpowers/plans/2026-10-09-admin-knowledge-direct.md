@@ -294,3 +294,7 @@ flowchart LR
   B --> G
   G --> D[固定合入SHA部署]
 ```
+
+生产激活补充：新版f9e8eeb应用健康通过，但旧预览页在Next.js流式SSR返回200+唯一`__next-page-redirect`/1秒/account meta，浏览器实际安全跳转；原验收只接收3xx导致误判并停入口。保留已审功能版本，严格实测该安全响应后恢复HTTPS入口；仅改ops/verify-deployment.py与test_verify.py，新增合法3xx或唯一固定Next标记0/1秒/account的验证，外链、重复meta、错内容类型、私人草稿继续拒绝。原TLS/401/410/静态资源/40请求均保留。独立兼容审查及RED→GREEN后用于实际最终发布验收，不直接放行普通200。
+
+CI输入完整性补充：原双语手机用例在SSR控制尚未接管时fill，水合恢复旧值后产生新输入+旧正文追加。修改frontend/src/features/knowledge-admin/edit.tsx及已有knowledge-admin.test.tsx/ui-language-managed.spec.ts：用React useSyncExternalStore区分SSR(false)/client(true)，编辑fieldset在水合前disabled，接管后启用，保存同步guard；不改正文、类型或语言状态。增加server-render禁用RED→GREEN及真实延迟JS水合浏览器回归，保留原语言输入断言，无新库/API/migration。
