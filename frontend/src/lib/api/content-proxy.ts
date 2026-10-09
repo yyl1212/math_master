@@ -1,4 +1,5 @@
 import { readContentBytes, ContentByteLimitError } from "../content/bytes";
+import { z } from "zod";
 import "server-only";
 import { parseGoOrigin } from "./server-config";
 import { parseAuthOrigin } from "../auth/config";
@@ -8,6 +9,11 @@ import { contentFailure, contentRouteRequest, normalizeContentQuery, contentInpu
 import { validateContentSVG } from "../content/svg";
 import type { ContentErrorCode, ContentRoute, ContentListQuery } from "../content/types";
 const privateHeaders = () => new Headers({ "Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff", "Content-Type": "application/json", "X-Request-ID": "unavailable" });
+const retirementSchema = z.object({ error: z.object({
+    code: z.literal("KNOWLEDGE_WORKFLOW_RETIRED"),
+    message: z.literal("Use current knowledge management."),
+    requestId: z.string().regex(/^(?:[0-9a-f]{32}|unavailable)$/),
+}).strict() }).strict();
 export function contentProxyError(code: ContentErrorCode = "SERVICE_UNAVAILABLE"): Response { const failure = contentFailure(code); return Response.json({ error: { code: failure.code, message: failure.message, requestId: failure.requestId } }, { status: failure.status, headers: privateHeaders() }); }
 function resolveRoute(request: Request, segments: string[]): ContentRoute | ContentErrorCode {
     if (segments.length === 0 || segments.some(s => s === ""))
@@ -177,6 +183,24 @@ export function createContentProxy(rawGoOrigin: string, options: {
                 h.set("X-Request-ID", requestId);
                 h.set("Content-Length", String(bytes.byteLength));
                 return new Response(bytes.slice().buffer as ArrayBuffer, { status: 200, headers: h });
+            }
+            if (response.status === 410) {
+                try {
+                    const requestId = contentResponseHeaders(response);
+                    if (!/^application\/json(?:;\s*charset=(?:utf-8|"utf-8"))?$/i.test(response.headers.get("Content-Type") ?? "") || response.headers.has("Retry-After"))
+                        throw new Error("Invalid retirement response.");
+                    const bytes = await readContentBytes(response, 4096, controller.signal);
+                    const payload = retirementSchema.parse(parseContentJSON(bytes));
+                    if (payload.error.requestId !== requestId)
+                        throw new Error("Invalid retirement response.");
+                    const headers = privateHeaders();
+                    headers.set("X-Request-ID", requestId);
+                    return Response.json(payload, { status: 410, headers });
+                } catch (error) {
+                    controller.abort();
+                    void response.body?.cancel().catch(() => { });
+                    throw error;
+                }
             }
             const parsed = await readContentResponse(response, route.kind, controller.signal), h = privateHeaders();
             h.set("X-Request-ID", response.headers.get("X-Request-ID")!);

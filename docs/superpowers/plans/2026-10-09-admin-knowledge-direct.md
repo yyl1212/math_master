@@ -233,6 +233,19 @@ flowchart LR
 
 ### Task 8:兼容登记、审查、MR 与已授权上线
 
+生产验收补充：固定 `2499515` 已部署且 managed 已启用，原30公开入口及学习数据清理完成，保护指纹一致。旧草稿后端返回410，但前端原严格schema将新停用错误转为503。仅修改 `frontend/src/lib/api/content-proxy.ts` 和对应测试，增加严格的410专用响应读取；精确路径清单/兼容目标摘要同步登记，不改旧正常响应和业务schema。独立新分支从最新master开发，RED→GREEN、全前端回归、针对性兼容审查、Git MR/CI后再次部署固定合入提交。备份准备兼容副本只补充实测database.name，原dump/113表清单保持。
+
+```mermaid
+flowchart LR
+  A[旧草稿 API] --> B{后端响应}
+  B -->|410| C[限定字段/错误码/固定文案/请求ID/4096字节校验]
+  C --> D[前端返回410停用]
+  B -->|原状态| E[原响应schema与权限边界]
+```
+
+可行性审查：复用既有JSON解析、响应头校验和10秒取消，不扩大业务写入口。未知字段、错误文案、请求ID不符、cookie/Retry-After及非JSON继续拒绝为503。新回归明确观察原503→410失败后再通过。
+
+
 **Modify:** `backend/internal/store/workflow_tx.go`、`backend/internal/httpapi/content_error.go`；`docs/operations/ui-language-coverage.json`、`frontend/src/components/auth-status.test.tsx`、`frontend/src/features/content/authoring.test.tsx`；`api/topic-learning-compatibility-baseline.json`、`tools/verify/topic-learning-compatibility.mjs`、`tools/verify/topic-learning-compatibility.test.mjs`、`tools/verify/topic-learning-ci.test.mjs`；`.github/workflows/backend.yml`、`.github/workflows/frontend.yml`、`.github/workflows/deployment.yml`。
 **Create:** `frontend/src/lib/knowledge-admin/mode-client.ts`、`tests/e2e/ui-language-managed.spec.ts`；`tools/verify/admin-knowledge-approved-paths.json`；`tools/verify/admin-knowledge-acceptance.mjs`、`tools/verify/admin-knowledge-acceptance.test.mjs`；`docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md`。
 **Modify documents:** 本计划与已确认设计的进度/完成状态；精准登记二者及上述验收报告路径。
