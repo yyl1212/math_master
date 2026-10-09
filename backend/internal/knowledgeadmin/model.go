@@ -144,11 +144,13 @@ type PublicSource struct {
 	URL      *string `json:"url,omitempty"`
 }
 type CurrentInput struct {
+	TopicKeys  []string       `json:"topicKeys,omitempty"`
 	ExternalID string         `json:"externalId"`
 	Point      SourcePoint    `json:"point"`
 	Sources    []PublicSource `json:"sources"`
 }
 type Knowledge struct {
+	TopicKeys  []string       `json:"topicKeys"`
 	ID         string         `json:"id"`
 	ExternalID string         `json:"externalId"`
 	Point      SourcePoint    `json:"point"`
@@ -161,6 +163,7 @@ type Knowledge struct {
 }
 type PublicPoint map[string]any
 type PublicKnowledge struct {
+	TopicKeys  []string       `json:"topicKeys"`
 	ID         string         `json:"id"`
 	ExternalID string         `json:"externalId"`
 	Point      PublicPoint    `json:"point"`

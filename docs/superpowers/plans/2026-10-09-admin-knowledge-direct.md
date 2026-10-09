@@ -55,7 +55,7 @@ flowchart LR
 - `knowledgeadmin.Access` 复用 auth 的 TokenHash、CSRF，携带 IdempotencyKey、RequestID；不接受客户端 actor/role。
 - `KnowledgeID(externalID string) string`：`k-` + SHA256(原始 ID UTF-8 字节)前 56 位小写十六进制；长度 58。保持原始 ID，不 trim、大小写转换或 Unicode 归一化。若摘要 ID 已属于不同 external_id，拒绝冲突。
 - `Ref{ID string, ContentSHA256 string, SourceKind string}`：JSON `id/contentSha256/sourceKind`，sourceKind 固定 `managed`；没有 version。CurrentSHA 对规范的当前公开知识投影作 JCS 摘要，含主题、难度、正文和公开来源说明，不含操作者、私有来源绑定或发布状态。
-- `SourceDocument`、`SourcePoint` 逐字段对应源 schema；extensions 保留 JSON 值且递归禁止未知占位。`CurrentInput{ExternalID string, Point SourcePoint, Sources []PublicSource}` 供创建和编辑；ExternalID 创建后不可改。编辑原始证据说明不冒充已经核验原书字节。
+- `SourceDocument`、`SourcePoint` 逐字段对应源 schema；extensions 保留 JSON 值且递归禁止未知占位。`CurrentInput{ExternalID string, Point SourcePoint, Sources []PublicSource, TopicKeys []string}` 供创建和编辑；ExternalID 创建后不可改。TopicKeys 可省略，此时按 Point 分类；提供时为明确当前主题关联，逐个验证正式代码或 project:other。Knowledge/PublicKnowledge 显式返回 topicKeys，不把项目其他键伪装成源格式 MSC 代码。编辑原始证据说明不冒充已经核验原书字节。
 - `PublicSource{SourceID, Title, Citation string; URL *string}` 只包含允许公开的来源说明。`Knowledge{ID,ExternalID string; Point SourcePoint; Sources []PublicSource; Ref Ref; Published bool; EditToken string; UpdatedAt time.Time}` 为管理员响应；公开 DTO 移除 EditToken、私有 provenance/original_binding、操作者和上传文件信息。`PublicKnowledge{ID,ExternalID string; Point PublicPoint; Sources []PublicSource; Ref Ref; UpdatedAt time.Time}`；PublicPoint 只允许标题、类型及理由、数学正文/条件/范围/体系/目标/证明/方程/解释/示例/反例/误区、难度及理由、分类和证据、公开关系/标签字段，不暴露任意 extensions。`CurrentTopic{TopicKey,Title,Kind string; KnowledgeCount int; Items Page[PublicKnowledge]}`。
 - `Query{TopicKey,Q,Type,Status string; Difficulty,Limit,Offset int}`；`Page[T]{Items []T; Total,Limit,Offset int}`。
 - `Preview{ImportID,InputSHA256,PreviewToken string; Items []PreviewItem; Counts ImportCounts}`；item 用 `index/externalId/action/topicKeys/errorCode/errorPath` 定位。action 固定 create/link/skip/conflict/invalid；所有计数按实体和关系分别统计。
@@ -140,12 +140,12 @@ flowchart LR
 **Consumes:** 任务 1 的模型、校验、摘要及结构。
 **Produces — Repository/store 方法:** `KnowledgePreflight(context.Context,Access) (auth.User,error)`；`ListManagedKnowledge(context.Context,Access,Query) (Page[Knowledge],error)`；`ReadManagedKnowledge(context.Context,Access,string) (Knowledge,error)`；`CreateManagedKnowledge(context.Context,Access,CurrentInput) (Knowledge,error)`；`UpdateManagedKnowledge(context.Context,Access,string,string,CurrentInput) (Knowledge,error)`；`SetManagedKnowledgeState(context.Context,Access,string,string,string) (Knowledge,error)`，末参数 publish/unpublish/delete/restore；`PreviewManagedImport(context.Context,Access,SourceDocument,string) (Preview,error)`；`ApplyManagedImport(context.Context,Access,string,ApplyInput) (Receipt,error)`；`ReadManagedImport(context.Context,Access,string) (Preview,*Receipt,error)`。
 
-- [ ] 写 `TestManagedReplayPreservesCorrection`：先导入、修正文/难度、移除主题，再重传旧源，当前修正和 inactive 关系不变；真正新主题只创建关系，不创建第二知识。写 `TestManagedCrossSourceConcurrentImport`：同 raw id 两来源/两个管理员并发，实体 1、同主题关系 1、无多余创建事件；同标题不同 id 实体 2，未见新正文 conflict。
-- [ ] 写 `TestManagedAdminRevocation`：admin-only 成功；匿名/普通/editor/reviewer/强制改密/停用失败；写提交前撤销角色，无正文及事件落库；同键异输入 409。`TestManagedEditCAS`：旧令牌编辑失败，重复幂等请求只记一次。
-- [ ] RED：`cd backend && CGO_ENABLED=0 go test ./internal/store -run 'TestManaged(Replay|CrossSource|Admin|Edit)' -count=1 -timeout 5m`；预期缺少存储或断言失败。
-- [ ] 实现接口：稳定锁顺序、8 秒事务/1 秒锁，SELECT 当前角色并保护到提交；数据库唯一约束作最后防线。源摘要、关系墓碑、原输入和回执同事务落库；导入永不覆盖当前修正；删除保留学习 FK。创建/编辑复用任务 1 校验，不接受缺难度或未分类。
-- [ ] GREEN：重跑上述测试，并检查公开查询只能 published 且 deleted_at 为空，所有响应分页。
-- [ ] 提交本任务文件，commit：`feat: 管理员直接维护知识并按数据ID去重`。
+- [x] 写 `TestManagedReplayPreservesCorrection`：先导入、修正文/难度、移除主题，再重传旧源，当前修正和 inactive 关系不变；真正新主题只创建关系，不创建第二知识。写 `TestManagedCrossSourceConcurrentImport`：同 raw id 两来源/两个管理员并发，实体 1、同主题关系 1、无多余创建事件；同标题不同 id 实体 2，未见新正文 conflict。
+- [x] 写 `TestManagedAdminRevocation`：admin-only 成功；匿名/普通/editor/reviewer/强制改密/停用失败；写提交前撤销角色，无正文及事件落库；同键异输入 409。`TestManagedEditCAS`：旧令牌编辑失败，重复幂等请求只记一次。
+- [x] RED：`cd backend && CGO_ENABLED=0 go test ./internal/store -run 'TestManaged(Replay|CrossSource|Admin|Edit)' -count=1 -timeout 5m`；预期缺少存储或断言失败。
+- [x] 实现接口：稳定锁顺序、8 秒事务/1 秒锁，SELECT 当前角色并保护到提交；数据库唯一约束作最后防线。源摘要、关系墓碑、原输入和回执同事务落库；导入永不覆盖当前修正；删除保留学习 FK。创建/编辑复用任务 1 校验，不接受缺难度或未分类。
+- [x] GREEN：重跑上述测试，并检查公开查询只能 published 且 deleted_at 为空，所有响应分页。
+- [x] 提交本任务文件，commit：`feat: 管理员直接维护知识并按数据ID去重`。
 
 ### Task 3:规范上传的有界服务与确定重试
 

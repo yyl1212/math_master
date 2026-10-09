@@ -226,6 +226,18 @@ func ValidateCurrent(i CurrentInput) error {
 	if e = ValidatePoint(i.Point, ix); e != nil {
 		return e
 	}
+	if i.TopicKeys != nil {
+		if len(i.TopicKeys) == 0 || len(i.TopicKeys) > 32 {
+			return invalid("/topicKeys")
+		}
+		seen := map[string]bool{}
+		for _, t := range i.TopicKeys {
+			if seen[t] || !ix.Specific[t] && !ix.Other[t] && t != "project:other" {
+				return invalid("/topicKeys")
+			}
+			seen[t] = true
+		}
+	}
 	if len(i.Sources) == 0 {
 		return invalid("/sources")
 	}
@@ -286,4 +298,13 @@ func validateRelations(d SourceDocument) error {
 		}
 	}
 	return nil
+}
+
+func CurrentTopicKeys(i CurrentInput) []string {
+	if i.TopicKeys == nil {
+		return TopicKeys(i.Point)
+	}
+	out := append([]string{}, i.TopicKeys...)
+	sort.Strings(out)
+	return out
 }
