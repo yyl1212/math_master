@@ -2576,7 +2576,7 @@
         "reason": "已确认C7具名完整验收：真实旧命令迁入切换scene、独立十万源容量step、档案/双语step和中文使用入口；原业务检查及时限不改。"
       },
       "managed": {
-        "sha256": "3fa8d9289e13545b4879dd98e359e883045e8edb32f96bf23a2c207b4ed6ac66"
+        "sha256": "1c3350e4ac511191328c28a16171efad20a8db9802cd9d3710ea31b6c7a58e5e"
       }
     },
     "tools/verify/admin-review-compatibility.mjs": {
@@ -4859,7 +4859,7 @@
     "tools/verify/admin-knowledge-approved-paths.json": "f2bd4f63ef7d563352099a8b56d04a77819d6129dbda0283fdf6ea7100b56a93",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
-    "tools/verify/topic-learning-ci.test.mjs": "aa09cbaab94fa598d11878d2b104dcec09c15493f9aaf21081a9a5a6dc9919e5",
+    "tools/verify/topic-learning-ci.test.mjs": "d401ee5d14c1cd4c7e1959365612d33a6f2e2a570364e3136b7d96bf8bf8e145",
     "tools/verify/topic-learning-compatibility.mjs": "d430c16a1c43fc9d9d06caedfaf7c605ef8fd970d04037bf5da2cc71de319f3a",
     "tools/verify/topic-learning-compatibility.test.mjs": "1fec60c552a6ec7d896c106490067bbd592e8b4c25011f3cafa23a0c7dbaa9cc"
   }
