@@ -294,3 +294,5 @@ flowchart LR
   B --> G
   G --> D[固定合入SHA部署]
 ```
+
+生产激活补充：新版f9e8eeb应用健康通过，但旧预览页在Next.js流式SSR返回200+唯一`__next-page-redirect`/1秒/account meta，浏览器实际安全跳转；原验收只接收3xx导致误判并停入口。保留已审功能版本，严格实测该安全响应后恢复HTTPS入口；仅改ops/verify-deployment.py与test_verify.py，新增合法3xx或唯一固定Next标记0/1秒/account的验证，外链、重复meta、错内容类型、私人草稿继续拒绝。原TLS/401/410/静态资源/40请求均保留。独立兼容审查及RED→GREEN后用于实际最终发布验收，不直接放行普通200。

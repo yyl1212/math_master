@@ -110,6 +110,17 @@ class TopicReadinessTests(unittest.TestCase):
             with self.assertRaises(module.VerifyError):module.verify_topic_readiness({'status':'ready','topic':topic})
 
 class ManagedReadinessTests(unittest.TestCase):
+    def test_retired_preview_accepts_only_exact_safe_redirect_transports(self):
+        module.verify_retired_preview(response(307,Location='/account'))
+        for delay in ['0','1']:
+            body=('<html><meta id="__next-page-redirect" http-equiv="refresh" content="'+delay+';url=/account"/></html>').encode()
+            module.verify_retired_preview(response(200,body,Content_Type='text/html; charset=utf-8'))
+        for bad in [response(200,b'private mathematics'),response(307,Location='https://other.example/account'),response(200,b'<meta id="__next-page-redirect" http-equiv="refresh" content="1;url=https://other.example/account"/>'),response(200,b'<meta id="__next-page-redirect" http-equiv="refresh" content="5;url=/account"/>'),response(200,b'<meta id="__next-page-redirect" http-equiv="refresh" content="1;url=/account"/> PRIVATE DRAFT PREVIEW'),response(200,b'<meta id="__next-page-redirect" http-equiv="refresh" content="1;url=/account"/>'*2)]:
+            if bad['status']==200:bad['headers']['Content-Type']='text/html; charset=utf-8'
+            with self.assertRaises(module.VerifyError):module.verify_retired_preview(bad)
+        marker=b'<meta id="__next-page-redirect" http-equiv="refresh" content="1;url=/account"/>'
+        for body in [b'<base href="https://other.example/">'+marker,b'<template>'+marker+b'</template>',b'<noscript>'+marker+b'</noscript>']:
+            with self.assertRaises(module.VerifyError):module.verify_retired_preview(response(200,body,Content_Type='text/html; charset=utf-8'))
     def test_current_content_readiness_is_strict_and_safe(self):
         good={'capability':True,'schemaReady':True,'managedMode':True}
         self.assertEqual(module.verify_content_readiness({'status':'ready','content':good}),good)

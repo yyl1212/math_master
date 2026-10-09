@@ -3050,7 +3050,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "dde0597a45a79e45e7d5a1e838dfc1b543aaa208968f6f1319fe8e1bcb74c19f"
+        "sha256": "07386dc28881be1e504413028763e288ef5507a0515c84e62c2eeb27288d9f4f"
       }
     },
     "ops/verify-deployment.py": {
@@ -3059,7 +3059,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "23da271c32ead480a425065a6be167eebc94d3fd640ebcce35613edf0bf4d254"
+        "sha256": "895641205457950681676cccae51519eca2729bc9bbda5f671e6cf8021783a8d"
       }
     },
     "tools/verify/learning-compatibility.test.mjs": {

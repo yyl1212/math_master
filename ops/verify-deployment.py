@@ -4,6 +4,7 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from html import unescape
+from html.parser import HTMLParser
 from http.cookies import SimpleCookie
 import ipaddress
 import json
@@ -93,6 +94,29 @@ def verify_content_readiness(value: dict) -> dict:
     return content
 
 
+def verify_retired_preview(response: dict) -> None:
+    body=response['body'].decode('utf-8')
+    if 'PRIVATE DRAFT PREVIEW' in body:raise VerifyError('retired-preview-invalid')
+    if response['status'] in [302,303,307,308] and response['headers'].get('Location')=='/account':return
+    if response['status']!=200 or not re.fullmatch(r'text/html(?:;\s*charset=utf-8)?',response['headers'].get('Content-Type',''),re.I):raise VerifyError('retired-preview-invalid')
+    class RedirectParser(HTMLParser):
+        def __init__(self):super().__init__();self.redirects=[];self.inert=0;self.invalid=False
+        def handle_starttag(self,tag,attrs):
+            if tag in ['template','noscript']:self.inert+=1
+            if tag=='base' and any(name=='href' for name,_ in attrs):self.invalid=True
+            if tag!='meta':return
+            values=dict(attrs)
+            if str(values.get('http-equiv','')).lower()=='refresh':
+                if self.inert:self.invalid=True
+                self.redirects.append(attrs)
+        def handle_endtag(self,tag):
+            if tag in ['template','noscript']:self.inert=max(0,self.inert-1)
+    parser=RedirectParser();parser.feed(body);parser.close()
+    if parser.invalid or len(parser.redirects)!=1:raise VerifyError('retired-preview-invalid')
+    attrs=parser.redirects[0];values=dict(attrs)
+    if len(attrs)!=3 or set(values)!={'id','http-equiv','content'} or values['id']!='__next-page-redirect' or values['content'] not in ['0;url=/account','1;url=/account']:raise VerifyError('retired-preview-invalid')
+
+
 def check(origin: str,requests: int,concurrency: int) -> dict:
     if origin!=common.ORIGIN or not 1<=requests<=100 or not 1<=concurrency<=4:
         raise VerifyError('invalid-verification-input')
@@ -112,7 +136,7 @@ def check(origin: str,requests: int,concurrency: int) -> dict:
     if request(origin+DRAFT)['status']!=(410 if content.get('managedMode') else 401):raise VerifyError('anonymous-draft-accessible')
     previewResponse=request(origin+PREVIEW);preview=previewResponse['body'].decode('utf-8')
     if content.get('managedMode'):
-        if previewResponse['status'] not in [302,303,307,308] or previewResponse['headers'].get('Location')!='/account':raise VerifyError('retired-preview-invalid')
+        verify_retired_preview(previewResponse)
     elif previewResponse['status']!=200:raise VerifyError('anonymous-preview-invalid')
     if not content.get('managedMode') and ('Sign in to view your account' not in preview or 'href="/login"' not in preview or 'PRIVATE DRAFT PREVIEW' in preview):
         raise VerifyError('anonymous-preview-invalid')
