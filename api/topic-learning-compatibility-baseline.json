@@ -4620,7 +4620,7 @@
     "backend/internal/store/knowledge_admin_public.go": "b0c5447d27f16c71e15c95414891e0bb5046c7f2bd00d779952cbd61956af17a",
     "backend/internal/store/knowledge_admin_public_test.go": "9f4ad7fca3444acbcc56a2014edc90b2191586783b0c76f0893536c4522df939",
     "backend/internal/store/knowledge_admin_read.go": "9295404f64fdb578a20776c26d326c8accbf328938fe2587991521061b27ca7f",
-    "backend/internal/store/knowledge_admin_schema_test.go": "c1c31b461d60cebaa665e8adb4bc0c76096288f48897701ed4ce16261dc21317",
+    "backend/internal/store/knowledge_admin_schema_test.go": "b371dba285d1ab25adbad20b22989a978b59b0e7db12efb19ee1f477e0e30e9c",
     "backend/internal/store/knowledge_admin_study.go": "a6f0f68723b509ba2320f39316c8905ce79b0999436c801029f314c95ff432e7",
     "backend/internal/store/knowledge_admin_study_test.go": "23ffb20a1a09ca3bcbd6878f9e627fedbb806f07b08129f049c31e6349656b66",
     "backend/internal/store/knowledge_admin_tx.go": "df25223cef4844bf20644c4a105f7c5aa8f4576436f5e9e49496d6c9f1edd797",

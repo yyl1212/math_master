@@ -44,4 +44,14 @@ func TestManagedKnowledgeSchemaUniqueAndProof(t *testing.T) {
 	}
 }
 
-func TestManagedMarkerDoesNotSilentlyKeepDeletedLegacyMigration(t *testing.T){db,_,ctx:=setup(t);result,e:=db.ExecContext(ctx,`DELETE FROM goose_db_version WHERE version_id=8`);if e!=nil{t.Fatal(e)};n,e:=result.RowsAffected();if e!=nil||n!=1{t.Fatal("managed marker cancelled an unrelated delete",n,e)}}
+func TestManagedMarkerDoesNotSilentlyKeepDeletedLegacyMigration(t *testing.T) {
+	db, _, ctx := setup(t)
+	result, e := db.ExecContext(ctx, `DELETE FROM goose_db_version WHERE version_id=8`)
+	if e != nil {
+		t.Fatal(e)
+	}
+	n, e := result.RowsAffected()
+	if e != nil || n != 1 {
+		t.Fatal("managed marker cancelled an unrelated delete", n, e)
+	}
+}
