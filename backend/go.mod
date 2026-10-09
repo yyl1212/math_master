@@ -5,6 +5,8 @@ replace github.com/yyl1212/math_master/schemas => ../schemas
 go 1.27.1
 
 require (
+	github.com/cyberphone/json-canonicalization v0.0.0-20241213102144-19d51d7fe467
+	github.com/dlclark/regexp2 v1.11.5
 	github.com/jackc/pgx/v5 v5.11.0
 	github.com/pressly/goose/v3 v3.28.0
 	github.com/santhosh-tekuri/jsonschema/v6 v6.0.3

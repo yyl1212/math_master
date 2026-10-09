@@ -1,0 +1,958 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "math-master-knowledge-source"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "dataset_id": {
+      "$ref": "#/$defs/sourceId"
+    },
+    "dataset_version": {
+      "$ref": "#/$defs/version"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "knowledge_points": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      },
+      "minItems": 1,
+      "maxItems": 100
+    },
+    "extensions": {
+      "$ref": "#/$defs/knownObject"
+    }
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "dataset_id",
+    "dataset_version",
+    "source",
+    "knowledge_points",
+    "extensions"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Math Master 知识点源格式 1.0",
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 65536,
+      "pattern": "\\S",
+      "not": {
+        "pattern": "^\\s*(?:[uU][nN][kK][nN][oO][wW][nN]|[uU][nN][sS][pP][eE][cC][iI][fF][iI][eE][dD]|[uU][nN][dD][eE][fF][iI][nN][eE][dD]|[tT][bB][dD]|[tT][bB][aA]|[tT][bB][cC]|[pP][eE][nN][dD][iI][nN][gG]|[nN][eE][eE][dD][sS]_[rR][eE][vV][iI][eE][wW]|[pP][eE][nN][dD][iI][nN][gG]_[cC][oO][nN][tT][eE][xX][tT]|[nN][eE][eE][dD][sS]_[sS][eE][mM][aA][nN][tT][iI][cC]_[rR][eE][vV][iI][eE][wW]|[uU][nN][vV][eE][rR][iI][fF][iI][eE][dD]|[uU][nN][aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [kK][nN][oO][wW][nN]|未知|待定|待确认|待核对|待核实|未填写|未确定|未核实|不详|不明|暂缺|待补充|未指定|未评估)\\s*$"
+      }
+    },
+    "shortText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "\\S",
+      "not": {
+        "pattern": "^\\s*(?:[uU][nN][kK][nN][oO][wW][nN]|[uU][nN][sS][pP][eE][cC][iI][fF][iI][eE][dD]|[uU][nN][dD][eE][fF][iI][nN][eE][dD]|[tT][bB][dD]|[tT][bB][aA]|[tT][bB][cC]|[pP][eE][nN][dD][iI][nN][gG]|[nN][eE][eE][dD][sS]_[rR][eE][vV][iI][eE][wW]|[pP][eE][nN][dD][iI][nN][gG]_[cC][oO][nN][tT][eE][xX][tT]|[nN][eE][eE][dD][sS]_[sS][eE][mM][aA][nN][tT][iI][cC]_[rR][eE][vV][iI][eE][wW]|[uU][nN][vV][eE][rR][iI][fF][iI][eE][dD]|[uU][nN][aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [kK][nN][oO][wW][nN]|未知|待定|待确认|待核对|待核实|未填写|未确定|未核实|不详|不明|暂缺|待补充|未指定|未评估)\\s*$"
+      }
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000\\r\\n]+$"
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000\\r\\n]+$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^(?!/)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$))[^\\u0000\\r\\n]+$"
+    },
+    "pointer": {
+      "type": "string",
+      "maxLength": 2048,
+      "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+    },
+    "mscCode": {
+      "type": "string",
+      "pattern": "^[0-9]{2}[A-Z][0-9]{2}$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "url": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2048,
+      "pattern": "^https://[^\\s]+$"
+    },
+    "textList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/text"
+      },
+      "minItems": 0,
+      "maxItems": 200,
+      "uniqueItems": true
+    },
+    "knownValue": {
+      "anyOf": [
+        {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/knownValue"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/knownValue"
+          }
+        },
+        {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "\\S",
+          "not": {
+            "pattern": "^\\s*(?:[uU][nN][kK][nN][oO][wW][nN]|[uU][nN][sS][pP][eE][cC][iI][fF][iI][eE][dD]|[uU][nN][dD][eE][fF][iI][nN][eE][dD]|[tT][bB][dD]|[tT][bB][aA]|[tT][bB][cC]|[pP][eE][nN][dD][iI][nN][gG]|[nN][eE][eE][dD][sS]_[rR][eE][vV][iI][eE][wW]|[pP][eE][nN][dD][iI][nN][gG]_[cC][oO][nN][tT][eE][xX][tT]|[nN][eE][eE][dD][sS]_[sS][eE][mM][aA][nN][tT][iI][cC]_[rR][eE][vV][iI][eE][wW]|[uU][nN][vV][eE][rR][iI][fF][iI][eE][dD]|[uU][nN][aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [kK][nN][oO][wW][nN]|未知|待定|待确认|待核对|待核实|未填写|未确定|未核实|不详|不明|暂缺|待补充|未指定|未评估)\\s*$"
+          }
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "knownObject": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/knownValue"
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "work_family_id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "title": {
+          "$ref": "#/$defs/shortText"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shortText"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        },
+        "license": {
+          "$ref": "#/$defs/shortText"
+        },
+        "rights_status": {
+          "enum": [
+            "original",
+            "license_verified",
+            "permission_verified"
+          ]
+        },
+        "attribution": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "source_id",
+        "work_family_id",
+        "title",
+        "authors",
+        "license",
+        "rights_status",
+        "attribution"
+      ]
+    },
+    "originalBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "record_id": {
+          "$ref": "#/$defs/id"
+        },
+        "local_relative_path": {
+          "$ref": "#/$defs/path"
+        },
+        "record_json_pointer": {
+          "$ref": "#/$defs/pointer"
+        },
+        "source_file_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "record_body_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "record_body_hash_algorithm": {
+          "enum": [
+            "dot-python-json-v1-sha256",
+            "jcs-rfc8785-sha256"
+          ]
+        }
+      },
+      "required": [
+        "record_id",
+        "local_relative_path",
+        "record_json_pointer",
+        "source_file_sha256",
+        "record_body_sha256",
+        "record_body_hash_algorithm"
+      ]
+    },
+    "classificationEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "msc_code": {
+          "$ref": "#/$defs/mscCode"
+        },
+        "kind": {
+          "enum": [
+            "specific",
+            "other"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "evidence_fields": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "statement",
+              "conditions",
+              "scope",
+              "system",
+              "proof",
+              "equations",
+              "explanations",
+              "examples",
+              "counterexamples"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 9,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "msc_code",
+        "kind",
+        "reason",
+        "evidence_fields"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "other"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "properties": {
+              "reason": {
+                "minLength": 10
+              }
+            }
+          }
+        }
+      ]
+    },
+    "projectOther": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "group_id": {
+          "const": "project-other"
+        },
+        "reason": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "minLength": 10
+            }
+          ]
+        },
+        "evidence_fields": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "statement",
+              "conditions",
+              "scope",
+              "system",
+              "proof",
+              "equations",
+              "explanations",
+              "examples",
+              "counterexamples"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 9,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "group_id",
+        "reason",
+        "evidence_fields"
+      ]
+    },
+    "learningDifficulty": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "difficulty_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5
+        },
+        "rationale": {
+          "$ref": "#/$defs/text"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shortText"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "review_status": {
+          "enum": [
+            "body_assessed",
+            "independently_checked"
+          ]
+        },
+        "rubric_version": {
+          "const": "learning-foundation-v1-20261008"
+        },
+        "proof_scope_note": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "difficulty_level",
+        "rationale",
+        "prerequisites",
+        "review_status",
+        "rubric_version",
+        "proof_scope_note"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "difficulty_level": {
+                "type": "integer",
+                "minimum": 2
+              }
+            },
+            "required": [
+              "difficulty_level"
+            ]
+          },
+          "then": {
+            "properties": {
+              "prerequisites": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "title": {
+          "$ref": "#/$defs/shortText"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shortText"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "url": {
+          "$ref": "#/$defs/url"
+        },
+        "license": {
+          "$ref": "#/$defs/shortText"
+        },
+        "chapter": {
+          "$ref": "#/$defs/shortText"
+        },
+        "section": {
+          "$ref": "#/$defs/shortText"
+        },
+        "pdf_pages": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000
+          },
+          "minItems": 0,
+          "maxItems": 200,
+          "uniqueItems": true
+        },
+        "printed_pages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shortText"
+          },
+          "minItems": 0,
+          "maxItems": 200,
+          "uniqueItems": true
+        },
+        "locator_note": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "source_id",
+        "title",
+        "authors",
+        "license",
+        "pdf_pages",
+        "printed_pages",
+        "locator_note"
+      ]
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "prerequisite",
+            "derivation",
+            "related"
+          ]
+        },
+        "target_source_id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "target_id": {
+          "$ref": "#/$defs/id"
+        },
+        "target_version": {
+          "$ref": "#/$defs/version"
+        },
+        "status": {
+          "const": "confirmed"
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "required": [
+        "kind",
+        "target_source_id",
+        "target_id",
+        "target_version",
+        "status",
+        "reason"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "target_version": {
+                "$ref": "#/$defs/version"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "title": {
+          "$ref": "#/$defs/shortText"
+        },
+        "title_zh": {
+          "$ref": "#/$defs/shortText"
+        },
+        "type": {
+          "enum": [
+            "concept",
+            "definition",
+            "axiom",
+            "theorem",
+            "corollary",
+            "method",
+            "mathematical-thinking",
+            "other"
+          ]
+        },
+        "type_status": {
+          "const": "confirmed"
+        },
+        "type_reason": {
+          "$ref": "#/$defs/text"
+        },
+        "type_other_reason": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "minLength": 10
+            }
+          ]
+        },
+        "original_type": {
+          "$ref": "#/$defs/shortText"
+        },
+        "subtype": {
+          "$ref": "#/$defs/shortText"
+        },
+        "content_origin": {
+          "enum": [
+            "adapted",
+            "original"
+          ]
+        },
+        "original_binding": {
+          "$ref": "#/$defs/originalBinding"
+        },
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "conditions": {
+          "$ref": "#/$defs/textList"
+        },
+        "scope": {
+          "$ref": "#/$defs/text"
+        },
+        "system": {
+          "$ref": "#/$defs/text"
+        },
+        "objectives": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shortText"
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "classification_mode": {
+          "enum": [
+            "msc",
+            "project_other"
+          ]
+        },
+        "msc_codes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/mscCode"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "classification_status": {
+          "const": "confirmed"
+        },
+        "classification_evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/classificationEvidence"
+          },
+          "minItems": 0,
+          "maxItems": 16
+        },
+        "project_other": {
+          "$ref": "#/$defs/projectOther"
+        },
+        "learning_difficulty": {
+          "$ref": "#/$defs/learningDifficulty"
+        },
+        "proof": {
+          "type": "string",
+          "maxLength": 1048576
+        },
+        "proof_scope": {
+          "enum": [
+            "full",
+            "sketch",
+            "none",
+            "not_applicable"
+          ]
+        },
+        "equations": {
+          "$ref": "#/$defs/textList"
+        },
+        "explanations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "intuition",
+                  "formal",
+                  "application",
+                  "connection"
+                ]
+              },
+              "body": {
+                "$ref": "#/$defs/text"
+              }
+            },
+            "required": [
+              "kind",
+              "body"
+            ]
+          },
+          "minItems": 1,
+          "maxItems": 16
+        },
+        "examples": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/text"
+          },
+          "minItems": 1,
+          "maxItems": 200
+        },
+        "counterexamples": {
+          "$ref": "#/$defs/textList"
+        },
+        "common_misconceptions": {
+          "$ref": "#/$defs/textList"
+        },
+        "provenance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/provenance"
+          },
+          "minItems": 0,
+          "maxItems": 8
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relation"
+          },
+          "minItems": 0,
+          "maxItems": 64
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/shortText"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "extensions": {
+          "$ref": "#/$defs/knownObject"
+        }
+      },
+      "required": [
+        "id",
+        "version",
+        "title",
+        "title_zh",
+        "type",
+        "type_status",
+        "type_reason",
+        "content_origin",
+        "statement",
+        "conditions",
+        "scope",
+        "system",
+        "objectives",
+        "classification_mode",
+        "msc_codes",
+        "classification_status",
+        "classification_evidence",
+        "learning_difficulty",
+        "proof",
+        "proof_scope",
+        "equations",
+        "explanations",
+        "examples",
+        "counterexamples",
+        "common_misconceptions",
+        "provenance",
+        "relations",
+        "tags",
+        "extensions"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "other"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "type_other_reason"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "not": {
+                  "const": "other"
+                }
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "type_other_reason"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "content_origin": {
+                "const": "adapted"
+              }
+            },
+            "required": [
+              "content_origin"
+            ]
+          },
+          "then": {
+            "required": [
+              "original_binding"
+            ],
+            "properties": {
+              "provenance": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "content_origin": {
+                "const": "original"
+              }
+            },
+            "required": [
+              "content_origin"
+            ]
+          },
+          "then": {
+            "not": {
+              "required": [
+                "original_binding"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification_mode": {
+                "const": "msc"
+              }
+            },
+            "required": [
+              "classification_mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "msc_codes": {
+                "minItems": 1
+              },
+              "classification_evidence": {
+                "minItems": 1
+              }
+            },
+            "not": {
+              "required": [
+                "project_other"
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "classification_mode": {
+                "const": "project_other"
+              }
+            },
+            "required": [
+              "classification_mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "project_other"
+            ],
+            "properties": {
+              "msc_codes": {
+                "maxItems": 0
+              },
+              "classification_evidence": {
+                "maxItems": 0
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "proof_scope": {
+                "enum": [
+                  "full",
+                  "sketch"
+                ]
+              }
+            },
+            "required": [
+              "proof_scope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "proof": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "proof_scope": {
+                "enum": [
+                  "none",
+                  "not_applicable"
+                ]
+              }
+            },
+            "required": [
+              "proof_scope"
+            ]
+          },
+          "then": {
+            "properties": {
+              "proof": {
+                "const": ""
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "theorem",
+                  "corollary"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "proof_scope": {
+                "enum": [
+                  "full",
+                  "sketch",
+                  "none"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

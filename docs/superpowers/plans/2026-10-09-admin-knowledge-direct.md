@@ -62,7 +62,7 @@ flowchart LR
 - `ImportCounts{CreatedKnowledge,LinkedTopics,SkippedItems,Conflicts,InvalidItems int}`；`ImportStatus{Preview Preview; Receipt *Receipt}`；ItemReceipt 采用 index/externalId/action/knowledgeId/topicKeys/errorCode 字段。
 - `ApplyInput{SelectedIndexes []int; Publish bool; PreviewToken string}`；`Receipt{OperationID string; Counts ImportCounts; Items []ItemReceipt}`。只应用 create/link 项，冲突/非法项不计成功；一次选择事务原子成功或失败。
 - 编辑/发布/下架/删除使用 If-Match 隐藏令牌；写入成功换令牌，同输入同键返回原回执，令牌过期返回 409。幂等键最长 128、请求指纹包含 action、ID、正文、选择和 publish。
-- `SourceCoreSHA` 是原点 JCS 的摘要，删除顶层 `id/version/provenance/relations/msc_codes/classification_status/classification_evidence/classification_mode/project_other/extensions`，不加入 source/dataset 元数据；其余字段全部参与。来源、主题、关系单独验证和保存。重复导入不修改已存在关系或来源说明的管理员修正。
+- `SourceCoreSHA` 是原点 JCS 的摘要，删除顶层 `id/version/original_binding/content_origin/original_type/provenance/relations/msc_codes/classification_status/classification_evidence/classification_mode/project_other/extensions`，不加入 source/dataset 元数据；其余字段全部参与。来源、主题、关系单独验证和保存。重复导入不修改已存在关系或来源说明的管理员修正。
 - 规范中 relations 的 target_id 引用原始数据 ID，target_version 仅保存来源声明；公开只链接当前已发布的稳定 ID。目标尚未导入时显示文本、不创建占位知识。
 - MSC topic_key 直接用正式代码；项目其他固定 `project:other`，理由留在每条知识。官方 63/534/4,969 计数保持，板块其他及项目其他单列。现有 taxonomy 表作为目录，不制造新的正式 MSC 代码。
 
@@ -114,25 +114,25 @@ flowchart LR
 
 以下是精确责任名单；新增其他路径须先补计划和兼容登记，不能用整个目录放行。各任务的 Test 文件均属于该任务新增范围；已存在测试可追加用例。前端路径中方括号在 shell 中必须引用。
 
-### 任务 1：源契约、当前模型与数据库基础
+### Task 1:源契约、当前模型与数据库基础
 
 **Files — Create:** `schemas/knowledge-source.schema.json`、`schemas/knowledge-manifest.schema.json`、`schemas/msc2020-classification-codes.json`；`backend/internal/knowledgeadmin/model.go`、`backend/internal/knowledgeadmin/decode.go`、`backend/internal/knowledgeadmin/digest.go`、`backend/internal/knowledgeadmin/validate.go`、`backend/internal/knowledgeadmin/repository.go`；`db/migrations/00013_admin_knowledge.sql`。
 **Modify:** `schemas/embed.go`、`backend/go.mod`、`backend/go.sum`。
-**Test — Create:** `backend/internal/knowledgeadmin/decode_test.go`、`backend/internal/knowledgeadmin/digest_test.go`、`backend/internal/knowledgeadmin/validate_test.go`；`backend/internal/store/knowledge_admin_schema_test.go`、`backend/internal/store/knowledge_admin_fixture_test.go`。
+**Test — Create:** `backend/internal/knowledgeadmin/testdata/valid-source.json`、`backend/internal/knowledgeadmin/decode_test.go`、`backend/internal/knowledgeadmin/digest_test.go`、`backend/internal/knowledgeadmin/validate_test.go`；`backend/internal/store/knowledge_admin_schema_test.go`、`backend/internal/store/knowledge_admin_fixture_test.go`。
 
 **Interfaces:**
 - `DecodeSource(io.Reader) (SourceDocument,error)`、`ValidatePoint(SourcePoint,ClassificationIndex) error`、`KnowledgeID(string) string`、`SourceCoreSHA(SourcePoint) (string,error)`、`CurrentSHA(CurrentInput,[]string) (string,error)`。
 - `Repository` 在本任务声明任务 2、3 的全部方法；返回上述 DTO，不依赖 http 包。`ClassificationIndex` 从嵌入目录初始化、检查正式目录 SHA 和代码层级。
 - JCS 使用 `github.com/cyberphone/json-canonicalization v0.0.0-20241213102144-19d51d7fe467` 的 Go 包；schema 正则使用 jsonschema.UseRegexpEngine + `github.com/dlclark/regexp2 v1.11.5` ECMAScript，单次匹配截止 50ms，任何匹配错误均校验失败。按[官方 regex 适配示例](https://github.com/santhosh-tekuri/jsonschema/blob/v6.0.3/example_regexp_test.go)及 [JCS 实现](https://github.com/cyberphone/json-canonicalization/tree/19d51d7fe467/go)调用；不修改交付 schema 的语义。
 
-- [ ] 写 `TestDecodeSourceStrictParity`：两条示例成功；重复键、非法 UTF-8/孤立 surrogate、未知占位、难度 0/6、other 缺理由、无效 MSC、负向前瞻边界、危险 Markdown 均失败且定位字段。以交付 Python 校验的 49 项作为同一输入金样；不读取原书路径。
-- [ ] 写 `TestSourceCoreAndCurrentDigest`：对象字段顺序/Unicode/浮点 JCS 与金样一致；source/version 改动不制造新 core；正文或难度改变 core；主题改变 CurrentSHA。写数据库测试：跨 source 的 external_id 仍唯一，关系组合 FK 拒绝错配；旧 12 个迁移 SHA 保持。
-- [ ] RED：`cd backend && CGO_ENABLED=0 go test ./internal/knowledgeadmin ./internal/store -run 'Test(DecodeSourceStrictParity|SourceCoreAndCurrentDigest|ManagedKnowledgeSchema)' -count=1 -timeout 5m`；应因缺少模型/迁移或规则失败。
-- [ ] 实现列出的函数、严格解码、schema/代码嵌入和迁移；用无 I/O 的 decoder，不 fetch 外部 schema。创建旧约束完整保留的反馈 managed 分支及新学习扩展结构；永不自动启用或删除。
-- [ ] GREEN：重跑 RED 命令，全部 PASS；在临时 PostgreSQL 上应用全部迁移并检查结构，不能对生产执行 down。
-- [ ] 提交本任务精确文件，commit：`feat: 建立管理员当前知识与规范源契约`。
+- [x] 写 `TestDecodeSourceStrictParity`：两条示例成功；重复键、非法 UTF-8/孤立 surrogate、未知占位、难度 0/6、other 缺理由、无效 MSC、负向前瞻边界、危险 Markdown 均失败且定位字段。以交付 Python 校验的 49 项作为同一输入金样；不读取原书路径。
+- [x] 写 `TestSourceCoreAndCurrentDigest`：对象字段顺序/Unicode/浮点 JCS 与金样一致；source/version 改动不制造新 core；正文或难度改变 core；主题改变 CurrentSHA。写数据库测试：跨 source 的 external_id 仍唯一，关系组合 FK 拒绝错配；旧 12 个迁移 SHA 保持。
+- [x] RED：`cd backend && CGO_ENABLED=0 go test ./internal/knowledgeadmin ./internal/store -run 'Test(DecodeSourceStrictParity|SourceCoreAndCurrentDigest|ManagedKnowledgeSchema)' -count=1 -timeout 5m`；应因缺少模型/迁移或规则失败。
+- [x] 实现列出的函数、严格解码、schema/代码嵌入和迁移；用无 I/O 的 decoder，不 fetch 外部 schema。创建旧约束完整保留的反馈 managed 分支及新学习扩展结构；永不自动启用或删除。
+- [x] GREEN：重跑 RED 命令，全部 PASS；在临时 PostgreSQL 上应用全部迁移并检查结构，不能对生产执行 down。
+- [x] 提交本任务精确文件，commit：`feat: 建立管理员当前知识与规范源契约`。
 
-### 任务 2：管理员当前写入、去重与操作回执
+### Task 2:管理员当前写入、去重与操作回执
 
 **Create:** `backend/internal/store/knowledge_admin_tx.go`、`backend/internal/store/knowledge_admin_write.go`、`backend/internal/store/knowledge_admin_read.go`、`backend/internal/store/knowledge_admin_import.go`、`backend/internal/store/knowledge_admin_mode.go`；`backend/internal/knowledgeadmin/service.go`。
 **Test — Create:** `backend/internal/store/knowledge_admin_write_test.go`、`backend/internal/store/knowledge_admin_import_test.go`、`backend/internal/store/knowledge_admin_permissions_test.go`。
@@ -147,7 +147,7 @@ flowchart LR
 - [ ] GREEN：重跑上述测试，并检查公开查询只能 published 且 deleted_at 为空，所有响应分页。
 - [ ] 提交本任务文件，commit：`feat: 管理员直接维护知识并按数据ID去重`。
 
-### 任务 3：规范上传的有界服务与确定重试
+### Task 3:规范上传的有界服务与确定重试
 
 **Create:** `backend/internal/knowledgeadmin/import.go`、`backend/internal/knowledgeadmin/import_test.go`；`tools/topic-ingest/import-managed.mjs`、`tools/topic-ingest/import-managed.test.mjs`。
 **Modify:** `tools/topic-ingest/json.mjs`（仅共用严格 JSON 辅助，旧入口行为不变）。
@@ -162,7 +162,7 @@ flowchart LR
 - [ ] GREEN：上述两个独立批次 PASS；验证导入含 unknown 的文件无应用入口，conflict 不能加入 SelectedIndexes。
 - [ ] 提交，commit：`feat: 支持规范知识上传预览与幂等应用`。
 
-### 任务 4：HTTP、当前公开读取、旧通道关闭
+### Task 4:HTTP、当前公开读取、旧通道关闭
 
 **Create:** `backend/internal/httpapi/knowledge_admin_routes.go`、`backend/internal/httpapi/knowledge_admin_json.go`、`backend/internal/httpapi/knowledge_current_routes.go`；`backend/internal/store/knowledge_admin_public.go`。
 **Modify:** `backend/internal/httpapi/application.go`、`backend/internal/httpapi/health.go`、`backend/cmd/server/main.go`、`api/openapi.yaml`、`frontend/src/lib/api/generated.d.ts`。
@@ -179,7 +179,7 @@ flowchart LR
 - [ ] GREEN：上述 PASS；`cd frontend && npm run api:generate && npm run typecheck`；OpenAPI 生成无隐式 version 参数。
 - [ ] 提交，commit：`feat: 提供当前知识接口并关闭旧知识写流程`。
 
-### 任务 5：私人学习、历史与反馈完整适配
+### Task 5:私人学习、历史与反馈完整适配
 
 **Create:** `backend/internal/knowledgeadmin/study.go`、`backend/internal/knowledgeadmin/study_test.go`；`backend/internal/store/knowledge_admin_study.go`、`backend/internal/store/knowledge_admin_notes.go`、`backend/internal/store/knowledge_admin_history.go`；`backend/internal/httpapi/knowledge_study_routes.go`。
 **Modify:** `backend/internal/study/state.go`、`backend/internal/study/state_test.go`、`backend/internal/feedback/model.go`、`backend/internal/store/feedback_targets.go`、`backend/internal/store/feedback_read.go`、`backend/internal/store/feedback_resolution.go`、`backend/internal/httpapi/feedback_json.go`、`api/openapi.yaml`、`frontend/src/lib/api/generated.d.ts`。
@@ -197,7 +197,7 @@ flowchart LR
 - [ ] GREEN：重跑上述；独立批次运行原 study 与 feedback 相关测试，确认旧事件、原账户权限不受影响；再次生成 API。
 - [ ] 提交，commit：`feat: 保留当前知识的私人学习历史与反馈`。
 
-### 任务 6：简化管理界面与学习者页面
+### Task 6:简化管理界面与学习者页面
 
 **Create:** `frontend/src/lib/knowledge-admin/types.ts`、`frontend/src/lib/knowledge-admin/schemas.ts`、`frontend/src/lib/knowledge-admin/client.ts`、`frontend/src/lib/knowledge-admin/server-client.ts`、`frontend/src/lib/knowledge-admin/mode.ts`；`frontend/src/lib/api/knowledge-admin-proxy.ts`；`frontend/src/app/api/v3/[[...segments]]/route.ts`；`frontend/src/features/knowledge-admin/list.tsx`、`frontend/src/features/knowledge-admin/upload.tsx`、`frontend/src/features/knowledge-admin/edit.tsx`；`frontend/src/app/admin/knowledge/page.tsx`、`frontend/src/app/admin/knowledge/[id]/page.tsx`；`frontend/src/features/reading/current-knowledge-view.tsx`；`frontend/src/features/study/managed-pages.tsx`、`frontend/src/features/study/managed-controls.tsx`、`frontend/src/features/study/managed-note-editor.tsx`、`frontend/src/features/study/managed-history.tsx`；`frontend/src/features/catalogue/current-catalogue.tsx`。
 **Modify:** `frontend/src/components/ui-nav.tsx`、`frontend/src/components/site-header.tsx`；`frontend/src/app/page.tsx`、`frontend/src/app/knowledge/page.tsx`、`frontend/src/app/knowledge/[id]/page.tsx`、`frontend/src/app/topics/[id]/page.tsx`、`frontend/src/app/domains/[id]/page.tsx`、`frontend/src/app/learn/page.tsx`、`frontend/src/app/learning-history/page.tsx`；旧 `frontend/src/app/editor/page.tsx`、`frontend/src/app/editor/drafts/[id]/page.tsx`、`frontend/src/app/editor/drafts/[id]/preview/page.tsx`、`frontend/src/app/review/page.tsx`、`frontend/src/app/review/[id]/page.tsx`、`frontend/src/app/admin/publications/page.tsx`、`frontend/src/app/admin/publications/[id]/page.tsx`、`frontend/src/app/admin/withdrawals/page.tsx`；`frontend/src/lib/feedback/types.ts`、`frontend/src/lib/feedback/schemas.ts`；`frontend/src/features/feedback/new-form.tsx`、`frontend/src/features/feedback/report-link.tsx`、`frontend/src/features/feedback/topic-location.ts`；`frontend/src/lib/i18n/messages/zh-CN.ts`、`frontend/src/lib/i18n/messages/en.ts`。
@@ -216,7 +216,7 @@ flowchart LR
 - [ ] GREEN：上述单元批次；`npm run typecheck`、`npm run build` 分别限 9 分钟；两份新 Playwright spec 分开运行，每批限 9 分钟并核验截图/实际交互。
 - [ ] 提交，commit：`feat: 简化管理员知识管理与当前知识学习界面`。
 
-### 任务 7：能力检查、明确启用与准确旧数据清理
+### Task 7:能力检查、明确启用与准确旧数据清理
 
 **Create:** `backend/cmd/knowledge-maintenance/main.go`、`backend/internal/store/knowledge_admin_maintenance.go`、`backend/internal/store/knowledge_admin_maintenance_test.go`；`ops/knowledge-cutover.py`、`ops/tests/test_knowledge_cutover.py`。
 **Modify:** `backend/internal/httpapi/health.go`、`backend/internal/httpapi/health_test.go`；`ops/deploy.py`、`ops/verify-deployment.py`、`ops/tests/test_deploy.py`、`ops/tests/test_verify.py`。
@@ -231,7 +231,7 @@ flowchart LR
 - [ ] GREEN：上述及部署/验证原测试各一批 PASS；在隔离恢复库演练，比较受保护数据指纹，验证中断无半次清理。
 - [ ] 提交，commit：`feat: 安全启用当前知识模式与精确旧数据清理`。
 
-### 任务 8：兼容登记、审查、MR 与已授权上线
+### Task 8:兼容登记、审查、MR 与已授权上线
 
 **Modify:** `api/topic-learning-compatibility-baseline.json`、`tools/verify/topic-learning-compatibility.mjs`、`tools/verify/topic-learning-compatibility.test.mjs`、`tools/verify/topic-learning-ci.test.mjs`；`.github/workflows/backend.yml`、`.github/workflows/frontend.yml`、`.github/workflows/deployment.yml`。
 **Create:** `tools/verify/admin-knowledge-acceptance.mjs`、`tools/verify/admin-knowledge-acceptance.test.mjs`；`docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md`。
