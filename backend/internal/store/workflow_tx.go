@@ -9,6 +9,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/content"
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"github.com/yyl1212/math_master/backend/internal/taxonomy"
 	"time"
 )
@@ -28,7 +29,7 @@ func workflowError(err error) error {
 	if errors.Is(err, ErrImmutableConflict) {
 		return publication.ErrImmutableConflict
 	}
-	for _, known := range []error{taxonomy.ErrInvalid, taxonomy.ErrNotConfigured, taxonomy.ErrLimit, taxonomy.ErrHeadStale, taxonomy.ErrConflict, taxonomy.ErrIdempotencyConflict, correction.ErrNotConfigured, publication.ErrDraftConflict, publication.ErrReviewConflict, publication.ErrImmutableConflict, publication.ErrIdempotencyConflict, publication.ErrVersionConflict, publication.ErrPublicationStale, publication.ErrContentNotReady, publication.ErrContentInvalid, publication.ErrReviewRequired, publication.ErrContentLimitExceeded, publication.ErrContentNotConfigured} {
+	for _, known := range []error{study.ErrModuleRetired, taxonomy.ErrInvalid, taxonomy.ErrNotConfigured, taxonomy.ErrLimit, taxonomy.ErrHeadStale, taxonomy.ErrConflict, taxonomy.ErrIdempotencyConflict, correction.ErrNotConfigured, publication.ErrDraftConflict, publication.ErrReviewConflict, publication.ErrImmutableConflict, publication.ErrIdempotencyConflict, publication.ErrVersionConflict, publication.ErrPublicationStale, publication.ErrContentNotReady, publication.ErrContentInvalid, publication.ErrReviewRequired, publication.ErrContentLimitExceeded, publication.ErrContentNotConfigured} {
 		if errors.Is(err, known) {
 			return known
 		}
@@ -81,6 +82,23 @@ func (s *Store) workflowTx(ctx context.Context, a publication.Access, action pub
 	for _, lock := range []int64{adminLockID, 1296127048} {
 		if _, err = tx.ExecContext(ctx, `SELECT pg_advisory_xact_lock($1)`, lock); err != nil {
 			return workflowError(err)
+		}
+	}
+	// Recheck the permanent fence after waiting on the shared cutover locks.
+	var installed bool
+	if err = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=13 AND is_applied)`).Scan(&installed); err != nil {
+		return workflowError(err)
+	}
+	if installed {
+		if err = knowledgeConfigured(ctx, tx); err != nil {
+			return publication.ErrContentNotConfigured
+		}
+		var enabled bool
+		if err = tx.QueryRowContext(ctx, `SELECT managed_knowledge_enabled FROM goose_db_version WHERE version_id=0`).Scan(&enabled); err != nil {
+			return publication.ErrContentNotConfigured
+		}
+		if enabled {
+			return study.ErrModuleRetired
 		}
 	}
 	user, now, err := workflowIdentity(ctx, tx, a, action, true, related)

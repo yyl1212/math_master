@@ -51,6 +51,9 @@ func backupDigest(ctx context.Context, path string) (string, error) {
 	return hex.EncodeToString(hash.Sum(nil)), nil
 }
 func validateTopicBackup(ctx context.Context, path, database string) (string, error) {
+	return validateBackup(ctx, path, database, 12)
+}
+func validateBackup(ctx context.Context, path, database string, maxMigration int) (string, error) {
 	invalid := errors.New("invalid topic backup record")
 	absolute, e := filepath.Abs(path)
 	if e != nil {
@@ -85,7 +88,7 @@ func validateTopicBackup(ctx context.Context, path, database string) (string, er
 		} `json:"database"`
 		Tables map[string]json.RawMessage `json:"tables"`
 	}
-	if json.Unmarshal(raw, &manifest) != nil || manifest.SchemaVersion != 1 || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(manifest.SourceCommit) || manifest.CreatedAt.IsZero() || manifest.CreatedAt.After(time.Now().Add(time.Minute)) || manifest.MigrationVersion < 1 || manifest.MigrationVersion > 12 || manifest.Database.Name != database || !backupHash.MatchString(manifest.DumpSHA) || manifest.Tables == nil {
+	if json.Unmarshal(raw, &manifest) != nil || manifest.SchemaVersion != 1 || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(manifest.SourceCommit) || manifest.CreatedAt.IsZero() || manifest.CreatedAt.After(time.Now().Add(time.Minute)) || manifest.MigrationVersion < 1 || manifest.MigrationVersion > maxMigration || manifest.Database.Name != database || !backupHash.MatchString(manifest.DumpSHA) || manifest.Tables == nil {
 		return "", invalid
 	}
 	file, e := os.Open(filepath.Join(absolute, "database.dump"))

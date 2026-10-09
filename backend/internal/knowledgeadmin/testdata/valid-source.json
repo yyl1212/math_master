@@ -1,0 +1,170 @@
+{
+  "format": "math-master-knowledge-source",
+  "schema_version": "1.0",
+  "dataset_id": "math-master-format-example",
+  "dataset_version": 1,
+  "source": {
+    "source_id": "math-master-format-example",
+    "work_family_id": "math-master-format-example",
+    "title": "Math Master 自制格式示例",
+    "authors": [
+      "Math Master 项目示例"
+    ],
+    "license": "CC0-1.0",
+    "rights_status": "original",
+    "attribution": "本文件包含自制教学示例，仅演示交换格式，没有网站发布批准。"
+  },
+  "knowledge_points": [
+    {
+      "id": "demo-rational-fraction",
+      "version": 1,
+      "title": "Rational fraction",
+      "title_zh": "有理分数",
+      "type": "definition",
+      "type_status": "confirmed",
+      "content_origin": "original",
+      "statement": "当整数 $b\\ne0$ 时，$a/b$ 表示满足 $b\\cdot x=a$ 的有理数 $x$。",
+      "conditions": [
+        "$a,b\\in\\mathbb{Z}$。",
+        "$b\\ne0$。"
+      ],
+      "scope": "整数分子和非零整数分母构成的有理分数。",
+      "system": "有理数及其通常运算",
+      "objectives": [
+        "说明该知识点的含义，并检查适用条件。"
+      ],
+      "msc_codes": [
+        "97F40"
+      ],
+      "classification_status": "confirmed",
+      "classification_evidence": [
+        {
+          "msc_code": "97F40",
+          "reason": "内容用于整数与有理数的基础教学。",
+          "evidence_fields": [
+            "statement",
+            "conditions",
+            "scope"
+          ],
+          "kind": "specific"
+        }
+      ],
+      "learning_difficulty": {
+        "difficulty_level": 1,
+        "rationale": "使用基本整数运算和分数含义即可理解。",
+        "prerequisites": [
+          "整数",
+          "乘法和除法"
+        ],
+        "review_status": "body_assessed",
+        "rubric_version": "learning-foundation-v1-20261008",
+        "proof_scope_note": "这是格式示例的知识理解评估，没有外部教材证明认证。"
+      },
+      "proof": "",
+      "proof_scope": "not_applicable",
+      "equations": [],
+      "explanations": [
+        {
+          "kind": "intuition",
+          "body": "分母说明把单位分成多少份，分子说明取多少份；代数定义也覆盖负数。"
+        }
+      ],
+      "examples": [
+        "$3/4$ 表示满足 $4x=3$ 的有理数。"
+      ],
+      "counterexamples": [],
+      "common_misconceptions": [
+        "分母为零的表达式不属于这里定义的有理分数。"
+      ],
+      "provenance": [],
+      "relations": [],
+      "tags": [
+        "format-example"
+      ],
+      "extensions": {},
+      "type_reason": "核心陈述明确引入有理分数的定义。",
+      "classification_mode": "msc"
+    },
+    {
+      "id": "demo-equivalent-fractions",
+      "version": 1,
+      "title": "Equivalent fractions",
+      "title_zh": "等值分数",
+      "type": "theorem",
+      "type_status": "confirmed",
+      "subtype": "fraction-equivalence",
+      "content_origin": "original",
+      "statement": "若 $b\\ne0$ 且 $c\\ne0$，则 $a/b=(ac)/(bc)$。",
+      "conditions": [
+        "$a,b,c\\in\\mathbb{Z}$。",
+        "$b\\ne0$ 且 $c\\ne0$。"
+      ],
+      "scope": "有理分数的等值变换，适用于正、负非零倍数。",
+      "system": "有理数及其通常运算",
+      "objectives": [
+        "说明该知识点的含义，并检查适用条件。"
+      ],
+      "msc_codes": [
+        "97F40"
+      ],
+      "classification_status": "confirmed",
+      "classification_evidence": [
+        {
+          "msc_code": "97F40",
+          "reason": "内容用于整数与有理数的基础教学。",
+          "evidence_fields": [
+            "statement",
+            "conditions",
+            "scope"
+          ],
+          "kind": "specific"
+        }
+      ],
+      "learning_difficulty": {
+        "difficulty_level": 2,
+        "rationale": "需要理解非零因子的约去和含字母的分数等值变换。",
+        "prerequisites": [
+          "整数",
+          "乘法和除法"
+        ],
+        "review_status": "body_assessed",
+        "rubric_version": "learning-foundation-v1-20261008",
+        "proof_scope_note": "只评估示例中给出的这一步代数证明，不扩展到其他分式命题。"
+      },
+      "proof": "由于 $c\\ne0$，有 $c/c=1$。因此 $a/b=(a/b)\\cdot(c/c)=(ac)/(bc)$；两处分母均非零。",
+      "proof_scope": "full",
+      "equations": [],
+      "explanations": [
+        {
+          "kind": "formal",
+          "body": "分子和分母同乘非零数，相当于整个分数乘以1。"
+        }
+      ],
+      "examples": [
+        "$2/3=(2\\cdot2)/(3\\cdot2)=4/6$。"
+      ],
+      "counterexamples": [
+        "取 $c=0$ 会产生 $0/0$，说明非零条件不可删去。"
+      ],
+      "common_misconceptions": [],
+      "provenance": [],
+      "relations": [
+        {
+          "kind": "prerequisite",
+          "target_source_id": "math-master-format-example",
+          "target_id": "demo-rational-fraction",
+          "target_version": 1,
+          "status": "confirmed",
+          "reason": "需要先理解有理分数及非零分母的含义。"
+        }
+      ],
+      "tags": [
+        "format-example"
+      ],
+      "extensions": {},
+      "type_reason": "核心陈述给出了在明确非零条件下需要论证的等值命题。",
+      "classification_mode": "msc"
+    }
+  ],
+  "extensions": {}
+}

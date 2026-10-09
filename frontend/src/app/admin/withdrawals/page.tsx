@@ -1,3 +1,4 @@
+import {redirectLegacyManagement} from "@/lib/knowledge-admin/mode";
 import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 export async function generateMetadata(){return getUiMetadata("page.admin.withdrawals");}
@@ -14,7 +15,7 @@ import { PublicationPanel } from "@/features/content/publication-panel";
 import { WithdrawalPanel } from "@/features/content/withdrawal-panel";
 export const dynamic = "force-dynamic";
 
-export default async function Page() { const access = await contentPageAccess(["admin"]); if ("error" in access)
+export default async function Page() { await redirectLegacyManagement(); const access = await contentPageAccess(["admin"]); if ("error" in access)
     return <><UiPageTitle messageKey="page.admin.withdrawals"/>{access.error}</>; const result = await readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie); if (!result.ok)
     return <><UiPageTitle messageKey="page.admin.withdrawals"/>{<ContentState status={result.status} code={result.code}/>}</>; if (result.data.head && !result.data.items.some(p => p.id === result.data.head)) {
     const head = await readServerContent<PublicationView>({ kind: "readPublication", id: result.data.head }, access.cookie);

@@ -1,7 +1,7 @@
 import { describe,it,expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import {metadata,json,id} from './test-fixtures';
-import { resolveFeedbackRoute, metadataSchema, readFeedbackResponse } from './schemas';
+import { feedbackInputSchemas, resolveFeedbackRoute, metadataSchema, readFeedbackResponse } from './schemas';
 import { validateFeedbackBytes, readFeedbackBytes } from './bytes';
 const cases=JSON.parse(readFileSync('../api/feedback-boundary-cases.json','utf8')) as {name:string;route:string;rawBase64:string;expectedValid:boolean;expectedStatus:number|null;expectedCode:string|null}[];
 function validateRaw(c:typeof cases[number]){try{const raw=new Uint8Array(Buffer.from(c.rawBase64,'base64'));const route=resolveFeedbackRoute(c.route,raw.length?'POST':'GET');if(raw.length)validateFeedbackBytes(raw,route.action);return {valid:true,status:null,code:null}}catch(e){return {valid:false,status:400,code:'INVALID_REQUEST'}}}
@@ -15,4 +15,8 @@ it.each([['FEEDBACK_CONFLICT',409],['FEEDBACK_ANSWER_OVERLAP',409],['RATE_LIMITE
  const response=new Response(JSON.stringify({error:{code,message:'answer-sentinel',requestId:'a'.repeat(32),...(code==='RATE_LIMITED'?{retryAt:'2026-10-03T04:00:00Z'}:{})}}),{status,headers:{'Content-Type':'application/json','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff','X-Request-ID':'a'.repeat(32)}});
  const error=await readFeedbackResponse(response,'/api/v1/feedback/tickets',new AbortController().signal).catch(e=>e);
  expect(error).toMatchObject({code,status});expect(error.message).not.toContain('answer-sentinel');
+});
+it('accepts managed knowledge context without a business version or approval',()=>{
+ const id='k-'+ 'a'.repeat(56);const target={kind:'managed-knowledge',identity:null,area:null,part:null,managedRef:{id,contentSha256:'b'.repeat(64),sourceKind:'managed'}};
+ expect(feedbackInputSchemas.create.safeParse({target,source:{kind:'managed',publicationId:null,attemptId:null,position:null},category:'math_error',title:'需要修正条件',message:'请检查当前条件说明。',location:'正文'}).success).toBe(true);
 });

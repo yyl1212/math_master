@@ -24,6 +24,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
+	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/notification"
 	"github.com/yyl1212/math_master/backend/internal/publication"
@@ -222,6 +223,9 @@ func Run(ctx context.Context, c Config) (result error) {
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
+		if scene == "managed-knowledge" {
+			return resetManagedKnowledge(ctx, db, s, accounts, accountAdmin, root)
+		}
 		if scene == "correction" {
 			setup, stop := context.WithTimeout(ctx, 45*time.Second)
 			defer stop()
@@ -502,7 +506,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	if studyErr != nil {
 		return errors.New("study fixture service unavailable")
 	}
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{ExperienceMode: s, Study: &httpapi.StudyOptions{Service: studyService, PublicOrigin: fixtureOrigin}, Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Knowledge: &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(s), Current: s, Study: s, PublicOrigin: fixtureOrigin}, ExperienceMode: s, Study: &httpapi.StudyOptions{Service: studyService, PublicOrigin: fixtureOrigin}, Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
@@ -550,6 +554,19 @@ func Run(ctx context.Context, c Config) (result error) {
 	})
 	control := http.NewServeMux()
 	control.HandleFunc("GET /readyz", func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(204) })
+	control.HandleFunc("POST /managed-knowledge/{operation}", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			w.WriteHeader(401)
+			return
+		}
+		mu.Lock()
+		defer mu.Unlock()
+		if e := managedKnowledgeChange(r.Context(), s, accounts, r.PathValue("operation")); e != nil {
+			w.WriteHeader(503)
+			return
+		}
+		w.WriteHeader(204)
+	})
 	control.HandleFunc("POST /scene/{scene}", func(w http.ResponseWriter, r *http.Request) {
 		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
 			http.Error(w, "Unauthorized", 401)

@@ -108,3 +108,10 @@ class TopicReadinessTests(unittest.TestCase):
         self.assertEqual(module.verify_topic_readiness({'status':'ready','topic':good}),good)
         for topic in [{**good,'privateNote':'must not be evidence'},{**good,'retirement':False},{**good,'schemaReady':False},{**good,'study':'true'}]:
             with self.assertRaises(module.VerifyError):module.verify_topic_readiness({'status':'ready','topic':topic})
+
+class ManagedReadinessTests(unittest.TestCase):
+    def test_current_content_readiness_is_strict_and_safe(self):
+        good={'capability':True,'schemaReady':True,'managedMode':True}
+        self.assertEqual(module.verify_content_readiness({'status':'ready','content':good}),good)
+        for bad in [{**good,'schemaReady':False},{**good,'capability':False},{**good,'privateNotes':'secret'},{**good,'managedMode':'true'}]:
+            with self.assertRaises(module.VerifyError):module.verify_content_readiness({'status':'ready','content':bad})

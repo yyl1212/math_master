@@ -4,13 +4,19 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"net/http"
 )
 
 var errContentPayloadTooLarge = errors.New("content request too large")
 
 func contentError(w http.ResponseWriter, r *http.Request, err error) {
+	if errors.Is(err, study.ErrModuleRetired) {
+		knowledgeHTTPError(w, r, knowledgeadmin.ErrRetired)
+		return
+	}
 	status, code, message := 0, "", ""
 	switch {
 	case errors.Is(err, publication.ErrDraftConflict):

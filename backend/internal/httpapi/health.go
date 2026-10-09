@@ -3,6 +3,7 @@ package httpapi
 import (
 	"context"
 	"encoding/json"
+	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/study"
 	"net/http"
 	"time"
@@ -12,6 +13,10 @@ type Pinger interface{ PingContext(context.Context) error }
 
 type TopicHealthReader interface {
 	ReadTopicSchemaHealth(context.Context) (study.SchemaHealth, error)
+}
+
+type ManagedHealthReader interface {
+	ReadManagedSchemaHealth(context.Context) (store.ManagedSchemaHealth, error)
 }
 
 func NewHealthHandler(pinger Pinger, topics ...TopicHealthReader) http.Handler {
@@ -29,17 +34,23 @@ func NewHealthHandler(pinger Pinger, topics ...TopicHealthReader) http.Handler {
 			_ = json.NewEncoder(w).Encode(map[string]string{"status": "unavailable"})
 			return
 		}
+		payload := map[string]any{"status": "ready"}
+		ready := true
 		if len(topics) > 0 && topics[0] != nil {
 			health, e := topics[0].ReadTopicSchemaHealth(ctx)
-			if e != nil || !health.SchemaReady {
-				w.WriteHeader(http.StatusServiceUnavailable)
-				_ = json.NewEncoder(w).Encode(map[string]any{"status": "unavailable", "topic": health})
-				return
+			payload["topic"] = health
+			ready = e == nil && health.SchemaReady
+			if current, ok := topics[0].(ManagedHealthReader); ok {
+				h, e := current.ReadManagedSchemaHealth(ctx)
+				payload["content"] = h
+				ready = ready && e == nil && h.SchemaReady
 			}
-			_ = json.NewEncoder(w).Encode(map[string]any{"status": "ready", "topic": health})
-			return
 		}
-		_ = json.NewEncoder(w).Encode(map[string]string{"status": "ready"})
+		if !ready {
+			payload["status"] = "unavailable"
+			w.WriteHeader(http.StatusServiceUnavailable)
+		}
+		_ = json.NewEncoder(w).Encode(payload)
 	})
 	return mux
 }

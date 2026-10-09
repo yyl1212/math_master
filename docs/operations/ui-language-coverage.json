@@ -16,6 +16,42 @@
       ]
     },
     {
+      "file": "frontend/src/app/admin/knowledge/[id]/page.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/knowledge/page.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/app/admin/publications/[id]/page.tsx",
       "module": "content",
       "complete": true,
@@ -1021,6 +1057,24 @@
       ]
     },
     {
+      "file": "frontend/src/features/catalogue/current-catalogue.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/catalogue/domain-view.tsx",
       "module": "public",
       "complete": true,
@@ -1077,6 +1131,21 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/catalogue/topic-view.tsx",
+      "module": "taxonomy",
+      "complete": true,
+      "messageKeys": [
+        "topic.map.intro",
+        "topic.map.search"
+      ],
+      "rawDataAreas": [
+        "分类代码、中英文名称、知识标题与版本"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-taxonomy.spec.ts"
       ]
     },
     {
@@ -1756,6 +1825,35 @@
       ]
     },
     {
+      "file": "frontend/src/features/content/topic-fields.tsx",
+      "module": "taxonomy",
+      "complete": true,
+      "messageKeys": [
+        "topic.assignment.title",
+        "topic.assignment.ids"
+      ],
+      "rawDataAreas": [
+        "知识版本、源记录JSON、分类及批次摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-taxonomy.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/content/topic-workspace.tsx",
+      "module": "taxonomy",
+      "complete": true,
+      "messageKeys": [
+        "publication-panel.snapshot.history.d81e02"
+      ],
+      "rawDataAreas": [
+        "原知识草稿、归属修订、发布历史标识和摘要"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-taxonomy.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/content/unit-fields.tsx",
       "module": "content",
       "complete": true,
@@ -2348,6 +2446,60 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-feedback.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/knowledge-admin/edit.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/knowledge-admin/list.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/knowledge-admin/upload.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
       ]
     },
     {
@@ -3371,6 +3523,24 @@
       ]
     },
     {
+      "file": "frontend/src/features/reading/current-knowledge-view.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/reading/knowledge-view.tsx",
       "module": "public",
       "complete": true,
@@ -3463,50 +3633,6 @@
       ]
     },
     {
-      "file": "frontend/src/features/catalogue/topic-view.tsx",
-      "module": "taxonomy",
-      "complete": true,
-      "messageKeys": [
-        "topic.map.intro",
-        "topic.map.search"
-      ],
-      "rawDataAreas": [
-        "分类代码、中英文名称、知识标题与版本"
-      ],
-      "scenarios": [
-        "tests/e2e/ui-language-taxonomy.spec.ts"
-      ]
-    },
-    {
-      "file": "frontend/src/features/content/topic-fields.tsx",
-      "module": "taxonomy",
-      "complete": true,
-      "messageKeys": [
-        "topic.assignment.title",
-        "topic.assignment.ids"
-      ],
-      "rawDataAreas": [
-        "知识版本、源记录JSON、分类及批次摘要"
-      ],
-      "scenarios": [
-        "tests/e2e/ui-language-taxonomy.spec.ts"
-      ]
-    },
-    {
-      "file": "frontend/src/features/content/topic-workspace.tsx",
-      "module": "taxonomy",
-      "complete": true,
-      "messageKeys": [
-        "publication-panel.snapshot.history.d81e02"
-      ],
-      "rawDataAreas": [
-        "原知识草稿、归属修订、发布历史标识和摘要"
-      ],
-      "scenarios": [
-        "tests/e2e/ui-language-taxonomy.spec.ts"
-      ]
-    },
-    {
       "file": "frontend/src/features/study/account-boundary.tsx",
       "module": "study",
       "complete": true,
@@ -3518,6 +3644,21 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/content-reminders.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.reminders.title",
+        "study.reminders.readonly"
+      ],
+      "rawDataAreas": [
+        "知识标识、准确版本与UTC时间；提醒不含私人笔记，旧档案只读"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-cutover.spec.ts"
       ]
     },
     {
@@ -3581,6 +3722,94 @@
       ]
     },
     {
+      "file": "frontend/src/features/study/legacy-archive.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.archive.title",
+        "study.archive.active",
+        "study.retired.body"
+      ],
+      "rawDataAreas": [
+        "旧知识标识、版本、原答案和成绩、UTC时间；原记录不翻译或改写，私人笔记不进入档案公开字段"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-cutover.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/managed-controls.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/managed-history.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/managed-note-editor.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/managed-pages.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.admin",
+        "managed.learn",
+        "managed.statement",
+        "managed.note",
+        "managed.map"
+      ],
+      "rawDataAreas": [
+        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/study/note-editor.tsx",
       "module": "study",
       "complete": true,
@@ -3626,21 +3855,6 @@
       ]
     },
     {
-      "file": "frontend/src/features/study/topic-progress.tsx",
-      "module": "study",
-      "complete": true,
-      "messageKeys": [
-        "study.topics",
-        "study.progress.baseline"
-      ],
-      "rawDataAreas": [
-        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
-      ],
-      "scenarios": [
-        "tests/e2e/ui-language-study.spec.ts"
-      ]
-    },
-    {
       "file": "frontend/src/features/study/retired-module.tsx",
       "module": "study",
       "complete": true,
@@ -3651,37 +3865,6 @@
       ],
       "rawDataAreas": [
         "旧知识标识、版本、原答案和成绩、UTC时间；原记录不翻译或改写，私人笔记不进入档案公开字段"
-      ],
-      "scenarios": [
-        "tests/e2e/ui-language-cutover.spec.ts"
-      ]
-    },
-    {
-      "file": "frontend/src/features/study/legacy-archive.tsx",
-      "module": "study",
-      "complete": true,
-      "messageKeys": [
-        "study.archive.title",
-        "study.archive.active",
-        "study.retired.body"
-      ],
-      "rawDataAreas": [
-        "旧知识标识、版本、原答案和成绩、UTC时间；原记录不翻译或改写，私人笔记不进入档案公开字段"
-      ],
-      "scenarios": [
-        "tests/e2e/ui-language-cutover.spec.ts"
-      ]
-    },
-    {
-      "file": "frontend/src/features/study/content-reminders.tsx",
-      "module": "study",
-      "complete": true,
-      "messageKeys": [
-        "study.reminders.title",
-        "study.reminders.readonly"
-      ],
-      "rawDataAreas": [
-        "知识标识、准确版本与UTC时间；提醒不含私人笔记，旧档案只读"
       ],
       "scenarios": [
         "tests/e2e/ui-language-cutover.spec.ts"
@@ -3701,6 +3884,21 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-cutover.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/topic-progress.tsx",
+      "module": "study",
+      "complete": true,
+      "messageKeys": [
+        "study.topics",
+        "study.progress.baseline"
+      ],
+      "rawDataAreas": [
+        "知识标识/版本、个人状态、数据库时间与本人私人笔记，正文不翻译或共享"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-study.spec.ts"
       ]
     }
   ]

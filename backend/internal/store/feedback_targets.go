@@ -9,11 +9,15 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/assessment"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/feedback"
+	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
 )
 
 func feedbackLabel(t feedback.Target) string {
+	if t.Kind == "managed-knowledge" && t.ManagedRef != nil {
+		return "Knowledge " + t.ManagedRef.ID
+	}
 	if t.Kind == "site" {
 		return "Site · " + string(*t.Area)
 	}
@@ -56,6 +60,36 @@ func feedbackResolveTarget(ctx context.Context, tx *sql.Tx, actor string, t feed
 	}
 	if e := feedbackSourceConfigured(ctx, tx, b); e != nil {
 		return b, e
+	}
+	if t.Kind == "managed-knowledge" {
+		if e := knowledgeConfigured(ctx, tx); e != nil {
+			return b, feedback.ErrNotConfigured
+		}
+		q := `SELECT published,deleted_at IS NOT NULL,content_sha256 FROM managed_knowledge WHERE internal_id=$1`
+		if creating {
+			q += " FOR SHARE"
+		}
+		var published, deleted bool
+		var sha string
+		e := tx.QueryRowContext(ctx, q, t.ManagedRef.ID).Scan(&published, &deleted, &sha)
+		if errors.Is(e, sql.ErrNoRows) {
+			return b, feedback.ErrTargetStale
+		}
+		if e != nil {
+			return b, e
+		}
+		if creating && (!published || deleted || sha != t.ManagedRef.ContentSHA256) {
+			return b, feedback.ErrTargetStale
+		}
+		var valid bool
+		e = tx.QueryRowContext(ctx, `SELECT feedback_target_proof($1::jsonb,$2::jsonb,$3::uuid,$4)`, body(t), body(s), actor, creating).Scan(&valid)
+		if e != nil {
+			return b, e
+		}
+		if !valid {
+			return b, feedback.ErrTargetStale
+		}
+		return b, nil
 	}
 	if t.Kind == "site" {
 		return b, nil
@@ -202,6 +236,25 @@ func (s *Store) ReadFeedbackContext(ctx context.Context, a question.Access, q fe
 			t.Kind = "site"
 			t.Area = &q.Area
 			src.Kind = "site"
+		case "managed-knowledge":
+			if !question.ValidMathID(q.ID) || q.Position != 0 || q.Area != "" || q.PartKind != "" || q.PartID != "" {
+				return auth.ErrInvalidInput
+			}
+			var published, deleted bool
+			var sha string
+			e := tx.QueryRowContext(ctx, `SELECT published,deleted_at IS NOT NULL,content_sha256 FROM managed_knowledge WHERE internal_id=$1`, q.ID).Scan(&published, &deleted, &sha)
+			if errors.Is(e, sql.ErrNoRows) {
+				return auth.ErrNotFound
+			}
+			if e != nil {
+				return e
+			}
+			if !published || deleted {
+				return auth.ErrNotFound
+			}
+			t.Kind = "managed-knowledge"
+			t.ManagedRef = &knowledgeadmin.Ref{ID: q.ID, ContentSHA256: sha, SourceKind: "managed"}
+			src.Kind = "managed"
 		case "knowledge", "path":
 			if !question.ValidMathID(q.ID) || q.Position != 0 || q.Area != "" || (q.Kind == "path" && q.PartKind != "") {
 				return auth.ErrInvalidInput

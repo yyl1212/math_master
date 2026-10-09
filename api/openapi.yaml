@@ -25987,6 +25987,4389 @@
           }
         }
       }
+    },
+    "/api/v3/admin/knowledge": {
+      "get": {
+        "operationId": "listManagedKnowledge",
+        "summary": "listManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledgePage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "published",
+                "unpublished",
+                "deleted"
+              ]
+            }
+          }
+        ],
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      },
+      "post": {
+        "operationId": "createManagedKnowledge",
+        "summary": "createManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedCurrentInput"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/admin/knowledge/{id}": {
+      "get": {
+        "operationId": "readManagedKnowledge",
+        "summary": "readManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          }
+        ],
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      },
+      "put": {
+        "operationId": "updateManagedKnowledge",
+        "summary": "updateManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedCurrentInput"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      },
+      "delete": {
+        "operationId": "deleteManagedKnowledge",
+        "summary": "deleteManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedEmptyInput"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/admin/knowledge/imports": {
+      "post": {
+        "operationId": "previewManagedSource",
+        "summary": "previewManagedSource",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedPreview"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedSourceDocument"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/admin/knowledge/imports/{importId}": {
+      "get": {
+        "operationId": "readManagedImport",
+        "summary": "readManagedImport",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedImportStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "importId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/admin/knowledge/imports/{importId}/apply": {
+      "post": {
+        "operationId": "applyManagedImport",
+        "summary": "applyManagedImport",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "importId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedApplyInput"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/admin/knowledge/{id}/publish": {
+      "post": {
+        "operationId": "publishManagedKnowledge",
+        "summary": "publishManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedEmptyInput"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/admin/knowledge/{id}/unpublish": {
+      "post": {
+        "operationId": "unpublishManagedKnowledge",
+        "summary": "unpublishManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedEmptyInput"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/admin/knowledge/{id}/restore": {
+      "post": {
+        "operationId": "restoreManagedKnowledge",
+        "summary": "restoreManagedKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedEmptyInput"
+              }
+            }
+          }
+        },
+        "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
+      }
+    },
+    "/api/v3/content-mode": {
+      "get": {
+        "operationId": "readContentMode",
+        "summary": "readContentMode",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedContentMode"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/api/v3/knowledge": {
+      "get": {
+        "operationId": "listCurrentKnowledge",
+        "summary": "listCurrentKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedPublicKnowledgePage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/knowledge/{id}": {
+      "get": {
+        "operationId": "readCurrentKnowledge",
+        "summary": "readCurrentKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedPublicKnowledge"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/topics": {
+      "get": {
+        "operationId": "listCurrentTopics",
+        "summary": "listCurrentTopics",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedTopicPage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/topics/{topicKey}": {
+      "get": {
+        "operationId": "readCurrentTopic",
+        "summary": "readCurrentTopic",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedCurrentTopic"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/overview": {
+      "get": {
+        "operationId": "readManagedOverview",
+        "summary": "readManagedOverview",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedOverview"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": []
+      }
+    },
+    "/api/v3/study/topics": {
+      "get": {
+        "operationId": "listManagedStudyTopics",
+        "summary": "listManagedStudyTopics",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProgressPage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/knowledge": {
+      "get": {
+        "operationId": "listManagedStudyKnowledge",
+        "summary": "listManagedStudyKnowledge",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedStudyPage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "difficulty",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "unlearned",
+                "learning",
+                "completed",
+                "reviewing"
+              ]
+            }
+          },
+          {
+            "name": "reviewOnly",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/knowledge/{id}": {
+      "get": {
+        "operationId": "readManagedStudy",
+        "summary": "readManagedStudy",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedStudyDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/knowledge/{id}/begin": {
+      "post": {
+        "operationId": "beginManagedStudy",
+        "summary": "beginManagedStudy",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedStudyDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedStudyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/study/knowledge/{id}/complete": {
+      "post": {
+        "operationId": "completeManagedStudy",
+        "summary": "completeManagedStudy",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedStudyDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedStudyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/study/knowledge/{id}/start-review": {
+      "post": {
+        "operationId": "startreviewManagedStudy",
+        "summary": "startreviewManagedStudy",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedStudyDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedStudyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/study/knowledge/{id}/finish-review": {
+      "post": {
+        "operationId": "finishreviewManagedStudy",
+        "summary": "finishreviewManagedStudy",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedStudyDetail"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedStudyInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/study/knowledge/{id}/note": {
+      "get": {
+        "operationId": "readManagedNote",
+        "summary": "readManagedNote",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedNote"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "saveManagedNote",
+        "summary": "saveManagedNote",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedNote"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedNoteInput"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteManagedNote",
+        "summary": "deleteManagedNote",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedNote"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ManagedNoteInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/study/history": {
+      "get": {
+        "operationId": "listManagedHistory",
+        "summary": "listManagedHistory",
+        "responses": {
+          "200": {
+            "description": "当前操作结果。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedHistoryPage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "knowledgeId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "topicKey",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "kind",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/feedback/contexts/managed-knowledge/{id}": {
+      "get": {
+        "operationId": "readManagedFeedbackContext",
+        "tags": [
+          "Feedback"
+        ],
+        "description": "读取当前已发布知识的反馈上下文，不要求旧批准或知识版本。",
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          },
+          {
+            "name": "partKind",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "unit",
+                "asset"
+              ]
+            }
+          },
+          {
+            "name": "partId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]{0,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "原安全回执或实时私有读取；不会自动交付讨论原文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackContextEnvelope"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "428": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "闭合错误；不回显输入、答案或私有正文。",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "private, no-store"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string",
+                  "pattern": "^(?:[0-9a-f]{32}|unavailable)$"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -36099,6 +40482,34 @@
                 ]
               }
             }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "managed-knowledge"
+              },
+              "identity": {
+                "type": "null"
+              },
+              "area": {
+                "type": "null"
+              },
+              "part": {
+                "type": "null"
+              },
+              "managedRef": {
+                "$ref": "#/components/schemas/ManagedRef"
+              }
+            },
+            "required": [
+              "kind",
+              "identity",
+              "area",
+              "part",
+              "managedRef"
+            ]
           }
         ]
       },
@@ -36205,6 +40616,30 @@
                 "maximum": 5
               }
             }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "const": "managed"
+              },
+              "publicationId": {
+                "type": "null"
+              },
+              "attemptId": {
+                "type": "null"
+              },
+              "position": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "kind",
+              "publicationId",
+              "attemptId",
+              "position"
+            ]
           }
         ]
       },
@@ -41521,6 +45956,2328 @@
             "type": "boolean"
           }
         }
+      },
+      "ManagedSourceText": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 65536,
+        "pattern": "\\S",
+        "not": {
+          "pattern": "^\\s*(?:[uU][nN][kK][nN][oO][wW][nN]|[uU][nN][sS][pP][eE][cC][iI][fF][iI][eE][dD]|[uU][nN][dD][eE][fF][iI][nN][eE][dD]|[tT][bB][dD]|[tT][bB][aA]|[tT][bB][cC]|[pP][eE][nN][dD][iI][nN][gG]|[nN][eE][eE][dD][sS]_[rR][eE][vV][iI][eE][wW]|[pP][eE][nN][dD][iI][nN][gG]_[cC][oO][nN][tT][eE][xX][tT]|[nN][eE][eE][dD][sS]_[sS][eE][mM][aA][nN][tT][iI][cC]_[rR][eE][vV][iI][eE][wW]|[uU][nN][vV][eE][rR][iI][fF][iI][eE][dD]|[uU][nN][aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [kK][nN][oO][wW][nN]|未知|待定|待确认|待核对|待核实|未填写|未确定|未核实|不详|不明|暂缺|待补充|未指定|未评估)\\s*$"
+        }
+      },
+      "ManagedSourceShortText": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512,
+        "pattern": "\\S",
+        "not": {
+          "pattern": "^\\s*(?:[uU][nN][kK][nN][oO][wW][nN]|[uU][nN][sS][pP][eE][cC][iI][fF][iI][eE][dD]|[uU][nN][dD][eE][fF][iI][nN][eE][dD]|[tT][bB][dD]|[tT][bB][aA]|[tT][bB][cC]|[pP][eE][nN][dD][iI][nN][gG]|[nN][eE][eE][dD][sS]_[rR][eE][vV][iI][eE][wW]|[pP][eE][nN][dD][iI][nN][gG]_[cC][oO][nN][tT][eE][xX][tT]|[nN][eE][eE][dD][sS]_[sS][eE][mM][aA][nN][tT][iI][cC]_[rR][eE][vV][iI][eE][wW]|[uU][nN][vV][eE][rR][iI][fF][iI][eE][dD]|[uU][nN][aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [kK][nN][oO][wW][nN]|未知|待定|待确认|待核对|待核实|未填写|未确定|未核实|不详|不明|暂缺|待补充|未指定|未评估)\\s*$"
+        }
+      },
+      "ManagedSourceId": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 512,
+        "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000\\r\\n]+$"
+      },
+      "ManagedSourceSourceId": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000\\r\\n]+$"
+      },
+      "ManagedSourceSha256": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "ManagedSourcePath": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1024,
+        "pattern": "^(?!/)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$))[^\\u0000\\r\\n]+$"
+      },
+      "ManagedSourcePointer": {
+        "type": "string",
+        "maxLength": 2048,
+        "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+      },
+      "ManagedSourceMscCode": {
+        "type": "string",
+        "pattern": "^[0-9]{2}[A-Z][0-9]{2}$"
+      },
+      "ManagedSourceVersion": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 2147483647
+      },
+      "ManagedSourceUrl": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2048,
+        "pattern": "^https://[^\\s]+$"
+      },
+      "ManagedSourceTextList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ManagedSourceText"
+        },
+        "minItems": 0,
+        "maxItems": 200,
+        "uniqueItems": true
+      },
+      "ManagedSourceKnownValue": {
+        "anyOf": [
+          {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ManagedSourceKnownValue"
+            }
+          },
+          {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceKnownValue"
+            }
+          },
+          {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S",
+            "not": {
+              "pattern": "^\\s*(?:[uU][nN][kK][nN][oO][wW][nN]|[uU][nN][sS][pP][eE][cC][iI][fF][iI][eE][dD]|[uU][nN][dD][eE][fF][iI][nN][eE][dD]|[tT][bB][dD]|[tT][bB][aA]|[tT][bB][cC]|[pP][eE][nN][dD][iI][nN][gG]|[nN][eE][eE][dD][sS]_[rR][eE][vV][iI][eE][wW]|[pP][eE][nN][dD][iI][nN][gG]_[cC][oO][nN][tT][eE][xX][tT]|[nN][eE][eE][dD][sS]_[sS][eE][mM][aA][nN][tT][iI][cC]_[rR][eE][vV][iI][eE][wW]|[uU][nN][vV][eE][rR][iI][fF][iI][eE][dD]|[uU][nN][aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [aA][vV][aA][iI][lL][aA][bB][lL][eE]|[nN][oO][tT]\\ [kK][nN][oO][wW][nN]|未知|待定|待确认|待核对|待核实|未填写|未确定|未核实|不详|不明|暂缺|待补充|未指定|未评估)\\s*$"
+            }
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      },
+      "ManagedSourceKnownObject": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/ManagedSourceKnownValue"
+        }
+      },
+      "ManagedSourceSource": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_id": {
+            "$ref": "#/components/schemas/ManagedSourceSourceId"
+          },
+          "work_family_id": {
+            "$ref": "#/components/schemas/ManagedSourceSourceId"
+          },
+          "title": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 1,
+            "maxItems": 32,
+            "uniqueItems": true
+          },
+          "url": {
+            "$ref": "#/components/schemas/ManagedSourceUrl"
+          },
+          "license": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "rights_status": {
+            "enum": [
+              "original",
+              "license_verified",
+              "permission_verified"
+            ]
+          },
+          "attribution": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          }
+        },
+        "required": [
+          "source_id",
+          "work_family_id",
+          "title",
+          "authors",
+          "license",
+          "rights_status",
+          "attribution"
+        ]
+      },
+      "ManagedSourceOriginalBinding": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "record_id": {
+            "$ref": "#/components/schemas/ManagedSourceId"
+          },
+          "local_relative_path": {
+            "$ref": "#/components/schemas/ManagedSourcePath"
+          },
+          "record_json_pointer": {
+            "$ref": "#/components/schemas/ManagedSourcePointer"
+          },
+          "source_file_sha256": {
+            "$ref": "#/components/schemas/ManagedSourceSha256"
+          },
+          "record_body_sha256": {
+            "$ref": "#/components/schemas/ManagedSourceSha256"
+          },
+          "record_body_hash_algorithm": {
+            "enum": [
+              "dot-python-json-v1-sha256",
+              "jcs-rfc8785-sha256"
+            ]
+          }
+        },
+        "required": [
+          "record_id",
+          "local_relative_path",
+          "record_json_pointer",
+          "source_file_sha256",
+          "record_body_sha256",
+          "record_body_hash_algorithm"
+        ]
+      },
+      "ManagedSourceClassificationEvidence": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "msc_code": {
+            "$ref": "#/components/schemas/ManagedSourceMscCode"
+          },
+          "kind": {
+            "enum": [
+              "specific",
+              "other"
+            ]
+          },
+          "reason": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "evidence_fields": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "statement",
+                "conditions",
+                "scope",
+                "system",
+                "proof",
+                "equations",
+                "explanations",
+                "examples",
+                "counterexamples"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 9,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "msc_code",
+          "kind",
+          "reason",
+          "evidence_fields"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "other"
+                }
+              },
+              "required": [
+                "kind"
+              ]
+            },
+            "then": {
+              "properties": {
+                "reason": {
+                  "minLength": 10
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ManagedSourceProjectOther": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "group_id": {
+            "const": "project-other"
+          },
+          "reason": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ManagedSourceText"
+              },
+              {
+                "minLength": 10
+              }
+            ]
+          },
+          "evidence_fields": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "statement",
+                "conditions",
+                "scope",
+                "system",
+                "proof",
+                "equations",
+                "explanations",
+                "examples",
+                "counterexamples"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 9,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "group_id",
+          "reason",
+          "evidence_fields"
+        ]
+      },
+      "ManagedSourceLearningDifficulty": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "difficulty_level": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "rationale": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "prerequisites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 0,
+            "maxItems": 64,
+            "uniqueItems": true
+          },
+          "review_status": {
+            "enum": [
+              "body_assessed",
+              "independently_checked"
+            ]
+          },
+          "rubric_version": {
+            "const": "learning-foundation-v1-20261008"
+          },
+          "proof_scope_note": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          }
+        },
+        "required": [
+          "difficulty_level",
+          "rationale",
+          "prerequisites",
+          "review_status",
+          "rubric_version",
+          "proof_scope_note"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "difficulty_level": {
+                  "type": "integer",
+                  "minimum": 2
+                }
+              },
+              "required": [
+                "difficulty_level"
+              ]
+            },
+            "then": {
+              "properties": {
+                "prerequisites": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ManagedSourceProvenance": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_id": {
+            "$ref": "#/components/schemas/ManagedSourceSourceId"
+          },
+          "title": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 1,
+            "maxItems": 32,
+            "uniqueItems": true
+          },
+          "url": {
+            "$ref": "#/components/schemas/ManagedSourceUrl"
+          },
+          "license": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "chapter": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "section": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "pdf_pages": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000000
+            },
+            "minItems": 0,
+            "maxItems": 200,
+            "uniqueItems": true
+          },
+          "printed_pages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 0,
+            "maxItems": 200,
+            "uniqueItems": true
+          },
+          "locator_note": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          }
+        },
+        "required": [
+          "source_id",
+          "title",
+          "authors",
+          "license",
+          "pdf_pages",
+          "printed_pages",
+          "locator_note"
+        ]
+      },
+      "ManagedSourceRelation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "prerequisite",
+              "derivation",
+              "related"
+            ]
+          },
+          "target_source_id": {
+            "$ref": "#/components/schemas/ManagedSourceSourceId"
+          },
+          "target_id": {
+            "$ref": "#/components/schemas/ManagedSourceId"
+          },
+          "target_version": {
+            "$ref": "#/components/schemas/ManagedSourceVersion"
+          },
+          "status": {
+            "const": "confirmed"
+          },
+          "reason": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          }
+        },
+        "required": [
+          "kind",
+          "target_source_id",
+          "target_id",
+          "target_version",
+          "status",
+          "reason"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "confirmed"
+                }
+              },
+              "required": [
+                "status"
+              ]
+            },
+            "then": {
+              "properties": {
+                "target_version": {
+                  "$ref": "#/components/schemas/ManagedSourceVersion"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ManagedSourceRecord": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ManagedSourceId"
+          },
+          "version": {
+            "$ref": "#/components/schemas/ManagedSourceVersion"
+          },
+          "title": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "title_zh": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "type": {
+            "enum": [
+              "concept",
+              "definition",
+              "axiom",
+              "theorem",
+              "corollary",
+              "method",
+              "mathematical-thinking",
+              "other"
+            ]
+          },
+          "type_status": {
+            "const": "confirmed"
+          },
+          "type_reason": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "type_other_reason": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ManagedSourceText"
+              },
+              {
+                "minLength": 10
+              }
+            ]
+          },
+          "original_type": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "subtype": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "content_origin": {
+            "enum": [
+              "adapted",
+              "original"
+            ]
+          },
+          "original_binding": {
+            "$ref": "#/components/schemas/ManagedSourceOriginalBinding"
+          },
+          "statement": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "system": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "objectives": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 1,
+            "maxItems": 64
+          },
+          "classification_mode": {
+            "enum": [
+              "msc",
+              "project_other"
+            ]
+          },
+          "msc_codes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceMscCode"
+            },
+            "minItems": 0,
+            "maxItems": 16,
+            "uniqueItems": true
+          },
+          "classification_status": {
+            "const": "confirmed"
+          },
+          "classification_evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceClassificationEvidence"
+            },
+            "minItems": 0,
+            "maxItems": 16
+          },
+          "project_other": {
+            "$ref": "#/components/schemas/ManagedSourceProjectOther"
+          },
+          "learning_difficulty": {
+            "$ref": "#/components/schemas/ManagedSourceLearningDifficulty"
+          },
+          "proof": {
+            "type": "string",
+            "maxLength": 1048576
+          },
+          "proof_scope": {
+            "enum": [
+              "full",
+              "sketch",
+              "none",
+              "not_applicable"
+            ]
+          },
+          "equations": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "explanations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "intuition",
+                    "formal",
+                    "application",
+                    "connection"
+                  ]
+                },
+                "body": {
+                  "$ref": "#/components/schemas/ManagedSourceText"
+                }
+              },
+              "required": [
+                "kind",
+                "body"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 16
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceText"
+            },
+            "minItems": 1,
+            "maxItems": 200
+          },
+          "counterexamples": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "common_misconceptions": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "provenance": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceProvenance"
+            },
+            "minItems": 0,
+            "maxItems": 8
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceRelation"
+            },
+            "minItems": 0,
+            "maxItems": 64
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 0,
+            "maxItems": 32,
+            "uniqueItems": true
+          },
+          "extensions": {
+            "$ref": "#/components/schemas/ManagedSourceKnownObject"
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "title",
+          "title_zh",
+          "type",
+          "type_status",
+          "type_reason",
+          "content_origin",
+          "statement",
+          "conditions",
+          "scope",
+          "system",
+          "objectives",
+          "classification_mode",
+          "msc_codes",
+          "classification_status",
+          "classification_evidence",
+          "learning_difficulty",
+          "proof",
+          "proof_scope",
+          "equations",
+          "explanations",
+          "examples",
+          "counterexamples",
+          "common_misconceptions",
+          "provenance",
+          "relations",
+          "tags",
+          "extensions"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "const": "other"
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "required": [
+                "type_other_reason"
+              ]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "not": {
+                    "const": "other"
+                  }
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "not": {
+                "required": [
+                  "type_other_reason"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "content_origin": {
+                  "const": "adapted"
+                }
+              },
+              "required": [
+                "content_origin"
+              ]
+            },
+            "then": {
+              "required": [
+                "original_binding"
+              ],
+              "properties": {
+                "provenance": {
+                  "minItems": 1
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "content_origin": {
+                  "const": "original"
+                }
+              },
+              "required": [
+                "content_origin"
+              ]
+            },
+            "then": {
+              "not": {
+                "required": [
+                  "original_binding"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "classification_mode": {
+                  "const": "msc"
+                }
+              },
+              "required": [
+                "classification_mode"
+              ]
+            },
+            "then": {
+              "properties": {
+                "msc_codes": {
+                  "minItems": 1
+                },
+                "classification_evidence": {
+                  "minItems": 1
+                }
+              },
+              "not": {
+                "required": [
+                  "project_other"
+                ]
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "classification_mode": {
+                  "const": "project_other"
+                }
+              },
+              "required": [
+                "classification_mode"
+              ]
+            },
+            "then": {
+              "required": [
+                "project_other"
+              ],
+              "properties": {
+                "msc_codes": {
+                  "maxItems": 0
+                },
+                "classification_evidence": {
+                  "maxItems": 0
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "proof_scope": {
+                  "enum": [
+                    "full",
+                    "sketch"
+                  ]
+                }
+              },
+              "required": [
+                "proof_scope"
+              ]
+            },
+            "then": {
+              "properties": {
+                "proof": {
+                  "$ref": "#/components/schemas/ManagedSourceText"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "proof_scope": {
+                  "enum": [
+                    "none",
+                    "not_applicable"
+                  ]
+                }
+              },
+              "required": [
+                "proof_scope"
+              ]
+            },
+            "then": {
+              "properties": {
+                "proof": {
+                  "const": ""
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {
+                  "enum": [
+                    "theorem",
+                    "corollary"
+                  ]
+                }
+              },
+              "required": [
+                "type"
+              ]
+            },
+            "then": {
+              "properties": {
+                "proof_scope": {
+                  "enum": [
+                    "full",
+                    "sketch",
+                    "none"
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      },
+      "ManagedSourceDocument": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "format": {
+            "const": "math-master-knowledge-source"
+          },
+          "schema_version": {
+            "const": "1.0"
+          },
+          "dataset_id": {
+            "$ref": "#/components/schemas/ManagedSourceSourceId"
+          },
+          "dataset_version": {
+            "$ref": "#/components/schemas/ManagedSourceVersion"
+          },
+          "source": {
+            "$ref": "#/components/schemas/ManagedSourceSource"
+          },
+          "knowledge_points": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceRecord"
+            },
+            "minItems": 1,
+            "maxItems": 100
+          },
+          "extensions": {
+            "$ref": "#/components/schemas/ManagedSourceKnownObject"
+          }
+        },
+        "required": [
+          "format",
+          "schema_version",
+          "dataset_id",
+          "dataset_version",
+          "source",
+          "knowledge_points",
+          "extensions"
+        ],
+        "title": "Math Master 知识点源格式 1.0"
+      },
+      "ManagedRef": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^k-[0-9a-f]{56}$"
+          },
+          "contentSha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "sourceKind": {
+            "type": "string",
+            "const": "managed"
+          }
+        },
+        "required": [
+          "id",
+          "contentSha256",
+          "sourceKind"
+        ]
+      },
+      "ManagedPublicSource": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sourceId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "citation": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "sourceId",
+          "title",
+          "citation"
+        ]
+      },
+      "ManagedCurrentInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "externalId": {
+            "type": "string"
+          },
+          "point": {
+            "$ref": "#/components/schemas/ManagedSourceRecord"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedPublicSource"
+            }
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "externalId",
+          "point",
+          "sources"
+        ]
+      },
+      "ManagedKnowledge": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "point": {
+            "$ref": "#/components/schemas/ManagedSourceRecord"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedPublicSource"
+            }
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ref": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "editToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "externalId",
+          "point",
+          "sources",
+          "topicKeys",
+          "ref",
+          "published",
+          "deleted",
+          "editToken",
+          "updatedAt"
+        ]
+      },
+      "ManagedPublicPoint": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "title_zh": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "type": {
+            "enum": [
+              "concept",
+              "definition",
+              "axiom",
+              "theorem",
+              "corollary",
+              "method",
+              "mathematical-thinking",
+              "other"
+            ]
+          },
+          "type_status": {
+            "const": "confirmed"
+          },
+          "type_reason": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "type_other_reason": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ManagedSourceText"
+              },
+              {
+                "minLength": 10
+              }
+            ]
+          },
+          "subtype": {
+            "$ref": "#/components/schemas/ManagedSourceShortText"
+          },
+          "statement": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "conditions": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "system": {
+            "$ref": "#/components/schemas/ManagedSourceText"
+          },
+          "objectives": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 1,
+            "maxItems": 64
+          },
+          "classification_mode": {
+            "enum": [
+              "msc",
+              "project_other"
+            ]
+          },
+          "msc_codes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceMscCode"
+            },
+            "minItems": 0,
+            "maxItems": 16,
+            "uniqueItems": true
+          },
+          "classification_status": {
+            "const": "confirmed"
+          },
+          "classification_evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceClassificationEvidence"
+            },
+            "minItems": 0,
+            "maxItems": 16
+          },
+          "project_other": {
+            "$ref": "#/components/schemas/ManagedSourceProjectOther"
+          },
+          "learning_difficulty": {
+            "$ref": "#/components/schemas/ManagedSourceLearningDifficulty"
+          },
+          "proof": {
+            "type": "string",
+            "maxLength": 1048576
+          },
+          "proof_scope": {
+            "enum": [
+              "full",
+              "sketch",
+              "none",
+              "not_applicable"
+            ]
+          },
+          "equations": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "explanations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "intuition",
+                    "formal",
+                    "application",
+                    "connection"
+                  ]
+                },
+                "body": {
+                  "$ref": "#/components/schemas/ManagedSourceText"
+                }
+              },
+              "required": [
+                "kind",
+                "body"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 16
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceText"
+            },
+            "minItems": 1,
+            "maxItems": 200
+          },
+          "counterexamples": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "common_misconceptions": {
+            "$ref": "#/components/schemas/ManagedSourceTextList"
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceRelation"
+            },
+            "minItems": 0,
+            "maxItems": 64
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedSourceShortText"
+            },
+            "minItems": 0,
+            "maxItems": 32,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "title",
+          "title_zh",
+          "type",
+          "learning_difficulty"
+        ]
+      },
+      "ManagedPublicKnowledge": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "point": {
+            "$ref": "#/components/schemas/ManagedPublicPoint"
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedPublicSource"
+            }
+          },
+          "ref": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "externalId",
+          "topicKeys",
+          "point",
+          "sources",
+          "ref",
+          "updatedAt"
+        ]
+      },
+      "ManagedImportCounts": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "createdKnowledge": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "linkedTopics": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "skippedItems": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "conflicts": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "invalidItems": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "createdKnowledge",
+          "linkedTopics",
+          "skippedItems",
+          "conflicts",
+          "invalidItems"
+        ]
+      },
+      "ManagedPreviewItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "link",
+              "skip",
+              "conflict",
+              "invalid"
+            ]
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "errorPath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index",
+          "externalId",
+          "action",
+          "topicKeys"
+        ]
+      },
+      "ManagedPreview": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "importId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "inputSha256": {
+            "type": "string"
+          },
+          "previewToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedPreviewItem"
+            }
+          },
+          "counts": {
+            "$ref": "#/components/schemas/ManagedImportCounts"
+          }
+        },
+        "required": [
+          "importId",
+          "inputSha256",
+          "previewToken",
+          "items",
+          "counts"
+        ]
+      },
+      "ManagedApplyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "selectedIndexes": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "uniqueItems": true
+          },
+          "publish": {
+            "type": "boolean"
+          },
+          "previewToken": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "selectedIndexes",
+          "publish",
+          "previewToken"
+        ]
+      },
+      "ManagedItemReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "index": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "link",
+              "skip",
+              "conflict",
+              "invalid",
+              "not-selected"
+            ]
+          },
+          "knowledgeId": {
+            "type": "string"
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "errorCode": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "index",
+          "externalId",
+          "action",
+          "knowledgeId",
+          "topicKeys"
+        ]
+      },
+      "ManagedReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "operationId": {
+            "type": "string"
+          },
+          "counts": {
+            "$ref": "#/components/schemas/ManagedImportCounts"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedItemReceipt"
+            }
+          }
+        },
+        "required": [
+          "operationId",
+          "counts",
+          "items"
+        ]
+      },
+      "ManagedImportStatus": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "preview": {
+            "$ref": "#/components/schemas/ManagedPreview"
+          },
+          "receipt": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ManagedReceipt"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "preview",
+          "receipt"
+        ]
+      },
+      "ManagedContentMode": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "legacy",
+              "managed"
+            ]
+          },
+          "capability": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "mode",
+          "capability"
+        ]
+      },
+      "ManagedKnowledgePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedKnowledgeSummary"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "ManagedPublicKnowledgePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedPublicKnowledge"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "ManagedCurrentTopic": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "topicKey": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "primary",
+              "secondary",
+              "specific",
+              "other",
+              "project-other"
+            ]
+          },
+          "knowledgeCount": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "items": {
+            "$ref": "#/components/schemas/ManagedPublicKnowledgePage"
+          }
+        },
+        "required": [
+          "topicKey",
+          "title",
+          "kind",
+          "knowledgeCount",
+          "items"
+        ]
+      },
+      "ManagedTopicPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedCurrentTopic"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "ManagedProblem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
+      "ManagedEmptyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {},
+        "required": []
+      },
+      "ManagedKnowledgeSummary": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "externalId": {
+            "type": "string"
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleZh": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "difficulty": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "ref": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "published": {
+            "type": "boolean"
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "editToken": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "id",
+          "externalId",
+          "topicKeys",
+          "title",
+          "titleZh",
+          "type",
+          "difficulty",
+          "ref",
+          "published",
+          "deleted",
+          "editToken",
+          "updatedAt"
+        ]
+      },
+      "ManagedStudyRecord": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledgeId": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "unlearned",
+              "learning",
+              "completed",
+              "reviewing"
+            ]
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "firstStartedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "firstCompletedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastCompletedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReadAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReviewedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "completedRef": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ManagedRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReviewRef": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ManagedRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "lastReviewId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "activeReviewId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "knowledgeId",
+          "state",
+          "sequence",
+          "firstStartedAt",
+          "firstCompletedAt",
+          "lastCompletedAt",
+          "lastReadAt",
+          "lastReviewedAt",
+          "completedRef",
+          "lastReviewRef",
+          "lastReviewId",
+          "activeReviewId"
+        ]
+      },
+      "ManagedStudyDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string"
+          },
+          "record": {
+            "$ref": "#/components/schemas/ManagedStudyRecord"
+          },
+          "currentKnowledge": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ManagedPublicKnowledge"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "materialChanged": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "actorId",
+          "record",
+          "currentKnowledge",
+          "available",
+          "materialChanged"
+        ]
+      },
+      "ManagedStudyInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reviewId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "knowledge",
+          "expectedSequence"
+        ]
+      },
+      "ManagedNoteInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "expectedRevision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 16000
+          }
+        },
+        "required": [
+          "knowledge",
+          "expectedRevision",
+          "body"
+        ]
+      },
+      "ManagedNote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string"
+          },
+          "knowledgeId": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "knowledge": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ManagedRef"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "deleted": {
+            "type": "boolean"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "actorId",
+          "knowledgeId",
+          "body",
+          "revision",
+          "knowledge",
+          "deleted",
+          "available",
+          "updatedAt"
+        ]
+      },
+      "ManagedProgress": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "topicKey": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "completed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "learning": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reviewing": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "completedRatio": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "topicKey",
+          "total",
+          "completed",
+          "learning",
+          "reviewing",
+          "completedRatio"
+        ]
+      },
+      "ManagedReminder": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledgeId": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "knowledgeId",
+          "kind",
+          "recordedAt"
+        ]
+      },
+      "ManagedOverview": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "completed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "learning": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reviewing": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "unavailable": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "unclassified": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "materialChanged": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "reminders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedReminder"
+            }
+          }
+        },
+        "required": [
+          "actorId",
+          "total",
+          "completed",
+          "learning",
+          "reviewing",
+          "unavailable",
+          "unclassified",
+          "materialChanged",
+          "reminders"
+        ]
+      },
+      "ManagedHistoryEntry": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "started",
+              "completed",
+              "review-started",
+              "review-finished",
+              "note-saved",
+              "note-deleted"
+            ]
+          },
+          "noteRevision": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 0
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reviewId": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "recordedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sourceKind": {
+            "type": "string",
+            "const": "managed"
+          }
+        },
+        "required": [
+          "id",
+          "knowledge",
+          "topicKeys",
+          "kind",
+          "noteRevision",
+          "reviewId",
+          "recordedAt",
+          "sourceKind"
+        ]
+      },
+      "ManagedHistoryPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedHistoryEntry"
+            }
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "nextCursor"
+        ]
+      },
+      "ManagedStudyPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedStudyDetail"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "ManagedProgressPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedProgress"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
       }
     },
     "securitySchemes": {

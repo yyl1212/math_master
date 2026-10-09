@@ -4,10 +4,11 @@ import { AuthStatus } from "./auth-status";
 import { SiteHeader } from "./site-header";
 import { CredentialsForm } from "@/features/auth/credentials-form";
 import { failure } from "@/lib/auth/schemas";
-const modeFixture=vi.hoisted(()=>({mode:"legacy" as "legacy"|"topics"}));
+const modeFixture=vi.hoisted(()=>({managed:false as boolean|null,mode:"legacy" as "legacy"|"topics"}));
+vi.mock("@/lib/knowledge-admin/mode-client",()=>({useContentMode:()=>modeFixture.managed}));
 vi.mock("@/lib/taxonomy/client",()=>({taxonomyRequest:vi.fn(async()=>({ok:true,data:{mode:modeFixture.mode}}))}));
 vi.mock("next/navigation", () => ({ usePathname: () => "/login", useRouter: () => ({ replace: vi.fn(), refresh: vi.fn() }) }));
-afterEach(() => {vi.unstubAllGlobals();modeFixture.mode="legacy"});
+afterEach(() => {vi.unstubAllGlobals();modeFixture.mode="legacy";modeFixture.managed=false});
 describe("TestAuthStatus", () => {
   it("shares the initial context with the form and refreshes on auth change", async () => {
     let resolve!: (value: Response) => void;
@@ -35,3 +36,5 @@ it("QuestionRoleNavigationDoesNotGrantEditorOrReviewerToAdmins",async()=>{
 });
 
 it("topics hides old question routes while retaining account and content management",async()=>{modeFixture.mode="topics";vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({data:{user:{id:"11111111-1111-4111-8111-111111111111",username:"topic_manager",roles:["learner","editor","reviewer","admin"],mustChangePassword:false},csrfToken:"A".repeat(43)}})));render(<AuthStatus/>);await screen.findByRole("link",{name:"Your account"});expect(screen.queryByRole("link",{name:"Publish question bank"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Write questions"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Review questions"})).not.toBeInTheDocument();expect(screen.getByRole("link",{name:"Edit content"})).toBeVisible()});
+
+it("managed hides retired review and question menus for an administrator",async()=>{modeFixture.managed=true;vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({data:{user:{id:"11111111-1111-4111-8111-111111111111",username:"manager",roles:["learner","editor","reviewer","admin"],mustChangePassword:false},csrfToken:"A".repeat(43)}})));render(<AuthStatus/>);expect(await screen.findByRole("link",{name:"Knowledge management"})).toHaveAttribute("href","/admin/knowledge");for(const name of ["Edit content","Review content","Publish question bank","Write questions","Review questions"])expect(screen.queryByRole("link",{name})).toBeNull()});

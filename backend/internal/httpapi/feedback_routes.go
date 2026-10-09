@@ -39,7 +39,7 @@ func routeFeedback(path, method string) (feedbackRoute, error) {
 	case len(p) == 2 && p[0] == "contexts" && p[1] == "site":
 		r.Action = feedback.ReadContextAction
 		r.Kind = "site"
-	case len(p) == 3 && p[0] == "contexts" && (p[1] == "knowledge" || p[1] == "path" || p[1] == "practice" || p[1] == "assessment"):
+	case len(p) == 3 && p[0] == "contexts" && (p[1] == "knowledge" || p[1] == "path" || p[1] == "managed-knowledge" || p[1] == "practice" || p[1] == "assessment"):
 		r.Action = feedback.ReadContextAction
 		r.Kind = p[1]
 		r.ID = p[2]
@@ -82,7 +82,7 @@ func routeFeedback(path, method string) (feedbackRoute, error) {
 	}
 	if r.ID != "" {
 		valid := question.ValidID(r.ID)
-		if r.Kind == "knowledge" || r.Kind == "path" {
+		if r.Kind == "knowledge" || r.Kind == "path" || r.Kind == "managed-knowledge" {
 			valid = question.ValidMathID(r.ID)
 		}
 		if !valid {

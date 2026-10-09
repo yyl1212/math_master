@@ -1,0 +1,192 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "math-master-knowledge-manifest"
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "record_digest_algorithm": {
+      "const": "jcs-rfc8785-sha256"
+    },
+    "snapshot_id": {
+      "$ref": "#/$defs/sha256"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "path": {
+            "$ref": "#/$defs/path"
+          },
+          "sha256": {
+            "$ref": "#/$defs/sha256"
+          },
+          "bytes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 67108864
+          },
+          "source_id": {
+            "$ref": "#/$defs/sourceId"
+          },
+          "dataset_version": {
+            "$ref": "#/$defs/version"
+          },
+          "record_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "path",
+          "sha256",
+          "bytes",
+          "source_id",
+          "dataset_version",
+          "record_count"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 10000
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_id": {
+            "$ref": "#/$defs/sourceId"
+          },
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "version": {
+            "$ref": "#/$defs/version"
+          },
+          "path": {
+            "$ref": "#/$defs/path"
+          },
+          "json_pointer": {
+            "$ref": "#/$defs/pointer"
+          },
+          "record_sha256": {
+            "$ref": "#/$defs/sha256"
+          }
+        },
+        "required": [
+          "source_id",
+          "id",
+          "version",
+          "path",
+          "json_pointer",
+          "record_sha256"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 1000000
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "records_total": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "ready_for_conversion": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "pending_records": {
+          "const": 0
+        },
+        "other_type_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "specific_topic_assignment_pairs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "section_other_assignment_pairs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "project_other_records": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mathematical_publication_approved": {
+          "const": false
+        }
+      },
+      "required": [
+        "records_total",
+        "ready_for_conversion",
+        "pending_records",
+        "other_type_records",
+        "specific_topic_assignment_pairs",
+        "section_other_assignment_pairs",
+        "project_other_records",
+        "mathematical_publication_approved"
+      ]
+    }
+  },
+  "required": [
+    "format",
+    "schema_version",
+    "created_at",
+    "record_digest_algorithm",
+    "snapshot_id",
+    "files",
+    "records",
+    "summary"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Math Master 知识点导出清单 1.0",
+  "$defs": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024,
+      "pattern": "^(?!/)(?![A-Za-z]:)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$))[^\\u0000\\r\\n]+$"
+    },
+    "sourceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000\\r\\n]+$"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000\\r\\n]+$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 2147483647
+    },
+    "pointer": {
+      "type": "string",
+      "maxLength": 2048,
+      "pattern": "^(?:/(?:[^~/]|~[01])*)*$"
+    }
+  }
+}

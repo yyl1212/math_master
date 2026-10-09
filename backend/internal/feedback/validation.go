@@ -2,6 +2,7 @@ package feedback
 
 import (
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"strings"
 	"unicode/utf8"
@@ -56,6 +57,16 @@ func ValidateCreate(in CreateInput) error {
 
 // ValidateTargetSource validates identity shapes; the repository proves actual ownership and publication.
 func ValidateTargetSource(t Target, s Source) error {
+	if t.Kind == "managed-knowledge" {
+		if t.ManagedRef == nil || !knowledgeadmin.ValidManagedRef(*t.ManagedRef) || t.Identity != nil || t.Area != nil || t.Part != nil || s.Kind != "managed" || s.PublicationID != nil || s.AttemptID != nil || s.Position != nil {
+			return auth.ErrInvalidInput
+		}
+		return nil
+	}
+	if t.ManagedRef != nil {
+		return auth.ErrInvalidInput
+	}
+
 	if t.Kind == "site" {
 		if t.Identity != nil || t.Part != nil || t.Area == nil || !ValidArea(*t.Area) || s.Kind != "site" || s.PublicationID != nil || s.AttemptID != nil || s.Position != nil {
 			return auth.ErrInvalidInput

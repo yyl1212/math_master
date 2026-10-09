@@ -3,6 +3,7 @@ package feedback
 
 import (
 	"errors"
+	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/question"
 	"time"
 )
@@ -52,10 +53,11 @@ type Part struct {
 	Asset *AssetRef          `json:"asset"`
 }
 type Target struct {
-	Kind     string             `json:"kind"`
-	Identity *question.Identity `json:"identity"`
-	Area     *Area              `json:"area"`
-	Part     *Part              `json:"part"`
+	ManagedRef *knowledgeadmin.Ref `json:"managedRef,omitempty"`
+	Kind       string              `json:"kind"`
+	Identity   *question.Identity  `json:"identity"`
+	Area       *Area               `json:"area"`
+	Part       *Part               `json:"part"`
 }
 type Source struct {
 	Kind          string  `json:"kind"`

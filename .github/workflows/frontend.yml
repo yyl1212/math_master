@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      TOPIC_COMPATIBILITY_STAGE: cutover
+      TOPIC_COMPATIBILITY_STAGE: managed
       CGO_ENABLED: '0'
       GOTOOLCHAIN: go1.27.1
       NEXT_TELEMETRY_DISABLED: '1'
@@ -140,3 +140,9 @@ jobs:
             playwright-report/
           if-no-files-found: ignore
           retention-days: 7
+      - name: 管理员知识上传修正与中断恢复
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- admin-knowledge-direct.spec.ts
+      - name: 当前知识私人学习与下架保留
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- managed-knowledge-study.spec.ts
+      - name: 当前知识中英文界面与输入保留
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-managed.spec.ts

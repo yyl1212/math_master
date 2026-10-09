@@ -55,7 +55,7 @@ class DeployTests(unittest.TestCase):
 
     def transport(self,root,revision,args,sudo=False,acme='production'):
         self.commands.append((revision,args,acme))
-        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
+        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False},'content':{'capability':True,'schemaReady':True,'managedMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
         return subprocess.CompletedProcess(args,0,stdout,b'')
 
     def invoke(self,*args):
@@ -210,3 +210,10 @@ class TopicCompatibilityTests(unittest.TestCase):
 
 
 if __name__=="__main__":unittest.main()
+
+class ManagedCompatibilityTests(unittest.TestCase):
+    def test_thirteen_requires_the_explicit_managed_binary_capability(self):
+        base={'taxonomy':True,'study':True,'retirement':True}
+        self.assertFalse(module.topicSchemaCompatibility(13,base,'topics'))
+        self.assertTrue(module.topicSchemaCompatibility(13,{**base,'managed':True},'topics'))
+        self.assertFalse(module.topicSchemaCompatibility(13,{**base,'managed':False},'topics'))
