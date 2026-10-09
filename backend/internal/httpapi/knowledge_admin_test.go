@@ -3,6 +3,7 @@ package httpapi
 import (
 	"bufio"
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
@@ -10,6 +11,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"os"
+	"regexp"
 	"strings"
 	"testing"
 	"time"
@@ -50,6 +52,37 @@ func (r *httpKnowledgeRepo) ReadCurrentTopic(context.Context, string, knowledgea
 func knowledgeHTTPFixture() (http.Handler, *httpKnowledgeRepo) {
 	repo := &httpKnowledgeRepo{user: auth.User{ID: contentFixtureID, Roles: []auth.Role{auth.RoleAdmin}}, mode: "managed"}
 	return NewApplicationHandler(&fakeReader{}, nil, AuthOptions{Knowledge: &KnowledgeOptions{Service: knowledgeadmin.NewService(repo), Current: repo, PublicOrigin: privateOrigin}, PublicOrigin: privateOrigin}), repo
+}
+func TestManagedLegacyRetirementResponseBoundary(t *testing.T) {
+	h, repo := knowledgeHTTPFixture()
+	for _, method := range []string{"GET", "POST"} {
+		r := httptest.NewRequest(method, "/api/v1/content/drafts/"+contentFixtureID, nil)
+		r.Header.Set("X-Request-ID", "forged-client-request")
+		w := httptest.NewRecorder()
+		h.ServeHTTP(w, r)
+		var body struct {
+			Error struct{ Code, Message, RequestID string } `json:"error"`
+		}
+		if json.Unmarshal(w.Body.Bytes(), &body) != nil {
+			t.Fatal("invalid error JSON")
+		}
+		id := w.Header().Get("X-Request-ID")
+		if !regexp.MustCompile(`^[0-9a-f]{32}$`).MatchString(id) || body.Error.RequestID != id || body.Error.Code != "KNOWLEDGE_WORKFLOW_RETIRED" || body.Error.Message != "Use current knowledge management." {
+			t.Fatalf("invalid retirement response: header=%q body=%s", id, w.Body.String())
+		}
+		if w.Code != 410 || w.Header().Get("Content-Type") != "application/json" || w.Header().Get("X-Content-Type-Options") != "nosniff" || w.Header().Get("Set-Cookie") != "" {
+			t.Fatal("invalid retired transport")
+		}
+		if r.Header.Get("X-Request-ID") != "forged-client-request" {
+			t.Fatal("caller request mutated")
+		}
+	}
+	repo.mode = "legacy"
+	r := httptest.NewRequest("GET", "/api/v1/content/drafts", nil)
+	w := httptest.NewRecorder()
+	if serveManagedLegacyRetirement(w, r, &KnowledgeOptions{Current: repo}) || w.Header().Get("X-Request-ID") != "" {
+		t.Fatal("legacy path intercepted")
+	}
 }
 func TestManagedRoutesPermissionsAndRetirement(t *testing.T) {
 	h, r := knowledgeHTTPFixture()

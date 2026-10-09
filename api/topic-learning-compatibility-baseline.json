@@ -2519,7 +2519,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "5084c4af8b4c8e9b2650161d59cb239cd35b79320b559fa37b6ddf0b3f51c10f"
+        "sha256": "e80d4eb9f7081a035ee290ad3b9f3b97e0e04045f623c69c720b5709d32fcc5b"
       }
     },
     "frontend/src/lib/i18n/messages/zh-CN.ts": {
@@ -2536,7 +2536,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "c22d81bb9d5e2a99584e60c4534c09260970631aa69631b73c5b3e224f544db0"
+        "sha256": "645f2f5ca7d468cf2cad017d0095f6e440e64ba33d35644500c043e4fd1d7486"
       }
     },
     "frontend/src/lib/i18n/page-titles.ts": {
@@ -3503,6 +3503,7 @@
       "frontend/src/app/admin/knowledge/[id]/page.tsx",
       "frontend/src/app/admin/knowledge/page.tsx",
       "frontend/src/app/api/v3/[[...segments]]/route.ts",
+      "frontend/src/features/catalogue/current-catalogue.test.tsx",
       "frontend/src/features/catalogue/current-catalogue.tsx",
       "frontend/src/features/knowledge-admin/edit.tsx",
       "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx",
@@ -4573,8 +4574,8 @@
     "backend/internal/buildmeta/revision.go": "156bd6c4e16d3643a97ef594df8e4dd75cd8401c4de3218223ef1e001776e33d",
     "backend/internal/buildmeta/revision_test.go": "0584a9073dd8068180444fceed69a7c806649230a88bb9251a9d5af741e89ef4",
     "backend/internal/cli/knowledge.go": "0b39f9b7ee4415c25584f53a33983a131d74d68aafaeab693f13d7b02e78565a",
-    "backend/internal/cli/knowledge_test.go": "4c9944d523dd9012e476d2f42455237919923a6fafd8d70eb32f088a8ed38959",
-    "backend/internal/cli/topic_backup.go": "8520d63c5cdd3e2cd815ff3c9aec87a97381063a6d981372c4883c50fcb0dd07",
+    "backend/internal/cli/knowledge_test.go": "7919a78a8a08dd8d1940dfeec313a86337b18c0072cdb780e468f452f1bae360",
+    "backend/internal/cli/topic_backup.go": "dce7300205e3271aa55da8fe7e3f68e10ac3cc4262a6eef56fe47681d9c2ce2a",
     "backend/internal/cli/topic_catalogue.go": "fc05b689941206a042d2d34491489b7e5163a7954f27b4ba80318d4850ffb3eb",
     "backend/internal/cli/topic_catalogue_test.go": "bada5eb4852df67d90d210551c9421afd48c44de7c11b598ab425f9fb06f05ec",
     "backend/internal/cli/topic_cutover_test.go": "ee4f11c5c6dca0f32841d08aecb03f1a7f58370d225887320c3126dd04f1ec48",
@@ -4593,8 +4594,8 @@
     "backend/internal/e2etest/topic_retirement_fixture.go": "6eec6947e4ff286ec3b9741dbaa54c10ea68e76ffb56ea6ff3231c17b73f8a53",
     "backend/internal/httpapi/knowledge_admin_json.go": "a00114042371c3ad04f095fef5aa88f21bc7593761b00a870991ea805269786c",
     "backend/internal/httpapi/knowledge_admin_routes.go": "04a0a95907780dd6a257bb6aae9a0cc989096ff6476dc26e413f7daf7ab98c67",
-    "backend/internal/httpapi/knowledge_admin_test.go": "69cd884aaac8303e5154165e82b837519034c6e721973ddfb66629cef415a826",
-    "backend/internal/httpapi/knowledge_current_routes.go": "f53d48d2d7fc3b26160fdcc93b01e9603bf36ac53937109557a575b6084bed06",
+    "backend/internal/httpapi/knowledge_admin_test.go": "8b04f2b773c59d0991f0be5effee4ccee84dbad7ce7434a13cbce6731d707fc6",
+    "backend/internal/httpapi/knowledge_current_routes.go": "df8358fc20a445761f40bb5795e19a54ed995978b953c7b5970e6b1213f5bf1c",
     "backend/internal/httpapi/knowledge_current_test.go": "8aa2196ba35dff879ef7185dab0b143ee284abda5adc8e4daf0c0fff0dc76768",
     "backend/internal/httpapi/knowledge_study_routes.go": "f250e388d17834c0b050d9777cdd307851821231c6a28b638f270d0be83a79b9",
     "backend/internal/httpapi/knowledge_study_test.go": "5c0fcb6780ebaa26f08b4cfc9bee75ad0ee4c128f2ac47e09752883aaded3983",
@@ -4733,7 +4734,8 @@
     "frontend/src/app/api/v2/topics/[[...segments]]/route.ts": "e4140851bc10c14c4f488cfd26f2320dfdd17048153e895c8b7e8e00c4b2aba3",
     "frontend/src/app/api/v3/[[...segments]]/route.ts": "e3abe75adb546be3d96f253905c2f74cacb526aedc6959dcbc1d36d5ec91285c",
     "frontend/src/app/topics/[id]/page.tsx": "f0edd16075d10ef8313ffad2ee0b608fa6fd30006d08c14027bf60b320309748",
-    "frontend/src/features/catalogue/current-catalogue.tsx": "b6e54bca3c8fb29de7cf74cbb4891969f257877aad19651c75ef7af77d52d942",
+    "frontend/src/features/catalogue/current-catalogue.test.tsx": "fef39cfd867d4fe7cd20a0227aab1e9086e6a54cc27d3b7f61ba9dac76c0950f",
+    "frontend/src/features/catalogue/current-catalogue.tsx": "edc0becbfdef859e27266ef76830895f3bab91ed67f9ed3de6819d6306e47dac",
     "frontend/src/features/catalogue/topic-view.test.tsx": "4f6506575f4146a8f4ff337c33b06da26ba51a54042f0e899a979e9415a98c23",
     "frontend/src/features/catalogue/topic-view.tsx": "9fe75cccc05ad368fd63c934a49138fdbcf52dc52d4cf2ff36627498856228df",
     "frontend/src/features/content/topic-fields.test.tsx": "33974253bc178fd91812fb6bfcf6d7201d7c63c92ac8d86649839d63a8f1eb11",
@@ -4816,15 +4818,15 @@
     "frontend/src/lib/taxonomy/schemas.ts": "be65f0ec2b4150b718b235782eff94a6c17ae87f64ac29815cc690b7c874b207",
     "frontend/src/lib/taxonomy/server-client.ts": "d61c4e35eda1c72b7f711e107b64e098f3550bde8f43705d8fdefe1d4322697d",
     "frontend/src/lib/taxonomy/types.ts": "27d4a253e7ba03a5f698e13ed474101ab5710f4d03a29b162260446ea87e8acf",
-    "ops/knowledge-cutover.py": "2a851c8f5154476ef6ea963429d8915fa5e916312376da83a9bb325d882b1480",
-    "ops/tests/test_knowledge_cutover.py": "7002ea460a12772c7375be36e59a5ecf1ada909a9dcf3d7cce841d479e510da5",
+    "ops/knowledge-cutover.py": "a46884c50741eb658b8a1a97447f32cfb2ed73a504d5af0a22a7e6322c57dbf7",
+    "ops/tests/test_knowledge_cutover.py": "71ccdb01194020212ef56342ed064069b21230aa2e5b6cdfb3de01527e355d2a",
     "schemas/knowledge-manifest.schema.json": "66ac66b863b4f8ec7963ccbc465afa612417dbbe95606a0fe960468455fd6a76",
     "schemas/knowledge-source.schema.json": "7c6e14e9a4c16287f19c1f917310cc67793d36bd1d5cf3d9b63d35be4657aef2",
     "schemas/msc2020-classification-codes.json": "412c7e175f5b0ea7a4da7ef3e3d281438d363b69d38eb287a8d7c67a969bd07b",
     "schemas/topic-assignment.schema.json": "8eadef262a5a207c0b14eb9e0ace30dccac0418641e8cb72cf3934be8e09cc63",
     "schemas/topic-catalogue.schema.json": "57897299f7c14977688c8ca09eb16fca47a6ae7c114d351f8c880b10e994f5ae",
     "tests/e2e/admin-knowledge-direct.spec.ts": "4f6cd8dba00bc4e5ce66a4c26560c0557f038ff2657d39ddd0dcf71e534ce7a3",
-    "tests/e2e/managed-knowledge-study.spec.ts": "61e10ea7ffe8eca0a296010419af7914fe1fb91d37901e370d45324f46668773",
+    "tests/e2e/managed-knowledge-study.spec.ts": "0d78ba79f62059185ba23a3139b3331adf95dc881e0c7ef3df7f5618947115c5",
     "tests/e2e/topic-content-corrections.spec.ts": "1e8bb27541de77c08501ae6d4b2b9531a699ae0e0479c42649247bc4a939cd63",
     "tests/e2e/topic-feedback.spec.ts": "0dcd74ff39567998d1ff6e27ac0a3cc6ebb750339fea68104c3c1627928eacf3",
     "tests/e2e/topic-learning-archive.spec.ts": "28160bcac4ba3d3dcc3efb8bfd8952c8ee6ae9f8e0ea1c0c7ea88818f36dceb0",
@@ -4854,7 +4856,7 @@
     "tools/topic-ingest/test-fixtures.mjs": "5f2ef429e3701f8326bb5255d10396e4f5105fa5d322c337ea3b0f0eea675d13",
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
-    "tools/verify/admin-knowledge-approved-paths.json": "bef65a0ccbe314efd4229f386cd4b2b3d04cd37d1e912817d97f49cf7b3897c8",
+    "tools/verify/admin-knowledge-approved-paths.json": "f2bd4f63ef7d563352099a8b56d04a77819d6129dbda0283fdf6ea7100b56a93",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
     "tools/verify/topic-learning-ci.test.mjs": "aa09cbaab94fa598d11878d2b104dcec09c15493f9aaf21081a9a5a6dc9919e5",

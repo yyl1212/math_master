@@ -233,7 +233,19 @@ flowchart LR
 
 ### Task 8:兼容登记、审查、MR 与已授权上线
 
-生产验收补充：固定 `2499515` 已部署且 managed 已启用，原30公开入口及学习数据清理完成，保护指纹一致。旧草稿后端返回410，但前端原严格schema将新停用错误转为503。仅修改 `frontend/src/lib/api/content-proxy.ts` 和对应测试，增加严格的410专用响应读取；精确路径清单/兼容目标摘要同步登记，不改旧正常响应和业务schema。独立新分支从最新master开发，RED→GREEN、全前端回归、针对性兼容审查、Git MR/CI后再次部署固定合入提交。备份准备兼容副本只补充实测database.name，原dump/113表清单保持。
+2026-10-10 用户追加地图修复并“继续”：实际线上子主题接口200，目录数据存在，但页面没有二级/具体主题区块标题，分类编码与无单位0混在内容中。修改 `frontend/src/features/catalogue/current-catalogue.tsx` 和中英消息，新增 `current-catalogue.test.tsx`，并在已有managed浏览器spec补层级场景。一级图只显示主题名称与明确发布知识点数；一级详情明确展示“二级主题”，二级详情展示“具体主题”，即使知识点数为0也展示目录；知识列表与空状态独立区块。仅隐藏显示编码，链接仍使用稳定主题键；不修改受保护目录、来源分类或API语义。
+
+```mermaid
+flowchart LR
+  A[一级主题地图] --> B[一级详情：二级主题列表]
+  B --> C[二级详情：具体主题列表]
+  C --> D[具体主题：已发布知识点]
+  B --> E[独立知识列表/明确空状态]
+```
+
+可行性：复用已验证ListCurrentTopics父主题查询，无需新接口、数据迁移或真实知识导入。以0知识/有子主题及三级导航先复现UI失败，再单元/真实浏览器/兼容审查后随MR44上线。
+
+生产验收补充：固定 `2499515` 已部署且 managed 已启用，原30公开入口及学习数据清理完成，保护指纹一致。旧草稿后端返回410，但前端原严格schema将新停用错误转为503。仅修改 `frontend/src/lib/api/content-proxy.ts` 和对应测试，增加严格的410专用响应读取；补充 `backend/internal/httpapi/knowledge_current_routes.go`/`knowledge_admin_test.go`，停用分支返回前生成服务器请求ID并克隆输入请求；精确路径清单/兼容目标摘要同步登记，不改旧正常响应和业务schema。独立新分支从最新master开发，RED→GREEN、全前端回归、针对性兼容审查、Git MR/CI后再次部署固定合入提交。本次现场备份准备兼容副本只补充实测database.name，原dump/113表清单保持。为使后续准备直接接收实际原快照，补充 `backend/internal/cli/topic_backup.go`/`knowledge_test.go`、`ops/knowledge-cutover.py`/`ops/tests/test_knowledge_cutover.py`：仅新知识维护的13上限、固定生产目标、UTF8、确实省略name时接受原格式；显式错误/空/null名称拒绝，证明仍精确匹配目标数据库，旧12上限仍严格要求名称。原快照捕获/恢复代码和字节不改。
 
 ```mermaid
 flowchart LR

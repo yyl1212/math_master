@@ -98,6 +98,7 @@
     "frontend/src/app/topics/[id]/page.tsx",
     "frontend/src/components/auth-status.test.tsx",
     "frontend/src/components/auth-status.tsx",
+    "frontend/src/features/catalogue/current-catalogue.test.tsx",
     "frontend/src/features/catalogue/current-catalogue.tsx",
     "frontend/src/features/content/authoring.test.tsx",
     "frontend/src/features/feedback/page-data.ts",
