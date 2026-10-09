@@ -49,6 +49,7 @@ export const enMessages = {
   "managed.saved": {"text": "Saved. Current content is updated immediately.", "params": []},
   "managed.conflict": {"text": "Content changed. Reload; your input is retained.", "params": []},
   "managed.empty": {"text": "No knowledge points match.", "params": []},
+  "managed.searchTopics": {"text": "Search themes", "params": []},
   "managed.search": {"text": "Search knowledge", "params": []},
   "managed.statement": {"text": "Statement", "params": []},
   "managed.proof": {"text": "Proof or derivation", "params": []},

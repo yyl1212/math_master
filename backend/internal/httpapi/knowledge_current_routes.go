@@ -59,13 +59,19 @@ func serveManagedLegacyRetirement(w http.ResponseWriter, r *http.Request, o *Kno
 	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
 	defer cancel()
 	mode, e := o.Current.ReadContentMode(ctx)
+	if e == nil && mode.Mode != "managed" {
+		return false
+	}
+	id := requestID()
+	privateHeaders(w)
+	w.Header().Set("X-Request-ID", id)
+	r = r.Clone(r.Context())
+	r.Header = r.Header.Clone()
+	r.Header.Set("X-Request-ID", id)
 	if e != nil {
 		knowledgeHTTPError(w, r, knowledgeadmin.ErrNotConfigured)
 		return true
 	}
-	if mode.Mode == "managed" {
-		knowledgeHTTPError(w, r, knowledgeadmin.ErrRetired)
-		return true
-	}
-	return false
+	knowledgeHTTPError(w, r, knowledgeadmin.ErrRetired)
+	return true
 }

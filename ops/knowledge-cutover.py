@@ -22,11 +22,15 @@ def prepare(backup,offsite_copy,offsite_host,sudo=False):
  if backup==copy or not offsite_host or offsite_host==socket.gethostname():raise ValueError('offsite-copy-required')
  data=snapshot.load_backup(backup);other=snapshot.load_backup(copy)
  if data!=other:raise ValueError('offsite-copy-mismatch')
+ if 'name' in data['database'] and data['database']['name']!='math_master_preview':raise ValueError('backup-database-mismatch')
  created=datetime.fromisoformat(data['createdAt']);now=datetime.now(timezone.utc)
  if created.tzinfo is None or not 0<=(now-created).total_seconds()<=1800:raise ValueError('backup-not-current')
  drill=snapshot.drill(backup,sudo)
  if drill.get('ok') is not True:raise ValueError('restore-verification-failed')
- return {'recordSha':snapshot.digest_file(backup/'manifest.json'),'dumpSha':data['dumpSha256'],'database':data['database']['name'],'backupCreatedAt':data['createdAt'],'checkedAt':datetime.now(timezone.utc).isoformat(),'restoreVerified':True,'offsiteVerified':True,'offsiteHost':offsite_host}
+ # The production snapshot verifies its database before removing the name,
+ # so it can be restored into the isolated drill's random database.
+ # This cutover tool only targets the fixed production database.
+ return {'recordSha':snapshot.digest_file(backup/'manifest.json'),'dumpSha':data['dumpSha256'],'database':'math_master_preview','backupCreatedAt':data['createdAt'],'checkedAt':datetime.now(timezone.utc).isoformat(),'restoreVerified':True,'offsiteVerified':True,'offsiteHost':offsite_host}
 
 def apply(operation,binary,input_path,backup,verification):
  if operation not in {'activate','clean-old'}:raise ValueError('invalid-step')

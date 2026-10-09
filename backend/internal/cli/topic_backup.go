@@ -88,7 +88,23 @@ func validateBackup(ctx context.Context, path, database string, maxMigration int
 		} `json:"database"`
 		Tables map[string]json.RawMessage `json:"tables"`
 	}
-	if json.Unmarshal(raw, &manifest) != nil || manifest.SchemaVersion != 1 || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(manifest.SourceCommit) || manifest.CreatedAt.IsZero() || manifest.CreatedAt.After(time.Now().Add(time.Minute)) || manifest.MigrationVersion < 1 || manifest.MigrationVersion > maxMigration || manifest.Database.Name != database || !backupHash.MatchString(manifest.DumpSHA) || manifest.Tables == nil {
+	if json.Unmarshal(raw, &manifest) != nil {
+		return "", invalid
+	}
+	databaseMatches := manifest.Database.Name == database
+	// Production snapshots omit the source name to allow an isolated restore.
+	// Only the new knowledge command accepts that portable form; its separate
+	// protected restore/offsite proof must name the configured target database.
+	if !databaseMatches && maxMigration == 13 && database == "math_master_preview" {
+		var portable struct {
+			Database map[string]json.RawMessage `json:"database"`
+		}
+		if json.Unmarshal(raw, &portable) == nil && portable.Database != nil {
+			_, suppliedName := portable.Database["name"]
+			databaseMatches = !suppliedName && string(portable.Database["encoding"]) == `"UTF8"`
+		}
+	}
+	if manifest.SchemaVersion != 1 || !regexp.MustCompile(`^[a-f0-9]{40}$`).MatchString(manifest.SourceCommit) || manifest.CreatedAt.IsZero() || manifest.CreatedAt.After(time.Now().Add(time.Minute)) || manifest.MigrationVersion < 1 || manifest.MigrationVersion > maxMigration || !databaseMatches || !backupHash.MatchString(manifest.DumpSHA) || manifest.Tables == nil {
 		return "", invalid
 	}
 	file, e := os.Open(filepath.Join(absolute, "database.dump"))

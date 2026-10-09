@@ -5,6 +5,42 @@ import { draftInput, draftView, publicationView, fixtureID, otherID, fixtureSVG,
 const origin = "http://127.0.0.1:8080", publicOrigin = "http://127.0.0.1:3000", options = { publicOrigin, production: false };
 const headers = { "Origin": publicOrigin, "Content-Type": "application/json", "X-CSRF-Token": token, "Idempotency-Key": fixtureID };
 const req = (path: string, method = "GET", body?: string, extra: HeadersInit = {}) => new Request(publicOrigin + "/api/v1/content/" + path, { method, headers: { ...headers, ...extra }, ...(body === undefined ? {} : { body }) });
+it("TestContentProxyManagedRetirementBoundary", async () => {
+    const payload = { error: { code: "KNOWLEDGE_WORKFLOW_RETIRED", message: "Use current knowledge management.", requestId: requestID } };
+    const proxy = createContentProxy(origin, options, async () => contentJSON(payload, 410));
+    const response = await proxy(req("drafts/" + fixtureID), ["drafts", fixtureID]);
+    expect(response.status).toBe(410);
+    expect(await response.json()).toEqual(payload);
+    expect(response.headers.get("Cache-Control")).toBe("private, no-store");
+    for (const invalid of [
+        { ...payload, privateBody: "must-not-leak" },
+        { error: { ...payload.error, privateBody: "must-not-leak" } },
+        { error: { ...payload.error, message: "private reason must-not-leak" } },
+        { error: { ...payload.error, requestId: otherID } },
+        { error: { ...payload.error, code: "NOT_FOUND" } },
+    ]) {
+        const bad = await createContentProxy(origin, options, async () => contentJSON(invalid, 410))(req("drafts/" + fixtureID), ["drafts", fixtureID]);
+        expect(bad.status).toBe(503);
+        expect(await bad.text()).not.toContain("must-not-leak");
+    }
+    const invalidHeaders: HeadersInit[] = [{ "Set-Cookie": "secret=must-not-leak" }, { "Retry-After": "1" }, { "Content-Type": "text/html" }];
+    for (const extra of invalidHeaders) {
+        const bad = await createContentProxy(origin, options, async () => contentJSON(payload, 410, extra))(req("drafts/" + fixtureID), ["drafts", fixtureID]);
+        expect(bad.status).toBe(503);
+        expect(bad.headers.getSetCookie()).toHaveLength(0);
+    }
+});
+it("TestContentProxyRejectedRetirementCancelsUpstream", async () => {
+    const invalidHeaders: HeadersInit[] = [{ "Content-Type": "text/html" }, { "Retry-After": "1" }, { "Set-Cookie": "private=hidden" }, { "X-Request-ID": "bad" }];
+    for (const extra of invalidHeaders) {
+        let cancelled = 0;
+        const stream = new ReadableStream<Uint8Array>({ cancel() { cancelled++; } });
+        const response = new Response(stream, { status: 410, headers: { "Content-Type": "application/json", "X-Request-ID": requestID, ...Object.fromEntries(new Headers(extra)) } });
+        const result = await createContentProxy(origin, options, async () => response)(req("drafts/" + fixtureID), ["drafts", fixtureID]);
+        expect(result.status).toBe(503);
+        expect(cancelled).toBe(1);
+    }
+});
 it("TestContentProxyRawRequestBoundary", async () => {
     let calls = 0;
     const proxy = createContentProxy(origin, options, async () => { calls++; return contentJSON(draftView(), 201); });

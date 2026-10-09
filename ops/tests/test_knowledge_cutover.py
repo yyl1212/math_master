@@ -4,6 +4,18 @@ from pathlib import Path
 import sys,tempfile,unittest
 OPS=Path(__file__).resolve().parents[1];sys.path.insert(0,str(OPS))
 class KnowledgeCutoverTests(unittest.TestCase):
+ def test_preparation_uses_actual_portable_snapshot_metadata(self):
+  from datetime import datetime,timezone
+  from unittest.mock import patch
+  m=self.module();data={'createdAt':datetime.now(timezone.utc).isoformat(),'dumpSha256':'a'*64,'database':{'encoding':'UTF8','collate':'C','ctype':'C'}}
+  with tempfile.TemporaryDirectory() as d:
+   root=Path(d).resolve();backup=root/'backup';copy=root/'copy';backup.mkdir();copy.mkdir()
+   with patch.object(m.snapshot,'load_backup',return_value=data),patch.object(m.snapshot,'drill',return_value={'ok':True}),patch.object(m.snapshot,'digest_file',return_value='b'*64):
+    self.assertEqual(m.prepare(backup,copy,'verified-other-host')['database'],'math_master_preview')
+    self.assertNotIn('name',data['database'])
+    for invalid in ['another_database',None,'']:
+     data['database']['name']=invalid
+     with self.assertRaises(ValueError):m.prepare(backup,copy,'verified-other-host')
  def module(self):
   spec=importlib.util.spec_from_file_location('knowledge_cutover',OPS/'knowledge-cutover.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
  def test_steps_are_separate_and_at_most_five_minutes(self):

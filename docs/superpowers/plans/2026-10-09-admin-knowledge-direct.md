@@ -233,6 +233,31 @@ flowchart LR
 
 ### Task 8:兼容登记、审查、MR 与已授权上线
 
+2026-10-10 用户追加地图修复并“继续”：实际线上子主题接口200，目录数据存在，但页面没有二级/具体主题区块标题，分类编码与无单位0混在内容中。修改 `frontend/src/features/catalogue/current-catalogue.tsx` 和中英消息，新增 `current-catalogue.test.tsx`，并在已有managed浏览器spec补层级场景。一级图只显示主题名称与明确发布知识点数；一级详情明确展示“二级主题”，二级详情展示“具体主题”，即使知识点数为0也展示目录；知识列表与空状态独立区块。仅隐藏显示编码，链接仍使用稳定主题键；不修改受保护目录、来源分类或API语义。
+
+```mermaid
+flowchart LR
+  A[一级主题地图] --> B[一级详情：二级主题列表]
+  B --> C[二级详情：具体主题列表]
+  C --> D[具体主题：已发布知识点]
+  B --> E[独立知识列表/明确空状态]
+```
+
+可行性：复用已验证ListCurrentTopics父主题查询，无需新接口、数据迁移或真实知识导入。以0知识/有子主题及三级导航先复现UI失败，再单元/真实浏览器/兼容审查后随MR44上线。
+
+生产验收补充：固定 `2499515` 已部署且 managed 已启用，原30公开入口及学习数据清理完成，保护指纹一致。旧草稿后端返回410，但前端原严格schema将新停用错误转为503。仅修改 `frontend/src/lib/api/content-proxy.ts` 和对应测试，增加严格的410专用响应读取；补充 `backend/internal/httpapi/knowledge_current_routes.go`/`knowledge_admin_test.go`，停用分支返回前生成服务器请求ID并克隆输入请求；精确路径清单/兼容目标摘要同步登记，不改旧正常响应和业务schema。独立新分支从最新master开发，RED→GREEN、全前端回归、针对性兼容审查、Git MR/CI后再次部署固定合入提交。本次现场备份准备兼容副本只补充实测database.name，原dump/113表清单保持。为使后续准备直接接收实际原快照，补充 `backend/internal/cli/topic_backup.go`/`knowledge_test.go`、`ops/knowledge-cutover.py`/`ops/tests/test_knowledge_cutover.py`：仅新知识维护的13上限、固定生产目标、UTF8、确实省略name时接受原格式；显式错误/空/null名称拒绝，证明仍精确匹配目标数据库，旧12上限仍严格要求名称。原快照捕获/恢复代码和字节不改。
+
+```mermaid
+flowchart LR
+  A[旧草稿 API] --> B{后端响应}
+  B -->|410| C[限定字段/错误码/固定文案/请求ID/4096字节校验]
+  C --> D[前端返回410停用]
+  B -->|原状态| E[原响应schema与权限边界]
+```
+
+可行性审查：复用既有JSON解析、响应头校验和10秒取消，不扩大业务写入口。未知字段、错误文案、请求ID不符、cookie/Retry-After及非JSON继续拒绝为503。新回归明确观察原503→410失败后再通过。
+
+
 **Modify:** `backend/internal/store/workflow_tx.go`、`backend/internal/httpapi/content_error.go`；`docs/operations/ui-language-coverage.json`、`frontend/src/components/auth-status.test.tsx`、`frontend/src/features/content/authoring.test.tsx`；`api/topic-learning-compatibility-baseline.json`、`tools/verify/topic-learning-compatibility.mjs`、`tools/verify/topic-learning-compatibility.test.mjs`、`tools/verify/topic-learning-ci.test.mjs`；`.github/workflows/backend.yml`、`.github/workflows/frontend.yml`、`.github/workflows/deployment.yml`。
 **Create:** `frontend/src/lib/knowledge-admin/mode-client.ts`、`tests/e2e/ui-language-managed.spec.ts`；`tools/verify/admin-knowledge-approved-paths.json`；`tools/verify/admin-knowledge-acceptance.mjs`、`tools/verify/admin-knowledge-acceptance.test.mjs`；`docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md`。
 **Modify documents:** 本计划与已确认设计的进度/完成状态；精准登记二者及上述验收报告路径。
@@ -257,3 +282,15 @@ flowchart LR
 - 可行性：依赖现有数据库及框架；新扩展避免改写旧不可变学习/批准事实。新增两个锁定的 Go 库解决 schema 正则和 JCS 一致性；没有人工审查前置、额外服务或外部原书访问前置。
 - 按用户最新要求可先空库启用，原30清理仍须最新备份恢复与异地验证完成后执行。普通管理软删除不删除私人学习数据。源文件尚未按标准重整只影响实际内容迁入，不阻塞模块代码和上线准备。
 - 执行中新增兼容范围、破坏性清理范围或格式语义变化需先更新方案并审查；常规实现、修复、已授权上线按此计划继续。每任务以测试和可审查提交收尾。
+
+
+2026-10-10 CI预算修复：PR前端同一提交两次达到整个30分钟job上限（无断言失败，push前端全通过）。仅修改 `.github/workflows/frontend.yml` 与 `tools/verify/topic-learning-ci.test.mjs` 及精准摘要。拆成独立verify/verify_later：前半为基础/内容/权限/反馈回归，后半为验收/双语/主题/当前知识回归；每组有独立隔离PG和完整构建环境。所有原run命令逐字保留，每个job仍30分钟、每批仍9分钟；失败诊断分别命名。新门禁固定本次已批准f11前驱的全部执行命令，删除/改参数不能通过。独立兼容审查后更新MR44，不增加或豁免预算，不再无限重跑。
+
+```mermaid
+flowchart LR
+  C[同一提交] --> A[verify：独立PG/构建/前半浏览器]
+  C --> B[verify_later：独立PG/构建/后半浏览器]
+  A --> G[全部检查成功]
+  B --> G
+  G --> D[固定合入SHA部署]
+```

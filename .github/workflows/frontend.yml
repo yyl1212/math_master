@@ -98,6 +98,68 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- correction-review.spec.ts
       - name: 真实通知归属曝光边界与手动重试回归
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- notification-security.spec.ts
+      - name: 保留失败诊断
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: frontend-failure-diagnostics
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  verify_later:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TOPIC_COMPATIBILITY_STAGE: managed
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: go1.27.1
+      NEXT_TELEMETRY_DISABLED: '1'
+      TEST_DATABASE_URL: postgres://math_master:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: math_master
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: math_master_test_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U math_master -d math_master_test_ci"
+          --health-interval 2s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.17.0'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.27.1'
+          cache-dependency-path: backend/go.sum
+      - name: 安装锁定依赖
+        run: node tools/verify/run.mjs --cwd frontend -- npm ci
+      - name: 检查公开与账户契约类型
+        run: |
+          node tools/verify/run.mjs --cwd frontend -- npm run api:generate
+          git diff --exit-code -- frontend/src/lib/api/generated.d.ts
+      - name: 类型与单元验证
+        run: |
+          node tools/verify/run.mjs --cwd frontend -- npm run typecheck
+          node tools/verify/run.mjs --cwd frontend -- npm test
+      - name: 生产构建与依赖审计
+        run: |
+          node tools/verify/run.mjs --cwd frontend -- npm run build
+          node tools/verify/run.mjs --cwd frontend -- npm audit --omit=dev
+      - name: 隔离联调环境验证与构建
+        run: |
+          node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/e2etest ./internal/testutil -timeout 5m -count=1
+          node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
+      - name: 安装锁定浏览器
+        run: node tools/verify/run.mjs --cwd frontend -- npm exec -- playwright install --with-deps chromium
       - name: 首批完整草稿阅读双视口验证
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-acceptance-reading.spec.ts
       - name: 首批完整草稿学习反馈双视口验证
@@ -130,19 +192,19 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-learning-archive.spec.ts
       - name: 退出和知识纠错中英文双视口
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-cutover.spec.ts
-      - name: 保留失败诊断
-        if: failure()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: frontend-failure-diagnostics
-          path: |
-            test-results/
-            playwright-report/
-          if-no-files-found: ignore
-          retention-days: 7
       - name: 管理员知识上传修正与中断恢复
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- admin-knowledge-direct.spec.ts
       - name: 当前知识私人学习与下架保留
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- managed-knowledge-study.spec.ts
       - name: 当前知识中英文界面与输入保留
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-managed.spec.ts
+      - name: 保留失败诊断
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: frontend-later-failure-diagnostics
+          path: |
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7

@@ -51,6 +51,7 @@ export const zhMessages = {
   "managed.saved": "已保存，当前内容立即生效。",
   "managed.conflict": "内容已变化，请刷新；当前输入仍保留。",
   "managed.empty": "暂无符合条件的知识点。",
+  "managed.searchTopics": "检索主题",
   "managed.search": "检索知识点",
   "managed.statement": "知识正文",
   "managed.proof": "证明或推导",
