@@ -59,7 +59,7 @@ flowchart LR
 - `PublicSource{SourceID, Title, Citation string; URL *string}` 只包含允许公开的来源说明。`Knowledge{ID,ExternalID string; Point SourcePoint; Sources []PublicSource; Ref Ref; Published bool; EditToken string; UpdatedAt time.Time}` 为管理员响应；公开 DTO 移除 EditToken、私有 provenance/original_binding、操作者和上传文件信息。`PublicKnowledge{ID,ExternalID string; Point PublicPoint; Sources []PublicSource; Ref Ref; UpdatedAt time.Time}`；PublicPoint 只允许标题、类型及理由、数学正文/条件/范围/体系/目标/证明/方程/解释/示例/反例/误区、难度及理由、分类和证据、公开关系/标签字段，不暴露任意 extensions。`CurrentTopic{TopicKey,Title,Kind string; KnowledgeCount int; Items Page[PublicKnowledge]}`。
 - `Query{TopicKey,Q,Type,Status string; Difficulty,Limit,Offset int}`；`Page[T]{Items []T; Total,Limit,Offset int}`。
 - `Preview{ImportID,InputSHA256,PreviewToken string; Items []PreviewItem; Counts ImportCounts}`；item 用 `index/externalId/action/topicKeys/errorCode/errorPath` 定位。action 固定 create/link/skip/conflict/invalid；所有计数按实体和关系分别统计。
-- `ImportCounts{CreatedKnowledge,LinkedTopics,SkippedItems,Conflicts,InvalidItems int}`；`ImportStatus{Preview Preview; Receipt *Receipt}`；ItemReceipt 采用 index/externalId/action/knowledgeId/topicKeys/errorCode 字段。
+- `ImportCounts{CreatedKnowledge,LinkedTopics,SkippedItems,Conflicts,InvalidItems int}`；`ImportStatus{Preview Preview; Receipt *Receipt}`；ItemReceipt 采用 index/externalId/action/knowledgeId/topicKeys/errorCode 字段；未选择的合法项 action=not-selected，不能报告已创建。
 - `ApplyInput{SelectedIndexes []int; Publish bool; PreviewToken string}`；`Receipt{OperationID string; Counts ImportCounts; Items []ItemReceipt}`。只应用 create/link 项，冲突/非法项不计成功；一次选择事务原子成功或失败。
 - 编辑/发布/下架/删除使用 If-Match 隐藏令牌；写入成功换令牌，同输入同键返回原回执，令牌过期返回 409。幂等键最长 128、请求指纹包含 action、ID、正文、选择和 publish。
 - `SourceCoreSHA` 是原点 JCS 的摘要，删除顶层 `id/version/original_binding/content_origin/original_type/provenance/relations/msc_codes/classification_status/classification_evidence/classification_mode/project_other/extensions`，不加入 source/dataset 元数据；其余字段全部参与。来源、主题、关系单独验证和保存。重复导入不修改已存在关系或来源说明的管理员修正。
@@ -150,17 +150,17 @@ flowchart LR
 ### Task 3:规范上传的有界服务与确定重试
 
 **Create:** `backend/internal/knowledgeadmin/import.go`、`backend/internal/knowledgeadmin/import_test.go`；`tools/topic-ingest/import-managed.mjs`、`tools/topic-ingest/import-managed.test.mjs`。
-**Modify:** `tools/topic-ingest/json.mjs`（仅共用严格 JSON 辅助，旧入口行为不变）。
+**Modify:** `backend/internal/knowledgeadmin/decode.go`、`backend/internal/store/knowledge_admin_import.go`、`backend/internal/store/knowledge_admin_import_test.go`；`tools/topic-ingest/json.mjs`（仅共用严格 JSON 辅助，旧入口行为不变）。
 
 **Consumes:** Repository.PreviewManagedImport/ApplyManagedImport/ReadManagedImport、DecodeSource。
 **Produces:** `(*Service).Preview(context.Context,Access,io.Reader) (Preview,error)`、`(*Service).Apply(context.Context,Access,string,ApplyInput) (Receipt,error)`；`importManagedFiles({files,manifest,client,publish,onProgress}) -> Promise<Receipt[]>`，client 只发送管理员 API，不操纵数据库。
 
-- [ ] 写 `TestManagedImportBoundsAndRetry`：100 条/64 MiB 边界；第 101 条和超过大小失败；验证槽繁忙 429；取消释放槽；合法重复项统计；同键超时重试返回原预览/回执，不产生双事件。写 `TestManagedManifestChecks`：实际文件 SHA 或 RFC8785 记录摘要不符失败，没原字节只能记录声明。
-- [ ] 写工具测试：多个文件串行、一个文件重复 id/主题、不安全 manifest 相对路径、源文件变更、部分冲突、失去网络后用原键查结果；不同 source_id 不加前缀。文件/路径不写日志中的敏感源内容。
-- [ ] RED：Go `go test ./internal/knowledgeadmin -run 'TestManaged(Import|Manifest)' -count=1 -timeout 5m`（CGO_ENABLED=0）；Node `node --test tools/topic-ingest/import-managed.test.mjs`；应失败。
-- [ ] 实现一工作槽、先鉴权再读取、64 MiB 流式上限、严格结构与摘要；预览保留准确源输入，响应只给定位和计数。工具支持可选 manifest 对本次上传文件核验，失败暂停当前文件，不改变 dot 原资料。
-- [ ] GREEN：上述两个独立批次 PASS；验证导入含 unknown 的文件无应用入口，conflict 不能加入 SelectedIndexes。
-- [ ] 提交，commit：`feat: 支持规范知识上传预览与幂等应用`。
+- [x] 写 `TestManagedImportBoundsAndRetry`：100 条/64 MiB 边界；第 101 条和超过大小失败；验证槽繁忙 429；取消释放槽；合法重复项统计；同键超时重试返回原预览/回执，不产生双事件。写 `TestManagedManifestChecks`：实际文件 SHA 或 RFC8785 记录摘要不符失败，没原字节只能记录声明。
+- [x] 写工具测试：多个文件串行、一个文件重复 id/主题、不安全 manifest 相对路径、源文件变更、部分冲突、失去网络后用原键查结果；不同 source_id 不加前缀。文件/路径不写日志中的敏感源内容。
+- [x] RED：Go `go test ./internal/knowledgeadmin -run 'TestManaged(Import|Manifest)' -count=1 -timeout 5m`（CGO_ENABLED=0）；Node `node --test tools/topic-ingest/import-managed.test.mjs`；应失败。
+- [x] 实现一工作槽、先鉴权再读取、64 MiB 流式上限、严格结构与摘要；预览保留准确源输入，响应只给定位和计数。工具支持可选 manifest 对本次上传文件核验，失败暂停当前文件，不改变 dot 原资料。
+- [x] GREEN：上述两个独立批次 PASS；验证导入含 unknown 的文件无应用入口，conflict 不能加入 SelectedIndexes。
+- [x] 提交，commit：`feat: 支持规范知识上传预览与幂等应用`。
 
 ### Task 4:HTTP、当前公开读取、旧通道关闭
 

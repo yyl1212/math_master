@@ -26,7 +26,7 @@ func invalid(path string) error      { return &DecodeError{"INVALID_FIELD", path
 func bytesReader(b []byte) io.Reader { return bytes.NewReader(b) }
 
 var schemaOnce sync.Once
-var sourceSchema, pointSchema *jsonschema.Schema
+var sourceSchema, pointSchema, manifestSchema *jsonschema.Schema
 var schemaError error
 var schemaLock sync.Mutex
 var regexpFailed bool
@@ -73,6 +73,25 @@ func compileSchemas() {
 		return
 	}
 	pointSchema, schemaError = c.Compile(url + "#/$defs/record")
+	if schemaError != nil {
+		return
+	}
+	mb, e := schemas.Files.ReadFile("knowledge-manifest.schema.json")
+	if e != nil {
+		schemaError = e
+		return
+	}
+	md, e := jsonschema.UnmarshalJSON(bytes.NewReader(mb))
+	if e != nil {
+		schemaError = e
+		return
+	}
+	mu := "https://math-master.local/schemas/knowledge-manifest.schema.json"
+	if e = c.AddResource(mu, md); e != nil {
+		schemaError = e
+		return
+	}
+	manifestSchema, schemaError = c.Compile(mu)
 }
 func validateSchema(d any, point bool) error {
 	schemaOnce.Do(compileSchemas)
@@ -181,6 +200,17 @@ func uniqueValue(d *json.Decoder, path string, depth int) error {
 	tok, e := d.Token()
 	if e != nil {
 		return invalid(path)
+	}
+	if n, ok := tok.(json.Number); ok {
+		if _, e := strconv.ParseFloat(n.String(), 64); e != nil {
+			return &DecodeError{"INVALID_NUMBER", path}
+		}
+		if !strings.ContainsAny(n.String(), ".eE") {
+			v, e := strconv.ParseInt(n.String(), 10, 64)
+			if e != nil || v > 9007199254740991 || v < -9007199254740991 {
+				return &DecodeError{"INVALID_NUMBER", path}
+			}
+		}
 	}
 	delim, ok := tok.(json.Delim)
 	if !ok {

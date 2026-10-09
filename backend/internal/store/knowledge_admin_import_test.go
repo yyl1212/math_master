@@ -196,3 +196,23 @@ func TestManagedCrossSourceOtherMembership(t *testing.T) {
 		t.Fatal("membership lost")
 	}
 }
+func TestManagedImportIdempotentSelectedReceipt(t *testing.T) {
+	f := newKnowledgeAdminFixture(t)
+	p, e := f.repo.PreviewManagedImport(f.ctx, f.Access("admin_a", "selected-preview"), f.doc, managedInputSHA(f.doc))
+	if e != nil {
+		t.Fatal(e)
+	}
+	in := knowledgeadmin.ApplyInput{SelectedIndexes: []int{0}, Publish: true, PreviewToken: p.PreviewToken}
+	a := f.Access("admin_a", "selected-apply")
+	r, e := f.repo.ApplyManagedImport(f.ctx, a, p.ImportID, in)
+	if e != nil || r.Counts.CreatedKnowledge != 1 {
+		t.Fatal(r, e)
+	}
+	if r.Items[1].Action != "not-selected" {
+		t.Fatal("unselected point reported as created", r.Items[1])
+	}
+	again, e := f.repo.ApplyManagedImport(f.ctx, a, p.ImportID, in)
+	if e != nil || again.OperationID != r.OperationID || f.count("SELECT count(*) FROM managed_knowledge_events WHERE action='import'") != 1 {
+		t.Fatal("apply replay duplicated", e)
+	}
+}

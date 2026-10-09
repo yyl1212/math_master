@@ -344,6 +344,8 @@ func (s *Store) ApplyManagedImport(ctx context.Context, a knowledgeadmin.Access,
 				continue
 			}
 			switch v.Action {
+			case "create", "link":
+				v.Action = "not-selected"
 			case "skip":
 				out.Counts.SkippedItems++
 				point := d.KnowledgePoints[v.Index]
