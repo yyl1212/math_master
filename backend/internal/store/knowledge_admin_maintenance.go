@@ -29,7 +29,7 @@ UNION ALL SELECT 'T:'||t.tgrelid::regclass::text||':'||t.tgname||':'||t.tgtype::
 UNION ALL SELECT 'A:'||a.attrelid::regclass::text||':'||a.attname||':'||format_type(a.atttypid,a.atttypmod)||':'||a.attnotnull::text||':'||coalesce(pg_get_expr(d.adbin,d.adrelid),'') FROM pg_attribute a LEFT JOIN pg_attrdef d ON d.adrelid=a.attrelid AND d.adnum=a.attnum WHERE a.attnum>0 AND NOT a.attisdropped AND a.attrelid IN (SELECT oid FROM pg_class WHERE relnamespace='public'::regnamespace AND relname=ANY($1::text[]))
 UNION ALL SELECT 'F:'||p.oid::regprocedure::text||':'||md5(pg_get_functiondef(p.oid)) FROM pg_proc p WHERE p.pronamespace='public'::regnamespace AND p.proname IN ('managed_ref_valid','feedback_target_shape','feedback_target_proof','feedback_label')
 ) checks`
-const managedSchemaDigest = "0f2626174fab22822a915a749fce1e4e"
+const managedSchemaDigest = "f81857f4af9a3be336d85f279578df8b"
 
 func managedSchemaIntegrity(ctx context.Context, tx *sql.Tx) error {
 	var markerColumn bool

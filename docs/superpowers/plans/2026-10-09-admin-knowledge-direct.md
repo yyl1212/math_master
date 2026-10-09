@@ -233,7 +233,7 @@ flowchart LR
 
 ### Task 8:兼容登记、审查、MR 与已授权上线
 
-**Modify:** `docs/operations/ui-language-coverage.json`、`frontend/src/components/auth-status.test.tsx`、`frontend/src/features/content/authoring.test.tsx`；`api/topic-learning-compatibility-baseline.json`、`tools/verify/topic-learning-compatibility.mjs`、`tools/verify/topic-learning-compatibility.test.mjs`、`tools/verify/topic-learning-ci.test.mjs`；`.github/workflows/backend.yml`、`.github/workflows/frontend.yml`、`.github/workflows/deployment.yml`。
+**Modify:** `backend/internal/store/workflow_tx.go`、`backend/internal/httpapi/content_error.go`；`docs/operations/ui-language-coverage.json`、`frontend/src/components/auth-status.test.tsx`、`frontend/src/features/content/authoring.test.tsx`；`api/topic-learning-compatibility-baseline.json`、`tools/verify/topic-learning-compatibility.mjs`、`tools/verify/topic-learning-compatibility.test.mjs`、`tools/verify/topic-learning-ci.test.mjs`；`.github/workflows/backend.yml`、`.github/workflows/frontend.yml`、`.github/workflows/deployment.yml`。
 **Create:** `frontend/src/lib/knowledge-admin/mode-client.ts`、`tests/e2e/ui-language-managed.spec.ts`；`tools/verify/admin-knowledge-approved-paths.json`；`tools/verify/admin-knowledge-acceptance.mjs`、`tools/verify/admin-knowledge-acceptance.test.mjs`；`docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md`。
 **Modify documents:** 本计划与已确认设计的进度/完成状态；精准登记二者及上述验收报告路径。
 

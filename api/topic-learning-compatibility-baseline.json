@@ -2315,6 +2315,9 @@
       "taxonomy": {
         "sha256": "efa1c660a2b4baa8f1dd2cffe0b3f04b3883b1df3c89b366e21e35fa08b77bcb",
         "reason": "按已确认三级主题设计新增独立归属、配对发布或界面接线；保留原数学与历史资料"
+      },
+      "managed": {
+        "sha256": "d52bf540d726680af5a9b1d16738df9fc5d474ba79257a65903cf1ea30117b3c"
       }
     },
     "backend/internal/store/workflow_withdrawal.go": {
@@ -3207,6 +3210,11 @@
       "managed": {
         "sha256": "51cf3a56c2d3804805605afdef306704d02f4af5b0f83aa95ac97ec8a0b8d55e"
       }
+    },
+    "backend/internal/httpapi/content_error.go": {
+      "managed": {
+        "sha256": "4da72bff96bdc633b6671c9e08bcc0ab2d9ce9938aa603f09057b5a9fdf37c0b"
+      }
     }
   },
   "newFiles": {
@@ -3974,6 +3982,10 @@
     "schemas/embed.go": {
       "sha256": "8bfcf4320f56d599ca75929e342b0514e2b6bb016ab961574e9da663c7fc28a8",
       "base64": "cGFja2FnZSBzY2hlbWFzCgppbXBvcnQgImVtYmVkIgoKLy8gRmlsZXMgZW1iZWRzIHRoZSBjYW5vbmljYWwgY29udHJhY3RzOyBkZXBsb3ltZW50IGRvZXMgbm90IG5lZWQgc291cmNlIHBhdGhzLgovL2dvOmVtYmVkICouc2NoZW1hLmpzb24KdmFyIEZpbGVzIGVtYmVkLkZTCg=="
+    },
+    "backend/internal/httpapi/content_error.go": {
+      "sha256": "fb9e6cb2ee5d8e8113be9657fc74861687533e191978a1d7dfb6cf8e5f4bb199",
+      "base64": "cGFja2FnZSBodHRwYXBpCgppbXBvcnQgKAoJImVuY29kaW5nL2pzb24iCgkiZXJyb3JzIgoJImdpdGh1Yi5jb20veXlsMTIxMi9tYXRoX21hc3Rlci9iYWNrZW5kL2ludGVybmFsL2F1dGgiCgkiZ2l0aHViLmNvbS95eWwxMjEyL21hdGhfbWFzdGVyL2JhY2tlbmQvaW50ZXJuYWwvcHVibGljYXRpb24iCgkibmV0L2h0dHAiCikKCnZhciBlcnJDb250ZW50UGF5bG9hZFRvb0xhcmdlID0gZXJyb3JzLk5ldygiY29udGVudCByZXF1ZXN0IHRvbyBsYXJnZSIpCgpmdW5jIGNvbnRlbnRFcnJvcih3IGh0dHAuUmVzcG9uc2VXcml0ZXIsIHIgKmh0dHAuUmVxdWVzdCwgZXJyIGVycm9yKSB7CglzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgOj0gMCwgIiIsICIiCglzd2l0Y2ggewoJY2FzZSBlcnJvcnMuSXMoZXJyLCBwdWJsaWNhdGlvbi5FcnJEcmFmdENvbmZsaWN0KToKCQlzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgPSA0MDksICJEUkFGVF9DT05GTElDVCIsICJUaGlzIGRyYWZ0IGhhcyBjaGFuZ2VkLiBSZWxvYWQgaXQgYmVmb3JlIGNvbnRpbnVpbmcuIgoJY2FzZSBlcnJvcnMuSXMoZXJyLCBwdWJsaWNhdGlvbi5FcnJSZXZpZXdDb25mbGljdCk6CgkJc3RhdHVzLCBjb2RlLCBtZXNzYWdlID0gNDA5LCAiUkVWSUVXX0NPTkZMSUNUIiwgIlRoaXMgc3VibWlzc2lvbiBhbHJlYWR5IGhhcyBhIHJldmlldyBkZWNpc2lvbi4iCgljYXNlIGVycm9ycy5JcyhlcnIsIHB1YmxpY2F0aW9uLkVyckltbXV0YWJsZUNvbmZsaWN0KToKCQlzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgPSA0MDksICJJTU1VVEFCTEVfQ09ORkxJQ1QiLCAiVGhpcyB2ZXJzaW9uIGNvbmZsaWN0cyB3aXRoIHNhdmVkIGNvbnRlbnQuIgoJY2FzZSBlcnJvcnMuSXMoZXJyLCBwdWJsaWNhdGlvbi5FcnJWZXJzaW9uQ29uZmxpY3QpOgoJCXN0YXR1cywgY29kZSwgbWVzc2FnZSA9IDQwOSwgIlZFUlNJT05fQ09ORkxJQ1QiLCAiVGhpcyB2ZXJzaW9uIGNvbmZsaWN0cyB3aXRoIHNhdmVkIGNvbnRlbnQuIgoJY2FzZSBlcnJvcnMuSXMoZXJyLCBwdWJsaWNhdGlvbi5FcnJJZGVtcG90ZW5jeUNvbmZsaWN0KToKCQlzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgPSA0MDksICJJREVNUE9URU5DWV9DT05GTElDVCIsICJUaGlzIHJlcXVlc3Qga2V5IHdhcyBhbHJlYWR5IHVzZWQgZm9yIGRpZmZlcmVudCBpbnB1dC4iCgljYXNlIGVycm9ycy5JcyhlcnIsIHB1YmxpY2F0aW9uLkVyclB1YmxpY2F0aW9uU3RhbGUpOgoJCXN0YXR1cywgY29kZSwgbWVzc2FnZSA9IDQwOSwgIlBVQkxJQ0FUSU9OX1NUQUxFIiwgIlB1Ymxpc2hlZCBjb250ZW50IGhhcyBjaGFuZ2VkLiBQcmVwYXJlIGEgbmV3IHNuYXBzaG90LiIKCWNhc2UgZXJyb3JzLklzKGVyciwgcHVibGljYXRpb24uRXJyQ29udGVudE5vdFJlYWR5KToKCQlzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgPSA0MjIsICJDT05URU5UX05PVF9SRUFEWSIsICJDb21wbGV0ZSB0aGUgcmVxdWlyZWQgY29udGVudCBiZWZvcmUgc3VibWl0dGluZy4iCgljYXNlIGVycm9ycy5JcyhlcnIsIHB1YmxpY2F0aW9uLkVyckNvbnRlbnRJbnZhbGlkKToKCQlzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgPSA0MjIsICJDT05URU5UX0lOVkFMSUQiLCAiQ29udGVudCB2YWxpZGF0aW9uIGZhaWxlZC4iCgljYXNlIGVycm9ycy5JcyhlcnIsIHB1YmxpY2F0aW9uLkVyclJldmlld1JlcXVpcmVkKToKCQlzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgPSA0MjIsICJSRVZJRVdfUkVRVUlSRUQiLCAiSW5kZXBlbmRlbnQgcmV2aWV3IGlzIHJlcXVpcmVkIGJlZm9yZSBwdWJsaWNhdGlvbi4iCgljYXNlIGVycm9ycy5JcyhlcnIsIHB1YmxpY2F0aW9uLkVyckNvbnRlbnRMaW1pdEV4Y2VlZGVkKToKCQlzdGF0dXMsIGNvZGUsIG1lc3NhZ2UgPSA0MjIsICJDT05URU5UX0xJTUlUX0VYQ0VFREVEIiwgIlNwbGl0IHRoaXMgY29udGVudCBpbnRvIHNtYWxsZXIgcmV2aWV3ZWQgYmF0Y2hlcy4iCgljYXNlIGVycm9ycy5JcyhlcnIsIGVyckNvbnRlbnRQYXlsb2FkVG9vTGFyZ2UpOgoJCXN0YXR1cywgY29kZSwgbWVzc2FnZSA9IDQxMywgIlBBWUxPQURfVE9PX0xBUkdFIiwgIlRoaXMgY29udGVudCBleGNlZWRzIHRoZSByZXF1ZXN0IHNpemUgbGltaXQuIgoJY2FzZSBlcnJvcnMuSXMoZXJyLCBwdWJsaWNhdGlvbi5FcnJDb250ZW50Tm90Q29uZmlndXJlZCk6CgkJc3RhdHVzLCBjb2RlLCBtZXNzYWdlID0gNTAzLCAiQ09OVEVOVF9OT1RfQ09ORklHVVJFRCIsICJDb250ZW50IG1hbmFnZW1lbnQgaXMgdGVtcG9yYXJpbHkgdW5hdmFpbGFibGUuIgoJfQoJaWYgc3RhdHVzID09IDAgewoJCXByaXZhdGVFcnJvcih3LCByLCBlcnIsIGF1dGguQ29va2llRGVsdGF7fSwgZmFsc2UpCgkJcmV0dXJuCgl9Cglwcml2YXRlSGVhZGVycyh3KQoJdy5Xcml0ZUhlYWRlcihzdGF0dXMpCglfID0ganNvbi5OZXdFbmNvZGVyKHcpLkVuY29kZShtYXBbc3RyaW5nXWFueXsiZXJyb3IiOiBtYXBbc3RyaW5nXXN0cmluZ3siY29kZSI6IGNvZGUsICJtZXNzYWdlIjogbWVzc2FnZSwgInJlcXVlc3RJZCI6IHIuSGVhZGVyLkdldCgiWC1SZXF1ZXN0LUlEIil9fSkKfQpmdW5jIGNvbnRlbnRSZXNwb25zZSh3IGh0dHAuUmVzcG9uc2VXcml0ZXIsIHIgKmh0dHAuUmVxdWVzdCwgc3RhdHVzIGludCwgdiBhbnkpIHsKCXJhdywgZXJyIDo9IGpzb24uTWFyc2hhbCh2KQoJaWYgZXJyICE9IG5pbCB7CgkJY29udGVudEVycm9yKHcsIHIsIGF1dGguRXJyVW5hdmFpbGFibGUpCgkJcmV0dXJuCgl9CglpZiBsZW4ocmF3KSA+IDQ8PDIwIHsKCQljb250ZW50RXJyb3IodywgciwgcHVibGljYXRpb24uRXJyQ29udGVudExpbWl0RXhjZWVkZWQpCgkJcmV0dXJuCgl9Cglwcml2YXRlSGVhZGVycyh3KQoJdy5Xcml0ZUhlYWRlcihzdGF0dXMpCglfLCBfID0gdy5Xcml0ZShyYXcpCn0K"
     }
   },
   "apiSections": {
@@ -4599,16 +4611,16 @@
     "backend/internal/store/knowledge_admin_history.go": "190b80b1f60995892d4b448c86392635bb3fe42db3f9340a89087faa48218bf2",
     "backend/internal/store/knowledge_admin_import.go": "dba0aa81e445e11509d8753849a6ca25ee29129eaaa8326999c1b36774ead75d",
     "backend/internal/store/knowledge_admin_import_test.go": "83b926adf34208037d8f4e4f4407e440a7711ef1243bf813e5e124e34593bfe3",
-    "backend/internal/store/knowledge_admin_maintenance.go": "2b6460bc8e7507992d77fa64d82fe10f7ebb1b9729d88316cfb031c4b41b42fe",
+    "backend/internal/store/knowledge_admin_maintenance.go": "2aba41a2865f0e207197179dc3e26788240caa8b66abb46eda2bf69a57aa5453",
     "backend/internal/store/knowledge_admin_maintenance_test.go": "567888a26679a4873737873ee957a23a9b6e5b0ba40c93961263f6676deb0403",
     "backend/internal/store/knowledge_admin_mode.go": "b6b04901b02f0f497039643302e0205a2b8e104c52cdb572650c05b958f974ee",
     "backend/internal/store/knowledge_admin_notes.go": "e8c6dffdafbaf0dfcdd3171ae1c58085405d3d6a9723a9f77f8465a03bb3acbc",
     "backend/internal/store/knowledge_admin_notes_test.go": "32bd95fe7dfbc3b4766b0a6e3105f0e0608f1652f61ead386c30aca49217fbf0",
-    "backend/internal/store/knowledge_admin_permissions_test.go": "b94c0294c0c5f75f0b399d171a3cbbcc808ce00f2007bdcf2b7ecff893618391",
+    "backend/internal/store/knowledge_admin_permissions_test.go": "e6e0637c523eeb2cf22f4522088db36b34556fba4b2b20af23f5abcc349e01ae",
     "backend/internal/store/knowledge_admin_public.go": "b0c5447d27f16c71e15c95414891e0bb5046c7f2bd00d779952cbd61956af17a",
     "backend/internal/store/knowledge_admin_public_test.go": "9f4ad7fca3444acbcc56a2014edc90b2191586783b0c76f0893536c4522df939",
     "backend/internal/store/knowledge_admin_read.go": "9295404f64fdb578a20776c26d326c8accbf328938fe2587991521061b27ca7f",
-    "backend/internal/store/knowledge_admin_schema_test.go": "d15f5bc3219022206cc61c5849cb68bf74682e3dedf9cd7fc7d15e5a3147f5c4",
+    "backend/internal/store/knowledge_admin_schema_test.go": "c1c31b461d60cebaa665e8adb4bc0c76096288f48897701ed4ce16261dc21317",
     "backend/internal/store/knowledge_admin_study.go": "a6f0f68723b509ba2320f39316c8905ce79b0999436c801029f314c95ff432e7",
     "backend/internal/store/knowledge_admin_study_test.go": "23ffb20a1a09ca3bcbd6878f9e627fedbb806f07b08129f049c31e6349656b66",
     "backend/internal/store/knowledge_admin_tx.go": "df25223cef4844bf20644c4a105f7c5aa8f4576436f5e9e49496d6c9f1edd797",
@@ -4685,7 +4697,7 @@
     "db/migrations/00010_topic_taxonomy.sql": "a317b1c4abed583d2f1c6748773a4fbf0260c0fbb9b99a5c90bce641034ec20c",
     "db/migrations/00011_topic_study.sql": "a09525f99624749c7ddb24d882e0c2011ab7a591f52f1298cb35f51eff194039",
     "db/migrations/00012_topic_cutover.sql": "b804f2b0e044fa446f30c0e9fc218a66a9c49d438c16ce3d3e354c7a25577ceb",
-    "db/migrations/00013_admin_knowledge.sql": "e73d0221dcc69de72795a80588098ef1caa5d3434631d365fbed22cc391f22ea",
+    "db/migrations/00013_admin_knowledge.sql": "921496b3dc685ea2fedd95f3a6b825d2f8ab9c31c1b525268f8ee2d95d71bded",
     "docs/content/2026-10-06-topic-taxonomy-baseline.json": "8330b11ca41bcf0be503552600c1df710b50b4c1a4db470ba75983a09748a223",
     "docs/operations/2026-10-08-topic-learning-rollout.md": "f35e4c4f9b37d37c99018986644e8161db8d440002451632399f4b6f60efba87",
     "docs/operations/automatic-topic-import.md": "a4ea10f2e3d8dc7eb2b688c59b5c639e7de6a2170c8ce92987cd0ae68e8d62dd",
@@ -4715,10 +4727,10 @@
     "frontend/src/features/feedback/topic-location.test.ts": "44732334ea636f1115ed94acd443b50a2142352e61cdd8c55cc75c4d47093899",
     "frontend/src/features/feedback/topic-location.ts": "0d043e4276b21fc1a3a1e4e93b216b95af2353497779a65999afb562ed908081",
     "frontend/src/features/knowledge-admin/edit.tsx": "b633aaa98c722180b9490c70507cb4fd4b7b45ddb00a46c0b6f1a1e4a6dd673b",
-    "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "b675b42edad562e5bd9503e776d51287517908b5872e85028a5201b696f58c68",
-    "frontend/src/features/knowledge-admin/list.tsx": "4d79566b7a2fdceb95a79060d4f6d2f8e145735e4c3da6f95c13061f2091739e",
-    "frontend/src/features/knowledge-admin/upload.tsx": "a52d58f042f38e6806b4716bc16be132b51b3186ff4018bf04f80291eb99365e",
-    "frontend/src/features/reading/current-knowledge-view.tsx": "d38935b5145979011f56a9df7f453f2d4259899f79cdd1609f9d0d97a52963c6",
+    "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "edeeac5cdc1cbc582107b050a5d5887cb229a360b3b08e04af658244c1b71f25",
+    "frontend/src/features/knowledge-admin/list.tsx": "99c8b7ecf7043d4511f72eb5ef7d3b5069654c18518beb0cfd3d99343f0237a4",
+    "frontend/src/features/knowledge-admin/upload.tsx": "35cf666611073c9ed6b0e2a09a76358fe404329b4ee10fabbb75235de3007a08",
+    "frontend/src/features/reading/current-knowledge-view.tsx": "440d9dde5b179d6400eb448b95563e911f2a6f0be91190532ffc0198aeff0b44",
     "frontend/src/features/study/account-boundary.tsx": "f3f3214a40d408bc41ff086540f8abff9064e68409518286aebb56db0412c3a4",
     "frontend/src/features/study/content-reminders.test.tsx": "0706b1525fcb6eb4559c1a87e95b0be2eb5fdcc19634b1c1544ff0c8df04f157",
     "frontend/src/features/study/content-reminders.tsx": "1b22e6c688d96854113918d02b3dacfd85787c228fe61bb5f2e25ee09719ab1b",
@@ -4730,10 +4742,10 @@
     "frontend/src/features/study/knowledge-controls.tsx": "a971ad7863903ca392c345eaab4871aeb28c3157d43f4d33c261219ee2854d57",
     "frontend/src/features/study/knowledge-list.tsx": "97db4aee9dce3e72bf98f3329022d95590c2be6cb0f718566c736afc85637629",
     "frontend/src/features/study/legacy-archive.tsx": "d13cfcf3dcbb85e56d815579bb3a4b2a718f45d9d31eabc452815f62557ce69a",
-    "frontend/src/features/study/managed-controls.tsx": "6a543362c3b4676833e5c7ea77babc215f0b9965c7a9da099028aae602c293a2",
+    "frontend/src/features/study/managed-controls.tsx": "5399ab01bb8d39c89ff3c649e6df4351115bb591735f8d743bba4798e26d253f",
     "frontend/src/features/study/managed-history.tsx": "789607b5b43e7cee976f54fced6bd49981e1040e2b3c769160da728acf7407fc",
-    "frontend/src/features/study/managed-note-editor.tsx": "56e8193f0ea71a858e4521ed0b3a985dd4b66a041364dc94a1915d5a2ccdf89a",
-    "frontend/src/features/study/managed-pages.test.tsx": "d1f1ffecc11894c40aa9c7557758e351504348d369c56e5cb7c37e13002b2e68",
+    "frontend/src/features/study/managed-note-editor.tsx": "788e18574e0a205e816e458d99be4a1bf89542f21be306a0fb40a7a70fd968ad",
+    "frontend/src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a",
     "frontend/src/features/study/managed-pages.tsx": "87e060414a9f05c35f4584e75d0ba674da8c7a193dde0cc23da03dcdf5324741",
     "frontend/src/features/study/note-editor.test.tsx": "75ab9f1e577f3f66b5f48af5194b16e074c99bef882e50709ffc82a6b8c233fc",
     "frontend/src/features/study/note-editor.tsx": "3e08a00dec0acc7e29c7e7b0ca2ea7ddc8e6b29e1b39aead2ad7c062ca2c9d70",
@@ -4746,8 +4758,8 @@
     "frontend/src/features/study/retired-module.tsx": "f1b34b39d7f665ab29667250fa45763227b127a7a873380f556dc251c43e128b",
     "frontend/src/features/study/topic-area.tsx": "31300448e7999613101f01f282b2a85255346949d17e7e16d33d1f974f2ea377",
     "frontend/src/features/study/topic-progress.tsx": "e1e6b7186ced42c076e3b59efd643796310dd1a7ece95a6b8f8f38598e73c803",
-    "frontend/src/lib/api/knowledge-admin-proxy.test.ts": "e16678ed250c05e32413bcafa2a6e3e2dd7519b28a3e3b29ca95a56ecaf629ca",
-    "frontend/src/lib/api/knowledge-admin-proxy.ts": "06ab3e0507b8649e5f7f02fb67d6a70aa65c8aae59f64d76d53deb1f09d3d642",
+    "frontend/src/lib/api/knowledge-admin-proxy.test.ts": "05d572892934a4aa78ce4e76a1ea1551fc3ac7daa878075e412c3874ec98421b",
+    "frontend/src/lib/api/knowledge-admin-proxy.ts": "c9310836a12fd1f3541d5526730993557ba4d15e729959896781abb890d36118",
     "frontend/src/lib/api/study-proxy.test.ts": "64506ca537544b9a7569228190dacf1ca6cc2637decb35363b72f23433724715",
     "frontend/src/lib/api/study-proxy.ts": "7911d66e377ad2073d55ca4992155545810e93162e7b11363581c4a50a2b1620",
     "frontend/src/lib/api/taxonomy-proxy.test.ts": "094e1cd8b543b29f65661a74f5918abf5fd6f30e4f0a6f6408904a891317b897",
@@ -4793,8 +4805,8 @@
     "schemas/msc2020-classification-codes.json": "412c7e175f5b0ea7a4da7ef3e3d281438d363b69d38eb287a8d7c67a969bd07b",
     "schemas/topic-assignment.schema.json": "8eadef262a5a207c0b14eb9e0ace30dccac0418641e8cb72cf3934be8e09cc63",
     "schemas/topic-catalogue.schema.json": "57897299f7c14977688c8ca09eb16fca47a6ae7c114d351f8c880b10e994f5ae",
-    "tests/e2e/admin-knowledge-direct.spec.ts": "9e0552eeded526f42c0b138f7b3ea60b541611da99a465ae80e92c9d4f6aa2fb",
-    "tests/e2e/managed-knowledge-study.spec.ts": "06a3deb689c9970e7c9b1e78c9ffbaa869527d44a80f92c396d4e60d4aeb9eb1",
+    "tests/e2e/admin-knowledge-direct.spec.ts": "4f6cd8dba00bc4e5ce66a4c26560c0557f038ff2657d39ddd0dcf71e534ce7a3",
+    "tests/e2e/managed-knowledge-study.spec.ts": "61e10ea7ffe8eca0a296010419af7914fe1fb91d37901e370d45324f46668773",
     "tests/e2e/topic-content-corrections.spec.ts": "1e8bb27541de77c08501ae6d4b2b9531a699ae0e0479c42649247bc4a939cd63",
     "tests/e2e/topic-feedback.spec.ts": "0dcd74ff39567998d1ff6e27ac0a3cc6ebb750339fea68104c3c1627928eacf3",
     "tests/e2e/topic-learning-archive.spec.ts": "28160bcac4ba3d3dcc3efb8bfd8952c8ee6ae9f8e0ea1c0c7ea88818f36dceb0",
@@ -4824,7 +4836,7 @@
     "tools/topic-ingest/test-fixtures.mjs": "5f2ef429e3701f8326bb5255d10396e4f5105fa5d322c337ea3b0f0eea675d13",
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
-    "tools/verify/admin-knowledge-approved-paths.json": "293ce6192ec84c6a08615b0b422a083bbf216bf7ff0ae42f723e5475ed8b6721",
+    "tools/verify/admin-knowledge-approved-paths.json": "aec1583d978cf891cfe36b37581a817c57255871306157723434e215489505df",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
     "tools/verify/topic-learning-ci.test.mjs": "aa09cbaab94fa598d11878d2b104dcec09c15493f9aaf21081a9a5a6dc9919e5",

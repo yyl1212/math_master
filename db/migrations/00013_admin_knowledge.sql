@@ -113,6 +113,7 @@ CREATE TRIGGER managed_knowledge_state_guard BEFORE UPDATE OR DELETE ON knowledg
 CREATE FUNCTION guard_managed_knowledge_marker() RETURNS trigger LANGUAGE plpgsql AS $$
 BEGIN
  IF OLD.version_id=0 AND OLD.managed_knowledge_enabled AND (TG_OP='DELETE' OR NOT NEW.managed_knowledge_enabled OR NEW.version_id<>0) THEN RAISE EXCEPTION 'permanent managed knowledge capability'; END IF;
+ IF TG_OP='DELETE' THEN RETURN OLD; END IF;
  RETURN NEW;
 END $$;
 CREATE TRIGGER managed_knowledge_marker_guard BEFORE UPDATE OR DELETE ON goose_db_version FOR EACH ROW EXECUTE FUNCTION guard_managed_knowledge_marker();
