@@ -46,9 +46,23 @@ func managedSchemaIntegrity(ctx context.Context, tx *sql.Tx) error {
 	if n != len(managedTables) {
 		return knowledgeadmin.ErrNotConfigured
 	}
-	var digest string
-	if e := tx.QueryRowContext(ctx, managedSchemaDigestSQL, managedTables).Scan(&digest); e != nil {
+	// Catalog deparsing must use a fixed resolution path. Restore the caller's
+	// path before business clocks run (legacy tests deliberately shadow a clock).
+	var previousPath string
+	if e := tx.QueryRowContext(ctx, `SELECT current_setting('search_path')`).Scan(&previousPath); e != nil {
 		return e
+	}
+	if _, e := tx.ExecContext(ctx, `SELECT set_config('search_path','pg_catalog,public',true)`); e != nil {
+		return e
+	}
+	var digest string
+	digestError := tx.QueryRowContext(ctx, managedSchemaDigestSQL, managedTables).Scan(&digest)
+	_, restoreError := tx.ExecContext(ctx, `SELECT set_config('search_path',$1,true)`, previousPath)
+	if digestError != nil {
+		return digestError
+	}
+	if restoreError != nil {
+		return restoreError
 	}
 	if digest != managedSchemaDigest {
 		return knowledgeadmin.ErrNotConfigured

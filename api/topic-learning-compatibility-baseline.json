@@ -4611,7 +4611,7 @@
     "backend/internal/store/knowledge_admin_history.go": "190b80b1f60995892d4b448c86392635bb3fe42db3f9340a89087faa48218bf2",
     "backend/internal/store/knowledge_admin_import.go": "dba0aa81e445e11509d8753849a6ca25ee29129eaaa8326999c1b36774ead75d",
     "backend/internal/store/knowledge_admin_import_test.go": "83b926adf34208037d8f4e4f4407e440a7711ef1243bf813e5e124e34593bfe3",
-    "backend/internal/store/knowledge_admin_maintenance.go": "2aba41a2865f0e207197179dc3e26788240caa8b66abb46eda2bf69a57aa5453",
+    "backend/internal/store/knowledge_admin_maintenance.go": "9e347ed497dfddb5f847e9d135d805e6469e5b1828b3f76b635da3e9e8261d4e",
     "backend/internal/store/knowledge_admin_maintenance_test.go": "567888a26679a4873737873ee957a23a9b6e5b0ba40c93961263f6676deb0403",
     "backend/internal/store/knowledge_admin_mode.go": "b6b04901b02f0f497039643302e0205a2b8e104c52cdb572650c05b958f974ee",
     "backend/internal/store/knowledge_admin_notes.go": "e8c6dffdafbaf0dfcdd3171ae1c58085405d3d6a9723a9f77f8465a03bb3acbc",
