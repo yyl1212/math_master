@@ -18,7 +18,7 @@
 - ID 为 `knowledge_points[].id` 原始值；不拼 source_id，不按标题、来源版本或语义去重。同 ID 同主题一次，同 ID 多主题共用一实体。
 - 八种主类型：concept、definition、axiom、theorem、corollary、method、mathematical-thinking、other；难度 1–5。正式记录没有未知占位；other 必须有理由。
 - 上传符合已交付 `math-master-knowledge-source 1.0`，每文件最多 100 条、64 MiB，批量逐文件处理。一个进程最多一个源验证工作槽，不加数据库连接池或后台导入服务。
-- 新上传专用截止 60 秒；应用事务 8 秒、锁等待 1 秒。原账户与普通请求时限保持；列表默认 20、最大 100。
+- 新上传专用截止 60 秒；应用事务 8 秒、锁等待 1 秒。原账户与普通请求时限保持；列表默认 20、最大 100；管理员列表返回 KnowledgeSummary（标题、类型、难度、主题、状态和隐藏令牌），正文仅详情获取。
 - admin 单角色可以管理；每次写事务重验会话、CSRF、停用、强制改密和当前角色，提交前重验。来源中的作者或评估人员不能变成平台身份。
 - 只显示未发布、已发布；不提供审核、业务版本管理。已发布编辑即刻生效，私人学习状态、笔记与时间保持。
 - 新迁移 `00013`；原 `00001–00012` 字节不变。新知识不得伪造旧批准、publication_id 或 version=1。
@@ -165,19 +165,19 @@ flowchart LR
 ### Task 4:HTTP、当前公开读取、旧通道关闭
 
 **Create:** `backend/internal/httpapi/knowledge_admin_routes.go`、`backend/internal/httpapi/knowledge_admin_json.go`、`backend/internal/httpapi/knowledge_current_routes.go`；`backend/internal/store/knowledge_admin_public.go`。
-**Modify:** `backend/internal/httpapi/application.go`、`backend/internal/httpapi/health.go`、`backend/cmd/server/main.go`、`api/openapi.yaml`、`frontend/src/lib/api/generated.d.ts`。
+**Modify:** `backend/internal/knowledgeadmin/model.go`、`backend/internal/knowledgeadmin/repository.go`、`backend/internal/store/knowledge_admin_read.go`、`backend/internal/httpapi/application.go`、`backend/internal/httpapi/health.go`、`backend/cmd/server/main.go`、`api/openapi.yaml`、`frontend/src/lib/api/generated.d.ts`。
 **Test — Create:** `backend/internal/httpapi/knowledge_admin_test.go`、`backend/internal/httpapi/knowledge_current_test.go`；`backend/internal/store/knowledge_admin_public_test.go`。
 
 **Consumes:** Service、任务 2 存储、任务 1 DTO。
 **Produces:** `KnowledgeHandler(service *knowledgeadmin.Service) http.Handler`；`ListCurrentKnowledge(context.Context,Query) (Page[PublicKnowledge],error)`、`ReadCurrentKnowledge(context.Context,string) (PublicKnowledge,error)`、`ListCurrentTopics(context.Context,Query) (Page[CurrentTopic],error)`、`ReadCurrentTopic(context.Context,string,Query) (CurrentTopic,error)`；`ReadContentMode(context.Context) (ContentMode,error)`。
 
-- [ ] 写 `TestManagedRoutesPermissionsAndRetirement`：管理 API 所有非 admin 拒绝；managed 模式旧知识 workspace/update/submit/review/activate/topic-assignment/withdraw 写入 410，不能靠 editor 绕过；精确匹配知识路由，不阻断反馈、纠错讨论和人员管理。
-- [ ] 写 `TestManagedReadNoStaleDisclosure`：修改后 GET/SSR 当前正文；下架后新旧公开 API、源文件/资产衍生端点、搜索和链接都无正文，管理源绑定不泄露；祖先 distinct、other 单列。匿名 GET 没学习写入。
-- [ ] 写 `TestManagedUploadDeadlineIsolation`：真 HTTP 连接慢速 imports 超过原 15s 可继续到专用 60s，超过 60s 终止；无授权大正文提前 401/403；普通账户原时限不变，代理取消上传可释放资源。
-- [ ] RED：`cd backend && CGO_ENABLED=0 go test ./internal/httpapi ./internal/store -run 'TestManaged(Routes|Read|Upload|Public)' -count=1 -timeout 5m`。
-- [ ] 实现固定契约、ResponseController 对指定上传请求设置读/写截止；不改全局 ReadTimeout/WriteTimeout。旧知识读在 managed 模式改取当前或明确停用，禁止回落旧发布正文；未激活保持原合同。公共接口无缓存，路由注册不启用模式。
-- [ ] GREEN：上述 PASS；`cd frontend && npm run api:generate && npm run typecheck`；OpenAPI 生成无隐式 version 参数。
-- [ ] 提交，commit：`feat: 提供当前知识接口并关闭旧知识写流程`。
+- [x] 写 `TestManagedRoutesPermissionsAndRetirement`：管理 API 所有非 admin 拒绝；managed 模式旧知识 workspace/update/submit/review/activate/topic-assignment/withdraw 写入 410，不能靠 editor 绕过；精确匹配知识路由，不阻断反馈、纠错讨论和人员管理。
+- [x] 写 `TestManagedReadNoStaleDisclosure`：修改后 GET/SSR 当前正文；下架后新旧公开 API、源文件/资产衍生端点、搜索和链接都无正文，管理源绑定不泄露；祖先 distinct、other 单列。匿名 GET 没学习写入。
+- [x] 写 `TestManagedUploadDeadlineIsolation`：真 HTTP 连接慢速 imports 超过原 15s 可继续到专用 60s，超过 60s 终止；无授权大正文提前 401/403；普通账户原时限不变，代理取消上传可释放资源。
+- [x] RED：`cd backend && CGO_ENABLED=0 go test ./internal/httpapi ./internal/store -run 'TestManaged(Routes|Read|Upload|Public)' -count=1 -timeout 5m`。
+- [x] 实现固定契约、ResponseController 对指定上传请求设置读/写截止；不改全局 ReadTimeout/WriteTimeout。旧知识读在 managed 模式改取当前或明确停用，禁止回落旧发布正文；未激活保持原合同。公共接口无缓存，路由注册不启用模式。
+- [x] GREEN：上述 PASS；`cd frontend && npm run api:generate && npm run typecheck`；OpenAPI 生成无隐式 version 参数。
+- [x] 提交，commit：`feat: 提供当前知识接口并关闭旧知识写流程`。
 
 ### Task 5:私人学习、历史与反馈完整适配
 

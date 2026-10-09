@@ -16,3 +16,11 @@ type Repository interface {
 	ApplyManagedImport(context.Context, Access, string, ApplyInput) (Receipt, error)
 	ReadManagedImport(context.Context, Access, string) (Preview, *Receipt, error)
 }
+
+type CurrentRepository interface {
+	ReadContentMode(context.Context) (ContentMode, error)
+	ListCurrentKnowledge(context.Context, Query) (Page[PublicKnowledge], error)
+	ReadCurrentKnowledge(context.Context, string) (PublicKnowledge, error)
+	ListCurrentTopics(context.Context, Query) (Page[CurrentTopic], error)
+	ReadCurrentTopic(context.Context, string, Query) (CurrentTopic, error)
+}

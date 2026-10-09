@@ -19,6 +19,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/httpapi"
+	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/learning"
 	"github.com/yyl1212/math_master/backend/internal/notification"
 	"github.com/yyl1212/math_master/backend/internal/publication"
@@ -50,6 +51,7 @@ func run() error {
 	defer stop()
 	repo := store.NewWithTrustedCodeSHA(db, c.CodeSHA)
 	options := httpapi.AuthOptions{ExperienceMode: repo, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
+	options.Knowledge = &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(repo), Current: repo, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
 	if c.PublicOrigin != "" {
 		hasher := auth.NewArgon2Hasher(rand.Reader)
 		options.Accounts, err = auth.NewService(repo, hasher, rand.Reader)

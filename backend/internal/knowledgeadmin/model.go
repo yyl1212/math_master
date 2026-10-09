@@ -236,3 +236,18 @@ type ImportStatus struct {
 	Preview Preview  `json:"preview"`
 	Receipt *Receipt `json:"receipt"`
 }
+
+type KnowledgeSummary struct {
+	ID         string    `json:"id"`
+	ExternalID string    `json:"externalId"`
+	TopicKeys  []string  `json:"topicKeys"`
+	Title      string    `json:"title"`
+	TitleZH    string    `json:"titleZh"`
+	Type       string    `json:"type"`
+	Difficulty int       `json:"difficulty"`
+	Ref        Ref       `json:"ref"`
+	Published  bool      `json:"published"`
+	Deleted    bool      `json:"deleted"`
+	EditToken  string    `json:"editToken"`
+	UpdatedAt  time.Time `json:"updatedAt"`
+}

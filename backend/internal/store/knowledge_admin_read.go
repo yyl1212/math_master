@@ -10,6 +10,8 @@ import (
 
 const managedColumns = `internal_id,external_id,point,public_sources,content_sha256,published,(deleted_at IS NOT NULL),edit_token::text,updated_at`
 
+const managedSummaryColumns = `internal_id,external_id,jsonb_build_object('id',external_id,'version',point->'version','title',point->'title','title_zh',point->'title_zh','type',point->'type','learning_difficulty',jsonb_build_object('difficulty_level',point#>'{learning_difficulty,difficulty_level}')),'[]'::jsonb,content_sha256,published,(deleted_at IS NOT NULL),edit_token::text,updated_at`
+
 type knowledgeScanner interface{ Scan(...any) error }
 
 func scanManaged(row knowledgeScanner) (k knowledgeadmin.Knowledge, e error) {
@@ -72,7 +74,7 @@ func (s *Store) ListManagedKnowledge(ctx context.Context, a knowledgeadmin.Acces
 		if e := tx.QueryRowContext(ctx, "SELECT count(*) FROM managed_knowledge k WHERE "+filter, args...).Scan(&out.Total); e != nil {
 			return e
 		}
-		rows, e := tx.QueryContext(ctx, "SELECT "+managedColumns+" FROM managed_knowledge k WHERE "+filter+" ORDER BY updated_at DESC,internal_id LIMIT $6 OFFSET $7", append(args, q.Limit, q.Offset)...)
+		rows, e := tx.QueryContext(ctx, "SELECT "+managedSummaryColumns+" FROM managed_knowledge k WHERE "+filter+" ORDER BY updated_at DESC,internal_id LIMIT $6 OFFSET $7", append(args, q.Limit, q.Offset)...)
 		if e != nil {
 			return e
 		}

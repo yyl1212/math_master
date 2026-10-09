@@ -10,6 +10,7 @@ import (
 )
 
 type AuthOptions struct {
+	Knowledge      *KnowledgeOptions
 	ExperienceMode ExperienceModeReader
 	Study          *StudyOptions
 	Taxonomy       *TaxonomyOptions
@@ -53,6 +54,18 @@ func routePrivate(path string) (privateRoute, bool) {
 func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) http.Handler {
 	public := NewHandler(reader, pinger)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasPrefix(r.URL.Path, "/api/v3/") {
+			o := KnowledgeOptions{PublicOrigin: options.PublicOrigin, Production: options.Production}
+			if options.Knowledge != nil {
+				o = *options.Knowledge
+			}
+			serveKnowledge(w, r, o)
+			return
+		}
+		if serveManagedLegacyRetirement(w, r, options.Knowledge) {
+			return
+		}
+
 		if options.ExperienceMode != nil && retirementPolicy("topics", RetirementRoute{Method: r.Method, Path: r.URL.Path}) == "retired" {
 			ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
 			defer cancel()
