@@ -308,9 +308,6 @@ func (s *Store) ApplyKnowledgeCutover(ctx context.Context, plan knowledgeadmin.C
 	if e = tx.QueryRowContext(ctx, `SELECT count(*) FROM managed_knowledge WHERE published AND deleted_at IS NULL`).Scan(&published); e != nil {
 		return out, e
 	}
-	if published == 0 {
-		return out, knowledgeadmin.ErrConflict
-	}
 	tables, e := maintenanceTables(ctx, tx)
 	if e != nil {
 		return out, e
@@ -431,9 +428,6 @@ func (s *Store) ActivateManagedKnowledge(ctx context.Context, in knowledgeadmin.
 	var n int
 	if e = tx.QueryRowContext(ctx, `SELECT count(*) FROM managed_knowledge WHERE published AND deleted_at IS NULL`).Scan(&n); e != nil {
 		return out, e
-	}
-	if n == 0 {
-		return out, knowledgeadmin.ErrConflict
 	}
 	if _, e = tx.ExecContext(ctx, `UPDATE knowledge_admin_state SET content_mode='managed',enabled_once=true,activated_at=clock_timestamp() WHERE singleton`); e != nil {
 		return out, e

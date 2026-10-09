@@ -77,7 +77,6 @@ func TestExactOldThirtyCleanup(t *testing.T) {
 	f.exec(`INSERT INTO study_notes(owner_user_id,knowledge_id,revision,body,knowledge_ref,updated_at) SELECT owner_user_id,knowledge_id,1,'Original isolated note.',last_known_ref,clock_timestamp() FROM study_records WHERE knowledge_id='old-test-00'`)
 	f.exec(`CREATE FUNCTION isolated_cleanup_queue() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RETURN OLD; END $$`)
 	f.exec(`CREATE CONSTRAINT TRIGGER isolated_cleanup_deferred AFTER DELETE ON study_notes DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION isolated_cleanup_queue()`)
-	f.Import("admin_a", "replacement", f.doc, true)
 	p, e := f.repo.PlanKnowledgeCutover(f.ctx, in)
 	if e != nil || p.Counts["published"] != 30 || p.Counts["study_records"] != 1 || p.Counts["study_notes"] != 1 {
 		t.Fatal(p, e)
@@ -163,7 +162,6 @@ func TestManagedActivationExplicitAndPermanent(t *testing.T) {
 	f.repo = store.NewWithTrustedCodeSHA(f.db, strings.Repeat("a", 40))
 	in := cleanupInput(f)
 	in.OldIDs = []string{}
-	f.Import("admin_a", "replacement", f.doc, true)
 	if _, e := f.repo.ActivateManagedKnowledge(f.ctx, in); e == nil {
 		t.Fatal("activation without the complete published directory")
 	}
@@ -180,7 +178,7 @@ func TestManagedActivationExplicitAndPermanent(t *testing.T) {
 	f.exec(`UPDATE taxonomy_releases SET status='published' WHERE id=$1`, release)
 	f.exec(`INSERT INTO taxonomy_heads(singleton,release_id) VALUES(true,$1)`, release)
 	r, e := f.repo.ActivateManagedKnowledge(f.ctx, in)
-	if e != nil || r.Counts["taxonomyNodes"] != 6603 {
+	if e != nil || r.Counts["taxonomyNodes"] != 6603 || r.Counts["published"] != 0 {
 		t.Fatal(r, e)
 	}
 	again, e := f.repo.ActivateManagedKnowledge(f.ctx, in)
