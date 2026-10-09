@@ -1,3 +1,4 @@
+import {redirectLegacyManagement} from "@/lib/knowledge-admin/mode";
 import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 export async function generateMetadata(){return getUiMetadata("page.review");}
@@ -14,6 +15,6 @@ import { PublicationPanel } from "@/features/content/publication-panel";
 import { WithdrawalPanel } from "@/features/content/withdrawal-panel";
 export const dynamic = "force-dynamic";
 
-export default async function Page() { const access = await contentPageAccess(["reviewer", "editor", "admin"]); if ("error" in access)
+export default async function Page() { await redirectLegacyManagement(); const access = await contentPageAccess(["reviewer", "editor", "admin"]); if ("error" in access)
     return <><UiPageTitle messageKey="page.review"/>{access.error}</>; const scope = access.user.roles.includes("admin") ? "all" : access.user.roles.includes("reviewer") ? "review" : "mine"; const result = await readServerContent<SubmissionPage>({ kind: "listSubmissions", query: { scope, status: "pending", limit: 20 } }, access.cookie); if (!result.ok)
     return <><UiPageTitle messageKey="page.review"/>{<ContentState status={result.status} code={result.code}/>}</>; return <><UiPageTitle messageKey="page.review"/>{<SubmissionList initial={result.data} scope={scope}/>}</>; }

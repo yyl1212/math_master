@@ -22,7 +22,7 @@ export function feedbackListPath(query: Record<string, string | string[] | undef
 export function feedbackSourcePath(query: Record<string, string | string[] | undefined>): string {
   for (const [key, value] of Object.entries(query)) if (!['kind', 'id', 'area', 'position', 'partKind', 'partId'].includes(key) || typeof value !== 'string' || !value) throw new FeedbackRequestError('INVALID_REQUEST');
   const kind = query.kind as ContextQuery['kind'];
-  if (!['site', 'knowledge', 'path', 'practice', 'assessment'].includes(kind) || kind === 'site' && query.id !== undefined || kind !== 'site' && typeof query.id !== 'string') throw new FeedbackRequestError('INVALID_REQUEST');
+  if (!['site', 'managed-knowledge', 'knowledge', 'path', 'practice', 'assessment'].includes(kind) || kind === 'site' && query.id !== undefined || kind !== 'site' && typeof query.id !== 'string') throw new FeedbackRequestError('INVALID_REQUEST');
   const params = new URLSearchParams(); for (const k of ['area', 'position', 'partKind', 'partId']) if (typeof query[k] === 'string') params.set(k, query[k]);
   const path = '/api/v1/feedback/contexts/' + kind + (kind === 'site' ? '' : '/' + query.id) + (params.size ? '?' + params : ''); resolveFeedbackRoute(path); return path;
 }

@@ -1,3 +1,4 @@
+import {redirectLegacyManagement} from "@/lib/knowledge-admin/mode";
 import {getUiMetadata} from "@/lib/i18n/server";
 import {UiPageTitle} from "@/components/ui-page-title";
 export async function generateMetadata(){return getUiMetadata("page.admin.publications.id");}
@@ -19,7 +20,7 @@ export default async function Page({ params }: {
         id: string;
     }>;
 }) { const { id } = await params; if (!contentUUID.test(id))
-    return <><UiPageTitle messageKey="page.admin.publications.id"/>{<ContentState status={404}/>}</>; const access = await contentPageAccess(["admin"]); if ("error" in access)
+    return <><UiPageTitle messageKey="page.admin.publications.id"/>{<ContentState status={404}/>}</>; await redirectLegacyManagement(); const access = await contentPageAccess(["admin"]); if ("error" in access)
     return <><UiPageTitle messageKey="page.admin.publications.id"/>{access.error}</>; const [list, view] = await Promise.all([readServerContent<PublicationPage>({ kind: "listPublications", query: { limit: 100 } }, access.cookie), readServerContent<PublicationView>({ kind: "readPublication", id }, access.cookie)]); if (!list.ok)
     return <><UiPageTitle messageKey="page.admin.publications.id"/>{<ContentState status={list.status} code={list.code}/>}</>; if (!view.ok)
     return <><UiPageTitle messageKey="page.admin.publications.id"/>{<ContentState status={view.status} code={view.code}/>}</>; const initial = { ...list.data, items: [view.data, ...list.data.items.filter(v => v.id !== id)] }; return <><UiPageTitle messageKey="page.admin.publications.id"/>{<PublicationPanel key={id} initial={initial} selectedID={id}/>}</>; }

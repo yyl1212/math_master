@@ -9,7 +9,9 @@ import { getAuthContext } from "@/lib/auth/client";
 import type { AuthContext, AuthResult } from "@/lib/auth/types";
 import styles from "@/styles/auth.module.css";
 export function AuthStatus() {
-  const path = usePathname(),mode=useExperienceMode(path), [state, setState] = useState<AuthResult<AuthContext> | null>(null);
+  const [managed,setManaged]=useState<boolean|null>(null);
+ useEffect(()=>{let live=true;void fetch("/api/v3/content-mode",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(v=>{if(live)setManaged(v?.mode==="managed"?true:v?.mode==="legacy"?false:null)}).catch(()=>{if(live)setManaged(null)});return()=>{live=false}},[]);
+ const path = usePathname(),mode=useExperienceMode(path), [state, setState] = useState<AuthResult<AuthContext> | null>(null);
   useEffect(() => {
     let live = true, revision = 0;
     const refresh = () => { const current = ++revision; void getAuthContext().then(result => { if (live && revision === current) setState(result); }); };
@@ -20,12 +22,12 @@ export function AuthStatus() {
     <Link prefetch={false} href={state.data.user.mustChangePassword?"/account":"/learn"}>{state.data.user.username}</Link>
  {!state.data.user.mustChangePassword&&<Link prefetch={false} href="/account"><UiText notice={uiMessage("page.account",{})}/></Link>}
     {!state.data.user.mustChangePassword&&state.data.user.roles.includes("learner")&&<><Link prefetch={false} href="/learn"><UiText notice={uiMessage("auth-status.my.learning.c60fdf",{})}/></Link><Link prefetch={false} href="/learning-history"><UiText notice={uiMessage("auth-status.learning.history.35b7a5",{})}/></Link></>}
-    {!state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor"><UiText notice={uiMessage("auth-status.edit.content.f57e8e",{})}/></Link>}
-    {!state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review"><UiText notice={uiMessage("auth-status.review.content.9e6e6c",{})}/></Link>}
-    {!state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/publications"><UiText notice={uiMessage("auth-status.publish.content.35b610",{})}/></Link>}
-    {mode==="legacy" && !state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor/questions"><UiText notice={uiMessage("auth-status.write.questions.4f6b81",{})}/></Link>}
-    {mode==="legacy" && !state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review/questions"><UiText notice={uiMessage("auth-status.review.questions.e2fd5a",{})}/></Link>}
-    {mode==="legacy" && !state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/question-publications"><UiText notice={uiMessage("auth-status.publish.question.bank.545b0c",{})}/></Link>}
+    {managed===false && !state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor"><UiText notice={uiMessage("auth-status.edit.content.f57e8e",{})}/></Link>}
+    {managed===false && !state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review"><UiText notice={uiMessage("auth-status.review.content.9e6e6c",{})}/></Link>}
+    {managed!==null && !state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href={managed?"/admin/knowledge":"/admin/publications"}><UiText notice={uiMessage(managed?"managed.admin":"auth-status.publish.content.35b610",{})}/></Link>}
+    {managed===false && mode==="legacy" && !state.data.user.mustChangePassword && state.data.user.roles.includes("editor") && <Link prefetch={false} href="/editor/questions"><UiText notice={uiMessage("auth-status.write.questions.4f6b81",{})}/></Link>}
+    {managed===false && mode==="legacy" && !state.data.user.mustChangePassword && state.data.user.roles.includes("reviewer") && <Link prefetch={false} href="/review/questions"><UiText notice={uiMessage("auth-status.review.questions.e2fd5a",{})}/></Link>}
+    {managed===false && mode==="legacy" && !state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/question-publications"><UiText notice={uiMessage("auth-status.publish.question.bank.545b0c",{})}/></Link>}
     {!state.data.user.mustChangePassword && state.data.user.roles.includes("admin") && <Link prefetch={false} href="/admin/users"><UiText notice={uiMessage("auth-status.manage.users.58606e",{})}/></Link>}
   </> : <Link prefetch={false} href="/login"><UiText notice={uiMessage("auth-status.sign.in.bfd402",{})}/></Link>}</div>;
 }

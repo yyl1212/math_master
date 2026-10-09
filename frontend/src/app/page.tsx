@@ -1,3 +1,5 @@
+import {getContentMode} from "@/lib/knowledge-admin/mode";
+import {CurrentCatalogue} from "@/features/catalogue/current-catalogue";
 import {ContentState} from "@/components/content-state";
 import {readExperienceMode} from "@/lib/study/mode";
 import {getUiMetadata} from "@/lib/i18n/server";
@@ -10,7 +12,7 @@ import type {TopicPage} from "@/lib/taxonomy/types";
 export async function generateMetadata(){return getUiMetadata("page.home")}
 export const dynamic="force-dynamic";
 export default async function Page(){
- const mode=await readExperienceMode();if(mode===null)return <ContentState kind="unavailable"/>;
+ const content=await getContentMode();if(content===null)return <ContentState kind="unavailable"/>;if(content.mode==="managed")return <CurrentCatalogue/>;const mode=await readExperienceMode();if(mode===null)return <ContentState kind="unavailable"/>;
  const topics=await readServerTaxonomy<TopicPage>({kind:"listTopics",query:{level:1,limit:100}});
  if(mode==="topics"||topics.ok||topics.code!=="TAXONOMY_NOT_CONFIGURED")return <><UiPageTitle messageKey="page.home"/><KnowledgeMap topics={topics} q="" level={1}/></>;
  const result=await getGoClient().listDomains({q:"",limit:100,offset:0});return <><UiPageTitle messageKey="page.home"/><LearningHub result={result}/></>

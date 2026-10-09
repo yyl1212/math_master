@@ -1,3 +1,9 @@
+import {getContentMode} from "@/lib/knowledge-admin/mode";
+import {readManaged} from "@/lib/knowledge-admin/server-client";
+import type {PublicKnowledge} from "@/lib/knowledge-admin/types";
+import {CurrentKnowledgeView} from "@/features/reading/current-knowledge-view";
+import {ManagedPersonal} from "@/features/study/managed-pages";
+import {ContentState as CurrentState} from "@/components/content-state";
 import {UiText} from "@/lib/i18n/ui-text";
 import {uiMessage,uiValue} from "@/lib/i18n/format";
 import {getUiMetadata} from "@/lib/i18n/server";
@@ -25,6 +31,8 @@ export default async function Page({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const content=await getContentMode();if(content===null)return <CurrentState kind="unavailable"/>;
+  if(content.mode==="managed"){const{id}=await params;const current=await readManaged<PublicKnowledge>("/api/v3/knowledge/"+id);if(!current.ok){if(current.status===404)return <><CurrentState kind="not-found"/><ManagedPersonal id={id}/></>;return <CurrentState kind="unavailable"/>};return <CurrentKnowledgeView knowledge={current.data} personal={<ManagedPersonal id={id}/>}/>}
   const result = await getGoClient().getKnowledge((await params).id);
   if (!result.ok && result.kind === "not-found") notFound();
   const mode=await readExperienceMode();

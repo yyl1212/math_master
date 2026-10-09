@@ -467,3 +467,9 @@ main {
 }
 
 .language-switch{display:flex;gap:.25rem;align-items:center;flex-wrap:wrap;white-space:nowrap}.language-switch button{font:inherit;font-size:.8rem;background:transparent;border:1px solid var(--line,#d4d9df);border-radius:.4rem;padding:.3rem .45rem;color:inherit;cursor:pointer}.language-switch button[aria-pressed="true"]{background:var(--ink,#193a32);color:#fff}.language-switch button:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+
+.managed-fields { border: 0; padding: 0; min-width: 0; display: grid; gap: 1rem; }
+.managed-fields label { display: grid; gap: .4rem; min-width: 0; }
+.managed-fields input, .managed-fields textarea, .managed-fields select { width: 100%; max-width: 100%; box-sizing: border-box; font: inherit; border: 1px solid #cbd5e1; border-radius: .5rem; padding: .6rem; }
+.managed-table { border-collapse: collapse; width: 100%; min-width: 760px; }
+.managed-table th, .managed-table td { padding: .65rem; text-align: left; vertical-align: top; border-bottom: 1px solid #e2e8f0; overflow-wrap: anywhere; }
