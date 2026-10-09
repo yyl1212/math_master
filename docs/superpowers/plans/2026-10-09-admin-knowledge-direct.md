@@ -134,7 +134,7 @@ flowchart LR
 
 ### Task 2:管理员当前写入、去重与操作回执
 
-**Create:** `backend/internal/store/knowledge_admin_tx.go`、`backend/internal/store/knowledge_admin_write.go`、`backend/internal/store/knowledge_admin_read.go`、`backend/internal/store/knowledge_admin_import.go`、`backend/internal/store/knowledge_admin_mode.go`；`backend/internal/knowledgeadmin/service.go`。
+**Create:** `backend/internal/store/knowledge_admin_tx.go`、`backend/internal/store/knowledge_admin_mode.go`、`backend/internal/store/knowledge_admin_write.go`、`backend/internal/store/knowledge_admin_read.go`、`backend/internal/store/knowledge_admin_import.go`、`backend/internal/store/knowledge_admin_mode.go`；`backend/internal/knowledgeadmin/service.go`。
 **Test — Create:** `backend/internal/store/knowledge_admin_write_test.go`、`backend/internal/store/knowledge_admin_import_test.go`、`backend/internal/store/knowledge_admin_permissions_test.go`。
 
 **Consumes:** 任务 1 的模型、校验、摘要及结构。
@@ -218,18 +218,18 @@ flowchart LR
 
 ### Task 7:能力检查、明确启用与准确旧数据清理
 
-**Create:** `backend/cmd/knowledge-maintenance/main.go`、`backend/internal/store/knowledge_admin_maintenance.go`、`backend/internal/store/knowledge_admin_maintenance_test.go`；`ops/knowledge-cutover.py`、`ops/tests/test_knowledge_cutover.py`。
-**Modify:** `backend/internal/store/knowledge_admin_tx.go`、`backend/internal/store/study_migration.go`、`backend/internal/knowledgeadmin/model.go`、`backend/internal/cli/topic_backup.go`；`backend/internal/httpapi/health.go`、`backend/internal/httpapi/health_test.go`；`ops/deploy.py`、`ops/verify-deployment.py`、`ops/tests/test_deploy.py`、`ops/tests/test_verify.py`。
+**Create:** `backend/internal/cli/knowledge.go`、`backend/internal/cli/knowledge_test.go`、`backend/internal/store/knowledge_admin_health_export_test.go`；`backend/cmd/knowledge-maintenance/main.go`、`backend/internal/store/knowledge_admin_maintenance.go`、`backend/internal/store/knowledge_admin_maintenance_test.go`；`ops/knowledge-cutover.py`、`ops/tests/test_knowledge_cutover.py`。
+**Modify:** `backend/Dockerfile`；`backend/internal/store/knowledge_admin_tx.go`、`backend/internal/store/knowledge_admin_mode.go`、`backend/internal/store/study_migration.go`、`backend/internal/knowledgeadmin/model.go`、`backend/internal/cli/topic_backup.go`；`backend/internal/httpapi/health.go`、`backend/internal/httpapi/health_test.go`；`ops/deploy.py`、`ops/verify-deployment.py`、`ops/tests/test_deploy.py`、`ops/tests/test_verify.py`。
 
 **Consumes:** 当前结构/模式、永久 capability、已有备份/隔离恢复工具；清理输入固定精确旧 30 IDs 及期望关联数量/指纹。
 **Produces:** `ReadManagedSchemaHealth(context.Context) (ManagedSchemaHealth,error)`，安全布尔字段 capability/schemaReady/managedMode；`PlanKnowledgeCutover(context.Context,CutoverInput) (CutoverPlan,error)`、`ApplyKnowledgeCutover(context.Context,CutoverPlan) (CutoverReceipt,error)`，输入含准确清单、备份标识、预期指纹，无任意 SQL；`knowledge-maintenance plan|activate|clean-old` 固定子命令。维护连接来自受保护配置，不接受日志明文口令。
 
-- [ ] 写 `TestManagedCapabilityFailClosed`：缺表、约束/触发器缺失、永久标记存在但当前模式结构丢失 => readyz503；新代码未激活保留原 topic5字段；旧代码回退在迁移13/永久标记下被部署工具拒绝，不能通过 down/删标记绕过。
-- [ ] 写 `TestExactOldThirtyCleanup`：准确30和授权学习关联被清理，旧迁入/幂等不能复活；账户、角色、6603分类目录及无关工作区指纹不变。新关联出现、31个ID、缺备份、旧清单SHA改变 => 整次拒绝。旧审核真实记录保留。
-- [ ] RED：Go `CGO_ENABLED=0 go test ./internal/store ./internal/httpapi -run 'Test(ManagedCapability|ExactOldThirty)' -count=1 -timeout 5m`；Python `python3 -m unittest discover -s ops/tests -p 'test_knowledge_cutover.py'`，独立批次。
-- [ ] 实现健康新 top-level content 字段，保留原 topic shape；部署兼容检查支持13及永久标记。维护先预览后一次事务应用、记录真实事件；旧不可变学习事件只允许维护专用精准清理路径，不开放给普通 API；备份必须最新、隔离恢复+异地副本验证。激活本身不删除，重复执行返回准确结果。
-- [ ] GREEN：上述及部署/验证原测试各一批 PASS；在隔离恢复库演练，比较受保护数据指纹，验证中断无半次清理。
-- [ ] 提交，commit：`feat: 安全启用当前知识模式与精确旧数据清理`。
+- [x] 写 `TestManagedCapabilityFailClosed`：缺表、约束/触发器缺失、永久标记存在但当前模式结构丢失 => readyz503；新代码未激活保留原 topic5字段；旧代码回退在迁移13/永久标记下被部署工具拒绝，不能通过 down/删标记绕过。
+- [x] 写 `TestExactOldThirtyCleanup`：准确30和授权学习关联被清理，旧迁入/幂等不能复活；账户、角色、6603分类目录及无关工作区指纹不变。新关联出现、31个ID、缺备份、旧清单SHA改变 => 整次拒绝。旧审核真实记录保留。
+- [x] RED：Go `CGO_ENABLED=0 go test ./internal/store ./internal/httpapi -run 'Test(ManagedCapability|ExactOldThirty)' -count=1 -timeout 5m`；Python `python3 -m unittest discover -s ops/tests -p 'test_knowledge_cutover.py'`，独立批次。
+- [x] 实现健康新 top-level content 字段，保留原 topic shape；部署兼容检查支持13及永久标记。维护先预览后一次事务应用、记录真实事件；旧不可变学习事件只允许维护专用精准清理路径，不开放给普通 API；备份必须最新、隔离恢复+异地副本验证。激活本身不删除，重复执行返回准确结果。
+- [x] GREEN：上述及部署/验证原测试各一批 PASS；在隔离恢复库演练，比较受保护数据指纹，验证中断无半次清理。
+- [x] 提交，commit：`feat: 安全启用当前知识模式与精确旧数据清理`。
 
 ### Task 8:兼容登记、审查、MR 与已授权上线
 

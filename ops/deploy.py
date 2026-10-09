@@ -26,18 +26,18 @@ class DeployError(ValueError):
 
 
 def topicSchemaCompatibility(actualMigration: int,targetCapabilities: dict,mode: str) -> bool:
-    if type(actualMigration) is not int or not 1<=actualMigration<=12 or mode not in ['legacy','topics']:return False
-    if set(targetCapabilities)!={'taxonomy','study','retirement'} or any(type(v) is not bool for v in targetCapabilities.values()):return False
+    if type(actualMigration) is not int or not 1<=actualMigration<=13 or mode not in ['legacy','topics']:return False
+    if set(targetCapabilities) not in [{'taxonomy','study','retirement'},{'taxonomy','study','retirement','managed'}] or any(type(v) is not bool for v in targetCapabilities.values()):return False
     if mode=='topics' and actualMigration<12:return False
     required={'taxonomy':actualMigration>=10,'study':actualMigration>=11,'retirement':actualMigration>=12 or mode=='topics'}
-    return all(not needed or targetCapabilities[name] for name,needed in required.items())
+    return (actualMigration<13 or targetCapabilities.get('managed') is True) and all(not needed or targetCapabilities[name] for name,needed in required.items())
 
 
 def topic_database_state(container: str,sudo: bool) -> dict:
     version=int(snapshot.sql(container,'math_master_preview','math_master_preview','SELECT coalesce(max(version_id) FILTER (WHERE is_applied),0) FROM goose_db_version;',sudo))
-    names=json.loads(snapshot.sql(container,'math_master_preview','math_master_preview',"SELECT coalesce(json_agg(attname),'[]'::json) FROM pg_attribute WHERE attrelid=to_regclass('public.goose_db_version') AND attname IN ('topic_study_enabled','topic_cutover_enabled') AND NOT attisdropped;",sudo))
+    names=json.loads(snapshot.sql(container,'math_master_preview','math_master_preview',"SELECT coalesce(json_agg(attname),'[]'::json) FROM pg_attribute WHERE attrelid=to_regclass('public.goose_db_version') AND attname IN ('topic_study_enabled','topic_cutover_enabled','managed_knowledge_enabled') AND NOT attisdropped;",sudo))
     required=version
-    for column,minimum in [('topic_study_enabled',11),('topic_cutover_enabled',12)]:
+    for column,minimum in [('topic_study_enabled',11),('topic_cutover_enabled',12),('managed_knowledge_enabled',13)]:
         if column in names:
             value=snapshot.sql(container,'math_master_preview','math_master_preview','SELECT coalesce(bool_or('+column+'),false) FROM goose_db_version WHERE version_id=0;',sudo).strip()
             if value=='t':required=max(required,minimum)
@@ -47,7 +47,10 @@ def topic_database_state(container: str,sudo: bool) -> dict:
     elif exists=='f' and required<10:mode='legacy'
     else:raise DeployError('topic-state-unavailable')
     if mode not in ['legacy','topics']:raise DeployError('topic-state-unavailable')
-    return {'requiredMigration':required,'mode':mode}
+    current=False
+    if 'managed_knowledge_enabled' in names:
+        current=snapshot.sql(container,'math_master_preview','math_master_preview','SELECT managed_knowledge_enabled FROM goose_db_version WHERE version_id=0;',sudo).strip()=='t'
+    return {'requiredMigration':required,'mode':mode,'managedMode':current}
 
 
 def runtime_topic_health(root: Path,revision: str,sudo: bool) -> dict:
@@ -56,12 +59,18 @@ def runtime_topic_health(root: Path,revision: str,sudo: bool) -> dict:
     result=json.loads(raw);topic=result.get('topic')
     if topic is None:return {'taxonomy':False,'study':False,'retirement':False,'schemaReady':result.get('status')=='ready','topicsMode':False}
     if set(topic)!={'taxonomy','study','retirement','schemaReady','topicsMode'} or any(type(v) is not bool for v in topic.values()) or result.get('status')!='ready':raise DeployError('topic-readiness-unavailable')
+    content=result.get('content')
+    if content is not None:
+        if set(content)!={'capability','schemaReady','managedMode'} or any(type(v) is not bool for v in content.values()) or not content['schemaReady'] or not content['capability']:raise DeployError('managed-readiness-unavailable')
+        return {**topic,'managed':True,'managedMode':content['managedMode']}
     return topic
 
 
 def verify_topic_runtime(root: Path,revision: str,sudo: bool,container: str) -> None:
     actual=topic_database_state(container,sudo);health=runtime_topic_health(root,revision,sudo)
     capabilities={key:health[key] for key in ['taxonomy','study','retirement']}
+    if health.get('managed') is True:capabilities['managed']=True
+    if health.get('managedMode',False)!=actual.get('managedMode',False):raise DeployError('managed-schema-incompatible')
     if not health['schemaReady'] or health['topicsMode']!=(actual['mode']=='topics') or not topicSchemaCompatibility(actual['requiredMigration'],capabilities,actual['mode']):raise DeployError('topic-schema-incompatible')
 
 

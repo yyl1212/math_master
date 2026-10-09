@@ -86,11 +86,18 @@ def verify_topic_readiness(value: dict) -> dict:
     return topic
 
 
+def verify_content_readiness(value: dict) -> dict:
+    content=value.get('content')
+    if content is None:return {}
+    if value.get('status')!='ready' or not isinstance(content,dict) or set(content)!={'capability','schemaReady','managedMode'} or any(type(v) is not bool for v in content.values()) or not content['schemaReady'] or not content['capability']:raise VerifyError('managed-schema-incompatible')
+    return content
+
+
 def check(origin: str,requests: int,concurrency: int) -> dict:
     if origin!=common.ORIGIN or not 1<=requests<=100 or not 1<=concurrency<=4:
         raise VerifyError('invalid-verification-input')
     certificate=tls(origin)
-    topic=verify_topic_readiness(json.loads(read_ok(origin+"/readyz")["body"]))
+    ready=json.loads(read_ok(origin+"/readyz")["body"]);topic=verify_topic_readiness(ready);content=verify_content_readiness(ready)
     redirect=request('http://43.135.142.53/login')
     if redirect['status'] not in [301,302,307,308] or redirect['headers'].get('Location')!=origin+'/login':
         raise VerifyError('http-redirect-invalid')
@@ -102,9 +109,12 @@ def check(origin: str,requests: int,concurrency: int) -> dict:
     cookie=cookies.get('__Host-mm_preauth')
     if cookie is None or not cookie['secure'] or not cookie['httponly'] or cookie['path']!='/' or cookie['domain'] or cookie['samesite'].lower()!='lax':
         raise VerifyError('production-cookie-invalid')
-    if request(origin+DRAFT)['status']!=401:raise VerifyError('anonymous-draft-accessible')
-    preview=read_ok(origin+PREVIEW)['body'].decode('utf-8')
-    if 'Sign in to view your account' not in preview or 'href="/login"' not in preview or 'PRIVATE DRAFT PREVIEW' in preview:
+    if request(origin+DRAFT)['status']!=(410 if content.get('managedMode') else 401):raise VerifyError('anonymous-draft-accessible')
+    previewResponse=request(origin+PREVIEW);preview=previewResponse['body'].decode('utf-8')
+    if content.get('managedMode'):
+        if previewResponse['status'] not in [302,303,307,308] or previewResponse['headers'].get('Location')!='/account':raise VerifyError('retired-preview-invalid')
+    elif previewResponse['status']!=200:raise VerifyError('anonymous-preview-invalid')
+    if not content.get('managedMode') and ('Sign in to view your account' not in preview or 'href="/login"' not in preview or 'PRIVATE DRAFT PREVIEW' in preview):
         raise VerifyError('anonymous-preview-invalid')
     html=login['body'].decode('utf-8')
     stylesheets={asset_url(origin+'/login',value,origin) for value in re.findall(r'href="([^\"]+\.css(?:\?[^\"]*)?)"',html)}

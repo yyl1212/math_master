@@ -253,3 +253,30 @@ type KnowledgeSummary struct {
 	EditToken  string    `json:"editToken"`
 	UpdatedAt  time.Time `json:"updatedAt"`
 }
+
+// CutoverInput is accepted only by the local, protected maintenance command.
+type CutoverInput struct {
+	ActorID         string    `json:"actorId"`
+	OldIDs          []string  `json:"oldIds"`
+	BackupRecord    string    `json:"backupRecord"`
+	BackupCreatedAt time.Time `json:"backupCreatedAt"`
+	RestoreVerified bool      `json:"restoreVerified"`
+	OffsiteVerified bool      `json:"offsiteVerified"`
+	CodeSHA         string    `json:"codeSha"`
+}
+type CutoverPlan struct {
+	Input                CutoverInput   `json:"input"`
+	Counts               map[string]int `json:"counts"`
+	OldFingerprint       string         `json:"oldFingerprint"`
+	ProtectedFingerprint string         `json:"protectedFingerprint"`
+	PlanSHA              string         `json:"planSha"`
+	PlannedAt            time.Time      `json:"plannedAt"`
+}
+type CutoverReceipt struct {
+	OperationID            string         `json:"operationId"`
+	PlanSHA                string         `json:"planSha"`
+	RemovedPublicKnowledge int            `json:"removedPublicKnowledge"`
+	Counts                 map[string]int `json:"counts"`
+	ProtectedFingerprint   string         `json:"protectedFingerprint"`
+	RecordedAt             time.Time      `json:"recordedAt"`
+}

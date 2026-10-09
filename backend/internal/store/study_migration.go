@@ -77,6 +77,20 @@ func (s *Store) MigrateLegacyStudyBatch(ctx context.Context, limit int, cursor *
 	if _, e = tx.ExecContext(ctx, "SET LOCAL lock_timeout='1s'"); e != nil {
 		return out, studyError(e)
 	}
+	var managedMigration bool
+	if e = tx.QueryRowContext(ctx, `SELECT EXISTS(SELECT 1 FROM goose_db_version WHERE version_id=13 AND is_applied)`).Scan(&managedMigration); e != nil {
+		return out, studyError(e)
+	}
+	if managedMigration && knowledgeConfigured(ctx, tx) != nil {
+		return out, study.ErrNotConfigured
+	}
+	var managedMarker bool
+	if e = tx.QueryRowContext(ctx, `SELECT coalesce((to_jsonb(g)->>'managed_knowledge_enabled')::boolean,false) FROM goose_db_version g WHERE version_id=0`).Scan(&managedMarker); e != nil {
+		return out, studyError(e)
+	}
+	if managedMarker {
+		return out, study.ErrModuleRetired
+	}
 	// Maintenance requires A/B/C, but does not need to materialize the public
 	// knowledge scope for every finite batch. Lock the same mode fence first.
 	var mode taxonomy.ExperienceMode
@@ -100,6 +114,13 @@ func (s *Store) MigrateLegacyStudyBatch(ctx context.Context, limit int, cursor *
 			return out, studyError(e)
 		}
 	}
+	if e = tx.QueryRowContext(ctx, `SELECT coalesce((to_jsonb(g)->>'managed_knowledge_enabled')::boolean,false) FROM goose_db_version g WHERE version_id=0`).Scan(&managedMarker); e != nil {
+		return out, studyError(e)
+	}
+	if managedMarker {
+		return out, study.ErrModuleRetired
+	}
+
 	if _, e = tx.ExecContext(ctx, "SELECT pg_advisory_xact_lock(1296127050)"); e != nil {
 		return out, studyError(e)
 	}

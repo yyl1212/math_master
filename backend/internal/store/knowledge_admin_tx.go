@@ -52,15 +52,7 @@ func knowledgeIdentity(ctx context.Context, tx *sql.Tx, a knowledgeadmin.Access,
 	return u, nil
 }
 func knowledgeConfigured(ctx context.Context, tx *sql.Tx) error {
-	var n int
-	e := tx.QueryRowContext(ctx, `SELECT count(*) FROM unnest(ARRAY['knowledge_admin_state','managed_knowledge','managed_knowledge_topics','managed_knowledge_sources','managed_knowledge_imports','managed_knowledge_events','managed_study_records','managed_study_notes','managed_study_events','managed_study_idempotency','managed_study_content_changes']) name WHERE to_regclass('public.'||name) IS NOT NULL`).Scan(&n)
-	if e != nil {
-		return e
-	}
-	if n != 11 {
-		return knowledgeadmin.ErrNotConfigured
-	}
-	return nil
+	return managedSchemaIntegrity(ctx, tx)
 }
 func (s *Store) knowledgeTx(ctx context.Context, a knowledgeadmin.Access, write, admin bool, fn func(context.Context, *sql.Tx, auth.User) error) error {
 	ctx, cancel := context.WithTimeout(ctx, 8*time.Second)
