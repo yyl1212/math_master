@@ -1061,14 +1061,25 @@
       "module": "managed",
       "complete": true,
       "messageKeys": [
-        "managed.admin",
-        "managed.learn",
-        "managed.statement",
-        "managed.note",
-        "managed.map"
+        "managed.map",
+        "managed.taxonomy",
+        "managed.searchTopics",
+        "managed.search",
+        "managed.previous",
+        "managed.next",
+        "topic.map.level1",
+        "topic.map.level2",
+        "topic.map.level3",
+        "topic.map.knowledge",
+        "topic.map.empty",
+        "topic.map.noKnowledgeResults",
+        "public.publishedOne",
+        "public.publishedMany",
+        "managed.difficulty",
+        "topic.map.translationNote"
       ],
       "rawDataAreas": [
-        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+        "目录的英文名称和中文名称按现有语言偏好投影；分类键/链接不变，数学正文及来源保持原文"
       ],
       "scenarios": [
         "tests/e2e/ui-language-managed.spec.ts"

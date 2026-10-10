@@ -131,7 +131,7 @@ func currentTopicCount(ctx context.Context, tx *sql.Tx, key string) (int, error)
 func scanCurrentTopic(row knowledgeScanner) (out knowledgeadmin.CurrentTopic, e error) {
 	var id, kind string
 	var level int
-	e = row.Scan(&id, &out.TopicKey, &out.Title, &kind, &level)
+	e = row.Scan(&id, &out.TopicKey, &out.Title, &out.TitleEn, &kind, &level)
 	if e != nil {
 		return
 	}
@@ -146,11 +146,12 @@ func scanCurrentTopic(row knowledgeScanner) (out knowledgeadmin.CurrentTopic, e 
 			out.Kind = "specific"
 		}
 	}
+	out.Title, out.TitleEn, e = knowledgeadmin.DirectoryTitles(out.TopicKey, out.TitleEn, out.Title, out.Kind)
 	out.Items = knowledgeadmin.Page[knowledgeadmin.PublicKnowledge]{Items: []knowledgeadmin.PublicKnowledge{}, Limit: 20}
 	return
 }
 
-const currentTopicSelect = `SELECT n.id,n.code,coalesce(nullif(n.body->>'nameZh',''),n.body->>'name',n.code),n.kind,n.level FROM taxonomy_nodes n JOIN taxonomy_heads h ON h.singleton JOIN taxonomy_releases r ON r.id=h.release_id AND r.status='published' AND r.taxonomy_version_id=n.taxonomy_version_id`
+const currentTopicSelect = `SELECT n.id,n.code,coalesce(nullif(n.body->>'nameZh',''),n.body->>'name',n.code),coalesce(nullif(n.body->>'name',''),nullif(n.body->>'nameZh',''),n.code),n.kind,n.level FROM taxonomy_nodes n JOIN taxonomy_heads h ON h.singleton JOIN taxonomy_releases r ON r.id=h.release_id AND r.status='published' AND r.taxonomy_version_id=n.taxonomy_version_id`
 
 func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (out knowledgeadmin.Page[knowledgeadmin.CurrentTopic], e error) {
 	q, e = normalizeKnowledgeQuery(q)
@@ -160,22 +161,27 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 	out = knowledgeadmin.Page[knowledgeadmin.CurrentTopic]{Items: []knowledgeadmin.CurrentTopic{}, Limit: q.Limit, Offset: q.Offset}
 	e = s.currentTx(ctx, func(ctx context.Context, tx *sql.Tx) error {
 		prefix := topicPrefix(q.TopicKey)
+		names, e := knowledgeadmin.DirectoryChineseSearch(q.Q)
+		if e != nil {
+			return e
+		}
+		namesJSON := knowledgeJSON(names)
 		level := 1
 		if len(prefix) == 2 {
 			level = 2
 		} else if len(prefix) == 3 {
 			level = 3
 		}
-		filter := ` WHERE n.kind<>'auxiliary' AND n.level=$1 AND ($2='' OR n.code LIKE $2||'%') AND ($3='' OR n.body->>'nameZh' ILIKE '%'||$3||'%' OR n.body->>'name' ILIKE '%'||$3||'%')`
+		filter := ` WHERE n.kind<>'auxiliary' AND n.level=$1 AND ($2='' OR n.code LIKE $2||'%') AND ($3='' OR n.body->>'nameZh' ILIKE '%'||$3||'%' OR n.body->>'name' ILIKE '%'||$3||'%' OR EXISTS(SELECT 1 FROM taxonomy_nodes hit WHERE hit.taxonomy_version_id=n.taxonomy_version_id AND ($4::jsonb->upper(hit.code)->>'english')=hit.body->>'name' AND ($4::jsonb->upper(hit.code)->>'kind')=(CASE WHEN hit.kind='primary' THEN CASE hit.level WHEN 1 THEN 'primary' WHEN 2 THEN 'secondary' WHEN 3 THEN 'specific' END ELSE hit.kind END) AND (hit.id=n.id OR (n.level=1 AND left(hit.code,2)=left(n.code,2)) OR (n.level=2 AND left(hit.code,3)=left(n.code,3)))))`
 		var n int
-		if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM taxonomy_nodes n JOIN taxonomy_heads h ON h.singleton JOIN taxonomy_releases r ON r.id=h.release_id AND r.status='published' AND r.taxonomy_version_id=n.taxonomy_version_id`+filter, level, prefix, q.Q).Scan(&n); e != nil {
+		if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM taxonomy_nodes n JOIN taxonomy_heads h ON h.singleton JOIN taxonomy_releases r ON r.id=h.release_id AND r.status='published' AND r.taxonomy_version_id=n.taxonomy_version_id`+filter, level, prefix, q.Q, namesJSON).Scan(&n); e != nil {
 			return e
 		}
 		out.Total = n
 		if prefix == "" {
 			out.Total++
 		}
-		rows, e := tx.QueryContext(ctx, currentTopicSelect+filter+" ORDER BY n.code LIMIT $4 OFFSET $5", level, prefix, q.Q, q.Limit, q.Offset)
+		rows, e := tx.QueryContext(ctx, currentTopicSelect+filter+" ORDER BY n.code LIMIT $5 OFFSET $6", level, prefix, q.Q, namesJSON, q.Limit, q.Offset)
 		if e != nil {
 			return e
 		}
@@ -193,7 +199,7 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 			return e
 		}
 		if prefix == "" && q.Offset+len(out.Items) >= n && len(out.Items) < q.Limit {
-			out.Items = append(out.Items, knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", Kind: "project-other", Items: knowledgeadmin.Page[knowledgeadmin.PublicKnowledge]{Items: []knowledgeadmin.PublicKnowledge{}, Limit: 20}})
+			out.Items = append(out.Items, knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", TitleEn: "Project other", Kind: "project-other", Items: knowledgeadmin.Page[knowledgeadmin.PublicKnowledge]{Items: []knowledgeadmin.PublicKnowledge{}, Limit: 20}})
 		}
 		for i := range out.Items {
 			out.Items[i].KnowledgeCount, e = currentTopicCount(ctx, tx, out.Items[i].TopicKey)
@@ -208,7 +214,7 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 func (s *Store) ReadCurrentTopic(ctx context.Context, key string, q knowledgeadmin.Query) (out knowledgeadmin.CurrentTopic, e error) {
 	e = s.currentTx(ctx, func(ctx context.Context, tx *sql.Tx) error {
 		if topicPrefix(key) == "project:other" {
-			out = knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", Kind: "project-other"}
+			out = knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", TitleEn: "Project other", Kind: "project-other"}
 		} else {
 			var e error
 			out, e = scanCurrentTopic(tx.QueryRowContext(ctx, currentTopicSelect+" WHERE n.kind<>'auxiliary' AND (n.id=$1 OR upper(n.code)=upper($1))", key))

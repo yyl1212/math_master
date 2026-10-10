@@ -5964,6 +5964,8 @@ export interface components {
         ManagedCurrentTopic: {
             topicKey: string;
             title: string;
+            /** @description Canonical English directory name. The existing title remains the Chinese name; older responses may omit this field. */
+            titleEn?: string;
             /** @enum {string} */
             kind: "primary" | "secondary" | "specific" | "other" | "project-other";
             knowledgeCount: number;

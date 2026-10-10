@@ -25,6 +25,7 @@ export const enMessages = {
   "managed.type.mathematical-thinking": {"text": "Mathematical thinking", "params": []},
   "managed.type.other": {"text": "Other", "params": []},
 
+  "topic.map.translationNote": {"text": "Chinese topic names are unofficial translations for study. Sources:", "params": []},
   "managed.admin": {"text": "Knowledge management", "params": []},
   "managed.upload": {"text": "Upload knowledge files", "params": []},
   "managed.uploadPublish": {"text": "Upload and publish", "params": []},

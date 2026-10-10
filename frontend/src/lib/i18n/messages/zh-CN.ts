@@ -27,6 +27,7 @@ export const zhMessages = {
   "managed.type.mathematical-thinking": "数学思想",
   "managed.type.other": "其他",
 
+  "topic.map.translationNote": "中文主题名为非官方学习译名。来源：",
   "managed.admin": "知识管理",
   "managed.upload": "上传知识文件",
   "managed.uploadPublish": "上传并发布",

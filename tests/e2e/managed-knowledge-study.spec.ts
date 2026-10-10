@@ -5,21 +5,53 @@ test('knowledge map names topics and clearly navigates all three levels',async({
  await page.getByRole('button',{name:'中文',exact:true}).click();
  await expect(page.getByRole('heading',{name:'一级主题',exact:true})).toBeVisible();
  await expect(page.locator('main a[href="/topics/00-XX"] p')).toHaveText('已发布 0 个知识点');
+ await expect(page.locator('main a[href="/topics/00-XX"] h3')).toHaveText('原创主题 00-XX');
+ await page.getByLabel('检索主题',{exact:true}).fill('保留搜索');
+ await page.getByRole('button',{name:'English',exact:true}).click();
+ await expect(page.locator('main a[href="/topics/00-XX"] h3')).toHaveText('Original fixture theme 00-XX');
+ await expect(page.getByRole('textbox',{name:'Search themes',exact:true})).toHaveValue('保留搜索');
+ await page.getByRole('button',{name:'中文',exact:true}).click();
  await page.locator('main a[href="/topics/00-XX"]').click();
  await expect(page.getByRole('heading',{name:'二级主题',exact:true})).toBeVisible();
  await expect(page.getByText('此主题暂无已发布知识点。',{exact:true})).toBeVisible();
- await expect(page.locator('main a[href="/topics/00Axx"]')).toBeVisible();
+ await expect(page.locator('main a[href="/topics/00Axx"] h3')).toHaveText('原创二级主题 00Axx');
+ await page.getByRole('button',{name:'English',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Original fixture theme 00-XX',exact:true})).toBeVisible();
+ await expect(page.locator('main a[href="/topics/00Axx"] h3')).toHaveText('Original fixture subtheme 00Axx');
+ await page.getByRole('button',{name:'中文',exact:true}).click();
  await page.locator('main a[href="/topics/00Axx"]').click();
  await expect(page.getByRole('heading',{name:'具体主题',exact:true})).toBeVisible();
- await expect(page.locator('main a[href="/topics/00A00"]')).toBeVisible();
+ await expect(page.locator('main a[href="/topics/00A00"] h3')).toHaveText('原创具体主题 00A00');
+ await page.getByRole('button',{name:'English',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'Original fixture subtheme 00Axx',exact:true})).toBeVisible();
+ await expect(page.locator('main a[href="/topics/00A00"] h3')).toHaveText('Original fixture specific 00A00');
+ await page.getByRole('button',{name:'中文',exact:true}).click();
  await page.locator('main a[href="/topics/00A00"]').click();
  await expect(page.getByRole('heading',{name:'可阅读知识点',exact:true})).toBeVisible();
  await expect(page.getByText('此主题暂无已发布知识点。',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'English',exact:true}).click();
  await expect(page.getByRole('heading',{name:'Knowledge to read',exact:true})).toBeVisible();
+ await expect(page.getByRole('heading',{name:'Original fixture specific 00A00',exact:true})).toBeVisible();
+ await page.goto('/topics/project-other');await expect(page.getByRole('heading',{name:'Project other',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByRole('heading',{name:'项目其他',exact:true})).toBeVisible();
 });
 test('learner keeps notes and timeline across current knowledge edits',async({page,request,runtime,scene})=>{await scene('managed-knowledge');await page.goto('/login');await page.getByLabel('Username',{exact:true}).fill('auth_learner');await page.getByLabel('Password',{exact:true}).fill(TEST_PASSWORD);await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page).toHaveURL(/\/learn$/);await page.goto('/knowledge/'+id);await page.getByRole('button',{name:'Start learning',exact:true}).click();await page.getByRole('button',{name:'Complete learning',exact:true}).click();await page.getByLabel('Private note',{exact:true}).fill('Own note remains after a correction.');await page.getByRole('button',{name:'Save note',exact:true}).click();await expect(page.getByText('Note saved.',{exact:true})).toBeVisible();const update=await request.post(runtime.controlURL+'/managed-knowledge/update',{headers:{Authorization:'Bearer '+runtime.token}});expect(update.status()).toBe(204);await page.reload();await expect(page.getByText('Completed',{exact:true})).toBeVisible();await expect(page.getByText('Content was corrected. Your progress and notes are retained; review it when ready.')).toBeVisible();await expect(page.getByLabel('Private note',{exact:true})).toHaveValue('Own note remains after a correction.');await page.goto('/learning-history');await expect(page.getByRole('heading',{name:'Learning history',exact:true})).toBeVisible();await expect(page.locator('ol li')).toHaveCount(3);const down=await request.post(runtime.controlURL+'/managed-knowledge/unpublish',{headers:{Authorization:'Bearer '+runtime.token}});expect(down.status()).toBe(204);await page.goto('/knowledge/'+id);await expect(page.getByLabel('Private note',{exact:true})).toHaveValue('Own note remains after a correction.');await expect(page.getByLabel('Private note',{exact:true})).toBeDisabled();await expect(page.getByText('Knowledge is unavailable. Existing notes and history are retained.',{exact:true})).toBeVisible()});
 
 test('knowledge corrections synchronize the displayed body and preserve a note draft without reload',async({page,request,runtime,scene})=>{await scene('managed-knowledge');await page.goto('/login');await page.getByLabel('Username',{exact:true}).fill('auth_learner');await page.getByLabel('Password',{exact:true}).fill(TEST_PASSWORD);await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page).toHaveURL(/\/learn$/);await page.goto('/knowledge/'+id);await page.getByRole('button',{name:'Start learning',exact:true}).click();await expect(page.getByRole('button',{name:'Complete learning',exact:true})).toBeVisible();let change=await request.post(runtime.controlURL+'/managed-knowledge/update',{headers:{Authorization:'Bearer '+runtime.token}});expect(change.status()).toBe(204);await page.getByRole('button',{name:'Complete learning',exact:true}).click();await expect(page.locator('article').getByText(/Browser correction preserves learning notes\./)).toBeVisible();await page.getByRole('button',{name:'Complete learning',exact:true}).click();await expect(page.getByText('Completed',{exact:true})).toBeVisible();await page.getByLabel('Private note',{exact:true}).fill('不刷新页面时仍保留的数学草稿。');change=await request.post(runtime.controlURL+'/managed-knowledge/update',{headers:{Authorization:'Bearer '+runtime.token}});expect(change.status()).toBe(204);await page.getByRole('button',{name:'Save note',exact:true}).click();await expect(page.getByLabel('Private note',{exact:true})).toHaveValue('不刷新页面时仍保留的数学草稿。');await expect(page.getByLabel('Private note',{exact:true})).toBeEnabled();await page.getByRole('button',{name:'Save note',exact:true}).click();await expect(page.getByText('Note saved.',{exact:true})).toBeVisible()});
 
 test('published related knowledge links disappear when its target is unavailable',async({page,request,runtime,scene})=>{await scene('managed-knowledge');const other='k-'+createHash('sha256').update('demo-equivalent-fractions').digest('hex').slice(0,56);await page.goto('/knowledge/'+other);await expect(page.getByRole('link',{name:'demo-rational-fraction',exact:true})).toHaveAttribute('href','/knowledge/'+id);const down=await request.post(runtime.controlURL+'/managed-knowledge/unpublish',{headers:{Authorization:'Bearer '+runtime.token}});expect(down.status()).toBe(204);await page.reload();await expect(page.getByRole('link',{name:'demo-rational-fraction',exact:true})).toHaveCount(0);await expect(page.getByText(/demo-rational-fraction/)).toBeVisible()});
+
+
+
+test('missing directory Chinese names use the verified display dictionary and remain searchable',async({page,scene})=>{
+ await scene('managed-knowledge');await page.goto('/topics/15Axx');
+ await expect(page.getByRole('heading',{name:'Basic linear algebra',exact:true})).toBeVisible();
+ await expect(page.locator('main a[href="/topics/15A06"] h3')).toHaveText('Linear equations (linear algebraic aspects)');
+ await page.getByRole('button',{name:'中文',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'基本线性代数',exact:true})).toBeVisible();
+ await expect(page.locator('main a[href="/topics/15A06"] h3')).toHaveText('线性方程（线性代数层面）');
+ await page.locator('main a[href="/topics/15A06"]').click();await expect(page.getByRole('heading',{name:'线性方程（线性代数层面）',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'English',exact:true}).click();await expect(page.getByRole('heading',{name:'Linear equations (linear algebraic aspects)',exact:true})).toBeVisible();
+ await page.goto('/knowledge');await page.getByRole('textbox',{name:'Search themes',exact:true}).fill('线性方程');await page.getByRole('button',{name:'Search themes',exact:true}).click();
+ await expect(page.locator('main')).toContainText('Linear and multilinear algebra; matrix theory');
+});
