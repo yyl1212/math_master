@@ -1,6 +1,7 @@
 package store_test
 
 import (
+	"encoding/json"
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/taxonomy"
@@ -106,12 +107,44 @@ func TestManagedPublicDirectoryAndOtherGroups(t *testing.T) {
 	if e != nil || parent.KnowledgeCount != 2 {
 		t.Fatal("ancestor count", parent, e)
 	}
+	assertTopicNames(t, parent, "原创主题 97-XX", "Original fixture theme 97-XX")
 	leaf, e := f.repo.ReadCurrentTopic(f.ctx, "97F40", knowledgeadmin.Query{})
 	if e != nil || leaf.KnowledgeCount != 2 {
 		t.Fatal("leaf", leaf, e)
 	}
+	assertTopicNames(t, leaf, "原创具体主题 97F00", "Original fixture specific 97F00")
 	other, e := f.repo.ReadCurrentTopic(f.ctx, "project-other", knowledgeadmin.Query{})
 	if e != nil || other.Kind != "project-other" || other.KnowledgeCount != 0 {
 		t.Fatal(other, e)
+	}
+	assertTopicNames(t, other, "项目其他", "Project other")
+	children, e := f.repo.ListCurrentTopics(f.ctx, knowledgeadmin.Query{TopicKey: "97-XX", Limit: 100})
+	if e != nil {
+		t.Fatal(e)
+	}
+	found := false
+	for _, child := range children.Items {
+		if child.TopicKey == "97Fxx" {
+			found = true
+			assertTopicNames(t, child, "原创二级主题 97Fxx", "Original fixture subtheme 97Fxx")
+		}
+	}
+	if !found {
+		t.Fatal("secondary missing")
+	}
+}
+
+func assertTopicNames(t *testing.T, topic knowledgeadmin.CurrentTopic, zh, en string) {
+	t.Helper()
+	b, e := json.Marshal(topic)
+	if e != nil {
+		t.Fatal(e)
+	}
+	var v map[string]any
+	if e = json.Unmarshal(b, &v); e != nil {
+		t.Fatal(e)
+	}
+	if v["title"] != zh || v["titleEn"] != en {
+		t.Fatalf("bilingual names missing: title=%v titleEn=%v", v["title"], v["titleEn"])
 	}
 }

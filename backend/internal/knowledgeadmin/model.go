@@ -186,6 +186,7 @@ type Page[T any] struct {
 type CurrentTopic struct {
 	TopicKey       string                `json:"topicKey"`
 	Title          string                `json:"title"`
+	TitleEn        string                `json:"titleEn"`
 	Kind           string                `json:"kind"`
 	KnowledgeCount int                   `json:"knowledgeCount"`
 	Items          Page[PublicKnowledge] `json:"items"`

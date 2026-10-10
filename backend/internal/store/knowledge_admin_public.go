@@ -131,7 +131,7 @@ func currentTopicCount(ctx context.Context, tx *sql.Tx, key string) (int, error)
 func scanCurrentTopic(row knowledgeScanner) (out knowledgeadmin.CurrentTopic, e error) {
 	var id, kind string
 	var level int
-	e = row.Scan(&id, &out.TopicKey, &out.Title, &kind, &level)
+	e = row.Scan(&id, &out.TopicKey, &out.Title, &out.TitleEn, &kind, &level)
 	if e != nil {
 		return
 	}
@@ -150,7 +150,7 @@ func scanCurrentTopic(row knowledgeScanner) (out knowledgeadmin.CurrentTopic, e 
 	return
 }
 
-const currentTopicSelect = `SELECT n.id,n.code,coalesce(nullif(n.body->>'nameZh',''),n.body->>'name',n.code),n.kind,n.level FROM taxonomy_nodes n JOIN taxonomy_heads h ON h.singleton JOIN taxonomy_releases r ON r.id=h.release_id AND r.status='published' AND r.taxonomy_version_id=n.taxonomy_version_id`
+const currentTopicSelect = `SELECT n.id,n.code,coalesce(nullif(n.body->>'nameZh',''),n.body->>'name',n.code),coalesce(nullif(n.body->>'name',''),nullif(n.body->>'nameZh',''),n.code),n.kind,n.level FROM taxonomy_nodes n JOIN taxonomy_heads h ON h.singleton JOIN taxonomy_releases r ON r.id=h.release_id AND r.status='published' AND r.taxonomy_version_id=n.taxonomy_version_id`
 
 func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (out knowledgeadmin.Page[knowledgeadmin.CurrentTopic], e error) {
 	q, e = normalizeKnowledgeQuery(q)
@@ -193,7 +193,7 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 			return e
 		}
 		if prefix == "" && q.Offset+len(out.Items) >= n && len(out.Items) < q.Limit {
-			out.Items = append(out.Items, knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", Kind: "project-other", Items: knowledgeadmin.Page[knowledgeadmin.PublicKnowledge]{Items: []knowledgeadmin.PublicKnowledge{}, Limit: 20}})
+			out.Items = append(out.Items, knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", TitleEn: "Project other", Kind: "project-other", Items: knowledgeadmin.Page[knowledgeadmin.PublicKnowledge]{Items: []knowledgeadmin.PublicKnowledge{}, Limit: 20}})
 		}
 		for i := range out.Items {
 			out.Items[i].KnowledgeCount, e = currentTopicCount(ctx, tx, out.Items[i].TopicKey)
@@ -208,7 +208,7 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 func (s *Store) ReadCurrentTopic(ctx context.Context, key string, q knowledgeadmin.Query) (out knowledgeadmin.CurrentTopic, e error) {
 	e = s.currentTx(ctx, func(ctx context.Context, tx *sql.Tx) error {
 		if topicPrefix(key) == "project:other" {
-			out = knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", Kind: "project-other"}
+			out = knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", TitleEn: "Project other", Kind: "project-other"}
 		} else {
 			var e error
 			out, e = scanCurrentTopic(tx.QueryRowContext(ctx, currentTopicSelect+" WHERE n.kind<>'auxiliary' AND (n.id=$1 OR upper(n.code)=upper($1))", key))

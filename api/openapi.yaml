@@ -47574,6 +47574,10 @@
           "title": {
             "type": "string"
           },
+          "titleEn": {
+            "type": "string",
+            "description": "Canonical English directory name. The existing title remains the Chinese name; older responses may omit this field."
+          },
           "kind": {
             "type": "string",
             "enum": [

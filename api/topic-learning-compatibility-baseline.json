@@ -2212,7 +2212,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "6489f3f9773d0d5d5a5675021474e39b88ec5777ca41124fff5d1bd4591762f7"
+        "sha256": "da8475672dbb9beeb89afcc245a57cf61ff66fcd8a5569bc2b0ca55066936657"
       }
     },
     "backend/cmd/server/main.go": {
@@ -2344,7 +2344,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "375f9bf387cae39c2f44cc0f09f9e099de63c41791ce76e5016dab570c3943bf"
+        "sha256": "1234a91593bb26738ca4baa24e3937d4e41f0e7f8fadec2f698cccc1706039ab"
       }
     },
     "frontend/src/app/admin/publications/page.tsx": {
@@ -2502,7 +2502,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "877c026dc5a4029e3130e6d08b8fa59f96ded03a32f73ab3d70ac6c7723c2122"
+        "sha256": "10bfae9054503b9f216b0b566dab68993bcc308728a167f7039e556a2e627208"
       }
     },
     "frontend/src/lib/i18n/messages/en.ts": {
@@ -3491,6 +3491,7 @@
       "backend/internal/store/knowledge_admin_public_test.go",
       "backend/internal/store/knowledge_admin_read.go",
       "backend/internal/store/knowledge_admin_schema_test.go",
+      "backend/internal/store/knowledge_admin_source_test.go",
       "backend/internal/store/knowledge_admin_study.go",
       "backend/internal/store/knowledge_admin_study_test.go",
       "backend/internal/store/knowledge_admin_tx.go",
@@ -3498,7 +3499,9 @@
       "backend/internal/store/knowledge_admin_write_test.go",
       "db/migrations/00013_admin_knowledge.sql",
       "docs/superpowers/plans/2026-10-09-admin-knowledge-direct.md",
+      "docs/superpowers/plans/2026-10-10-map-bilingual-import-100.md",
       "docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md",
+      "docs/superpowers/reports/2026-10-10-map-bilingual-import-100-verification.md",
       "docs/superpowers/specs/2026-10-09-admin-knowledge-direct-design.md",
       "frontend/src/app/admin/knowledge/[id]/page.tsx",
       "frontend/src/app/admin/knowledge/page.tsx",
@@ -3517,6 +3520,7 @@
       "frontend/src/features/study/managed-pages.tsx",
       "frontend/src/lib/api/knowledge-admin-proxy.test.ts",
       "frontend/src/lib/api/knowledge-admin-proxy.ts",
+      "frontend/src/lib/i18n/localized-name.tsx",
       "frontend/src/lib/knowledge-admin/client.test.ts",
       "frontend/src/lib/knowledge-admin/client.ts",
       "frontend/src/lib/knowledge-admin/mode-client.ts",
@@ -4615,7 +4619,7 @@
     "backend/internal/knowledgeadmin/digest_test.go": "31760ce31455a32be16e330f530bb2470207990b14d96dd0d1c607f0a0745ddc",
     "backend/internal/knowledgeadmin/import.go": "562cb29036ecf14dcb39b93e5b964af0cee50cef4c828c35d950567e876ca21a",
     "backend/internal/knowledgeadmin/import_test.go": "04701b1ff4435b8c1c9941eb853a2bab1945e684856900725ab99acdc8a8b7fc",
-    "backend/internal/knowledgeadmin/model.go": "132f7916b34d08b8ca2600551758d5fe3ebf24927bb057da0cde8c1c0ef32ce6",
+    "backend/internal/knowledgeadmin/model.go": "d985b729d66682947d7eddeea393c9808b1607f866ecb8eeeec41a8e2a505a41",
     "backend/internal/knowledgeadmin/repository.go": "3fb0733e357238ab046139911a0a74c92a6b34470cc567d8f290a39cd3bd830e",
     "backend/internal/knowledgeadmin/service.go": "f43bd13ff23977bc864a0fbdf643e8c25276da4ec3c088c172bfee03fac1075a",
     "backend/internal/knowledgeadmin/study.go": "5ed12bcdc6df2fca45762c448a587f40fdb1b2c3b4917c3ae76b3feefcc8b16b",
@@ -4636,10 +4640,11 @@
     "backend/internal/store/knowledge_admin_notes.go": "e8c6dffdafbaf0dfcdd3171ae1c58085405d3d6a9723a9f77f8465a03bb3acbc",
     "backend/internal/store/knowledge_admin_notes_test.go": "32bd95fe7dfbc3b4766b0a6e3105f0e0608f1652f61ead386c30aca49217fbf0",
     "backend/internal/store/knowledge_admin_permissions_test.go": "e6e0637c523eeb2cf22f4522088db36b34556fba4b2b20af23f5abcc349e01ae",
-    "backend/internal/store/knowledge_admin_public.go": "b0c5447d27f16c71e15c95414891e0bb5046c7f2bd00d779952cbd61956af17a",
-    "backend/internal/store/knowledge_admin_public_test.go": "9f4ad7fca3444acbcc56a2014edc90b2191586783b0c76f0893536c4522df939",
+    "backend/internal/store/knowledge_admin_public.go": "4dc45528417eafdffc1afa10195544b86c777355c5fbb45633b65fad8bae2c0b",
+    "backend/internal/store/knowledge_admin_public_test.go": "279df4ac472abcf1191ae50ae857ad2aa23428cad03a1dc57670816ad4065070",
     "backend/internal/store/knowledge_admin_read.go": "9295404f64fdb578a20776c26d326c8accbf328938fe2587991521061b27ca7f",
     "backend/internal/store/knowledge_admin_schema_test.go": "b371dba285d1ab25adbad20b22989a978b59b0e7db12efb19ee1f477e0e30e9c",
+    "backend/internal/store/knowledge_admin_source_test.go": "3b3f944e71f41e4bea5e7fe6f7062e80050aba7c91751cee9f63ba049829934f",
     "backend/internal/store/knowledge_admin_study.go": "a6f0f68723b509ba2320f39316c8905ce79b0999436c801029f314c95ff432e7",
     "backend/internal/store/knowledge_admin_study_test.go": "23ffb20a1a09ca3bcbd6878f9e627fedbb806f07b08129f049c31e6349656b66",
     "backend/internal/store/knowledge_admin_tx.go": "df25223cef4844bf20644c4a105f7c5aa8f4576436f5e9e49496d6c9f1edd797",
@@ -4734,8 +4739,8 @@
     "frontend/src/app/api/v2/topics/[[...segments]]/route.ts": "e4140851bc10c14c4f488cfd26f2320dfdd17048153e895c8b7e8e00c4b2aba3",
     "frontend/src/app/api/v3/[[...segments]]/route.ts": "e3abe75adb546be3d96f253905c2f74cacb526aedc6959dcbc1d36d5ec91285c",
     "frontend/src/app/topics/[id]/page.tsx": "f0edd16075d10ef8313ffad2ee0b608fa6fd30006d08c14027bf60b320309748",
-    "frontend/src/features/catalogue/current-catalogue.test.tsx": "fef39cfd867d4fe7cd20a0227aab1e9086e6a54cc27d3b7f61ba9dac76c0950f",
-    "frontend/src/features/catalogue/current-catalogue.tsx": "edc0becbfdef859e27266ef76830895f3bab91ed67f9ed3de6819d6306e47dac",
+    "frontend/src/features/catalogue/current-catalogue.test.tsx": "94d59fe17e39dbca37de567a7c2a19752f9b33684092e4b8eebe1d9a4aa47dfc",
+    "frontend/src/features/catalogue/current-catalogue.tsx": "e023e766d6a4cb65854075777a14636eddb79d1030201f79f1263fbf6c924882",
     "frontend/src/features/catalogue/topic-view.test.tsx": "4f6506575f4146a8f4ff337c33b06da26ba51a54042f0e899a979e9415a98c23",
     "frontend/src/features/catalogue/topic-view.tsx": "9fe75cccc05ad368fd63c934a49138fdbcf52dc52d4cf2ff36627498856228df",
     "frontend/src/features/content/topic-fields.test.tsx": "33974253bc178fd91812fb6bfcf6d7201d7c63c92ac8d86649839d63a8f1eb11",
@@ -4785,13 +4790,14 @@
     "frontend/src/lib/api/taxonomy-proxy.test.ts": "094e1cd8b543b29f65661a74f5918abf5fd6f30e4f0a6f6408904a891317b897",
     "frontend/src/lib/api/taxonomy-proxy.ts": "7b46971ce9f64d378c944f6690b3cbf942e2e5daf91f12aec14c588055495e54",
     "frontend/src/lib/api/topic-management-proxy.ts": "abd3e3a4e461ddb886ebbf4e8cb2523e329000d0505d9547933413e26d6f16d6",
+    "frontend/src/lib/i18n/localized-name.tsx": "7dad2f882bf38ab2b9aa2a1f4c713c0efe4952260098f1fb47330e355ee1f3ef",
     "frontend/src/lib/knowledge-admin/client.test.ts": "0f6fef9340dda4e8fb0c5308c16642ac11f5c127687f3169f4b714e817bf73dc",
     "frontend/src/lib/knowledge-admin/client.ts": "505ab39169560b80a06b6fc5cc34a79077041b7e3bf192c7f598ca3ad3b6d529",
     "frontend/src/lib/knowledge-admin/mode-client.ts": "c7e6e9ab42b3d4de66971aaee158cd8110385b352f73e0bd0239586aefee60c1",
     "frontend/src/lib/knowledge-admin/mode.test.ts": "33478b07f3303c1ebc75e6d4246a5ead2fbe1a6f8d458b91326140926344cb8c",
     "frontend/src/lib/knowledge-admin/mode.ts": "4ad530baccff99182f6a01dbad414c3d3860f8e64eb62166dd6ac6ada5472c83",
-    "frontend/src/lib/knowledge-admin/schemas.test.ts": "33f7f62423602f84c7a774b22e8cd13d69f23897b0c75bd20f705963be426176",
-    "frontend/src/lib/knowledge-admin/schemas.ts": "4d297370f8d7c5c5168a7ea4a032b24c4e97dc9b7662f2237e0787860bf676a7",
+    "frontend/src/lib/knowledge-admin/schemas.test.ts": "6fa913f05ede86c0e41c7605b9a02818a9b57cf9aa58a3e7ad970e3e861adce3",
+    "frontend/src/lib/knowledge-admin/schemas.ts": "bb469d1ef07aac7c15d9adc55d0c95e9be5854b655ad43fcf0e55b54b51b9bbb",
     "frontend/src/lib/knowledge-admin/server-client.ts": "74740228c005fab7f1be04047c5a2802e4eab53abf9c622a276169810b58b616",
     "frontend/src/lib/knowledge-admin/types.ts": "ed63f5e16279c75ea016ec9b350005061a89cb030d0cd4bcb5103febf481d4a2",
     "frontend/src/lib/study/client.test.ts": "8af01001b15f3647279b583b42c9ef4b7ece522403438a74215bcfe511550cb1",
@@ -4826,7 +4832,7 @@
     "schemas/topic-assignment.schema.json": "8eadef262a5a207c0b14eb9e0ace30dccac0418641e8cb72cf3934be8e09cc63",
     "schemas/topic-catalogue.schema.json": "57897299f7c14977688c8ca09eb16fca47a6ae7c114d351f8c880b10e994f5ae",
     "tests/e2e/admin-knowledge-direct.spec.ts": "4f6cd8dba00bc4e5ce66a4c26560c0557f038ff2657d39ddd0dcf71e534ce7a3",
-    "tests/e2e/managed-knowledge-study.spec.ts": "0d78ba79f62059185ba23a3139b3331adf95dc881e0c7ef3df7f5618947115c5",
+    "tests/e2e/managed-knowledge-study.spec.ts": "ad427b56502d9c4e749908669f56109452fb3ad39b1f294bb410db054b6c9a9e",
     "tests/e2e/topic-content-corrections.spec.ts": "1e8bb27541de77c08501ae6d4b2b9531a699ae0e0479c42649247bc4a939cd63",
     "tests/e2e/topic-feedback.spec.ts": "0dcd74ff39567998d1ff6e27ac0a3cc6ebb750339fea68104c3c1627928eacf3",
     "tests/e2e/topic-learning-archive.spec.ts": "28160bcac4ba3d3dcc3efb8bfd8952c8ee6ae9f8e0ea1c0c7ea88818f36dceb0",
@@ -4838,7 +4844,7 @@
     "tests/e2e/topic-study-progress.spec.ts": "ddf09cbb5c744c588cb0dc10b0d822bccf66f33cc87cf6cdc1b78cbba3de2255",
     "tests/e2e/topic-study-security.spec.ts": "280a358ed5751afe71b92c8efb7949a6cc747a07fb8fd32dc817249a3d078b60",
     "tests/e2e/ui-language-cutover.spec.ts": "9d9f3b9085ccd1ff68c4cdf0289ba9d3edc63483d7f814a1386c69e0f1073118",
-    "tests/e2e/ui-language-managed.spec.ts": "87b48ea38c422adf4dadffe4b5eeb21b78b605608c47da48918baf1ab9170fe1",
+    "tests/e2e/ui-language-managed.spec.ts": "36d1de2afe54d20100448f0be06b1111e5f17353d768ada8f28f3da15cc04698",
     "tests/e2e/ui-language-study.spec.ts": "5dceeeb7fe580a2bdd37d6d5f62aacf0e340c1ef1c75e239b57c1b16e76b8de2",
     "tests/e2e/ui-language-taxonomy.spec.ts": "acbc7ffd96d8bea01302a18074ac1c33eb9e0f7cf096953442990c5036f74bd3",
     "tools/topic-ingest/adapters.mjs": "d795204ee9c45a439169104b3be5d8b2fb7b9a8ed4c1e0799500d8ee11b76abe",
@@ -4856,7 +4862,7 @@
     "tools/topic-ingest/test-fixtures.mjs": "5f2ef429e3701f8326bb5255d10396e4f5105fa5d322c337ea3b0f0eea675d13",
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
-    "tools/verify/admin-knowledge-approved-paths.json": "f2bd4f63ef7d563352099a8b56d04a77819d6129dbda0283fdf6ea7100b56a93",
+    "tools/verify/admin-knowledge-approved-paths.json": "f54ff49314a8c5239558e521fb29f1220dd73a21360452988e0c2c32002f029e",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
     "tools/verify/topic-learning-ci.test.mjs": "d401ee5d14c1cd4c7e1959365612d33a6f2e2a570364e3136b7d96bf8bf8e145",
