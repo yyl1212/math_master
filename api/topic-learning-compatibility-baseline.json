@@ -2344,7 +2344,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "84ad0a555dc444a621f8146313d85aacc813aebe021da13f7fbfc8157d9e66e7"
+        "sha256": "69fb78a5415e6c7a44d0277b36b5ffc5b7453bb90e20838d91b3d014833e153a"
       }
     },
     "frontend/src/app/admin/publications/page.tsx": {
@@ -2519,7 +2519,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "8f2ed9458b7b78380d4ba2f8ca8903a9ad377130b7f517aab960ff23bdfdf02b"
+        "sha256": "eb72f4f198becceb184b6da5ea3fa49107ea3c5651783d2611fdb685c2f8a019"
       }
     },
     "frontend/src/lib/i18n/messages/zh-CN.ts": {
@@ -2536,7 +2536,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "900aa6ea3ecbf97fb98dd9387bd1e09bc816143ae9b8f6a90381cfc40ef42e9b"
+        "sha256": "f629e09241273ac502b9787dc9e39694fbe5f40eb7fde09d5410197f8de84ca3"
       }
     },
     "frontend/src/lib/i18n/page-titles.ts": {
@@ -3503,6 +3503,7 @@
       "docs/operations/topic-map-translations.md",
       "docs/superpowers/plans/2026-10-09-admin-knowledge-direct.md",
       "docs/superpowers/plans/2026-10-10-map-bilingual-import-100.md",
+      "docs/superpowers/plans/2026-10-10-my-learning-layout.md",
       "docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md",
       "docs/superpowers/reports/2026-10-10-map-bilingual-import-100-verification.md",
       "docs/superpowers/specs/2026-10-09-admin-knowledge-direct-design.md",
@@ -3518,6 +3519,8 @@
       "frontend/src/features/reading/current-knowledge-view.tsx",
       "frontend/src/features/study/managed-controls.tsx",
       "frontend/src/features/study/managed-history.tsx",
+      "frontend/src/features/study/managed-learn-page.test.tsx",
+      "frontend/src/features/study/managed-learning-view.tsx",
       "frontend/src/features/study/managed-note-editor.tsx",
       "frontend/src/features/study/managed-pages.test.tsx",
       "frontend/src/features/study/managed-pages.tsx",
@@ -3533,6 +3536,7 @@
       "frontend/src/lib/knowledge-admin/schemas.ts",
       "frontend/src/lib/knowledge-admin/server-client.ts",
       "frontend/src/lib/knowledge-admin/types.ts",
+      "frontend/src/styles/managed-learning.module.css",
       "ops/knowledge-cutover.py",
       "ops/tests/test_knowledge_cutover.py",
       "schemas/knowledge-manifest.schema.json",
@@ -4778,9 +4782,11 @@
     "frontend/src/features/study/legacy-archive.tsx": "d13cfcf3dcbb85e56d815579bb3a4b2a718f45d9d31eabc452815f62557ce69a",
     "frontend/src/features/study/managed-controls.tsx": "5399ab01bb8d39c89ff3c649e6df4351115bb591735f8d743bba4798e26d253f",
     "frontend/src/features/study/managed-history.tsx": "789607b5b43e7cee976f54fced6bd49981e1040e2b3c769160da728acf7407fc",
+    "frontend/src/features/study/managed-learn-page.test.tsx": "11ffc89c321432cec6692811f14eab77a191410e3a4dff74c5246c1eb1eb8fc7",
+    "frontend/src/features/study/managed-learning-view.tsx": "62c3d829c8451bb2e8e25e3b4b7f193d97ce01a204fbe04bf95b4e6a8f4c79a6",
     "frontend/src/features/study/managed-note-editor.tsx": "788e18574e0a205e816e458d99be4a1bf89542f21be306a0fb40a7a70fd968ad",
     "frontend/src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a",
-    "frontend/src/features/study/managed-pages.tsx": "87e060414a9f05c35f4584e75d0ba674da8c7a193dde0cc23da03dcdf5324741",
+    "frontend/src/features/study/managed-pages.tsx": "e1c220607a65730d670ca5cf2b24d047bbb661198c01ae5ce8a364ec5d2b84e1",
     "frontend/src/features/study/note-editor.test.tsx": "75ab9f1e577f3f66b5f48af5194b16e074c99bef882e50709ffc82a6b8c233fc",
     "frontend/src/features/study/note-editor.tsx": "3e08a00dec0acc7e29c7e7b0ca2ea7ddc8e6b29e1b39aead2ad7c062ca2c9d70",
     "frontend/src/features/study/overview.tsx": "3fd44ccddd6a586cdcd36fc4195a4a5aad533828be679a607acd6b95a3602a81",
@@ -4833,6 +4839,7 @@
     "frontend/src/lib/taxonomy/schemas.ts": "be65f0ec2b4150b718b235782eff94a6c17ae87f64ac29815cc690b7c874b207",
     "frontend/src/lib/taxonomy/server-client.ts": "d61c4e35eda1c72b7f711e107b64e098f3550bde8f43705d8fdefe1d4322697d",
     "frontend/src/lib/taxonomy/types.ts": "27d4a253e7ba03a5f698e13ed474101ab5710f4d03a29b162260446ea87e8acf",
+    "frontend/src/styles/managed-learning.module.css": "a4887292c1ae771ba6767147ff796adb9de60e045c0a2bbbe7c04a25798b851c",
     "ops/knowledge-cutover.py": "a46884c50741eb658b8a1a97447f32cfb2ed73a504d5af0a22a7e6322c57dbf7",
     "ops/tests/test_knowledge_cutover.py": "71ccdb01194020212ef56342ed064069b21230aa2e5b6cdfb3de01527e355d2a",
     "schemas/knowledge-manifest.schema.json": "66ac66b863b4f8ec7963ccbc465afa612417dbbe95606a0fe960468455fd6a76",
@@ -4856,7 +4863,7 @@
     "tests/e2e/topic-study-progress.spec.ts": "ddf09cbb5c744c588cb0dc10b0d822bccf66f33cc87cf6cdc1b78cbba3de2255",
     "tests/e2e/topic-study-security.spec.ts": "280a358ed5751afe71b92c8efb7949a6cc747a07fb8fd32dc817249a3d078b60",
     "tests/e2e/ui-language-cutover.spec.ts": "9d9f3b9085ccd1ff68c4cdf0289ba9d3edc63483d7f814a1386c69e0f1073118",
-    "tests/e2e/ui-language-managed.spec.ts": "36d1de2afe54d20100448f0be06b1111e5f17353d768ada8f28f3da15cc04698",
+    "tests/e2e/ui-language-managed.spec.ts": "9a722ba5a22227bf0b0d2403b5a2d0203b034cc82d6a4d6eccd55a54be830b7b",
     "tests/e2e/ui-language-study.spec.ts": "5dceeeb7fe580a2bdd37d6d5f62aacf0e340c1ef1c75e239b57c1b16e76b8de2",
     "tests/e2e/ui-language-taxonomy.spec.ts": "acbc7ffd96d8bea01302a18074ac1c33eb9e0f7cf096953442990c5036f74bd3",
     "tools/topic-ingest/adapters.mjs": "d795204ee9c45a439169104b3be5d8b2fb7b9a8ed4c1e0799500d8ee11b76abe",
@@ -4874,7 +4881,7 @@
     "tools/topic-ingest/test-fixtures.mjs": "5f2ef429e3701f8326bb5255d10396e4f5105fa5d322c337ea3b0f0eea675d13",
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
-    "tools/verify/admin-knowledge-approved-paths.json": "057999afb606fba527893faef2dc532872717030802aef5516b07853f58b23fa",
+    "tools/verify/admin-knowledge-approved-paths.json": "e0b3b6da52cee401c0cb78192470788a471fa88b2e1ef3d5c5c81f2b524322be",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
     "tools/verify/topic-learning-ci.test.mjs": "d401ee5d14c1cd4c7e1959365612d33a6f2e2a570364e3136b7d96bf8bf8e145",

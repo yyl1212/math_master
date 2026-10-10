@@ -1,4 +1,4 @@
-import {test,expect,TEST_PASSWORD,fitsViewport} from './fixtures';import {createHash} from 'node:crypto';
+import {test,expect,TEST_PASSWORD,fitsViewport,safeScreenshot} from './fixtures';import {createHash} from 'node:crypto';
 const id='k-'+createHash('sha256').update('demo-rational-fraction').digest('hex').slice(0,56);
 test('editing waits for hydration and preserves replacement text through a locale change',async({page,scene})=>{
  await scene('managed-knowledge');await page.goto('/login');
@@ -22,3 +22,44 @@ test('current management and private learning translate while retaining mathemat
  await page.locator('main a[href="/topics/00-XX"]').click();await expect(page.getByRole('heading',{name:'原创主题 00-XX',exact:true})).toBeVisible();
  await page.getByRole('button',{name:'English',exact:true}).click();await expect(page.getByRole('heading',{name:'Original fixture theme 00-XX',exact:true})).toBeVisible();
  await expect(page.locator('main a[href="/topics/00Axx"] h3')).toHaveText('Original fixture subtheme 00Axx');await fitsViewport(page)});
+
+test('my learning names themes, preserves filters and reflects real completion and review',async({page,scene},info)=>{
+ await scene('managed-knowledge');await page.goto('/login');
+ await page.getByLabel('Username',{exact:true}).fill('auth_learner');await page.getByLabel('Password',{exact:true}).fill(TEST_PASSWORD);
+ await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page).toHaveURL(/\/learn$/);
+ await expect(page.getByRole('heading',{name:'Knowledge points',exact:true})).toBeVisible();
+ const english=page.getByRole('navigation',{name:'Learn by theme',exact:true});
+ await expect(english.getByRole('link',{name:/Original fixture theme 97-XX/})).toBeVisible();
+ await expect(page.getByRole('region',{name:'Learning overview',exact:true}).locator('dl [data-state="unlearned"] dd')).toHaveText('2');
+ await page.getByRole('searchbox',{name:'Search knowledge',exact:true}).fill('保留搜索');
+ await page.getByRole('button',{name:'中文',exact:true}).click();
+ await expect(page.getByRole('searchbox',{name:'搜索知识点',exact:true})).toHaveValue('保留搜索');
+ const chinese=page.getByRole('navigation',{name:'按主题学习',exact:true});
+ await expect(chinese.getByRole('link',{name:/原创主题 97-XX/})).toBeVisible();
+ await expect(page.getByRole('link',{name:'有理分数',exact:true})).toBeVisible();
+ await expect(chinese.getByRole('progressbar')).toHaveAccessibleName('原创主题 97-XX：已完成 0 / 2');
+ await fitsViewport(page);await safeScreenshot(page,info,'my-learning-chinese');
+ await page.goto('/knowledge/'+id);
+ await page.getByRole('button',{name:'开始学习',exact:true}).click();await page.getByRole('button',{name:'完成学习',exact:true}).click();
+ await expect(page.getByText('已完成',{exact:true})).toBeVisible();
+ await page.goto('/learn');
+ await expect(page.getByRole('region',{name:'学习概览',exact:true}).locator('dl [data-state="completed"] dd')).toHaveText('1');
+ await expect(chinese.getByRole('progressbar')).toHaveAccessibleName('原创主题 97-XX：已完成 1 / 2');
+ await page.goto('/knowledge/'+id);await page.getByRole('button',{name:'开始复习',exact:true}).click();
+ await expect(page.getByRole('button',{name:'结束复习',exact:true})).toBeVisible();
+ await page.goto('/learn?q=有理&state=reviewing&mode=review');
+ await chinese.getByRole('link',{name:/原创主题 97-XX/}).click();
+ await expect(page).toHaveURL(/topicKey=97-XX/);
+ const url=new URL(page.url());expect(Object.fromEntries(url.searchParams)).toEqual({q:'有理',topicKey:'97-XX',state:'reviewing',mode:'review'});
+ await expect(page.getByRole('region',{name:'学习概览',exact:true}).locator('dl [data-state="reviewing"] dd')).toHaveText('1');
+ await expect(chinese.getByRole('progressbar')).toHaveAccessibleName('原创主题 97-XX：已完成 1 / 2');
+ await expect(page.getByRole('region',{name:'检索已学知识复习',exact:true}).getByRole('link',{name:'有理分数',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'English',exact:true}).click();
+ await expect(page.getByRole('combobox',{name:'Theme',exact:true})).toHaveValue('97-XX');
+ await expect(page.getByRole('searchbox',{name:'Search knowledge',exact:true})).toHaveValue('有理');
+ await expect(page.getByRole('region',{name:'Review studied knowledge',exact:true}).getByRole('link',{name:'Rational fraction',exact:true})).toBeVisible();
+ await fitsViewport(page);
+ await page.goto('/learn?topicKey=97');await expect(page.getByRole('combobox',{name:'Theme',exact:true})).toHaveValue('97-XX');
+ await page.goto('/learn?topicKey=msc-97f');await expect(page.getByRole('combobox',{name:'Theme',exact:true})).toHaveValue('97Fxx');
+ await expect(page.getByRole('option',{name:'Original fixture subtheme 97Fxx',exact:true})).toBeAttached();
+});
