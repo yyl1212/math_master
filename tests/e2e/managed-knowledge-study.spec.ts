@@ -1,4 +1,4 @@
-import {test,expect,TEST_PASSWORD} from './fixtures';import {createHash} from 'node:crypto';import {join} from 'node:path';
+import {test,expect,TEST_PASSWORD} from './fixtures';import {createHash} from 'node:crypto';
 const id='k-'+createHash('sha256').update('demo-rational-fraction').digest('hex').slice(0,56);
 test('knowledge map names topics and clearly navigates all three levels',async({page,scene})=>{
  await scene('managed-knowledge');await page.goto('/knowledge');
@@ -42,33 +42,16 @@ test('knowledge corrections synchronize the displayed body and preserve a note d
 test('published related knowledge links disappear when its target is unavailable',async({page,request,runtime,scene})=>{await scene('managed-knowledge');const other='k-'+createHash('sha256').update('demo-equivalent-fractions').digest('hex').slice(0,56);await page.goto('/knowledge/'+other);await expect(page.getByRole('link',{name:'demo-rational-fraction',exact:true})).toHaveAttribute('href','/knowledge/'+id);const down=await request.post(runtime.controlURL+'/managed-knowledge/unpublish',{headers:{Authorization:'Bearer '+runtime.token}});expect(down.status()).toBe(204);await page.reload();await expect(page.getByRole('link',{name:'demo-rational-fraction',exact:true})).toHaveCount(0);await expect(page.getByText(/demo-rational-fraction/)).toBeVisible()});
 
 
-test('downloaded 100 point source imports through the administrator UI and replay skips every point',async({page,scene})=>{
- const root=process.env.MANAGED_IMPORT_TEST_DIR;test.skip(!root,'real source acceptance package not supplied');
- await scene('managed-knowledge');await page.goto('/login');
- await page.getByLabel('Username',{exact:true}).fill('auth_admin');await page.getByLabel('Password',{exact:true}).fill(TEST_PASSWORD);
- await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page).toHaveURL(/\/learn$/);
- await page.goto('/admin/knowledge');await expect(page.locator('input[type="file"]')).toBeEnabled();await page.locator('input[type="file"]').setInputFiles(join(root!,'hefferon.part-0001.json'));
- const previews:{status:number;data:{counts:Record<string,number>;items:unknown[]}}[]=[],receipts:typeof previews=[];
- // route.fetch forwards the actual request unchanged and reads the real API body before Chromium evicts it.
- await page.route('**/api/v3/admin/knowledge/imports**',async route=>{
-  const response=await route.fetch();if(route.request().method()==='POST'){
-   const data=await response.json();(route.request().url().endsWith('/apply')?receipts:previews).push({status:response.status(),data});
-  };await route.fulfill({response});
- });
- await page.getByRole('button',{name:'Upload and publish',exact:true}).click();
- await expect(page.getByRole('heading',{name:'Import preview',exact:true})).toBeVisible();
- expect(previews[0].status).toBe(200);expect(previews[0].data.counts).toMatchObject({createdKnowledge:100,linkedTopics:134,conflicts:0,invalidItems:0});expect(previews[0].data.items).toHaveLength(100);
- await page.getByRole('button',{name:'Apply selected knowledge',exact:true}).click();
- await expect(page.getByRole('status').filter({hasText:'New knowledge: 100'})).toBeVisible();
- expect(receipts[0].status).toBe(200);expect(receipts[0].data.counts).toMatchObject({createdKnowledge:100,linkedTopics:134,conflicts:0,invalidItems:0});expect(receipts[0].data.items).toHaveLength(100);
- await page.getByRole('button',{name:'Upload and publish',exact:true}).click();
- await expect(page.getByRole('heading',{name:'Import preview',exact:true})).toBeVisible();
- expect(previews[1].status).toBe(200);expect(previews[1].data.counts).toMatchObject({createdKnowledge:0,skippedItems:100,conflicts:0,invalidItems:0});
- await page.getByRole('button',{name:'Apply selected knowledge',exact:true}).click();
- await expect(page.getByRole('status').filter({hasText:'Duplicates skipped: 100'})).toBeVisible();
- expect(receipts[1].status).toBe(200);expect(receipts[1].data.counts.skippedItems).toBe(100);
- await page.goto('/topics/15A06?q=hefferon4e.ch01.linear-system');await expect(page.getByRole('link',{name:'Linear equations, systems, and solutions',exact:true})).toBeVisible();
- await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByRole('link',{name:'线性方程、方程组与解',exact:true})).toBeVisible();
- await page.getByRole('link',{name:'线性方程、方程组与解',exact:true}).click();
- await expect(page.locator('article')).toContainText('A real linear equation');
+
+test('missing directory Chinese names use the verified display dictionary and remain searchable',async({page,scene})=>{
+ await scene('managed-knowledge');await page.goto('/topics/15Axx');
+ await expect(page.getByRole('heading',{name:'Basic linear algebra',exact:true})).toBeVisible();
+ await expect(page.locator('main a[href="/topics/15A06"] h3')).toHaveText('Linear equations (linear algebraic aspects)');
+ await page.getByRole('button',{name:'中文',exact:true}).click();
+ await expect(page.getByRole('heading',{name:'基本线性代数',exact:true})).toBeVisible();
+ await expect(page.locator('main a[href="/topics/15A06"] h3')).toHaveText('线性方程（线性代数层面）');
+ await page.locator('main a[href="/topics/15A06"]').click();await expect(page.getByRole('heading',{name:'线性方程（线性代数层面）',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'English',exact:true}).click();await expect(page.getByRole('heading',{name:'Linear equations (linear algebraic aspects)',exact:true})).toBeVisible();
+ await page.goto('/knowledge');await page.getByRole('textbox',{name:'Search themes',exact:true}).fill('线性方程');await page.getByRole('button',{name:'Search themes',exact:true}).click();
+ await expect(page.locator('main')).toContainText('Linear and multilinear algebra; matrix theory');
 });

@@ -23,6 +23,18 @@ func resetManagedKnowledge(ctx context.Context, db *sql.DB, s *store.Store, acco
 	}
 	batch := testutil.TaxonomyBatch()
 	for n := range batch.Nodes {
+		if batch.Nodes[n].Code == "15-XX" {
+			batch.Nodes[n].Name = "Linear and multilinear algebra; matrix theory"
+			batch.Nodes[n].NameZh = "线性与多线性代数；矩阵理论"
+		}
+		if batch.Nodes[n].Code == "15Axx" {
+			batch.Nodes[n].Name = "Basic linear algebra"
+			batch.Nodes[n].NameZh = ""
+		}
+		if batch.Nodes[n].Code == "15A06" {
+			batch.Nodes[n].Name = "Linear equations (linear algebraic aspects)"
+			batch.Nodes[n].NameZh = ""
+		}
 		if batch.Nodes[n].Code == "97F00" {
 			batch.Nodes[n].Code = "97F40"
 			batch.Nodes[n].ID = "msc-97f40"

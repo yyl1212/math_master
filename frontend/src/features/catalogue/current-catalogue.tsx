@@ -8,6 +8,13 @@ import {LocalizedName} from '@/lib/i18n/localized-name';
 import {uiMessage} from '@/lib/i18n/format';
 const url=(key:string)=>`/topics/${key==='project:other'?'project-other':key}`;
 export const pageOffset=(value:unknown)=>typeof value==='string'&&/^\d{1,6}$/.test(value)?Number(value):0;
+function CatalogueAttribution(){
+ return <p className="map-note"><UiText notice={uiMessage('topic.map.translationNote',{})}/>{' '}
+  <a href="https://msc2020.org/" rel="noreferrer">MSC2020</a>{' · '}
+  <a href="https://minsecrus.github.io/learning-notes/notes/2026/07/23/msc2020-mathematics-subject-classification-zh" rel="noreferrer">Learning Notes / minsecrus</a>{' · '}
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noreferrer">CC BY-NC-SA 4.0</a>
+ </p>;
+}
 function PublishedCount({count}:{count:number}){
  return <UiText notice={uiMessage(count===1?'public.publishedOne':'public.publishedMany',{count})}/>;
 }
@@ -26,7 +33,7 @@ export async function CurrentCatalogue({topicKey,q='',offset=0}:{topicKey?:strin
  return <><header className="page-heading"><h1><UiText notice={uiMessage('managed.map',{})}/></h1><p><UiText notice={uiMessage('managed.taxonomy',{})}/></p></header>
   <form action="/knowledge" className="panel"><label><UiText notice={uiMessage('managed.searchTopics',{})}/><input name="q" defaultValue={q}/></label><button className="button"><UiText notice={uiMessage('managed.searchTopics',{})}/></button></form>
   <section><h2><UiText notice={uiMessage(level,{})}/></h2><div className="domain-grid">{result.data.items.map(topic=><TopicCard key={topic.topicKey} topic={topic}/>)}</div></section>
-  <Paging page={result.data} path="/knowledge" query={query}/></>;
+  <Paging page={result.data} path="/knowledge" query={query}/><CatalogueAttribution/></>;
 }
 export async function CurrentTopicPage({topicKey,searchParams={}}:{topicKey:string;searchParams?:Record<string,string|string[]|undefined>}){
  const q=new URLSearchParams({limit:'20',offset:String(pageOffset(searchParams.knowledgeOffset))});if(typeof searchParams.q==='string')q.set('q',searchParams.q);
@@ -42,5 +49,5 @@ export async function CurrentTopicPage({topicKey,searchParams={}}:{topicKey:stri
    <form className="panel"><label><UiText notice={uiMessage('managed.search',{})}/><input name="q" defaultValue={q.get('q')??''}/></label><button className="button"><UiText notice={uiMessage('managed.search',{})}/></button></form>
    <div className="domain-grid">{parent.items.items.map(knowledge=><article className="domain-card" key={knowledge.id}><h3><Link href={`/knowledge/${knowledge.id}`} prefetch={false}><LocalizedName english={knowledge.point.title} chinese={knowledge.point.title_zh}/></Link></h3><p><UiText notice={uiMessage(`managed.type.${knowledge.point.type}`,{})}/> · <UiText notice={uiMessage('managed.difficulty',{})}/>: {knowledge.point.learning_difficulty.difficulty_level}</p></article>)}</div>
    {parent.items.total===0&&<p><UiText notice={uiMessage(q.get('q')?'topic.map.noKnowledgeResults':'topic.map.empty',{})}/></p>}
-   <Paging page={parent.items} path={url(topicKey)} query={query} keyName="knowledgeOffset"/></section></>;
+   <Paging page={parent.items} path={url(topicKey)} query={query} keyName="knowledgeOffset"/></section><CatalogueAttribution/></>;
 }

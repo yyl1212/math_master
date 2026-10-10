@@ -1075,7 +1075,8 @@
         "topic.map.noKnowledgeResults",
         "public.publishedOne",
         "public.publishedMany",
-        "managed.difficulty"
+        "managed.difficulty",
+        "topic.map.translationNote"
       ],
       "rawDataAreas": [
         "目录的英文名称和中文名称按现有语言偏好投影；分类键/链接不变，数学正文及来源保持原文"

@@ -84,6 +84,18 @@ func TestManagedPublicDirectoryAndOtherGroups(t *testing.T) {
 	f := newKnowledgeAdminFixture(t)
 	batch := testutil.TaxonomyBatch()
 	for n := range batch.Nodes {
+		if batch.Nodes[n].Code == "15-XX" {
+			batch.Nodes[n].Name = "Linear and multilinear algebra; matrix theory"
+			batch.Nodes[n].NameZh = "线性与多线性代数；矩阵理论"
+		}
+		if batch.Nodes[n].Code == "15Axx" {
+			batch.Nodes[n].Name = "Basic linear algebra"
+			batch.Nodes[n].NameZh = ""
+		}
+		if batch.Nodes[n].Code == "15A06" {
+			batch.Nodes[n].Name = "Linear equations (linear algebraic aspects)"
+			batch.Nodes[n].NameZh = ""
+		}
 		if batch.Nodes[n].Code == "97F00" {
 			batch.Nodes[n].Code = "97F40"
 			batch.Nodes[n].ID = taxonomy.TopicID("97F40")
@@ -132,6 +144,16 @@ func TestManagedPublicDirectoryAndOtherGroups(t *testing.T) {
 	if !found {
 		t.Fatal("secondary missing")
 	}
+	translated, e := f.repo.ReadCurrentTopic(f.ctx, "15A06", knowledgeadmin.Query{})
+	if e != nil {
+		t.Fatal(e)
+	}
+	assertTopicNames(t, translated, "线性方程（线性代数层面）", "Linear equations (linear algebraic aspects)")
+	matches, e := f.repo.ListCurrentTopics(f.ctx, knowledgeadmin.Query{TopicKey: "15-XX", Q: "基本线性代数", Limit: 100})
+	if e != nil || matches.Total != 1 || matches.Items[0].TopicKey != "15Axx" {
+		t.Fatal("Chinese directory search", matches, e)
+	}
+
 }
 
 func assertTopicNames(t *testing.T, topic knowledgeadmin.CurrentTopic, zh, en string) {
@@ -146,5 +168,50 @@ func assertTopicNames(t *testing.T, topic knowledgeadmin.CurrentTopic, zh, en st
 	}
 	if v["title"] != zh || v["titleEn"] != en {
 		t.Fatalf("bilingual names missing: title=%v titleEn=%v", v["title"], v["titleEn"])
+	}
+}
+
+func TestManagedDirectorySearchRejectsChangedDescendant(t *testing.T) {
+	f := newKnowledgeAdminFixture(t)
+	batch := testutil.TaxonomyBatch()
+	for i := range batch.Nodes {
+		switch batch.Nodes[i].Code {
+		case "15-XX":
+			batch.Nodes[i].Name = "Linear and multilinear algebra; matrix theory"
+			batch.Nodes[i].NameZh = ""
+		case "15Axx":
+			batch.Nodes[i].Name = "Basic linear algebra"
+			batch.Nodes[i].NameZh = ""
+		case "15A06":
+			batch.Nodes[i].Name = "A different canonical topic"
+			batch.Nodes[i].NameZh = ""
+		}
+	}
+	v, e := f.repo.InstallTaxonomyBatch(f.ctx, batch)
+	if e != nil {
+		t.Fatal(e)
+	}
+	const release = "f1205495-cf1d-4a43-8dcf-f895e126b10a"
+	f.exec(`INSERT INTO taxonomy_releases(id,taxonomy_version_id,status,manifest_sha,assignments_sha,body,creator_user_id) VALUES($1,$2,'draft',repeat('c',64),repeat('d',64),'{}',$3)`, release, v.ID, f.ids["admin_a"])
+	f.exec(`UPDATE taxonomy_releases SET status='published' WHERE id=$1`, release)
+	f.exec(`INSERT INTO taxonomy_heads(singleton,release_id) VALUES(true,$1)`, release)
+	f.ActivateManaged()
+	query := knowledgeadmin.Query{Q: "线性方程（线性代数层面）", Limit: 100}
+	for _, parent := range []string{"15-XX", "15Axx"} {
+		query.TopicKey = parent
+		page, e := f.repo.ListCurrentTopics(f.ctx, query)
+		if e != nil || page.Total != 0 || len(page.Items) != 0 {
+			t.Fatalf("changed descendant leaks ancestor matches: parent=%s total=%d items=%d error=%v", parent, page.Total, len(page.Items), e)
+		}
+	}
+	query.TopicKey = ""
+	page, e := f.repo.ListCurrentTopics(f.ctx, query)
+	if e != nil {
+		t.Fatal(e)
+	}
+	for _, item := range page.Items {
+		if item.TopicKey == "15-XX" {
+			t.Fatal("changed descendant matched primary ancestor")
+		}
 	}
 }
