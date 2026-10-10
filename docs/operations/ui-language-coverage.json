@@ -3807,14 +3807,11 @@
       "module": "managed",
       "complete": true,
       "messageKeys": [
-        "managed.admin",
         "managed.learn",
-        "managed.statement",
-        "managed.note",
-        "managed.map"
+        "managed.history"
       ],
       "rawDataAreas": [
-        "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
+        "服务端按本人身份读取学习进度、列表与历史；从公开目录组合规范主题名称，交由学习页面组件呈现"
       ],
       "scenarios": [
         "tests/e2e/ui-language-managed.spec.ts"
@@ -3910,6 +3907,30 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study/managed-learning-view.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.learn",
+        "managed.overview",
+        "study.knowledge",
+        "study.review.search",
+        "learn.dashboard.themes",
+        "learn.dashboard.search",
+        "learn.dashboard.state",
+        "learn.dashboard.completedCount",
+        "learn.dashboard.themeProgress",
+        "learn.dashboard.difficulty",
+        "learn.dashboard.clear"
+      ],
+      "rawDataAreas": [
+        "知识点与分类键仅用于URL和表单值；中英文名称来自当前目录/知识正文，私有学习计数和状态保持真实，语言切换不改搜索草稿或筛选值"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
       ]
     }
   ]
