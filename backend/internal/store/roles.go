@@ -131,6 +131,17 @@ func (s *Store) ReplaceAccountRoles(ctx context.Context, proof auth.SessionProof
 		if err != nil {
 			return err
 		}
+		simple, e := managedBusinessMode(ctx, tx)
+		if e != nil {
+			return e
+		}
+		if simple {
+			for _, role := range roles {
+				if role != auth.RoleLearner && role != auth.RoleAdmin {
+					return auth.ErrInvalidInput
+				}
+			}
+		}
 		changed := !slices.Equal(target.User.Roles, roles)
 		if auth.HasRole(target.User, auth.RoleAdmin) && !slices.Contains(roles, auth.RoleAdmin) {
 			var admins int

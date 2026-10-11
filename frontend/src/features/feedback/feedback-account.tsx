@@ -28,7 +28,7 @@ function FeedbackAccountBoundary({ actorId, review = false, children }: AccountP
       if (!context.ok) throw new FeedbackRequestError(context.code === 'AUTHENTICATION_REQUIRED' ? context.code : 'SERVICE_UNAVAILABLE');
       if (context.data.user?.id !== actorId) { invalidate(); return; }
       if (context.data.user.mustChangePassword) throw new FeedbackRequestError('PASSWORD_CHANGE_REQUIRED');
-      if (review && !context.data.user.roles.some(r => r === 'reviewer' || r === 'admin')) throw new FeedbackRequestError('FORBIDDEN');
+      if (review && !context.data.user.roles.includes('admin')) throw new FeedbackRequestError('FORBIDDEN');
       setError(null); setVerified(true);
     }).catch(e => { if (live && current === revision) { setVerified(false); setError(e instanceof FeedbackRequestError ? e : new FeedbackRequestError()); } }); };
     const changed = () => { revision++; invalidate(); };

@@ -1,6 +1,7 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "streamline.feedback.edit": "编辑对应知识点",
   "streamline.history.unavailable": "知识暂不可用",
   "streamline.history.archived": "已归档知识",
   "streamline.history.details": "查看记录标识与主题归属",

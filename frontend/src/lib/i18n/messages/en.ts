@@ -1,4 +1,5 @@
 export const enMessages = {
+  "streamline.feedback.edit": {"text": "Edit the reported knowledge", "params": []},
   "streamline.history.unavailable": {"text": "Knowledge is not available", "params": []},
   "streamline.history.archived": {"text": "Archived knowledge", "params": []},
   "streamline.history.details": {"text": "Record identity and topic context", "params": []},

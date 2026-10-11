@@ -2,6 +2,9 @@ package store_test
 
 import (
 	"encoding/json"
+	"errors"
+	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/study"
 	"testing"
@@ -56,6 +59,33 @@ func TestManagedChangedNoteDoesNotAcknowledgeContent(t *testing.T) {
 	overview, e = f.repo.ReadManagedOverview(f.ctx, f.Access("learner_a", "review-overview-fixed"))
 	if e != nil || overview.MaterialChanged != 0 {
 		t.Fatal(overview, e)
+	}
+}
+
+func TestManagedReviewerCannotReadCurrentFeedbackQueue(t *testing.T) {
+	f := newKnowledgeAdminFixture(t)
+	f.PreparedManagedKnowledge()
+	_, e := f.repo.ListFeedbackTickets(f.ctx, f.FeedbackAccess("reviewer_a"), true, feedback.ListQuery{})
+	if !errors.Is(e, auth.ErrForbidden) {
+		t.Fatal("old reviewer received managed queue", e)
+	}
+	_, e = f.repo.ListFeedbackTickets(f.ctx, f.FeedbackAccess("admin_a"), true, feedback.ListQuery{})
+	if e != nil {
+		t.Fatal(e)
+	}
+}
+
+func TestManagedRoleAssignmentRejectsRetiredRoles(t *testing.T) {
+	f := newKnowledgeAdminFixture(t)
+	f.PreparedManagedKnowledge()
+	cookies, csrf := f.login("admin_a", accountTestPassword)
+	f.reauth(cookies, csrf)
+	_, e := f.admin().ReplaceRoles(f.ctx, cookies, csrf, f.ids["learner_a"], auth.RolesInput{Roles: []auth.Role{auth.RoleLearner, auth.RoleReviewer}, Reason: adminReason}, "managed-retired-role")
+	if !errors.Is(e, auth.ErrInvalidInput) {
+		t.Fatal("retired role assigned", e)
+	}
+	if f.count("SELECT count(*) FROM auth_user_roles WHERE user_id=$1 AND role='reviewer'", f.ids["learner_a"]) != 0 {
+		t.Fatal("role changed")
 	}
 }
 

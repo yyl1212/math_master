@@ -9,6 +9,7 @@ const user = { id: "00000000-0000-4000-8000-000000000001", username: "admin_one"
 const initial = { items: [user], total: 1, limit: 20, offset: 0 };
 beforeEach(() => { Object.values(mocks).forEach(m => m.mockReset()); mocks.context.mockResolvedValue({ ok: true, data: { user, csrfToken: "A".repeat(43) } }); });
 describe("TestAdminUsers", () => {
+  it('offers only learner and administrator roles while accepting historical role responses',async()=>{render(<AdminUsers initial={initial}/>);await screen.findByRole('button',{name:'Save roles'});expect(screen.getByRole('checkbox',{name:'learner'})).toBeDisabled();expect(screen.queryByRole('checkbox',{name:'editor'})).toBeNull();expect(screen.queryByRole('checkbox',{name:'reviewer'})).toBeNull();expect(screen.getByRole('checkbox',{name:'admin'})).toBeVisible();});
   it.each(["learner", "editor", "reviewer"] as const)("has no controls for %s", async role => {
     mocks.context.mockResolvedValue({ ok: true, data: { user: { ...user, roles: role === "learner" ? ["learner"] : ["learner", role] }, csrfToken: "A".repeat(43) } });
     render(<AdminUsers initial={initial} />);
