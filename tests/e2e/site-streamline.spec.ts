@@ -19,6 +19,7 @@ test('production publishes two files once and recovers a lost second response wi
  await page.reload();await page.getByRole('button',{name:'Check previous import result',exact:true}).click();await expect(page.getByText('Import confirmed',{exact:true})).toBeVisible();expect(posts).toBe(2);
  const response=await page.request.get('/api/v3/knowledge?limit=100');expect(response.status()).toBe(200);const body=await response.json();for(const name of ['batch-first','batch-second'])expect(body.items.filter((item:{externalId:string})=>item.externalId===name)).toHaveLength(1);
  await fitsViewport(page);
+ await page.setViewportSize({width:320,height:844});await fitsViewport(page);
 });
 
 test('production homepage and learner navigation contain only current learning entry points',async({page,scene})=>{await scene('managed-knowledge');await page.goto('/');await expect(page.getByRole('heading',{name:'Understand mathematics, one idea at a time'})).toBeVisible();await expect(page.getByRole('link',{name:'Start learning',exact:true})).toHaveAttribute('href','/login');await login(page,'auth_learner');await expect(page.getByRole('link',{name:'My learning',exact:true})).toBeVisible();for(const href of ['/review/feedback','/notifications','/review/corrections','/admin/users'])await expect(page.locator('header a[href="'+href+'"]')).toHaveCount(0);await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByRole('heading',{name:'我的学习',exact:true})).toBeVisible();await fitsViewport(page)});
