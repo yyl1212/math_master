@@ -136,7 +136,7 @@ func (s *Store) correctionTx(ctx context.Context, a question.Access, action corr
 		return correctionError(e)
 	}
 	defer tx.Rollback()
-	if e := managedCorrectionGuard(ctx, tx); e != nil {
+	if e := managedCorrectionGuard(ctx, tx, true); e != nil {
 		return correctionError(e)
 	}
 	if correction.IsWrite(action) && action != correction.RetryJobAction {

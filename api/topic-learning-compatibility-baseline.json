@@ -2786,7 +2786,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "fbe1f431a8ffc2a6ccf0352939b69ff9436e66ecbe3ecbdbc312e601f841c070"
+        "sha256": "b7605a051201aff13ecafaa9f4642719279a9be59a4b8f7659bbaa08540f7f7b"
       }
     },
     "backend/internal/store/feedback_exposure.go": {
@@ -3297,7 +3297,7 @@
     },
     "backend/internal/store/correction_jobs.go": {
       "managed": {
-        "sha256": "abac90ff709114c23d667130dba83e4e950327cc23364f15a473568b9502ade0"
+        "sha256": "4fc09d37f918994e3f1328343165d90ff6c444660e392e25c1c759e97195ca63"
       }
     },
     "backend/internal/store/roles.go": {
@@ -5148,7 +5148,7 @@
     "tools/verify/topic-learning-compatibility.mjs": "d430c16a1c43fc9d9d06caedfaf7c605ef8fd970d04037bf5da2cc71de319f3a",
     "tools/verify/topic-learning-compatibility.test.mjs": "1fec60c552a6ec7d896c106490067bbd592e8b4c25011f3cafa23a0c7dbaa9cc",
     "backend/internal/store/knowledge_admin_streamline_test.go": "8f6a540fdf26ac0c1c19b1b6efb555f3b3740581de350c6c5331dc417c9f888b",
-    "backend/internal/store/managed_business_mode.go": "51a154002977c84b5a36574ebf601510155d470e813b90707055cf448e458728",
+    "backend/internal/store/managed_business_mode.go": "0e79fc1802489ba35792c0122db2d353a4dbf179ac71e399961870571b0ff677",
     "frontend/src/components/topic-picker.test.tsx": "2b2d442f1563b262e9368b1fffaa12064fbda71aa33e8e610198fda19e7e2450",
     "frontend/src/components/topic-picker.tsx": "7b07fdab34af50d7dfa789414c0ee2afa742c98884b376926c0e65d8e2514e32",
     "frontend/src/features/catalogue/current-home.test.tsx": "bdda7fdba841aa9023387d94d6a443e1fb78ed798c1bede015bc21abe1bb97a3",

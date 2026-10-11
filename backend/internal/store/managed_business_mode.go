@@ -37,10 +37,14 @@ func managedBusinessMode(ctx context.Context, tx *sql.Tx) (bool, error) {
 	return false, auth.ErrUnavailable
 }
 
-// Same fence order as permanent managed activation: admin, content, knowledge.
-func managedCorrectionGuard(ctx context.Context, tx *sql.Tx) error {
-	if e := learningLocks(ctx, tx); e != nil {
-		return e
+// Full operations retain admin/content/knowledge ordering. Lease bookkeeping
+// only takes the knowledge fence, preserving its no-content-lock contract while
+// still serializing against permanent managed activation.
+func managedCorrectionGuard(ctx context.Context, tx *sql.Tx, contentLocks bool) error {
+	if contentLocks {
+		if e := learningLocks(ctx, tx); e != nil {
+			return e
+		}
 	}
 	if _, e := tx.ExecContext(ctx, "SELECT pg_advisory_xact_lock_shared($1)", knowledgeLockID); e != nil {
 		return e
