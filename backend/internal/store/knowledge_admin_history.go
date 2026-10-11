@@ -40,7 +40,7 @@ func (s *Store) ListManagedHistory(ctx context.Context, a knowledgeadmin.Access,
 		if !cursor.At.IsZero() {
 			at, id = cursor.At, cursor.ID
 		}
-		rows, e := tx.QueryContext(ctx, `SELECT event_id::text,knowledge_ref,topic_keys,kind,note_revision,review_id::text,recorded_at FROM managed_study_events WHERE owner_user_id=$1 AND ($2='' OR knowledge_id=$2) AND ($3='' OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(topic_keys) key WHERE key=$3 OR key LIKE $3||'%')) AND ($4='' OR kind=$4) AND ($5::timestamptz IS NULL OR recorded_at>=$5) AND ($6::timestamptz IS NULL OR recorded_at<=$6) AND ($7::timestamptz IS NULL OR (recorded_at,event_id)<($7,$8::uuid)) ORDER BY recorded_at DESC,event_id DESC LIMIT $9`, u.ID, q.KnowledgeID, q.TopicID, q.Kind, q.From, q.To, at, id, limit+1)
+		rows, e := tx.QueryContext(ctx, `WITH page AS (SELECT event_id::text,knowledge_id,knowledge_ref,topic_keys,kind,note_revision,review_id::text,recorded_at FROM managed_study_events WHERE owner_user_id=$1 AND ($2='' OR knowledge_id=$2) AND ($3='' OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(topic_keys) key WHERE key=$3 OR key LIKE $3||'%')) AND ($4='' OR kind=$4) AND ($5::timestamptz IS NULL OR recorded_at>=$5) AND ($6::timestamptz IS NULL OR recorded_at<=$6) AND ($7::timestamptz IS NULL OR (recorded_at,event_id)<($7,$8::uuid)) ORDER BY recorded_at DESC,event_id DESC LIMIT $9) SELECT p.event_id,p.knowledge_ref,p.topic_keys,p.kind,p.note_revision,p.review_id,p.recorded_at,coalesce(k.point->>'title',''),coalesce(k.point->>'title_zh',''),coalesce(k.published AND k.deleted_at IS NULL,false) FROM page p LEFT JOIN managed_knowledge k ON k.internal_id=p.knowledge_id ORDER BY p.recorded_at DESC,p.event_id DESC`, u.ID, q.KnowledgeID, q.TopicID, q.Kind, q.From, q.To, at, id, limit+1)
 		if e != nil {
 			return e
 		}
@@ -48,7 +48,7 @@ func (s *Store) ListManagedHistory(ctx context.Context, a knowledgeadmin.Access,
 		for rows.Next() {
 			var v knowledgeadmin.ManagedHistoryEntry
 			var ref, topics []byte
-			if e = rows.Scan(&v.ID, &ref, &topics, &v.Kind, &v.NoteRevision, &v.ReviewID, &v.RecordedAt); e != nil {
+			if e = rows.Scan(&v.ID, &ref, &topics, &v.Kind, &v.NoteRevision, &v.ReviewID, &v.RecordedAt, &v.Title, &v.TitleZH, &v.Available); e != nil {
 				return e
 			}
 			if json.Unmarshal(ref, &v.Knowledge) != nil || json.Unmarshal(topics, &v.TopicKeys) != nil {

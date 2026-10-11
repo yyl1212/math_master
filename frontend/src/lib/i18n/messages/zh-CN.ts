@@ -1,6 +1,10 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "streamline.history.unavailable": "知识暂不可用",
+  "streamline.history.archived": "已归档知识",
+  "streamline.history.details": "查看记录标识与主题归属",
+  "streamline.history.early": "早期记录独立展示与翻页，保留原来的内容身份。",
   "streamline.upload.apply": "应用全部有效知识",
   "streamline.upload.done": "导入已确认",
   "streamline.upload.details": "查看条目结果和选择",

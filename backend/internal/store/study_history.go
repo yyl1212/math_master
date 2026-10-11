@@ -92,14 +92,14 @@ func (s *Store) ListStudyHistory(ctx context.Context, a study.Access, q study.Hi
 			sort.Strings(names)
 			ids = names
 		}
-		rows, e := tx.QueryContext(ctx, `SELECT id::text,knowledge_id,knowledge_version,knowledge_sha256,taxonomy_version_id,taxonomy_head::text,kind,recorded_at,note_revision,review_id::text,source_kind,origin_event_id::text FROM study_events WHERE owner_user_id=$1 AND ($2='' OR knowledge_id=$2) AND ($3='' OR kind=$3) AND ($4::timestamptz IS NULL OR recorded_at>=$4) AND ($5::timestamptz IS NULL OR recorded_at<$5) AND ($6::timestamptz IS NULL OR (recorded_at,id)<($6,$7::uuid)) AND ($8::text[] IS NULL OR knowledge_id=ANY($8)) ORDER BY recorded_at DESC,id DESC LIMIT $9`, u.ID, q.KnowledgeID, q.Kind, q.From, q.To, cursorAt, nilIfEmpty(cursorID), ids, q.Limit+1)
+		rows, e := tx.QueryContext(ctx, `WITH page AS (SELECT id::text,knowledge_id,knowledge_version,knowledge_sha256,taxonomy_version_id,taxonomy_head::text,kind,recorded_at,note_revision,review_id::text,source_kind,origin_event_id::text FROM study_events WHERE owner_user_id=$1 AND ($2='' OR knowledge_id=$2) AND ($3='' OR kind=$3) AND ($4::timestamptz IS NULL OR recorded_at>=$4) AND ($5::timestamptz IS NULL OR recorded_at<$5) AND ($6::timestamptz IS NULL OR (recorded_at,id)<($6,$7::uuid)) AND ($8::text[] IS NULL OR knowledge_id=ANY($8)) ORDER BY recorded_at DESC,id DESC LIMIT $9) SELECT p.*,coalesce(k.body->>'title',''),coalesce(k.body->>'titleZh','') FROM page p LEFT JOIN knowledge_versions k ON k.id=p.knowledge_id AND k.version=p.knowledge_version AND k.sha256=p.knowledge_sha256 ORDER BY p.recorded_at DESC,p.id DESC`, u.ID, q.KnowledgeID, q.Kind, q.From, q.To, cursorAt, nilIfEmpty(cursorID), ids, q.Limit+1)
 		if e != nil {
 			return e
 		}
 		defer rows.Close()
 		for rows.Next() {
 			var v study.HistoryEntry
-			if e = rows.Scan(&v.ID, &v.Knowledge.ID, &v.Knowledge.Version, &v.Knowledge.SHA256, &v.TaxonomyVersionID, &v.TaxonomyHead, &v.Kind, &v.OccurredAt, &v.NoteRevision, &v.ReviewID, &v.SourceKind, &v.OriginEventID); e != nil {
+			if e = rows.Scan(&v.ID, &v.Knowledge.ID, &v.Knowledge.Version, &v.Knowledge.SHA256, &v.TaxonomyVersionID, &v.TaxonomyHead, &v.Kind, &v.OccurredAt, &v.NoteRevision, &v.ReviewID, &v.SourceKind, &v.OriginEventID, &v.Title, &v.TitleZH); e != nil {
 				return e
 			}
 			v.OccurredAt = v.OccurredAt.UTC()

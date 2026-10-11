@@ -124,6 +124,8 @@ type HistoryQuery struct {
 	Limit                              int
 }
 type HistoryEntry struct {
+	Title             string       `json:"title,omitempty"`
+	TitleZH           string       `json:"titleZh,omitempty"`
 	ID                string       `json:"id"`
 	Knowledge         KnowledgeRef `json:"knowledge"`
 	TaxonomyVersionID *string      `json:"taxonomyVersionId"`

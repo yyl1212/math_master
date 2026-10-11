@@ -1,4 +1,8 @@
 export const enMessages = {
+  "streamline.history.unavailable": {"text": "Knowledge is not available", "params": []},
+  "streamline.history.archived": {"text": "Archived knowledge", "params": []},
+  "streamline.history.details": {"text": "Record identity and topic context", "params": []},
+  "streamline.history.early": {"text": "Earlier records have their own timeline and pagination. Their original content identity is retained.", "params": []},
   "streamline.upload.apply": {"text": "Apply all valid knowledge", "params": []},
   "streamline.upload.done": {"text": "Import confirmed", "params": []},
   "streamline.upload.details": {"text": "View item results and selection", "params": []},
