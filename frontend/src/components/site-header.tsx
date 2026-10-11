@@ -52,8 +52,7 @@ export function SiteHeader() {
           aria-current={path === "/knowledge" ? "page" : undefined}
           data-active={path === "/knowledge" || path.startsWith("/knowledge/")}
         ><UiText notice={uiMessage("nav.knowledgeMap",{})}/></Link>
-        <Link prefetch={false} href="/learn" aria-current={path==="/learn"?"page":undefined} data-active={path==="/learn"}><UiText notice={uiMessage("site-header.learn.ce78af",{})}/></Link>
-      <Link prefetch={false} href="/feedback" data-active={path.startsWith('/feedback')}><UiText notice={uiMessage("site-header.my.reports.cc6e3f",{})}/></Link><Link prefetch={false} href="/review/feedback" data-active={path.startsWith('/review/feedback')}><UiText notice={uiMessage("site-header.feedback.review.19092b",{})}/></Link><Link prefetch={false} href="/notifications" data-active={path==="/notifications"}><UiText notice={uiMessage("site-header.notifications.788011",{})}/></Link><Link prefetch={false} href="/review/corrections" data-active={path.startsWith("/review/corrections")}><UiText notice={uiMessage("site-header.corrections.review.fc4dc2",{})}/></Link><Link prefetch={false} href="/feedback/new?kind=site&area=other"><UiText notice={uiMessage("site-header.website.feedback.aea375",{})}/></Link></nav>
+</nav>
       <LanguageSwitch /><AuthStatus />
     </header>
   );

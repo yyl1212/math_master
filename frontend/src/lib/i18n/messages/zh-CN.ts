@@ -1,6 +1,21 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "streamline.read.relatedUnavailable": "相关知识暂不可用",
+  "streamline.read.citation": "查看引用详情",
+  "streamline.feedback.manage": "反馈处理",
+  "streamline.home.title": "从一个知识点开始，理解数学",
+  "streamline.home.intro": "按主题发现知识，阅读数学解释，记录自己的进度与笔记。",
+  "streamline.home.start": "开始学习",
+  "streamline.home.continue": "进入我的学习",
+  "streamline.home.map": "浏览知识地图",
+  "streamline.home.available": "已发布 {count} 个知识点",
+  "streamline.home.themes": "主题概览",
+  "streamline.home.allThemes": "查看全部主题",
+  "streamline.home.how": "如何开始学习",
+  "streamline.home.step1": "选择主题，打开想学习的知识点。",
+  "streamline.home.step2": "开始学习，阅读解释并记录私人笔记。",
+  "streamline.home.step3": "完成学习，再通过复习和历史回顾知识。",
   "streamline.topic.add": "选择要添加的主题",
   "streamline.topic.loading": "正在读取主题名称…",
   "streamline.remove": "移除",
