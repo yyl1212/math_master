@@ -1,6 +1,11 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "streamline.upload.apply": "应用全部有效知识",
+  "streamline.upload.done": "导入已确认",
+  "streamline.upload.details": "查看条目结果和选择",
+  "streamline.edit.basic": "基本信息、分类和难度",
+  "streamline.edit.mathematics": "数学内容",
   "streamline.read.relatedUnavailable": "相关知识暂不可用",
   "streamline.read.citation": "查看引用详情",
   "streamline.feedback.manage": "反馈处理",

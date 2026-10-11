@@ -1,4 +1,9 @@
 export const enMessages = {
+  "streamline.upload.apply": {"text": "Apply all valid knowledge", "params": []},
+  "streamline.upload.done": {"text": "Import confirmed", "params": []},
+  "streamline.upload.details": {"text": "View item results and selection", "params": []},
+  "streamline.edit.basic": {"text": "Basic information, classification and difficulty", "params": []},
+  "streamline.edit.mathematics": {"text": "Mathematical content", "params": []},
   "streamline.read.relatedUnavailable": {"text": "Related knowledge is not available", "params": []},
   "streamline.read.citation": {"text": "Citation details", "params": []},
   "streamline.feedback.manage": {"text": "Feedback management", "params": []},
