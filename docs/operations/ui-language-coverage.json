@@ -81,44 +81,44 @@
     },
     {
       "file": "frontend/src/app/admin/question-publications/[id]/page.tsx",
-      "module": "question",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.admin.question-publications.id"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-question.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/admin/question-publications/page.tsx",
-      "module": "question",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.admin.question-publications"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-question.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/admin/question-withdrawals/page.tsx",
-      "module": "question",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.admin.question-withdrawals"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-question.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
@@ -151,44 +151,44 @@
     },
     {
       "file": "frontend/src/app/assessments/[id]/page.tsx",
-      "module": "learning",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.assessments.id"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-learning.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/assessments/[id]/result/page.tsx",
-      "module": "learning",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.assessments.id.result"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-learning.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/corrections/[id]/page.tsx",
-      "module": "correction",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.corrections.id"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "原始答案、依据、实例映射、审阅理由、计划及结果标识"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-correction.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
@@ -250,30 +250,30 @@
     },
     {
       "file": "frontend/src/app/editor/questions/drafts/[id]/page.tsx",
-      "module": "question",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.editor.questions.drafts.id"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-question.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/editor/questions/page.tsx",
-      "module": "question",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.editor.questions"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-question.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
@@ -434,47 +434,46 @@
     },
     {
       "file": "frontend/src/app/page.tsx",
-      "module": "public",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.home"
+        "streamline.home.title"
       ],
       "rawDataAreas": [
         "英文标题与已有中文对照",
         "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-public.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/paths/[id]/page.tsx",
-      "module": "public",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.paths.id",
-        "page.route.feedback.729fbd"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "英文标题与已有中文对照",
         "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-public.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/practice/[id]/page.tsx",
-      "module": "learning",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.practice.id"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "原始答案、选项 ID、尝试标识、解锁与资格数据、日期、数值格式"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-learning.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
@@ -593,30 +592,30 @@
     },
     {
       "file": "frontend/src/app/review/questions/[id]/page.tsx",
-      "module": "question",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.review.questions.id"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-question.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
       "file": "frontend/src/app/review/questions/page.tsx",
-      "module": "question",
+      "module": "managed",
       "complete": true,
       "messageKeys": [
-        "page.review.questions"
+        "streamline.retired.title"
       ],
       "rawDataAreas": [
         "题干、选项、正确答案、参数、核验证据、原始 JSON、生成实例及版本摘要"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-question.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
@@ -771,6 +770,22 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-public.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/topic-picker.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "topic.map.level1",
+        "topic.map.level2",
+        "topic.map.level3"
+      ],
+      "rawDataAreas": [
+        "规范分类键、数学内容和来源原始值保持，界面名称随语言切换"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
@@ -1083,6 +1098,21 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/catalogue/current-home.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "streamline.home.title",
+        "streamline.home.start"
+      ],
+      "rawDataAreas": [
+        "规范分类键、数学内容和来源原始值保持，界面名称随语言切换"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {
@@ -2496,6 +2526,21 @@
       ]
     },
     {
+      "file": "frontend/src/features/knowledge-admin/structured-fields.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "streamline.source.title",
+        "streamline.explanation.body"
+      ],
+      "rawDataAreas": [
+        "规范分类键、数学内容和来源原始值保持，界面名称随语言切换"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-streamline.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/knowledge-admin/upload.tsx",
       "module": "managed",
       "complete": true,
@@ -3785,6 +3830,30 @@
       ]
     },
     {
+      "file": "frontend/src/features/study/managed-learning-view.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "managed.learn",
+        "managed.overview",
+        "study.knowledge",
+        "study.review.search",
+        "learn.dashboard.themes",
+        "learn.dashboard.search",
+        "learn.dashboard.state",
+        "learn.dashboard.completedCount",
+        "learn.dashboard.themeProgress",
+        "learn.dashboard.difficulty",
+        "learn.dashboard.clear"
+      ],
+      "rawDataAreas": [
+        "知识点与分类键仅用于URL和表单值；中英文名称来自当前目录/知识正文，私有学习计数和状态保持真实，语言切换不改搜索草稿或筛选值"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-managed.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/study/managed-note-editor.tsx",
       "module": "managed",
       "complete": true,
@@ -3863,6 +3932,21 @@
       ]
     },
     {
+      "file": "frontend/src/features/study/retired-entry.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "streamline.retired.title",
+        "streamline.retired.body"
+      ],
+      "rawDataAreas": [
+        "规范分类键、数学内容和来源原始值保持，界面名称随语言切换"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-streamline.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/study/retired-module.tsx",
       "module": "study",
       "complete": true,
@@ -3907,30 +3991,6 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-study.spec.ts"
-      ]
-    },
-    {
-      "file": "frontend/src/features/study/managed-learning-view.tsx",
-      "module": "managed",
-      "complete": true,
-      "messageKeys": [
-        "managed.learn",
-        "managed.overview",
-        "study.knowledge",
-        "study.review.search",
-        "learn.dashboard.themes",
-        "learn.dashboard.search",
-        "learn.dashboard.state",
-        "learn.dashboard.completedCount",
-        "learn.dashboard.themeProgress",
-        "learn.dashboard.difficulty",
-        "learn.dashboard.clear"
-      ],
-      "rawDataAreas": [
-        "知识点与分类键仅用于URL和表单值；中英文名称来自当前目录/知识正文，私有学习计数和状态保持真实，语言切换不改搜索草稿或筛选值"
-      ],
-      "scenarios": [
-        "tests/e2e/ui-language-managed.spec.ts"
       ]
     }
   ]

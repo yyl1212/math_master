@@ -1,0 +1,14 @@
+import {it,expect,vi} from 'vitest';
+import {render,screen,fireEvent} from '@testing-library/react';
+import {ReviewPanel} from './review-panel';
+import {FeedbackAccountContext} from './feedback-account';
+import {metadata,id} from '@/lib/feedback/test-fixtures';
+vi.mock('@/lib/auth/client',()=>({getAuthContext:vi.fn()}));vi.mock('@/lib/feedback/client',()=>({sendFeedback:vi.fn(),readFeedback:vi.fn()}));
+it('a reviewer cannot handle their own report',()=>{render(<FeedbackAccountContext.Provider value={{actorId:id,invalidate:vi.fn()}}><ReviewPanel ticket={metadata()} onSuccess={vi.fn(async()=>null)}/></FeedbackAccountContext.Provider>);expect(screen.queryByRole('button',{name:'Save handling result'})).toBeNull()});
+it('provides all eight explicit closure bases and existing proof fields',()=>{render(<FeedbackAccountContext.Provider value={{actorId:id,invalidate:vi.fn()}}><ReviewPanel ticket={{...metadata(),status:'processing',canHandle:true}} onSuccess={vi.fn(async()=>null)}/></FeedbackAccountContext.Provider>);fireEvent.change(screen.getByLabelText('Report status'),{target:{value:'resolved'}});expect(screen.getByLabelText('Resolution basis')).toBeVisible();fireEvent.change(screen.getByLabelText('Resolution basis'),{target:{value:'revision_published'}});expect(screen.getByLabelText('Withdrawal event ID')).toBeVisible();expect(screen.getByLabelText('Replacement publication ID')).toBeVisible();expect(screen.getByRole('button',{name:'Save handling result'})).toBeDisabled()});
+
+import {FeedbackTicket} from './discussion-panel';
+import {getAuthContext} from '@/lib/auth/client';
+import {sendFeedback,readFeedback} from '@/lib/feedback/client';
+import {waitFor} from '@testing-library/react';
+it('metadata advance retains exactly one discussion and handling panel',async()=>{vi.mocked(getAuthContext).mockResolvedValue({ok:true,data:{user:{id,username:'reviewer',roles:['learner','reviewer'],mustChangePassword:false},csrfToken:'A'.repeat(43)}});vi.mocked(sendFeedback).mockResolvedValue({actorId:id,data:{status:200,ticket:{...metadata(),sequence:2,status:'processing',canHandle:true}}});vi.mocked(readFeedback).mockResolvedValue({actorId:id,data:{...metadata(),sequence:2,status:'processing',canHandle:true}});render(<FeedbackAccountContext.Provider value={{actorId:id,invalidate:vi.fn()}}><FeedbackTicket initial={{...metadata(),canHandle:true}} review/></FeedbackAccountContext.Provider>);fireEvent.change(screen.getByLabelText('Report status'),{target:{value:'processing'}});fireEvent.change(screen.getByLabelText('Review reply'),{target:{value:'Original handling details.'}});fireEvent.click(screen.getByRole('button',{name:'Save handling result'}));await waitFor(()=>expect(screen.getByLabelText('Review reply')).toHaveValue(''));expect(screen.getAllByRole('button',{name:'Read discussion'})).toHaveLength(1);expect(screen.getAllByRole('heading',{name:'Handle this report'})).toHaveLength(1)});

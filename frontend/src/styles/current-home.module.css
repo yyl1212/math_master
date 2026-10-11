@@ -1,0 +1,13 @@
+.page { display: grid; gap: 36px; }
+.hero { max-width: 760px; padding: 24px 0; }
+.hero h1 { font-size: clamp(30px, 4vw, 48px); line-height: 1.3; margin: 12px 0; }
+.hero p { color: var(--muted); line-height: 1.8; }
+.actions, .heading { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.actions { margin-top: 24px; }
+.heading { justify-content: space-between; margin-bottom: 20px; }
+.heading h2 { margin: 0; }
+.summary { display: flex; gap: 12px 32px; flex-wrap: wrap; border-block: 1px solid var(--border); padding: 16px 0; }
+.summary p { margin: 0; color: var(--muted); }
+.steps { border-top: 1px solid var(--border); padding-top: 20px; }
+.steps ol { display: grid; gap: 12px; line-height: 1.7; }
+@media (max-width: 600px) { .page { gap: 24px; } .hero { padding: 8px 0; } }

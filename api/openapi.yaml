@@ -45662,6 +45662,14 @@
                 "type": "null"
               }
             ]
+          },
+          "title": {
+            "type": "string",
+            "description": "Display title only; event identity and recorded content reference are unchanged."
+          },
+          "titleZh": {
+            "type": "string",
+            "description": "Display title only; event identity and recorded content reference are unchanged."
           }
         },
         "allOf": [
@@ -48178,6 +48186,18 @@
           "sourceKind": {
             "type": "string",
             "const": "managed"
+          },
+          "title": {
+            "type": "string",
+            "description": "Display title only; event identity and recorded content reference are unchanged."
+          },
+          "titleZh": {
+            "type": "string",
+            "description": "Display title only; event identity and recorded content reference are unchanged."
+          },
+          "available": {
+            "type": "boolean",
+            "description": "Current public availability; unavailable knowledge keeps private history."
           }
         },
         "required": [

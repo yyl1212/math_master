@@ -75,6 +75,15 @@ func feedbackIdentity(ctx context.Context, tx *sql.Tx, a question.Access, action
 	if e != nil {
 		return u, now, e
 	}
+	if feedback.IsReview(action) {
+		simple, e := managedBusinessMode(ctx, tx)
+		if e != nil {
+			return u, now, e
+		}
+		if simple && !auth.HasRole(u, auth.RoleAdmin) {
+			return u, now, auth.ErrForbidden
+		}
+	}
 	if e = feedback.Authorize(u, action); e != nil {
 		return u, now, e
 	}

@@ -80,6 +80,9 @@ type ManagedOverview struct {
 	Reminders       []ManagedReminder `json:"reminders"`
 }
 type ManagedHistoryEntry struct {
+	Title        string    `json:"title"`
+	TitleZH      string    `json:"titleZh"`
+	Available    bool      `json:"available"`
 	ID           string    `json:"id"`
 	Knowledge    Ref       `json:"knowledge"`
 	TopicKeys    []string  `json:"topicKeys"`

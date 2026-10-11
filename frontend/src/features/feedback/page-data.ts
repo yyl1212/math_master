@@ -1,4 +1,5 @@
 import 'server-only';
+import {getContentMode} from '@/lib/knowledge-admin/mode';
 import { cookies } from 'next/headers';
 import { readServerSession } from '@/lib/auth/server-client';
 import { readFeedbackServer } from '@/lib/feedback/server-client';
@@ -9,7 +10,7 @@ export async function feedbackPage<T>(path: string, review = false): Promise<Env
   if (!session.ok) throw new FeedbackRequestError(session.code === 'AUTHENTICATION_REQUIRED' ? session.code : 'SERVICE_UNAVAILABLE');
   if (!session.data) throw new FeedbackRequestError('AUTHENTICATION_REQUIRED');
   if (session.data.mustChangePassword) throw new FeedbackRequestError('PASSWORD_CHANGE_REQUIRED');
-  if (review && !session.data.roles.some(r => r === 'reviewer' || r === 'admin')) throw new FeedbackRequestError('FORBIDDEN');
+  if(review){const mode=await getContentMode();if(!mode)throw new FeedbackRequestError('SERVICE_UNAVAILABLE');if(!session.data.roles.includes('admin')&&(mode.mode==='managed'||!session.data.roles.includes('reviewer')))throw new FeedbackRequestError('FORBIDDEN');}
   const result = await readFeedbackServer<T>(path);
   if (result.actorId !== session.data.id) throw new FeedbackRequestError('AUTHENTICATION_REQUIRED');
   return result;

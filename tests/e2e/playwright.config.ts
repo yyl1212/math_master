@@ -1,6 +1,14 @@
 import { defineConfig } from "../../frontend/node_modules/@playwright/test/index.js";
+import {readFileSync} from 'node:fs';
 import { resolve } from "node:path";
 const root = resolve(__dirname, "../..");
+const frontendRoot=process.env.MATH_MASTER_E2E_FRONTEND?resolve(process.env.MATH_MASTER_E2E_FRONTEND):root+'/frontend';
+if(frontendRoot!==root+'/frontend'){
+ const allowed=resolve(root,'.superpowers/sdd/2026-10-11-site-streamline/legacy/frontend');
+ if(frontendRoot!==allowed)throw new Error('Unapproved test frontend');
+ const marker=JSON.parse(readFileSync(frontendRoot+'/compatibility-build.json','utf8'));
+ if(marker.kind!=='legacy-test-only'||marker.baseCommit!=='06d04a2eb20cf2a56cfec57283224583659c2ffd')throw new Error('Invalid test compatibility build');
+}
 const selectedFiles = process.argv.filter((arg) => /^[a-z-]+\.spec\.ts$/.test(arg));
 export default defineConfig({
   testDir: ".",
@@ -39,7 +47,7 @@ export default defineConfig({
     },
     {
       command: "npm run start -- --hostname 127.0.0.1 --port 18080",
-      cwd: root + "/frontend",
+      cwd: frontendRoot,
       url: "http://127.0.0.1:18080",
       env: {
         GO_API_INTERNAL_URL: "http://127.0.0.1:18081",

@@ -69,7 +69,7 @@ func managedDetail(ctx context.Context, tx *sql.Tx, owner string, k knowledgeadm
 	pub := managedPublic(k)
 	out.CurrentKnowledge = &pub
 	var last []byte
-	e = tx.QueryRowContext(ctx, "SELECT knowledge_ref FROM managed_study_events WHERE owner_user_id=$1 AND knowledge_id=$2 ORDER BY recorded_at DESC,event_id DESC LIMIT 1", owner, k.ID).Scan(&last)
+	e = tx.QueryRowContext(ctx, "SELECT knowledge_ref FROM managed_study_events WHERE owner_user_id=$1 AND knowledge_id=$2 ORDER BY recorded_at ASC,event_id ASC LIMIT 1", owner, k.ID).Scan(&last)
 	if errors.Is(e, sql.ErrNoRows) {
 		e = nil
 	}
@@ -83,12 +83,14 @@ func managedDetail(ctx context.Context, tx *sql.Tx, owner string, k knowledgeadm
 		}
 		out.MaterialChanged = ref != k.Ref
 	}
-	if r.CompletedRef != nil && r.LastReviewRef == nil {
-		out.MaterialChanged = out.MaterialChanged || *r.CompletedRef != k.Ref
-	}
-	if r.LastReviewRef != nil {
+	if r.LastReviewRef != nil && (r.CompletedRef == nil || r.LastReviewedAt != nil && (r.LastCompletedAt == nil || r.LastReviewedAt.After(*r.LastCompletedAt))) {
+		out.MaterialChanged = *r.LastReviewRef != k.Ref
+	} else if r.CompletedRef != nil {
+		out.MaterialChanged = *r.CompletedRef != k.Ref
+	} else if r.LastReviewRef != nil {
 		out.MaterialChanged = *r.LastReviewRef != k.Ref
 	}
+
 	return
 }
 func saveManagedRecord(ctx context.Context, tx *sql.Tx, owner string, r knowledgeadmin.ManagedRecord) error {
@@ -328,7 +330,7 @@ func (s *Store) ReadManagedOverview(ctx context.Context, a knowledgeadmin.Access
 		if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM managed_study_records r JOIN managed_knowledge k ON k.internal_id=r.knowledge_id WHERE r.owner_user_id=$1 AND (NOT k.published OR k.deleted_at IS NOT NULL)`, u.ID).Scan(&out.Unavailable); e != nil {
 			return e
 		}
-		rows, e := tx.QueryContext(ctx, `SELECT k.internal_id,c.kind,c.recorded_at FROM managed_knowledge k JOIN managed_study_records r ON r.knowledge_id=k.internal_id AND r.owner_user_id=$1 JOIN LATERAL (SELECT kind,recorded_at FROM managed_study_content_changes WHERE knowledge_id=k.internal_id ORDER BY recorded_at DESC LIMIT 1)c ON true JOIN LATERAL (SELECT knowledge_ref FROM managed_study_events WHERE knowledge_id=k.internal_id AND owner_user_id=$1 ORDER BY recorded_at DESC,event_id DESC LIMIT 1)e ON true WHERE k.published AND k.deleted_at IS NULL AND coalesce(r.last_review_ref,e.knowledge_ref)->>'contentSha256'<>k.content_sha256 ORDER BY c.recorded_at DESC,k.internal_id LIMIT 20`, u.ID)
+		rows, e := tx.QueryContext(ctx, `SELECT k.internal_id,c.kind,c.recorded_at FROM managed_knowledge k LEFT JOIN managed_study_records r ON r.knowledge_id=k.internal_id AND r.owner_user_id=$1 JOIN LATERAL (SELECT kind,recorded_at FROM managed_study_content_changes WHERE knowledge_id=k.internal_id ORDER BY recorded_at DESC LIMIT 1)c ON true JOIN LATERAL (SELECT knowledge_ref FROM managed_study_events WHERE knowledge_id=k.internal_id AND owner_user_id=$1 ORDER BY recorded_at ASC,event_id ASC LIMIT 1)e ON true WHERE k.published AND k.deleted_at IS NULL AND (CASE WHEN r.last_review_ref IS NOT NULL AND (r.completed_ref IS NULL OR r.last_completed_at IS NULL OR r.last_reviewed_at>r.last_completed_at) THEN r.last_review_ref WHEN r.completed_ref IS NOT NULL THEN r.completed_ref ELSE coalesce(r.last_review_ref,e.knowledge_ref) END)->>'contentSha256'<>k.content_sha256 ORDER BY c.recorded_at DESC,k.internal_id LIMIT 20`, u.ID)
 		if e != nil {
 			return e
 		}
@@ -345,7 +347,7 @@ func (s *Store) ReadManagedOverview(ctx context.Context, a knowledgeadmin.Access
 		if e != nil {
 			return e
 		}
-		return tx.QueryRowContext(ctx, `SELECT count(*) FROM managed_study_records r JOIN managed_knowledge k ON k.internal_id=r.knowledge_id JOIN LATERAL (SELECT knowledge_ref FROM managed_study_events WHERE owner_user_id=r.owner_user_id AND knowledge_id=r.knowledge_id ORDER BY recorded_at DESC,event_id DESC LIMIT 1)e ON true WHERE r.owner_user_id=$1 AND k.published AND k.deleted_at IS NULL AND coalesce(r.last_review_ref,e.knowledge_ref)->>'contentSha256'<>k.content_sha256`, u.ID).Scan(&out.MaterialChanged)
+		return tx.QueryRowContext(ctx, `SELECT count(*) FROM managed_knowledge k LEFT JOIN managed_study_records r ON r.knowledge_id=k.internal_id AND r.owner_user_id=$1 JOIN LATERAL (SELECT knowledge_ref FROM managed_study_events WHERE owner_user_id=$1 AND knowledge_id=k.internal_id ORDER BY recorded_at ASC,event_id ASC LIMIT 1)e ON true WHERE true AND k.published AND k.deleted_at IS NULL AND (CASE WHEN r.last_review_ref IS NOT NULL AND (r.completed_ref IS NULL OR r.last_completed_at IS NULL OR r.last_reviewed_at>r.last_completed_at) THEN r.last_review_ref WHEN r.completed_ref IS NOT NULL THEN r.completed_ref ELSE coalesce(r.last_review_ref,e.knowledge_ref) END)->>'contentSha256'<>k.content_sha256`, u.ID).Scan(&out.MaterialChanged)
 	})
 	return
 }

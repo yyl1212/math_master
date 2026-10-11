@@ -12,6 +12,7 @@ jobs:
     timeout-minutes: 30
     env:
       TOPIC_COMPATIBILITY_STAGE: managed
+      MATH_MASTER_E2E_FRONTEND: ${{ github.workspace }}/.superpowers/sdd/2026-10-11-site-streamline/legacy/frontend
       CGO_ENABLED: '0'
       GOTOOLCHAIN: go1.27.1
       NEXT_TELEMETRY_DISABLED: '1'
@@ -56,6 +57,10 @@ jobs:
         run: |
           node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/e2etest ./internal/testutil -timeout 5m -count=1
           node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
+      - name: 固定旧入口隔离兼容构建
+        run: node tools/verify/run.mjs -- node tools/verify/build-legacy-frontend.mjs
+      - name: 生产依赖退场检查
+        run: node tools/verify/run.mjs -- node tools/verify/site-streamline-production.mjs
       - name: 安装锁定浏览器
         run: node tools/verify/run.mjs --cwd frontend -- npm exec -- playwright install --with-deps chromium
       - name: 真实公共目录与阅读浏览器回归
@@ -98,6 +103,8 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- correction-review.spec.ts
       - name: 真实通知归属曝光边界与手动重试回归
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- notification-security.spec.ts
+      - name: 精简生产入口双视口验证
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- site-streamline.spec.ts ui-language-streamline.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -114,6 +121,7 @@ jobs:
     timeout-minutes: 30
     env:
       TOPIC_COMPATIBILITY_STAGE: managed
+      MATH_MASTER_E2E_FRONTEND: ${{ github.workspace }}/.superpowers/sdd/2026-10-11-site-streamline/legacy/frontend
       CGO_ENABLED: '0'
       GOTOOLCHAIN: go1.27.1
       NEXT_TELEMETRY_DISABLED: '1'
@@ -158,6 +166,10 @@ jobs:
         run: |
           node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/e2etest ./internal/testutil -timeout 5m -count=1
           node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
+      - name: 固定旧入口隔离兼容构建
+        run: node tools/verify/run.mjs -- node tools/verify/build-legacy-frontend.mjs
+      - name: 生产依赖退场检查
+        run: node tools/verify/run.mjs -- node tools/verify/site-streamline-production.mjs
       - name: 安装锁定浏览器
         run: node tools/verify/run.mjs --cwd frontend -- npm exec -- playwright install --with-deps chromium
       - name: 首批完整草稿阅读双视口验证
@@ -198,6 +210,8 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- managed-knowledge-study.spec.ts
       - name: 当前知识中英文界面与输入保留
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-managed.spec.ts
+      - name: 精简生产入口双视口验证
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- site-streamline.spec.ts ui-language-streamline.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

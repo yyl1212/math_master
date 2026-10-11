@@ -66,6 +66,7 @@ const (
 
 var (
 	ErrNotConfigured = errors.New("correction not configured")
+	ErrRetired       = errors.New("correction retired")
 	ErrConflict      = errors.New("correction conflict")
 	ErrSourceStale   = errors.New("correction source stale")
 	ErrAnswerOverlap = errors.New("correction answer overlap")

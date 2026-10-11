@@ -95,7 +95,7 @@ func correctionError(e error) error {
 	if e == nil {
 		return nil
 	}
-	for _, known := range []error{study.ErrModuleRetired, study.ErrNotConfigured, correction.ErrNotConfigured, correction.ErrConflict, correction.ErrSourceStale, correction.ErrAnswerOverlap, correction.ErrLeaseLost, question.ErrIdempotencyConflict, auth.ErrInvalidInput, auth.ErrNotFound} {
+	for _, known := range []error{correction.ErrRetired, study.ErrModuleRetired, study.ErrNotConfigured, correction.ErrNotConfigured, correction.ErrConflict, correction.ErrSourceStale, correction.ErrAnswerOverlap, correction.ErrLeaseLost, question.ErrIdempotencyConflict, auth.ErrInvalidInput, auth.ErrNotFound} {
 		if errors.Is(e, known) {
 			return e
 		}
@@ -136,6 +136,9 @@ func (s *Store) correctionTx(ctx context.Context, a question.Access, action corr
 		return correctionError(e)
 	}
 	defer tx.Rollback()
+	if e := managedCorrectionGuard(ctx, tx, true); e != nil {
+		return correctionError(e)
+	}
 	if correction.IsWrite(action) && action != correction.RetryJobAction {
 		if e := topicLegacyWriteGuard(ctx, tx, true); e != nil {
 			return e

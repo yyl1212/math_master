@@ -5622,6 +5622,10 @@ export interface components {
             sourceKind: "native" | "legacy";
             originEventId: string | null;
             taxonomyHead: string | null;
+            /** @description Display title only; event identity and recorded content reference are unchanged. */
+            title?: string;
+            /** @description Display title only; event identity and recorded content reference are unchanged. */
+            titleZh?: string;
         } & unknown;
         StudyHistoryPage: {
             actorId: string;
@@ -6082,6 +6086,12 @@ export interface components {
             recordedAt: string;
             /** @constant */
             sourceKind: "managed";
+            /** @description Display title only; event identity and recorded content reference are unchanged. */
+            title?: string;
+            /** @description Display title only; event identity and recorded content reference are unchanged. */
+            titleZh?: string;
+            /** @description Current public availability; unavailable knowledge keeps private history. */
+            available?: boolean;
         };
         ManagedHistoryPage: {
             actorId: string;
