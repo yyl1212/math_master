@@ -1,4 +1,13 @@
 export const enMessages = {
+  "map.search.entry": {"text": "Search topics and knowledge", "params": []},
+  "map.search.target": {"text": "Search target", "params": []},
+  "map.search.keyword": {"text": "Keyword", "params": []},
+  "map.search.submit": {"text": "Search", "params": []},
+  "map.search.within": {"text": "Search knowledge in this theme", "params": []},
+  "map.search.noTopics": {"text": "No themes match your search.", "params": []},
+  "map.search.scope": {"text": "Search scope", "params": []},
+  "map.search.noKnowledge": {"text": "No published knowledge in this scope.", "params": []},
+  "map.search.knowledge": {"text": "Knowledge points", "params": []},
   "streamline.changed": {"text": "Content updated", "params": []},
   "streamline.changed.count": {"text": "{count} studied knowledge points have updated content", "params": ["count"]},
   "streamline.changed.details": {"text": "Update details", "params": []},

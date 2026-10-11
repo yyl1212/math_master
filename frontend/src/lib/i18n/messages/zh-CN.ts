@@ -1,6 +1,15 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "map.search.entry": "检索主题与知识点",
+  "map.search.target": "检索对象",
+  "map.search.keyword": "关键词",
+  "map.search.submit": "检索",
+  "map.search.within": "检索本主题知识",
+  "map.search.noTopics": "未找到符合条件的主题。",
+  "map.search.scope": "检索范围",
+  "map.search.noKnowledge": "当前范围暂无已发布知识点。",
+  "map.search.knowledge": "知识点",
   "streamline.changed": "内容已更新",
   "streamline.changed.count": "{count} 个已学习知识点的内容已更新",
   "streamline.changed.details": "更新说明",
