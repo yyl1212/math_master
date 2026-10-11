@@ -1072,6 +1072,24 @@
       ]
     },
     {
+      "file": "frontend/src/features/catalogue/catalogue-search.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "map.search.entry",
+        "map.search.target",
+        "map.search.keyword",
+        "map.search.submit",
+        "map.search.knowledge"
+      ],
+      "rawDataAreas": [
+        "检索关键词、分类键和结果身份保持，检索对象及主题名称随语言切换"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-streamline.spec.ts"
+      ]
+    },
+    {
       "file": "frontend/src/features/catalogue/current-catalogue.tsx",
       "module": "managed",
       "complete": true,
@@ -1091,13 +1109,17 @@
         "public.publishedOne",
         "public.publishedMany",
         "managed.difficulty",
-        "topic.map.translationNote"
+        "topic.map.translationNote",
+        "map.search.within",
+        "map.search.scope",
+        "map.search.noTopics",
+        "map.search.noKnowledge"
       ],
       "rawDataAreas": [
         "目录的英文名称和中文名称按现有语言偏好投影；分类键/链接不变，数学正文及来源保持原文"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-managed.spec.ts"
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     },
     {

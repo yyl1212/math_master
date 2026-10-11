@@ -4,6 +4,7 @@ import {UiLocaleProvider,useUiI18n} from '@/lib/i18n/provider';
 import {CurrentCatalogue,CurrentTopicPage} from './current-catalogue';
 const calls=vi.hoisted(()=>({read:vi.fn()}));
 vi.mock('@/lib/knowledge-admin/server-client',()=>({readManaged:calls.read}));
+vi.mock('@/lib/knowledge-admin/client',()=>({managedRequest:async()=>({items:[],total:0,limit:100,offset:0})}));
 const empty={items:[],total:0,limit:20,offset:0};
 const root={topicKey:'97-XX',title:'数学教育',titleEn:'Mathematics education' as string|undefined,kind:'primary',knowledgeCount:0,items:empty};
 const secondary={...root,topicKey:'97Fxx',title:'算术与数论教育',titleEn:'Arithmetic and number theory education',kind:'secondary'};
@@ -14,7 +15,7 @@ it('shows named themes and published count units without internal classification
  expect(screen.getByRole('link',{name:/数学教育/})).toHaveAttribute('href','/topics/97-XX');
  expect(screen.getByText('已发布 0 个知识点')).toBeVisible();
  expect(document.body.textContent).not.toContain('97-XX');
- expect(screen.getByRole('textbox',{name:'检索主题'})).toBeVisible();
+ expect(screen.getByRole('searchbox',{name:'关键词'})).toBeVisible();
 });
 it('shows second-level topics even when their parent has no published knowledge',async()=>{
  fixture();render(<UiLocaleProvider initialLocale="zh-CN">{await CurrentTopicPage({topicKey:'97-XX'})}</UiLocaleProvider>);
@@ -37,7 +38,7 @@ function Switch(){const{setLocale}=useUiI18n();return <><button onClick={()=>set
 it('switches primary topic names immediately without changing search input or links',async()=>{
  fixture(root,root);render(<UiLocaleProvider initialLocale="en"><Switch/>{await CurrentCatalogue({q:'97'})}</UiLocaleProvider>);
  expect(screen.getByRole('link',{name:/Mathematics education/})).toHaveAttribute('href','/topics/97-XX');
- const input=screen.getByRole('textbox');fireEvent.change(input,{target:{value:'保留我的搜索'}});
+ const input=screen.getByRole('searchbox');fireEvent.change(input,{target:{value:'保留我的搜索'}});
  fireEvent.click(screen.getByRole('button',{name:'中文'}));
  expect(screen.getByRole('link',{name:/数学教育/})).toHaveAttribute('href','/topics/97-XX');
  expect(input).toHaveValue('保留我的搜索');
@@ -63,4 +64,45 @@ it('switches project other and accepts older responses without an English field'
  fireEvent.click(screen.getByRole('button',{name:'中文'}));expect(screen.getByRole('heading',{name:'项目其他'})).toBeVisible();
  view.unmount();fixture({...root,titleEn:undefined},root);render(<UiLocaleProvider initialLocale="en">{await CurrentTopicPage({topicKey:'97-XX'})}</UiLocaleProvider>);
  expect(screen.getByRole('heading',{name:'数学教育'})).toBeVisible();
+});
+
+it.each(['','   '])('keeps an empty legacy topic search %j readable instead of showing a service error',async(q)=>{
+ calls.read.mockReset();calls.read.mockImplementation(async(path:string)=>new URL(path,'https://example.test').searchParams.has('q')?{ok:false,status:422,code:'INVALID_FIELD'}:{ok:true,data:path.startsWith('/api/v3/topics/')?root:{items:[secondary],total:1,limit:100,offset:0}});
+ render(<UiLocaleProvider initialLocale="zh-CN">{await CurrentTopicPage({topicKey:'97-XX',searchParams:{q}})}</UiLocaleProvider>);
+ expect(screen.getByRole('heading',{name:'数学教育'})).toBeVisible();expect(screen.queryByRole('alert')).toBeNull();
+ expect(screen.queryByRole('textbox')).toBeNull();expect(screen.getByRole('link',{name:'检索本主题知识'})).toHaveAttribute('href','/knowledge?mode=knowledge&topicKey=97-XX');
+});
+it('searches published knowledge in the map and preserves scope, mode and keyword when paging',async()=>{
+ calls.read.mockReset();calls.read.mockImplementation(async(path:string)=>({ok:true,data:path.startsWith('/api/v3/knowledge?')?{items:[{id:'k-'+'a'.repeat(56),point:{title:'Column space',title_zh:'列空间',type:'definition',learning_difficulty:{difficulty_level:2}}}],total:45,limit:20,offset:20}:root}));
+ render(<UiLocaleProvider initialLocale="zh-CN">{await CurrentCatalogue({mode:'knowledge',topicKey:'97-XX',q:'  列空间  ',offset:20})}</UiLocaleProvider>);
+ expect(screen.getByRole('link',{name:'列空间'})).toHaveAttribute('href','/knowledge/k-'+'a'.repeat(56));
+ expect(screen.getByRole('searchbox',{name:'关键词'})).toHaveValue('列空间');
+ expect(screen.getByRole('combobox',{name:'检索对象'})).toHaveValue('knowledge');
+ const next=new URL(screen.getByRole('link',{name:'下一页'}).getAttribute('href')!,'https://example.test');
+ expect(Object.fromEntries(next.searchParams)).toEqual({mode:'knowledge',topicKey:'97-XX',q:'列空间',offset:'40'});
+});
+it('keeps the global search form and clear action visible for zero matching knowledge',async()=>{
+ calls.read.mockReset();calls.read.mockImplementation(async(path:string)=>({ok:true,data:path.startsWith('/api/v3/knowledge?')?empty:{items:[],total:0,limit:100,offset:0}}));
+ render(<UiLocaleProvider initialLocale="en">{await CurrentCatalogue({mode:'knowledge',q:'no-match'})}</UiLocaleProvider>);
+ expect(screen.getByText('No published knowledge matches your search.')).toBeVisible();
+ expect(screen.getByRole('searchbox',{name:'Keyword'})).toHaveValue('no-match');
+ expect(screen.getByRole('link',{name:'Clear filters'})).toHaveAttribute('href','/knowledge?mode=knowledge');
+ expect(screen.queryByRole('alert')).toBeNull();
+});
+it('keeps the global form usable during a real service failure',async()=>{
+ calls.read.mockReset();calls.read.mockResolvedValue({ok:false,status:503,code:'CONTENT_NOT_READY'});
+ render(<UiLocaleProvider initialLocale="en">{await CurrentCatalogue({mode:'knowledge',q:'retain'})}</UiLocaleProvider>);
+ expect(screen.getByRole('searchbox',{name:'Keyword'})).toHaveValue('retain');expect(screen.getByRole('alert')).toBeVisible();
+});
+it('shows no matching themes in place while retaining the keyword',async()=>{
+ calls.read.mockReset();calls.read.mockResolvedValue({ok:true,data:{items:[],total:0,limit:100,offset:0}});
+ render(<UiLocaleProvider initialLocale="zh-CN">{await CurrentCatalogue({q:'找不到的主题'})}</UiLocaleProvider>);
+ expect(screen.getByText('未找到符合条件的主题。')).toBeVisible();expect(screen.getByRole('searchbox',{name:'关键词'})).toHaveValue('找不到的主题');
+});
+it('retains the topic and map correction entry when a legacy keyword is rejected',async()=>{
+ calls.read.mockReset();calls.read.mockImplementation(async(path:string)=>new URL(path,'https://example.test').searchParams.has('q')?{ok:false,status:422,code:'INVALID_FIELD'}:{ok:true,data:path.startsWith('/api/v3/topics/')?root:{items:[secondary],total:1,limit:100,offset:0}});
+ render(<UiLocaleProvider initialLocale="en">{await CurrentTopicPage({topicKey:'97-XX',searchParams:{q:'x'.repeat(257)}})}</UiLocaleProvider>);
+ expect(screen.getByRole('heading',{name:'Mathematics education'})).toBeVisible();
+ expect(screen.getByRole('alert')).toHaveTextContent('Invalid input. Check the fields; your input is retained.');
+ expect(screen.getByRole('link',{name:'Search knowledge in this theme'})).toHaveAttribute('href','/knowledge?mode=knowledge&topicKey=97-XX&q='+'x'.repeat(257));
 });

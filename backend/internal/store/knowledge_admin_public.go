@@ -161,6 +161,15 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 	out = knowledgeadmin.Page[knowledgeadmin.CurrentTopic]{Items: []knowledgeadmin.CurrentTopic{}, Limit: q.Limit, Offset: q.Offset}
 	e = s.currentTx(ctx, func(ctx context.Context, tx *sql.Tx) error {
 		prefix := topicPrefix(q.TopicKey)
+		includeOther := prefix == "" && q.Q == ""
+		if prefix == "" && !includeOther {
+			for _, name := range []string{"项目其他", "project other", "project:other", "project-other"} {
+				if strings.Contains(name, strings.ToLower(q.Q)) {
+					includeOther = true
+					break
+				}
+			}
+		}
 		names, e := knowledgeadmin.DirectoryChineseSearch(q.Q)
 		if e != nil {
 			return e
@@ -178,7 +187,7 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 			return e
 		}
 		out.Total = n
-		if prefix == "" {
+		if includeOther {
 			out.Total++
 		}
 		rows, e := tx.QueryContext(ctx, currentTopicSelect+filter+" ORDER BY n.code LIMIT $5 OFFSET $6", level, prefix, q.Q, namesJSON, q.Limit, q.Offset)
@@ -198,7 +207,7 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 		if e != nil {
 			return e
 		}
-		if prefix == "" && q.Offset+len(out.Items) >= n && len(out.Items) < q.Limit {
+		if includeOther && q.Offset <= n && q.Offset+len(out.Items) >= n && len(out.Items) < q.Limit {
 			out.Items = append(out.Items, knowledgeadmin.CurrentTopic{TopicKey: "project:other", Title: "项目其他", TitleEn: "Project other", Kind: "project-other", Items: knowledgeadmin.Page[knowledgeadmin.PublicKnowledge]{Items: []knowledgeadmin.PublicKnowledge{}, Limit: 20}})
 		}
 		for i := range out.Items {

@@ -115,6 +115,22 @@ func TestManagedPublicDirectoryAndOtherGroups(t *testing.T) {
 	if e != nil || roots.Total != 64 || len(roots.Items) != 64 {
 		t.Fatal("formal roots plus explicit project other", roots.Total, e)
 	}
+	for _, q := range []string{"没有匹配的主题-xyz", "no-matching-topic-xyz", "other project", "其他 project"} {
+		page, e := f.repo.ListCurrentTopics(f.ctx, knowledgeadmin.Query{Q: q, Limit: 100})
+		if e != nil || page.Total != 0 || len(page.Items) != 0 {
+			t.Fatalf("unrelated other group matched %q: %+v %v", q, page, e)
+		}
+	}
+	for _, q := range []string{"项目其他", "other"} {
+		page, e := f.repo.ListCurrentTopics(f.ctx, knowledgeadmin.Query{Q: q, Limit: 100})
+		if e != nil || page.Total != 1 || len(page.Items) != 1 || page.Items[0].TopicKey != "project:other" {
+			t.Fatalf("matching other group missing %q: %+v %v", q, page, e)
+		}
+	}
+	otherPage, e := f.repo.ListCurrentTopics(f.ctx, knowledgeadmin.Query{Q: "other", Limit: 1, Offset: 1})
+	if e != nil || otherPage.Total != 1 || len(otherPage.Items) != 0 {
+		t.Fatal("other group repeated past the final page", otherPage, e)
+	}
 	parent, e := f.repo.ReadCurrentTopic(f.ctx, "97-XX", knowledgeadmin.Query{})
 	if e != nil || parent.KnowledgeCount != 2 {
 		t.Fatal("ancestor count", parent, e)

@@ -2344,7 +2344,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "48bd938fa1732d31c48000058672cab5d14a78ab69156b05a5dcaa3ae6bbe001"
+        "sha256": "f8a73bd064602145cbca2c3a02a8c69bc09a6a19073d7ade0c38f0a13a2e241a"
       }
     },
     "frontend/src/app/admin/publications/page.tsx": {
@@ -2392,7 +2392,7 @@
         "reason": "C7真实旧浏览器故障RED：公开页面模式未知继续关闭旧fallback，但恢复原公开ContentState及重试按钮，不使用私人StudyUnavailable。"
       },
       "managed": {
-        "sha256": "e445810b38a5e82e394804f5005b43c5f26a7e8c14427507b5f071536b0511f1"
+        "sha256": "616afb964c195f5bee47b55981a361c76391b5d34af00b9b2202c3ac5f12b4ae"
       }
     },
     "frontend/src/app/page.tsx": {
@@ -2519,7 +2519,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "bf3fab3f3bc8daff2c4cc88d308df8653e7381137f9bfaf47c5fa0bf23452917"
+        "sha256": "c13c1feee2f581dd43d6489279c2b4323bfe5f18483fba9dfd2aade5b44dc185"
       }
     },
     "frontend/src/lib/i18n/messages/zh-CN.ts": {
@@ -2536,7 +2536,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "f128f557538bf550c68c5f22003509ad24b9c02520c206f5258ff78c00f77141"
+        "sha256": "b9769df62e5026b5dda94b3db4c9e6787b578477bb7fca0e8f4c8ecf06bbbcb1"
       }
     },
     "frontend/src/lib/i18n/page-titles.ts": {
@@ -3640,6 +3640,7 @@
       "frontend/src/app/api/v3/[[...segments]]/route.ts",
       "frontend/src/components/topic-picker.test.tsx",
       "frontend/src/components/topic-picker.tsx",
+      "frontend/src/features/catalogue/catalogue-search.tsx",
       "frontend/src/features/catalogue/current-catalogue.test.tsx",
       "frontend/src/features/catalogue/current-catalogue.tsx",
       "frontend/src/features/catalogue/current-home.test.tsx",
@@ -3736,6 +3737,8 @@
       "tests/fixtures/legacy-frontend/src/components/site-header.tsx",
       "tests/fixtures/legacy-frontend/src/features/auth/admin-users.test.tsx",
       "tests/fixtures/legacy-frontend/src/features/auth/admin-users.tsx",
+      "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.test.tsx",
+      "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.tsx",
       "tests/fixtures/legacy-frontend/src/features/content/authoring.test.tsx",
       "tests/fixtures/legacy-frontend/src/features/content/submission-page.test.tsx",
       "tests/fixtures/legacy-frontend/src/features/feedback/feedback-account.tsx",
@@ -4912,8 +4915,8 @@
     "backend/internal/store/knowledge_admin_notes.go": "e8c6dffdafbaf0dfcdd3171ae1c58085405d3d6a9723a9f77f8465a03bb3acbc",
     "backend/internal/store/knowledge_admin_notes_test.go": "32bd95fe7dfbc3b4766b0a6e3105f0e0608f1652f61ead386c30aca49217fbf0",
     "backend/internal/store/knowledge_admin_permissions_test.go": "e6e0637c523eeb2cf22f4522088db36b34556fba4b2b20af23f5abcc349e01ae",
-    "backend/internal/store/knowledge_admin_public.go": "c78a89877e7d9a7f412efeda45a300c682a5aae19cbdbfc1f34dfb58afe6855e",
-    "backend/internal/store/knowledge_admin_public_test.go": "49edd946bcbba641e7cf14394a38a45604c8c103665ba07c791133d4eb7f28e5",
+    "backend/internal/store/knowledge_admin_public.go": "325362aa2c07b59c103f2871aa1f67088a18ced9151804f48c0370f30c43ca8d",
+    "backend/internal/store/knowledge_admin_public_test.go": "f79d11439bde149bac61791b3f62a828de51a43c6cf0587509a60cf77678dcd0",
     "backend/internal/store/knowledge_admin_read.go": "9295404f64fdb578a20776c26d326c8accbf328938fe2587991521061b27ca7f",
     "backend/internal/store/knowledge_admin_schema_test.go": "b371dba285d1ab25adbad20b22989a978b59b0e7db12efb19ee1f477e0e30e9c",
     "backend/internal/store/knowledge_admin_source_test.go": "3b3f944e71f41e4bea5e7fe6f7062e80050aba7c91751cee9f63ba049829934f",
@@ -5012,8 +5015,8 @@
     "frontend/src/app/api/v2/topics/[[...segments]]/route.ts": "e4140851bc10c14c4f488cfd26f2320dfdd17048153e895c8b7e8e00c4b2aba3",
     "frontend/src/app/api/v3/[[...segments]]/route.ts": "e3abe75adb546be3d96f253905c2f74cacb526aedc6959dcbc1d36d5ec91285c",
     "frontend/src/app/topics/[id]/page.tsx": "711546befbe884b088f58df7551db1be463d2d6cb74b1cbe127cfd5025871c8c",
-    "frontend/src/features/catalogue/current-catalogue.test.tsx": "94d59fe17e39dbca37de567a7c2a19752f9b33684092e4b8eebe1d9a4aa47dfc",
-    "frontend/src/features/catalogue/current-catalogue.tsx": "8964d715a8ef3b016f108f1ac1a064829448829873f5f52d86e8cff10d1810d0",
+    "frontend/src/features/catalogue/current-catalogue.test.tsx": "7cdd3aa3dda3fa2761fa25aea1c7ab0487e903bc1dbc9ac09fd2684c3cb7e90c",
+    "frontend/src/features/catalogue/current-catalogue.tsx": "71bb1758e1e15d7cb69847598b85de2cd307b132901975285758d7dca633dad6",
     "frontend/src/features/catalogue/topic-view.test.tsx": "4f6506575f4146a8f4ff337c33b06da26ba51a54042f0e899a979e9415a98c23",
     "frontend/src/features/catalogue/topic-view.tsx": "9fe75cccc05ad368fd63c934a49138fdbcf52dc52d4cf2ff36627498856228df",
     "frontend/src/features/content/topic-fields.test.tsx": "33974253bc178fd91812fb6bfcf6d7201d7c63c92ac8d86649839d63a8f1eb11",
@@ -5141,7 +5144,7 @@
     "tools/topic-ingest/test-fixtures.mjs": "5f2ef429e3701f8326bb5255d10396e4f5105fa5d322c337ea3b0f0eea675d13",
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
-    "tools/verify/admin-knowledge-approved-paths.json": "b5c6feebd3d69efd389d2c8bd86861fe703da40dbc59a21bf3d958aa15cd8e97",
+    "tools/verify/admin-knowledge-approved-paths.json": "95c1da14f3fdac59b8f94011ea12f4ac2bea6dc8755f6d689ddae825501fb52e",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
     "tools/verify/topic-learning-ci.test.mjs": "d401ee5d14c1cd4c7e1959365612d33a6f2e2a570364e3136b7d96bf8bf8e145",
@@ -5160,8 +5163,8 @@
     "frontend/src/features/study/retired-entry.tsx": "7be097213aec784a4f766e639af148a35a3e6b6c1e595a731035c8f4c53c839a",
     "frontend/src/styles/current-home.module.css": "56cc05b739a26deeb5426ced8f6a37382eb3c43b7aac37d3705ef03284d622c4",
     "tests/e2e/site-streamline.spec.ts": "a415eb68bad5e7e726fe199734fc0d05b8792e228181bfc60f438695bdfc1384",
-    "tests/e2e/ui-language-streamline.spec.ts": "19d0dfe20606d10a5b200456389715894847b2993d0fc4b22a8cec1ebf6e1078",
-    "tests/fixtures/legacy-frontend/manifest.json": "1628141ac3ad45f49b65fe870fd99028a0d090f9f3e535c09376ac6ca62f2945",
+    "tests/e2e/ui-language-streamline.spec.ts": "cc8e44b270d788d90d264d55721ec8fd0b475e4c3933e54d7c61f3693ec11d32",
+    "tests/fixtures/legacy-frontend/manifest.json": "3989ae39b02706e3bd5f424698783056528e617661da67e985ae13a53f21c0f8",
     "tests/fixtures/legacy-frontend/src/app/account/page.tsx": "a348994bb01a5e9beb35e7d4e876b59dd7c823eb23dcf43fa73213ded494fe96",
     "tests/fixtures/legacy-frontend/src/app/admin/knowledge/[id]/page.tsx": "fe91f4bb083ae71d2acc177b5081391fb64ed01cd08b1bc796a1ffecd1e8b257",
     "tests/fixtures/legacy-frontend/src/app/admin/knowledge/page.tsx": "3ce2f41f6085e4c7e7b6ae4c2ef334f3c26ccd40a8fb350dbe70aa8a6fb7e194",
@@ -5224,6 +5227,9 @@
     "tests/fixtures/legacy-frontend/src/features/study/managed-history.tsx": "789607b5b43e7cee976f54fced6bd49981e1040e2b3c769160da728acf7407fc",
     "tests/fixtures/legacy-frontend/src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a",
     "tools/verify/build-legacy-frontend.mjs": "370b6f5431726dd7f1d1e1c4b7b3bc4e5ab3ac40394065b42c6b2685fbb4d7bf",
-    "tools/verify/site-streamline-production.mjs": "45b24a93fd80424af08981325e2e38f336c7f81ca2ab531d97ee6f5d635e2400"
+    "tools/verify/site-streamline-production.mjs": "45b24a93fd80424af08981325e2e38f336c7f81ca2ab531d97ee6f5d635e2400",
+    "frontend/src/features/catalogue/catalogue-search.tsx": "0d19dea9c2706960471031a18b80fde2f8095e9351f49406ed25094c069ef6e5",
+    "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.test.tsx": "94d59fe17e39dbca37de567a7c2a19752f9b33684092e4b8eebe1d9a4aa47dfc",
+    "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.tsx": "8964d715a8ef3b016f108f1ac1a064829448829873f5f52d86e8cff10d1810d0"
   }
 }
