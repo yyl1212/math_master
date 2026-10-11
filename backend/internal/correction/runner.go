@@ -78,7 +78,7 @@ func (r *Runner) runBatch(parent context.Context, backfill bool) (Batch, error) 
 			return v.batch, nil
 		}
 		class := workerErrorClass(cause)
-		if ctx.Err() == nil && !errors.Is(cause, ErrLeaseLost) && !errors.Is(cause, ErrNotConfigured) {
+		if ctx.Err() == nil && !errors.Is(cause, ErrLeaseLost) && !errors.Is(cause, ErrNotConfigured) && !errors.Is(cause, ErrRetired) {
 			c, stop := context.WithTimeout(ctx, r.statementBudget)
 			e := r.repo.FinishCorrectionJob(c, *lease, RetryWait, class)
 			stop()
@@ -154,6 +154,9 @@ func (r *Runner) Run(ctx context.Context) error {
 		}
 		v, e := r.runBatch(ctx, due)
 		if ctx.Err() != nil {
+			return nil
+		}
+		if errors.Is(e, ErrRetired) {
 			return nil
 		}
 		if errors.Is(e, ErrNeverEnabled) {

@@ -22,6 +22,22 @@ type runnerRepo struct {
 	peak      atomic.Int32
 }
 
+func TestRunnerRetiredModeStopsWithoutClaimOrFinish(t *testing.T) {
+	repo := &runnerRepo{backfill: func(context.Context, int) (int, error) { return 0, ErrRetired }}
+	runner, e := NewRunner(repo, Options{Enabled: true, Limit: 1})
+	if e != nil {
+		t.Fatal(e)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	defer cancel()
+	if e = runner.Run(ctx); e != nil {
+		t.Fatal(e)
+	}
+	if ctx.Err() != nil || repo.backfills.Load() != 1 || repo.claims.Load() != 0 || repo.finishes.Load() != 0 {
+		t.Fatal("retired runner polled or wrote", repo.backfills.Load(), repo.claims.Load(), repo.finishes.Load())
+	}
+}
+
 func (f *runnerRepo) enter() func() {
 	n := f.active.Add(1)
 	for p := f.peak.Load(); n > p && !f.peak.CompareAndSwap(p, n); p = f.peak.Load() {

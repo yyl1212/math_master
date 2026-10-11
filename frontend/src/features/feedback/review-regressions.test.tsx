@@ -110,18 +110,17 @@ it('conflict recovery preserves handler draft and references while an old-key re
  vi.mocked(readFeedback).mockResolvedValue({ actorId: id, data: { ...initial, sequence: 2 } });
  vi.mocked(sendFeedback).mockRejectedValue(new FeedbackRequestError('FEEDBACK_CONFLICT'));
  render(<FeedbackTicket initial={initial} review={true}/>, { wrapper });
- fireEvent.change(screen.getByLabelText('Report status'), { target: { value: 'resolved' } });
+ fireEvent.change(screen.getByLabelText('Report status'), { target: { value: 'closed' } });
  fireEvent.change(screen.getByLabelText('Review reply'), { target: { value: 'unsubmitted independent handling' } });
- fireEvent.change(screen.getByLabelText('Resolution basis'), { target: { value: 'revision_published' } });
- for (const [label, value] of [['Withdrawal event ID', id], ['Replacement ID', 'math-root'], ['Replacement version', '2'], ['Replacement SHA256', 'b'.repeat(64)], ['Replacement publication ID', otherId]]) fireEvent.change(screen.getByLabelText(label), { target: { value } });
+ fireEvent.change(screen.getByLabelText('Resolution basis'), { target: { value: 'duplicate' } });
+ fireEvent.change(screen.getByLabelText('Duplicate report ID'),{target:{value:otherId}});
  fireEvent.click(screen.getByRole('button', { name: 'Save handling result' }));
  await screen.findByRole('alert'); const original = vi.mocked(sendFeedback).mock.calls[0][0];
  fireEvent.click(screen.getByRole('button', { name: 'Reload report status' }));
  expect(await screen.findByText(/Event 2/)).toBeVisible();
  expect(screen.getByLabelText('Review reply')).toHaveValue('unsubmitted independent handling');
- expect(screen.getByLabelText('Resolution basis')).toHaveValue('revision_published');
- expect(screen.getByLabelText('Withdrawal event ID')).toHaveValue(id);
- expect(screen.getByLabelText('Replacement publication ID')).toHaveValue(otherId);
+ expect(screen.getByLabelText('Resolution basis')).toHaveValue('duplicate');
+ expect(screen.getByLabelText('Duplicate report ID')).toHaveValue(otherId);
  fireEvent.click(screen.getByRole('button', { name: 'Retry same request' }));
  await waitFor(() => expect(sendFeedback).toHaveBeenCalledTimes(2));
  expect(vi.mocked(sendFeedback).mock.calls[1][0]).toEqual(original);
@@ -129,7 +128,7 @@ it('conflict recovery preserves handler draft and references while an old-key re
  fireEvent.click(screen.getByRole('button', { name: 'Save handling result' }));
  await waitFor(() => expect(sendFeedback).toHaveBeenCalledTimes(3));
  expect(vi.mocked(sendFeedback).mock.calls[2][0].key).not.toBe(original.key);
- expect(vi.mocked(sendFeedback).mock.calls[2][0].input).toMatchObject({ expectedSequence: 2, message: 'unsubmitted independent handling', resolution: { kind: 'revision_published', withdrawal: { id }, replacement: { publicationId: otherId } } });
+ expect(vi.mocked(sendFeedback).mock.calls[2][0].input).toMatchObject({ expectedSequence: 2, message: 'unsubmitted independent handling', resolution: { kind: 'duplicate', withdrawal: null, replacement: null, duplicateOf:otherId } });
 });
 
 it('ignores a latest-metadata response arriving after the confirmed command deadline', async () => {

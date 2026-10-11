@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/correction"
 	"github.com/yyl1212/math_master/backend/internal/feedback"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/study"
@@ -59,6 +60,39 @@ func TestManagedChangedNoteDoesNotAcknowledgeContent(t *testing.T) {
 	overview, e = f.repo.ReadManagedOverview(f.ctx, f.Access("learner_a", "review-overview-fixed"))
 	if e != nil || overview.MaterialChanged != 0 {
 		t.Fatal(overview, e)
+	}
+}
+
+func TestManagedRetiresCorrectionWorkerWithoutTouchingState(t *testing.T) {
+	f := newKnowledgeAdminFixture(t)
+	f.PreparedManagedKnowledge()
+	before := f.count("SELECT count(*) FROM correction_jobs")
+	_, e := f.repo.ClaimCorrectionJob(f.ctx)
+	if !errors.Is(e, correction.ErrRetired) {
+		t.Fatal("worker remains active", e)
+	}
+	if f.count("SELECT count(*) FROM correction_jobs") != before {
+		t.Fatal("old jobs mutated")
+	}
+}
+
+func TestManagedMissingStateCannotResumeOldCorrectionJob(t *testing.T) {
+	f := newCorrectionFixture(t)
+	f.registerRule(nil, 1)
+	var before, after string
+	if e := f.db.QueryRow(`SELECT jsonb_agg(to_jsonb(j) ORDER BY id)::text FROM correction_jobs j`).Scan(&before); e != nil {
+		t.Fatal(e)
+	}
+	f.exec(`DROP TABLE knowledge_admin_state CASCADE`)
+	_, e := f.repo.ClaimCorrectionJob(f.ctx)
+	if e == nil {
+		t.Fatal("partial managed schema resumed an old job")
+	}
+	if e = f.db.QueryRow(`SELECT jsonb_agg(to_jsonb(j) ORDER BY id)::text FROM correction_jobs j`).Scan(&after); e != nil {
+		t.Fatal(e)
+	}
+	if before != after {
+		t.Fatal("old job state, lease or sequence changed")
 	}
 }
 

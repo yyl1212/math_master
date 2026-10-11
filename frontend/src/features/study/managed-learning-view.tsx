@@ -43,7 +43,7 @@ export function ManagedLearningView({overview,list,themes,filters,selectedTopic}
    <div className={styles.overallProgress}><span>{progress(done,overview.total)}</span><span>{overview.total?Math.round(done/overview.total*100):0}%</span></div>
    <progress className={styles.progress} max={Math.max(1,overview.total)} value={done} aria-label={t('learn.dashboard.overallProgress',{})}/>
    <p className={styles.hint}>{t('study.progress.rule',{})}</p>
-   {overview.materialChanged>0&&<p className={styles.notice}>{t('managed.changed',{})} ({overview.materialChanged})</p>}
+   {overview.materialChanged>0&&<p className={styles.notice}>{t('streamline.changed.count',{count:overview.materialChanged})}</p>}
   </section>
   <div className={styles.layout}>
    <nav className={styles.themes} aria-labelledby="learning-themes">
@@ -77,7 +77,7 @@ export function ManagedLearningView({overview,list,themes,filters,selectedTopic}
      return <article className={styles.knowledgeRow} key={detail.record.knowledgeId}>
       <div className={styles.rowMain}><div className={styles.rowHeading}><h3><Link prefetch={false} href={`/knowledge/${detail.record.knowledgeId}`}>{point?<LocalizedName english={point.title} chinese={point.title_zh}/>:t('managed.unavailable',{})}</Link></h3><span className={styles.badge} data-state={detail.record.state}>{t(stateKey(detail.record.state),{})}</span></div>
        <div className={styles.metadata}>{memberships.map(theme=><span key={theme.topicKey}><LocalizedName english={theme.titleEn} chinese={theme.title}/></span>)}{point&&<><span>{t(`managed.type.${point.type}`,{})}</span><span>{t('learn.dashboard.difficulty',{level:point.learning_difficulty.difficulty_level})}</span></>}</div>
-       {detail.materialChanged&&<p className={styles.notice}>{t('managed.changed',{})}</p>}
+       {detail.materialChanged&&<p className={styles.notice}>{t('streamline.changed',{})}</p>}
       </div>
       <Link prefetch={false} className={styles.readLink} href={`/knowledge/${detail.record.knowledgeId}`}>{t(detail.record.state==='learning'?'learn.dashboard.continue':'learn.dashboard.read',{})} →</Link>
      </article>;

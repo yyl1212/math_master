@@ -1,6 +1,11 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "streamline.changed": "内容已更新",
+  "streamline.changed.count": "{count} 个已学习知识点的内容已更新",
+  "streamline.changed.details": "更新说明",
+  "streamline.retired.title": "此功能已移除",
+  "streamline.retired.body": "请按知识主题继续学习，已有学习记录继续保留。",
   "streamline.feedback.edit": "编辑对应知识点",
   "streamline.history.unavailable": "知识暂不可用",
   "streamline.history.archived": "已归档知识",

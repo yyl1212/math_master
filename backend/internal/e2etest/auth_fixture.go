@@ -18,6 +18,24 @@ const fixturePassword = "Test-only 中文数学密码 with spaces"
 const fixtureOrigin = "http://127.0.0.1:18080"
 
 func resetAccounts(ctx context.Context, db *sql.DB, accounts *auth.Service, admin *auth.AdminService) error {
+	// This control exists only in the random, verified e2e database, never in server.
+	var database string
+	if err := db.QueryRowContext(ctx, "SELECT current_database()").Scan(&database); err != nil || !strings.HasPrefix(database, "math_master_test_") {
+		return errors.New("unsafe fixture reset")
+	}
+	tx, err := db.BeginTx(ctx, nil)
+	if err != nil {
+		return errors.New("fixture reset transaction failed")
+	}
+	_, err = tx.ExecContext(ctx, "ALTER TABLE goose_db_version DISABLE TRIGGER managed_knowledge_marker_guard; TRUNCATE knowledge_admin_state; INSERT INTO knowledge_admin_state(singleton) VALUES(true); UPDATE goose_db_version SET managed_knowledge_enabled=false WHERE version_id=0; ALTER TABLE goose_db_version ENABLE TRIGGER managed_knowledge_marker_guard")
+	if err != nil {
+		tx.Rollback()
+		return errors.New("managed fixture mode reset failed")
+	}
+	if err = tx.Commit(); err != nil {
+		return errors.New("fixture reset commit failed")
+	}
+
 	// OpenVerified checks this harness's random database on every physical connection.
 	// Reset account-owned workflow records and both sides of the deferred learner FK.
 	if _, err := db.ExecContext(ctx, `TRUNCATE managed_study_content_changes,managed_study_idempotency,managed_study_events,managed_study_notes,managed_study_records,managed_knowledge_events,managed_knowledge_imports,managed_knowledge_sources,managed_knowledge_topics,managed_knowledge,topic_cutovers,study_legacy_event_links,study_migration_batches,study_records,study_events,study_notes,study_idempotency,study_content_changes,`+strings.Join(append(append([]string{}, correctionResetTableNames...), taxonomyResetTableNames...), ",")+`, feedback_idempotency, feedback_events, feedback_rate_limits, feedback_tickets, learning_idempotency, learning_evidence_dependencies, learning_unlocks, learning_qualification_events, assessment_results, assessment_answers, assessment_items, assessment_attempts, practice_attempts, learner_question_views, learner_answer_exposures, learner_exposure_state, learning_path_nodes, learning_path_enrollments, learning_records, learning_events, question_idempotency, question_events, question_withdrawals, question_heads, question_publication_members, question_publications, question_review_decisions, question_submission_members, question_submission_authors, question_submissions, question_blueprint_sources, question_instance_coverage, question_blueprints, question_instances, question_templates, question_packages, question_workspace_authors, question_workspaces, content_idempotency, content_workflow_events, content_withdrawals, content_publication_manifests, content_review_decisions, content_submission_members, content_submission_authors, content_submissions, content_workspace_assets, content_workspaces, auth_bootstrap, auth_audit_events, auth_rate_limits, auth_preauth, auth_sessions, auth_user_roles, auth_users RESTART IDENTITY`); err != nil {

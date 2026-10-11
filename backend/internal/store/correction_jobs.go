@@ -23,6 +23,9 @@ func (s *Store) correctionSystemTx(ctx context.Context, locks bool, fn func(cont
 		return correctionError(e)
 	}
 	defer tx.Rollback()
+	if e := managedCorrectionGuard(ctx, tx); e != nil {
+		return correctionError(e)
+	}
 	ctx = context.WithValue(ctx, correctionConnectionKey{}, correctionTransactionConnection{tx: tx, conn: conn})
 	on, now, facts, e := correctionSystemStart(ctx, tx, locks)
 	if e != nil {

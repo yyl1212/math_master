@@ -18,7 +18,7 @@ func correctionError(w http.ResponseWriter, r *http.Request, e error) {
 	extra := map[string]any{}
 	var rate *correction.RateError
 	switch {
-	case errors.Is(e, study.ErrModuleRetired):
+	case errors.Is(e, study.ErrModuleRetired), errors.Is(e, correction.ErrRetired):
 		status, code, message = 410, "MODULE_RETIRED", "This module has been retired."
 	case errors.Is(e, correction.ErrNotConfigured):
 		status, code, message = 503, "CORRECTION_NOT_CONFIGURED", "Corrections are temporarily unavailable."

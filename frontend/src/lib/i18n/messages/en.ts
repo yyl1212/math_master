@@ -1,4 +1,9 @@
 export const enMessages = {
+  "streamline.changed": {"text": "Content updated", "params": []},
+  "streamline.changed.count": {"text": "{count} studied knowledge points have updated content", "params": ["count"]},
+  "streamline.changed.details": {"text": "Update details", "params": []},
+  "streamline.retired.title": {"text": "This feature has been removed", "params": []},
+  "streamline.retired.body": {"text": "Continue learning by knowledge theme. Existing learning records are retained.", "params": []},
   "streamline.feedback.edit": {"text": "Edit the reported knowledge", "params": []},
   "streamline.history.unavailable": {"text": "Knowledge is not available", "params": []},
   "streamline.history.archived": {"text": "Archived knowledge", "params": []},

@@ -53,6 +53,18 @@ func knowledgeHTTPFixture() (http.Handler, *httpKnowledgeRepo) {
 	repo := &httpKnowledgeRepo{user: auth.User{ID: contentFixtureID, Roles: []auth.Role{auth.RoleAdmin}}, mode: "managed"}
 	return NewApplicationHandler(&fakeReader{}, nil, AuthOptions{Knowledge: &KnowledgeOptions{Service: knowledgeadmin.NewService(repo), Current: repo, PublicOrigin: privateOrigin}, PublicOrigin: privateOrigin}), repo
 }
+func TestManagedAllCorrectionAndNotificationEntryPointsRetired(t *testing.T) {
+	h, _ := knowledgeHTTPFixture()
+	for _, path := range []string{"/api/v1/corrections/cases", "/api/v1/corrections/jobs/" + contentFixtureID + "/retry", "/api/v1/notifications", "/api/v1/notifications/unread-count"} {
+		for _, method := range []string{"GET", "POST"} {
+			w := httptest.NewRecorder()
+			h.ServeHTTP(w, httptest.NewRequest(method, path, nil))
+			if w.Code != 410 {
+				t.Fatalf("%s %s remains available: %d", method, path, w.Code)
+			}
+		}
+	}
+}
 func TestManagedLegacyRetirementResponseBoundary(t *testing.T) {
 	h, repo := knowledgeHTTPFixture()
 	for _, method := range []string{"GET", "POST"} {
@@ -108,7 +120,7 @@ func TestManagedRoutesPermissionsAndRetirement(t *testing.T) {
 			t.Fatal("old writer live", p, w.Code)
 		}
 	}
-	for _, p := range []string{"/api/v1/feedback", "/api/v1/admin/users", "/api/v1/corrections"} {
+	for _, p := range []string{"/api/v1/feedback", "/api/v1/admin/users"} {
 		if w := privateRequest(h, "GET", p, "", contentHeaders()); w.Code == 410 {
 			t.Fatal("unrelated module retired", p)
 		}

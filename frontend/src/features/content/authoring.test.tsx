@@ -47,12 +47,13 @@ it("TestAuthoringJSONAndPrivatePreview", async () => {
 });
 it("TestContentKeyboardAndNavigation", async () => {
     const { rerender } = render(<AuthStatus />);
-    expect(await screen.findByRole("link", { name: "Edit content" })).toHaveAttribute("href", "/editor");
+    expect(await screen.findByRole("link", { name: "My learning" })).toHaveAttribute("href", "/learn");
+    expect(screen.queryByRole("link", { name: "Edit content" })).not.toBeInTheDocument();
     expect(screen.queryByRole("link", { name: "Review content" })).not.toBeInTheDocument();
     mocks.context.mockResolvedValue({ ok: true, data: { user: { id: fixtureID, username: "content_admin", roles: ["learner", "reviewer", "admin"], mustChangePassword: false } } });
     window.dispatchEvent(new Event("math-master:auth-change"));
-    await screen.findByRole("link", { name: "Review content" });
-    expect(screen.getByRole("link", { name: "Publish content" })).toHaveAttribute("href", "/admin/publications");
+    await screen.findByRole("link", { name: "Knowledge management" });
+    expect(screen.getByRole("link", { name: "Knowledge management" })).toHaveAttribute("href", "/admin/knowledge");
     expect(screen.queryByRole("link", { name: "Edit content" })).not.toBeInTheDocument();
     rerender(<AuthStatus />);
     expect(document.body.textContent).not.toMatch(/mastered|points|learning progress/i);

@@ -3,6 +3,7 @@ package httpapi
 import (
 	"context"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
+	"github.com/yyl1212/math_master/backend/internal/study"
 	"net/http"
 	"strings"
 	"time"
@@ -47,9 +48,12 @@ func oldKnowledgeRoute(path, method string) bool {
 	if (path == "/api/v2/study" || strings.HasPrefix(path, "/api/v2/study/")) && !(method == "GET" && (path == "/api/v2/study/history" || strings.HasPrefix(path, "/api/v2/study/knowledge/") && strings.HasSuffix(path, "/note"))) {
 		return true
 	}
-	if method != "GET" && strings.HasPrefix(path, "/api/v1/corrections/") && strings.Contains(path, "/plans") {
-		return true
+	for _, prefix := range []string{"/api/v1/corrections", "/api/v1/notifications", "/api/v1/learning", "/api/v1/question-bank"} {
+		if path == prefix || strings.HasPrefix(path, prefix+"/") {
+			return true
+		}
 	}
+
 	return false
 }
 func serveManagedLegacyRetirement(w http.ResponseWriter, r *http.Request, o *KnowledgeOptions) bool {
@@ -72,6 +76,10 @@ func serveManagedLegacyRetirement(w http.ResponseWriter, r *http.Request, o *Kno
 		knowledgeHTTPError(w, r, knowledgeadmin.ErrNotConfigured)
 		return true
 	}
-	knowledgeHTTPError(w, r, knowledgeadmin.ErrRetired)
+	if strings.HasPrefix(r.URL.Path, "/api/v1/corrections") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications") {
+		learningError(w, r, study.ErrModuleRetired)
+	} else {
+		knowledgeHTTPError(w, r, knowledgeadmin.ErrRetired)
+	}
 	return true
 }
