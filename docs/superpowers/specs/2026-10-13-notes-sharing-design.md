@@ -2,7 +2,7 @@
 
 日期：2026-10-13。基线：master dec8b9e86499e7ba5dfe49961dfda87ce10a7921。
 
-状态：方案与实施计划审查稿；本轮只交付文档和审查记录，产品实现、数据库迁移、部署分别在后续门禁通过后执行。用户已要求本轮同时整理详细方案、实施计划，并先完成可行性及兼容性审查。
+状态：已完成一次独立可行性与兼容性审查，修订稿可实施，无剩余阻塞项；待用户审阅本方案和实施计划后进入产品开发。本轮只交付文档和审查记录，产品实现、数据库迁移、部署分别在后续门禁通过后执行。用户已要求本轮同时整理详细方案、实施计划，并先完成可行性及兼容性审查；审查发现与修订见[审查记录](../reports/2026-10-13-notes-sharing-plan-review.md)。
 
 ## 1. 目标、已确认规则与范围
 
@@ -81,6 +81,7 @@ flowchart TD
 - 常用按钮：加粗、斜体、列表、引用、行内公式、独立公式。只插入受限Markdown，不引入富文本格式、HTML、图片或附件。
 - 显示字符计数和保存状态：未保存、保存中、已保存、保存失败或结果待确认。超限保留输入并阻止提交。
 - 保存继续明确点击，不自动提交、分享或批准。退出/浏览器刷新和站内离开均提示未保存输入；切换语言保留草稿。
+- 离开保护覆盖当前脏笔记页面的所有离开入口：正文相关链接、logo、主导航、账户/管理菜单、浏览器后退与前进，以及重新加载/关闭。取消离开保留原URL、焦点和输入；确认离开明确丢弃草稿且解除守卫。语言、编辑/预览切换和同页锚点不触发离开提示；打开新标签不离开当前页面，也不弹提示。守卫只在当前编辑页有未保存输入时注册，保持Next历史状态和正常返回语义，不保存正文到浏览器存储。不能仅依赖beforeunload；真实浏览器同时验证SPA链接和后退。
 - 对于切换账户、会话撤销及迟到响应，清除原账户私有显示和内存草稿，不将正文写入localStorage、URL或跨账户缓存。网络结果不确定时保留原幂等键和输入，通过原请求重试确认；待确认期间禁用新保存、删除与申请分享。
 - 在正文上方只保留简洁学习操作。桌面正文为主、笔记侧栏为辅；正文阅读列建议760—840px，侧栏最小280px；不足1100px使用单栏“阅读/笔记”切换。手机默认阅读，不再先展示大空白笔记框。无笔记时显示简短提示和写笔记入口。
 - 本阶段只修正阅读页“解释（JSON数组）”“示例（每行一条）”等编辑提示为“解释”“示例”“反例”“常见误区”；管理员编辑页保留必要输入提示。
@@ -137,11 +138,13 @@ note_revision和note_knowledge_ref从已保存原笔记捕获，不能替换成�
 
 统一锁序：原全局身份保护锁 → 操作者身份核验 → 必要的原管理员知识锁 → 知识行 → 原managed_study_records对应owner/knowledge行 → 原note行 → share head → submission读取 → 事件与回执。分享动作与原保存/删除都用同一study record行串行化，不因没有share head就跳过锁。不锁被审批作者的身份行，避免与作者操作形成反向锁序。
 
-提交/撤回使用knowledgeTx(write=true, admin=false)；批准/退回/下架使用knowledgeTx(write=true, admin=true)。原事务8秒、锁等待1秒不放宽。原保存回执确认应先于新的分享状态编辑门禁，以免已成功的保存请求重试被误报为失败；仍保持原身份、内容ref与输入校验规则。
+提交/撤回使用knowledgeTx(write=true, admin=false)；批准/退回/下架使用knowledgeTx(write=true, admin=true)。原事务8秒、锁等待1秒不放宽。原保存幂等确认应先于新的分享状态编辑门禁，以免已成功的保存请求重试被误报为失败；仍保持原身份、内容ref与输入校验规则。原保存接口确认旧键已经执行后返回当前本人笔记，不还原历史响应、不重复写入或新增事件；与新ShareActionReceipt返回冻结原回执明确区分。后续合法笔记修改完成后重试旧保存，仍返回当前正文且不覆盖新修改。
 
 增加独立noteSharingSchemaIntegrity：检查迁移标记、新表、约束、不可变触发器的固定摘要。原managedSchemaDigestSQL和managedSchemaDigest保持。未安装14且新表全部不存在时，原笔记继续可用、分享接口503；14已安装或有任一新表但分享结构不完整时，分享接口及原笔记新写fail closed，既有私人读取继续可用。新分享模块正常安装时才按pending/shared限制原笔记写入。
 
 生产不支持混用旧、新写入二进制。本阶段整组发布前后端与迁移；原deploy.py.rollback已要求实际最大迁移号等于目标release迁移号，14使用后不能直接退回仅含13的release。迁移Down只允许四张新表均为空的隔离库；生产有分享数据后禁止Down。回退使用兼容14的修复release，必要灾难恢复由人工基于核验备份决定，不自动覆盖新增笔记。
+
+现有ops/deploy.py.topicSchemaCompatibility的actualMigration上限为13，start和activate均调用verify_topic_runtime；因此仅新增14迁移不能上线。开发时须受审修改该判定：保持1—13所有原规则，允许14的条件是原taxonomy/study/retirement/managed能力满足且noteSharing=True，超过本次最高迁移仍拒绝。新增runtime_note_sharing_health读取独立GET /api/v3/note-sharing/health，响应仅capability、schemaReady两个bool；verify_topic_runtime在数据库requiredMigration>=14时必须核对该接口存在且两值为true，并把noteSharing传给兼容判定。旧二进制即便原managed能力为true，缺失新探测也不能承接14。原readyz及其严格解析形状不扩字段。下述文件清单和实施任务覆盖此运维改动及真实测试。
 
 ## 7. API、权限与缓存
 
@@ -149,6 +152,7 @@ note_revision和note_knowledge_ref从已保存原笔记捕获，不能替换成�
 
 | 方法与路径 | 身份 | 输入／结果 |
 | --- | --- | --- |
+| GET /api/v3/note-sharing/health | 公开 | 无查询参数 → NoteSharingHealth{capability:boolean,schemaReady:boolean}；schemaReady=false时503，不返回笔记或数据库摘要 |
 | GET /api/v3/study/notes | 本人 | q/topicKey/shareStatus/cursor/limit → OwnNotePage |
 | GET /api/v3/study/knowledge/{knowledgeId}/note-sharing | 本人 | → NoteShareHead（含unshared派生，允许本人已有下架知识笔记） |
 | POST .../note-sharing/submit | 本人 | expectedRevision、expectedSequence、title → ShareActionReceipt |
@@ -156,7 +160,7 @@ note_revision和note_knowledge_ref从已保存原笔记捕获，不能替换成�
 | GET /api/v3/shared-notes/latest | 公开 | 无查询参数 → LatestSharedNotePage，items至多10，无全库total/cursor |
 | GET /api/v3/shared-notes/public/{submissionId} | 公开 | 必须属于请求时最新10条 → SharedNoteDetail |
 | GET /api/v3/shared-notes | 登录 | q/topicKey/cursor/limit → SharedNotePage |
-| GET /api/v3/shared-notes/{submissionId} | 登录 | 当前有效分享 → SharedNoteDetail |
+| GET /api/v3/shared-notes/{submissionId} | 登录 | 当前有效分享 → AuthenticatedSharedNoteDetail |
 | GET /api/v3/admin/note-shares | admin | status/cursor/limit → AdminNoteSharePage |
 | GET /api/v3/admin/note-shares/{submissionId} | admin | → AdminNoteShareDetail（只能提交快照及操作记录） |
 | POST .../{submissionId}/approve、return、hide | admin | expectedSequence，return/hide另含reason → ShareActionReceipt |
@@ -182,18 +186,23 @@ note_revision和note_knowledge_ref从已保存原笔记捕获，不能替换成�
 | AdminNoteSharePage | actorId、items（AdminSummary，最多50）、nextCursor（string或null） |
 | AdminNoteShareDetail | actorId、submissionId、authorName、knowledgeId、title、body、noteRevision、noteKnowledgeRef、knowledgeTitle、knowledgeTitleZh、topicKeys、submittedAt、status、sequence、approvedAt（time或null）、events |
 | ShareEventSummary | action、actorName、reason、sequence、recordedAt；events默认最近50条，另以eventsCursor精确分页，AdminNoteShareDetail额外包含nextEventsCursor（string或null） |
+| NoteSharingHealth | capability、schemaReady两个boolean；capability反映本次二进制支持，schemaReady反映独立分享结构实际就绪 |
 
 对应API补充：GET管理员详情允许唯一eventsCursor参数（最多512字节、绑定submissionId）；不把无限审批历史装入单条响应。Head.lastDecisionReason仅本人/管理员可见。SharedNoteDetail中的materialChanged按快照noteKnowledgeRef与当前知识ref比较，不改变历史引用。所有actions的Receipt仅确认原动作，前端刷新head取得当前状态。
 
-新领域错误映射：ErrLocked→409 NOTE_SHARING_LOCKED，ErrStale→409 NOTE_SHARE_STALE，ErrIdempotency→409 IDEMPOTENCY_CONFLICT，ErrNotPublic→404 NOTE_SHARE_NOT_PUBLIC，ErrInvalid→422 INVALID_FIELD；非法查询/游标/重复参数→400 INVALID_REQUEST，超限请求→413 INPUT_TOO_LARGE，缺失或损坏分享结构→503 NOTE_SHARING_NOT_READY。身份、CSRF、密码修改、方法错误继续复用原HTTP状态与错误码。为原笔记写入错误新增唯一ErrLocked映射，调整knowledgeError使其原样传递；不将锁定伪装为原CONTENT_STALE或ID_CONTENT_CONFLICT，也不改变旧错误映射。
+新领域错误映射：ErrLocked→409 NOTE_SHARING_LOCKED，ErrStale→409 NOTE_SHARE_STALE，ErrIdempotency→409 IDEMPOTENCY_CONFLICT，ErrNotPublic→404 NOTE_SHARE_NOT_PUBLIC，ErrNotFound→404 NOT_FOUND，ErrInvalid→422 INVALID_FIELD，ErrNotReady→503 NOTE_SHARING_NOT_READY；非法查询/游标/重复参数→400 INVALID_REQUEST，超限请求→413 INPUT_TOO_LARGE。身份、CSRF、密码修改、方法错误继续复用原HTTP状态与错误码。knowledgeTx必经knowledgeError→authError，后者会将未知错误折为auth.ErrUnavailable；因此knowledgeError必须明确原样传递上述全部notesharing领域错误（ErrLocked/ErrStale/ErrIdempotency/ErrNotPublic/ErrNotFound/ErrInvalid/ErrNotReady），不得只保留ErrLocked。为原笔记HTTP增加ErrLocked及ErrNotReady映射，其他新增错误由新分享HTTP映射；旧knowledge/auth错误继续原映射，不以错误别名把新冲突伪装成CONTENT_STALE或ID_CONTENT_CONFLICT。真实store→knowledgeTx→HTTP测试须断言实际409/422/503及准确code，不只用mock覆盖映射函数。
 
 公开详情不在最新10条时返回404 NOTE_SHARE_NOT_PUBLIC，在页面显示“该笔记当前无法公开查看，登录后可查看仍在分享中的笔记”；登录后重新请求登录详情，待审/撤回/下架仍404。作者通过本人元数据访问其状态，管理员通过审批接口访问档案，不给分享详情加越权例外。
 
 最新10条和公共详情用同一SQL资格谓词：head.status=shared、当前submission准确匹配、关联knowledge.published=true且deleted_at IS NULL。公共详情先形成ORDER BY approved_at DESC, submission_id DESC LIMIT 10集合，再按ID选择，不能先按ID过滤后LIMIT10。读资格与读取正文在同一只读REPEATABLE READ事务中完成；撤回提交后开始的新请求不得返回旧正文。已交付到用户浏览器的内容不能远程收回，不承诺清除第三方已保存副本。
 
+Latest、ReadPublic和ReadSchemaHealth使用独立公开只读事务，不调用需要身份证明的knowledgeTx；Latest/ReadPublic在该事务中核验原managed模式及独立分享schema，ReadSchemaHealth只检查二进制能力和结构。其他本人、登录和管理读取仍使用knowledgeTx身份边界。
+
 所有分享响应Cache-Control: no-store；私有/登录/管理响应另加private，页面force-dynamic、fetch cache=no-store，不静态生成笔记详情。已有窗口失去权限时，聚焦/切换可见重新核验并清空失效正文，不发送刷新前的私有HTML给另一账户。失效会话返回401，身份系统不可用返回503，不能降级成匿名后继续展示登录专有内容。
 
 现有knowledge-admin-proxy.ts的privateRoute只识别/admin/、/study/，不能直接用它代理登录shared-notes路径。新增note-sharing-proxy.ts精确登记各路径的方法、public/private/admin属性，v3 catch-all先分派新范围，其他路径继续原代理；公共接口不转发Cookie，登录和管理接口必须转发筛选后的Cookie。GET均拒绝请求正文、转义路径、重复或未知查询参数。
+
+独立health也明确列入新代理的public GET白名单，严格schema恰为capability/schemaReady两个bool，不要求登录、不转发Cookie，不扩原知识代理。HTTP真实测试覆盖200且两值true、503且schemaReady=false、未知字段/参数及GET正文拒绝。探测时序遵循现有start：停web/gateway后先起api，此时runtime_note_sharing_health只能探容器内Go；api验证通过并启动web就绪后，再探Next同源代理；activate后探公网HTTPS同源入口。不能在web启动前要求Next可达，也不能只用ops的mock响应作为能力证据。
 
 ## 8. 文件范围与职责
 
@@ -201,14 +210,15 @@ note_revision和note_knowledge_ref从已保存原笔记捕获，不能替换成�
 | --- | --- |
 | 新增分享领域 | backend/internal/notesharing/model.go、validate.go、repository.go及对应_test.go |
 | 新增数据实现 | backend/internal/store/note_sharing_schema.go、note_sharing_read.go、note_sharing_write.go、note_sharing_tx.go及_test.go；db/migrations/00014_note_sharing.sql |
-| 修改原笔记写入门禁 | backend/internal/store/knowledge_admin_notes.go、knowledge_admin_notes_test.go、knowledge_admin_tx.go；httpapi/knowledge_admin_routes.go仅新增分享锁定错误映射；不修改原ManagedNote和原StudyRepository方法签名 |
+| 修改原笔记写入门禁 | backend/internal/store/knowledge_admin_notes.go、knowledge_admin_notes_test.go、knowledge_admin_tx.go；httpapi/knowledge_admin_routes.go仅新增ErrLocked和ErrNotReady映射；不修改原ManagedNote和原StudyRepository方法签名 |
 | 新增HTTP与注册 | backend/internal/httpapi/note_sharing_routes.go、note_sharing_json.go、note_sharing_test.go；修改application.go、backend/cmd/server/main.go |
 | 新增前端协议与代理 | frontend/src/lib/note-sharing/{types,schemas,client,server-client}.ts及测试；lib/api/note-sharing-proxy.ts及测试；修改app/api/v3/[[...segments]]/route.ts |
 | 修改阅读笔记与学习栏目 | features/study/managed-note-editor.tsx、managed-controls.tsx、managed-learning-view.tsx、managed-pages.tsx、app/learn/page.tsx、features/reading/current-knowledge-view.tsx及关联测试 |
-| 新增笔记UI | features/notes/{note-toolbar,note-preview,own-note-list,share-controls,shared-note-list,shared-note-view,admin-share-queue,admin-share-view}.tsx及对应测试；styles/notes.module.css |
+| 新增笔记UI | features/notes/{note-toolbar,note-preview,note-leave-guard,own-note-list,share-controls,shared-note-list,shared-note-view,admin-share-queue,admin-share-view}.tsx及对应测试；styles/notes.module.css |
 | 新增分享／审批页面 | app/notes/page.tsx、app/notes/[id]/page.tsx、app/admin/note-shares/page.tsx、app/admin/note-shares/[id]/page.tsx |
 | 必要文案与导航 | components/site-header.tsx、auth-status.tsx；lib/i18n/messages/{zh-CN,en}.ts、page-titles.ts、error-keys.ts、types.ts；operations/ui-language-coverage.json及原文案覆盖检查 |
 | 契约、真实浏览器与门禁 | api/openapi.yaml、lib/api/generated.d.ts；backend/internal/e2etest/note_sharing_fixture.go及harness.go注册；tests/e2e/note-sharing.spec.ts、note-sharing-security.spec.ts、note-editor-experience.spec.ts；frontend.yml、backend.yml中新增有界检查；精确兼容清单 |
+| 发布的14能力门禁 | ops/deploy.py、ops/tests/test_deploy.py：保持1—13及原回退规则，14必须有独立noteSharing结构探测，>14拒绝；新增接口的网关只经原同源Next代理，不扩Caddy直通范围 |
 | 使用与交付记录 | docs/operations/note-sharing.md、website-guide.md、README.md；specs、plans和reports本阶段文档 |
 
 阅读样式集中在notes.module.css及本次CurrentKnowledgeView布局样式，不全站重写globals.css。不修改固定legacy前端fixture、旧业务URL退场、旧题库/测评规则、分类数据或知识导入去重。
