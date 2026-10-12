@@ -1,6 +1,10 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "form.file.choose": "选择文件",
+  "form.file.empty": "未选择任何文件",
+  "form.file.single": "已选择 1 个文件",
+  "form.file.count": "已选择 {count} 个文件",
   "form.topic.choosePrimary": "请先选择一级主题",
   "form.topic.chooseSecondary": "请先选择二级主题",
   "form.topic.noChildren": "没有下级主题",

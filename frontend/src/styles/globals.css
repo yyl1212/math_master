@@ -504,6 +504,15 @@ main {
 }
 .ui-form input[type="file"]:hover:not(:disabled)::file-selector-button { background: var(--soft); border-color: #a2b39d; }
 .ui-form input[type="file"]:disabled::file-selector-button { color: var(--muted); background: var(--paper); cursor: not-allowed; }
+.file-field { display: grid; gap: 8px; min-width: 0; }
+.file-picker { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-width: 0; }
+.file-picker-control { display: inline-grid; position: relative; max-width: 100%; }
+.ui-form .file-picker-control input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.ui-form .file-picker-control input[type="file"]:disabled { cursor: not-allowed; }
+.file-picker-control:focus-within .button { outline: 3px solid #b58e3e; outline-offset: 3px; border-color: var(--brand); }
+.file-picker-control:not([data-disabled="true"]):hover .button { background: var(--soft); border-color: #a2b39d; }
+.file-picker-control[data-disabled="true"] .button { opacity: .6; cursor: not-allowed; }
+.file-picker-status { color: var(--muted); font-size: 14px; overflow-wrap: anywhere; min-width: 0; }
 .ui-form .button { min-height: 48px; padding: 11px 20px; border-radius: 10px; line-height: 24px; margin-top: 0; max-width: 100%; }
 .ui-form .button:disabled { opacity: .6; cursor: not-allowed; }
 .form-stack, .upload-form { display: grid; gap: 20px; }

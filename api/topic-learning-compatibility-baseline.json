@@ -2519,7 +2519,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "e3480ed65743dc90483994c04c5527db64de50a448f75da9cb257ca4a73cf6ac"
+        "sha256": "834f551e0d2d2ffdd55b21e47dda7c528cecd9f9d9ada9b85d56fd394502a9cc"
       }
     },
     "frontend/src/lib/i18n/messages/zh-CN.ts": {
@@ -2536,7 +2536,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "bc0f78fe535f549c202a5eaef174b9bd3fec4672045a381f6b6faad0e90c5f38"
+        "sha256": "c0fd719e2eee4bd75e0ef408446b15587463c628e58b826efb3cd494031cb587"
       }
     },
     "frontend/src/lib/i18n/page-titles.ts": {
@@ -3263,7 +3263,7 @@
     },
     "frontend/src/styles/globals.css": {
       "managed": {
-        "sha256": "11e52e2dcd19efd9c28c02b8db067461b587760b10add72c14bc70197595e4ca"
+        "sha256": "510f950c1179ed5598c052bb7de41a0a6b80bc37491f0963abbea676d1ee35f0"
       }
     },
     "schemas/embed.go": {
@@ -5052,7 +5052,7 @@
     "frontend/src/features/knowledge-admin/edit.tsx": "2da3014bc84b1fefbff21e58b0a67590bde3715dc24a9fe4a1e468d5b6e7015e",
     "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "c853615d8d99466ddfe7cd8791e7bcfb77b4a5cb63aea91b98310123b5ec4112",
     "frontend/src/features/knowledge-admin/list.tsx": "cf90611402eeeeb3e37e422c27340adc32bf04c8be80ec4e7e7c543c83330848",
-    "frontend/src/features/knowledge-admin/upload.tsx": "465568b52122a2669e544cbcf6599c9921166996b630e3ddc91fed41c0e7c66c",
+    "frontend/src/features/knowledge-admin/upload.tsx": "1d5cb43680c487863bc7d4c7bdcc91e33ebbf8089591ed6c4b2e2efe8d45a604",
     "frontend/src/features/reading/current-knowledge-view.tsx": "4f869a53ff2437823d7a668a8c7513504dab87ac694794b9ab757a0879f822c5",
     "frontend/src/features/study/account-boundary.tsx": "f3f3214a40d408bc41ff086540f8abff9064e68409518286aebb56db0412c3a4",
     "frontend/src/features/study/content-reminders.test.tsx": "0706b1525fcb6eb4559c1a87e95b0be2eb5fdcc19634b1c1544ff0c8df04f157",
@@ -5178,7 +5178,7 @@
     "frontend/src/components/topic-picker.tsx": "ace2db2d7e03cf5d352d9ae425ac56da9bfd0e6e06a5889cefe9663d1b5b4962",
     "frontend/src/features/catalogue/current-home.test.tsx": "bdda7fdba841aa9023387d94d6a443e1fb78ed798c1bede015bc21abe1bb97a3",
     "frontend/src/features/catalogue/current-home.tsx": "37fbddce2bd944f584f787d6e6dc46da32090dd1ded8e00c39059d77f331479c",
-    "frontend/src/features/knowledge-admin/batch-upload.test.tsx": "f920566f80bbb3530217990c85b9496bd625bcc00b7dbc790712224fcf25db0f",
+    "frontend/src/features/knowledge-admin/batch-upload.test.tsx": "014636c64f5d4f4f65f90dccc1af7a22b687cb254937e35313aa2f92ff35afe5",
     "frontend/src/features/knowledge-admin/structured-fields.test.tsx": "385e39631bac0a4f851bf6d875ed30800c157e678bf2dcd9fd45ea92581572fa",
     "frontend/src/features/knowledge-admin/structured-fields.tsx": "a1a5c7c85722ef8b62ea66607c1e09aa6dacb5eb9d2a3d13aa00c04c9dc89a6e",
     "frontend/src/features/study/managed-history.test.tsx": "b55faa54fc88aaf4277ca5fdcb217f953bce9912f6f2bb040864981aa0c6acba",
@@ -5253,6 +5253,6 @@
     "frontend/src/features/catalogue/catalogue-search.tsx": "91a7fa8d9ef01b6b865fc0e3d0bbfcfaa731b2eaea9080a0c792ec628cdb93e2",
     "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.test.tsx": "94d59fe17e39dbca37de567a7c2a19752f9b33684092e4b8eebe1d9a4aa47dfc",
     "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.tsx": "8964d715a8ef3b016f108f1ac1a064829448829873f5f52d86e8cff10d1810d0",
-    "tests/e2e/form-controls.spec.ts": "b391c0036a78a5b148e8aa56ec6fb9c663be9278f927162425a637ae72f734bd"
+    "tests/e2e/form-controls.spec.ts": "4e08b5ef90d1b8fd5cdef8f7e1c8e3a66935aaa6fdd0078bd03924aa65acc952"
   }
 }

@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useId,useRef,useState} from 'react';
 import {useUiI18n} from '@/lib/i18n/provider';
 import {previewSource,applyImport,readImport} from '@/lib/knowledge-admin/client';
 import {KnowledgeError,type Preview,type Receipt,type ApplyInput} from '@/lib/knowledge-admin/types';
@@ -7,6 +7,7 @@ type Phase='selected'|'ready'|'done'|'invalid'|'uncertain';
 type Job={name:string;importId?:string;file?:File;previewKey:string;applyKey:string;preview?:Preview;input?:ApplyInput;receipt?:Receipt;selected:number[];phase:Phase;error?:string};
 const storageKey='managed-import-batch';
 export function UploadKnowledge({onComplete,actorId=''}:{onComplete:()=>void;actorId?:string}){
+ const fileId=useId(),fileLabelId=fileId+'-label',fileButtonId=fileId+'-button',fileStatusId=fileId+'-status';
  const{t}=useUiI18n();const[jobs,setJobs]=useState<Job[]>([]),[publish,setPublish]=useState(true),[busy,setBusy]=useState(false),[ready,setReady]=useState(false),[recoverable,setRecoverable]=useState(false);const current=useRef<Job[]>([]),generation=useRef(0);
  const refresh=(mode=publish)=>{setJobs([...current.current]);const saved=current.current.filter(job=>(job.preview||job.importId)&&job.phase!=='done').map(job=>({name:job.name,importId:job.preview?.importId??job.importId,applyKey:job.applyKey,input:job.input}));if(saved.length){sessionStorage.setItem(storageKey,JSON.stringify({actorId,publish:mode,jobs:saved}));setRecoverable(true)}else{sessionStorage.removeItem(storageKey);setRecoverable(false)}};
  useEffect(()=>{setReady(true);try{const saved=JSON.parse(sessionStorage.getItem(storageKey)??'null');setRecoverable(saved?.actorId===actorId&&Array.isArray(saved?.jobs));if(saved&&saved.actorId!==actorId)sessionStorage.removeItem(storageKey)}catch{sessionStorage.removeItem(storageKey)}const reset=()=>{generation.current++;current.current=[];setJobs([]);setBusy(false);setRecoverable(false);sessionStorage.removeItem(storageKey)};window.addEventListener('math-master:auth-change',reset);return()=>{generation.current++;window.removeEventListener('math-master:auth-change',reset)}},[actorId]);
@@ -36,9 +37,13 @@ export function UploadKnowledge({onComplete,actorId=''}:{onComplete:()=>void;act
  }
 
  const pending=jobs.some(job=>job.phase==='ready'||job.phase==='uncertain'),totals=jobs.reduce((counts,job)=>{const value=job.receipt?.counts??job.preview?.counts;for(const key of Object.keys(counts)as(keyof typeof counts)[])counts[key]+=value?.[key]??0;return counts;},{createdKnowledge:0,linkedTopics:0,skippedItems:0,conflicts:0,invalidItems:0});
+ const fileDisabled=!ready||busy||pending,fileCount=jobs.filter(job=>job.file).length;
  return <section className="panel ui-form upload-form"><h2>{t('managed.upload',{})}</h2>
   {recoverable&&(jobs.length===0||jobs.some(job=>!job.preview&&job.importId))&&<><p>{t('managed.pendingImport',{})}</p><button className="button secondary" disabled={busy} onClick={()=>void recover()}>{t('managed.recoverImport',{})}</button></>}
-  <label>{t('managed.files',{})}<input type="file" accept="application/json,.json" multiple disabled={!ready||busy||pending} onChange={event=>{generation.current++;current.current=Array.from(event.target.files??[]).map(file=>({name:file.name,file,previewKey:crypto.randomUUID(),applyKey:crypto.randomUUID(),selected:[],phase:'selected'}));refresh()}}/></label>
+  <div className="file-field"><label id={fileLabelId} htmlFor={fileId}>{t('managed.files',{})}</label><div className="file-picker">
+   <span className="file-picker-control" data-disabled={fileDisabled}><span id={fileButtonId} className="button secondary">{t('form.file.choose',{})}</span><input id={fileId} aria-labelledby={fileButtonId+' '+fileLabelId} aria-describedby={fileStatusId} type="file" accept="application/json,.json" multiple disabled={fileDisabled} onChange={event=>{generation.current++;current.current=Array.from(event.target.files??[]).map(file=>({name:file.name,file,previewKey:crypto.randomUUID(),applyKey:crypto.randomUUID(),selected:[],phase:'selected'}));refresh()}}/></span>
+   <span id={fileStatusId} className="file-picker-status" role="status">{fileCount===0?t('form.file.empty',{}):fileCount===1?t('form.file.single',{}):t('form.file.count',{count:fileCount})}</span>
+  </div></div>
   <label className="form-check"><input type="checkbox" checked={publish} disabled={busy||jobs.some(job=>!!job.input)} onChange={event=>{setPublish(event.target.checked);if(current.current.length)refresh(event.target.checked)}}/>{t('managed.uploadPublish',{})}</label>
   <div className="form-actions"><button className="button" disabled={busy||jobs.length===0||pending||jobs.every(job=>job.phase==='done')} onClick={()=>void inspect()}>{t(publish?'managed.uploadPublish':'managed.saveOnly',{})}</button></div>
   {jobs.some(job=>job.preview)&&<><h3>{t('managed.preview',{})}</h3><p>{t('managed.new',{})}: {totals.createdKnowledge} · {t('managed.linked',{})}: {totals.linkedTopics} · {t('managed.skipped',{})}: {totals.skippedItems} · {t('managed.conflicts',{})}: {totals.conflicts} · {t('managed.invalid',{})}: {totals.invalidItems}</p></>}
