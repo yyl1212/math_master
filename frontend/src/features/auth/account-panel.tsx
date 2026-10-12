@@ -28,7 +28,7 @@ export function AccountPanel({ user }: { user: User }) {
       notifyAuthChanged(); router.replace(kind === "password" ? "/login" : "/"); router.refresh();
     } finally { setCurrent(""); setNew(""); pending.current = false; setBusy(false); }
   }
-  return <section className={styles.account}><div className="page-heading"><p className="eyebrow"><UiText notice={uiMessage("account-panel.your.account.cee7fd",{})}/></p><h1>{user.username}</h1><p>{user.roles.map(role=>t(roleKeys[role],{})).join(" · ")}</p></div>
+  return <section className={styles.account}><div className="page-heading"><p className="eyebrow"><UiText notice={uiMessage("account-panel.your.account.cee7fd",{})}/></p><h1>{user.username}</h1><p>{user.roles.filter((role):role is "learner"|"admin"=>role==="learner"||role==="admin").map(role=>t(roleKeys[role],{})).join(" · ")}</p></div>
     {user.mustChangePassword && <p className={styles.notice}><UiText notice={uiMessage("account-panel.change.your.password.to.continue.1c1b58",{})}/></p>}
     <div className={styles.card}><h2><UiText notice={uiMessage("account-panel.change.password.3f9c99",{})}/></h2><p className={styles.hint}><UiText notice={uiMessage("account-panel.changing.your.password.signs.you.out.on.every.device.sign.in.agai.c2a7e1",{})}/></p>
       <form className={"ui-form "+styles.form} onSubmit={e => { e.preventDefault(); void write("password"); }} aria-busy={busy}>
@@ -43,4 +43,4 @@ export function AccountPanel({ user }: { user: User }) {
     </div></section>;
 }
 
-const roleKeys={learner:"auth.role.learner",editor:"auth.role.editor",reviewer:"auth.role.reviewer",admin:"auth.role.admin"} as const;
+const roleKeys={learner:"auth.role.learner",admin:"auth.role.admin"} as const;

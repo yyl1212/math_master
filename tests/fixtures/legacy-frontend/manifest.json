@@ -63,6 +63,8 @@
     "src/features/reading/current-knowledge-view.tsx": "440d9dde5b179d6400eb448b95563e911f2a6f0be91190532ffc0198aeff0b44",
     "src/features/study/managed-controls.tsx": "5399ab01bb8d39c89ff3c649e6df4351115bb591735f8d743bba4798e26d253f",
     "src/features/study/managed-history.tsx": "789607b5b43e7cee976f54fced6bd49981e1040e2b3c769160da728acf7407fc",
-    "src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a"
+    "src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a",
+    "src/features/auth/account-panel.tsx": "700f72bcc5ebf026f3f546e775163e38a9e70a67ac74aff81b53b1218629f570",
+    "src/features/auth/forms.test.tsx": "37e56e1ac513c0c85c6a5757b4e204d085344a771a2d8423b8b9f5d3478cc817"
   }
 }

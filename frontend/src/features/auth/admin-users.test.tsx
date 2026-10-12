@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { AdminUsers } from "./admin-users";
 import { failure } from "@/lib/auth/schemas";
@@ -9,6 +9,11 @@ const user = { id: "00000000-0000-4000-8000-000000000001", username: "admin_one"
 const initial = { items: [user], total: 1, limit: 20, offset: 0 };
 beforeEach(() => { Object.values(mocks).forEach(m => m.mockReset()); mocks.context.mockResolvedValue({ ok: true, data: { user, csrfToken: "A".repeat(43) } }); });
 describe("TestAdminUsers", () => {
+  it('shows only current roles in an account with historical roles and submits only explicit current choices',async()=>{
+    const historical={...user,username:'historical_admin',roles:['learner','editor','reviewer','admin'] as const};const response={...initial,items:[{...historical,roles:[...historical.roles]}]};render(<AdminUsers initial={response}/>);await screen.findByRole('button',{name:'Save roles'});
+    const entry=screen.getByRole('button',{name:/^historical_admin/});expect(within(entry).getByText('learner · admin',{exact:true})).toBeVisible();expect(screen.queryByText(/editor|reviewer/)).toBeNull();expect(response.items[0].roles).toEqual(historical.roles);expect(mocks.request).not.toHaveBeenCalled();
+    fireEvent.change(screen.getByLabelText('Reason'),{target:{value:'Explicit current role confirmation'}});mocks.request.mockResolvedValueOnce(failure('REAUTHENTICATION_REQUIRED'));fireEvent.click(screen.getByRole('button',{name:'Save roles'}));await screen.findByRole('dialog');expect(mocks.request).toHaveBeenCalledWith({kind:'roles',userId:user.id},{roles:['learner','admin'],reason:'Explicit current role confirmation'});
+  });
   it('offers only learner and administrator roles while accepting historical role responses',async()=>{render(<AdminUsers initial={initial}/>);await screen.findByRole('button',{name:'Save roles'});expect(screen.getByRole('checkbox',{name:'learner'})).toBeDisabled();expect(screen.queryByRole('checkbox',{name:'editor'})).toBeNull();expect(screen.queryByRole('checkbox',{name:'reviewer'})).toBeNull();expect(screen.getByRole('checkbox',{name:'admin'})).toBeVisible();});
   it.each(["learner", "editor", "reviewer"] as const)("has no controls for %s", async role => {
     mocks.context.mockResolvedValue({ ok: true, data: { user: { ...user, roles: role === "learner" ? ["learner"] : ["learner", role] }, csrfToken: "A".repeat(43) } });

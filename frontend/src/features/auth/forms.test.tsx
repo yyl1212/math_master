@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CredentialsForm } from "./credentials-form";
 import { AccountPanel } from "./account-panel";
 import { failure } from "@/lib/auth/schemas";
+import {UiLocaleProvider,useUiI18n} from '@/lib/i18n/provider';
 const mocks = vi.hoisted(() => ({ replace: vi.fn(), refresh: vi.fn(), request: vi.fn(), context: vi.fn(), changed: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => mocks }));
 vi.mock("@/lib/auth/client", () => ({ authRequest: mocks.request, getAuthContext: mocks.context, notifyAuthChanged: mocks.changed }));
@@ -42,6 +43,16 @@ describe("TestCredentialForms", () => {
   });
 });
 describe("TestAccountPanel", () => {
+  it.each([
+    {roles:['learner','editor'] as const,english:'learner',chinese:'学习者',admin:false},
+    {roles:['learner','reviewer'] as const,english:'learner',chinese:'学习者',admin:false},
+    {roles:['learner','editor','reviewer','admin'] as const,english:'learner · admin',chinese:'学习者 · 管理员',admin:true},
+  ])('shows only current roles for historical $roles without changing permissions',({roles,english,chinese,admin})=>{
+    function Language(){const{setLocale}=useUiI18n();return <button onClick={()=>setLocale('zh-CN')}>中文</button>}
+    const identity={...user,roles:[...roles]};render(<UiLocaleProvider initialLocale="en"><AccountPanel user={identity}/><Language/></UiLocaleProvider>);
+    expect(screen.getByText(english,{exact:true})).toBeVisible();expect(document.body.textContent).not.toMatch(/editor|reviewer/);
+    expect(Boolean(screen.queryByRole('link',{name:'Manage users'}))).toBe(admin);fireEvent.click(screen.getByRole('button',{name:'中文'}));expect(screen.getByText(chinese,{exact:true})).toBeVisible();expect(document.body.textContent).not.toMatch(/编辑者|审核者/);expect(identity.roles).toEqual(roles);expect(mocks.request).not.toHaveBeenCalled();
+  });
   it("shows real identity, preserves sign-in on wrong password, then changes and signs out", async () => {
     render(<AccountPanel user={{ ...user, roles: [...user.roles] }} />);
     expect(screen.getByText("learner_one")).toBeVisible();
