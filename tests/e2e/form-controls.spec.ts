@@ -22,9 +22,11 @@ test('history uses equal controls and explicit dependent-theme prompts without l
 });
 
 test('map and learning share controls and keep query and selection through localization',async({page,scene})=>{
- await scene('managed-knowledge');await page.goto('/knowledge?mode=knowledge&topicKey=97F40');
+ await scene('managed-knowledge');let release!:()=>void;const delayed=new Promise<void>(resolve=>{release=resolve});await page.route('**/api/v3/topics?*',async route=>{if(new URL(route.request().url()).searchParams.get('topicKey')==='97Fxx')await delayed;await route.continue()});
+ try{await page.goto('/knowledge?mode=knowledge&topicKey=97F40');
  await expect(page.getByLabel('Keyword',{exact:true})).toBeEnabled();await control(page.getByRole('combobox',{name:'Search target',exact:true}));await control(page.getByLabel('Keyword',{exact:true}));await control(page.getByLabel('Specific themes',{exact:true}));
  await page.getByLabel('Keyword',{exact:true}).fill('有理');await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByLabel('关键词',{exact:true})).toHaveValue('有理');await expect(page.getByLabel('具体主题',{exact:true})).toHaveValue('97F40');await fitsViewport(page);
+ }finally{release()}
  await page.getByRole('button',{name:'English',exact:true}).click();await login(page);await control(page.getByRole('combobox',{name:'Learning status',exact:true}));await control(page.getByLabel('Search knowledge',{exact:true}));await narrow(page);
 });
 
