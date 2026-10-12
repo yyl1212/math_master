@@ -1,4 +1,6 @@
 export const enMessages = {
+  "learn.workspace.sections": {"text": "My learning sections", "params": []},
+  "learn.workspace.knowledge": {"text": "Knowledge learning", "params": []},
   "form.file.choose": {"text": "Choose files", "params": []},
   "form.file.empty": {"text": "No files selected", "params": []},
   "form.file.single": {"text": "1 file selected", "params": []},

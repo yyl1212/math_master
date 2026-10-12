@@ -5,6 +5,7 @@ import type {Overview,ProgressPage,StudyPage,Topic} from '@/lib/knowledge-admin/
 import {useUiI18n} from '@/lib/i18n/provider';
 import {LocalizedName} from '@/lib/i18n/localized-name';
 import {UiPageTitle} from '@/components/ui-page-title';
+import {historyHref} from '@/lib/knowledge-admin/study-navigation';
 import styles from '@/styles/managed-learning.module.css';
 
 export type LearningTheme=ProgressPage['items'][number]&Pick<Topic,'title'|'titleEn'>;
@@ -18,6 +19,21 @@ export function learningHref(filters:Filters,changes:Filters={}){
 }
 const primary=(key:string)=>key==='project:other'||key==='project-other'?'project:other':key.replace(/^msc-/,'').slice(0,2);
 
+export function LearningHeader({history=false,filters={}}:{history?:boolean;filters?:Filters}){
+ const{t}=useUiI18n();
+ return <>
+  <UiPageTitle messageKey="page.learn"/>
+  <header className={styles.header}>
+   <div><h1>{t('managed.learn',{})}</h1><p>{t('learn.dashboard.intro',{})}</p></div>
+   {!history&&<Link prefetch={false} className="button secondary" href={learningHref(filters,{mode:filters.mode==='review'?'':'review',offset:''})}>{t(filters.mode==='review'?'learn.dashboard.backToLearning':'managed.review',{})}</Link>}
+  </header>
+  <nav className={styles.sections} aria-label={t('learn.workspace.sections',{})}>
+   <Link prefetch={false} href="/learn" aria-current={!history?'page':undefined}>{t('learn.workspace.knowledge',{})}</Link>
+   <Link prefetch={false} href={historyHref()} aria-current={history?'page':undefined}>{t('managed.history',{})}</Link>
+  </nav>
+ </>;
+}
+
 export function ManagedLearningView({overview,list,themes,filters,selectedTopic}:{overview:Overview;list:StudyPage;themes:LearningTheme[];filters:Filters;selectedTopic?:Pick<Topic,'topicKey'|'title'|'titleEn'>}){
  const{t,locale}=useUiI18n();
  const name=(theme:Pick<Topic,'title'|'titleEn'>)=>locale==='zh-CN'?theme.title||theme.titleEn:theme.titleEn||theme.title;
@@ -29,14 +45,7 @@ export function ManagedLearningView({overview,list,themes,filters,selectedTopic}
  const reset=filters.mode==='review'?'/learn?mode=review':'/learn';
  const hasFilters=Boolean(filters.q||filters.topicKey||filters.state);
  return <div className={styles.page}>
-  <UiPageTitle messageKey="page.learn"/>
-  <header className={styles.header}>
-   <div><h1>{t('managed.learn',{})}</h1><p>{t('learn.dashboard.intro',{})}</p></div>
-   <div className={styles.actions}>
-    <Link prefetch={false} className="button secondary" href={learningHref(filters,{mode:filters.mode==='review'?'':'review',offset:''})}>{t(filters.mode==='review'?'learn.dashboard.backToLearning':'managed.review',{})}</Link>
-    <Link prefetch={false} href="/learning-history">{t('managed.history',{})}</Link>
-   </div>
-  </header>
+  <LearningHeader filters={filters}/>
   <section className={styles.overview} aria-labelledby="learning-overview">
    <div className={styles.sectionHeading}><h2 id="learning-overview">{t('managed.overview',{})}</h2><span>{t('learn.dashboard.total',{total:overview.total})}</span></div>
    <dl className={styles.stats}>{states.map(state=><div key={state} data-state={state}><dt>{t(stateKey(state),{})}</dt><dd>{counts[state]}</dd></div>)}</dl>
