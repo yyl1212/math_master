@@ -34,6 +34,11 @@ it('names themes and separates labelled progress from the knowledge list',async(
  expect(within(stats).getByText('未学习')).toBeVisible();
  expect(within(stats).getByText('复习中')).toBeVisible();
 });
+it('keeps history inside the learning workspace with an active knowledge section',async()=>{
+ await page();const nav=screen.getByRole('navigation',{name:'我的学习栏目'});
+ expect(within(nav).getByRole('link',{name:'知识学习'})).toHaveAttribute('aria-current','page');
+ expect(within(nav).getByRole('link',{name:'学习历史'})).toHaveAttribute('href','/learn?view=history');
+});
 it('switches theme names, knowledge titles and labels without discarding search input',async()=>{
  await page({q:'列空间'});fireEvent.change(screen.getByRole('searchbox',{name:'搜索知识点'}),{target:{value:'保留我的搜索'}});
  fireEvent.click(screen.getByRole('button',{name:'English'}));

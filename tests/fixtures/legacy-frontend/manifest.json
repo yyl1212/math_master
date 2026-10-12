@@ -65,6 +65,9 @@
     "src/features/study/managed-history.tsx": "789607b5b43e7cee976f54fced6bd49981e1040e2b3c769160da728acf7407fc",
     "src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a",
     "src/features/auth/account-panel.tsx": "700f72bcc5ebf026f3f546e775163e38a9e70a67ac74aff81b53b1218629f570",
-    "src/features/auth/forms.test.tsx": "37e56e1ac513c0c85c6a5757b4e204d085344a771a2d8423b8b9f5d3478cc817"
+    "src/features/auth/forms.test.tsx": "37e56e1ac513c0c85c6a5757b4e204d085344a771a2d8423b8b9f5d3478cc817",
+    "src/features/study/managed-pages.tsx": "e1c220607a65730d670ca5cf2b24d047bbb661198c01ae5ce8a364ec5d2b84e1",
+    "src/features/study/managed-learning-view.tsx": "62c3d829c8451bb2e8e25e3b4b7f193d97ce01a204fbe04bf95b4e6a8f4c79a6",
+    "src/features/study/managed-learn-page.test.tsx": "11ffc89c321432cec6692811f14eab77a191410e3a4dff74c5246c1eb1eb8fc7"
   }
 }

@@ -4,6 +4,7 @@ import { AuthStatus } from "./auth-status";
 import { SiteHeader } from "./site-header";
 import { CredentialsForm } from "@/features/auth/credentials-form";
 import { failure } from "@/lib/auth/schemas";
+import {UiLocaleProvider,useUiI18n} from '@/lib/i18n/provider';
 const modeFixture=vi.hoisted(()=>({managed:false as boolean|null,mode:"legacy" as "legacy"|"topics"}));
 vi.mock("@/lib/knowledge-admin/mode-client",()=>({useContentMode:()=>modeFixture.managed}));
 vi.mock("@/lib/taxonomy/client",()=>({taxonomyRequest:vi.fn(async()=>({ok:true,data:{mode:modeFixture.mode}}))}));
@@ -35,7 +36,18 @@ it("QuestionRoleNavigationDoesNotGrantEditorOrReviewerToAdmins",async()=>{
  render(<AuthStatus/>);expect(await screen.findByRole("link",{name:"Knowledge management"})).toHaveAttribute("href","/admin/knowledge");expect(screen.queryByRole("link",{name:"Publish question bank"})).toBeNull();expect(screen.queryByRole("link",{name:"Write questions"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Review questions"})).not.toBeInTheDocument()
 });
 
-it("topics hides old question routes while retaining account and content management",async()=>{modeFixture.mode="topics";vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({data:{user:{id:"11111111-1111-4111-8111-111111111111",username:"topic_manager",roles:["learner","editor","reviewer","admin"],mustChangePassword:false},csrfToken:"A".repeat(43)}})));render(<AuthStatus/>);await screen.findByRole("link",{name:"Your account"});expect(screen.queryByRole("link",{name:"Publish question bank"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Write questions"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Review questions"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Edit content"})).toBeNull();expect(screen.getByRole("link",{name:"Knowledge management"})).toBeVisible()});
+it("topics hides old question routes while retaining account and content management",async()=>{modeFixture.mode="topics";vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({data:{user:{id:"11111111-1111-4111-8111-111111111111",username:"topic_manager",roles:["learner","editor","reviewer","admin"],mustChangePassword:false},csrfToken:"A".repeat(43)}})));render(<AuthStatus/>);expect(await screen.findByRole("link",{name:"topic_manager"})).toHaveAttribute('href','/account');expect(screen.queryByRole("link",{name:"Publish question bank"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Write questions"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Review questions"})).not.toBeInTheDocument();expect(screen.queryByRole("link",{name:"Edit content"})).toBeNull();expect(screen.getByRole("link",{name:"Knowledge management"})).toBeVisible()});
+
+it('opens account settings through the username while keeping one learning entry in both languages',async()=>{
+ vi.stubGlobal('fetch',vi.fn().mockResolvedValue(Response.json({data:{user:{id:'11111111-1111-4111-8111-111111111111',username:'student',roles:['learner'],mustChangePassword:false},csrfToken:'A'.repeat(43)}})));
+ function Language(){const{setLocale}=useUiI18n();return <button onClick={()=>setLocale('zh-CN')}>中文</button>}
+ render(<UiLocaleProvider initialLocale="en"><Language/><AuthStatus/></UiLocaleProvider>);
+ expect(await screen.findByRole('link',{name:'student'})).toHaveAttribute('href','/account');
+ expect(screen.getByRole('link',{name:'My learning'})).toHaveAttribute('href','/learn');
+ expect(screen.queryByRole('link',{name:'Your account'})).toBeNull();expect(screen.queryByRole('link',{name:'Learning history'})).toBeNull();
+ screen.getByRole('button',{name:'中文'}).click();await screen.findByRole('link',{name:'我的学习'});
+ expect(screen.queryByRole('link',{name:'账户'})).toBeNull();expect(screen.queryByRole('link',{name:'学习历史'})).toBeNull();
+});
 
 it("managed hides retired review and question menus for an administrator",async()=>{modeFixture.managed=true;vi.stubGlobal("fetch",vi.fn().mockResolvedValue(Response.json({data:{user:{id:"11111111-1111-4111-8111-111111111111",username:"manager",roles:["learner","editor","reviewer","admin"],mustChangePassword:false},csrfToken:"A".repeat(43)}})));render(<AuthStatus/>);expect(await screen.findByRole("link",{name:"Knowledge management"})).toHaveAttribute("href","/admin/knowledge");for(const name of ["Edit content","Review content","Publish question bank","Write questions","Review questions"])expect(screen.queryByRole("link",{name})).toBeNull()});
 

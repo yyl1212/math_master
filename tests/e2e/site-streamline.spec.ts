@@ -6,6 +6,36 @@ import {createHash} from 'node:crypto';
 const id='k-'+createHash('sha256').update('demo-rational-fraction').digest('hex').slice(0,56);
 const login=async(page:Page,user:string)=>{await page.goto('/login');await page.getByLabel('Username',{exact:true}).fill(user);await page.getByLabel('Password',{exact:true}).fill(TEST_PASSWORD);await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page).toHaveURL(/\/learn$/)};
 
+test('username opens account settings and learning contains the bilingual history section',async({page,scene})=>{
+ await scene('managed-knowledge');await login(page,'auth_learner');const header=page.getByRole('banner');
+ await expect(header.getByRole('link',{name:'auth_learner',exact:true})).toHaveAttribute('href','/account');
+ await expect(header.getByRole('link',{name:'Your account',exact:true})).toHaveCount(0);await expect(header.getByRole('link',{name:'Learning history',exact:true})).toHaveCount(0);
+ await header.getByRole('link',{name:'auth_learner',exact:true}).click();await expect(page).toHaveURL(/\/account$/);await expect(page.getByRole('button',{name:'Change password',exact:true})).toBeVisible();
+ await header.getByRole('link',{name:'My learning',exact:true}).click();const sections=page.getByRole('navigation',{name:'My learning sections',exact:true});
+ await expect(sections.getByRole('link',{name:'Knowledge learning',exact:true})).toHaveAttribute('aria-current','page');await sections.getByRole('link',{name:'Learning history',exact:true}).click();
+ await expect(page).toHaveURL(/\/learn\?view=history$/);await expect(page.getByRole('heading',{level:1,name:'My learning',exact:true})).toBeVisible();await expect(page.getByRole('heading',{level:2,name:'Learning history',exact:true})).toBeVisible();
+ await expect(sections.getByRole('link',{name:'Learning history',exact:true})).toHaveAttribute('aria-current','page');await expect(page.getByText('No knowledge points match.',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'中文',exact:true}).click();await expect(header.getByRole('link',{name:'账户',exact:true})).toHaveCount(0);await expect(header.getByRole('link',{name:'学习历史',exact:true})).toHaveCount(0);
+ const zhSections=page.getByRole('navigation',{name:'我的学习栏目',exact:true});await expect(zhSections.getByRole('link',{name:'学习历史',exact:true})).toHaveAttribute('aria-current','page');await fitsViewport(page);
+ await zhSections.getByRole('link',{name:'知识学习',exact:true}).click();await expect(page).toHaveURL(/\/learn$/);await expect(page.getByRole('region',{name:'学习概览',exact:true})).toBeVisible();await fitsViewport(page);
+});
+
+test('old history links retain filters and history remains private after the merge',async({page,scene})=>{
+ await scene('managed-knowledge');await login(page,'auth_learner');await page.goto('/knowledge/'+id);await page.getByRole('button',{name:'Start learning',exact:true}).click();await page.getByRole('button',{name:'Complete learning',exact:true}).click();await expect(page.getByText('Completed',{exact:true})).toBeVisible();
+ const response=await page.request.get('/api/v3/study/history?knowledgeId='+id+'&kind=completed');expect(response.status()).toBe(200);const records=(await response.json()).items;expect(records).toHaveLength(1);const time=Date.parse(records[0].recordedAt);expect(Number.isFinite(time)).toBe(true);const from=new Date(time-86400000).toISOString(),to=new Date(time+86400000).toISOString();
+ await page.goto('/learning-history?knowledgeId='+id+'&topicKey=97F40&kind=completed&from='+encodeURIComponent(from)+'&to='+encodeURIComponent(to)+'&unexpected=ignored');
+ await expect.poll(()=>new URL(page.url()).pathname).toBe('/learn');const params=new URL(page.url()).searchParams;
+ expect(Object.fromEntries(params)).toEqual({view:'history',knowledgeId:id,topicKey:'97F40',kind:'completed',from,to});
+ await expect(page.locator('ol li')).toHaveCount(1);await expect(page.getByRole('link',{name:'Rational fraction',exact:true})).toBeVisible();
+ await page.getByRole('combobox',{name:'Action',exact:true}).selectOption('started');await page.getByRole('button',{name:'Search knowledge',exact:true}).click();await expect.poll(()=>new URL(page.url()).searchParams.get('kind')).toBe('started');
+ const filtered=new URL(page.url()).searchParams;expect(filtered.get('view')).toBe('history');expect(filtered.get('knowledgeId')).toBe(id);expect(filtered.get('kind')).toBe('started');expect(filtered.get('from')).toBe(from);expect(filtered.get('to')).toBe(to);await expect(page.locator('ol li')).toHaveCount(1);
+ await page.getByRole('link',{name:'Clear filters',exact:true}).click();await expect(page).toHaveURL(/\/learn\?view=history$/);await expect(page.locator('ol li')).toHaveCount(2);await expect(page.getByRole('combobox',{name:'Action',exact:true})).toHaveValue('');await expect(page.locator('input[name=topicKey]')).toHaveValue('');await expect(page.locator('input[name=knowledgeId],input[name=from],input[name=to]')).toHaveCount(0);
+ await page.goBack();await expect(page.getByRole('combobox',{name:'Action',exact:true})).toHaveValue('started');await expect(page.locator('input[name=topicKey]')).toHaveValue('97F40');await page.goForward();await expect(page.getByRole('combobox',{name:'Action',exact:true})).toHaveValue('');await expect(page.locator('input[name=topicKey]')).toHaveValue('');
+ await page.getByRole('combobox',{name:'Action',exact:true}).selectOption('completed');await page.getByLabel('Main topics',{exact:true}).selectOption('97-XX');await expect(page.locator('input[name=topicKey]')).toHaveValue('97-XX');await page.getByRole('link',{name:'Clear filters',exact:true}).click();await expect(page.getByRole('combobox',{name:'Action',exact:true})).toHaveValue('');await expect(page.locator('input[name=topicKey]')).toHaveValue('');
+ await page.getByRole('button',{name:'Search knowledge',exact:true}).click();await expect.poll(()=>new URL(page.url()).searchParams.get('kind')).toBe('');const cleared=new URL(page.url()).searchParams;expect(cleared.get('view')).toBe('history');for(const key of ['knowledgeId','from','to','cursor','legacyCursor'])expect(cleared.has(key)).toBe(false);expect(cleared.get('kind')).toBe('');expect(cleared.get('topicKey')).toBe('');await expect(page.locator('ol li')).toHaveCount(2);await fitsViewport(page);
+ await page.getByRole('banner').getByRole('link',{name:'auth_learner',exact:true}).click();await page.getByRole('button',{name:'Sign out',exact:true}).click();await expect(page).toHaveURL('/');await page.goto('/learn?view=history');await expect(page.locator('ol li')).toHaveCount(0);
+});
+
 test('production account and people list show current roles without changing the stored identity',async({page,scene})=>{
  await scene('managed-knowledge');await login(page,'auth_admin');const before=await page.request.get('/api/v1/auth/session');expect(before.status()).toBe(200);const identity=(await before.json()).data.user;expect(identity.roles).toEqual(['learner','admin']);
  await page.goto('/account');await expect(page.getByText('learner · admin',{exact:true})).toBeVisible();await expect(page.getByText(/editor|reviewer/)).toHaveCount(0);await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByText('学习者 · 管理员',{exact:true})).toBeVisible();await expect(page.getByText(/编辑者|审核者/)).toHaveCount(0);await fitsViewport(page);

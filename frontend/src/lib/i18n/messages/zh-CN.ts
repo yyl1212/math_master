@@ -1,6 +1,8 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "learn.workspace.sections": "我的学习栏目",
+  "learn.workspace.knowledge": "知识学习",
   "form.file.choose": "选择文件",
   "form.file.empty": "未选择任何文件",
   "form.file.single": "已选择 1 个文件",
