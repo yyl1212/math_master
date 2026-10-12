@@ -1,6 +1,9 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "form.topic.choosePrimary": "请先选择一级主题",
+  "form.topic.chooseSecondary": "请先选择二级主题",
+  "form.topic.noChildren": "没有下级主题",
   "map.search.entry": "检索主题与知识点",
   "map.search.target": "检索对象",
   "map.search.keyword": "关键词",
