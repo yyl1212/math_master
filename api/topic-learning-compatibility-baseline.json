@@ -3792,7 +3792,10 @@
       "tests/fixtures/legacy-frontend/src/features/study/managed-learning-view.tsx",
       "tests/fixtures/legacy-frontend/src/features/study/managed-pages.tsx",
       "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.tsx",
-      "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.test.tsx"
+      "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.test.tsx",
+      "docs/superpowers/specs/2026-10-13-notes-sharing-design.md",
+      "docs/superpowers/plans/2026-10-13-notes-sharing.md",
+      "docs/superpowers/reports/2026-10-13-notes-sharing-plan-review.md"
     ]
   },
   "legacySnapshots": {
