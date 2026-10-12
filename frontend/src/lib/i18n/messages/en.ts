@@ -1,4 +1,8 @@
 export const enMessages = {
+  "form.file.choose": {"text": "Choose files", "params": []},
+  "form.file.empty": {"text": "No files selected", "params": []},
+  "form.file.single": {"text": "1 file selected", "params": []},
+  "form.file.count": {"text": "{count} files selected", "params": ["count"]},
   "form.topic.choosePrimary": {"text": "Choose a main topic first", "params": []},
   "form.topic.chooseSecondary": {"text": "Choose a secondary theme first", "params": []},
   "form.topic.noChildren": {"text": "No child themes", "params": []},

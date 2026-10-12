@@ -30,11 +30,13 @@ test('map and learning share controls and keep query and selection through local
  await page.getByRole('button',{name:'English',exact:true}).click();await login(page);await control(page.getByRole('combobox',{name:'Learning status',exact:true}));await control(page.getByLabel('Search knowledge',{exact:true}));await narrow(page);
 });
 
-test('upload gives native file selection and checkboxes the shared appearance',async({page,scene},info)=>{
+test('upload localizes native file selection and keeps chosen files through both languages',async({page,scene},info)=>{
  await scene('managed-knowledge');await login(page);await page.goto('/admin/knowledge');const file=page.locator('input[type=file]');await expect(file).toBeEnabled();
- expect(await file.evaluate(node=>getComputedStyle(node,'::file-selector-button').borderRadius)).toBe('10px');
+ const button=page.getByText('Choose files',{exact:true});await expect(button).toBeVisible();await expect(page.getByText('No files selected',{exact:true})).toBeVisible();expect(await button.evaluate(node=>getComputedStyle(node).borderRadius)).toBe('10px');
  const publish=page.getByRole('checkbox',{name:'Upload and publish',exact:true});expect(await publish.evaluate(node=>getComputedStyle(node).accentColor)).toBe('rgb(49, 88, 68)');await expect(publish).toBeChecked();
- await file.setInputFiles({name:'测试知识文件-'+ 'long-name-'.repeat(20)+'.json',mimeType:'application/json',buffer:Buffer.from('{}')});
+ const selected={name:'测试知识文件-'+ 'long-name-'.repeat(20)+'.json',mimeType:'application/json',buffer:Buffer.from('{}')};const clicked=page.waitForEvent('filechooser');await page.locator('.file-picker-control').click();await (await clicked).setFiles(selected);await expect(page.getByText('1 file selected',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByText('选择文件',{exact:true})).toBeVisible();await expect(page.getByText('已选择 1 个文件',{exact:true})).toBeVisible();const keyboard=page.waitForEvent('filechooser');await file.focus();await expect(file).toBeFocused();expect(await page.getByText('选择文件',{exact:true}).evaluate(node=>getComputedStyle(node).outlineColor)).toBe('rgb(181, 142, 62)');await file.press('Space');await (await keyboard).setFiles([selected,{name:'second.json',mimeType:'application/json',buffer:Buffer.from('{}')}]);await expect(page.getByText('已选择 2 个文件',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'English',exact:true}).click();await expect(page.getByText('Choose files',{exact:true})).toBeVisible();await expect(page.getByText('2 files selected',{exact:true})).toBeVisible();expect(await file.evaluate(node=>Array.from((node as HTMLInputElement).files??[]).map(item=>item.name))).toEqual([selected.name,'second.json']);
  await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByRole('checkbox',{name:'上传并发布',exact:true})).toBeChecked();if(!process.env.CI)await page.screenshot({path:info.outputPath('upload.png'),fullPage:true});await narrow(page);
 });
 
