@@ -1,4 +1,7 @@
 export const enMessages = {
+  "form.topic.choosePrimary": {"text": "Choose a main topic first", "params": []},
+  "form.topic.chooseSecondary": {"text": "Choose a secondary theme first", "params": []},
+  "form.topic.noChildren": {"text": "No child themes", "params": []},
   "map.search.entry": {"text": "Search topics and knowledge", "params": []},
   "map.search.target": {"text": "Search target", "params": []},
   "map.search.keyword": {"text": "Keyword", "params": []},

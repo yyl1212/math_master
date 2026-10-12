@@ -63,13 +63,13 @@ export function ManagedLearningView({overview,list,themes,filters,selectedTopic}
     <div className={styles.sectionHeading}><h2 id="learning-knowledge">{t(filters.mode==='review'?'study.review.search':'study.knowledge',{})}</h2><span>{t('learn.dashboard.total',{total:list.total})}</span></div>
     {selected&&<p className={styles.selected}><LocalizedName english={selected.titleEn} chinese={selected.title}/></p>}
     {filters.mode==='review'&&<p className={styles.hint}>{t('learn.dashboard.reviewHint',{})}</p>}
-    <form action="/learn" className={styles.filters} key={JSON.stringify(filters)}>
+    <form action="/learn" className={"ui-form "+styles.filters} key={JSON.stringify(filters)}>
      <label className={styles.search}>{t('learn.dashboard.search',{})}<input name="q" type="search" defaultValue={filters.q??''} placeholder={t('learn.dashboard.searchPlaceholder',{})}/></label>
      <label>{t('learn.dashboard.theme',{})}<select name="topicKey" defaultValue={filters.topicKey??''}><option value="">{t('learn.dashboard.allThemes',{})}</option>{themes.map(theme=><option key={theme.topicKey} value={theme.topicKey}>{name(theme)}</option>)}{selected&&!themes.some(theme=>theme.topicKey===selected.topicKey)&&<option value={selected.topicKey}>{name(selected)}</option>}</select></label>
      <label>{t('learn.dashboard.state',{})}<select name="state" defaultValue={filters.state??''}><option value="">{t('managed.all',{})}</option>{states.map(state=><option key={state} value={state}>{t(stateKey(state),{})}</option>)}</select></label>
      {filters.mode==='review'&&<input type="hidden" name="mode" value="review"/>}
-     <button className="button">{t('learn.dashboard.apply',{})}</button>
-     {hasFilters&&<Link prefetch={false} className={styles.clear} href={reset}>{t('learn.dashboard.clear',{})}</Link>}
+     <div className={"form-actions "+styles.filterActions}><button className="button">{t('learn.dashboard.apply',{})}</button>
+     {hasFilters&&<Link prefetch={false} className={styles.clear} href={reset}>{t('learn.dashboard.clear',{})}</Link>}</div>
     </form>
     <div className={styles.knowledgeList}>{list.items.map(detail=>{
      const point=detail.currentKnowledge?.point;

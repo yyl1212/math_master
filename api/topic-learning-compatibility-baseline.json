@@ -2519,7 +2519,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "c13c1feee2f581dd43d6489279c2b4323bfe5f18483fba9dfd2aade5b44dc185"
+        "sha256": "e3480ed65743dc90483994c04c5527db64de50a448f75da9cb257ca4a73cf6ac"
       }
     },
     "frontend/src/lib/i18n/messages/zh-CN.ts": {
@@ -2536,7 +2536,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "b9769df62e5026b5dda94b3db4c9e6787b578477bb7fca0e8f4c8ecf06bbbcb1"
+        "sha256": "bc0f78fe535f549c202a5eaef174b9bd3fec4672045a381f6b6faad0e90c5f38"
       }
     },
     "frontend/src/lib/i18n/page-titles.ts": {
@@ -2576,7 +2576,7 @@
         "reason": "已确认C7具名完整验收：真实旧命令迁入切换scene、独立十万源容量step、档案/双语step和中文使用入口；原业务检查及时限不改。"
       },
       "managed": {
-        "sha256": "e7251d44e15ed009356acdcec67e389e9706e1df79ff9beebd0edb9c46380e5d"
+        "sha256": "429f8a3b7dbae6b256e8ac715182e5235453d6a782e8d6094c62500df7732f51"
       }
     },
     "tools/verify/admin-review-compatibility.mjs": {
@@ -2675,6 +2675,9 @@
       "study": {
         "sha256": "a8cb458d75b00b40116724703470f827e23d93ce39406e518845c0e1674d88fc",
         "reason": "B1–B8或已记录衔接裁决的明确接线/验证文件"
+      },
+      "managed": {
+        "sha256": "ac0e896db0f36e67ed6c08ca5af396ff217c9ea4e29e731ff3caa9316f66966e"
       }
     },
     "frontend/src/features/auth/forms.test.tsx": {
@@ -3024,6 +3027,9 @@
       "cutover": {
         "sha256": "8f8d6cdb83e440aca5e93c1c1485d14432e42782c8a103eac5de78d127e2a547",
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
+      },
+      "managed": {
+        "sha256": "35de756deb98db41f52513c6579487f8845b0d669dc4f19db88abef55a9caba5"
       }
     },
     "frontend/src/features/feedback/report-link.test.tsx": {
@@ -3237,7 +3243,7 @@
     },
     "frontend/src/features/feedback/review-panel.tsx": {
       "managed": {
-        "sha256": "c0d75d1677089f922701b8c42943c87b43e47d7da257f55204c7dc66cee805c5"
+        "sha256": "5c616f5f86a03c5954493b8612881c11ee7dbace97312789b7c844223b1debbb"
       }
     },
     "frontend/src/lib/feedback/schemas.test.ts": {
@@ -3257,7 +3263,7 @@
     },
     "frontend/src/styles/globals.css": {
       "managed": {
-        "sha256": "5842f8ff80a5ee728d97763f654fdef99735a1fbe0505d6d1dd4078da2b05034"
+        "sha256": "11e52e2dcd19efd9c28c02b8db067461b587760b10add72c14bc70197595e4ca"
       }
     },
     "schemas/embed.go": {
@@ -3322,7 +3328,7 @@
     },
     "frontend/src/features/auth/admin-users.tsx": {
       "managed": {
-        "sha256": "f9425790140131065ab350cadd09c30adc814e92cedea972036380135c310cff"
+        "sha256": "864bc5f61aebe93e4baf334937de0b9f4c2cd50e05c69d31f5ac13a06ce4e8b4"
       }
     },
     "frontend/src/features/content/submission-page.test.tsx": {
@@ -3348,6 +3354,21 @@
     "tests/e2e/playwright.config.ts": {
       "managed": {
         "sha256": "c0c1658643322dabd173d50ef7d39b39970e1c9f9933eddae1b5cd22289b395a"
+      }
+    },
+    "frontend/src/features/auth/account-panel.tsx": {
+      "managed": {
+        "sha256": "10a24aa57f7224125d0efd44f5f8e033de4e155801eb599022f7f14a5cbac2bb"
+      }
+    },
+    "frontend/src/features/feedback/discussion-panel.tsx": {
+      "managed": {
+        "sha256": "bf920e63ff8d6b40bec1a5338125abfd402e53552809d4cf55941708747436bc"
+      }
+    },
+    "frontend/src/features/feedback/ticket-list.tsx": {
+      "managed": {
+        "sha256": "3568554114a05f58df4ec78934917457dba43945b83161e745bdd260870c9d08"
       }
     }
   },
@@ -3759,7 +3780,8 @@
       "tools/verify/admin-knowledge-acceptance.test.mjs",
       "tools/verify/admin-knowledge-approved-paths.json",
       "tools/verify/build-legacy-frontend.mjs",
-      "tools/verify/site-streamline-production.mjs"
+      "tools/verify/site-streamline-production.mjs",
+      "tests/e2e/form-controls.spec.ts"
     ]
   },
   "legacySnapshots": {
@@ -5027,10 +5049,10 @@
     "frontend/src/features/content/topic-workspace.tsx": "cd4ee33433dfb2ab280af1a38a0f67628b4f565a11c70f0d0dda5e2fc1d1e726",
     "frontend/src/features/feedback/topic-location.test.ts": "44732334ea636f1115ed94acd443b50a2142352e61cdd8c55cc75c4d47093899",
     "frontend/src/features/feedback/topic-location.ts": "0d043e4276b21fc1a3a1e4e93b216b95af2353497779a65999afb562ed908081",
-    "frontend/src/features/knowledge-admin/edit.tsx": "6e9313a341f750bc395143f11d2ea8ca8e86c0cb9d0e48c48f2c629c7489a27e",
+    "frontend/src/features/knowledge-admin/edit.tsx": "2da3014bc84b1fefbff21e58b0a67590bde3715dc24a9fe4a1e468d5b6e7015e",
     "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "c853615d8d99466ddfe7cd8791e7bcfb77b4a5cb63aea91b98310123b5ec4112",
-    "frontend/src/features/knowledge-admin/list.tsx": "6b1784686dbf742f807d25a88b923e6477f6e3f028c670318d9ddcf6bbf66c81",
-    "frontend/src/features/knowledge-admin/upload.tsx": "3b11fc7882c82899b4343986104ee2aa7a917db64f2a62a2c995aa5b7f2f2d94",
+    "frontend/src/features/knowledge-admin/list.tsx": "cf90611402eeeeb3e37e422c27340adc32bf04c8be80ec4e7e7c543c83330848",
+    "frontend/src/features/knowledge-admin/upload.tsx": "465568b52122a2669e544cbcf6599c9921166996b630e3ddc91fed41c0e7c66c",
     "frontend/src/features/reading/current-knowledge-view.tsx": "4f869a53ff2437823d7a668a8c7513504dab87ac694794b9ab757a0879f822c5",
     "frontend/src/features/study/account-boundary.tsx": "f3f3214a40d408bc41ff086540f8abff9064e68409518286aebb56db0412c3a4",
     "frontend/src/features/study/content-reminders.test.tsx": "0706b1525fcb6eb4559c1a87e95b0be2eb5fdcc19634b1c1544ff0c8df04f157",
@@ -5044,10 +5066,10 @@
     "frontend/src/features/study/knowledge-list.tsx": "97db4aee9dce3e72bf98f3329022d95590c2be6cb0f718566c736afc85637629",
     "frontend/src/features/study/legacy-archive.tsx": "d13cfcf3dcbb85e56d815579bb3a4b2a718f45d9d31eabc452815f62557ce69a",
     "frontend/src/features/study/managed-controls.tsx": "8d145b902f59d15d69c8d696eafc011b58d49752afc1fa6a0febbfaf44dd0e57",
-    "frontend/src/features/study/managed-history.tsx": "41d63a36650146482fb9b0e027b3910290691f201cda37e7ce52dddd52a28727",
+    "frontend/src/features/study/managed-history.tsx": "f59a144d41ced4f0e72b800b39875831fc90375d955cae46794fd61df43e8407",
     "frontend/src/features/study/managed-learn-page.test.tsx": "11ffc89c321432cec6692811f14eab77a191410e3a4dff74c5246c1eb1eb8fc7",
-    "frontend/src/features/study/managed-learning-view.tsx": "ead1b7c45412360a3ef0e999a6038d42c751b6c892139de64aa5ae568712243d",
-    "frontend/src/features/study/managed-note-editor.tsx": "788e18574e0a205e816e458d99be4a1bf89542f21be306a0fb40a7a70fd968ad",
+    "frontend/src/features/study/managed-learning-view.tsx": "2f1286f59171ed3c10be1d13fc55af0ffcd5f75f5413a9c0eca81b6f3cfc0653",
+    "frontend/src/features/study/managed-note-editor.tsx": "bdecaf9ea709c98524f35bb6160558b77070850db05ac33aa911b34aaf172b67",
     "frontend/src/features/study/managed-pages.test.tsx": "77251029ae39ce6669573346f02bae64bd6f19518561642da19a4dff2c3400fb",
     "frontend/src/features/study/managed-pages.tsx": "829de94d498ff7d5a2d88df91d23051bda1741ada5d650ccce9a8a39d8eed258",
     "frontend/src/features/study/note-editor.test.tsx": "75ab9f1e577f3f66b5f48af5194b16e074c99bef882e50709ffc82a6b8c233fc",
@@ -5102,7 +5124,7 @@
     "frontend/src/lib/taxonomy/schemas.ts": "be65f0ec2b4150b718b235782eff94a6c17ae87f64ac29815cc690b7c874b207",
     "frontend/src/lib/taxonomy/server-client.ts": "d61c4e35eda1c72b7f711e107b64e098f3550bde8f43705d8fdefe1d4322697d",
     "frontend/src/lib/taxonomy/types.ts": "27d4a253e7ba03a5f698e13ed474101ab5710f4d03a29b162260446ea87e8acf",
-    "frontend/src/styles/managed-learning.module.css": "a4887292c1ae771ba6767147ff796adb9de60e045c0a2bbbe7c04a25798b851c",
+    "frontend/src/styles/managed-learning.module.css": "56f1c05052390143a0f80ee5a1a2abbedd7f89cbde99ebbbf68511067d3397f4",
     "ops/knowledge-cutover.py": "a46884c50741eb658b8a1a97447f32cfb2ed73a504d5af0a22a7e6322c57dbf7",
     "ops/tests/test_knowledge_cutover.py": "71ccdb01194020212ef56342ed064069b21230aa2e5b6cdfb3de01527e355d2a",
     "schemas/knowledge-manifest.schema.json": "66ac66b863b4f8ec7963ccbc465afa612417dbbe95606a0fe960468455fd6a76",
@@ -5144,7 +5166,7 @@
     "tools/topic-ingest/test-fixtures.mjs": "5f2ef429e3701f8326bb5255d10396e4f5105fa5d322c337ea3b0f0eea675d13",
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
-    "tools/verify/admin-knowledge-approved-paths.json": "95c1da14f3fdac59b8f94011ea12f4ac2bea6dc8755f6d689ddae825501fb52e",
+    "tools/verify/admin-knowledge-approved-paths.json": "44770810ead664faf2c47fdb43eaf0d5cb2e93c5c1ea4b1ecf0965a0e09cdcf3",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
     "tools/verify/topic-learning-ci.test.mjs": "d401ee5d14c1cd4c7e1959365612d33a6f2e2a570364e3136b7d96bf8bf8e145",
@@ -5152,8 +5174,8 @@
     "tools/verify/topic-learning-compatibility.test.mjs": "1fec60c552a6ec7d896c106490067bbd592e8b4c25011f3cafa23a0c7dbaa9cc",
     "backend/internal/store/knowledge_admin_streamline_test.go": "8f6a540fdf26ac0c1c19b1b6efb555f3b3740581de350c6c5331dc417c9f888b",
     "backend/internal/store/managed_business_mode.go": "0e79fc1802489ba35792c0122db2d353a4dbf179ac71e399961870571b0ff677",
-    "frontend/src/components/topic-picker.test.tsx": "2b2d442f1563b262e9368b1fffaa12064fbda71aa33e8e610198fda19e7e2450",
-    "frontend/src/components/topic-picker.tsx": "3b28bb92bdce5d73850558c92f1824ef1147d16faef11754ec5fed188c9788cf",
+    "frontend/src/components/topic-picker.test.tsx": "9d51d5edf4f8ac5155eb2a6d0590724b2e4a6304ae26e58d5e921c8d84f96c53",
+    "frontend/src/components/topic-picker.tsx": "e37084f042836342e21ff0e8860b96bafc8c755b14647960a360d1a762fa6f28",
     "frontend/src/features/catalogue/current-home.test.tsx": "bdda7fdba841aa9023387d94d6a443e1fb78ed798c1bede015bc21abe1bb97a3",
     "frontend/src/features/catalogue/current-home.tsx": "37fbddce2bd944f584f787d6e6dc46da32090dd1ded8e00c39059d77f331479c",
     "frontend/src/features/knowledge-admin/batch-upload.test.tsx": "f920566f80bbb3530217990c85b9496bd625bcc00b7dbc790712224fcf25db0f",
@@ -5228,8 +5250,9 @@
     "tests/fixtures/legacy-frontend/src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a",
     "tools/verify/build-legacy-frontend.mjs": "370b6f5431726dd7f1d1e1c4b7b3bc4e5ab3ac40394065b42c6b2685fbb4d7bf",
     "tools/verify/site-streamline-production.mjs": "45b24a93fd80424af08981325e2e38f336c7f81ca2ab531d97ee6f5d635e2400",
-    "frontend/src/features/catalogue/catalogue-search.tsx": "0d19dea9c2706960471031a18b80fde2f8095e9351f49406ed25094c069ef6e5",
+    "frontend/src/features/catalogue/catalogue-search.tsx": "91a7fa8d9ef01b6b865fc0e3d0bbfcfaa731b2eaea9080a0c792ec628cdb93e2",
     "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.test.tsx": "94d59fe17e39dbca37de567a7c2a19752f9b33684092e4b8eebe1d9a4aa47dfc",
-    "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.tsx": "8964d715a8ef3b016f108f1ac1a064829448829873f5f52d86e8cff10d1810d0"
+    "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.tsx": "8964d715a8ef3b016f108f1ac1a064829448829873f5f52d86e8cff10d1810d0",
+    "tests/e2e/form-controls.spec.ts": "f4863a6f89182f663708419e470054562b4ebde96dd84b5fcefda369be244b34"
   }
 }

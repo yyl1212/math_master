@@ -36,7 +36,7 @@ export function CredentialsForm({ mode }: { mode: "register" | "login" }) {
     <p><UiText notice={uiMessage("credentials-form.from.first.principles.to.new.frontiers.explore.a.connected.world..c2f0a1",{})}/></p>
     <Link prefetch={false} href="/knowledge"><UiText notice={uiMessage("credentials-form.explore.the.knowledge.map.d12c1a",{})}/></Link></div>
     <div className={styles.card}><h2>{mode === "register" ? t("page.register",{}) : t("page.login",{})}</h2>
-    <form className={styles.form} onSubmit={submit} aria-busy={busy}>
+    <form className={"ui-form "+styles.form} onSubmit={submit} aria-busy={busy}>
       <label htmlFor="username"><UiText notice={uiMessage("credentials-form.username.e3b89e",{})}/></label><input id="username" name="username" autoComplete="username" autoCapitalize="none" spellCheck={false} required minLength={3} maxLength={32} pattern="[A-Za-z0-9_]{3,32}" value={username} onChange={e => setUsername(e.target.value)} disabled={busy} />
       <label htmlFor="password"><UiText notice={uiMessage("credentials-form.password.e7cf3e",{})}/></label><input id="password" name="password" type="password" autoComplete={mode === "register" ? "new-password" : "current-password"} required value={password} onChange={e => setPassword(e.target.value)} disabled={busy} aria-describedby="password-hint" />
       <p id="password-hint" className={styles.hint}><UiText notice={uiMessage("credentials-form.15.128.characters.spaces.and.unicode.characters.are.welcome.66a06f",{})}/></p>

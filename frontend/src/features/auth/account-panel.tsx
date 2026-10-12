@@ -31,7 +31,7 @@ export function AccountPanel({ user }: { user: User }) {
   return <section className={styles.account}><div className="page-heading"><p className="eyebrow"><UiText notice={uiMessage("account-panel.your.account.cee7fd",{})}/></p><h1>{user.username}</h1><p>{user.roles.map(role=>t(roleKeys[role],{})).join(" · ")}</p></div>
     {user.mustChangePassword && <p className={styles.notice}><UiText notice={uiMessage("account-panel.change.your.password.to.continue.1c1b58",{})}/></p>}
     <div className={styles.card}><h2><UiText notice={uiMessage("account-panel.change.password.3f9c99",{})}/></h2><p className={styles.hint}><UiText notice={uiMessage("account-panel.changing.your.password.signs.you.out.on.every.device.sign.in.agai.c2a7e1",{})}/></p>
-      <form className={styles.form} onSubmit={e => { e.preventDefault(); void write("password"); }} aria-busy={busy}>
+      <form className={"ui-form "+styles.form} onSubmit={e => { e.preventDefault(); void write("password"); }} aria-busy={busy}>
         <label htmlFor="current-password"><UiText notice={uiMessage("account-panel.current.password.72ed2b",{})}/></label><input id="current-password" type="password" autoComplete="current-password" required value={currentPassword} onChange={e => setCurrent(e.target.value)} disabled={busy} />
         <label htmlFor="new-password"><UiText notice={uiMessage("account-panel.new.password.3dd9df",{})}/></label><input id="new-password" type="password" autoComplete="new-password" required value={newPassword} onChange={e => setNew(e.target.value)} disabled={busy} aria-describedby="new-password-hint" />
         <p id="new-password-hint" className={styles.hint}><UiText notice={uiMessage("credentials-form.15.128.characters.spaces.and.unicode.characters.are.welcome.66a06f",{})}/></p>
