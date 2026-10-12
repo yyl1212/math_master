@@ -2684,6 +2684,9 @@
       "study": {
         "sha256": "37e56e1ac513c0c85c6a5757b4e204d085344a771a2d8423b8b9f5d3478cc817",
         "reason": "B1–B8或已记录衔接裁决的明确接线/验证文件"
+      },
+      "managed": {
+        "sha256": "bf500dd00483bcf08add10a799accd86c917cfe9447dc69f84848caab92f2f09"
       }
     },
     "frontend/src/lib/i18n/error-keys.ts": {
@@ -3323,12 +3326,12 @@
     },
     "frontend/src/features/auth/admin-users.test.tsx": {
       "managed": {
-        "sha256": "bfe502573db7acbe8e339cf23d59b7263ca757039b2700206bf69c82129af577"
+        "sha256": "c816837fb329e5c182eb5ce1e77f77eed91dbf28df15e8b530192b04500e6e01"
       }
     },
     "frontend/src/features/auth/admin-users.tsx": {
       "managed": {
-        "sha256": "864bc5f61aebe93e4baf334937de0b9f4c2cd50e05c69d31f5ac13a06ce4e8b4"
+        "sha256": "420079e55631969242710d62bbd0dc462c1a6b93faf324974eee3fba43fdf329"
       }
     },
     "frontend/src/features/content/submission-page.test.tsx": {
@@ -3358,7 +3361,7 @@
     },
     "frontend/src/features/auth/account-panel.tsx": {
       "managed": {
-        "sha256": "10a24aa57f7224125d0efd44f5f8e033de4e155801eb599022f7f14a5cbac2bb"
+        "sha256": "2674a2bc31bfaa5a91de68bfb158aa595760d0c956e90cce072c3f5ed4e8a62b"
       }
     },
     "frontend/src/features/feedback/discussion-panel.tsx": {
@@ -3781,7 +3784,9 @@
       "tools/verify/admin-knowledge-approved-paths.json",
       "tools/verify/build-legacy-frontend.mjs",
       "tools/verify/site-streamline-production.mjs",
-      "tests/e2e/form-controls.spec.ts"
+      "tests/e2e/form-controls.spec.ts",
+      "tests/fixtures/legacy-frontend/src/features/auth/account-panel.tsx",
+      "tests/fixtures/legacy-frontend/src/features/auth/forms.test.tsx"
     ]
   },
   "legacySnapshots": {
@@ -5166,7 +5171,7 @@
     "tools/topic-ingest/test-fixtures.mjs": "5f2ef429e3701f8326bb5255d10396e4f5105fa5d322c337ea3b0f0eea675d13",
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
-    "tools/verify/admin-knowledge-approved-paths.json": "44770810ead664faf2c47fdb43eaf0d5cb2e93c5c1ea4b1ecf0965a0e09cdcf3",
+    "tools/verify/admin-knowledge-approved-paths.json": "dd131a07902e83a7207bbe478ce80ee2ab132f6c78680c1bdb0b671fddc42237",
     "tools/verify/go-batches.mjs": "f6c674fe985bde4906865cacb28bc13ad50a92ae914f577c78f15784998475e1",
     "tools/verify/go-batches.test.mjs": "410782fb5137bb033a2fd8361d1f529bee55d302815f00d2ea335c0f92792bb7",
     "tools/verify/topic-learning-ci.test.mjs": "d401ee5d14c1cd4c7e1959365612d33a6f2e2a570364e3136b7d96bf8bf8e145",
@@ -5184,9 +5189,9 @@
     "frontend/src/features/study/managed-history.test.tsx": "b55faa54fc88aaf4277ca5fdcb217f953bce9912f6f2bb040864981aa0c6acba",
     "frontend/src/features/study/retired-entry.tsx": "7be097213aec784a4f766e639af148a35a3e6b6c1e595a731035c8f4c53c839a",
     "frontend/src/styles/current-home.module.css": "56cc05b739a26deeb5426ced8f6a37382eb3c43b7aac37d3705ef03284d622c4",
-    "tests/e2e/site-streamline.spec.ts": "a415eb68bad5e7e726fe199734fc0d05b8792e228181bfc60f438695bdfc1384",
+    "tests/e2e/site-streamline.spec.ts": "ab61511fa4a7d12e47b073a233c5a5dadff72b968b87311be4cc3df775c77ace",
     "tests/e2e/ui-language-streamline.spec.ts": "cc8e44b270d788d90d264d55721ec8fd0b475e4c3933e54d7c61f3693ec11d32",
-    "tests/fixtures/legacy-frontend/manifest.json": "3989ae39b02706e3bd5f424698783056528e617661da67e985ae13a53f21c0f8",
+    "tests/fixtures/legacy-frontend/manifest.json": "f16a933c756d5a618c5b2eb41d9803221c3d9b18169c9b1ea40f26cf8b936a3e",
     "tests/fixtures/legacy-frontend/src/app/account/page.tsx": "a348994bb01a5e9beb35e7d4e876b59dd7c823eb23dcf43fa73213ded494fe96",
     "tests/fixtures/legacy-frontend/src/app/admin/knowledge/[id]/page.tsx": "fe91f4bb083ae71d2acc177b5081391fb64ed01cd08b1bc796a1ffecd1e8b257",
     "tests/fixtures/legacy-frontend/src/app/admin/knowledge/page.tsx": "3ce2f41f6085e4c7e7b6ae4c2ef334f3c26ccd40a8fb350dbe70aa8a6fb7e194",
@@ -5253,6 +5258,8 @@
     "frontend/src/features/catalogue/catalogue-search.tsx": "91a7fa8d9ef01b6b865fc0e3d0bbfcfaa731b2eaea9080a0c792ec628cdb93e2",
     "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.test.tsx": "94d59fe17e39dbca37de567a7c2a19752f9b33684092e4b8eebe1d9a4aa47dfc",
     "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.tsx": "8964d715a8ef3b016f108f1ac1a064829448829873f5f52d86e8cff10d1810d0",
-    "tests/e2e/form-controls.spec.ts": "4e08b5ef90d1b8fd5cdef8f7e1c8e3a66935aaa6fdd0078bd03924aa65acc952"
+    "tests/e2e/form-controls.spec.ts": "4e08b5ef90d1b8fd5cdef8f7e1c8e3a66935aaa6fdd0078bd03924aa65acc952",
+    "tests/fixtures/legacy-frontend/src/features/auth/account-panel.tsx": "700f72bcc5ebf026f3f546e775163e38a9e70a67ac74aff81b53b1218629f570",
+    "tests/fixtures/legacy-frontend/src/features/auth/forms.test.tsx": "37e56e1ac513c0c85c6a5757b4e204d085344a771a2d8423b8b9f5d3478cc817"
   }
 }
