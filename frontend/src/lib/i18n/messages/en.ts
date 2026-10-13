@@ -1,4 +1,9 @@
 export const enMessages = {
+  "page.notes": {"text": "Shared notes", "params": []},
+  "page.notes.id": {"text": "Shared note", "params": []},
+  "page.admin.note-shares": {"text": "Note approvals", "params": []},
+  "page.admin.note-shares.id": {"text": "Review shared note", "params": []},
+  "notes.management": {"text": "Management", "params": []},
   "notes.explanations": {"text": "Explanation", "params": []},
   "notes.examples": {"text": "Examples", "params": []},
   "notes.counterexamples": {"text": "Counterexamples", "params": []},

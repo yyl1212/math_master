@@ -54,6 +54,7 @@ export function SiteHeader() {
           aria-current={path === "/knowledge" ? "page" : undefined}
           data-active={path === "/knowledge" || path.startsWith("/knowledge/")}
         ><UiText notice={uiMessage("nav.knowledgeMap",{})}/></Link>
+        <Link prefetch={false} href="/notes" aria-current={path==='/notes'||path.startsWith('/notes/')?'page':undefined} data-active={path==='/notes'||path.startsWith('/notes/')}><UiText notice={uiMessage('notes.shared',{})}/></Link>
 </nav>
       <LanguageSwitch /><AuthStatus />
     </header>

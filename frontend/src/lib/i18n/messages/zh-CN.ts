@@ -1,6 +1,11 @@
 import type {
 MessageKey} from "../types";
 export const zhMessages = {
+  "page.notes": "分享笔记",
+  "page.notes.id": "分享笔记阅读",
+  "page.admin.note-shares": "笔记审批",
+  "page.admin.note-shares.id": "审批分享笔记",
+  "notes.management": "管理功能",
   "notes.explanations": "解释",
   "notes.examples": "示例",
   "notes.counterexamples": "反例",
