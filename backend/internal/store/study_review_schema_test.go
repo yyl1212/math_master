@@ -161,3 +161,17 @@ func TestReviewMissingExtensionKeepsOriginalCapabilities(t *testing.T) {
 		t.Fatal("missing15 broke sharing", sharing, e)
 	}
 }
+
+func TestReviewUnicodeWhitespaceMatchesGo(t *testing.T) {
+	db := reviewSchemaDB(t)
+	for _, entry := range []struct {
+		body  string
+		blank bool
+	}{{"v", false}, {"\v", true}, {"\f", true}, {"\u3000", true}, {"\u00a0", true}, {"vector v", false}} {
+		var blank bool
+		e := db.QueryRow(`SELECT study_review_blank($1)`, entry.body).Scan(&blank)
+		if e != nil || blank != entry.blank {
+			t.Fatalf("blank(%q)=%v want %v: %v", entry.body, blank, entry.blank, e)
+		}
+	}
+}

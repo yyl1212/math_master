@@ -731,6 +731,26 @@
         "tests/e2e/study-review-flow.spec.ts"
       ],
       "pending": "Task4组件/SSR单元已验证；Task6真实两视口浏览器通过后登记完成。"
+    },
+    {
+      "file": "frontend/src/app/learn/review/[id]/page.tsx",
+      "module": "study-review",
+      "complete": false,
+      "messageKeys": [
+        "page.learn.review.id",
+        "studyReview.reference"
+      ],
+      "rawDataAreas": [
+        "review.actorId",
+        "review.own-answer",
+        "review.reference.projection"
+      ],
+      "scenarios": [],
+      "plannedScenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
+      ],
+      "pending": "Task5组件/SSR已验证；Task6真实两视口通过后登记完成。"
     }
   ],
   "components": [
@@ -4830,6 +4850,67 @@
         "tests/e2e/study-review-security.spec.ts"
       ],
       "pending": "Task4组件/SSR单元已验证；Task6真实两视口浏览器通过后登记完成。"
+    },
+    {
+      "file": "frontend/src/features/study-review/session.tsx",
+      "module": "study-review",
+      "complete": false,
+      "messageKeys": [
+        "studyReview.saveDraft",
+        "studyReview.compare",
+        "studyReview.unanswered",
+        "studyReview.changedHint"
+      ],
+      "rawDataAreas": [
+        "review.own-answer",
+        "review.reference.projection",
+        "review.grade"
+      ],
+      "scenarios": [],
+      "plannedScenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
+      ],
+      "pending": "Task5组件/SSR已验证；Task6真实两视口通过后登记完成。"
+    },
+    {
+      "file": "frontend/src/features/study-review/recall-editor.tsx",
+      "module": "study-review",
+      "complete": false,
+      "messageKeys": [
+        "studyReview.answer",
+        "studyReview.preview",
+        "studyReview.characters"
+      ],
+      "rawDataAreas": [
+        "review.own-answer"
+      ],
+      "scenarios": [],
+      "plannedScenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
+      ],
+      "pending": "Task5组件/SSR已验证；Task6真实两视口通过后登记完成。"
+    },
+    {
+      "file": "frontend/src/features/study-review/comparison.tsx",
+      "module": "study-review",
+      "complete": false,
+      "messageKeys": [
+        "studyReview.answer",
+        "studyReview.reference",
+        "studyReview.frozen"
+      ],
+      "rawDataAreas": [
+        "review.frozen-answer",
+        "review.current-reference"
+      ],
+      "scenarios": [],
+      "plannedScenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
+      ],
+      "pending": "Task5组件/SSR已验证；Task6真实两视口通过后登记完成。"
     }
   ]
 }

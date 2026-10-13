@@ -29,6 +29,12 @@ export function useReviewCommand(actorId:string,onSession?:(session:Session)=>vo
    return null;
   }finally{if(live.current&&g===generation.current){locked.current=false;setBusy(false)}}
  },[actorId,authorized,clearIdentity]);
- return {run,retry:()=>run(),busy,authorized,notice,unconfirmed,confirmedRead,contentBlocked,activeId};
+ const refresh=useCallback(async(id:string):Promise<Session|null>=>{
+  if(!authorized||locked.current||pending.current)return null;locked.current=true;setBusy(true);setContentBlocked(true);const g=generation.current;
+  try{const current=await readSession(id,actorId);if(!live.current||g!==generation.current)return null;callback.current?.(current);setContentBlocked(false);setNotice(null);return current}
+  catch(e){if(live.current&&g===generation.current){if(e instanceof ReviewError&&(e.status===401||e.status===403))clearIdentity();else setNotice('studyReview.error.notReady')}return null}
+  finally{if(live.current&&g===generation.current){locked.current=false;setBusy(false)}}
+ },[actorId,authorized,clearIdentity]);
+ return {run,retry:()=>run(),refresh,busy,authorized,notice,unconfirmed,confirmedRead,contentBlocked,activeId};
 }
 export type ReviewCommandFlow=ReturnType<typeof useReviewCommand>;

@@ -21,6 +21,10 @@ export function ReadingReview({initial}:{initial:Session}){
  const{t}=useUiI18n(),[session,setSession]=useState<Session|null>(initial),flow=useReviewCommand(initial.actorId,setSession,()=>setSession(null));
  useEffect(()=>{setSession(initial)},[initial]);
  if(!session||!flow.authorized)return <p role="status">{t('studyReview.signedOut',{})}</p>;
+ return <ReadingReviewBody session={session} flow={flow}/>;
+}
+export function ReadingReviewBody({session,flow}:{session:Session;flow:ReviewCommandFlow}){
+ const{t}=useUiI18n();
  const active=session.available&&!session.materialChanged&&!flow.contentBlocked;
  return <div className={styles.session}><UiPageTitle messageKey="page.learn.review.id"/><header className={styles.header}><div><h1><LocalizedName english={session.title} chinese={session.titleZh}/></h1><p>{t('studyReview.read',{})}</p></div><Link prefetch={false} href="/learn/review">{t('studyReview.back',{})}</Link></header>
  {!session.available&&<p role="status">{t('studyReview.availableFalse',{})}</p>}{session.materialChanged&&<p role="status">{t('studyReview.changedHint',{})}</p>}
