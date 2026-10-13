@@ -42,6 +42,8 @@ class DeployTests(unittest.TestCase):
         profile.start();self.addCleanup(profile.stop)
         public_health=patch.object(module,'verify_note_sharing_public',return_value=None)
         public_health.start();self.addCleanup(public_health.stop)
+        review_health=patch.object(module,'verify_study_review_public',return_value=None)
+        review_health.start();self.addCleanup(review_health.stop)
         self.commands=[]
         self.state_path=shared/'deployment.json'
         self.state={'schemaVersion':1,'current':OLD,'previous':None,'runningRevision':OLD,'bootstrapVerified':True,'status':'active'}
@@ -57,7 +59,7 @@ class DeployTests(unittest.TestCase):
 
     def transport(self,root,revision,args,sudo=False,acme='production'):
         self.commands.append((revision,args,acme))
-        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (b'{"capability":true,"schemaReady":true}' if args and args[-1].endswith('/api/v3/note-sharing/health') else json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False},'content':{'capability':True,'schemaReady':True,'managedMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
+        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (b'{"capability":true,"schemaReady":true}' if args and args[-1].endswith(('/api/v3/note-sharing/health','/api/v3/study/review/health')) else json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False},'content':{'capability':True,'schemaReady':True,'managedMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
         return subprocess.CompletedProcess(args,0,stdout,b'')
 
     def invoke(self,*args):
@@ -199,6 +201,15 @@ class DeployTests(unittest.TestCase):
             self.assertEqual(self.invoke('rollback','--revision',OLD)[0],1)
         self.assertFalse(any(args[:2]==['up','-d'] and 'gateway' in args for _,args,_ in self.commands))
 
+    def test_old_fourteen_release_cannot_rollback_fifteen_database(self):
+        (self.root/'releases'/OLD/'db'/'migrations'/'00015_study_review.sql').unlink()
+        self.state.update(current=NEW,previous=OLD,runningRevision=NEW);self.write_state()
+        with patch.object(common,'compose',side_effect=self.transport),patch.object(module.snapshot,'sql',return_value='15'):
+            self.assertEqual(self.invoke('rollback','--revision',OLD)[0],1)
+        self.assertFalse(any(args[:2]==['up','-d'] and any(v in args for v in ['api','web','gateway']) for _,args,_ in self.commands))
+        self.assertFalse(any(args and args[0]=='down' for _,args,_ in self.commands))
+        self.assertEqual(json.loads(self.state_path.read_text())['status'],'manual-recovery-required')
+
 class TopicCompatibilityTests(unittest.TestCase):
     def test_topic_mode_old_binary_rejected(self):
         self.assertFalse(module.topicSchemaCompatibility(12,{'taxonomy':True,'study':True,'retirement':False},'topics'))
@@ -242,10 +253,61 @@ class NoteSharingCompatibilityTests(unittest.TestCase):
         order=[];state={'bootstrapVerified':True,'runningRevision':OLD,'current':OLD}
         def compose(root,revision,args,sudo=False,failure=''):
             order.append('web' if args[:2]==['up','-d'] and 'web' in args else 'api' if args[:2]==['up','-d'] and 'api' in args else 'other');return b''
-        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'verify_note_sharing_next',side_effect=lambda *a:order.append('next-probe')),patch.object(module,'save_state'):
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'verify_note_sharing_next',side_effect=lambda *a:order.append('next-probe')),patch.object(module,'verify_study_review_next'),patch.object(module,'save_state'):
             module.start(Path('/private/tmp'),NEW,False,state,None)
         self.assertLess(order.index('go-probe'),order.index('web'));self.assertLess(order.index('web'),order.index('next-probe'))
         order=[];state={'bootstrapVerified':True,'runningRevision':NEW}
-        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public',side_effect=lambda *a:order.append('public-probe')),patch.object(module,'publish_current'):
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public',side_effect=lambda *a:order.append('public-probe')),patch.object(module,'verify_study_review_public'),patch.object(module,'publish_current'):
             module.activate(Path('/private/tmp'),NEW,False,state,'production')
         self.assertLess(order.index('gateway'),order.index('public-probe'))
+
+class StudyReviewCompatibilityTests(unittest.TestCase):
+    capabilities={'taxonomy':True,'study':True,'retirement':True,'managed':True,'noteSharing':True,'studyReview':True}
+    def test_fifteen_requires_explicit_review_and_future_sixteen_is_rejected(self):
+        self.assertTrue(module.topicSchemaCompatibility(15,self.capabilities,'topics'))
+        for key in self.capabilities:
+            missing={**self.capabilities,key:False}
+            self.assertFalse(module.topicSchemaCompatibility(15,missing,'topics'))
+        self.assertFalse(module.topicSchemaCompatibility(16,self.capabilities,'topics'))
+        self.assertFalse(module.topicSchemaCompatibility(15,{k:v for k,v in self.capabilities.items() if k!='studyReview'},'topics'))
+        self.assertFalse(module.topicSchemaCompatibility(15,{**self.capabilities,'studyReview':1},'topics'))
+    def test_review_health_is_private_body_free_strict_and_bounded(self):
+        for payload in [b'{}',b'[]',b'null',b'bad-json',b'x'*2049,b'{"capability":true,"schemaReady":false}',b'{"capability":"true","schemaReady":true}',b'{"capability":true,"schemaReady":true,"answer":"secret"}']:
+            with self.assertRaises((ValueError,TypeError)):module.strict_study_review_health(payload)
+        self.assertEqual(module.strict_study_review_health(b'{"capability":true,"schemaReady":true}'),{'capability':True,'schemaReady':True})
+    def test_go_missing_review_stops_fifteen(self):
+        base={'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':True,'managed':True,'managedMode':True}
+        with patch.object(module,'topic_database_state',return_value={'requiredMigration':15,'mode':'topics','managedMode':True}),patch.object(module,'runtime_topic_health',return_value=base),patch.object(module,'runtime_note_sharing_health',return_value={'capability':True,'schemaReady':True}),patch.object(module,'runtime_study_review_health',side_effect=module.DeployError('study-review-readiness-unavailable')):
+            with self.assertRaises(module.DeployError):module.verify_topic_runtime(Path('/private/tmp'),NEW,False,'container')
+    def test_next_probe_and_original_fourteen_boundaries(self):
+        with patch.object(module,'expected_migration',return_value=14),patch.object(module,'run_compose',side_effect=AssertionError('old release probed new endpoint')):
+            module.verify_study_review_next(Path('/private/tmp'),OLD,False)
+        with patch.object(module,'expected_migration',return_value=15),patch.object(module,'run_compose',return_value=b'{"capability":true,"schemaReady":true}') as request:
+            module.verify_study_review_next(Path('/private/tmp'),NEW,False)
+            self.assertEqual(request.call_args.args[2][-1],'http://127.0.0.1:3000/api/v3/study/review/health')
+        with patch.object(module,'expected_migration',return_value=15),patch.object(module,'run_compose',return_value=b'{}'):
+            with self.assertRaises(module.DeployError):module.verify_study_review_next(Path('/private/tmp'),NEW,False)
+    def test_public_probe_is_https_redirect_free_and_rejects_missing_health(self):
+        from unittest.mock import MagicMock
+        import urllib.request
+        url=common.ORIGIN+'/api/v3/study/review/health'
+        for valid,status,target,payload in [(True,200,url,b'{"capability":true,"schemaReady":true}'),(False,404,url,b'{}'),(False,200,url+'/redirect',b'{"capability":true,"schemaReady":true}'),(False,200,url,b'{"capability":true,"schemaReady":false}')]:
+            response=MagicMock();response.status=status;response.geturl.return_value=target;response.read.return_value=payload;response.__enter__.return_value=response
+            with patch.object(module,'expected_migration',return_value=15),patch.object(urllib.request,'urlopen',return_value=response) as request:
+                if valid:
+                    module.verify_study_review_public(Path('/private/tmp'),NEW)
+                    response.read.assert_called_once_with(2049)
+                    self.assertEqual(request.call_args.kwargs['timeout'],5)
+                else:
+                    with self.assertRaises(module.DeployError):module.verify_study_review_public(Path('/private/tmp'),NEW)
+    def test_review_probes_run_before_ready_and_publish(self):
+        order=[];state={'bootstrapVerified':True,'runningRevision':OLD,'current':OLD}
+        def compose(root,revision,args,sudo=False,failure=''):
+            order.append('web' if args[:2]==['up','-d'] and 'web' in args else 'api' if args[:2]==['up','-d'] and 'api' in args else 'other');return b''
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-review')),patch.object(module,'verify_note_sharing_next'),patch.object(module,'verify_study_review_next',side_effect=lambda *a:order.append('next-review')),patch.object(module,'save_state',side_effect=lambda *a:order.append('ready')):
+            module.start(Path('/private/tmp'),NEW,False,state,None)
+        self.assertLess(order.index('api'),order.index('go-review'));self.assertLess(order.index('web'),order.index('next-review'));self.assertLess(order.index('next-review'),order.index('ready'))
+        order=[];state['runningRevision']=NEW
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-review')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public'),patch.object(module,'verify_study_review_public',side_effect=lambda *a:order.append('public-review')),patch.object(module,'publish_current',side_effect=lambda *a:order.append('published')):
+            module.activate(Path('/private/tmp'),NEW,False,state,'production')
+        self.assertLess(order.index('gateway'),order.index('public-review'));self.assertLess(order.index('public-review'),order.index('published'))

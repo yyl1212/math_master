@@ -3117,8 +3117,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "679dfeaf645df5717bd8ad178ed97a7362cad690f43a4510bcf4b0eaeea4692b",
-        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
+        "sha256": "fd7990ae9a5b110c73ea14da8e962d13b473a28d1b64d7fc8e36af095f9987f6",
+        "reason": "第二阶段复习与默写的精确追加；原契约由原快照、原命令及API语义摘要继续保护。"
       }
     },
     "ops/tests/test_deploy.py": {
@@ -3127,8 +3127,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "7f3927b5ce7ac01315f77671960e9e89782a4f1ce84288968ba62d05a7d4bd71",
-        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
+        "sha256": "c9145927a04416f57a961a8cefcec56b3bbd51f60081bf4086d6d8395673347d",
+        "reason": "第二阶段复习与默写的精确追加；原契约由原快照、原命令及API语义摘要继续保护。"
       }
     },
     "ops/tests/test_verify.py": {
@@ -3758,6 +3758,7 @@
       "docs/operations/2026-10-13-legacy-correction-fence-acceptance.md",
       "docs/operations/2026-10-13-note-sharing-acceptance.md",
       "docs/operations/note-sharing.md",
+      "docs/operations/study-review.md",
       "docs/operations/topic-map-translations.md",
       "docs/superpowers/plans/2026-10-09-admin-knowledge-direct.md",
       "docs/superpowers/plans/2026-10-10-map-bilingual-import-100.md",
@@ -3775,6 +3776,7 @@
       "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md",
       "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md",
       "docs/superpowers/reports/2026-10-13-notes-sharing-plan-review.md",
+      "docs/superpowers/reports/2026-10-14-review-recall-acceptance.md",
       "docs/superpowers/reports/2026-10-14-review-recall-plan-review.md",
       "docs/superpowers/specs/2026-10-09-admin-knowledge-direct-design.md",
       "docs/superpowers/specs/2026-10-11-site-streamline-design.md",
@@ -5636,12 +5638,16 @@
     "frontend/src/lib/study-review/types.ts": "4846cd30f9274f7a7e054352bde18573c7dcc6fa275b993e45d5b5f0ab9db291",
     "frontend/src/styles/study-review.module.css": "aecb9e780d0700876017ad451191a5f40a8932596730d4f2ed7f079ac2f59403",
     "tests/e2e/study-review-flow.spec.ts": "c3160d4eeda040d52e13ea23b0166c85cf20c28ca8bdc26f1dfb53e6dffd3b41",
-    "tests/e2e/study-review-helpers.ts": "577c4fbd67e8c4e7cb6436fd93b5ffd901b86416d69afb21455b4f1270097ea2",
+    "tests/e2e/study-review-helpers.ts": "05b4e36087095fc6176b44d65685368290df64f26cce904b7e70062a11e7eefb",
     "tests/e2e/study-review-recall.spec.ts": "e92b236846126c5c16b38e03b38a529d6772789221ac73781a180f4f35998c3b",
     "tests/e2e/study-review-security.spec.ts": "8237a935abad3f7cd3fdf817d1a6c0b03d7e8f514a09ecc78a7b25a6f6c239b2",
     "tools/verify/study-review-ci.mjs": "148db6c128d850d1f3d2cec5c4e46a0b567b6b0557be2aa419255773596e7cbc",
     "tools/verify/study-review-ci.test.mjs": "9c470f756fe2201f49fd3b4de6249fc380372d071902656b0879c9ee2fe1285b",
     "tools/verify/study-review-restore.py": "6123844936d7f6d047a9dbf685c432fa07e70ee01b81e7a264a78759fc69e5eb",
-    "tools/verify/ui-language-coverage.test.mjs": "36018d5564e0f72a86083895e56c73001b9ef9bc6100e40b027419984bb8587b"
+    "tools/verify/ui-language-coverage.test.mjs": "36018d5564e0f72a86083895e56c73001b9ef9bc6100e40b027419984bb8587b",
+    "docs/operations/study-review.md": "581cd2981db9a13fd1f7451767b6284c9c0fddbd0becec2778142358943c9a9c",
+    "docs/superpowers/reports/2026-10-14-review-recall-acceptance.md": "74ceaecdcba4ad82e01f70d27acd7fc2cd262898b179252fea222d80ea7fef89",
+    "ops/deploy.py": "fd7990ae9a5b110c73ea14da8e962d13b473a28d1b64d7fc8e36af095f9987f6",
+    "ops/tests/test_deploy.py": "c9145927a04416f57a961a8cefcec56b3bbd51f60081bf4086d6d8395673347d"
   }
 }
