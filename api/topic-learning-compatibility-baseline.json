@@ -3904,7 +3904,9 @@
       "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md",
       "docs/superpowers/specs/2026-10-13-legacy-correction-fence-design.md",
       "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md",
-      "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md"
+      "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md",
+      "backend/internal/store/managed_correction_fence_internal_test.go",
+      "backend/internal/store/managed_correction_fence_test.go"
     ]
   },
   "legacySnapshots": {
@@ -5296,7 +5298,7 @@
     "tools/verify/topic-learning-compatibility.mjs": "d430c16a1c43fc9d9d06caedfaf7c605ef8fd970d04037bf5da2cc71de319f3a",
     "tools/verify/topic-learning-compatibility.test.mjs": "1fec60c552a6ec7d896c106490067bbd592e8b4c25011f3cafa23a0c7dbaa9cc",
     "backend/internal/store/knowledge_admin_streamline_test.go": "8f6a540fdf26ac0c1c19b1b6efb555f3b3740581de350c6c5331dc417c9f888b",
-    "backend/internal/store/managed_business_mode.go": "0e79fc1802489ba35792c0122db2d353a4dbf179ac71e399961870571b0ff677",
+    "backend/internal/store/managed_business_mode.go": "3f0ef440ea555b8aa02fec07256aa1dc1f88dddd9f6a54007e8092bdda043fdf",
     "frontend/src/components/topic-picker.test.tsx": "8f4181376f919e10adfe3cd45b05eaeafadf0aeae549e3f582998546cc96a86f",
     "frontend/src/components/topic-picker.tsx": "ace2db2d7e03cf5d352d9ae425ac56da9bfd0e6e06a5889cefe9663d1b5b4962",
     "frontend/src/features/catalogue/current-home.test.tsx": "bdda7fdba841aa9023387d94d6a443e1fb78ed798c1bede015bc21abe1bb97a3",
@@ -5453,6 +5455,8 @@
     "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md": "8c64932df04ad42c99932ed0eb89204f094443c8f0551efc35cfb93692fee472",
     "docs/superpowers/specs/2026-10-13-legacy-correction-fence-design.md": "4e763b6788c317aa19e6885d8d09fb1104db412c2cf84d4c4234bb65cafa8f7a",
     "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md": "b5f7734654043b24cf0fc5f615157a58714e7c05b22b03273036824585752a35",
-    "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md": "3079ef81f6f625b9c2a380bfd46f05ad679002cc37ab1caf0c19e86c5ace2c4c"
+    "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md": "3079ef81f6f625b9c2a380bfd46f05ad679002cc37ab1caf0c19e86c5ace2c4c",
+    "backend/internal/store/managed_correction_fence_internal_test.go": "32f2df42a7e499c837922ba3b9fe6ea7fb4fdb9893b98ed32ea05cd038025883",
+    "backend/internal/store/managed_correction_fence_test.go": "8abe7e4f5d53b1c39f30c4597bdbec1106eb1df2c7fed27d00d5db03813dc949"
   }
 }

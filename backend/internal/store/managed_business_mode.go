@@ -42,12 +42,24 @@ func managedBusinessMode(ctx context.Context, tx *sql.Tx) (bool, error) {
 // still serializing against permanent managed activation.
 func managedCorrectionGuard(ctx context.Context, tx *sql.Tx, contentLocks bool) error {
 	if contentLocks {
-		if e := learningLocks(ctx, tx); e != nil {
+		// Each materialized producer is consumed by the next volatile lock.
+		// Read the mode in a subsequent statement so activation committed while
+		// waiting at the knowledge fence is visible under READ COMMITTED.
+		if _, e := tx.ExecContext(ctx, `WITH settings AS MATERIALIZED (
+ SELECT set_config('lock_timeout','1s',true)
+ ),admin_fence AS MATERIALIZED (
+ SELECT pg_advisory_xact_lock_shared($1) FROM settings
+ ),content_fence AS MATERIALIZED (
+ SELECT pg_advisory_xact_lock_shared($2) FROM admin_fence
+ ),knowledge_fence AS MATERIALIZED (
+ SELECT pg_advisory_xact_lock_shared($3) FROM content_fence
+ ) SELECT count(*) FROM knowledge_fence`, adminLockID, int64(1296127048), knowledgeLockID); e != nil {
 			return e
 		}
-	}
-	if _, e := tx.ExecContext(ctx, "SELECT pg_advisory_xact_lock_shared($1)", knowledgeLockID); e != nil {
-		return e
+	} else {
+		if _, e := tx.ExecContext(ctx, "SELECT pg_advisory_xact_lock_shared($1)", knowledgeLockID); e != nil {
+			return e
+		}
 	}
 	managed, e := managedBusinessMode(ctx, tx)
 	if e != nil {
