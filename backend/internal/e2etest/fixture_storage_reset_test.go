@@ -350,6 +350,3 @@ func (c *fixtureStorageConn) Ping(ctx context.Context) error {
 func (c *fixtureStorageConn) ResetSession(ctx context.Context) error {
 	return c.Conn.(driver.SessionResetter).ResetSession(ctx)
 }
-func (c *fixtureStorageConn) IsValid() bool {
-	return c.Conn.(driver.Validator).IsValid()
-}
