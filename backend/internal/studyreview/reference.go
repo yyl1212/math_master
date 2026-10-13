@@ -66,7 +66,14 @@ func BuildReference(point knowledgeadmin.SourcePoint, mode Mode, target Target) 
 			}
 		}
 	}
-	canonical, e := json.Marshal(struct{ Prompt, Expected []Section }{m.Prompt, m.Expected})
+	canonical, e := json.Marshal(struct {
+		Prompt   []Section `json:"prompt"`
+		Expected []Section `json:"expected"`
+	}{m.Prompt, m.Expected})
+	if e != nil {
+		return m, ErrInvalid
+	}
+	canonical, e = knowledgeadmin.CanonicalJSON(canonical)
 	if e != nil {
 		return m, ErrInvalid
 	}

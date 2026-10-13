@@ -123,3 +123,16 @@ func TestReferenceExistingKnowledgeTypes(t *testing.T) {
 		t.Fatal("non-schema type accepted")
 	}
 }
+
+func TestReferenceCanonicalDigest(t *testing.T) {
+	p := source()
+	p.Statement = "A"
+	p.Conditions = nil
+	p.Scope = ""
+	p.System = ""
+	p.Equations = nil
+	m, e := BuildReference(p, Recall, Statement)
+	if e != nil || m.SHA256 != "aadc145ad236f35534c682ce51ef092d4e75865c343f3aa4293c4868420c19d7" {
+		t.Fatalf("noncanonical reference digest %s %v", m.SHA256, e)
+	}
+}

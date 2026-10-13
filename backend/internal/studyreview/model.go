@@ -197,3 +197,9 @@ type HistoryPage struct {
 	Items      []HistoryItem `json:"items"`
 	NextCursor *string       `json:"nextCursor"`
 }
+
+// ActiveSessionError only names the caller's own session, allowing an explicit continue choice.
+type ActiveSessionError struct{ SessionID string }
+
+func (e *ActiveSessionError) Error() string { return "review session already active" }
+func (e *ActiveSessionError) Unwrap() error { return ErrConflict }
