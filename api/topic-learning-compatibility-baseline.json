@@ -3906,7 +3906,8 @@
       "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md",
       "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md",
       "backend/internal/store/managed_correction_fence_internal_test.go",
-      "backend/internal/store/managed_correction_fence_test.go"
+      "backend/internal/store/managed_correction_fence_test.go",
+      "docs/operations/2026-10-13-legacy-correction-fence-acceptance.md"
     ]
   },
   "legacySnapshots": {
@@ -5455,8 +5456,9 @@
     "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md": "8c64932df04ad42c99932ed0eb89204f094443c8f0551efc35cfb93692fee472",
     "docs/superpowers/specs/2026-10-13-legacy-correction-fence-design.md": "4e763b6788c317aa19e6885d8d09fb1104db412c2cf84d4c4234bb65cafa8f7a",
     "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md": "b5f7734654043b24cf0fc5f615157a58714e7c05b22b03273036824585752a35",
-    "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md": "3079ef81f6f625b9c2a380bfd46f05ad679002cc37ab1caf0c19e86c5ace2c4c",
+    "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md": "c4cc29581c2d26ff09d05ab0c128d851b034b2d6058772d383f06b4ee54b987a",
     "backend/internal/store/managed_correction_fence_internal_test.go": "32f2df42a7e499c837922ba3b9fe6ea7fb4fdb9893b98ed32ea05cd038025883",
-    "backend/internal/store/managed_correction_fence_test.go": "8abe7e4f5d53b1c39f30c4597bdbec1106eb1df2c7fed27d00d5db03813dc949"
+    "backend/internal/store/managed_correction_fence_test.go": "8abe7e4f5d53b1c39f30c4597bdbec1106eb1df2c7fed27d00d5db03813dc949",
+    "docs/operations/2026-10-13-legacy-correction-fence-acceptance.md": "07d7b02801cc22a1825ba8bd5e82d6b7f3428bd3d2242600422799e63a3eaa52"
   }
 }
