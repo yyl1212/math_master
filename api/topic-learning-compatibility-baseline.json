@@ -3901,7 +3901,10 @@
       "tests/e2e/note-sharing.spec.ts",
       "tests/e2e/ui-language-notes.spec.ts",
       "docs/operations/2026-10-13-note-sharing-acceptance.md",
-      "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md"
+      "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md",
+      "docs/superpowers/specs/2026-10-13-legacy-correction-fence-design.md",
+      "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md",
+      "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md"
     ]
   },
   "legacySnapshots": {
@@ -5447,6 +5450,9 @@
     "tests/e2e/note-sharing.spec.ts": "8756a07d8afa7ab41c0901d086bff0a725556b21e3c3260a79be1412d509cc9e",
     "tests/e2e/ui-language-notes.spec.ts": "0dbad7f8e8f11a847834d85284bb8954ecb27e848b8c4e2068f73f98ad6378f8",
     "docs/operations/2026-10-13-note-sharing-acceptance.md": "e997bbb864e4ea73a130f6badb53007dfa2519696f7c10b5ba738c82f1e4db4e",
-    "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md": "8c64932df04ad42c99932ed0eb89204f094443c8f0551efc35cfb93692fee472"
+    "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md": "8c64932df04ad42c99932ed0eb89204f094443c8f0551efc35cfb93692fee472",
+    "docs/superpowers/specs/2026-10-13-legacy-correction-fence-design.md": "4e763b6788c317aa19e6885d8d09fb1104db412c2cf84d4c4234bb65cafa8f7a",
+    "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md": "b5f7734654043b24cf0fc5f615157a58714e7c05b22b03273036824585752a35",
+    "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md": "3079ef81f6f625b9c2a380bfd46f05ad679002cc37ab1caf0c19e86c5ace2c4c"
   }
 }
