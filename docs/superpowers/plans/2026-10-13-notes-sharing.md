@@ -48,7 +48,7 @@
 - OwnNotePage、SharedNotePage、LatestSharedNotePage、AdminNoteSharePage及详情：严格DTO；字段和空值规则完整采用方案§7的DTO表写入OpenAPI；私人页有ActorID；公开页无owner ID、原笔记修订令牌、未分享内容或审批理由。登录详情用AuthenticatedSharedNoteDetail封装actorId和note。
 - Access复用knowledgeadmin.Access，不重新解析或创建用户身份；context和幂等键通过原事务方法传入。NoteSharingHealth{Capability,SchemaReady bool}用于独立结构探测，不改变readyz契约。
 
-## 任务1：领域契约与独立迁移
+## Task 1: 领域契约与独立迁移
 
 **Files:** 新增backend/internal/notesharing/model.go、validate.go、repository.go及_test.go；db/migrations/00014_note_sharing.sql；store/note_sharing_schema.go及_test.go。修改api/openapi.yaml、frontend/src/lib/api/generated.d.ts，只新增具名路径与schema。
 
@@ -67,7 +67,7 @@
     node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run 'TestSharing(Migration|IncompleteSchema)' -timeout 5m -count=1
     node tools/verify/run.mjs --cwd frontend -- npm run api:generate
 
-## 任务2：本人笔记列表、申请、撤回与审批事务
+## Task 2: 本人笔记列表、申请、撤回与审批事务
 
 **Files:** 新增store/note_sharing_read.go、write.go、tx.go及对应_test.go；修改knowledge_admin_notes.go及_test.go、knowledge_admin_tx.go；httpapi/knowledge_admin_routes.go新增ErrLocked/ErrNotReady错误映射及定向测试。
 
@@ -85,7 +85,7 @@
 
 验证将下面三个组各自单独运行，均加-timeout 5m、-count=1并由540秒工具包装：SharingPrivate/SharingSnapshot/SharingNotes；SharingSave/SharingWithdraw/SharingTwo；SharingReceipt/SharingWrong/SharingLocked/SharingOldSave/SharingDomainErrors及原TestManagedPrivateNotesDuringUnpublish。各组不合并为超过10分钟的单次命令。
 
-## 任务3：最新10条及登录全部的读取权限
+## Task 3: 最新10条及登录全部的读取权限
 
 **Files:** store/note_sharing_read.go及_test.go；新增httpapi/note_sharing_routes.go、note_sharing_json.go、note_sharing_test.go；修改application.go、backend/cmd/server/main.go。
 
@@ -103,7 +103,7 @@
 
 测试命令分别运行store SharingGuest/SharingPublic/SharingRead/SharingKnowledgeRestore和httpapi SharingRoute/SharingRequest/SharingResponse/SharingStoreHTTP/SharingHealth；每条使用tools/verify/run.mjs、CGO_ENABLED=0、GOTOOLCHAIN=go1.27.1、-timeout 5m。
 
-## 任务4：前端严格协议、代理和身份边界
+## Task 4: 前端严格协议、代理和身份边界
 
 **Files:** lib/note-sharing/{types,schemas,client,server-client}.ts及测试；lib/api/note-sharing-proxy.ts及测试；app/api/v3/[[...segments]]/route.ts；必要的i18n错误码声明。
 
@@ -119,7 +119,7 @@
     node tools/verify/run.mjs --cwd frontend -- npm test -- src/lib/note-sharing src/lib/api/note-sharing-proxy.test.ts
     node tools/verify/run.mjs --cwd frontend -- npm run typecheck
 
-## 任务5：笔记编辑体验、我的笔记与阅读布局
+## Task 5: 笔记编辑体验、我的笔记与阅读布局
 
 **Files:** features/study/managed-note-editor.tsx、managed-controls.tsx、managed-learning-view.tsx、managed-pages.tsx、app/learn/page.tsx及测试；features/reading/current-knowledge-view.tsx；新增features/notes/note-toolbar.tsx、note-preview.tsx、note-leave-guard.tsx、own-note-list.tsx、share-controls.tsx及测试；styles/notes.module.css；双语文案与覆盖清单。
 
@@ -134,7 +134,7 @@
 
     node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/notes src/features/study/managed-pages.test.tsx src/features/study/managed-learn-page.test.tsx
 
-## 任务6：分享阅读页、审批页与必要导航
+## Task 6: 分享阅读页、审批页与必要导航
 
 **Files:** 新增app/notes/page.tsx、notes/[id]/page.tsx、admin/note-shares/page.tsx、admin/note-shares/[id]/page.tsx；features/notes/shared-note-list.tsx、shared-note-view.tsx、admin-share-queue.tsx、admin-share-view.tsx及测试；components/site-header.tsx/auth-status.tsx及测试；page-titles、messages、文案覆盖清单。
 
@@ -149,7 +149,7 @@
     node tools/verify/run.mjs --cwd frontend -- npm test -- src/features/notes src/components/auth-status.test.tsx
     node tools/verify/run.mjs --cwd frontend -- npm run build
 
-## 任务7：兼容审查、真实回归与MR交付
+## Task 7: 兼容审查、真实回归与MR交付
 
 **Files:** 新增backend/internal/e2etest/note_sharing_fixture.go；注册harness.go；tests/e2e/note-sharing.spec.ts、note-sharing-security.spec.ts、note-editor-experience.spec.ts；修改ops/deploy.py及ops/tests/test_deploy.py；精确兼容基线与工具摘要；.github/workflows/frontend.yml、backend.yml新增有界批次；docs/operations/note-sharing.md、website-guide.md、README.md及验收报告。
 
