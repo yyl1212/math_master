@@ -19,16 +19,17 @@ export function learningHref(filters:Filters,changes:Filters={}){
 }
 const primary=(key:string)=>key==='project:other'||key==='project-other'?'project:other':key.replace(/^msc-/,'').slice(0,2);
 
-export function LearningHeader({history=false,filters={}}:{history?:boolean;filters?:Filters}){
+export function LearningHeader({history=false,notes=false,filters={}}:{history?:boolean;notes?:boolean;filters?:Filters}){
  const{t}=useUiI18n();
  return <>
   <UiPageTitle messageKey="page.learn"/>
   <header className={styles.header}>
    <div><h1>{t('managed.learn',{})}</h1><p>{t('learn.dashboard.intro',{})}</p></div>
-   {!history&&<Link prefetch={false} className="button secondary" href={learningHref(filters,{mode:filters.mode==='review'?'':'review',offset:''})}>{t(filters.mode==='review'?'learn.dashboard.backToLearning':'managed.review',{})}</Link>}
+   {!history&&!notes&&<Link prefetch={false} className="button secondary" href={learningHref(filters,{mode:filters.mode==='review'?'':'review',offset:''})}>{t(filters.mode==='review'?'learn.dashboard.backToLearning':'managed.review',{})}</Link>}
   </header>
   <nav className={styles.sections} aria-label={t('learn.workspace.sections',{})}>
-   <Link prefetch={false} href="/learn" aria-current={!history?'page':undefined}>{t('learn.workspace.knowledge',{})}</Link>
+   <Link prefetch={false} href="/learn" aria-current={!history&&!notes?'page':undefined}>{t('learn.workspace.knowledge',{})}</Link>
+   <Link prefetch={false} href="/learn?view=notes" aria-current={notes?'page':undefined}>{t('notes.mine',{})}</Link>
    <Link prefetch={false} href={historyHref()} aria-current={history?'page':undefined}>{t('managed.history',{})}</Link>
   </nav>
  </>;

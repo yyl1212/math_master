@@ -5,6 +5,7 @@ import {useUiI18n} from "@/lib/i18n/provider";
 import Link from "next/link";
 import {LanguageSwitch} from "./language-switch";
 import { AuthStatus } from "./auth-status";
+import {NoteHistoryTracker} from '@/features/notes/note-leave-guard';
 import { usePathname } from "next/navigation";
 export function SiteHeader() {
  const {t}=useUiI18n();
@@ -12,6 +13,7 @@ export function SiteHeader() {
   const path = usePathname();
   return (
     <header className="site-header">
+      <NoteHistoryTracker/>
       <Link
         prefetch={false}
         href="/"
