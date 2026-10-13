@@ -47,3 +47,17 @@ func TestCommandAndQueryValidation(t *testing.T) {
 		t.Fatal("history bounds")
 	}
 }
+
+func TestAnswerUnicodeWhitespaceAuthority(t *testing.T) {
+	for _, entry := range []struct {
+		body       string
+		unanswered bool
+	}{{"\u0085", true}, {"\ufeff", false}} {
+		if e := ValidateCompare(Recall, CompareInput{ExpectedSequence: 1, Body: entry.body, Unanswered: entry.unanswered}); e != nil {
+			t.Fatal(e)
+		}
+		if e := ValidateCompare(Recall, CompareInput{ExpectedSequence: 1, Body: entry.body, Unanswered: !entry.unanswered}); e == nil {
+			t.Fatal("wrong blank classification accepted")
+		}
+	}
+}

@@ -37,6 +37,10 @@ func studyReviewChange(ctx context.Context, s *store.Store, accounts *auth.Servi
 		} else {
 			in.Point.Title = strings.Repeat("😀", 512)
 			in.Point.TitleZH = strings.Repeat("😀", 512)
+			if operation == "boundary-wire" || operation == "boundary-oversize" {
+				in.Point.Title = strings.Repeat("&", 512)
+				in.Point.TitleZH = strings.Repeat("&", 512)
+			}
 			in.Point.Type = "mathematical-thinking"
 			// Preserve every other required source field and its legal schema values.
 			in.Point.Statement = "x"

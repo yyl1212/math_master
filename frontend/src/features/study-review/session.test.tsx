@@ -34,3 +34,8 @@ it('TestRecallDraftNavigationAndLocale: first-edit cancelled link/menu preserves
 it('same-page preview/locale preserve draft and create no private browser-storage writes',()=>{
  const storage=vi.spyOn(Storage.prototype,'setItem');render(<UiLocaleProvider initialLocale="zh-CN"><LocaleSwitch/><SessionPanel initial={session()}/></UiLocaleProvider>);fireEvent.change(screen.getByRole('textbox',{name:'我的作答'}),{target:{value:'只留在内存的私人草稿'}});fireEvent.click(screen.getByRole('button',{name:'预览我的作答'}));fireEvent.click(screen.getByRole('button',{name:'English'}));fireEvent.click(screen.getByRole('button',{name:'Write'}));expect(screen.getByRole('textbox',{name:'My answer'})).toHaveValue('只留在内存的私人草稿');expect(storage.mock.calls.every(call=>!JSON.stringify(call).includes('只留在内存的私人草稿'))).toBe(true);expect(reviewCommand).not.toHaveBeenCalled();
 });
+it.each([['\u0085',true],['\ufeff',false]] as const)('uses the same Unicode blank classification as Go for %j', (body,blank)=>{
+ render(<UiLocaleProvider initialLocale="zh-CN"><SessionPanel initial={session({answer:body})}/></UiLocaleProvider>);
+ if(blank){expect(screen.getByRole('button',{name:'答完，查看参考'})).toBeDisabled();expect(screen.getByRole('button',{name:'未写出，查看参考'})).toBeVisible()}
+ else{expect(screen.getByRole('button',{name:'答完，查看参考'})).toBeEnabled();expect(screen.queryByRole('button',{name:'未写出，查看参考'})).toBeNull()}
+});

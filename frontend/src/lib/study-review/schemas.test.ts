@@ -26,3 +26,9 @@ describe('私人复习严格契约',()=>{
  expect(routeForReview('/api/v3/study/knowledge/'+knowledge.id+'/note')).toBeNull();expect(routeForReview(path+'/compare')?.method).toBe('POST');
  });
 });
+it('Go Unicode whitespace and BOM produce the same unanswered projection in the browser',()=>{
+ const reference={sections:[{kind:'statement' as const,items:['参考']}],sha256:'c'.repeat(64)};
+ for(const [answer,unanswered] of [['\u0085',true],['\ufeff',false]] as const){
+  expect(schemaForReviewPath(path).safeParse(session({status:'compared',sequence:2,draftRevision:1,comparedAt:date,answer,unanswered,reference})).success).toBe(true);
+ }
+});

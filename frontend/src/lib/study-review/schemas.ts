@@ -1,3 +1,4 @@
+import {isReviewAnswerBlank} from './answer';
 import {z} from 'zod';
 const uuid=z.string().regex(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/),kid=z.string().regex(/^k-[0-9a-f]{56}$/),sha=z.string().regex(/^[a-f0-9]{64}$/),time=z.iso.datetime({offset:true}),seq=z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
 const text=(max:number,bytes?:number)=>z.string().refine(v=>v.isWellFormed()&&!v.includes('\0')&&Array.from(v).length<=max&&(bytes===undefined||new TextEncoder().encode(v).length<=bytes));
@@ -27,7 +28,7 @@ export const sessionSchema=z.object({...common,mode,target,title,titleZh:title,k
  if(v.status==='abandoned'&&(v.abandonedAt===null||v.gradedAt!==null||v.grade!==null))invalid();
  if(v.unanswered&&v.grade&&v.grade.rating!=='forgotten')invalid();
  if(v.grade&&(!equalRef(v.grade.schedule.lastRef,v.knowledge)||Date.parse(v.gradedAt??'')!==Date.parse(v.grade.gradedAt)))invalid();
- if(v.mode==='recall'&&v.comparedAt!==null&&((v.answer?.trim()==='')!==v.unanswered))invalid();
+ if(v.mode==='recall'&&v.comparedAt!==null&&(isReviewAnswerBlank(v.answer??'')!==v.unanswered))invalid();
 });
 const count=seq;
 const overview=z.object({actorId:uuid,asOf:time,total:count,unfinished:count,changed:count,due:count,unplanned:count,future:count}).strict().refine(v=>v.total===v.unfinished+v.changed+v.due+v.unplanned+v.future);

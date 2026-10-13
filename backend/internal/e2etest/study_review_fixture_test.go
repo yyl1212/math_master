@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/studyreview"
+	"strings"
 	"testing"
 )
 
@@ -133,6 +134,15 @@ func TestStudyReviewBoundaryFixture(t *testing.T) {
 	for _, op := range []string{"boundary-raw", "boundary-wire", "boundary-oversize"} {
 		if e := studyReviewChange(ctx, repo, accounts, op); e != nil {
 			t.Fatal(op, e)
+		}
+		if op == "boundary-wire" {
+			var title string
+			if e := db.QueryRowContext(ctx, `SELECT point->>'title' FROM managed_knowledge WHERE external_id='demo-rational-fraction'`).Scan(&title); e != nil {
+				t.Fatal(e)
+			}
+			if title != strings.Repeat("&", 512) {
+				t.Fatal("wire case needs the largest legal escaped title envelope")
+			}
 		}
 	}
 }

@@ -6,6 +6,7 @@ import {LocalizedName} from '@/lib/i18n/localized-name';
 import {UiPageTitle} from '@/components/ui-page-title';
 import {NoteLeaveGuard} from '@/features/notes/note-leave-guard';
 import type {Session} from '@/lib/study-review/types';
+import {isReviewAnswerBlank} from '@/lib/study-review/answer';
 import {ReadingReviewBody,ReviewSections,SelfRating,ReviewCommandNotice,ScheduleSummary} from './self-rating';
 import {RecallEditor,answerOverLimit} from './recall-editor';
 import {Comparison} from './comparison';
@@ -20,7 +21,7 @@ export function SessionPanel({initial}:{initial:Session}){
  useEffect(()=>{setSession(initial);if(draftRef.current===savedRef.current)setDraft(initial.answer??'');setSaved(initial.answer??'')},[initial]);
  if(!session||!flow.authorized)return <p role="status">{t('studyReview.signedOut',{})}</p>;
  const active=session.available&&!session.materialChanged&&!flow.contentBlocked,unfinished=session.status==='working'||session.status==='compared',dirty=session.mode==='recall'&&session.status==='working'&&draft!==saved;
- const locked=flow.busy||flow.unconfirmed,over=answerOverLimit(draft),blank=draft.trim()==='';
+ const locked=flow.busy||flow.unconfirmed,over=answerOverLimit(draft),blank=isReviewAnswerBlank(draft);
  const base='/api/v3/study/review/sessions/'+session.sessionId;
  const runDraft=async()=>{setDraftSaved(false);const current=await flow.run(base+'/draft','PUT',{expectedSequence:session.sequence,expectedDraftRevision:session.draftRevision,body:draft},session.knowledge);if(current?.status==='working')setDraftSaved(true)};
  const abandon=()=>{if(dirty&&!window.confirm(t('studyReview.restartHint',{})))return;void flow.run(base+'/abandon','POST',{expectedSequence:session.sequence},session.knowledge)};
