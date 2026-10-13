@@ -223,6 +223,9 @@ func Run(ctx context.Context, c Config) (result error) {
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
+		if scene == "note-sharing" {
+			return resetNoteSharing(ctx, db, s, accounts, accountAdmin, root)
+		}
 		if scene == "managed-knowledge" {
 			return resetManagedKnowledge(ctx, db, s, accounts, accountAdmin, root)
 		}
@@ -506,7 +509,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	if studyErr != nil {
 		return errors.New("study fixture service unavailable")
 	}
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Knowledge: &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(s), Current: s, Study: s, PublicOrigin: fixtureOrigin}, ExperienceMode: s, Study: &httpapi.StudyOptions{Service: studyService, PublicOrigin: fixtureOrigin}, Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Knowledge: &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(s), Current: s, Study: s, Notes: s, PublicOrigin: fixtureOrigin}, ExperienceMode: s, Study: &httpapi.StudyOptions{Service: studyService, PublicOrigin: fixtureOrigin}, Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()

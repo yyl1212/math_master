@@ -50,15 +50,15 @@ jobs:
       - name: Go 静态检查
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go vet ./...
       - name: 内容与 HTTP 校验
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil ./internal/buildmeta ./internal/knowledgeadmin -timeout 5m -count=1
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./cmd/server ./internal/correction ./internal/notification ./internal/feedback ./internal/assessment ./internal/learning ./internal/question ./internal/auth ./internal/content ./internal/publication ./internal/config ./internal/httpapi ./internal/e2etest ./internal/testutil ./internal/buildmeta ./internal/knowledgeadmin ./internal/notesharing -timeout 5m -count=1
       - name: 常规 PostgreSQL 集成分批 1
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 0 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 0 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study|Sharing)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
       - name: 常规 PostgreSQL 集成分批 2
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 1 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 1 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study|Sharing)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
       - name: 常规 PostgreSQL 集成分批 3
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 2 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 2 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study|Sharing)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
       - name: 常规 PostgreSQL 集成分批 4
-        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 3 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 node ../tools/verify/go-batches.mjs --batch 3 --size 70 --slots 4 --skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study|Sharing)|^Test(WorkflowCapacityEnvelope|QuestionMaximumLegalWorkflow|QuestionCandidateCapacity)$'
       - name: 常规 CLI 集成验证
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/cli -skip '^Test(Learning|Assessment|Feedback|Correction|Notification|ContentAudit|Taxonomy|Topic|Study)' -timeout 5m -count=1
       - name: 最大合法内容工作流
@@ -211,3 +211,5 @@ jobs:
         run: node tools/verify/run.mjs -- node tools/verify/admin-knowledge-acceptance.mjs
       - name: 当前知识权限、去重、学习与维护
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/knowledgeadmin ./internal/store ./internal/httpapi ./internal/cli -run '^Test(Managed|DecodeSource|SourceCore|Classification|ExactOldThirty|KnowledgeCLI)' -timeout 5m -count=1
+      - name: 笔记分享隔离权限、事务竞争与结构回归
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/notesharing ./internal/store ./internal/httpapi -run '^TestSharing' -timeout 5m -count=1

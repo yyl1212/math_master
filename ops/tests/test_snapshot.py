@@ -111,6 +111,42 @@ class SnapshotTests(unittest.TestCase):
         self.assertTrue(result['ok'])
         self.assertEqual(result['tables'], len(manifest['tables']))
 
+    def test_restore_handles_nested_checks_without_rewriting_note_data(self):
+        module = self.implementation()
+        module.sql(self.container, self.database, 'math_master_preview', """
+CREATE FUNCTION isolated_child_shape(jsonb) RETURNS boolean LANGUAGE sql IMMUTABLE AS $$ SELECT jsonb_typeof($1)='object' $$;
+CREATE FUNCTION isolated_parent_shape(jsonb) RETURNS boolean LANGUAGE sql IMMUTABLE AS $$ SELECT isolated_child_shape($1) $$;
+CREATE TABLE nested_events(id bigserial PRIMARY KEY,body jsonb NOT NULL CHECK(isolated_parent_shape(body)),note text NOT NULL);
+INSERT INTO nested_events(body,note) VALUES('{}',$note$SELECT pg_catalog.set_config('search_path', '', false);$note$);
+""")
+        out = self.backup('nested-checks')
+        self.assertTrue(module.drill(out)['ok'])
+
+    def test_sql_prologue_changes_only_the_session_search_path(self):
+        import io
+        module = self.implementation()
+        header = b"SELECT pg_catalog.set_config('search_path', '', false);\n"
+        body = b"CREATE TABLE notes(body text);\nCOPY notes(body) FROM stdin;\n" + header + b"\\.\n"
+        target = io.BytesIO()
+        module.restore_sql_prologue(io.BytesIO(b'-- PostgreSQL database dump\n' + header + body), target)
+        self.assertEqual(target.getvalue(), b"-- PostgreSQL database dump\nSELECT pg_catalog.set_config('search_path', 'pg_catalog, public', false);\n" + body)
+        for invalid in [b'no archive header', b'CREATE TABLE notes(body text);\n' + header]:
+            with self.assertRaises(module.SnapshotError):
+                module.restore_sql_prologue(io.BytesIO(invalid), io.BytesIO())
+
+    def test_restore_sql_error_rolls_back_the_entire_empty_target(self):
+        module = self.implementation()
+        out = self.backup('atomic-error')
+        target, database = self.new_database()
+        original = module.restore_sql_prologue
+        def corrupt(source, script):
+            original(source, script)
+            script.write(b'\nSELECT 1/0;\n')
+        with patch.object(module, 'restore_sql_prologue', side_effect=corrupt):
+            with self.assertRaises(module.SnapshotError):
+                module.restore(target, database, 'math_master_preview', out)
+        self.assertEqual(module.sql(target, database, 'math_master_preview', "SELECT count(*) FROM pg_tables WHERE schemaname='public';"), '0')
+
     def test_failed_capture_is_not_published(self):
         module = self.implementation()
         out = self.root / ('failed-' + uuid.uuid4().hex)

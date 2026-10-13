@@ -14,3 +14,9 @@ it('shows frozen content without a body editor and sends its exact sequence',asy
 it('refreshes a withdrawn request on conflict and preserves the entered reason',async()=>{
  const d=admin();calls.request.mockImplementation(async(_path:string,method?:string)=>{if(method==='POST')throw new NoteShareError('NOTE_SHARE_STALE',409);return {...d,status:'withdrawn',sequence:2}});render(<AdminShareView detail={d}/>);fireEvent.change(screen.getByRole('textbox',{name:'Reason'}),{target:{value:'保留已输入的审批说明'}});fireEvent.click(screen.getByRole('button',{name:'Return request'}));await screen.findByText(/current state has been refreshed/);expect(screen.getByRole('textbox',{name:'Reason'})).toHaveValue('保留已输入的审批说明');expect(calls.request.mock.calls.filter(call=>call[1]==='POST')).toHaveLength(1);expect(screen.queryByRole('button',{name:'Approve sharing'})).toBeNull();
 });
+it('translates submission actions in the approval history',()=>{
+ const d=admin();d.events=[{sequence:1,action:'submit',actorName:'learner',reason:'',recordedAt:detail.approvedAt}];render(<AdminShareView detail={d}/>);expect(screen.getByText('learner · Requested sharing')).toBeVisible();
+});
+it('follows the UI language for provided knowledge titles without translating the authored note',async()=>{
+ const{UiLocaleProvider}=await import('@/lib/i18n/provider');const{LanguageSwitch}=await import('@/components/language-switch');render(<UiLocaleProvider initialLocale="en"><LanguageSwitch/><SharedNoteView detail={detail}/></UiLocaleProvider>);expect(screen.queryByRole('link',{name:'Mathematics',hidden:true})).not.toBeNull();fireEvent.click(screen.getByRole('button',{name:'中文'}));expect(screen.queryByRole('link',{name:'数学',hidden:true})).not.toBeNull();expect(screen.getByRole('heading',{name:detail.title})).toBeVisible();
+});

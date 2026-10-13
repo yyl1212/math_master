@@ -4489,6 +4489,11 @@
       "module": "notes",
       "complete": true,
       "messageKeys": [
+        "notes.action.approve",
+        "notes.action.hide",
+        "notes.action.return",
+        "notes.action.submit",
+        "notes.action.withdraw",
         "notes.approve",
         "notes.backQueue",
         "notes.by",

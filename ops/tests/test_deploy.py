@@ -40,6 +40,8 @@ class DeployTests(unittest.TestCase):
             config=shared/'configs'/(revision+'.env');config.write_text(BODY);config.chmod(0o600)
         profile=patch.object(module,'topic_database_state',return_value={'requiredMigration':SCHEMA,'mode':'legacy'})
         profile.start();self.addCleanup(profile.stop)
+        public_health=patch.object(module,'verify_note_sharing_public',return_value=None)
+        public_health.start();self.addCleanup(public_health.stop)
         self.commands=[]
         self.state_path=shared/'deployment.json'
         self.state={'schemaVersion':1,'current':OLD,'previous':None,'runningRevision':OLD,'bootstrapVerified':True,'status':'active'}
@@ -55,7 +57,7 @@ class DeployTests(unittest.TestCase):
 
     def transport(self,root,revision,args,sudo=False,acme='production'):
         self.commands.append((revision,args,acme))
-        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False},'content':{'capability':True,'schemaReady':True,'managedMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
+        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (b'{"capability":true,"schemaReady":true}' if args and args[-1].endswith('/api/v3/note-sharing/health') else json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False},'content':{'capability':True,'schemaReady':True,'managedMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
         return subprocess.CompletedProcess(args,0,stdout,b'')
 
     def invoke(self,*args):
@@ -217,3 +219,33 @@ class ManagedCompatibilityTests(unittest.TestCase):
         self.assertFalse(module.topicSchemaCompatibility(13,base,'topics'))
         self.assertTrue(module.topicSchemaCompatibility(13,{**base,'managed':True},'topics'))
         self.assertFalse(module.topicSchemaCompatibility(13,{**base,'managed':False},'topics'))
+
+class NoteSharingCompatibilityTests(unittest.TestCase):
+    def test_fourteen_requires_note_sharing_health(self):
+        base={'taxonomy':True,'study':True,'retirement':True,'managed':True}
+        self.assertFalse(module.topicSchemaCompatibility(14,base,'topics'))
+        self.assertFalse(module.topicSchemaCompatibility(14,{**base,'noteSharing':False},'topics'))
+        self.assertTrue(module.topicSchemaCompatibility(14,{**base,'noteSharing':True},'topics'))
+        self.assertTrue(module.topicSchemaCompatibility(13,base,'topics'))
+    def test_future_migration_rejected(self):
+        self.assertFalse(module.topicSchemaCompatibility(15,{'taxonomy':True,'study':True,'retirement':True,'managed':True,'noteSharing':True},'topics'))
+    def test_old_managed_binary_cannot_serve_fourteen(self):
+        with patch.object(module,'topic_database_state',return_value={'requiredMigration':14,'mode':'topics','managedMode':True}),patch.object(module,'runtime_topic_health',return_value={'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':True,'managed':True,'managedMode':True}),patch.object(module,'runtime_note_sharing_health',side_effect=module.DeployError('note-sharing-readiness-unavailable')):
+            with self.assertRaises(module.DeployError):module.verify_topic_runtime(Path('/private/tmp'),NEW,False,'container')
+    def test_note_sharing_health_is_strict_and_bounded(self):
+        for payload in [{'capability':True,'schemaReady':False},{'capability':True,'schemaReady':True,'body':'private'},{'capability':'true','schemaReady':True}]:
+            with patch.object(module,'run_compose',return_value=json.dumps(payload).encode()):
+                with self.assertRaises(module.DeployError):module.runtime_note_sharing_health(Path('/private/tmp'),NEW,False)
+        with patch.object(module,'run_compose',return_value=b'{"capability":true,"schemaReady":true}'):
+            self.assertEqual(module.runtime_note_sharing_health(Path('/private/tmp'),NEW,False),{'capability':True,'schemaReady':True})
+    def test_start_and_activate_probe_sharing(self):
+        order=[];state={'bootstrapVerified':True,'runningRevision':OLD,'current':OLD}
+        def compose(root,revision,args,sudo=False,failure=''):
+            order.append('web' if args[:2]==['up','-d'] and 'web' in args else 'api' if args[:2]==['up','-d'] and 'api' in args else 'other');return b''
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'verify_note_sharing_next',side_effect=lambda *a:order.append('next-probe')),patch.object(module,'save_state'):
+            module.start(Path('/private/tmp'),NEW,False,state,None)
+        self.assertLess(order.index('go-probe'),order.index('web'));self.assertLess(order.index('web'),order.index('next-probe'))
+        order=[];state={'bootstrapVerified':True,'runningRevision':NEW}
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public',side_effect=lambda *a:order.append('public-probe')),patch.object(module,'publish_current'):
+            module.activate(Path('/private/tmp'),NEW,False,state,'production')
+        self.assertLess(order.index('gateway'),order.index('public-probe'))

@@ -10,3 +10,7 @@ it('preserves the router history fields and restores traversal direction on canc
  window.history.replaceState({__NA:true,tree:'unchanged'},'',window.location.href);const discard=vi.fn();vi.spyOn(window,'confirm').mockReturnValue(false);const go=vi.spyOn(window.history,'go').mockImplementation(()=>{});
  render(<><NoteHistoryTracker/><NoteLeaveGuard dirty actorId="owner" onDiscard={discard}/></>);window.history.pushState({__NA:true,tree:'note'},'',window.location.href);expect(window.history.state.tree).toBe('note');window.dispatchEvent(new PopStateEvent('popstate',{state:{__NA:true,tree:'unchanged',__mmNoteHistoryIndex:0}}));expect(go).toHaveBeenCalledWith(1);expect(discard).not.toHaveBeenCalled();
 });
+
+it('blocks the router listener registered before a dirty page mounts',()=>{
+ const discard=vi.fn(),router=vi.fn();vi.spyOn(window,'confirm').mockReturnValue(false);vi.spyOn(window.history,'go').mockImplementation(()=>{});render(<NoteHistoryTracker/>);window.addEventListener('popstate',router,true);const{unmount}=render(<NoteLeaveGuard dirty actorId="owner" onDiscard={discard}/>);window.history.pushState({__NA:true},'',window.location.href);window.dispatchEvent(new PopStateEvent('popstate',{state:{__NA:true,__mmNoteHistoryIndex:0}}));expect(router).not.toHaveBeenCalled();expect(discard).not.toHaveBeenCalled();unmount();window.removeEventListener('popstate',router,true);
+});

@@ -10,6 +10,10 @@ P1 内容基础层已于 2026-10-01 通过 [PR #5](https://github.com/yyl1212/ma
 
 P3b 已于 2026-10-01 通过 PR #14 合并，master 086ed7a 的后端和前端 CI 均通过。P4 已确认分为“可信题库”和“学习检测”两次交付；[P4a 可信题库设计](docs/superpowers/specs/2026-10-02-question-bank-design.md)已获用户书面确认，通过 [PR #15](https://github.com/yyl1212/math_master/pull/15) 合并。[13 项执行计划](docs/superpowers/plans/2026-10-02-question-bank.md)已确认并通过 PR #16 合并，沿用 Native。P4a 可信题库已实现，一次独立审查的四项重要问题已修复，全部本机回归与容量验证通过，通过[PR #17](https://github.com/yyl1212/math_master/pull/17)交付，技术提交四项CI全部通过，最终文档提交检查见PR最新状态；详见[技术验收记录](docs/operations/2026-10-02-p4a-acceptance.md)。个人练习、检测、解锁与进度继续在 P4b。
 
+## 笔记优化与审批分享
+
+知识笔记支持格式编辑、公式预览、未保存离开保护和本人集中检索。作者申请分享后由管理员审批，访客可读最新10条、登录用户可浏览全部有效分享；更新须撤回后重新审批。使用及迁移14发布条件见 [笔记分享操作说明](docs/operations/note-sharing.md)。
+
 ## 设计文档
 
 [总体方向与首版设计](docs/superpowers/specs/2026-09-30-math-learning-platform-design.md)包含知识点、解锁与回顾、内容和题库审核、反馈纠错、架构、文件范围与验收标准。

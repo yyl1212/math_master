@@ -6,7 +6,7 @@ CREATE TABLE note_share_submissions (
  note_revision bigint NOT NULL CHECK(note_revision BETWEEN 1 AND 9007199254740991),
  note_knowledge_ref jsonb NOT NULL CHECK(managed_ref_valid(note_knowledge_ref,knowledge_id)),
  title text NOT NULL CHECK(char_length(title) BETWEEN 1 AND 120),
- body text NOT NULL CHECK(char_length(body) BETWEEN 1 AND 16000 AND octet_length(body)<=65536),
+ body text NOT NULL CHECK(char_length(body)>=1 AND char_length(body)<=16000 AND octet_length(body)<=65536),
  body_sha256 text NOT NULL CHECK(body_sha256 ~ '^[0-9a-f]{64}$'),
  knowledge_title text NOT NULL,knowledge_title_zh text NOT NULL,
  topic_keys jsonb NOT NULL CHECK(jsonb_typeof(topic_keys)='array'),

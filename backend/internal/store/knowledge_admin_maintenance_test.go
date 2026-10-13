@@ -14,7 +14,7 @@ import (
 )
 
 func TestManagedCapabilityFailClosed(t *testing.T) {
-	for _, mutation := range []string{"DROP TABLE managed_study_notes", "ALTER TABLE managed_knowledge DROP CONSTRAINT managed_knowledge_external_id_key", "ALTER TABLE managed_knowledge_events DISABLE TRIGGER managed_knowledge_event_immutable", "DROP TABLE knowledge_admin_state"} {
+	for _, mutation := range []string{"DROP TABLE managed_study_notes CASCADE", "ALTER TABLE managed_knowledge DROP CONSTRAINT managed_knowledge_external_id_key", "ALTER TABLE managed_knowledge_events DISABLE TRIGGER managed_knowledge_event_immutable", "DROP TABLE knowledge_admin_state"} {
 		t.Run(mutation, func(t *testing.T) {
 			f := newKnowledgeAdminFixture(t)
 			h, e := f.repo.ReadManagedSchemaHealth(f.ctx)

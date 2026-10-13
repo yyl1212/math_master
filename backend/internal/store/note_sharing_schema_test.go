@@ -131,3 +131,27 @@ func TestSharingIncompleteSchemaFailClosed(t *testing.T) {
 		t.Fatal("damaged schema accepted", e)
 	}
 }
+
+func TestSharingSchemaSurvivesConstraintRoundTrip(t *testing.T) {
+	db := sharingSchemaDB(t)
+	var definition string
+	if e := db.QueryRow(`SELECT pg_get_constraintdef(oid) FROM pg_constraint WHERE conrelid='note_share_submissions'::regclass AND conname='note_share_submissions_body_check'`).Scan(&definition); e != nil {
+		t.Fatal(e)
+	}
+	if _, e := db.Exec(`ALTER TABLE note_share_submissions DROP CONSTRAINT note_share_submissions_body_check`); e != nil {
+		t.Fatal(e)
+	}
+	// pg_dump emits this exact catalog definition. Reparsing it must preserve
+	// the fixed schema digest as well as the logical validation boundaries.
+	if _, e := db.Exec(`ALTER TABLE note_share_submissions ADD CONSTRAINT note_share_submissions_body_check ` + definition); e != nil {
+		t.Fatal(e)
+	}
+	tx, e := db.BeginTx(context.Background(), nil)
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer tx.Rollback()
+	if e = noteSharingSchemaIntegrity(context.Background(), tx); e != nil {
+		t.Fatal("constraint round-trip changed sharing integrity", e)
+	}
+}

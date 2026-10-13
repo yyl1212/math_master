@@ -8,7 +8,7 @@ import (
 
 var noteSharingTables = []string{"note_share_heads", "note_share_submissions", "note_share_events", "note_share_receipts"}
 
-const noteSharingDigest = "8599fcfdbdc6636bfed2071391026efb"
+const noteSharingDigest = "2179de9c9ef5b78ec31debb6d5f4fb6c"
 
 func noteSharingInstalled(ctx context.Context, tx *sql.Tx) (bool, error) {
 	var count int

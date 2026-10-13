@@ -1,0 +1,21 @@
+import {test,expect,TEST_PASSWORD,fitsViewport} from './fixtures';import {createHash} from 'node:crypto';
+const kid='k-'+createHash('sha256').update('demo-rational-fraction').digest('hex').slice(0,56);
+test('unsaved note survives cancelled links and browser traversal without corrupting history',async({page,scene})=>{
+ await scene('managed-knowledge');await page.goto('/login');await page.getByLabel('Username',{exact:true}).fill('auth_learner');await page.getByLabel('Password',{exact:true}).fill(TEST_PASSWORD);await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page).toHaveURL(/\/learn$/);await page.goto('/knowledge/'+kid+'?mode=notes');const input=page.getByLabel('Private note',{exact:true});await expect(input).toBeVisible();await input.fill('没有保存的原创数学草稿 $x^2$');
+ for(const label of ['Math Master home','Knowledge map','auth_learner']){page.once('dialog',dialog=>dialog.dismiss());await page.getByRole('link',{name:label,exact:true}).first().click();await expect(page).toHaveURL(new RegExp('/knowledge/'+kid));await expect(input).toHaveValue('没有保存的原创数学草稿 $x^2$')}
+ const cancelled=page.waitForEvent('dialog');await page.evaluate(()=>window.history.back());await (await cancelled).dismiss();await expect(page).toHaveURL(new RegExp('/knowledge/'+kid));await expect(input).toHaveValue('没有保存的原创数学草稿 $x^2$');
+ page.once('dialog',dialog=>dialog.accept());await page.goBack();await expect(page).toHaveURL(/\/learn$/);await page.goForward();await expect(page).toHaveURL(new RegExp('/knowledge/'+kid));await expect(page.getByLabel('Private note',{exact:true})).toHaveValue('');await fitsViewport(page);
+});
+test('320px reading starts with mathematics and local formula scrolling',async({page,scene})=>{
+ await scene('managed-knowledge');await page.setViewportSize({width:320,height:844});await page.goto('/knowledge/'+kid);await expect(page.locator('article')).toBeVisible();await fitsViewport(page);
+});
+
+test('same-document history cancellation preserves Next routing and forward history',async({page,scene})=>{
+ await scene('managed-knowledge');await page.goto('/login');await page.getByLabel('Username',{exact:true}).fill('auth_learner');await page.getByLabel('Password',{exact:true}).fill(TEST_PASSWORD);await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page).toHaveURL(/\/learn$/);
+ await page.goto('/topics/msc-97f40');await page.locator('main a[href="/knowledge/'+kid+'"]').click();await expect(page).toHaveURL(new RegExp('/knowledge/'+kid));await expect(page.getByRole('button',{name:'My notes',exact:true,includeHidden:true})).toBeAttached();if(await page.getByRole('button',{name:'My notes',exact:true,includeHidden:true}).isVisible())await page.getByRole('button',{name:'My notes',exact:true,includeHidden:true}).click();const input=page.getByLabel('Private note',{exact:true});await input.fill('站内历史保护草稿');await expect(page.getByText('Unsaved changes',{exact:true})).toBeVisible();
+ const cancelled=page.waitForEvent('dialog').then(dialog=>dialog.dismiss());await Promise.all([page.evaluate(()=>history.back()),cancelled]);await expect(input).toHaveValue('站内历史保护草稿');await expect(page).toHaveURL(new RegExp('/knowledge/'+kid));
+ const accepted=page.waitForEvent('dialog').then(dialog=>dialog.accept());await Promise.all([page.evaluate(()=>history.back()),accepted]);await expect(page).toHaveURL(/\/topics\/msc-97f40$/);await page.evaluate(()=>history.forward());await expect(page).toHaveURL(new RegExp('/knowledge/'+kid));await expect(page.getByRole('button',{name:'My notes',exact:true,includeHidden:true})).toBeAttached();if(await page.getByRole('button',{name:'My notes',exact:true,includeHidden:true}).isVisible())await page.getByRole('button',{name:'My notes',exact:true,includeHidden:true}).click();await expect(page.getByLabel('Private note',{exact:true})).toHaveValue('');
+});
+test('anonymous saved notes URL retains the mathematics without an empty notes tab',async({page,scene})=>{
+ await scene('managed-knowledge');await page.goto('/knowledge/'+kid+'?mode=notes');await expect(page.locator('article')).toBeVisible();await expect(page.getByRole('button',{name:'My notes',exact:true,includeHidden:true})).toHaveCount(0);await fitsViewport(page);
+});
