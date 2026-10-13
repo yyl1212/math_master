@@ -5,6 +5,8 @@ import (
 	"database/sql"
 	"errors"
 	"github.com/pressly/goose/v3"
+	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/notesharing"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
 	"testing"
@@ -17,6 +19,28 @@ func sharingSchemaDB(t *testing.T) *sql.DB {
 		t.Fatal(e)
 	}
 	return db
+}
+
+func TestSharingDomainErrorsSurviveKnowledgeTx(t *testing.T) {
+	db := sharingSchemaDB(t)
+	sharingSchemaSeed(t, db)
+	repo := New(db)
+	var token auth.Digest
+	var csrf auth.Secret
+	for i := range token {
+		token[i] = 1
+		csrf[i] = 2
+	}
+	if _, e := db.Exec(`INSERT INTO auth_sessions(token_hash,user_id,credential_version,csrf,created_at,last_seen_at,absolute_expires_at) VALUES($1,'11111111-1111-4111-8111-111111111111',1,$2,clock_timestamp(),clock_timestamp(),clock_timestamp()+interval '1 hour')`, token[:], csrf[:]); e != nil {
+		t.Fatal(e)
+	}
+	a := knowledgeadmin.Access{TokenHash: token, CSRF: csrf, IdempotencyKey: "domain-errors", RequestID: "domain-error-fixture"}
+	for _, sentinel := range []error{notesharing.ErrLocked, notesharing.ErrStale, notesharing.ErrIdempotency, notesharing.ErrNotPublic, notesharing.ErrNotFound, notesharing.ErrInvalid, notesharing.ErrNotReady} {
+		e := repo.knowledgeTx(context.Background(), a, true, false, func(context.Context, *sql.Tx, auth.User) error { return sentinel })
+		if !errors.Is(e, sentinel) {
+			t.Fatal("domain identity lost", sentinel, e)
+		}
+	}
 }
 func TestSharingMigrationPreservesManagedDigest(t *testing.T) {
 	db := sharingSchemaDB(t)

@@ -98,6 +98,9 @@ func (s *Store) writeManagedNote(ctx context.Context, a knowledgeadmin.Access, i
 			out.Available = true
 			return nil
 		}
+		if e = noteShareWriteGuard(ctx, tx, u.ID, id); e != nil {
+			return e
+		}
 		if prior.Revision != in.ExpectedRevision {
 			return knowledgeadmin.ErrStale
 		}

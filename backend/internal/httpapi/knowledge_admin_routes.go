@@ -6,6 +6,7 @@ import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
+	"github.com/yyl1212/math_master/backend/internal/notesharing"
 	"mime"
 	"net/http"
 	"net/url"
@@ -174,6 +175,10 @@ func knowledgeHTTPError(w http.ResponseWriter, r *http.Request, e error) {
 	status, code, message := 503, "CONTENT_NOT_READY", "Knowledge is temporarily unavailable."
 	var de *knowledgeadmin.DecodeError
 	switch {
+	case errors.Is(e, notesharing.ErrLocked):
+		status, code, message = 409, "NOTE_SHARING_LOCKED", "Withdraw the note share before editing."
+	case errors.Is(e, notesharing.ErrNotReady):
+		status, code, message = 503, "NOTE_SHARING_NOT_READY", "Note sharing is temporarily unavailable."
 	case errors.Is(e, errPrivateMethod):
 		status, code, message = 405, "METHOD_NOT_ALLOWED", "Method not allowed."
 	case errors.Is(e, auth.ErrNotFound) || errors.Is(e, knowledgeadmin.ErrNotFound):
