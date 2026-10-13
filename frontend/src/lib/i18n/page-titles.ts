@@ -1,4 +1,7 @@
 export const pageTitleKeys = [
+ "page.learn.review",
+ "page.learn.review.history",
+ "page.learn.review.id",
   "page.notes",
   "page.notes.id",
   "page.admin.note-shares",

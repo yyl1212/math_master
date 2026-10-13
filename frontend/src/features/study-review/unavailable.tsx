@@ -1,0 +1,3 @@
+'use client';
+import Link from 'next/link';import {useUiI18n} from '@/lib/i18n/provider';
+export function ReviewUnavailable({code}:{code:string}){const{t}=useUiI18n();return <section className="panel"><p role="status">{t(code==='AUTHENTICATION_REQUIRED'?'studyReview.error.signIn':code==='PASSWORD_CHANGE_REQUIRED'?'studyReview.error.forced':code==='INVALID_REQUEST'?'studyReview.error.invalid':'studyReview.error.notReady',{})}</p>{code==='AUTHENTICATION_REQUIRED'?<Link prefetch={false} href="/login">{t('page.login',{})}</Link>:<Link prefetch={false} href="/learn">{t('managed.learn',{})}</Link>}</section>}
