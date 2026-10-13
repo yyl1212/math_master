@@ -2791,6 +2791,176 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/study/review/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 探测复习模块能力 */
+        get: operations["studyReviewHealthHealthGet"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/overview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 读取本人复习计数 */
+        get: operations["studyReviewOverviewOverviewGet"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/queue": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 读取本人复习队列 */
+        get: operations["studyReviewQueuePageQueueGet"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 读取本人自评历史 */
+        get: operations["studyReviewHistoryPageHistoryGet"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/sessions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 发起本人阅读或默写 */
+        post: operations["studyReviewCommandReceiptSessionsPost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/sessions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 读取本人会话当前态 */
+        get: operations["studyReviewSessionSessions{Id}Get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/sessions/{id}/draft": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /** 明确保存本人默写草稿 */
+        put: operations["studyReviewCommandReceiptSessions{Id}DraftPut"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/sessions/{id}/compare": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 冻结作答；回执后GET参考 */
+        post: operations["studyReviewCommandReceiptSessions{Id}ComparePost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/sessions/{id}/grade": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 记录本人自评并安排复习 */
+        post: operations["studyReviewCommandReceiptSessions{Id}GradePost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/review/sessions/{id}/abandon": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** 明确放弃本人活动会话 */
+        post: operations["studyReviewCommandReceiptSessions{Id}AbandonPost"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -6485,6 +6655,186 @@ export interface components {
         NoteShareDecisionInput: {
             expectedSequence: number;
             reason?: string;
+        };
+        StudyReviewHealth: {
+            capability: boolean;
+            schemaReady: boolean;
+        };
+        StudyReviewSection: {
+            /** @enum {string} */
+            kind: "statement" | "conditions" | "scope" | "system" | "equations" | "proof" | "proof-scope";
+            items: string[];
+        };
+        StudyReviewReference: {
+            sections: components["schemas"]["StudyReviewSection"][];
+            sha256: string;
+        };
+        StudyReviewSchedule: {
+            stage: number;
+            /** Format: date-time */
+            dueAt: string;
+            lastRef: components["schemas"]["ManagedRef"];
+            /** @enum {string} */
+            lastRating: "forgotten" | "uncertain" | "familiar";
+            sequence: number;
+            /** Format: date-time */
+            gradedAt: string;
+        };
+        StudyReviewGradeResult: {
+            /** @enum {string} */
+            rating: "forgotten" | "uncertain" | "familiar";
+            /** Format: date-time */
+            gradedAt: string;
+            schedule: components["schemas"]["StudyReviewSchedule"];
+        };
+        StudyReviewCommandReceipt: {
+            /** Format: uuid */
+            actorId: string;
+            /** Format: uuid */
+            sessionId: string;
+            knowledgeId: string;
+            /** Format: uuid */
+            reviewId: string;
+            knowledge: components["schemas"]["ManagedRef"];
+            sequence: number;
+            draftRevision: number;
+            /** @enum {string} */
+            status: "working" | "compared" | "completed" | "abandoned";
+            /** @enum {string} */
+            action: "start" | "draft" | "compare" | "grade" | "abandon";
+            /** Format: date-time */
+            appliedAt: string;
+            grade: components["schemas"]["StudyReviewGradeResult"] | null;
+        };
+        StudyReviewSession: {
+            /** Format: uuid */
+            actorId: string;
+            /** Format: uuid */
+            sessionId: string;
+            knowledgeId: string;
+            /** Format: uuid */
+            reviewId: string;
+            knowledge: components["schemas"]["ManagedRef"];
+            sequence: number;
+            draftRevision: number;
+            /** @enum {string} */
+            status: "working" | "compared" | "completed" | "abandoned";
+            /** @enum {string} */
+            mode: "read" | "recall";
+            /** @enum {string} */
+            target: "statement" | "proof";
+            title: string;
+            titleZh: string;
+            /** @enum {string} */
+            knowledgeType: "concept" | "definition" | "axiom" | "theorem" | "corollary" | "method" | "mathematical-thinking" | "other";
+            /** Format: date-time */
+            createdAt: string;
+            comparedAt: string | null;
+            gradedAt: string | null;
+            abandonedAt: string | null;
+            draftUpdatedAt: string | null;
+            available: boolean;
+            materialChanged: boolean;
+            unanswered: boolean;
+            prompt: components["schemas"]["StudyReviewSection"][];
+            answer: string | null;
+            reference: components["schemas"]["StudyReviewReference"] | null;
+            schedule: components["schemas"]["StudyReviewSchedule"] | null;
+            grade: components["schemas"]["StudyReviewGradeResult"] | null;
+        };
+        StudyReviewStartInput: {
+            knowledge: components["schemas"]["ManagedRef"];
+            /** @enum {string} */
+            mode: "read" | "recall";
+            /** @enum {string} */
+            target: "statement" | "proof";
+        };
+        StudyReviewDraftInput: {
+            expectedSequence: number;
+            expectedDraftRevision: number;
+            body: string;
+        };
+        StudyReviewCompareInput: {
+            expectedSequence: number;
+            body: string;
+            unanswered: boolean;
+        };
+        StudyReviewGradeInput: {
+            expectedSequence: number;
+            /** @enum {string} */
+            rating: "forgotten" | "uncertain" | "familiar";
+        };
+        StudyReviewAbandonInput: {
+            expectedSequence: number;
+        };
+        StudyReviewOverview: {
+            /** Format: uuid */
+            actorId: string;
+            /** Format: date-time */
+            asOf: string;
+            total: number;
+            unfinished: number;
+            changed: number;
+            due: number;
+            unplanned: number;
+            future: number;
+        };
+        StudyReviewQueueItem: {
+            knowledge: components["schemas"]["ManagedRef"];
+            title: string;
+            titleZh: string;
+            /** @enum {string} */
+            knowledgeType: "concept" | "definition" | "axiom" | "theorem" | "corollary" | "method" | "mathematical-thinking" | "other";
+            topicKeys: string[];
+            /** @enum {string} */
+            bucket: "unfinished" | "changed" | "due" | "unplanned" | "future";
+            materialChanged: boolean;
+            proofAvailable: boolean;
+            activeSessionId: string | null;
+            schedule: components["schemas"]["StudyReviewSchedule"] | null;
+        };
+        StudyReviewQueuePage: {
+            /** Format: uuid */
+            actorId: string;
+            /** Format: date-time */
+            asOf: string;
+            items: components["schemas"]["StudyReviewQueueItem"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        StudyReviewHistoryItem: {
+            /** Format: uuid */
+            sessionId: string;
+            knowledge: components["schemas"]["ManagedRef"];
+            title: string;
+            titleZh: string;
+            /** @enum {string} */
+            knowledgeType: "concept" | "definition" | "axiom" | "theorem" | "corollary" | "method" | "mathematical-thinking" | "other";
+            /** @enum {string} */
+            mode: "read" | "recall";
+            /** @enum {string} */
+            target: "statement" | "proof";
+            grade: components["schemas"]["StudyReviewGradeResult"];
+            available: boolean;
+            materialChanged: boolean;
+        };
+        StudyReviewHistoryPage: {
+            /** Format: uuid */
+            actorId: string;
+            /** Format: date-time */
+            asOf: string;
+            items: components["schemas"]["StudyReviewHistoryItem"][];
+            nextCursor: string | null;
+        };
+        StudyReviewProblem: {
+            error: {
+                code: string;
+                message: string;
+                requestId: string;
+                /** Format: uuid */
+                sessionId?: string;
+            };
         };
     };
     responses: {
@@ -23296,6 +23646,1069 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    studyReviewHealthHealthGet: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewHealth"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewHealth"];
+                };
+            };
+        };
+    };
+    studyReviewOverviewOverviewGet: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewOverview"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    studyReviewQueuePageQueueGet: {
+        parameters: {
+            query?: {
+                topicKey?: string;
+                limit?: number;
+                q?: string;
+                bucket?: "due" | "changed" | "unplanned" | "unfinished" | "future" | "all";
+                offset?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewQueuePage"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    studyReviewHistoryPageHistoryGet: {
+        parameters: {
+            query?: {
+                topicKey?: string;
+                limit?: number;
+                knowledgeId?: string;
+                mode?: "read" | "recall";
+                rating?: "forgotten" | "uncertain" | "familiar";
+                cursor?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewHistoryPage"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    studyReviewCommandReceiptSessionsPost: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyReviewStartInput"];
+            };
+        };
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewCommandReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    "studyReviewSessionSessions{Id}Get": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewSession"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    "studyReviewCommandReceiptSessions{Id}DraftPut": {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyReviewDraftInput"];
+            };
+        };
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewCommandReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    "studyReviewCommandReceiptSessions{Id}ComparePost": {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyReviewCompareInput"];
+            };
+        };
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewCommandReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    "studyReviewCommandReceiptSessions{Id}GradePost": {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyReviewGradeInput"];
+            };
+        };
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewCommandReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    "studyReviewCommandReceiptSessions{Id}AbandonPost": {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["StudyReviewAbandonInput"];
+            };
+        };
+        responses: {
+            /** @description 本人复习结果；自评不等于数学自动判定。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewCommandReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+            /** @description 操作未成功；保留输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["StudyReviewProblem"];
                 };
             };
         };

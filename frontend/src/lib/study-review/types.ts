@@ -1,0 +1,23 @@
+import type {components} from '../api/generated';
+export type Session=components['schemas']['StudyReviewSession'];
+export type Schedule=components['schemas']['StudyReviewSchedule'];
+export type Section=components['schemas']['StudyReviewSection'];
+export type ExpectedReference=components['schemas']['StudyReviewReference'];
+export type CommandReceipt=components['schemas']['StudyReviewCommandReceipt'];
+export type GradeResult=components['schemas']['StudyReviewGradeResult'];
+export type StartInput=components['schemas']['StudyReviewStartInput'];
+export type DraftInput=components['schemas']['StudyReviewDraftInput'];
+export type CompareInput=components['schemas']['StudyReviewCompareInput'];
+export type GradeInput=components['schemas']['StudyReviewGradeInput'];
+export type AbandonInput=components['schemas']['StudyReviewAbandonInput'];
+export type Overview=components['schemas']['StudyReviewOverview'];
+export type QueueItem=components['schemas']['StudyReviewQueueItem'];
+export type QueuePage=components['schemas']['StudyReviewQueuePage'];
+export type HistoryItem=components['schemas']['StudyReviewHistoryItem'];
+export type HistoryPage=components['schemas']['StudyReviewHistoryPage'];
+export type Ref=components['schemas']['ManagedRef'];
+export type Rating=GradeInput['rating'];
+export type Mode=StartInput['mode'];
+export type Target=StartInput['target'];
+export type ReviewResult<T>={ok:true;data:T}|{ok:false;status:number;code:string};
+export class ReviewError extends Error{constructor(public readonly code:string,public readonly status=503,public readonly sessionId?:string){super(code);this.name='ReviewError'}}
