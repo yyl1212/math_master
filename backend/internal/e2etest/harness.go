@@ -217,12 +217,27 @@ func Run(ctx context.Context, c Config) (result error) {
 	var holdSave atomic.Bool
 	var holdLearning atomic.Bool
 	var holdStudy atomic.Bool
+	var holdStudyReview atomic.Bool
+	var failStudyReviewRead atomic.Bool
 	var holdFeedback atomic.Bool
 	var holdCorrection atomic.Bool
 	feedbackUnavailable := false
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
+		if scene == "study-review" {
+			holdStudyReview.Store(false)
+			failStudyReviewRead.Store(false)
+			return resetStudyReview(ctx, db, s, accounts, accountAdmin, root)
+		}
+		if scene == "study-review-hold-next-write" {
+			holdStudyReview.Store(true)
+			return nil
+		}
+		if scene == "study-review-fail-next-session-read" {
+			failStudyReviewRead.Store(true)
+			return nil
+		}
 		if scene == "note-sharing" {
 			return resetNoteSharing(ctx, db, s, accounts, accountAdmin, root)
 		}
@@ -509,7 +524,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	if studyErr != nil {
 		return errors.New("study fixture service unavailable")
 	}
-	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Knowledge: &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(s), Current: s, Study: s, Notes: s, PublicOrigin: fixtureOrigin}, ExperienceMode: s, Study: &httpapi.StudyOptions{Service: studyService, PublicOrigin: fixtureOrigin}, Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
+	actual := httpapi.NewApplicationHandler(s, db, httpapi.AuthOptions{Knowledge: &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(s), Current: s, Study: s, Notes: s, Reviews: s, PublicOrigin: fixtureOrigin}, ExperienceMode: s, Study: &httpapi.StudyOptions{Service: studyService, PublicOrigin: fixtureOrigin}, Taxonomy: &httpapi.TaxonomyOptions{Service: taxonomy.NewService(s, contentService), PublicOrigin: fixtureOrigin}, Correction: &httpapi.CorrectionOptions{Service: correctionService, PublicOrigin: fixtureOrigin}, Notification: &httpapi.NotificationOptions{Service: notificationService, PublicOrigin: fixtureOrigin}, Accounts: accounts, Admin: accountAdmin, PublicOrigin: fixtureOrigin, Feedback: &httpapi.FeedbackOptions{Service: feedbackService, PublicOrigin: fixtureOrigin}, Learning: &httpapi.LearningOptions{Learning: learningService, PublicOrigin: fixtureOrigin}, Content: &httpapi.ContentOptions{Service: contentService, PublicOrigin: fixtureOrigin, Configured: true}, Question: &httpapi.QuestionOptions{Service: questionService, PublicOrigin: fixtureOrigin, Configured: true}})
 	apiHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		mu.RLock()
 		defer mu.RUnlock()
@@ -530,9 +545,16 @@ func Run(ctx context.Context, c Config) (result error) {
 			return
 		}
 
+		if r.Method == "GET" && strings.HasPrefix(r.URL.Path, "/api/v3/study/review/sessions/") && failStudyReviewRead.CompareAndSwap(true, false) {
+			w.Header().Set("Content-Type", "application/json")
+			w.Header().Set("Cache-Control", "private, no-store")
+			w.WriteHeader(503)
+			w.Write([]byte(`{"error":{"code":"STUDY_REVIEW_NOT_READY","message":"Test-only unavailable read.","requestId":"unavailable"}}`))
+			return
+		}
 		// Commit through the real handler before dropping a delayed response. The
 		// next request must prove idempotent replay, rather than mock a success.
-		if ((r.Method == "POST" || r.Method == "PUT" || r.Method == "DELETE") && strings.HasPrefix(r.URL.Path, "/api/v2/study/") && holdStudy.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT") && (strings.HasPrefix(r.URL.Path, "/api/v1/corrections/") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications/")) && holdCorrection.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
+		if ((r.Method == "POST" || r.Method == "PUT") && strings.HasPrefix(r.URL.Path, "/api/v3/study/review/") && holdStudyReview.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT" || r.Method == "DELETE") && strings.HasPrefix(r.URL.Path, "/api/v2/study/") && holdStudy.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT") && (strings.HasPrefix(r.URL.Path, "/api/v1/corrections/") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications/")) && holdCorrection.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
 			captured := httptest.NewRecorder()
 			actual.ServeHTTP(captured, r)
 			if captured.Code == http.StatusOK || captured.Code == http.StatusCreated {
@@ -557,6 +579,21 @@ func Run(ctx context.Context, c Config) (result error) {
 	})
 	control := http.NewServeMux()
 	control.HandleFunc("GET /readyz", func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(204) })
+	control.HandleFunc("POST /study-review/{operation}", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			w.WriteHeader(401)
+			return
+		}
+		mu.Lock()
+		defer mu.Unlock()
+		ctx, stop := context.WithTimeout(r.Context(), 3*time.Second)
+		defer stop()
+		if e := studyReviewChange(ctx, s, accounts, r.PathValue("operation")); e != nil {
+			w.WriteHeader(503)
+			return
+		}
+		w.WriteHeader(204)
+	})
 	control.HandleFunc("POST /managed-knowledge/{operation}", func(w http.ResponseWriter, r *http.Request) {
 		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
 			w.WriteHeader(401)

@@ -1,0 +1,8 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {studyReviewStoreTests} from './go-batches.mjs';
+import {validateStudyReviewCI} from './study-review-ci.mjs';
+const read=p=>readFileSync(new URL('../../'+p,import.meta.url),'utf8');
+const current=()=>({backend:read('.github/workflows/backend.yml'),frontend:read('.github/workflows/frontend.yml'),playwright:read('tests/e2e/playwright.config.ts')});
+test('both new isolated jobs keep every original byte and bounded real verification',()=>assert.equal(validateStudyReviewCI(current()),true));
+test('missing new checks, old workflow edits and relaxed browser budgets fail closed',()=>{const s=current();for(const [key,from,to] of [['backend','TestReviewCapacitySchemaRestore','RemovedRestore'],['backend','TestReviewCapacityWrite10000','RemovedWrites'],['frontend','study-review-security.spec.ts','invented.spec.ts'],['frontend','-u MATH_MASTER_E2E_FRONTEND',''],['backend','timeout-minutes: 30','timeout-minutes: 31'],['playwright','workers: 1','workers: 2'],['playwright','retries: 0','retries: 1'],['playwright','globalTimeout: 480000','globalTimeout: 540000'],['playwright','width: 390','width: 391']])assert.throws(()=>validateStudyReviewCI({...s,[key]:s[key].replace(from,to)}));assert.throws(()=>validateStudyReviewCI({...s,frontend:s.frontend.replace('  study_review_verify:','  omitted:')}));});
+
+test('exact review test ownership registry covers every new store test',()=>{const names=['schema','tx','read','write','capacity','restore'].flatMap(n=>[...read('backend/internal/store/study_review_'+n+'_test.go').matchAll(/^func (Test\w+)\(/gm)].map(m=>m[1])).sort();assert.deepEqual(studyReviewStoreTests,names);});
