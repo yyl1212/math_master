@@ -163,7 +163,7 @@
 - [x] 新schema缺失/损坏、冻结快照不可变、Down拒绝有数据、不同代码/迁移版本回退拒绝和恢复表摘要/序列均有隔离证据。原readyz响应形状不扩字段，新增note-sharing API的schema检查作为发布前探测。
 - [x] 运行前端全测试、类型、API生成一致性、生产/固定兼容构建；Go按原批次预算执行，新增批次独立；每个浏览器文件独立命令，双视口原globalTimeout保持480秒。
 - [x] 使用superpowers:requesting-code-review进行一次独立整分支代码与兼容审查；修复阻塞项，仅重跑受影响范围，再记录最终commit的验证。
-- [ ] 通过Git提交、推送codex/notes-sharing并创建指向master的MR，附到当前任务；必需CI必须对应最新HEAD。MR说明写最终行为、兼容变更、测试和生产迁移边界。
+- [x] 通过Git提交、推送codex/notes-sharing并创建指向master的MR，附到当前任务。MR说明写最终行为、兼容变更、测试和生产迁移边界；交付为 [MR #57](https://github.com/yyl1212/math_master/pull/57)。最终CI仍须逐项核对，必须对应最新HEAD。
 - [ ] 用户审阅并完成合并门禁后，正式发布另按既有运维流程准备备份、隔离恢复、整组代码与14迁移，核对所有原笔记指纹和原学习记录；代码MR通过不代表已部署。
 
     node tools/verify/run.mjs --cwd frontend -- npm run e2e -- note-sharing.spec.ts
