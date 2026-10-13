@@ -15,7 +15,7 @@
 - 用户自行比对参考并自评，禁止自动判分、文本相似度判分或AI参考生成。
 - 保留1—14迁移字节、四学习状态、六旧事件、旧API/DTO、原笔记和审批分享规则。
 - grade为forgotten/uncertain/familiar；所有评分先统一计算有效阶段（无安排/Ref变化为0）；阶段0..5；forgotten+600秒，uncertain+86400秒且有效阶段-1；熟悉的阶段1..5间隔86400/259200/604800/1209600/2592000秒；同内容提前熟悉不推进。
-- 答案≤16000 Unicode字符且≤65536字节；题干与参考规范化UTF-8合计≤524288字节，不截断。
+- 答案≤16000 Unicode码点且≤65536字节，合法UTF-8在码点上限下最多64000字节，65536是额外保护与保守预算；题干与参考条目原文本UTF-8合计≤524288字节，不包括标题/类型/JSON语法或整个快照，不截断。
 - 新请求≤131072字节，单项/列表响应≤1048576字节；HTTP/事务8秒、锁1秒、Next10秒。
 - 题干只交付一次；按HTTP同一json.Marshal规则，材料wire≤589824、最大答案wire保守预留393216、最大元数据/envelope≤65536；发起前验证组合≤1048576。单项两标题各≤1024字符/4096字节，列表标题各≤128字符。
 - 队列/历史默认20最大50；队列offset≤100000；q≤128字符且512字节。作答/参考不出现在列表、URL、浏览器存储或日志。
@@ -48,7 +48,7 @@
 
 - [ ] 写TestNextScheduleExactIntervals、TestEarlyFamiliarDoesNotAdvance、TestChangedRefResetsEffectiveStage、TestClockOverflow：原阶段0/1/4/5的三评分、提前/到期相等/跨时区、改版、最大日期均断言精确秒数和阶段；补A5→B不熟→B到期熟悉连续断言0/86400→1/86400；纯函数不取客户端时间。
 - [ ] 写TestReferenceTargetsAndLimit、TestReferenceWireBudget：陈述五类实际字段、证明题干包含equations/目标仅proof与proof_scope、空证明拒绝；非转义密集材料524288可接受/524289拒绝，wire超589824即使raw未超也拒绝；元数据最大形状及65536答案保守组合≤1MiB，不重复Prompt、不生成/截断。
-- [ ] 写TestAnswerUnicodeAndEmptyRecall：16000/16001字符、65536/65537字节、空白、HTML/图片/危险公式宏；复用原文本校验及明确“未写出”标识。
+- [ ] 写TestAnswerUnicodeAndEmptyRecall：16000/16001码点、16000个四字节字符的64000字节合法向量、65536/65537字节仅作超过码点或非法输入拒绝向量、空白、HTML/图片/危险公式宏；复用原文本校验及明确“未写出”标识。
 - [ ] 跑新增测试观察真实RED；实现最小函数，定义下游使用的DTO及Repository签名，再跑GREEN。
 
 核心断言向量（time.Second为间隔单位，内容相同且已到期）：
@@ -74,7 +74,7 @@ Expected: 全部PASS，固定常量与参考字段对照Spec一致。提交：fe
 
 **Interfaces:** Repository输出ReadReviewHealth(ctx)(Health,error)、ReadReviewOverview(ctx,a)(Overview,error)、ListReviewQueue(ctx,a,QueueQuery)(QueuePage,error)、StartReviewSession(ctx,a,StartInput)(CommandReceipt,error)、ReadReviewSession(ctx,a,id)(Session,error)、SaveReviewDraft(ctx,a,id,DraftInput)(CommandReceipt,error)、CompareReviewSession(ctx,a,id,CompareInput)(CommandReceipt,error)、GradeReviewSession(ctx,a,id,GradeInput)(CommandReceipt,error)、AbandonReviewSession(ctx,a,id,AbandonInput)(CommandReceipt,error)、ListReviewHistory(ctx,a,HistoryQuery)(HistoryPage,error)。
 
-输入：StartInput{Knowledge Ref,Mode Mode,Target Target}；DraftInput{ExpectedSequence,ExpectedDraftRevision int64,Body string}；CompareInput{ExpectedSequence int64,Body string,Unanswered bool}；GradeInput{ExpectedSequence int64,Rating Rating}；AbandonInput{ExpectedSequence int64}。Session含ActorID/SessionID/KnowledgeID/ReviewID/Ref/Mode/Target/Status/Sequence/DraftRevision、CreatedAt/ComparedAt/GradedAt/AbandonedAt/DraftUpdatedAt、Available/MaterialChanged/Unanswered、Prompt []Section、Answer *string、Reference *ExpectedReference、Schedule *Schedule、Grade *GradeResult；Schedule为知识当前安排，Grade为该会话不可变的当次自评/安排，分别标注，未完成时Grade=null。read答案null，recall答案为本人草稿/冻结答案；Reference只在read或已compared/completed且当前可用Ref一致时交付，其他情况null。当前不可用/Ref不同时Prompt也为空，任何状态都不交付冻结官方正文；仅保留本人答案/允许元数据。初始sequence=1/draftRevision=0；每成功写sequence+1；draft/compare还draftRevision+1，重放不增长；所有超出9007199254740991的序列拒绝。
+输入：StartInput{Knowledge Ref,Mode Mode,Target Target}；DraftInput{ExpectedSequence,ExpectedDraftRevision int64,Body string}；CompareInput{ExpectedSequence int64,Body string,Unanswered bool}；GradeInput{ExpectedSequence int64,Rating Rating}；AbandonInput{ExpectedSequence int64}。Session含ActorID/SessionID/KnowledgeID/ReviewID/Ref/Mode/Target/Status/Sequence/DraftRevision、Title/TitleZH/KnowledgeType、CreatedAt/ComparedAt/GradedAt/AbandonedAt/DraftUpdatedAt、Available/MaterialChanged/Unanswered、Prompt []Section、Answer *string、Reference *ExpectedReference、Schedule *Schedule、Grade *GradeResult。Title/TitleZH/KnowledgeType是发起时从已发布知识冻结的允许元数据，标题各≤1024码点且4096字节、类型为原枚举，计入最大65536元数据预算，不挤入Section；不可用时以状态提示展示。Schedule为知识当前安排，Grade为该会话不可变的当次自评/安排，分别标注，未完成时Grade=null。read答案null，recall答案为本人草稿/冻结答案；Reference只在read或已compared/completed且当前可用Ref一致时交付，其他情况null。当前不可用/Ref不同时Prompt也为空，任何状态都不交付冻结官方正文；仅保留本人答案/允许元数据。初始sequence=1/draftRevision=0；每成功写sequence+1；draft/compare还draftRevision+1，重放不增长；所有超出9007199254740991的序列拒绝。
 
 QueueQuery{Q,TopicKey,Bucket string,Limit,Offset int}；HistoryQuery{KnowledgeID,TopicKey,Mode,Rating,Cursor string,Limit int}；页与Overview均含ActorID/asOf，Queue不含答案和参考。
 
@@ -149,7 +149,7 @@ Expected: 先作答后参考的所有数据边界及原笔记回归GREEN。提�
 
 - [ ] 写TestStudyReviewSceneResetAndAtomicity：新表真实FK不会阻塞后续原场景；失败全部回滚；#58真实存储往返仍为1，原六账号/密码参数不改。
 - [ ] 三独立文件两视口：flow验证待安排→阅读→自评→队列与历史；recall验证陈述/证明题干、写/存/比对/冻结、公式/双语/离开；security验证所有权/跨标签/原入口交叉/未确认写入/改版/下架/空答限制。
-- [ ] 新容量：单用户10000学习与安排项目、多主题关系及不超过50项分页；raw524288、wire589824参考与65536答案/最大元数据的真实Go→Next组合；转义密集超wire上限在发起前422且无周期/会话写入。按schema/read/write三条5分钟命令分组，填充与测量分开，不伪造HTTP结果。若达不到8秒动作，补测真实热点并修设计。
+- [ ] 新容量：单用户10000学习与安排项目、多主题关系及不超过50项分页；raw524288、wire589824参考与最大合法64000字节答案/最大元数据的真实Go→Next组合；另测HTML转义密集但合法的16000码点答案，65536仅保守预算/拒绝向量；转义密集参考超wire上限在发起前422且无周期/会话写入。按schema/read/write三条5分钟命令分组，填充与测量分开，不伪造HTTP结果。若达不到8秒动作，补测真实热点并修设计。
 - [ ] 真实14快照恢复后Up15：原所有业务表指纹与序列保持、五新表为空、两旧摘要相同；再实际恢复含read/recall/graded/abandoned/receipt的15全库，逐表/序列核对。随机隔离容器/卷仅清理本次UUID。
 - [ ] 追加专属study_review_verify Go与frontend作业，原步骤/尺度/预算保持；Go新方法/测试登记新分组；全部新文件和目标精确登记，既有快照与旧阶段不改；新预算/篡改拒绝测试先RED。
 

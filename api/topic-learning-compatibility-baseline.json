@@ -5487,8 +5487,8 @@
     "backend/internal/e2etest/fixture_storage_reset_test.go": "7df95fc6f0fa780e39d1e8ab94a0247fd0aa5799f643fb83784448d02ac96ad9",
     "docs/operations/2026-10-13-fixture-initialization-acceptance.md": "52374bb67518f8497d5a92dd5fe833decf254af22ac4a8dc0a1b05cc4ee5e152",
     "docs/superpowers/reports/2026-10-13-fixture-initialization-code-review.md": "2ce8e9edc257b7ea4cb5a3e98e528c0890e7b4c3af84d74098f42587882fd77d",
-    "docs/superpowers/specs/2026-10-14-review-recall-design.md": "c8c7c8937ded64b8dea5ed330a3f8a48be39bd966e35469c49e33937c437f7dd",
-    "docs/superpowers/plans/2026-10-14-review-recall.md": "c993f2f295e65c90424ec7ca8ca81c0325c7f9de23e2b623571876635366f9f0",
-    "docs/superpowers/reports/2026-10-14-review-recall-plan-review.md": "533575d233268574b54ac7284b767ae5497955562af99b6b68c419e96dfca199"
+    "docs/superpowers/specs/2026-10-14-review-recall-design.md": "68e06651400842e3dd598d1835d41714c067130af8bb7d00b45e24eee4d1e9b2",
+    "docs/superpowers/plans/2026-10-14-review-recall.md": "4babe9dc813806d1976e749eb4c367710723f9686cdc5d5888109047e9f18dc7",
+    "docs/superpowers/reports/2026-10-14-review-recall-plan-review.md": "21def29df58bae45727085886316ce0673d491926f32604af138adc5ab756f24"
   }
 }

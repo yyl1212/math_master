@@ -146,7 +146,7 @@ flowchart TD
 
 ## 8. 内容改版、下架与参考边界
 
-新发起、保存草稿、查看参考及自评需当前可用知识；原命令确认先按回执规则处理。参考由服务器从准确Ref提取，不接受客户端参考正文。固定题干与目标合计最多512KiB规范化UTF-8，同时须满足下述实际JSON序列化预算；任一上限不满足，发起在原周期/新会话/事件写入之前返回422 REVIEW_REFERENCE_TOO_LARGE，不截断、不生成摘要。原知识阅读和原手动复习继续可用。
+新发起、保存草稿、查看参考及自评需当前可用知识；原命令确认先按回执规则处理。参考由服务器从准确Ref提取，不接受客户端参考正文。材料raw上限512KiB指题干与目标条目原文本的UTF-8字节合计，保留原字符串，不包括标题、类型、Ref、摘要、JSON语法或整个JSONB快照；材料摘要另由规范化JSON生成。同时须满足下述实际JSON序列化预算；任一上限不满足，发起在原周期/新会话/事件写入之前返回422 REVIEW_REFERENCE_TOO_LARGE，不截断、不生成摘要。原知识阅读和原手动复习继续可用。
 
 序列化使用新Go HTTP发送所用的同一json.Marshal规则，包含HTML转义。题干只出现在Session.prompt；Reference只包含目标sections与SHA，不重复题干。创建时验证prompt + reference实际JSON合计≤589824字节，预留最大答案393216字节（65536原字节的保守6倍转义）及整个固定元数据/外层envelope≤65536字节；三者合计≤1048576。元数据的准确标量、两语言标题、时间、Ref及最大合法序列须以最大形状验证，不只测初始空值；单项完整标题各≤1024字符且4096字节，过长同样在发起前422。列表标题各至多128字符，超长省略，仅限导航元数据，不截断任何数学题干或参考。
 
@@ -165,7 +165,7 @@ flowchart TD
 | 新表 | 职责与约束 |
 | --- | --- |
 | study_review_sessions | UUIDv4；owner + knowledge + 原reviewId；mode read/recall、target statement/proof；status working/compared/completed/abandoned；sequence、草稿revision、作答、时间；本人/知识组合FK；活动会话部分唯一索引 |
-| study_review_snapshots | session复合FK绑定同一owner/knowledge；不可变准确Ref、标题、题干、目标参考、规范化摘要；最大512KiB；不复制私人笔记 |
+| study_review_snapshots | session复合FK绑定同一owner/knowledge；不可变准确Ref、标题、类型、题干、目标参考、规范化摘要；材料原文本UTF-8合计最大512KiB，整个快照另遵循明确wire/元数据预算；不复制私人笔记 |
 | study_review_schedules | owner + knowledge主键；stage 0..5、dueAt、lastRef、lastRating、sequence、最后自评时间；指向同一用户/知识的有效来源会话 |
 | study_review_events | 不可变事件：opened/draft-saved/compared/graded/abandoned；session + sequence唯一；graded对owner + knowledge + 原reviewId唯一；保留模式、Ref和自评，不复制答案正文 |
 | study_review_receipts | actor + action + key唯一；resource、输入摘要与原结果元数据；不可变；禁止回执重放重新更新安排 |
@@ -192,7 +192,7 @@ DB约束保证模式/目标、状态对应时间、只有compared可grade、完�
 | POST /sessions | knowledge:Ref、mode、target；创建/复用原周期与独立会话 |
 | GET /sessions/{id} | 本人会话、sequence、草稿revision；正文按阶段/Ref/可用性投影 |
 | PUT /sessions/{id}/draft | expectedSequence、expectedDraftRevision、body；仅working recall |
-| POST /sessions/{id}/compare | expectedSequence、body、unanswered；read时body必须为空且unanswered=false；recall空白须unanswered=true；冻结作答并交付参考 |
+| POST /sessions/{id}/compare | expectedSequence、body、unanswered；read时body必须为空且unanswered=false；recall空白须unanswered=true；冻结作答并返回无正文CommandReceipt，随后GET当前会话交付合规参考 |
 | POST /sessions/{id}/grade | expectedSequence、rating；服务端安排，返回完成回执和schedule |
 | POST /sessions/{id}/abandon | expectedSequence；允许下架后清理本人活动会话 |
 | GET /history | 本人分页元数据；具体会话详情使用已有详情接口 |
