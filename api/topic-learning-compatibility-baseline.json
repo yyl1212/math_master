@@ -2252,8 +2252,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "c7d1cc8e7dd487553fe75467a025da7ef6da6b57a6e3d7ac6f36fc1233928fa2",
-        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
+        "sha256": "dd68d43c5ce94712886bdd7f7a40cbe0dda4c84f546fa4653ccacc50b444b4db",
+        "reason": "用户授权CI夹具初始化修复：仅测试包原存储清理单一事务/单次往返；原表、级联、密码/角色/场景/预算及生产API/全部迁移不改。"
       }
     },
     "backend/internal/e2etest/harness.go": {
@@ -3422,6 +3422,12 @@
         "sha256": "d9b4d20bbe0642c11a507b273a8edae7a4ecd5d04e83aca674a343f61ac6b684",
         "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
+    },
+    "backend/internal/e2etest/workflow_fixture.go": {
+      "managed": {
+        "sha256": "735bc71a38c665eca42a4f6495ab1d6b0ba77d9f0f1a9e6e765c61e2fd73e21a",
+        "reason": "用户授权CI夹具初始化修复：仅测试包原存储清理单一事务/单次往返；原表、级联、密码/角色/场景/预算及生产API/全部迁移不改。"
+      }
     }
   },
   "newFiles": {
@@ -3911,7 +3917,8 @@
       "docs/superpowers/reports/2026-10-13-legacy-correction-fence-code-review.md",
       "docs/superpowers/specs/2026-10-13-fixture-initialization-design.md",
       "docs/superpowers/plans/2026-10-13-fixture-initialization.md",
-      "docs/superpowers/reports/2026-10-13-fixture-initialization-plan-review.md"
+      "docs/superpowers/reports/2026-10-13-fixture-initialization-plan-review.md",
+      "backend/internal/e2etest/fixture_storage_reset_test.go"
     ]
   },
   "legacySnapshots": {
@@ -5467,6 +5474,7 @@
     "docs/superpowers/reports/2026-10-13-legacy-correction-fence-code-review.md": "811faaae164c3551a7297ca5d1d1a45670d232df9a6ad12df89a2bc43d5f0210",
     "docs/superpowers/specs/2026-10-13-fixture-initialization-design.md": "4bf95769f5d6d487110694fba6fb5979b0420279842f1da594d125f30a0190ff",
     "docs/superpowers/plans/2026-10-13-fixture-initialization.md": "f0c90d4998891ab0ffea4d131a478e5873cb8e5ddf660e0bb3ed65677e9a8c67",
-    "docs/superpowers/reports/2026-10-13-fixture-initialization-plan-review.md": "a0fb0ced676e4aef7303b58f40e09577994fa55367a59bceb881fcbcca954811"
+    "docs/superpowers/reports/2026-10-13-fixture-initialization-plan-review.md": "a0fb0ced676e4aef7303b58f40e09577994fa55367a59bceb881fcbcca954811",
+    "backend/internal/e2etest/fixture_storage_reset_test.go": "7b2f19af0d7f12aa7258a7c26960fe956d4fbbe9a221e5bce1fa24b2afed8ad6"
   }
 }

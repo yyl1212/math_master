@@ -45,11 +45,11 @@ func workflowAccounts(ctx context.Context, accounts *auth.Service, admin *auth.A
 	return nil
 }
 func resetWorkflow(ctx context.Context, db *sql.DB, accounts *auth.Service, admin *auth.AdminService) error {
-	if err := resetAccounts(ctx, db, accounts, admin); err != nil {
+	if err := resetFixtureStorage(ctx, db, true); err != nil {
 		return err
 	}
-	if _, err := db.ExecContext(ctx, "TRUNCATE catalogue_versions, knowledge, path_versions, assets CASCADE"); err != nil {
-		return errors.New("content fixture reset failed")
+	if err := initializeFixtureAccounts(ctx, accounts, admin); err != nil {
+		return err
 	}
 	return workflowAccounts(ctx, accounts, admin)
 }
