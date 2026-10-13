@@ -17,6 +17,7 @@ import (
 )
 
 type KnowledgeOptions struct {
+	Notes        notesharing.Repository
 	Study        knowledgeadmin.StudyRepository
 	Service      *knowledgeadmin.Service
 	Current      knowledgeadmin.CurrentRepository

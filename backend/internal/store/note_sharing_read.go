@@ -12,6 +12,154 @@ import (
 	"time"
 )
 
+const sharedNoteFrom = ` FROM note_share_heads h JOIN note_share_submissions p ON p.submission_id=h.current_submission_id JOIN managed_knowledge k ON k.internal_id=p.knowledge_id JOIN auth_users author ON author.id=p.owner_user_id WHERE h.status='shared' AND k.published AND k.deleted_at IS NULL `
+const sharedNoteColumns = `p.submission_id::text,p.title,p.body,p.body_sha256,author.username,h.approved_at,p.knowledge_id,p.knowledge_title,p.knowledge_title_zh,p.topic_keys,p.note_knowledge_ref<>jsonb_build_object('id',k.internal_id,'contentSha256',k.content_sha256,'sourceKind','managed')`
+
+type shareScanner interface{ Scan(...any) error }
+
+func scanSharedNote(row shareScanner) (out notesharing.SharedNoteDetail, e error) {
+	var topics []byte
+	var bodySHA string
+	e = row.Scan(&out.SubmissionID, &out.Title, &out.Body, &bodySHA, &out.AuthorName, &out.ApprovedAt, &out.KnowledgeID, &out.KnowledgeTitle, &out.KnowledgeTitleZH, &topics, &out.MaterialChanged)
+	if e != nil {
+		return
+	}
+	if json.Unmarshal(topics, &out.TopicKeys) != nil || knowledgeadmin.DigestBytes([]byte(out.Body)) != bodySHA || notesharing.ValidateBody(out.Body) != nil {
+		return out, notesharing.ErrNotReady
+	}
+	out.Excerpt = notesharing.Excerpt(out.Body)
+	return
+}
+func (s *Store) publicSharingTx(ctx context.Context, mode bool, fn func(context.Context, *sql.Tx) error) error {
+	ctx, cancel := context.WithTimeout(ctx, 8*time.Second)
+	defer cancel()
+	tx, e := s.db.BeginTx(ctx, &sql.TxOptions{ReadOnly: true, Isolation: sql.LevelRepeatableRead})
+	if e != nil {
+		return e
+	}
+	defer tx.Rollback()
+	if _, e = tx.ExecContext(ctx, "SET LOCAL lock_timeout='1s'"); e != nil {
+		return e
+	}
+	if mode {
+		if e = knowledgeConfigured(ctx, tx); e != nil {
+			return e
+		}
+		if e = managedStudyMode(ctx, tx); e != nil {
+			return e
+		}
+	}
+	if e = noteSharingSchemaIntegrity(ctx, tx); e != nil {
+		return e
+	}
+	if e = fn(ctx, tx); e != nil {
+		return e
+	}
+	return tx.Commit()
+}
+func (s *Store) ReadSchemaHealth(ctx context.Context) (out notesharing.NoteSharingHealth, e error) {
+	out.Capability = true
+	e = s.publicSharingTx(ctx, false, func(context.Context, *sql.Tx) error { out.SchemaReady = true; return nil })
+	if errors.Is(e, notesharing.ErrNotReady) {
+		return out, nil
+	}
+	return
+}
+func (s *Store) Latest(ctx context.Context) (out notesharing.LatestSharedNotePage, e error) {
+	out.Items = []notesharing.SharedNoteSummary{}
+	e = s.publicSharingTx(ctx, true, func(ctx context.Context, tx *sql.Tx) error {
+		rows, e := tx.QueryContext(ctx, "SELECT "+sharedNoteColumns+sharedNoteFrom+" ORDER BY h.approved_at DESC,p.submission_id DESC LIMIT 10")
+		if e != nil {
+			return e
+		}
+		defer rows.Close()
+		for rows.Next() {
+			d, e := scanSharedNote(rows)
+			if e != nil {
+				return e
+			}
+			out.Items = append(out.Items, d.SharedNoteSummary)
+		}
+		return rows.Err()
+	})
+	return
+}
+func (s *Store) ReadPublic(ctx context.Context, id string) (out notesharing.SharedNoteDetail, e error) {
+	if !study.ValidID(id) {
+		return out, notesharing.ErrInvalid
+	}
+	e = s.publicSharingTx(ctx, true, func(ctx context.Context, tx *sql.Tx) error {
+		query := `WITH permitted AS (SELECT p.submission_id` + sharedNoteFrom + ` ORDER BY h.approved_at DESC,p.submission_id DESC LIMIT 10) SELECT ` + sharedNoteColumns + sharedNoteFrom + ` AND p.submission_id=$1 AND p.submission_id IN (SELECT submission_id FROM permitted)`
+		out, e = scanSharedNote(tx.QueryRowContext(ctx, query, id))
+		if errors.Is(e, sql.ErrNoRows) {
+			return notesharing.ErrNotPublic
+		}
+		return e
+	})
+	return
+}
+func (s *Store) ReadShared(ctx context.Context, a knowledgeadmin.Access, id string) (out notesharing.AuthenticatedSharedNoteDetail, e error) {
+	if !study.ValidID(id) {
+		return out, notesharing.ErrInvalid
+	}
+	e = s.knowledgeTx(ctx, a, false, false, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+		out.ActorID = u.ID
+		if e := sharingConfigured(ctx, tx); e != nil {
+			return e
+		}
+		out.Note, e = scanSharedNote(tx.QueryRowContext(ctx, "SELECT "+sharedNoteColumns+sharedNoteFrom+" AND p.submission_id=$1", id))
+		if errors.Is(e, sql.ErrNoRows) {
+			return notesharing.ErrNotPublic
+		}
+		return e
+	})
+	return
+}
+func (s *Store) ListShared(ctx context.Context, a knowledgeadmin.Access, q notesharing.Query) (out notesharing.SharedNotePage, e error) {
+	q, e = normalizedShareQuery(q)
+	if e != nil {
+		return out, e
+	}
+	if q.Status != "" {
+		return out, notesharing.ErrInvalid
+	}
+	out.Items = []notesharing.SharedNoteSummary{}
+	e = s.knowledgeTx(ctx, a, false, false, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
+		out.ActorID = u.ID
+		if e := sharingConfigured(ctx, tx); e != nil {
+			return e
+		}
+		scope := notesharing.QueryScope("shared", u.ID, q)
+		c, e := notesharing.DecodeCursor(q.Cursor, scope)
+		if e != nil {
+			return e
+		}
+		rows, e := tx.QueryContext(ctx, "SELECT "+sharedNoteColumns+sharedNoteFrom+` AND ($1='' OR strpos(lower(p.title),lower($1))>0 OR strpos(lower(p.body),lower($1))>0) AND ($2='' OR EXISTS(SELECT 1 FROM jsonb_array_elements_text(p.topic_keys) key WHERE left(key,length($2))=$2)) AND ($3::timestamptz IS NULL OR (h.approved_at,p.submission_id)<($3,$4::uuid)) ORDER BY h.approved_at DESC,p.submission_id DESC LIMIT $5`, q.Q, notesharing.TopicPrefix(q.TopicKey), cursorAt(c), nullableCursorID(c.ID), q.Limit+1)
+		if e != nil {
+			return e
+		}
+		defer rows.Close()
+		for rows.Next() {
+			d, e := scanSharedNote(rows)
+			if e != nil {
+				return e
+			}
+			out.Items = append(out.Items, d.SharedNoteSummary)
+		}
+		if e = rows.Err(); e != nil {
+			return e
+		}
+		if len(out.Items) > q.Limit {
+			out.Items = out.Items[:q.Limit]
+			last := out.Items[len(out.Items)-1]
+			next := notesharing.EncodeCursor(last.ApprovedAt, last.SubmissionID, scope)
+			out.NextCursor = &next
+		}
+		return nil
+	})
+	return
+}
+
 type shareSnapshot struct {
 	ID, OwnerID, KnowledgeID, Title, Body, BodySHA, KnowledgeTitle, KnowledgeTitleZH string
 	NoteRevision                                                                     int64

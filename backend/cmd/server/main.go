@@ -51,7 +51,7 @@ func run() error {
 	defer stop()
 	repo := store.NewWithTrustedCodeSHA(db, c.CodeSHA)
 	options := httpapi.AuthOptions{ExperienceMode: repo, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
-	options.Knowledge = &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(repo), Current: repo, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
+	options.Knowledge = &httpapi.KnowledgeOptions{Service: knowledgeadmin.NewService(repo), Current: repo, Notes: repo, PublicOrigin: c.PublicOrigin, Production: c.AppEnv == "production"}
 	if c.PublicOrigin != "" {
 		hasher := auth.NewArgon2Hasher(rand.Reader)
 		options.Accounts, err = auth.NewService(repo, hasher, rand.Reader)
