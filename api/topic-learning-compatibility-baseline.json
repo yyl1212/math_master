@@ -5408,7 +5408,7 @@
     "backend/internal/store/note_sharing_write_test.go": "c5734a5a6c571f43c8a45a9873b895f374c06a8f5a9d56baae3b57933192dd81",
     "db/migrations/00014_note_sharing.sql": "23630e28bc4a0f7da6c1374cced5a2942736833b2b28dbdbb65173611099a5b3",
     "docs/operations/note-sharing.md": "3e666dafee4df8cf0e345c033a40c2031c522f7790c42ded5f4c94df4a69bbd8",
-    "docs/superpowers/plans/2026-10-13-notes-sharing.md": "363df29606761d60fdea0ffd66959c4398c8e27bfcb2b4dc56ae474c564a03ef",
+    "docs/superpowers/plans/2026-10-13-notes-sharing.md": "fa59327d6d3dabd2987b59bef31a1170d9e8474d9da7824f6a9c7831c26284a2",
     "docs/superpowers/reports/2026-10-13-notes-sharing-plan-review.md": "06c9f60d8bc6a87bd5794ea7377f9aca5671aff5cdc42713dfec9f8645ce8fc0",
     "docs/superpowers/specs/2026-10-13-notes-sharing-design.md": "db9a4f99d675eb848d1420d7479a052013debe15f7abb16f1ee32f6971b7b72e",
     "frontend/src/app/admin/note-shares/[id]/page.tsx": "a45d35543a4d7701a577abed93c61de5a10a8dd48d531170b90f49d55359d644",
@@ -5446,7 +5446,7 @@
     "tests/e2e/note-sharing-security.spec.ts": "390eac441215f7d20c9d72a335af248dae6a2804baf9e9fa93201f7ae99d65b6",
     "tests/e2e/note-sharing.spec.ts": "8756a07d8afa7ab41c0901d086bff0a725556b21e3c3260a79be1412d509cc9e",
     "tests/e2e/ui-language-notes.spec.ts": "0dbad7f8e8f11a847834d85284bb8954ecb27e848b8c4e2068f73f98ad6378f8",
-    "docs/operations/2026-10-13-note-sharing-acceptance.md": "0cd451290c79f7e2178a902c98846fe8ad2e46b88bd20904d85559825a18c774",
+    "docs/operations/2026-10-13-note-sharing-acceptance.md": "e997bbb864e4ea73a130f6badb53007dfa2519696f7c10b5ba738c82f1e4db4e",
     "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md": "8c64932df04ad42c99932ed0eb89204f094443c8f0551efc35cfb93692fee472"
   }
 }
