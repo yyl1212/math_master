@@ -95,6 +95,24 @@ func TestReviewCapacitySchemaRestore(t *testing.T) {
 		t.Fatal(e)
 	}
 	run("upgrade15")
+	// 实际恢复库的旧迁移开关被改写时，升级验收必须拒绝，不能只看最大版本和序列。
+	tamper, e := sql.Open("pgx", fmt.Sprintf("postgres://%s@127.0.0.1:%d/%s?sslmode=disable", target.User, target.Port, target.Database))
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer tamper.Close()
+	const toggle = "UPDATE goose_db_version SET is_applied=NOT is_applied WHERE id=(SELECT min(id) FROM goose_db_version)"
+	if _, e = tamper.ExecContext(f.ctx, toggle); e != nil {
+		t.Fatal(e)
+	}
+	cmd := exec.CommandContext(f.ctx, "python3", "../../../tools/verify/study-review-restore.py", "upgrade15", container, database, folder, revision)
+	if b, e := cmd.CombinedOutput(); e == nil || !strings.Contains(string(b), "upgrade-original-migration-rows-changed") {
+		t.Fatalf("old migration tamper accepted or unrelated failure: %s %v", b, e)
+	}
+	if _, e = tamper.ExecContext(f.ctx, toggle); e != nil {
+		t.Fatal(e)
+	}
+	run("upgrade15")
 	if e := store.Up(f.ctx, f.db, "../../../db/migrations"); e != nil {
 		t.Fatal(e)
 	}

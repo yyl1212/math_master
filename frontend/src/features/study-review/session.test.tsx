@@ -28,6 +28,19 @@ it('forced-password response on manual refresh clears private answer immediately
  vi.mocked(readSession).mockRejectedValue(new ReviewError('PASSWORD_CHANGE_REQUIRED',403));render(<UiLocaleProvider initialLocale="zh-CN"><SessionPanel initial={session({answer:'这份私人作答必须清除'})}/></UiLocaleProvider>);fireEvent.click(screen.getByRole('button',{name:'刷新当前状态'}));await screen.findByText('账户已变化，请重新打开本页。');expect(screen.queryByDisplayValue('这份私人作答必须清除')).toBeNull();
 });
 
+it.each([404,409].flatMap(conflict=>[401,403].map(status=>[conflict,status])))('write %i followed by identity failure %i clears all private input and pending controls',async(conflict,status)=>{
+ vi.mocked(reviewCommand).mockRejectedValue(new ReviewError('REVIEW_CONFLICT',conflict));
+ vi.mocked(readSession).mockRejectedValue(new ReviewError(status===403?'PASSWORD_CHANGE_REQUIRED':'UNAUTHORIZED',status));
+ render(<UiLocaleProvider initialLocale="zh-CN"><SessionPanel initial={session({answer:'原账户已保存的私人作答'})}/></UiLocaleProvider>);
+ fireEvent.change(screen.getByRole('textbox',{name:'我的作答'}),{target:{value:'原账户尚未保存的秘密'}});
+ fireEvent.click(screen.getByRole('button',{name:'保存草稿'}));
+ await screen.findByText('账户已变化，请重新打开本页。');
+ expect(screen.queryByRole('textbox')).toBeNull();
+ expect(screen.queryByText(/原账户/)).toBeNull();
+ expect(screen.queryByRole('button')).toBeNull();
+ expect(readSession).toHaveBeenCalledTimes(1);
+});
+
 it('TestRecallDraftNavigationAndLocale: first-edit cancelled link/menu preserves input and focus; refresh triggers unload guard',()=>{
  vi.spyOn(window,'confirm').mockReturnValue(false);const navigate=vi.fn();render(<UiLocaleProvider initialLocale="zh-CN"><SessionPanel initial={session()}/><a href="/knowledge" onClick={navigate}>Menu map</a></UiLocaleProvider>);const input=screen.getByRole('textbox',{name:'我的作答'});input.focus();fireEvent.change(input,{target:{value:'第一次编辑后的草稿'}});fireEvent.click(screen.getByRole('link',{name:'Menu map'}));expect(navigate).not.toHaveBeenCalled();expect(input).toHaveValue('第一次编辑后的草稿');expect(input).toHaveFocus();const unload=new Event('beforeunload',{cancelable:true});window.dispatchEvent(unload);expect(unload.defaultPrevented).toBe(true);
 });

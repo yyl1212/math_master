@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import {useState} from 'react';
 import {useRouter} from 'next/navigation';
 import type {Overview,QueuePage,QueueItem,Ref,Mode,Target} from '@/lib/study-review/types';
 import {useUiI18n} from '@/lib/i18n/provider';
@@ -16,7 +17,7 @@ export function ReviewStartButtons({knowledge,proofAvailable,flow}:{knowledge:Re
  const{t}=useUiI18n();const start=(mode:Mode,target:Target)=>void flow.run('/api/v3/study/review/sessions','POST',{knowledge,mode,target},knowledge);
  return <div className={styles.actions}><button type="button" className="button secondary" disabled={flow.busy||flow.unconfirmed||!flow.authorized} onClick={()=>start('read','statement')}>{t('studyReview.read',{})}</button><button type="button" className="button secondary" disabled={flow.busy||flow.unconfirmed||!flow.authorized} onClick={()=>start('recall','statement')}>{t('studyReview.recall.statement',{})}</button>{proofAvailable&&<button type="button" className="button secondary" disabled={flow.busy||flow.unconfirmed||!flow.authorized} onClick={()=>start('recall','proof')}>{t('studyReview.recall.proof',{})}</button>}</div>
 }
-export function ReviewStartActions({actorId,knowledge,proofAvailable}:{actorId:string;knowledge:Ref;proofAvailable:boolean}){const router=useRouter(),flow=useReviewCommand(actorId,s=>router.push('/learn/review/'+s.sessionId));return <><ReviewStartButtons knowledge={knowledge} proofAvailable={proofAvailable} flow={flow}/><ReviewCommandNotice flow={flow}/></>}
+export function ReviewStartActions({actorId,knowledge,proofAvailable}:{actorId:string;knowledge:Ref;proofAvailable:boolean}){const{t}=useUiI18n(),[sessionId,setSessionId]=useState<string|null>(null),flow=useReviewCommand(actorId,s=>setSessionId(s.sessionId),()=>setSessionId(null));return <>{flow.authorized&&(sessionId?<Link prefetch={false} className="button" href={'/learn/review/'+sessionId}>{t('studyReview.continue',{})}</Link>:<ReviewStartButtons knowledge={knowledge} proofAvailable={proofAvailable} flow={flow}/>)}<ReviewCommandNotice flow={flow}/></>}
 export function ReviewQueue({overview,page,filters}:{overview:Overview;page:QueuePage;filters:Record<string,string>}){
  const{t,locale}=useUiI18n(),router=useRouter(),flow=useReviewCommand(page.actorId,s=>router.push('/learn/review/'+s.sessionId));
  if(!flow.authorized)return <p role="status">{t('studyReview.signedOut',{})}</p>;

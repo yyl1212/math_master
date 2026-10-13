@@ -24,7 +24,7 @@ export function useReviewCommand(actorId:string,onSession?:(session:Session)=>vo
    pending.current=null;setConfirmedRead(false);setUnconfirmed(false);setContentBlocked(false);callback.current?.(result.session);return result.session;
   }catch(e){if(!live.current||g!==generation.current)return null;const error=e instanceof ReviewError?e:new ReviewError('STUDY_REVIEW_NOT_READY');if(error.status===401||error.status===403){clearIdentity();return null}
    if([400,404,409,413,422].includes(error.status)){pending.current=null;setUnconfirmed(false);setConfirmedRead(false);setNotice(reviewErrorKey(error));if(error.sessionId)setActiveId(error.sessionId);
-    if(error.status===409||error.status===404){setContentBlocked(true);if(job.action!=='start'){try{const current=await readSession(job.resource,actorId);if(live.current&&g===generation.current){callback.current?.(current);setContentBlocked(false)}}catch{}}}
+    if(error.status===409||error.status===404){setContentBlocked(true);if(job.action!=='start'){try{const current=await readSession(job.resource,actorId);if(live.current&&g===generation.current){callback.current?.(current);setContentBlocked(false)}}catch(readError){if(live.current&&g===generation.current&&readError instanceof ReviewError&&(readError.status===401||readError.status===403)){clearIdentity();return null}}}}
    }else{setUnconfirmed(true);setNotice(job.receipt?'studyReview.confirmedRead':'studyReview.uncertain');setConfirmedRead(!!job.receipt)}
    return null;
   }finally{if(live.current&&g===generation.current){locked.current=false;setBusy(false)}}

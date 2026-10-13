@@ -529,17 +529,20 @@
     "sqlWhitespace": true
   },
   "operationsTests": 50,
-  "toolTests": 91,
+  "toolTests": 92,
   "productionAuditVulnerabilities": 0,
   "restore": {
     "original14Tables": 117,
     "new15Tables": 122,
     "sequences": 3,
     "restored14ThenGooseUp15": true,
-    "allOldTablesIdentical": true,
     "newTablesEmptyAfterUpgrade": true,
     "populated15RoundTrip": true,
-    "allThreeSchemaDigestsHealthy": true
+    "allThreeSchemaDigestsHealthy": true,
+    "originalBusinessTablesIdentical": true,
+    "oldMigrationRowsAndFlagsIdentical": true,
+    "migrationHistoryExactIncrement": true,
+    "migrationTamperingRejected": true
   },
   "capacity": {
     "learnedAndScheduled": 10000,
@@ -560,5 +563,25 @@
   },
   "observations": [
     "使用原Next启动命令时出现既有standalone提示；取消导航可出现提前关闭流日志，断言均通过，原启动命令和预算保持。"
-  ]
+  ],
+  "finalReviewFixVerification": {
+    "independentReview": {
+      "critical": 0,
+      "importantFixed": 3,
+      "minorDeferred": 2,
+      "declinedToJudge": 0
+    },
+    "frontendFiles": 146,
+    "frontendTests": 640,
+    "typecheck": true,
+    "productionBuild": true,
+    "browserFlow": 4,
+    "browserRecall": 12,
+    "browserSecurity": 14,
+    "originalBrowserScenarios": 330,
+    "uniqueBrowserScenariosTotal": 360,
+    "identityConflictCases": 4,
+    "restoredMigrationTamperingRejected": true,
+    "restoreSeconds": 125.319
+  }
 }

@@ -1,5 +1,14 @@
 import {test,expect,TEST_PASSWORD,fitsViewport} from './fixtures';
 import {reviewLogin,reviewKid,proofKid,REVIEW_BASE,startReviewAPI,reviewJSON,reviewAPI,reviewHeaders,changeReview,showReference} from './study-review-helpers';
+test('starting review from original reading preserves unsaved notes until an explicit guarded link is confirmed',async({page,scene})=>{
+ await scene('study-review');await reviewLogin(page);await page.goto('/knowledge/'+reviewKid+'?mode=notes');
+ const input=page.getByRole('textbox',{name:'Private note',exact:true});await input.fill('尚未保存的原数学笔记 $x^2$');
+ await page.getByRole('button',{name:'Recall statement and conditions',exact:true}).click();
+ const link=page.getByRole('link',{name:'Continue this review',exact:true});await expect(link).toBeVisible();
+ await expect(page).toHaveURL(new RegExp('/knowledge/'+reviewKid+'\\?mode=notes$'));await expect(input).toHaveValue('尚未保存的原数学笔记 $x^2$');
+ await input.focus();page.once('dialog',d=>d.dismiss());await link.click();await expect(input).toHaveValue('尚未保存的原数学笔记 $x^2$');await expect(input).toBeFocused();
+ page.once('dialog',d=>d.accept());await link.click();await expect(page).toHaveURL(/\/learn\/review\/[0-9a-f-]+$/);await expect(page.getByRole('textbox',{name:'My answer',exact:true})).toBeVisible();
+});
 test('private answers stay owner-only, administrator cannot read and account logout clears input',async({page,browser,scene})=>{
  await scene('study-review');await reviewLogin(page);const r=await startReviewAPI(page);await page.goto('/learn/review/'+r.sessionId);await page.getByRole('textbox',{name:'My answer',exact:true}).fill('本人秘密作答必须清除');
  const adminContext=await browser.newContext({baseURL:'http://127.0.0.1:18080'}),admin=await adminContext.newPage();try{await reviewLogin(admin,'auth_admin');expect((await admin.request.get(REVIEW_BASE+'/sessions/'+r.sessionId)).status()).toBe(404);const guest=await browser.newContext({baseURL:'http://127.0.0.1:18080'});try{expect((await guest.request.get(REVIEW_BASE+'/sessions/'+r.sessionId)).status()).toBe(401)}finally{await guest.close()}}finally{await adminContext.close()}

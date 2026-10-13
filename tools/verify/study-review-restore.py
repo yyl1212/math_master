@@ -1,5 +1,6 @@
 """仅用于随机隔离测试库的真实 14/15 快照、恢复和序列核对。"""
 import importlib.util
+from datetime import datetime
 import json
 import os
 from pathlib import Path
@@ -20,6 +21,28 @@ spec.loader.exec_module(snapshot)
 def sequences(container, database, user):
     names = snapshot.sql(container, database, user, "SELECT sequencename FROM pg_sequences WHERE schemaname='public' ORDER BY sequencename;").splitlines()
     return {name: json.loads(snapshot.sql(container, database, user, 'SELECT json_build_object(\'value\',last_value,\'called\',is_called) FROM public.' + snapshot.identifier(name))) for name in names}
+
+
+def migration_rows(container, database, user):
+    return json.loads(snapshot.sql(container, database, user, "SELECT coalesce(json_agg(row_to_json(t) ORDER BY id),'[]'::json) FROM public.goose_db_version t;"))
+
+
+def verify_migration_increment(before, after, previous_sequence):
+    # 旧记录的全部字段必须精确不变，仅允许 Goose 新增一次迁移 15 应用记录。
+    if len(after) != len(before) + 1 or after[:-1] != before:
+        raise ValueError('upgrade-original-migration-rows-changed')
+    row = after[-1]
+    flags = {'learning_enabled', 'correction_enabled', 'topic_study_enabled', 'topic_cutover_enabled', 'managed_knowledge_enabled'}
+    if (set(row) != {'id', 'version_id', 'is_applied', 'tstamp'} | flags
+            or type(row['id']) is not int or row['id'] != previous_sequence + 1
+            or type(row['version_id']) is not int or row['version_id'] != 15
+            or row['is_applied'] is not True or not isinstance(row['tstamp'], str)
+            or any(row[flag] is not False for flag in flags)):
+        raise ValueError('upgrade-migration-increment-invalid')
+    try:
+        datetime.fromisoformat(row['tstamp'])
+    except ValueError as error:
+        raise ValueError('upgrade-migration-timestamp-invalid') from error
 
 
 def remove_target(target):
@@ -88,6 +111,8 @@ def main():
             raise ValueError('wrong-source-migration')
         seq = sequences(container, database, 'postgres')
         snapshot.write_private(folder / (action + '-sequences.json'), json.dumps(seq).encode())
+        if version == 14:
+            snapshot.write_private(folder / 'capture14-migrations.json', json.dumps(migration_rows(container, database, 'postgres')).encode())
         result = restore_and_compare(backup, seq, folder / '14-target.json' if version == 14 else None)
         print(json.dumps({'ok': True, 'version': version, 'tables': result['tables'], 'sequences': len(seq)}))
         return
@@ -107,6 +132,8 @@ def main():
             raise ValueError('upgrade-original-table-changed')
     seq = sequences(container, database, user)
     old_seq = json.loads((folder / 'capture14-sequences.json').read_text())
+    verify_migration_increment(json.loads((folder / 'capture14-migrations.json').read_text()),
+                               migration_rows(container, database, user), old_seq['goose_db_version_id_seq']['value'])
     if set(seq) != set(old_seq):
         raise ValueError('upgrade-original-sequence-inventory-changed')
     for name, value in old_seq.items():
