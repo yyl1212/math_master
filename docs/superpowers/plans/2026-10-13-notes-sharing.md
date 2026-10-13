@@ -155,14 +155,14 @@
 
 **Interfaces:** 新scene命名note-sharing，完全复用原隔离数据库、真实Go/Next和账户fixture；生成不少于12条已批准分享，使用原创数学技术夹具，不导入或批准生产笔记。不得通过新增测试入口回启生产旧业务。
 
-- [ ] 写真实桌面/手机流程：本人编辑和公式预览→保存→申请→admin批准→访客10/登录全部→作者撤回→修改→重新审批；检查原学习进度与事件只按真实学习动作变化。
-- [ ] note-editor-experience.spec.ts补真实SPA离开测试：填未保存正文，依次点击logo/知识地图/账户，取消后原URL和输入保持；浏览器后退取消后仍保留，确认后离开且再次返回不出现旧草稿或多余历史项；语言/预览/同页锚点不弹提示。每个用例使用隔离上下文，不用mock替代真实Next导航。
-- [ ] 写真实安全流程：第11条直接API/URL、匿名分页搜索绕过、跨用户原笔记、会话撤销、旧审批批准、知识下架、同请求重试；前端禁止不能代替HTTP断言。
-- [ ] 保留原managed-knowledge-study、ui-language-managed、site-streamline、生产退场及固定legacy完整回归；仅给修改的具体文件新增审查后的目标SHA，新迁移纳入清单，原13份迁移摘要逐一对照；不得整体重置基线。
-- [ ] 运维先写test_fourteen_requires_note_sharing_health、test_old_managed_binary_cannot_serve_fourteen、test_start_and_activate_probe_sharing、test_future_migration_rejected：14缺noteSharing/探测404/结构false必须拒绝，14完整能力通过，15拒绝，1—13原判定不变。观察RED后修改topicSchemaCompatibility上限和显式noteSharing能力；新增runtime_note_sharing_health(root,revision,sudo)→dict并由verify_topic_runtime在requiredMigration>=14时调用。test_start_and_activate_probe_sharing还断言start先只探Go，web启动就绪后才探Next，activate后才探公网HTTPS；不在web启动前要求代理可达。不扩大原readyz JSON、不删除迁移一致回退检查。
-- [ ] 新schema缺失/损坏、冻结快照不可变、Down拒绝有数据、不同代码/迁移版本回退拒绝和恢复表摘要/序列均有隔离证据。原readyz响应形状不扩字段，新增note-sharing API的schema检查作为发布前探测。
-- [ ] 运行前端全测试、类型、API生成一致性、生产/固定兼容构建；Go按原批次预算执行，新增批次独立；每个浏览器文件独立命令，双视口原globalTimeout保持480秒。
-- [ ] 使用superpowers:requesting-code-review进行一次独立整分支代码与兼容审查；修复阻塞项，仅重跑受影响范围，再记录最终commit的验证。
+- [x] 写真实桌面/手机流程：本人编辑和公式预览→保存→申请→admin批准→访客10/登录全部→作者撤回→修改→重新审批；检查原学习进度与事件只按真实学习动作变化。
+- [x] note-editor-experience.spec.ts补真实SPA离开测试：填未保存正文，依次点击logo/知识地图/账户，取消后原URL和输入保持；浏览器后退取消后仍保留，确认后离开且再次返回不出现旧草稿或多余历史项；语言/预览/同页锚点不弹提示。每个用例使用隔离上下文，不用mock替代真实Next导航。
+- [x] 写真实安全流程：第11条直接API/URL、匿名分页搜索绕过、跨用户原笔记、会话撤销、旧审批批准、知识下架、同请求重试；前端禁止不能代替HTTP断言。
+- [x] 保留原managed-knowledge-study、ui-language-managed、site-streamline、生产退场及固定legacy完整回归；仅给修改的具体文件新增审查后的目标SHA，新迁移纳入清单，原13份迁移摘要逐一对照；不得整体重置基线。
+- [x] 运维先写test_fourteen_requires_note_sharing_health、test_old_managed_binary_cannot_serve_fourteen、test_start_and_activate_probe_sharing、test_future_migration_rejected：14缺noteSharing/探测404/结构false必须拒绝，14完整能力通过，15拒绝，1—13原判定不变。观察RED后修改topicSchemaCompatibility上限和显式noteSharing能力；新增runtime_note_sharing_health(root,revision,sudo)→dict并由verify_topic_runtime在requiredMigration>=14时调用。test_start_and_activate_probe_sharing还断言start先只探Go，web启动就绪后才探Next，activate后才探公网HTTPS；不在web启动前要求代理可达。不扩大原readyz JSON、不删除迁移一致回退检查。
+- [x] 新schema缺失/损坏、冻结快照不可变、Down拒绝有数据、不同代码/迁移版本回退拒绝和恢复表摘要/序列均有隔离证据。原readyz响应形状不扩字段，新增note-sharing API的schema检查作为发布前探测。
+- [x] 运行前端全测试、类型、API生成一致性、生产/固定兼容构建；Go按原批次预算执行，新增批次独立；每个浏览器文件独立命令，双视口原globalTimeout保持480秒。
+- [x] 使用superpowers:requesting-code-review进行一次独立整分支代码与兼容审查；修复阻塞项，仅重跑受影响范围，再记录最终commit的验证。
 - [ ] 通过Git提交、推送codex/notes-sharing并创建指向master的MR，附到当前任务；必需CI必须对应最新HEAD。MR说明写最终行为、兼容变更、测试和生产迁移边界。
 - [ ] 用户审阅并完成合并门禁后，正式发布另按既有运维流程准备备份、隔离恢复、整组代码与14迁移，核对所有原笔记指纹和原学习记录；代码MR通过不代表已部署。
 

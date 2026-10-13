@@ -3900,7 +3900,8 @@
       "tests/e2e/note-sharing-security.spec.ts",
       "tests/e2e/note-sharing.spec.ts",
       "tests/e2e/ui-language-notes.spec.ts",
-      "docs/operations/2026-10-13-note-sharing-acceptance.md"
+      "docs/operations/2026-10-13-note-sharing-acceptance.md",
+      "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md"
     ]
   },
   "legacySnapshots": {
@@ -5173,7 +5174,7 @@
     "frontend/src/features/knowledge-admin/list.tsx": "cf90611402eeeeb3e37e422c27340adc32bf04c8be80ec4e7e7c543c83330848",
     "frontend/src/features/knowledge-admin/upload.tsx": "1d5cb43680c487863bc7d4c7bdcc91e33ebbf8089591ed6c4b2e2efe8d45a604",
     "frontend/src/features/reading/current-knowledge-view.tsx": "35d04499f71beb3cb07f3dd722bfad23b6cfb2bc598a72c1ba08625bd5524a1c",
-    "frontend/src/features/study/account-boundary.tsx": "f3f3214a40d408bc41ff086540f8abff9064e68409518286aebb56db0412c3a4",
+    "frontend/src/features/study/account-boundary.tsx": "7c1afbd5ea950c57963bf699fb4b0525c2004afc3ffccfdbf929c59af9c0e5d0",
     "frontend/src/features/study/content-reminders.test.tsx": "0706b1525fcb6eb4559c1a87e95b0be2eb5fdcc19634b1c1544ff0c8df04f157",
     "frontend/src/features/study/content-reminders.tsx": "1b22e6c688d96854113918d02b3dacfd85787c228fe61bb5f2e25ee09719ab1b",
     "frontend/src/features/study/experience-mode.ts": "70a0ee163f9682d4a448323308e18eb8e8038568cd99ee3ece3d284bda7d9dc4",
@@ -5190,8 +5191,8 @@
     "frontend/src/features/study/managed-learning-view.tsx": "7ddd6cf01d581543c319089af1a5119b7d56c28cbe48baf602ac450eee19594c",
     "frontend/src/features/study/managed-note-editor.tsx": "1c5bd406c40dcb578f1df1155cdfcd604e208238df46747e1e982d6748e849c2",
     "frontend/src/features/study/managed-pages.test.tsx": "77251029ae39ce6669573346f02bae64bd6f19518561642da19a4dff2c3400fb",
-    "frontend/src/features/study/managed-pages.tsx": "c35ce076587dd3bac0ea595c1ed1fa3e0a2d4583a873a8bf71c86b8654634dd1",
-    "frontend/src/features/study/note-editor.test.tsx": "75ab9f1e577f3f66b5f48af5194b16e074c99bef882e50709ffc82a6b8c233fc",
+    "frontend/src/features/study/managed-pages.tsx": "241c29e253716a3f35f0955dc52978c62f3dd5ccbfb8afa218b08fd26164ffc7",
+    "frontend/src/features/study/note-editor.test.tsx": "320770269fb54fd79e9fc0cd25ee1a4aadb55c9a2c35ef5a72e63c076f780838",
     "frontend/src/features/study/note-editor.tsx": "3e08a00dec0acc7e29c7e7b0ca2ea7ddc8e6b29e1b39aead2ad7c062ca2c9d70",
     "frontend/src/features/study/overview.tsx": "3fd44ccddd6a586cdcd36fc4195a4a5aad533828be679a607acd6b95a3602a81",
     "frontend/src/features/study/pages.tsx": "36d9d8d2dc250c7f5f5e34d0abad4c8072f28fdbd2306e091de8f385d8212602",
@@ -5407,7 +5408,7 @@
     "backend/internal/store/note_sharing_write_test.go": "c5734a5a6c571f43c8a45a9873b895f374c06a8f5a9d56baae3b57933192dd81",
     "db/migrations/00014_note_sharing.sql": "23630e28bc4a0f7da6c1374cced5a2942736833b2b28dbdbb65173611099a5b3",
     "docs/operations/note-sharing.md": "3e666dafee4df8cf0e345c033a40c2031c522f7790c42ded5f4c94df4a69bbd8",
-    "docs/superpowers/plans/2026-10-13-notes-sharing.md": "b03b00391cac958cb9ae26085e4ffeabe264f85c15124e8be8be6dfb54f9f4a6",
+    "docs/superpowers/plans/2026-10-13-notes-sharing.md": "363df29606761d60fdea0ffd66959c4398c8e27bfcb2b4dc56ae474c564a03ef",
     "docs/superpowers/reports/2026-10-13-notes-sharing-plan-review.md": "06c9f60d8bc6a87bd5794ea7377f9aca5671aff5cdc42713dfec9f8645ce8fc0",
     "docs/superpowers/specs/2026-10-13-notes-sharing-design.md": "db9a4f99d675eb848d1420d7479a052013debe15f7abb16f1ee32f6971b7b72e",
     "frontend/src/app/admin/note-shares/[id]/page.tsx": "a45d35543a4d7701a577abed93c61de5a10a8dd48d531170b90f49d55359d644",
@@ -5415,7 +5416,7 @@
     "frontend/src/app/notes/[id]/page.tsx": "fae9990520f73dc21754b5eb427fa0ac4272b87808d8ea2eb08aec8a65d267c6",
     "frontend/src/app/notes/page.tsx": "5fec269d92130d0687bdc0956848572075748038dc43880760efa3c6f6c86f82",
     "frontend/src/features/notes/admin-share-queue.tsx": "ffe0229ff91c958b49ac82a99ae88ff64445e2d12c410f0bec20f82cd526a9a6",
-    "frontend/src/features/notes/admin-share-view.tsx": "5151dc13b60263e4d1c9587a8830cfcdd3c52798ada7c43fc664a4d142eca2f1",
+    "frontend/src/features/notes/admin-share-view.tsx": "a1d319dc8b655281052b9af56c8584c6a9b9f0ddbfbd3058687cc694fde61601",
     "frontend/src/features/notes/current-reading.test.tsx": "3fd46a446b5828d0092fbf42e64d112ebe2783ec2b1c293dcc9b3bb746c696db",
     "frontend/src/features/notes/note-editor.test.tsx": "2edc7c9f310447b8267273a115709a570def1e7431fb5a6d4a5879a05c2d7b8f",
     "frontend/src/features/notes/note-leave-guard.test.tsx": "898e439138f9bf484468d3d652e9050be0293115b00358599d24949c5a7677c6",
@@ -5428,9 +5429,9 @@
     "frontend/src/features/notes/own-note-list.test.tsx": "5ce06af436408dbdb2057a854bd11a3d92acccfa1890ef55875315e7d4a4e05b",
     "frontend/src/features/notes/own-note-list.tsx": "43cb9815197873e3c763fbf86178fba817ae67e5da9e611c60baa5007f43fff8",
     "frontend/src/features/notes/share-controls.tsx": "98e8f945389662390898a32c66083c5919ab3827db82d00b3a49751856c02a79",
-    "frontend/src/features/notes/shared-note-list.tsx": "0b94d3273e0fadc4a19c9db0198d3ad0870740a9e38706ca0c7c4505ecdd96c4",
+    "frontend/src/features/notes/shared-note-list.tsx": "8b394f6b30b3964b4f10637ded6f7c96c0f56fb5ab716745491a2dd2d141467b",
     "frontend/src/features/notes/shared-note-view.tsx": "10f9d1660ea914ced23ed826092b516292b7425e1979c978670200c476391e02",
-    "frontend/src/features/notes/shared-pages.test.tsx": "0992bc97dceb4307afc9d9e617d4574efbd45ab1d9f6b78950d78a3e5a457c13",
+    "frontend/src/features/notes/shared-pages.test.tsx": "1b64adf05f10a5c35fa4cbc46be1d58c71e77ad92243fd957a9cbc1706d2c863",
     "frontend/src/lib/api/note-sharing-proxy.test.ts": "430937f2103802d67cf16ffb9156ba2e73f48904feb31ca1df61bd419a9e1c80",
     "frontend/src/lib/api/note-sharing-proxy.ts": "8a826ac6c94f438a0bfa17667101e6d062bf84e03b84e987c68598a16be9ec80",
     "frontend/src/lib/note-sharing/client.test.ts": "1e2b16849fb09b3fab36c310dc36e0a38e04290538dd7bd3643058bdd5d2f5b6",
@@ -5441,10 +5442,11 @@
     "frontend/src/lib/note-sharing/server-client.ts": "881b8cb4140b6c564acfc30abaebbbf5605258688e54f8cba34da0fa6ffeb1f2",
     "frontend/src/lib/note-sharing/types.ts": "78ea419114b9a40ef4f91bd9e2e931bb9fd48c9af9023eb81047469f83c9f0c1",
     "frontend/src/styles/notes.module.css": "6e3b49f42109d847bd96453a734a00e3ac4dae5693ca11c97c3762c521b7c3da",
-    "tests/e2e/note-editor-experience.spec.ts": "0de535eb7b96ad00b9daccf3a062f83570bf9d358690b0e3480fea00cd2091dd",
+    "tests/e2e/note-editor-experience.spec.ts": "1f4c64cff27785619c87e138323b95c6213371f7890d3b2077beb3822bf1d50b",
     "tests/e2e/note-sharing-security.spec.ts": "390eac441215f7d20c9d72a335af248dae6a2804baf9e9fa93201f7ae99d65b6",
     "tests/e2e/note-sharing.spec.ts": "8756a07d8afa7ab41c0901d086bff0a725556b21e3c3260a79be1412d509cc9e",
-    "tests/e2e/ui-language-notes.spec.ts": "2c1ba1d8d7ba0b837f8b4fd1723f772fe4d80e8af1195fd21a92eb9de5af419e",
-    "docs/operations/2026-10-13-note-sharing-acceptance.md": "3d6fe4ef972993893aadb9132d1054740850bfc1a23b09d54e23f1df1ef3f60e"
+    "tests/e2e/ui-language-notes.spec.ts": "0dbad7f8e8f11a847834d85284bb8954ecb27e848b8c4e2068f73f98ad6378f8",
+    "docs/operations/2026-10-13-note-sharing-acceptance.md": "0cd451290c79f7e2178a902c98846fe8ad2e46b88bd20904d85559825a18c774",
+    "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md": "8c64932df04ad42c99932ed0eb89204f094443c8f0551efc35cfb93692fee472"
   }
 }
