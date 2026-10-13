@@ -25,7 +25,7 @@
 | /learn?mode=review | 筛选已完成或正在复习的知识，没有到期时间、质量或作答 | 新增独立复习工作区；原链接可继续访问 |
 | SourcePoint | statement、conditions、scope、system、equations、proof、proof_scope | 从准确已发布版本提取参考，保留原文本，不生成第二套答案 |
 | SafeMarkdown、NoteToolbar、NotePreview、NoteLeaveGuard | 受限 Markdown / KaTeX、输入辅助、导航离开保护 | 复用渲染、工具栏及守卫；默写草稿与私人笔记独立 |
-| knowledgeTx、knowledgeIdentity、managedStudyCurrent、readManagedRecord | 原身份保护、内容行锁、8 秒事务、1 秒锁等待、提交前身份复核 | 新仓储复用；只增加新错误识别，不改变旧请求结果 |
+| knowledgeTx、knowledgeIdentity、managedStudyCurrent、readManagedRecord | 原写事务身份保护、内容行锁、8 秒事务、1 秒锁等待 | 新写仓储复用；新私有读单独使用允许行锁的Read Committed事务，不承接原只读RR的撤销竞争语义 |
 | migration 14 与独立分享结构摘要 | 笔记冻结、管理员审批、分享权限已经上线 | 分享结构及所有现有迁移逐字节保持 |
 | #58 夹具复位 | 一次 Exec、单事务复位，保持真实认证流程 | 在同一 TRUNCATE 中追加新表，保持原顺序、事务及预算 |
 
@@ -65,7 +65,7 @@ flowchart TD
     History --> DB
 ```
 
-新模块 backend/internal/studyreview 负责类型、参考提取及排期算法；store 负责真实原周期与新会话的原子事务；新 HTTP/Next 代理负责严格路由、鉴权及边界；前端负责作答和人工比对。
+新模块 backend/internal/studyreview 负责类型、参考提取及排期算法；store 负责真实原周期与新会话的原子写事务、局部强身份读事务；新 HTTP/Next 代理负责严格路由、鉴权及边界；前端负责作答和人工比对。
 
 不通过调用旧 HTTP 接口串联多次提交，不复刻独立账号权限体系，不让浏览器决定参考正文、内容摘要、周期 ID、排期阶段或真实时间。
 
@@ -93,7 +93,7 @@ flowchart TD
 
 ### 5.3 知识点默写
 
-选择“陈述与条件”或“证明”。陈述模式题干只显示知识标题、类型及任务说明；待默写目标为 statement、conditions、scope、system、equations 中实际非空内容。证明模式题干显示原陈述、条件、范围和体系；目标为已有 proof 与 proof_scope。没有实际非空 proof 的知识不提供证明默写；不生成证明或替代空字段。
+选择“陈述与条件”或“证明”。陈述模式题干只显示知识标题、类型及任务说明；待默写目标为 statement、conditions、scope、system、equations 中实际非空内容。证明模式题干显示原陈述、条件、范围、体系和非空equations，确保“下式成立”的公式命题完整；目标为已有 proof 与 proof_scope。没有实际非空 proof 的知识不提供证明默写；不生成证明或替代空字段。
 
 会话创建时冻结题干、目标参考和准确 Ref。陈述目标、证明目标在查看参考前均不进入该会话的 JSON、SSR HTML 或 React 序列化数据，不能只用 CSS 隐藏。知识本来公开可阅读，因此这是自测流程，不是考试保密系统。
 
@@ -109,9 +109,13 @@ flowchart TD
 
 同一账户、知识点最多一个 working 或 compared 会话。重复发起用原键确认；不同输入同键冲突。另一个标签页若已有活动会话，返回准确会话ID，界面提示继续或明确放弃，不能自动覆盖草稿。
 
-保存、查看参考、自评、放弃分别使用固定幂等键和输入；请求结果未确认时只允许确认原请求。旧回执返回原结果元数据，不重新修改安排、不复活已放弃会话；确认后重新读取当前会话和安排。
+发起、保存、查看参考、自评、放弃的所有写接口均返回无正文CommandReceipt；包含actorId、action、sessionId、knowledgeId、reviewId、准确Ref、结果sequence/status/draftRevision、appliedAt，grade另含自评与当时安排元数据。回执不含题干、参考、作答或私人笔记；随后GET当前Session/安排，不能把原回执状态当成当前界面。
+
+每个写动作使用固定幂等键和输入；请求结果未确认时只允许确认原请求。服务器先核验当前身份、合法输入、actor/action/key与资源/输入摘要，命中旧回执即返回原元数据；只有新请求才检查当前Ref、知识可用性、活动状态与CAS。因此完成、放弃、改版、下架后仍可确认原命令，但不会再次修改安排或复活会话。确认写已成功而GET失败时显示“操作已确认，重新读取”，不重发新命令；读取到改版/下架状态按正文投影规则处理。
 
 本人历史使用 /learn/review/history，默认20、最大50，以 gradedAt/sessionId 倒序游标；可筛选知识、主题、自评及模式。列表只含元数据；单次详情显示本人答案、自评、时间和当次内容版本。原 /learn 的学习历史及六种事件不扩展 DTO 或枚举。
+
+历史自评及当次安排来自不可变graded事件/回执，不从后来覆盖的schedule推断；详情分别标注“当次安排”和“当前下次复习”，避免历史被后续复习改写。
 
 匿名、其他账户及仅持有管理员角色都不能读取别人的答案或草稿；越权单项404、未登录401、强制改密403。切换账户、退出及迟到响应立即清除旧账户私人显示和内存输入。所有私有响应 private, no-store；所有新页面 force-dynamic，链接关闭预取。
 
@@ -122,11 +126,11 @@ flowchart TD
 | 自评 | 新阶段 | 下次时间 |
 | --- | --- | --- |
 | 忘记 forgotten | 0 | 本次数据库完成时间 + 10分钟 |
-| 不熟 uncertain | max(0, 原阶段-1) | 本次数据库完成时间 + 1天 |
+| 不熟 uncertain | max(0, 有效阶段-1) | 本次数据库完成时间 + 1天 |
 | 熟悉 familiar（首评、已到期或内容更新） | min(5, 有效阶段+1) | 新阶段1/2/3/4/5分别为 +1/+3/+7/+14/+30天 |
 | 熟悉 familiar（同内容提前复习） | 保持原阶段 | 保持已有下次时间，防止短时间重复点熟悉连续升级 |
 
-一天等于86400秒。没有安排或最后评价Ref与当前Ref不同，有效阶段为0；新内容第一次熟悉从1天开始。提前复习的忘记、不熟仍按本次新评价调整。自评一次只能产生一条 graded 事件和一次安排更新。
+一天等于86400秒。所有三种自评都先计算有效阶段：没有安排或最后评价Ref与当前Ref不同即为0，否则为原阶段；新内容第一次熟悉从1天开始。例：A版本阶段5 → B改版评不熟，是阶段0、次日复习；B次日熟悉是阶段1、再隔1天，不得跳到30天。提前复习的忘记、不熟仍按本次新评价调整。自评一次只能产生一条 graded 事件和一次安排更新。
 
 数据库时间、已存在安排和准确内容Ref作为依据；客户端不能提交 dueAt、stage、gradeAt 或伪造“已经到期”。缺自评不能完成新会话；取消或保存草稿不改变排期。到期并不自动修改旧学习状态或创建事件。
 
@@ -142,13 +146,17 @@ flowchart TD
 
 ## 8. 内容改版、下架与参考边界
 
-发起、保存草稿、查看参考及自评均需当前可用知识；参考由服务器从准确 Ref 提取，不接受客户端参考正文。固定题干与目标合计最多512KiB规范化UTF-8；超过上限返回422 REVIEW_REFERENCE_TOO_LARGE，不截断、不生成摘要。原知识阅读和原手动复习继续可用。
+新发起、保存草稿、查看参考及自评需当前可用知识；原命令确认先按回执规则处理。参考由服务器从准确Ref提取，不接受客户端参考正文。固定题干与目标合计最多512KiB规范化UTF-8，同时须满足下述实际JSON序列化预算；任一上限不满足，发起在原周期/新会话/事件写入之前返回422 REVIEW_REFERENCE_TOO_LARGE，不截断、不生成摘要。原知识阅读和原手动复习继续可用。
 
-内容发生变化时保留本人草稿或已冻结答案，提示“知识内容已更新，需要重新开始”；旧会话不能继续写、显示目标参考或自评。放弃旧会话无需知识当前可用，再明确发起当前版本；不静默换参考，不默认复制旧答案。
+序列化使用新Go HTTP发送所用的同一json.Marshal规则，包含HTML转义。题干只出现在Session.prompt；Reference只包含目标sections与SHA，不重复题干。创建时验证prompt + reference实际JSON合计≤589824字节，预留最大答案393216字节（65536原字节的保守6倍转义）及整个固定元数据/外层envelope≤65536字节；三者合计≤1048576。元数据的准确标量、两语言标题、时间、Ref及最大合法序列须以最大形状验证，不只测初始空值；单项完整标题各≤1024字符且4096字节，过长同样在发起前422。列表标题各至多128字符，超长省略，仅限导航元数据，不截断任何数学题干或参考。
+
+保存/比对仍检查最大答案和精确整体序列化长度，违反不落库；合法请求从创建起已保留足够空间，不能等比对提交后才由代理503拒绝。测试包含引号/反斜杠/HTML转义密集参考、完整大证明题干、最大答案及元数据的组合，真实Go→Next响应须在1MiB内。
+
+内容发生变化时保留本人草稿或已冻结答案，提示“知识内容已更新，需要重新开始”；旧会话不能继续写、显示任何冻结官方题干/目标参考或自评。放弃旧会话无需知识当前可用，再明确发起当前版本；不静默换参考，不默认复制旧答案。
 
 知识下架或删除后，队列不显示目标正文，历史保留本人答案、元数据及“知识暂不可用”；冻结参考也不返回。恢复公开后，同一Ref的历史参考可重新查看，但已放弃会话不会自动恢复。旧Ref历史仅保留本人答案和版本信息，不把已失效内容作为“当前正确参考”展示。
 
-参考快照是内部不可变审计数据，所有交付正文都经过当前知识可用性及Ref相等检查。比对或历史打开中若收到改版/下架结果，清除当前展示的参考；再次打开或刷新均重新验证。公开知识本身可见不构成对其他私人答案的授权。
+参考快照是内部不可变审计数据，所有交付的官方正文都经过当前知识可用性及Ref相等检查。不论working/compared/completed，只要当前不可用或Ref不同，Session.prompt为空、Reference=null；证明题干内的陈述、条件、范围、体系、公式也全部隐藏，仅保留本人答案和允许元数据。比对或历史打开中若收到改版/下架结果，同步清除题干及参考；再次打开或刷新均重新验证。公开知识本身可见不构成对其他私人答案的授权。
 
 ## 9. 数据、事务、容量与接口
 
@@ -167,6 +175,10 @@ DB约束保证模式/目标、状态对应时间、只有compared可grade、完�
 会话初始sequence=1、draftRevision=0，opened事件sequence=1。每个新成功写动作sequence+1；draft和compare均draftRevision+1，其他动作不改变该revision；同键确认均不增长。read会话answer=NULL、unanswered=false；recall保存草稿可为空，compare的unanswered必须与去除Unicode空白后是否为空一致，空白不能通过familiar或uncertain完成。
 
 统一锁序：原全局身份锁 → 原身份行 → 当前知识行 → 原study record → schedule → session → snapshot/事件/回执。不同标签和原API使用同一知识/原记录串行化。原8秒事务、1秒锁等待保持；当前内容与提交身份必须在持锁及提交前验证，任一步失败全部回滚。
+
+新写事务仍复用原knowledgeTx。新私有GET使用局部studyReviewReadTx：允许锁的Read Committed事务，8秒/1秒，先取原共享身份保护锁，再knowledgeIdentity(write=false,lock=true,admin=false)，按现有实现锁账户和会话；需要正文时锁当前知识行并在投影后提交前再次检查身份及有效时间。GET不检查写CSRF或幂等键，不更新会话last_seen等业务数据。队列/概览用单条SQL快照得计数/列表，SSR顺序读取而非并发争同一账户锁。
+
+边界明确为事务顺序：撤销或强制改密先提交则拒绝且无正文；读取先取得身份锁，撤销等待或按原1秒锁规则失败，读取按先行事务完成，随后前端清除迟到的旧账户显示。不能设计“撤销已提交，但RR末尾仍以旧快照批准交付”的流程。公开双bool health可用只读RR；原knowledgeTx读实现及旧接口保持，不在此阶段修复旧模块。
 
 主要索引：schedules(owner,due_at,knowledge_id)、sessions活动部分唯一(owner,knowledge_id)、sessions(owner,graded_at DESC,session_id DESC)、events(session_id,sequence)。队列只取标题和安排元数据，分页不返回答题正文；当前主题过滤避免多关系重复行。
 
@@ -195,7 +207,8 @@ DB约束保证模式/目标、状态对应时间、只有compared可grade、完�
 | --- | --- |
 | 新 backend/internal/studyreview/{model,repository,schedule,reference,validate}.go 及对应测试 | 新领域、严格类型与算法 |
 | 新 db/migrations/00015_study_review.sql | 五表、独立函数/约束/索引 |
-| 新 backend/internal/store/study_review_{schema,read,write,cycle,receipt}.go 及对应真实DB测试 | 原子仓储和原周期衔接 |
+| 新 backend/internal/store/study_review_{schema,tx,read,write,cycle,receipt}.go 及对应真实DB测试 | 原子写仓储、局部强身份读与原周期衔接 |
+| 改 backend/internal/store/note_sharing_schema_test.go、note_sharing_write_test.go | 原迁移14用例精确锚定14/缺14，不能把新增15的Down误当14 |
 | 改 backend/internal/store/knowledge_admin_tx.go | 仅识别新领域错误，旧映射保持 |
 | 新 backend/internal/httpapi/study_review_{routes,json,test}.go；改 application.go、knowledge_admin_routes.go、backend/cmd/server/main.go | 接线、新严格路由与能力注入 |
 | 改 api/openapi.yaml、frontend/src/lib/api/generated.d.ts | 只追加新路径/组件，不扩展旧 DTO |
@@ -218,6 +231,8 @@ DB约束保证模式/目标、状态对应时间、只有compared可grade、完�
 设计重点：旧手动finish与新自评竞争、同周期唯一grade、更新/下架时隐藏参考、原序列/事实不改、极端内容与容量必须分别证明。开发前须用真实数据库验证新的约束和锁序；源码可行性审查不等同于实现或生产性能已通过。
 
 保持1—14所有迁移、旧API路径/DTO、六事件枚举、原四状态、旧来源档案、原分享默认私有/审批/冻结/撤回/最新10条规则。不能覆盖已有历史快照、放宽保护摘要、跳过旧用例或降低容量。
+
+已有分享迁移测试使用Up(latest)、断言14并Down一次。新增15后必须把该专用schema夹具显式UpTo14；缺14场景明确构造13或隔离DownTo13。保留maxVersion==14、空14可Down、已用14不可Down及缺14原笔记继续可写的断言目的，不改成>=14、不删断言；另增15上原分享可用测试。这两个测试文件只登记受审的准确目标和必要原字节快照，不改旧迁移。
 
 ops当前只接受迁移上限14，必须增加受审的15规则：保持1—14判定；15要求原taxonomy/study/retirement/managed/noteSharing及studyReview能力全满足；16及未来版本拒绝。Go启动后探测新健康，再探测Next代理，激活可信公网后再探测；原readyz形状保持。
 
