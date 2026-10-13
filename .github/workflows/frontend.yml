@@ -107,6 +107,14 @@ jobs:
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- site-streamline.spec.ts ui-language-streamline.spec.ts
       - name: 统一表单控件双视口验证
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- form-controls.spec.ts
+      - name: 笔记分享审批闭环
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- note-sharing.spec.ts
+      - name: 笔记分享公开窗口与会话安全
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- note-sharing-security.spec.ts
+      - name: 笔记草稿导航与窄屏阅读
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- note-editor-experience.spec.ts
+      - name: 笔记分享审批双语
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- ui-language-notes.spec.ts
       - name: 保留失败诊断
         if: failure()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

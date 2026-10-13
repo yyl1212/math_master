@@ -631,6 +631,71 @@
       "scenarios": [
         "tests/e2e/ui-language-taxonomy.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/app/notes/page.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.notReady",
+        "notes.signedOut",
+        "page.notes"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/notes/[id]/page.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.notPublic",
+        "notes.notReady",
+        "notes.signedOut",
+        "page.notes.id"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/note-shares/page.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.notReady",
+        "notes.signedOut",
+        "page.admin.note-shares"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/admin/note-shares/[id]/page.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.notReady",
+        "notes.signedOut",
+        "page.admin.note-shares.id"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
     }
   ],
   "components": [
@@ -650,13 +715,90 @@
         "auth-status.review.content.9e6e6c",
         "auth-status.review.questions.e2fd5a",
         "auth-status.sign.in.bfd402",
-        "auth-status.write.questions.4f6b81"
+        "auth-status.write.questions.4f6b81",
+        "notes.allStates",
+        "notes.allTopics",
+        "notes.approval",
+        "notes.approvalIntro",
+        "notes.approve",
+        "notes.backQueue",
+        "notes.backShared",
+        "notes.bold",
+        "notes.by",
+        "notes.cancel",
+        "notes.characters",
+        "notes.counterexamples",
+        "notes.displayMath",
+        "notes.edit",
+        "notes.empty",
+        "notes.examples",
+        "notes.explanations",
+        "notes.filter",
+        "notes.guestIntro",
+        "notes.hide",
+        "notes.history",
+        "notes.inlineMath",
+        "notes.invalid",
+        "notes.italic",
+        "notes.leave",
+        "notes.limit",
+        "notes.list",
+        "notes.locked",
+        "notes.management",
+        "notes.materialChanged",
+        "notes.memberIntro",
+        "notes.mine",
+        "notes.misconceptions",
+        "notes.next",
+        "notes.nonePending",
+        "notes.notPublic",
+        "notes.notReady",
+        "notes.personal",
+        "notes.preview",
+        "notes.previewShare",
+        "notes.published",
+        "notes.quote",
+        "notes.reading",
+        "notes.reason",
+        "notes.related",
+        "notes.request",
+        "notes.retry",
+        "notes.return",
+        "notes.review",
+        "notes.saveFirst",
+        "notes.saved",
+        "notes.saving",
+        "notes.search",
+        "notes.shared",
+        "notes.signIn",
+        "notes.signedOut",
+        "notes.stale",
+        "notes.state",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.submit",
+        "notes.submitted",
+        "notes.title",
+        "notes.topic",
+        "notes.unavailable",
+        "notes.uncertain",
+        "notes.unsaved",
+        "notes.updated",
+        "notes.view",
+        "notes.withdrawPending",
+        "notes.withdrawShared",
+        "notes.write"
       ],
       "rawDataAreas": [
         "英文标题与已有中文对照",
         "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
       ],
       "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts",
         "tests/e2e/ui-language-public.spec.ts"
       ]
     },
@@ -753,6 +895,82 @@
       "complete": true,
       "messageKeys": [
         "nav.knowledgeMap",
+        "notes.allStates",
+        "notes.allTopics",
+        "notes.approval",
+        "notes.approvalIntro",
+        "notes.approve",
+        "notes.backQueue",
+        "notes.backShared",
+        "notes.bold",
+        "notes.by",
+        "notes.cancel",
+        "notes.characters",
+        "notes.counterexamples",
+        "notes.displayMath",
+        "notes.edit",
+        "notes.empty",
+        "notes.examples",
+        "notes.explanations",
+        "notes.filter",
+        "notes.guestIntro",
+        "notes.hide",
+        "notes.history",
+        "notes.inlineMath",
+        "notes.invalid",
+        "notes.italic",
+        "notes.leave",
+        "notes.limit",
+        "notes.list",
+        "notes.locked",
+        "notes.management",
+        "notes.materialChanged",
+        "notes.memberIntro",
+        "notes.mine",
+        "notes.misconceptions",
+        "notes.next",
+        "notes.nonePending",
+        "notes.notPublic",
+        "notes.notReady",
+        "notes.personal",
+        "notes.preview",
+        "notes.previewShare",
+        "notes.published",
+        "notes.quote",
+        "notes.reading",
+        "notes.reason",
+        "notes.related",
+        "notes.request",
+        "notes.retry",
+        "notes.return",
+        "notes.review",
+        "notes.saveFirst",
+        "notes.saved",
+        "notes.saving",
+        "notes.search",
+        "notes.shared",
+        "notes.signIn",
+        "notes.signedOut",
+        "notes.stale",
+        "notes.state",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.submit",
+        "notes.submitted",
+        "notes.title",
+        "notes.topic",
+        "notes.unavailable",
+        "notes.uncertain",
+        "notes.unsaved",
+        "notes.updated",
+        "notes.view",
+        "notes.withdrawPending",
+        "notes.withdrawShared",
+        "notes.write",
         "site-header.a.world.of.ideas.883eb5",
         "site-header.corrections.review.fc4dc2",
         "site-header.feedback.review.19092b",
@@ -769,6 +987,7 @@
         "知识正文、证明、例题、来源、原始 SVG、原始标识与版本"
       ],
       "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts",
         "tests/e2e/ui-language-public.spec.ts"
       ]
     },
@@ -3607,15 +3826,92 @@
       "messageKeys": [
         "managed.admin",
         "managed.learn",
-        "managed.statement",
+        "managed.map",
         "managed.note",
-        "managed.map"
+        "managed.statement",
+        "notes.allStates",
+        "notes.allTopics",
+        "notes.approval",
+        "notes.approvalIntro",
+        "notes.approve",
+        "notes.backQueue",
+        "notes.backShared",
+        "notes.bold",
+        "notes.by",
+        "notes.cancel",
+        "notes.characters",
+        "notes.counterexamples",
+        "notes.displayMath",
+        "notes.edit",
+        "notes.empty",
+        "notes.examples",
+        "notes.explanations",
+        "notes.filter",
+        "notes.guestIntro",
+        "notes.hide",
+        "notes.history",
+        "notes.inlineMath",
+        "notes.invalid",
+        "notes.italic",
+        "notes.leave",
+        "notes.limit",
+        "notes.list",
+        "notes.locked",
+        "notes.management",
+        "notes.materialChanged",
+        "notes.memberIntro",
+        "notes.mine",
+        "notes.misconceptions",
+        "notes.next",
+        "notes.nonePending",
+        "notes.notPublic",
+        "notes.notReady",
+        "notes.personal",
+        "notes.preview",
+        "notes.previewShare",
+        "notes.published",
+        "notes.quote",
+        "notes.reading",
+        "notes.reason",
+        "notes.related",
+        "notes.request",
+        "notes.retry",
+        "notes.return",
+        "notes.review",
+        "notes.saveFirst",
+        "notes.saved",
+        "notes.saving",
+        "notes.search",
+        "notes.shared",
+        "notes.signIn",
+        "notes.signedOut",
+        "notes.stale",
+        "notes.state",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.submit",
+        "notes.submitted",
+        "notes.title",
+        "notes.topic",
+        "notes.unavailable",
+        "notes.uncertain",
+        "notes.unsaved",
+        "notes.updated",
+        "notes.view",
+        "notes.withdrawPending",
+        "notes.withdrawShared",
+        "notes.write"
       ],
       "rawDataAreas": [
         "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-managed.spec.ts"
+        "tests/e2e/ui-language-managed.spec.ts",
+        "tests/e2e/ui-language-notes.spec.ts"
       ]
     },
     {
@@ -3856,23 +4152,100 @@
       "module": "managed",
       "complete": true,
       "messageKeys": [
-        "managed.learn",
-        "managed.overview",
-        "study.knowledge",
-        "study.review.search",
-        "learn.dashboard.themes",
+        "learn.dashboard.clear",
+        "learn.dashboard.completedCount",
+        "learn.dashboard.difficulty",
         "learn.dashboard.search",
         "learn.dashboard.state",
-        "learn.dashboard.completedCount",
         "learn.dashboard.themeProgress",
-        "learn.dashboard.difficulty",
-        "learn.dashboard.clear"
+        "learn.dashboard.themes",
+        "managed.learn",
+        "managed.overview",
+        "notes.allStates",
+        "notes.allTopics",
+        "notes.approval",
+        "notes.approvalIntro",
+        "notes.approve",
+        "notes.backQueue",
+        "notes.backShared",
+        "notes.bold",
+        "notes.by",
+        "notes.cancel",
+        "notes.characters",
+        "notes.counterexamples",
+        "notes.displayMath",
+        "notes.edit",
+        "notes.empty",
+        "notes.examples",
+        "notes.explanations",
+        "notes.filter",
+        "notes.guestIntro",
+        "notes.hide",
+        "notes.history",
+        "notes.inlineMath",
+        "notes.invalid",
+        "notes.italic",
+        "notes.leave",
+        "notes.limit",
+        "notes.list",
+        "notes.locked",
+        "notes.management",
+        "notes.materialChanged",
+        "notes.memberIntro",
+        "notes.mine",
+        "notes.misconceptions",
+        "notes.next",
+        "notes.nonePending",
+        "notes.notPublic",
+        "notes.notReady",
+        "notes.personal",
+        "notes.preview",
+        "notes.previewShare",
+        "notes.published",
+        "notes.quote",
+        "notes.reading",
+        "notes.reason",
+        "notes.related",
+        "notes.request",
+        "notes.retry",
+        "notes.return",
+        "notes.review",
+        "notes.saveFirst",
+        "notes.saved",
+        "notes.saving",
+        "notes.search",
+        "notes.shared",
+        "notes.signIn",
+        "notes.signedOut",
+        "notes.stale",
+        "notes.state",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.submit",
+        "notes.submitted",
+        "notes.title",
+        "notes.topic",
+        "notes.unavailable",
+        "notes.uncertain",
+        "notes.unsaved",
+        "notes.updated",
+        "notes.view",
+        "notes.withdrawPending",
+        "notes.withdrawShared",
+        "notes.write",
+        "study.knowledge",
+        "study.review.search"
       ],
       "rawDataAreas": [
         "知识点与分类键仅用于URL和表单值；中英文名称来自当前目录/知识正文，私有学习计数和状态保持真实，语言切换不改搜索草稿或筛选值"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-managed.spec.ts"
+        "tests/e2e/ui-language-managed.spec.ts",
+        "tests/e2e/ui-language-notes.spec.ts"
       ]
     },
     {
@@ -3882,15 +4255,92 @@
       "messageKeys": [
         "managed.admin",
         "managed.learn",
-        "managed.statement",
+        "managed.map",
         "managed.note",
-        "managed.map"
+        "managed.statement",
+        "notes.allStates",
+        "notes.allTopics",
+        "notes.approval",
+        "notes.approvalIntro",
+        "notes.approve",
+        "notes.backQueue",
+        "notes.backShared",
+        "notes.bold",
+        "notes.by",
+        "notes.cancel",
+        "notes.characters",
+        "notes.counterexamples",
+        "notes.displayMath",
+        "notes.edit",
+        "notes.empty",
+        "notes.examples",
+        "notes.explanations",
+        "notes.filter",
+        "notes.guestIntro",
+        "notes.hide",
+        "notes.history",
+        "notes.inlineMath",
+        "notes.invalid",
+        "notes.italic",
+        "notes.leave",
+        "notes.limit",
+        "notes.list",
+        "notes.locked",
+        "notes.management",
+        "notes.materialChanged",
+        "notes.memberIntro",
+        "notes.mine",
+        "notes.misconceptions",
+        "notes.next",
+        "notes.nonePending",
+        "notes.notPublic",
+        "notes.notReady",
+        "notes.personal",
+        "notes.preview",
+        "notes.previewShare",
+        "notes.published",
+        "notes.quote",
+        "notes.reading",
+        "notes.reason",
+        "notes.related",
+        "notes.request",
+        "notes.retry",
+        "notes.return",
+        "notes.review",
+        "notes.saveFirst",
+        "notes.saved",
+        "notes.saving",
+        "notes.search",
+        "notes.shared",
+        "notes.signIn",
+        "notes.signedOut",
+        "notes.stale",
+        "notes.state",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.submit",
+        "notes.submitted",
+        "notes.title",
+        "notes.topic",
+        "notes.unavailable",
+        "notes.uncertain",
+        "notes.unsaved",
+        "notes.updated",
+        "notes.view",
+        "notes.withdrawPending",
+        "notes.withdrawShared",
+        "notes.write"
       ],
       "rawDataAreas": [
         "原始知识ID、数学正文、类型/证明范围提交值、分类键、难度数值、私人笔记、来源与事件时间"
       ],
       "scenarios": [
-        "tests/e2e/ui-language-managed.spec.ts"
+        "tests/e2e/ui-language-managed.spec.ts",
+        "tests/e2e/ui-language-notes.spec.ts"
       ]
     },
     {
@@ -4013,6 +4463,248 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-study.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/note-message.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.notReady",
+        "notes.signedOut",
+        "notes.locked",
+        "notes.stale",
+        "notes.notPublic",
+        "notes.invalid"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/admin-share-view.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.action.approve",
+        "notes.action.hide",
+        "notes.action.return",
+        "notes.action.submit",
+        "notes.action.withdraw",
+        "notes.approve",
+        "notes.backQueue",
+        "notes.by",
+        "notes.hide",
+        "notes.history",
+        "notes.next",
+        "notes.reason",
+        "notes.retry",
+        "notes.return",
+        "notes.signedOut",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.uncertain",
+        "notes.updated"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/admin-share-queue.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.approval",
+        "notes.approvalIntro",
+        "notes.by",
+        "notes.filter",
+        "notes.next",
+        "notes.nonePending",
+        "notes.review",
+        "notes.state",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/shared-note-view.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.backShared",
+        "notes.by",
+        "notes.materialChanged",
+        "notes.personal",
+        "notes.related",
+        "notes.signIn"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/shared-note-list.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.by",
+        "notes.empty",
+        "notes.filter",
+        "notes.guestIntro",
+        "notes.memberIntro",
+        "notes.next",
+        "notes.personal",
+        "notes.search",
+        "notes.shared",
+        "notes.signIn"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/note-toolbar.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.bold",
+        "notes.displayMath",
+        "notes.inlineMath",
+        "notes.italic",
+        "notes.list",
+        "notes.quote"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/own-note-list.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.allStates",
+        "notes.empty",
+        "notes.filter",
+        "notes.mine",
+        "notes.next",
+        "notes.search",
+        "notes.state",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.unavailable",
+        "notes.view"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/share-controls.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.cancel",
+        "notes.locked",
+        "notes.previewShare",
+        "notes.request",
+        "notes.retry",
+        "notes.saveFirst",
+        "notes.state.hidden",
+        "notes.state.pending",
+        "notes.state.returned",
+        "notes.state.shared",
+        "notes.state.unshared",
+        "notes.state.withdrawn",
+        "notes.submit",
+        "notes.title",
+        "notes.uncertain",
+        "notes.updated",
+        "notes.withdrawPending",
+        "notes.withdrawShared"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/notes/note-time.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ],
+      "noOwnText": true
+    },
+    {
+      "file": "frontend/src/features/notes/note-preview.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
+      ],
+      "noOwnText": true
+    },
+    {
+      "file": "frontend/src/features/notes/note-leave-guard.tsx",
+      "module": "notes",
+      "complete": true,
+      "messageKeys": [
+        "notes.leave"
+      ],
+      "rawDataAreas": [
+        "作者主动提交的笔记正文与数学公式、准确关联知识标题、用户名、真实时间与审批理由；私人数据仅本人或已获提交授权的管理员可见"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-notes.spec.ts"
       ]
     }
   ]

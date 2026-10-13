@@ -8,6 +8,7 @@ import (
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
+	"github.com/yyl1212/math_master/backend/internal/notesharing"
 	"github.com/yyl1212/math_master/backend/internal/publication"
 	"strings"
 	"time"
@@ -16,6 +17,11 @@ import (
 const knowledgeLockID int64 = 1296127059
 
 func knowledgeError(e error) error {
+	for _, known := range []error{notesharing.ErrLocked, notesharing.ErrStale, notesharing.ErrIdempotency, notesharing.ErrNotPublic, notesharing.ErrNotFound, notesharing.ErrInvalid, notesharing.ErrNotReady} {
+		if errors.Is(e, known) {
+			return known
+		}
+	}
 	for _, known := range []error{knowledgeadmin.ErrInvalid, knowledgeadmin.ErrConflict, knowledgeadmin.ErrStale, knowledgeadmin.ErrIdempotency, knowledgeadmin.ErrNotConfigured, knowledgeadmin.ErrNotFound, knowledgeadmin.ErrBusy, knowledgeadmin.ErrRetired} {
 		if errors.Is(e, known) {
 			return known

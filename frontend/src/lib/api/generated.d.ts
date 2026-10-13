@@ -2553,6 +2553,244 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/note-sharing/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readNoteSharingHealth */
+        get: operations["readNoteSharingHealth"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/notes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** listOwnNotes */
+        get: operations["listOwnNotes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/note-sharing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readOwnNoteShareHead */
+        get: operations["readOwnNoteShareHead"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/note-sharing/submit": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** submitNoteShare */
+        post: operations["submitNoteShare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/study/knowledge/{id}/note-sharing/withdraw": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** withdrawNoteShare */
+        post: operations["withdrawNoteShare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/shared-notes/latest": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** latestSharedNotes */
+        get: operations["latestSharedNotes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/shared-notes/public/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readPublicSharedNote */
+        get: operations["readPublicSharedNote"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/shared-notes": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** listSharedNotes */
+        get: operations["listSharedNotes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/shared-notes/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readAuthenticatedSharedNote */
+        get: operations["readAuthenticatedSharedNote"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/note-shares": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** listAdminNoteShares */
+        get: operations["listAdminNoteShares"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/note-shares/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** readAdminNoteShare */
+        get: operations["readAdminNoteShare"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/note-shares/{id}/approve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** approveNoteShare */
+        post: operations["approveNoteShare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/note-shares/{id}/return": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** returnNoteShare */
+        post: operations["returnNoteShare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/note-shares/{id}/hide": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** hideNoteShare */
+        post: operations["hideNoteShare"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -6109,6 +6347,144 @@ export interface components {
             total: number;
             limit: number;
             offset: number;
+        };
+        NoteShareHead: {
+            actorId: string;
+            knowledgeId: string;
+            /** @enum {string} */
+            status: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+            sequence: number;
+            submissionId: string | null;
+            approvedAt: string | null;
+            lastDecisionReason: string;
+        };
+        OwnNoteSummary: {
+            knowledgeId: string;
+            knowledgeTitle: string;
+            knowledgeTitleZh: string;
+            topicKeys: string[];
+            excerpt: string;
+            /** Format: date-time */
+            updatedAt: string;
+            available: boolean;
+            noteRevision: number;
+            share: components["schemas"]["NoteShareHead"];
+        };
+        OwnNotePage: {
+            actorId: string;
+            items: components["schemas"]["OwnNoteSummary"][];
+            nextCursor: string | null;
+        };
+        SharedNoteSummary: {
+            submissionId: string;
+            title: string;
+            excerpt: string;
+            authorName: string;
+            /** Format: date-time */
+            approvedAt: string;
+            knowledgeId: string;
+            knowledgeTitle: string;
+            knowledgeTitleZh: string;
+            topicKeys: string[];
+            materialChanged: boolean;
+        };
+        SharedNoteDetail: {
+            submissionId: string;
+            title: string;
+            excerpt: string;
+            authorName: string;
+            /** Format: date-time */
+            approvedAt: string;
+            knowledgeId: string;
+            knowledgeTitle: string;
+            knowledgeTitleZh: string;
+            topicKeys: string[];
+            materialChanged: boolean;
+            body: string;
+        };
+        AuthenticatedSharedNoteDetail: {
+            actorId: string;
+            note: components["schemas"]["SharedNoteDetail"];
+        };
+        LatestSharedNotePage: {
+            items: components["schemas"]["SharedNoteSummary"][];
+        };
+        SharedNotePage: {
+            actorId: string;
+            items: components["schemas"]["SharedNoteSummary"][];
+            nextCursor: string | null;
+        };
+        AdminNoteShareSummary: {
+            submissionId: string;
+            authorName: string;
+            knowledgeId: string;
+            title: string;
+            /** Format: date-time */
+            submittedAt: string;
+            /** @enum {string} */
+            status: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+            sequence: number;
+        };
+        AdminNoteSharePage: {
+            actorId: string;
+            items: components["schemas"]["AdminNoteShareSummary"][];
+            nextCursor: string | null;
+        };
+        NoteShareEvent: {
+            /** @enum {string} */
+            action: "submit" | "withdraw" | "approve" | "return" | "hide";
+            actorName: string;
+            reason: string;
+            sequence: number;
+            /** Format: date-time */
+            recordedAt: string;
+        };
+        AdminNoteShareDetail: {
+            actorId: string;
+            submissionId: string;
+            authorName: string;
+            knowledgeId: string;
+            title: string;
+            /** Format: date-time */
+            submittedAt: string;
+            /** @enum {string} */
+            status: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+            sequence: number;
+            body: string;
+            noteRevision: number;
+            noteKnowledgeRef: components["schemas"]["ManagedRef"];
+            knowledgeTitle: string;
+            knowledgeTitleZh: string;
+            topicKeys: string[];
+            approvedAt: string | null;
+            events: components["schemas"]["NoteShareEvent"][];
+            nextEventsCursor: string | null;
+        };
+        NoteShareReceipt: {
+            submissionId: string;
+            knowledgeId: string;
+            /** @enum {string} */
+            action: "submit" | "withdraw" | "approve" | "return" | "hide";
+            /** @enum {string} */
+            status: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+            sequence: number;
+        };
+        NoteSharingHealth: {
+            capability: boolean;
+            schemaReady: boolean;
+        };
+        NoteShareSubmitInput: {
+            expectedRevision: number;
+            expectedSequence: number;
+            title: string;
+        };
+        NoteShareWithdrawInput: {
+            submissionId: string;
+            expectedSequence: number;
+        };
+        NoteShareDecisionInput: {
+            expectedSequence: number;
+            reason?: string;
         };
     };
     responses: {
@@ -21562,6 +21938,1364 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["FeedbackError"];
+                };
+            };
+        };
+    };
+    readNoteSharingHealth: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteSharingHealth"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteSharingHealth"];
+                };
+            };
+        };
+    };
+    listOwnNotes: {
+        parameters: {
+            query?: {
+                q?: string;
+                topicKey?: string;
+                cursor?: string;
+                limit?: number;
+                shareStatus?: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["OwnNotePage"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readOwnNoteShareHead: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteShareHead"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    submitNoteShare: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteShareSubmitInput"];
+            };
+        };
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteShareReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    withdrawNoteShare: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteShareWithdrawInput"];
+            };
+        };
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteShareReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    latestSharedNotes: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["LatestSharedNotePage"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readPublicSharedNote: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SharedNoteDetail"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    listSharedNotes: {
+        parameters: {
+            query?: {
+                q?: string;
+                topicKey?: string;
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["SharedNotePage"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readAuthenticatedSharedNote: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AuthenticatedSharedNoteDetail"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    listAdminNoteShares: {
+        parameters: {
+            query?: {
+                status?: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+                cursor?: string;
+                limit?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminNoteSharePage"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    readAdminNoteShare: {
+        parameters: {
+            query?: {
+                eventsCursor?: string;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["AdminNoteShareDetail"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    approveNoteShare: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteShareDecisionInput"];
+            };
+        };
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteShareReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    returnNoteShare: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteShareDecisionInput"];
+            };
+        };
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteShareReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    hideNoteShare: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+            };
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["NoteShareDecisionInput"];
+            };
+        };
+        responses: {
+            /** @description 笔记操作结果。 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["NoteShareReceipt"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 操作未成功；保留原输入并核对当前状态。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
                 };
             };
         };

@@ -241,6 +241,20 @@ def labels(container: str, sudo: bool) -> dict:
     return json.loads(result.stdout) or {}
 
 
+def restore_sql_prologue(source, target) -> None:
+    # Change only pg_restore's known session prelude. SQL bodies and COPY data
+    # can contain the same text and must remain byte-for-byte unchanged.
+    prefix = source.read(4096)
+    command = b"SELECT pg_catalog.set_config('search_path', '', false);\n"
+    at = prefix.find(command)
+    if at < 0 or b'-- PostgreSQL database dump\n' not in prefix[:at] or any(word in prefix[:at] for word in [b'CREATE ', b'COPY ']):
+        raise SnapshotError('unsupported-restore-prologue')
+    target.write(prefix[:at])
+    target.write(b"SELECT pg_catalog.set_config('search_path', 'pg_catalog, public', false);\n")
+    target.write(prefix[at + len(command):])
+    shutil.copyfileobj(source, target)
+
+
 def restore(container: str, database: str, user: str, backup: Path, sudo: bool = False) -> dict:
     identity(container,database,user)
     data = load_backup(backup)
@@ -255,11 +269,25 @@ def restore(container: str, database: str, user: str, backup: Path, sudo: bool =
     empty = sql(container,database,user,"SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind IN ('r','p','v','m','S','f');",sudo)
     if empty != '0':
         raise SnapshotError('nonempty-restore-target')
-    command = common.docker_command(['exec','-i',container,'pg_restore','-U',user,'-d',database,'--no-owner','--no-acl','--exit-on-error','--single-transaction'],sudo)
-    with (backup/'database.dump').open('rb') as source, tempfile.TemporaryFile() as errors:
-        result = subprocess.run(command,stdin=source,stdout=subprocess.DEVNULL,stderr=errors,env=common.clean_environment(),timeout=530)
-    if result.returncode:
-        raise SnapshotError('database-restore-failed')
+    # Legacy SQL check functions call other public helpers without qualifying
+    # them. Restore their original definitions and data with a session-only
+    # search path; never alter functions or disable constraints to load data.
+    started = time.monotonic()
+    extract = common.docker_command(['exec','-i',container,'pg_restore','--no-owner','--no-acl','--file=-'],sudo)
+    execute = common.docker_command(['exec','-i',container,'psql','-X','-q','-v','ON_ERROR_STOP=1','--single-transaction','-U',user,'-d',database],sudo)
+    with (backup/'database.dump').open('rb') as source, tempfile.TemporaryFile() as archive_sql, tempfile.TemporaryFile() as script, tempfile.TemporaryFile() as errors:
+        result = subprocess.run(extract,stdin=source,stdout=archive_sql,stderr=errors,env=common.clean_environment(),timeout=530)
+        if result.returncode:
+            raise SnapshotError('database-restore-script-failed')
+        archive_sql.seek(0)
+        restore_sql_prologue(archive_sql,script)
+        script.seek(0)
+        remaining = 530 - (time.monotonic() - started)
+        if remaining <= 0:
+            raise SnapshotError('database-restore-timeout')
+        result = subprocess.run(execute,stdin=script,stdout=subprocess.DEVNULL,stderr=errors,env=common.clean_environment(),timeout=remaining)
+        if result.returncode:
+            raise SnapshotError('database-restore-failed')
     return inspect(container,database,user,backup,sudo)
 
 

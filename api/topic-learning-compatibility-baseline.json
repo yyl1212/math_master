@@ -2196,6 +2196,10 @@
       "cutover": {
         "sha256": "9cbb1b6b8ecb74ca1570e43c297f1f467d48abf45cbe24709c4cc64bd848b549",
         "reason": "已确认C7具名完整验收：真实旧命令迁入切换scene、独立十万源容量step、档案/双语step和中文使用入口；原业务检查及时限不改。"
+      },
+      "managed": {
+        "sha256": "c3ee4c97a03035ed64a312f69494200bba88ad898558711163c66c173ec7edba",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "api/openapi.yaml": {
@@ -2212,7 +2216,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "02c1fbe52e86fd02d6497c0a041d71ef453305fb6e940fc3d84316bbf13acb6e"
+        "sha256": "a91e2a8af81ac48131746fc2198c49edcdc0740b6b007d328b8c0db59bdd1514",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "backend/cmd/server/main.go": {
@@ -2229,7 +2234,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "8f26e215621740d02c65ed626f00b1f2ca998f2099e1cd52004567ee398083e9"
+        "sha256": "14741077ff3591378e0e9615a3c9ca462d57d677be408ad56411980c5cd5964e",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "backend/internal/e2etest/auth_fixture.go": {
@@ -2246,7 +2252,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "9b5b47f874200004e496d985ac0c078870daaf5522bc1b75c273847673d4914c"
+        "sha256": "c7d1cc8e7dd487553fe75467a025da7ef6da6b57a6e3d7ac6f36fc1233928fa2",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "backend/internal/e2etest/harness.go": {
@@ -2263,7 +2270,8 @@
         "reason": "已确认C7具名完整验收：真实旧命令迁入切换scene、独立十万源容量step、档案/双语step和中文使用入口；原业务检查及时限不改。"
       },
       "managed": {
-        "sha256": "8119c9b0942fce4ba21e581191118b7b65d4bfa925bf7c85fd390f76d0441eba"
+        "sha256": "48d572874446fcbbaea20a70f184417382f227eb08053374d4676666a2f66dc6",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "backend/internal/httpapi/application.go": {
@@ -2280,7 +2288,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "ee29240b2c05fe66c31739d4ac15703ba816eea8dc0467f4ce9dca5cbfa2d5f8"
+        "sha256": "134e886515d4b66571d19c09d3fc5d5c8673e6b86d949bc29d9580f806d82773",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "backend/internal/store/workflow_draft.go": {
@@ -2344,7 +2353,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "f8a73bd064602145cbca2c3a02a8c69bc09a6a19073d7ade0c38f0a13a2e241a"
+        "sha256": "9888fa2ff7c1ec7c334414c1acb37adee33845c267e090f68cf8aeb5007e7842",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/app/admin/publications/page.tsx": {
@@ -2502,7 +2512,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "302126ad2f034f825d3511c52351577dec41a2439df277e63b2c6986e9ea4dd2"
+        "sha256": "edf1c4c7a2ed597c7b5ac15ce3f468311f0d54c5f9e34e2f1ab1f1e48f3ae565",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/lib/i18n/messages/en.ts": {
@@ -2519,7 +2530,8 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "b8ca6f2afb9a347cca51fe9919db4da69e42f4ada45a054d5c332c9084544983"
+        "sha256": "e188432ecf86c0b1cab9e1953600ab53292170706f56ad586f41eded091f1595",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/lib/i18n/messages/zh-CN.ts": {
@@ -2536,13 +2548,18 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "3c41872d789aba7a7256e795271a165a1ec42f9c06dd957a3f8db846956c6024"
+        "sha256": "b10599e1133185868fbeed2deecc92bd9af1a4b2e90edf8b9b8b499818c88c45",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/lib/i18n/page-titles.ts": {
       "taxonomy": {
         "sha256": "e95e301824122fa360b9eb5de8c04be6beea6195e358e9a70bc5cd2bdcba06f3",
         "reason": "按已确认三级主题设计新增独立归属、配对发布或界面接线；保留原数学与历史资料"
+      },
+      "managed": {
+        "sha256": "a5cb1dbd977c7209b73d9aa61e191e10f98f7cb058882cfc584d842da4dd510c",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     ".github/workflows/backend.yml": {
@@ -2559,7 +2576,8 @@
         "reason": "用户明确选择准备与迁入各独立5分钟；原最大规模/守卫保持，私有nonce交接专用随机库及always有限清理，原所有其他步骤/预算不变。"
       },
       "managed": {
-        "sha256": "1b3d9894208d021ec1321e59340ff62de63093df9298b4664ccd3da08036b490"
+        "sha256": "78e6ebd236d1428910114ef7495f11eaa6e42e16e93cdd6b53dc0ed57deb05d9",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     ".github/workflows/frontend.yml": {
@@ -2576,7 +2594,8 @@
         "reason": "已确认C7具名完整验收：真实旧命令迁入切换scene、独立十万源容量step、档案/双语step和中文使用入口；原业务检查及时限不改。"
       },
       "managed": {
-        "sha256": "429f8a3b7dbae6b256e8ac715182e5235453d6a782e8d6094c62500df7732f51"
+        "sha256": "6a05edbb9c6a96cada61ed1a78c5efa21c5e610246da3b638278d0f7924c7c7d",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "tools/verify/admin-review-compatibility.mjs": {
@@ -2627,7 +2646,8 @@
         "reason": "B1–B8或已记录衔接裁决的明确接线/验证文件"
       },
       "managed": {
-        "sha256": "da17e614fa265a6d4163bac383e7d51a25befd1a8c8474e2b0b77778c5c2d336"
+        "sha256": "07fc5239fb1aca8ce04f70e3fe3b76040761b58ba5b83e407232f834f0b1e980",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/app/learn/page.tsx": {
@@ -2636,7 +2656,8 @@
         "reason": "B1–B8或已记录衔接裁决的明确接线/验证文件"
       },
       "managed": {
-        "sha256": "fc1912275bfd8461a5fce1b19fea340e501ea7ff8cfc75d637e30d63dca121a5"
+        "sha256": "d4c3484b6cb4c4d0fb0dafa6e467371d6f05f809df278a2a3b7098371bb2f0fa",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/app/learning-history/page.tsx": {
@@ -2668,7 +2689,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "0d92f492282db15f24f3ede69bbf3dc0a7fd2df3c49b6c23f81ef6392614b3b7"
+        "sha256": "d1a5ef0b7d3166d2a3dffb42e519926fd11debff8458935aee95aee6d59d8760",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/features/auth/credentials-form.tsx": {
@@ -3095,7 +3117,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "a597339229d9ef23d062248af3299567cd27ab965b2ae0f4b67df24a8fd9a14d"
+        "sha256": "679dfeaf645df5717bd8ad178ed97a7362cad690f43a4510bcf4b0eaeea4692b",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "ops/tests/test_deploy.py": {
@@ -3104,7 +3127,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "4067ca69794687a90cddd2b2b41814dee798e94e09e58b99045353d93e607644"
+        "sha256": "7f3927b5ce7ac01315f77671960e9e89782a4f1ce84288968ba62d05a7d4bd71",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "ops/tests/test_verify.py": {
@@ -3321,7 +3345,8 @@
     },
     "frontend/src/components/site-header.tsx": {
       "managed": {
-        "sha256": "4a5ab159981760cf2f52a3881934ce3b0a86d2ec2a4bd4287cc1b171dbcc0a3f"
+        "sha256": "c86675a4c31935dd424d04639192e25189277472c90520600c357a2b7981b621",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     },
     "frontend/src/features/auth/admin-users.test.tsx": {
@@ -3372,6 +3397,30 @@
     "frontend/src/features/feedback/ticket-list.tsx": {
       "managed": {
         "sha256": "3568554114a05f58df4ec78934917457dba43945b83161e745bdd260870c9d08"
+      }
+    },
+    "frontend/src/styles/auth.module.css": {
+      "managed": {
+        "sha256": "378ad7fcb6493967157fa983df17d37cf15b568cc4346b66c4870d2af144ec1b",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
+      }
+    },
+    "tools/verify/ui-language-coverage.test.mjs": {
+      "managed": {
+        "sha256": "fabdf38dba8cbd8b91b62863f8cf9798e1b69669b9a4e080caf1a2d064f67686",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
+      }
+    },
+    "ops/database-snapshot.py": {
+      "managed": {
+        "sha256": "d8aa7567d5d2c65a095d65162487b4de61843592f9f7e9f097d01096200be7c3",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
+      }
+    },
+    "ops/tests/test_snapshot.py": {
+      "managed": {
+        "sha256": "d9b4d20bbe0642c11a507b273a8edae7a4ecd5d04e83aca674a343f61ac6b684",
+        "reason": "已确认笔记优化与审批分享：只登记此文件的审核目标字节；保留旧API、13份迁移、原业务验证和固定旧版快照。"
       }
     }
   },
@@ -3792,7 +3841,74 @@
       "tests/fixtures/legacy-frontend/src/features/study/managed-learning-view.tsx",
       "tests/fixtures/legacy-frontend/src/features/study/managed-pages.tsx",
       "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.tsx",
-      "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.test.tsx"
+      "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.test.tsx",
+      "docs/superpowers/specs/2026-10-13-notes-sharing-design.md",
+      "docs/superpowers/plans/2026-10-13-notes-sharing.md",
+      "docs/superpowers/reports/2026-10-13-notes-sharing-plan-review.md",
+      "backend/internal/e2etest/note_sharing_fixture.go",
+      "backend/internal/httpapi/note_sharing_json.go",
+      "backend/internal/httpapi/note_sharing_note_lock_test.go",
+      "backend/internal/httpapi/note_sharing_routes.go",
+      "backend/internal/httpapi/note_sharing_test.go",
+      "backend/internal/notesharing/cursor.go",
+      "backend/internal/notesharing/excerpt.go",
+      "backend/internal/notesharing/model.go",
+      "backend/internal/notesharing/repository.go",
+      "backend/internal/notesharing/validate.go",
+      "backend/internal/notesharing/validate_test.go",
+      "backend/internal/store/note_sharing_public_test.go",
+      "backend/internal/store/note_sharing_read.go",
+      "backend/internal/store/note_sharing_schema.go",
+      "backend/internal/store/note_sharing_schema_test.go",
+      "backend/internal/store/note_sharing_tx.go",
+      "backend/internal/store/note_sharing_write.go",
+      "backend/internal/store/note_sharing_write_test.go",
+      "db/migrations/00014_note_sharing.sql",
+      "docs/operations/note-sharing.md",
+      "frontend/src/app/admin/note-shares/[id]/page.tsx",
+      "frontend/src/app/admin/note-shares/page.tsx",
+      "frontend/src/app/notes/[id]/page.tsx",
+      "frontend/src/app/notes/page.tsx",
+      "frontend/src/features/notes/admin-share-queue.tsx",
+      "frontend/src/features/notes/admin-share-view.tsx",
+      "frontend/src/features/notes/current-reading.test.tsx",
+      "frontend/src/features/notes/note-editor.test.tsx",
+      "frontend/src/features/notes/note-leave-guard.test.tsx",
+      "frontend/src/features/notes/note-leave-guard.tsx",
+      "frontend/src/features/notes/note-message.tsx",
+      "frontend/src/features/notes/note-preview.test.tsx",
+      "frontend/src/features/notes/note-preview.tsx",
+      "frontend/src/features/notes/note-time.tsx",
+      "frontend/src/features/notes/note-toolbar.tsx",
+      "frontend/src/features/notes/own-note-list.test.tsx",
+      "frontend/src/features/notes/own-note-list.tsx",
+      "frontend/src/features/notes/share-controls.tsx",
+      "frontend/src/features/notes/shared-note-list.tsx",
+      "frontend/src/features/notes/shared-note-view.tsx",
+      "frontend/src/features/notes/shared-pages.test.tsx",
+      "frontend/src/lib/api/note-sharing-proxy.test.ts",
+      "frontend/src/lib/api/note-sharing-proxy.ts",
+      "frontend/src/lib/note-sharing/client.test.ts",
+      "frontend/src/lib/note-sharing/client.ts",
+      "frontend/src/lib/note-sharing/response.ts",
+      "frontend/src/lib/note-sharing/schemas.test.ts",
+      "frontend/src/lib/note-sharing/schemas.ts",
+      "frontend/src/lib/note-sharing/server-client.ts",
+      "frontend/src/lib/note-sharing/types.ts",
+      "frontend/src/styles/notes.module.css",
+      "tests/e2e/note-editor-experience.spec.ts",
+      "tests/e2e/note-sharing-security.spec.ts",
+      "tests/e2e/note-sharing.spec.ts",
+      "tests/e2e/ui-language-notes.spec.ts",
+      "docs/operations/2026-10-13-note-sharing-acceptance.md",
+      "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md",
+      "docs/superpowers/specs/2026-10-13-legacy-correction-fence-design.md",
+      "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md",
+      "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md",
+      "backend/internal/store/managed_correction_fence_internal_test.go",
+      "backend/internal/store/managed_correction_fence_test.go",
+      "docs/operations/2026-10-13-legacy-correction-fence-acceptance.md",
+      "docs/superpowers/reports/2026-10-13-legacy-correction-fence-code-review.md"
     ]
   },
   "legacySnapshots": {
@@ -4903,7 +5019,7 @@
     "backend/internal/e2etest/topic_cutover_fixture.go": "9fcab1a0217e6c50418a67118fd869d1d50a3bdb18bd2c5af4b7ddf62d44c5dc",
     "backend/internal/e2etest/topic_retirement_fixture.go": "6eec6947e4ff286ec3b9741dbaa54c10ea68e76ffb56ea6ff3231c17b73f8a53",
     "backend/internal/httpapi/knowledge_admin_json.go": "a00114042371c3ad04f095fef5aa88f21bc7593761b00a870991ea805269786c",
-    "backend/internal/httpapi/knowledge_admin_routes.go": "04a0a95907780dd6a257bb6aae9a0cc989096ff6476dc26e413f7daf7ab98c67",
+    "backend/internal/httpapi/knowledge_admin_routes.go": "35b948161af82ff3365b4da6ebd0261c9c171db326ae2fee2f7260eb39933e9e",
     "backend/internal/httpapi/knowledge_admin_test.go": "fdcaf10c6c7fd4ab58a1592a07cca1829a874edc1e668460745d4fc5994e98b2",
     "backend/internal/httpapi/knowledge_current_routes.go": "472e4576d3146b17805a64b76ca14bc9746717826307e737fe0dbc3d817bf154",
     "backend/internal/httpapi/knowledge_current_test.go": "8aa2196ba35dff879ef7185dab0b143ee284abda5adc8e4daf0c0fff0dc76768",
@@ -4943,9 +5059,9 @@
     "backend/internal/store/knowledge_admin_import.go": "dba0aa81e445e11509d8753849a6ca25ee29129eaaa8326999c1b36774ead75d",
     "backend/internal/store/knowledge_admin_import_test.go": "83b926adf34208037d8f4e4f4407e440a7711ef1243bf813e5e124e34593bfe3",
     "backend/internal/store/knowledge_admin_maintenance.go": "9e347ed497dfddb5f847e9d135d805e6469e5b1828b3f76b635da3e9e8261d4e",
-    "backend/internal/store/knowledge_admin_maintenance_test.go": "567888a26679a4873737873ee957a23a9b6e5b0ba40c93961263f6676deb0403",
+    "backend/internal/store/knowledge_admin_maintenance_test.go": "ae543e1d9675d94451d2fcf0b7a5cc482f6c453b76191267664f382416f49fb1",
     "backend/internal/store/knowledge_admin_mode.go": "b6b04901b02f0f497039643302e0205a2b8e104c52cdb572650c05b958f974ee",
-    "backend/internal/store/knowledge_admin_notes.go": "e8c6dffdafbaf0dfcdd3171ae1c58085405d3d6a9723a9f77f8465a03bb3acbc",
+    "backend/internal/store/knowledge_admin_notes.go": "3a74f07cd50cf16e2dce7d8a7c6e393b7fc206801f2467ab1c62860980e618b3",
     "backend/internal/store/knowledge_admin_notes_test.go": "32bd95fe7dfbc3b4766b0a6e3105f0e0608f1652f61ead386c30aca49217fbf0",
     "backend/internal/store/knowledge_admin_permissions_test.go": "e6e0637c523eeb2cf22f4522088db36b34556fba4b2b20af23f5abcc349e01ae",
     "backend/internal/store/knowledge_admin_public.go": "325362aa2c07b59c103f2871aa1f67088a18ced9151804f48c0370f30c43ca8d",
@@ -4955,7 +5071,7 @@
     "backend/internal/store/knowledge_admin_source_test.go": "3b3f944e71f41e4bea5e7fe6f7062e80050aba7c91751cee9f63ba049829934f",
     "backend/internal/store/knowledge_admin_study.go": "8bd9d1c9ea60b5aa9d7ea2c21386ad7354cdb251b2ad224d4c6141261e1a92d9",
     "backend/internal/store/knowledge_admin_study_test.go": "23ffb20a1a09ca3bcbd6878f9e627fedbb806f07b08129f049c31e6349656b66",
-    "backend/internal/store/knowledge_admin_tx.go": "df25223cef4844bf20644c4a105f7c5aa8f4576436f5e9e49496d6c9f1edd797",
+    "backend/internal/store/knowledge_admin_tx.go": "9a5a5c367e3aafcafda1bcaaa4ec609fda1e59b3713f5cdd5e1268ad43a269bd",
     "backend/internal/store/knowledge_admin_write.go": "4d46061e03c856d19cf7fd0cb574e5c0001c435e6f8936d64eecdf662a887dd9",
     "backend/internal/store/knowledge_admin_write_test.go": "f5d45e2a81196117f08b9d753b8de3116adcb3e6d82dfee69bb9e8407dd72bb7",
     "backend/internal/store/study_actions.go": "61d006dc40d1c57d90acf763fd769787698934f7af5dd04488cd4582224c0e2e",
@@ -5039,14 +5155,14 @@
     "docs/operations/topic-study.md": "1d5e5b22c4abebc021b3f3a8e6a9fcb7233f55e22378131a12ebcca02d4f8808",
     "docs/operations/topic-taxonomy-review.md": "5605c0c71efa67746e5d6775f9b87cedafbedfedba2593498f81a71a88e30ce2",
     "docs/operations/topic-taxonomy.md": "2226860b81d3ac8acd3f540bc67af4a7c3bc0583f852c0ede56cd09ca9788e20",
-    "docs/operations/website-guide.md": "48f2e7bfe245eb34a2d47450b04b41ac4450fbbeda96fc7fbcaa105586f860f7",
+    "docs/operations/website-guide.md": "c6edee0d9d0dc1c661fa809f91c8ea4fc544cc2642679b544cbfd257369ab190",
     "frontend/src/app/admin/knowledge/[id]/page.tsx": "fe91f4bb083ae71d2acc177b5081391fb64ed01cd08b1bc796a1ffecd1e8b257",
     "frontend/src/app/admin/knowledge/page.tsx": "3ce2f41f6085e4c7e7b6ae4c2ef334f3c26ccd40a8fb350dbe70aa8a6fb7e194",
     "frontend/src/app/api/v2/admin/publications/[[...segments]]/route.ts": "189c70ed4af97e8c8b66faa966d2ebb08bf3b87f07257d8bf53a926ec390e033",
     "frontend/src/app/api/v2/content/topic-assignments/[[...segments]]/route.ts": "3607a8f266d2ed925a3411570a336e9142dfd83c968bc16ebe36200787d01191",
     "frontend/src/app/api/v2/study/[[...segments]]/route.ts": "076535ccddf91ccbec49c2506356d06051dea3a922418d5a8f0e6e04b4a51bfd",
     "frontend/src/app/api/v2/topics/[[...segments]]/route.ts": "e4140851bc10c14c4f488cfd26f2320dfdd17048153e895c8b7e8e00c4b2aba3",
-    "frontend/src/app/api/v3/[[...segments]]/route.ts": "e3abe75adb546be3d96f253905c2f74cacb526aedc6959dcbc1d36d5ec91285c",
+    "frontend/src/app/api/v3/[[...segments]]/route.ts": "b656afeedf435a4c9d027815535c77807630c88b52c8dd4942299262ce9fcea3",
     "frontend/src/app/topics/[id]/page.tsx": "711546befbe884b088f58df7551db1be463d2d6cb74b1cbe127cfd5025871c8c",
     "frontend/src/features/catalogue/current-catalogue.test.tsx": "7cdd3aa3dda3fa2761fa25aea1c7ab0487e903bc1dbc9ac09fd2684c3cb7e90c",
     "frontend/src/features/catalogue/current-catalogue.tsx": "71bb1758e1e15d7cb69847598b85de2cd307b132901975285758d7dca633dad6",
@@ -5064,8 +5180,8 @@
     "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "c853615d8d99466ddfe7cd8791e7bcfb77b4a5cb63aea91b98310123b5ec4112",
     "frontend/src/features/knowledge-admin/list.tsx": "cf90611402eeeeb3e37e422c27340adc32bf04c8be80ec4e7e7c543c83330848",
     "frontend/src/features/knowledge-admin/upload.tsx": "1d5cb43680c487863bc7d4c7bdcc91e33ebbf8089591ed6c4b2e2efe8d45a604",
-    "frontend/src/features/reading/current-knowledge-view.tsx": "4f869a53ff2437823d7a668a8c7513504dab87ac694794b9ab757a0879f822c5",
-    "frontend/src/features/study/account-boundary.tsx": "f3f3214a40d408bc41ff086540f8abff9064e68409518286aebb56db0412c3a4",
+    "frontend/src/features/reading/current-knowledge-view.tsx": "35d04499f71beb3cb07f3dd722bfad23b6cfb2bc598a72c1ba08625bd5524a1c",
+    "frontend/src/features/study/account-boundary.tsx": "7c1afbd5ea950c57963bf699fb4b0525c2004afc3ffccfdbf929c59af9c0e5d0",
     "frontend/src/features/study/content-reminders.test.tsx": "0706b1525fcb6eb4559c1a87e95b0be2eb5fdcc19634b1c1544ff0c8df04f157",
     "frontend/src/features/study/content-reminders.tsx": "1b22e6c688d96854113918d02b3dacfd85787c228fe61bb5f2e25ee09719ab1b",
     "frontend/src/features/study/experience-mode.ts": "70a0ee163f9682d4a448323308e18eb8e8038568cd99ee3ece3d284bda7d9dc4",
@@ -5076,14 +5192,14 @@
     "frontend/src/features/study/knowledge-controls.tsx": "a971ad7863903ca392c345eaab4871aeb28c3157d43f4d33c261219ee2854d57",
     "frontend/src/features/study/knowledge-list.tsx": "97db4aee9dce3e72bf98f3329022d95590c2be6cb0f718566c736afc85637629",
     "frontend/src/features/study/legacy-archive.tsx": "d13cfcf3dcbb85e56d815579bb3a4b2a718f45d9d31eabc452815f62557ce69a",
-    "frontend/src/features/study/managed-controls.tsx": "8d145b902f59d15d69c8d696eafc011b58d49752afc1fa6a0febbfaf44dd0e57",
+    "frontend/src/features/study/managed-controls.tsx": "f4a456b426c67c9b8830a1e81a117c9551ac22a421bc143413e539953594a59a",
     "frontend/src/features/study/managed-history.tsx": "560033d610a38f426b284e200da29fee71e2d4187724ca93651ead963ed9e244",
     "frontend/src/features/study/managed-learn-page.test.tsx": "b1af91ae3b70e5fc6d4c0be39f68f163de0920186ad53892e717d56130c06245",
-    "frontend/src/features/study/managed-learning-view.tsx": "4f938c295f97cc0798ce17618aa5197385ba3fd9c724b632d758d1e4c09a9f62",
-    "frontend/src/features/study/managed-note-editor.tsx": "bdecaf9ea709c98524f35bb6160558b77070850db05ac33aa911b34aaf172b67",
+    "frontend/src/features/study/managed-learning-view.tsx": "7ddd6cf01d581543c319089af1a5119b7d56c28cbe48baf602ac450eee19594c",
+    "frontend/src/features/study/managed-note-editor.tsx": "1c5bd406c40dcb578f1df1155cdfcd604e208238df46747e1e982d6748e849c2",
     "frontend/src/features/study/managed-pages.test.tsx": "77251029ae39ce6669573346f02bae64bd6f19518561642da19a4dff2c3400fb",
-    "frontend/src/features/study/managed-pages.tsx": "829de94d498ff7d5a2d88df91d23051bda1741ada5d650ccce9a8a39d8eed258",
-    "frontend/src/features/study/note-editor.test.tsx": "75ab9f1e577f3f66b5f48af5194b16e074c99bef882e50709ffc82a6b8c233fc",
+    "frontend/src/features/study/managed-pages.tsx": "241c29e253716a3f35f0955dc52978c62f3dd5ccbfb8afa218b08fd26164ffc7",
+    "frontend/src/features/study/note-editor.test.tsx": "320770269fb54fd79e9fc0cd25ee1a4aadb55c9a2c35ef5a72e63c076f780838",
     "frontend/src/features/study/note-editor.tsx": "3e08a00dec0acc7e29c7e7b0ca2ea7ddc8e6b29e1b39aead2ad7c062ca2c9d70",
     "frontend/src/features/study/overview.tsx": "3fd44ccddd6a586cdcd36fc4195a4a5aad533828be679a607acd6b95a3602a81",
     "frontend/src/features/study/pages.tsx": "36d9d8d2dc250c7f5f5e34d0abad4c8072f28fdbd2306e091de8f385d8212602",
@@ -5184,7 +5300,7 @@
     "tools/verify/topic-learning-compatibility.mjs": "d430c16a1c43fc9d9d06caedfaf7c605ef8fd970d04037bf5da2cc71de319f3a",
     "tools/verify/topic-learning-compatibility.test.mjs": "1fec60c552a6ec7d896c106490067bbd592e8b4c25011f3cafa23a0c7dbaa9cc",
     "backend/internal/store/knowledge_admin_streamline_test.go": "8f6a540fdf26ac0c1c19b1b6efb555f3b3740581de350c6c5331dc417c9f888b",
-    "backend/internal/store/managed_business_mode.go": "0e79fc1802489ba35792c0122db2d353a4dbf179ac71e399961870571b0ff677",
+    "backend/internal/store/managed_business_mode.go": "3f0ef440ea555b8aa02fec07256aa1dc1f88dddd9f6a54007e8092bdda043fdf",
     "frontend/src/components/topic-picker.test.tsx": "8f4181376f919e10adfe3cd45b05eaeafadf0aeae549e3f582998546cc96a86f",
     "frontend/src/components/topic-picker.tsx": "ace2db2d7e03cf5d352d9ae425ac56da9bfd0e6e06a5889cefe9663d1b5b4962",
     "frontend/src/features/catalogue/current-home.test.tsx": "bdda7fdba841aa9023387d94d6a443e1fb78ed798c1bede015bc21abe1bb97a3",
@@ -5195,7 +5311,7 @@
     "frontend/src/features/study/managed-history.test.tsx": "d973063ca9437aaa48f38ac2e49663499f97f81f44a9eb43743836195e568844",
     "frontend/src/features/study/retired-entry.tsx": "7be097213aec784a4f766e639af148a35a3e6b6c1e595a731035c8f4c53c839a",
     "frontend/src/styles/current-home.module.css": "56cc05b739a26deeb5426ced8f6a37382eb3c43b7aac37d3705ef03284d622c4",
-    "tests/e2e/site-streamline.spec.ts": "8d1dbb2de81259de7c59527230d7c3e060d519b6731715939e617da92133216f",
+    "tests/e2e/site-streamline.spec.ts": "af20e2c917e37d28eb08aa155dc4ebe9c2ab5f38b7dd18bdf3f24cd7a85b62a4",
     "tests/e2e/ui-language-streamline.spec.ts": "cc8e44b270d788d90d264d55721ec8fd0b475e4c3933e54d7c61f3693ec11d32",
     "tests/fixtures/legacy-frontend/manifest.json": "a32ecd8c6f33cef7b25937764f00bb2b60ef24ca09f3cb4b4afd9f3b2cce5611",
     "tests/fixtures/legacy-frontend/src/app/account/page.tsx": "a348994bb01a5e9beb35e7d4e876b59dd7c823eb23dcf43fa73213ded494fe96",
@@ -5267,17 +5383,84 @@
     "tests/e2e/form-controls.spec.ts": "4e08b5ef90d1b8fd5cdef8f7e1c8e3a66935aaa6fdd0078bd03924aa65acc952",
     "tests/fixtures/legacy-frontend/src/features/auth/account-panel.tsx": "700f72bcc5ebf026f3f546e775163e38a9e70a67ac74aff81b53b1218629f570",
     "tests/fixtures/legacy-frontend/src/features/auth/forms.test.tsx": "37e56e1ac513c0c85c6a5757b4e204d085344a771a2d8423b8b9f5d3478cc817",
-    "frontend/src/app/learn/page.tsx": "fc1912275bfd8461a5fce1b19fea340e501ea7ff8cfc75d637e30d63dca121a5",
+    "frontend/src/app/learn/page.tsx": "d4c3484b6cb4c4d0fb0dafa6e467371d6f05f809df278a2a3b7098371bb2f0fa",
     "frontend/src/app/learning-history/page.tsx": "9cb3b75cc339e03202412e83a0cb0033d339051a286e3679d0a23ab3adf5024b",
     "frontend/src/components/auth-status.test.tsx": "398e7222f02aae88a817758431670bb2d52a1a04f2c398654d6293f6afe97c4c",
-    "frontend/src/components/auth-status.tsx": "0d92f492282db15f24f3ede69bbf3dc0a7fd2df3c49b6c23f81ef6392614b3b7",
-    "frontend/src/lib/i18n/messages/en.ts": "b8ca6f2afb9a347cca51fe9919db4da69e42f4ada45a054d5c332c9084544983",
-    "frontend/src/lib/i18n/messages/zh-CN.ts": "3c41872d789aba7a7256e795271a165a1ec42f9c06dd957a3f8db846956c6024",
+    "frontend/src/components/auth-status.tsx": "d1a5ef0b7d3166d2a3dffb42e519926fd11debff8458935aee95aee6d59d8760",
+    "frontend/src/lib/i18n/messages/en.ts": "e188432ecf86c0b1cab9e1953600ab53292170706f56ad586f41eded091f1595",
+    "frontend/src/lib/i18n/messages/zh-CN.ts": "b10599e1133185868fbeed2deecc92bd9af1a4b2e90edf8b9b8b499818c88c45",
     "frontend/src/lib/knowledge-admin/study-navigation.ts": "82d9e54244fcabe20e1303798804277ecf1087c976eadf2073fdcff4b9aa1c4e",
     "tests/fixtures/legacy-frontend/src/features/study/managed-learn-page.test.tsx": "11ffc89c321432cec6692811f14eab77a191410e3a4dff74c5246c1eb1eb8fc7",
     "tests/fixtures/legacy-frontend/src/features/study/managed-learning-view.tsx": "62c3d829c8451bb2e8e25e3b4b7f193d97ce01a204fbe04bf95b4e6a8f4c79a6",
     "tests/fixtures/legacy-frontend/src/features/study/managed-pages.tsx": "e1c220607a65730d670ca5cf2b24d047bbb661198c01ae5ce8a364ec5d2b84e1",
     "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.tsx": "f59a144d41ced4f0e72b800b39875831fc90375d955cae46794fd61df43e8407",
-    "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.test.tsx": "b55faa54fc88aaf4277ca5fdcb217f953bce9912f6f2bb040864981aa0c6acba"
+    "frontend/src/features/study/test-fixtures/history-a1672157/managed-history.test.tsx": "b55faa54fc88aaf4277ca5fdcb217f953bce9912f6f2bb040864981aa0c6acba",
+    "backend/internal/e2etest/note_sharing_fixture.go": "4782bd21a40adf046285301ca6dad0bfb116b59bd865cd4cacfd911db0a66156",
+    "backend/internal/httpapi/note_sharing_json.go": "54c75dcd393ad31834183085b81b6aac86c60a9dda70ac91f15fd55ff04c45e3",
+    "backend/internal/httpapi/note_sharing_note_lock_test.go": "02464a8b4320031ca7d9c758b42f7f25486222b823d270df790e253313c94436",
+    "backend/internal/httpapi/note_sharing_routes.go": "dbe9489cd94920f0149d72157eb32ef0d715741abd2f2613a87e3312177f4ae1",
+    "backend/internal/httpapi/note_sharing_test.go": "d96007d818ff1b8124cb8321e0f9e63bc9e1f6ed03beb72221d54fd4c98b2a8f",
+    "backend/internal/notesharing/cursor.go": "9ceeae778d3a66504b9f3e54b0867012cb8322f666a8687e6078c89ea6e72aa5",
+    "backend/internal/notesharing/excerpt.go": "22b45e4f75b2b078d2a200e8cab7503d606c9fcae59661fb4c2fcb5a8fb6dfb1",
+    "backend/internal/notesharing/model.go": "f420bd91124374aa47a47d167fe648b3a16128c13385138a4f82567532e9472f",
+    "backend/internal/notesharing/repository.go": "fbf641e789ced8f6c130fac87ee2030dbc764a5601a1a02e0e8f68d4c0581740",
+    "backend/internal/notesharing/validate.go": "092796e34b79b699e06bbe54640f798b6f0be9e9e70b939ebac4f61e0cd49506",
+    "backend/internal/notesharing/validate_test.go": "db2edcd155482b3e522ba8138bef608cb80e4513638db017b326d1908f511f46",
+    "backend/internal/store/note_sharing_public_test.go": "365501e1ce0dcb8e59a165e854662f313145c0bf27a03c55b90971fd9b836c6a",
+    "backend/internal/store/note_sharing_read.go": "606b16c7d9f7bbeec2f67b081e2974fdde7add9b7b94c76f31394704b362fa42",
+    "backend/internal/store/note_sharing_schema.go": "39cc9d00ca08e9606cb16bb9fd4ec65660e79954701ce5b7a503232963668f1d",
+    "backend/internal/store/note_sharing_schema_test.go": "9e4c9f24cc36d54c7f76ef50aee9e65d561ae3bc10b45468bd92947fbf09f324",
+    "backend/internal/store/note_sharing_tx.go": "52c017863e72e8d056ac8c2ac9629666e9c78806a984b8bf18c32d17b9a17400",
+    "backend/internal/store/note_sharing_write.go": "0e202d64da9fac42c782bc8ccc853522569cacf5e5e2220845bb874c2fbd8f0f",
+    "backend/internal/store/note_sharing_write_test.go": "c5734a5a6c571f43c8a45a9873b895f374c06a8f5a9d56baae3b57933192dd81",
+    "db/migrations/00014_note_sharing.sql": "23630e28bc4a0f7da6c1374cced5a2942736833b2b28dbdbb65173611099a5b3",
+    "docs/operations/note-sharing.md": "3e666dafee4df8cf0e345c033a40c2031c522f7790c42ded5f4c94df4a69bbd8",
+    "docs/superpowers/plans/2026-10-13-notes-sharing.md": "fa59327d6d3dabd2987b59bef31a1170d9e8474d9da7824f6a9c7831c26284a2",
+    "docs/superpowers/reports/2026-10-13-notes-sharing-plan-review.md": "06c9f60d8bc6a87bd5794ea7377f9aca5671aff5cdc42713dfec9f8645ce8fc0",
+    "docs/superpowers/specs/2026-10-13-notes-sharing-design.md": "db9a4f99d675eb848d1420d7479a052013debe15f7abb16f1ee32f6971b7b72e",
+    "frontend/src/app/admin/note-shares/[id]/page.tsx": "a45d35543a4d7701a577abed93c61de5a10a8dd48d531170b90f49d55359d644",
+    "frontend/src/app/admin/note-shares/page.tsx": "edb825297eb8a07cf7de65e881fd2c95b347ad87211d7c0ab98dacddd09a5c8b",
+    "frontend/src/app/notes/[id]/page.tsx": "fae9990520f73dc21754b5eb427fa0ac4272b87808d8ea2eb08aec8a65d267c6",
+    "frontend/src/app/notes/page.tsx": "5fec269d92130d0687bdc0956848572075748038dc43880760efa3c6f6c86f82",
+    "frontend/src/features/notes/admin-share-queue.tsx": "ffe0229ff91c958b49ac82a99ae88ff64445e2d12c410f0bec20f82cd526a9a6",
+    "frontend/src/features/notes/admin-share-view.tsx": "a1d319dc8b655281052b9af56c8584c6a9b9f0ddbfbd3058687cc694fde61601",
+    "frontend/src/features/notes/current-reading.test.tsx": "3fd46a446b5828d0092fbf42e64d112ebe2783ec2b1c293dcc9b3bb746c696db",
+    "frontend/src/features/notes/note-editor.test.tsx": "2edc7c9f310447b8267273a115709a570def1e7431fb5a6d4a5879a05c2d7b8f",
+    "frontend/src/features/notes/note-leave-guard.test.tsx": "898e439138f9bf484468d3d652e9050be0293115b00358599d24949c5a7677c6",
+    "frontend/src/features/notes/note-leave-guard.tsx": "67133a1cc3daed385ae4735da73700e28782d496062646a821b0ce6d4065dc31",
+    "frontend/src/features/notes/note-message.tsx": "da12856f2cd52d89038f3efd0a2f106ebd3a8df4e4d32cf31fd02fc8622a1ea7",
+    "frontend/src/features/notes/note-preview.test.tsx": "fd9ce360e3df89b91a996d0d3b9614f2ad951d25646e9233f863fb7ac7838817",
+    "frontend/src/features/notes/note-preview.tsx": "277ce2bb1d4b42eaf1089a75cad234478803c8e6952aaa27c71895befe8bd634",
+    "frontend/src/features/notes/note-time.tsx": "7e4756e2a212f82c61d267e5ea7e23dcb3b1122fe88559579c8cad46fb1c147c",
+    "frontend/src/features/notes/note-toolbar.tsx": "07b9201d4aa87d11afec0f4e81ca3943a055e7ac1905aa6b986a8833027613ef",
+    "frontend/src/features/notes/own-note-list.test.tsx": "5ce06af436408dbdb2057a854bd11a3d92acccfa1890ef55875315e7d4a4e05b",
+    "frontend/src/features/notes/own-note-list.tsx": "43cb9815197873e3c763fbf86178fba817ae67e5da9e611c60baa5007f43fff8",
+    "frontend/src/features/notes/share-controls.tsx": "98e8f945389662390898a32c66083c5919ab3827db82d00b3a49751856c02a79",
+    "frontend/src/features/notes/shared-note-list.tsx": "8b394f6b30b3964b4f10637ded6f7c96c0f56fb5ab716745491a2dd2d141467b",
+    "frontend/src/features/notes/shared-note-view.tsx": "10f9d1660ea914ced23ed826092b516292b7425e1979c978670200c476391e02",
+    "frontend/src/features/notes/shared-pages.test.tsx": "1b64adf05f10a5c35fa4cbc46be1d58c71e77ad92243fd957a9cbc1706d2c863",
+    "frontend/src/lib/api/note-sharing-proxy.test.ts": "430937f2103802d67cf16ffb9156ba2e73f48904feb31ca1df61bd419a9e1c80",
+    "frontend/src/lib/api/note-sharing-proxy.ts": "8a826ac6c94f438a0bfa17667101e6d062bf84e03b84e987c68598a16be9ec80",
+    "frontend/src/lib/note-sharing/client.test.ts": "1e2b16849fb09b3fab36c310dc36e0a38e04290538dd7bd3643058bdd5d2f5b6",
+    "frontend/src/lib/note-sharing/client.ts": "67e6703499f0a49b8232bbbda83514ee9aa9eb80311c2e825cb0023181965d5f",
+    "frontend/src/lib/note-sharing/response.ts": "0509f59a4c527b61f4532576ee98fdbf1e02d45f8d4f21c20e9a21692ac307e8",
+    "frontend/src/lib/note-sharing/schemas.test.ts": "3298a8a609e73ad3d79776cb6a6cb559dc4f3fb9f09d1d8a5104a814f4c6d4eb",
+    "frontend/src/lib/note-sharing/schemas.ts": "36db4303ada433d58e505e92adfa95058059c617a417b24d86fe282cd2592ca5",
+    "frontend/src/lib/note-sharing/server-client.ts": "881b8cb4140b6c564acfc30abaebbbf5605258688e54f8cba34da0fa6ffeb1f2",
+    "frontend/src/lib/note-sharing/types.ts": "78ea419114b9a40ef4f91bd9e2e931bb9fd48c9af9023eb81047469f83c9f0c1",
+    "frontend/src/styles/notes.module.css": "6e3b49f42109d847bd96453a734a00e3ac4dae5693ca11c97c3762c521b7c3da",
+    "tests/e2e/note-editor-experience.spec.ts": "1f4c64cff27785619c87e138323b95c6213371f7890d3b2077beb3822bf1d50b",
+    "tests/e2e/note-sharing-security.spec.ts": "390eac441215f7d20c9d72a335af248dae6a2804baf9e9fa93201f7ae99d65b6",
+    "tests/e2e/note-sharing.spec.ts": "8756a07d8afa7ab41c0901d086bff0a725556b21e3c3260a79be1412d509cc9e",
+    "tests/e2e/ui-language-notes.spec.ts": "0dbad7f8e8f11a847834d85284bb8954ecb27e848b8c4e2068f73f98ad6378f8",
+    "docs/operations/2026-10-13-note-sharing-acceptance.md": "e997bbb864e4ea73a130f6badb53007dfa2519696f7c10b5ba738c82f1e4db4e",
+    "docs/superpowers/reports/2026-10-13-notes-sharing-code-review.md": "8c64932df04ad42c99932ed0eb89204f094443c8f0551efc35cfb93692fee472",
+    "docs/superpowers/specs/2026-10-13-legacy-correction-fence-design.md": "4e763b6788c317aa19e6885d8d09fb1104db412c2cf84d4c4234bb65cafa8f7a",
+    "docs/superpowers/plans/2026-10-13-legacy-correction-fence.md": "b5f7734654043b24cf0fc5f615157a58714e7c05b22b03273036824585752a35",
+    "docs/superpowers/reports/2026-10-13-legacy-correction-fence-plan-review.md": "c4cc29581c2d26ff09d05ab0c128d851b034b2d6058772d383f06b4ee54b987a",
+    "backend/internal/store/managed_correction_fence_internal_test.go": "32f2df42a7e499c837922ba3b9fe6ea7fb4fdb9893b98ed32ea05cd038025883",
+    "backend/internal/store/managed_correction_fence_test.go": "8abe7e4f5d53b1c39f30c4597bdbec1106eb1df2c7fed27d00d5db03813dc949",
+    "docs/operations/2026-10-13-legacy-correction-fence-acceptance.md": "4b7c2e008b7155e0f25fe8ee08b78bdca0f407348a42ee13278ae8d2df71e7d5",
+    "docs/superpowers/reports/2026-10-13-legacy-correction-fence-code-review.md": "811faaae164c3551a7297ca5d1d1a45670d232df9a6ad12df89a2bc43d5f0210"
   }
 }

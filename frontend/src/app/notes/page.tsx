@@ -1,0 +1,8 @@
+import {headers} from 'next/headers';import {readServerSession} from '@/lib/auth/server-client';import {readNoteShare} from '@/lib/note-sharing/server-client';import type {SharedNotePage,LatestSharedNotePage} from '@/lib/note-sharing/types';import {SharedNoteList} from '@/features/notes/shared-note-list';import {NoteMessage} from '@/features/notes/note-message';import {StudyAccountBoundary} from '@/features/study/account-boundary';import {getUiMetadata} from '@/lib/i18n/server';
+export const dynamic='force-dynamic';export async function generateMetadata(){return getUiMetadata('page.notes')}
+export default async function Page({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}){
+ const cookie=(await headers()).get('cookie')??'',session=await readServerSession(cookie);if(!session.ok)return <NoteMessage message="notes.notReady" error/>;if(session.data?.mustChangePassword)return <NoteMessage message="notes.signedOut" error/>;
+ if(!session.data){const page=await readNoteShare<LatestSharedNotePage>('/api/v3/shared-notes/latest');return page.ok?<SharedNoteList page={page.data} loggedIn={false}/>:<NoteMessage message="notes.notReady" error/>}
+ const values=await searchParams,filters:Record<string,string>={},q=new URLSearchParams();for(const key of ['q','topicKey','cursor'])if(typeof values[key]==='string'&&values[key]){filters[key]=values[key];q.set(key,values[key])}
+ const page=await readNoteShare<SharedNotePage>('/api/v3/shared-notes'+(q.size?'?'+q:''),cookie);return page.ok&&page.data.actorId===session.data.id?<StudyAccountBoundary actorId={session.data.id}><SharedNoteList page={page.data} loggedIn filters={filters}/></StudyAccountBoundary>:<NoteMessage message="notes.notReady" error/>;
+}

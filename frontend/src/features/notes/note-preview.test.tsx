@@ -1,0 +1,2 @@
+import {it,expect} from 'vitest';import {render} from '@testing-library/react';import {NotePreview} from './note-preview';
+it('renders safe mathematics and refuses executable markup',()=>{const{container}=render(<NotePreview body={'$x^2$ <script>alert(1)</script> [bad](javascript:alert(1))'}/>);expect(container.querySelector('.katex')).not.toBeNull();expect(container.querySelector('script')).toBeNull();expect(container.querySelector('a[href^="javascript:"]')).toBeNull()});
