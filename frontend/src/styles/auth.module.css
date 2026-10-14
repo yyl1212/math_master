@@ -55,3 +55,11 @@ details.adminNavigation { display:block; }
 @media(max-width:600px){.card h2{font-size:20px}.intro h1{font-size:30px}}
 .error { scroll-margin-block:16px; }
 .account > .actions > button { color:var(--danger); border-color:var(--danger); background:var(--danger-surface); }
+
+.admin { min-width:0; }
+.admin > :global(.page-heading) { display:grid; gap:12px; }
+.admin .card { overflow-wrap:anywhere; }
+.admin .form + .form { border-top:1px solid var(--border); padding-top:24px; margin-top:24px; }
+.users button { min-height:44px; border-color:var(--control-border); border-radius:10px; }
+.dialog .form input { min-height:48px; border-color:var(--control-border); }
+.danger:global(.button.secondary) { color:var(--danger); border-color:var(--danger); background:var(--danger-surface); }

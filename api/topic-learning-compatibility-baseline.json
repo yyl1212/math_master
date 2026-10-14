@@ -3363,7 +3363,8 @@
     },
     "frontend/src/features/auth/admin-users.tsx": {
       "managed": {
-        "sha256": "420079e55631969242710d62bbd0dc462c1a6b93faf324974eee3fba43fdf329"
+        "sha256": "51004522babd8b8479c32776b6e6d3f534761252148691f2d0320d92bf6f92c4",
+        "reason": "已确认第三阶段页面美感优化：精确登记展示/验证文件；原始字节快照、API、迁移、原CI和固定fixture保持。"
       }
     },
     "frontend/src/features/content/submission-page.test.tsx": {
@@ -3411,7 +3412,7 @@
     },
     "frontend/src/styles/auth.module.css": {
       "managed": {
-        "sha256": "389755b5bcf523c5938c69e1f7b7ce11b5ab805b9719e34f41bb0543efc38379",
+        "sha256": "dd2a61b3d30685c4ab7d92b07a76367c2a18c5e62e8078e8ec85a25e6383e528",
         "reason": "已确认第三阶段页面美感优化：精确登记展示/验证文件；原始字节快照、API、迁移、原CI和固定fixture保持。"
       }
     },
@@ -3453,7 +3454,7 @@
     },
     "frontend/src/styles/content.module.css": {
       "managed": {
-        "sha256": "fb3d76e5ffaaaf19e25b2cf832536af82c8bd20756457e5cf1dcfc9bd3a3f1d8",
+        "sha256": "55d0b69ac897e26f000010d17a269781f4165824294d41ea13b360e935bb8529",
         "reason": "已确认第三阶段页面美感优化：精确登记展示/验证文件；原始字节快照、API、迁移、原CI和固定fixture保持。"
       }
     }
@@ -5366,10 +5367,10 @@
     "frontend/src/features/content/topic-workspace.tsx": "cd4ee33433dfb2ab280af1a38a0f67628b4f565a11c70f0d0dda5e2fc1d1e726",
     "frontend/src/features/feedback/topic-location.test.ts": "44732334ea636f1115ed94acd443b50a2142352e61cdd8c55cc75c4d47093899",
     "frontend/src/features/feedback/topic-location.ts": "0d043e4276b21fc1a3a1e4e93b216b95af2353497779a65999afb562ed908081",
-    "frontend/src/features/knowledge-admin/edit.tsx": "2da3014bc84b1fefbff21e58b0a67590bde3715dc24a9fe4a1e468d5b6e7015e",
+    "frontend/src/features/knowledge-admin/edit.tsx": "3e890c762ba82322a24466c365192ef949ae0b2a4945d2acafe5f8eddab4b8e7",
     "frontend/src/features/knowledge-admin/knowledge-admin.test.tsx": "c853615d8d99466ddfe7cd8791e7bcfb77b4a5cb63aea91b98310123b5ec4112",
-    "frontend/src/features/knowledge-admin/list.tsx": "cf90611402eeeeb3e37e422c27340adc32bf04c8be80ec4e7e7c543c83330848",
-    "frontend/src/features/knowledge-admin/upload.tsx": "1d5cb43680c487863bc7d4c7bdcc91e33ebbf8089591ed6c4b2e2efe8d45a604",
+    "frontend/src/features/knowledge-admin/list.tsx": "e20ed85392b7612f948ad46f53ffea460d22ce71e01253452bd551010095a486",
+    "frontend/src/features/knowledge-admin/upload.tsx": "1967aac943a1f5ebf584e3d811b2415c6e4e8671fb35af14fec688a9c5751048",
     "frontend/src/features/reading/current-knowledge-view.tsx": "e2680865669dba403cf663e66067f3272e104292ccaf228a5edcfa1c81def5f6",
     "frontend/src/features/study/account-boundary.tsx": "7c1afbd5ea950c57963bf699fb4b0525c2004afc3ffccfdbf929c59af9c0e5d0",
     "frontend/src/features/study/content-reminders.test.tsx": "0706b1525fcb6eb4559c1a87e95b0be2eb5fdcc19634b1c1544ff0c8df04f157",
@@ -5612,8 +5613,8 @@
     "frontend/src/app/admin/note-shares/page.tsx": "edb825297eb8a07cf7de65e881fd2c95b347ad87211d7c0ab98dacddd09a5c8b",
     "frontend/src/app/notes/[id]/page.tsx": "fae9990520f73dc21754b5eb427fa0ac4272b87808d8ea2eb08aec8a65d267c6",
     "frontend/src/app/notes/page.tsx": "5fec269d92130d0687bdc0956848572075748038dc43880760efa3c6f6c86f82",
-    "frontend/src/features/notes/admin-share-queue.tsx": "ffe0229ff91c958b49ac82a99ae88ff64445e2d12c410f0bec20f82cd526a9a6",
-    "frontend/src/features/notes/admin-share-view.tsx": "5b3b4dd02baa17d0da4c38f25e1c0e4567bb1878b38ecfd51b2fa074c117d1a6",
+    "frontend/src/features/notes/admin-share-queue.tsx": "94d4d32db5fb637fbc7058f41a3b6be7f1257ba1ea2907075e429cfc0550afc8",
+    "frontend/src/features/notes/admin-share-view.tsx": "5a75f8277873c1a6bd13caa4a100b2d74a00c43fcfc1a0e2bd2cbe1045e08baf",
     "frontend/src/features/notes/current-reading.test.tsx": "99d9614def40cf5344b1a0e3cb31cf93c653181d3a33baa9b44cc916cc46543a",
     "frontend/src/features/notes/note-editor.test.tsx": "2edc7c9f310447b8267273a115709a570def1e7431fb5a6d4a5879a05c2d7b8f",
     "frontend/src/features/notes/note-leave-guard.test.tsx": "898e439138f9bf484468d3d652e9050be0293115b00358599d24949c5a7677c6",
@@ -5638,7 +5639,7 @@
     "frontend/src/lib/note-sharing/schemas.ts": "36db4303ada433d58e505e92adfa95058059c617a417b24d86fe282cd2592ca5",
     "frontend/src/lib/note-sharing/server-client.ts": "881b8cb4140b6c564acfc30abaebbbf5605258688e54f8cba34da0fa6ffeb1f2",
     "frontend/src/lib/note-sharing/types.ts": "78ea419114b9a40ef4f91bd9e2e931bb9fd48c9af9023eb81047469f83c9f0c1",
-    "frontend/src/styles/notes.module.css": "f66e51d63630c55248f9bfc817d7d7e3959841c214fa4a899acdf4e8ac83e804",
+    "frontend/src/styles/notes.module.css": "485908c52e23a77961590c076b53b98f0404feaeefa7ee436a91f4e2fec2527b",
     "tests/e2e/note-editor-experience.spec.ts": "1f4c64cff27785619c87e138323b95c6213371f7890d3b2077beb3822bf1d50b",
     "tests/e2e/note-sharing-security.spec.ts": "390eac441215f7d20c9d72a335af248dae6a2804baf9e9fa93201f7ae99d65b6",
     "tests/e2e/note-sharing.spec.ts": "8756a07d8afa7ab41c0901d086bff0a725556b21e3c3260a79be1412d509cc9e",
@@ -5755,7 +5756,7 @@
     "tests/e2e/page-beauty-helpers.ts": "3929f286d27f97fe0b42b7f4ab5120606254fd5a132561c938ac37b45b950428",
     "tests/e2e/page-beauty-public.spec.ts": "dcd4994163da45ea2934608e40f2f09289a378b9208d985b35674bcd66e227b2",
     "tests/e2e/page-beauty-learning.spec.ts": "d50f67d4047d6173fa3d04a259c30982f2c5a5610ad8286dc0e98d26aacd2dae",
-    "tests/e2e/page-beauty-admin.spec.ts": "3c82db3ae5f14046193696668cf5cee09ea6970563a5ba4d9e18e24f5cdcf964",
+    "tests/e2e/page-beauty-admin.spec.ts": "932d1f04ef2271c5d2e1e45924810bd463b9cbb62a7db52d46348aa103b61c0f",
     "docs/operations/evidence/page-beauty/case-matrix.md": "24dd02c83e0440d8f608aa568b89540ada08f098de5d50fd4e4fec6b4a2be404",
     "docs/operations/evidence/page-beauty/baseline.json": "f024205f2ab86ae3ddd9e6e5ac44dcccafe83a10be235e7fb081ae09d4fc464f",
     "docs/operations/evidence/page-beauty/before-A01-1280.png": "83884b7084abf916929aabc344dd51e53f41f4f6fe500774bf78c6a99215ba13",
