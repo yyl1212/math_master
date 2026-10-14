@@ -1,11 +1,11 @@
 {
   "method": "Firefox native textZoom=2, fullZoom=1; no page CSS font overrides; DPR1 and content viewport held unchanged before/after. Browser chrome content container sized320 for macOS outer-window500 minimum; real page viewport320. Original input/textarea masked only for screenshots.",
   "browserVersion": "155.0",
-  "productParentCommit": "5abdf9280796221db3274591e0e77dd6f6bfc093",
+  "productParentCommit": "f1074af9161d5d7800231d66b98b6024424218c3",
   "sourceDigests": {
     "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
     "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2",
-    "frontend/src/styles/globals.css": "765bd334e5e5bc78704e6f1e70ceb0ed5506a5a61431a5d66a932dca2830e076"
+    "frontend/src/styles/globals.css": "812fa89ccf41297a0e25ce043c64506125c127aeb4851c4d8f9a9e84fad4dbb0"
   },
   "records": [
     {
@@ -138,9 +138,11 @@
       "headerHeight": 313.29998779296875,
       "h1": "Edit · 有理分数",
       "textareaCount": 17,
-      "focusTargets": 17,
+      "fieldCount": 27,
+      "focusTargets": 27,
+      "disabledOrHidden": 0,
       "screenshot": "text200-admin-form-1280.png",
-      "screenshotSHA256": "803be88cbafa31622e279e7b0c7fa73081067c1e587b15d67affb9934e8e8148"
+      "screenshotSHA256": "d653d455b820d0e8953ae4ab00c8cbafff3611c773516e2d13df74944e3ce392"
     },
     {
       "case": "dialog-1280",
@@ -169,7 +171,7 @@
       },
       "tabSteps": 6,
       "screenshot": "text200-dialog-1280.png",
-      "screenshotSHA256": "1bb6387151fe147c07d7a726f54a77731e92513f39122c1f34264ec43a8cf041"
+      "screenshotSHA256": "ae3285880f592299552db6a31eb232863102915d9adb521f8399ae85cf07f396"
     },
     {
       "case": "admin-form-320",
@@ -183,9 +185,11 @@
       "headerHeight": 721.4000244140625,
       "h1": "Edit · 有理分数",
       "textareaCount": 17,
-      "focusTargets": 17,
+      "fieldCount": 27,
+      "focusTargets": 27,
+      "disabledOrHidden": 0,
       "screenshot": "text200-admin-form-320.png",
-      "screenshotSHA256": "a719e3f12d71297ea6cb2aa153c61ea0a48be4fc5c61d996d114b478c89f2d2e"
+      "screenshotSHA256": "a132b4ebc0ddd8654c4fb3959f55f80ec381782084f74800e6d1fda623309c97"
     },
     {
       "case": "dialog-320",
@@ -214,7 +218,7 @@
       },
       "tabSteps": 6,
       "screenshot": "text200-dialog-320.png",
-      "screenshotSHA256": "0032fedeaf3d17a628efbc1dbe73318df7b7c12bf3e05a57eb242968099b0572"
+      "screenshotSHA256": "00731a706a236de29addc5375b268afd7049c25b8d40a6194af057723607506c"
     },
     {
       "case": "reading-1280",
@@ -275,7 +279,7 @@
       "clientWidth": 238,
       "scrollWidth": 4315,
       "screenshot": "text200-formula-keyboard.png",
-      "screenshotSHA256": "ba8a757937282073d3a58ddfd09d479380c5a45bc677bbc49d85e922dbab0ce2"
+      "screenshotSHA256": "df5f85207e60ede519bbc7d20a529a85ec11eb16da6f3dbdec9294871e7d44e5"
     }
   ]
 }

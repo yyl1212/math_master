@@ -1,0 +1,19 @@
+{
+  "method": "Chromium真实原生select；forced-colors浏览器媒体模拟、320和宽字体；Space打开/Escape取消、原选值/完整option和焦点保留，不声称真实Windows设备",
+  "productParentCommit": "f1074af9161d5d7800231d66b98b6024424218c3",
+  "globalStyleSHA256": "812fa89ccf41297a0e25ce043c64506125c127aeb4851c4d8f9a9e84fad4dbb0",
+  "viewport": 320,
+  "pageWidth": 320,
+  "forcedColors": true,
+  "appearance": "auto",
+  "backgroundImage": "none",
+  "outline": "solid",
+  "outlineWidth": "3px",
+  "left": 41,
+  "right": 279,
+  "height": 48,
+  "value": "97-XX",
+  "optionCount": 65,
+  "optionListSHA256": "0a6159eabec204aa13614bc74506a3550c0951237f1900388eb7419c547617e5",
+  "selectedOptionText": "Original fixture theme 97-XX"
+}

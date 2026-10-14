@@ -1,0 +1,577 @@
+{
+  "method": "Playwright1.63官方run-server与PW_TEST_CONNECT_WS_ENDPOINT；原专用config、四项目、480秒、单worker、零重试；本机应用/专属合成库，经容器内部localhost代理保留原Origin。独立Linux目录，未覆盖Mac画面。",
+  "image": "mcr.microsoft.com/playwright:v1.63.0-noble",
+  "imageDigest": "sha256:eff16c30e6f3f4af0a03fa4b706120d5e9b0891c344a27d64559aff5900a4a27",
+  "browserOS": "Ubuntu24.04",
+  "browserArchitecture": "arm64",
+  "githubArchitecture": "amd64，最终远端CI另行核对，不将本机arm64等同GitHub",
+  "productParentCommit": "f1074af9161d5d7800231d66b98b6024424218c3",
+  "finalFixSourceDigests": {
+    "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
+    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2",
+    "frontend/src/styles/globals.css": "812fa89ccf41297a0e25ce043c64506125c127aeb4851c4d8f9a9e84fad4dbb0"
+  },
+  "tests": 20,
+  "projects": [
+    "firefox-desktop",
+    "firefox-mobile",
+    "webkit-desktop",
+    "webkit-mobile"
+  ],
+  "logSHA256": "48d7b07e0289fb640168bfebcb96e96dc679a79970a05e865aee9e30318818cc",
+  "frames": [
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-desktop-compare",
+      "project": "firefox-desktop",
+      "route": "/learn/review/a0c8e0ec-9286-4c20-b6e0-90ef5324cc09",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "445fdb4eb5937241a8ad3e1deb623313a77a0aa1b7381487296699758b319d24"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-firefox-desktop-dialog",
+      "project": "firefox-desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 228,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "757907a9989471691838b2477aaa61c5e6358956940b64bc6c502cc46df935f7"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-firefox-desktop-home",
+      "project": "firefox-desktop",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "57154d774a89747994be9d7aeff40ee2d9e15a4bf7409006a95f8994368d0d72"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-desktop-notes",
+      "project": "firefox-desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "dd027723b5cf37ea0de2fe545b5f1ec0494607dedbfe55670d70a3a983c6df66"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-mobile-compare",
+      "project": "firefox-mobile",
+      "route": "/learn/review/83f24575-fb87-48c5-9e9d-67034eced092",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "779102d9b2d55346363c0b711cf441029ed61767852cade2b67500a9e4b3cec9"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-firefox-mobile-dialog",
+      "project": "firefox-mobile",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 228,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "757907a9989471691838b2477aaa61c5e6358956940b64bc6c502cc46df935f7"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-firefox-mobile-home",
+      "project": "firefox-mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "83df2fcb28882b1fb0f44da2450a33ce4ca44e080de14267a513192be32468b4"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-mobile-notes",
+      "project": "firefox-mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "7a46f24b7a832d153fdadba59eca844bd5978721e388697a4622d5a1db00cfb4"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-desktop-compare",
+      "project": "webkit-desktop",
+      "route": "/learn/review/9d3dc5b3-9b31-4298-9028-2c53725a1954",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        }
+      ],
+      "screenshotSHA256": "d1a0997fac3e245f3e8757ad3bdb0a21c0a7394f0860701bfbe068836b609eac"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-webkit-desktop-dialog",
+      "project": "webkit-desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5c9f7198172746052949db53e195925eb2767aacffee9719c872f5c00e5ea1c3"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-webkit-desktop-home",
+      "project": "webkit-desktop",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "951bbb7706de41f351bf71619ecbb6946162014687d2499306775f859461dfbc"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-desktop-notes",
+      "project": "webkit-desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        }
+      ],
+      "screenshotSHA256": "f571149c6f9d2eff8f219c9ac863dd7016da7df964859eb715f93ccc4590093e"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-mobile-compare",
+      "project": "webkit-mobile",
+      "route": "/learn/review/e45af636-3b04-4737-9dc8-339977f7ac8f",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "d66a71c4e11763ef64474bdc00bf5524df838e8e16a1c95c5be54072d30ca306"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-webkit-mobile-dialog",
+      "project": "webkit-mobile",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5c9f7198172746052949db53e195925eb2767aacffee9719c872f5c00e5ea1c3"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-webkit-mobile-home",
+      "project": "webkit-mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2d8727a8750fbcc686714e7d82e589967e321ae76319d7491ea97605428aa3cc"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-mobile-notes",
+      "project": "webkit-mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "849b89a4d2ae16dd59b80a3f06a17bd7ca41654385878208d1c22f8f295eb4ec"
+    }
+  ],
+  "images": "本机临时合成图保留摘要与hash；仓库保存代表性Mac前后图；GitHubCI独立保存完整远端图7天。"
+}

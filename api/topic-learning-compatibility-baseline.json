@@ -3297,7 +3297,7 @@
     },
     "frontend/src/styles/globals.css": {
       "managed": {
-        "sha256": "765bd334e5e5bc78704e6f1e70ceb0ed5506a5a61431a5d66a932dca2830e076",
+        "sha256": "812fa89ccf41297a0e25ce043c64506125c127aeb4851c4d8f9a9e84fad4dbb0",
         "reason": "已确认第三阶段页面美感优化：精确登记展示/验证文件；原始字节快照、API、迁移、原CI和固定fixture保持。"
       }
     },
@@ -4082,7 +4082,9 @@
       "docs/operations/evidence/page-beauty/text200-reading-320.png",
       "docs/operations/evidence/page-beauty/text200.json",
       "docs/superpowers/reports/2026-10-14-page-beauty-acceptance.md",
-      "docs/superpowers/reports/2026-10-14-page-beauty-code-review.md"
+      "docs/superpowers/reports/2026-10-14-page-beauty-code-review.md",
+      "docs/operations/evidence/page-beauty/linux-browser.json",
+      "docs/operations/evidence/page-beauty/topic-select-forced-colors.json"
     ]
   },
   "legacySnapshots": {
@@ -5786,13 +5788,13 @@
     "tools/verify/study-review-restore.test.mjs": "1392e1b8e397079f9ff3d48f80e50fffa613cc7f316580b2f87ee7afc215bc5c",
     "docs/superpowers/specs/2026-10-14-page-beauty-design.md": "82334f64ffc140c144b19945dbce94d4f74178cfc4400617779aed5af89cad03",
     "docs/superpowers/plans/2026-10-14-page-beauty.md": "b96d92ab67a45ed37694d644309f06733bb0eaf424c9406eeafbddaafbc85bcf",
-    "docs/superpowers/reports/2026-10-14-page-beauty-page-audit.md": "44d7dc78bb68a8c25e0309acf5b33a718e3b1e78441cd3b2662c39f1e04334b6",
+    "docs/superpowers/reports/2026-10-14-page-beauty-page-audit.md": "26e3134a622a508b63ea17b21f88de8ab2558bc5dfb454e1f8d1b2346d7af8a6",
     "docs/superpowers/reports/2026-10-14-page-beauty-plan-review.md": "5b9b423c84be7706a431a4caab496abf313766fdcf2b47e84bb823307cc20e0b",
     "tests/e2e/page-beauty-helpers.ts": "1ae5a3615401938c9cfb2a9d4459ed258ce57c8153e23e1fbe427ef833262342",
     "tests/e2e/page-beauty-public.spec.ts": "cc43acc91c9d683b82625c2dd55779e6b069c7e6c4d9539f71f8bf0bc98bb656",
     "tests/e2e/page-beauty-learning.spec.ts": "5a57ef77d2aeb9ec62f8a2a06d0cda28a65f41fcb8859d683917a6885e230005",
     "tests/e2e/page-beauty-admin.spec.ts": "932d1f04ef2271c5d2e1e45924810bd463b9cbb62a7db52d46348aa103b61c0f",
-    "docs/operations/evidence/page-beauty/case-matrix.md": "b318c8d71e6ba27eb795579bcfd53c90437085c93dd64ded54a01f118d1d2e1d",
+    "docs/operations/evidence/page-beauty/case-matrix.md": "184deede7ac76b5c5fb1cee32c33724b3b5e872713bba2a15dabfc522da6651d",
     "docs/operations/evidence/page-beauty/baseline.json": "c7a71079ef43492d86d0206d7f2f1627ef343d67c3e53625b5f0c688aee8c61a",
     "docs/operations/evidence/page-beauty/before-A01-1280.png": "83884b7084abf916929aabc344dd51e53f41f4f6fe500774bf78c6a99215ba13",
     "docs/operations/evidence/page-beauty/before-A01-390.png": "91b8d43e67d6ba567556dfa5cf34ce3c85b49bd66e36cd88cf87f25f18d8deb1",
@@ -5811,12 +5813,12 @@
     "frontend/src/styles/current-prose.module.css": "66c9836abdbae5be19fb0841e5c29c080e1b0f649c3ffe1326889270cc3e4bc1",
     ".github/workflows/page-beauty.yml": "8b69481e90a68398dc060532bb691d850c33af84491f288fca847ef5d9493138",
     "tests/e2e/page-beauty.playwright.config.ts": "6338a52e9b59544bcd8a6ed7a0e1c5a85416b754940208df8220ded9f7dd3414",
-    "tests/e2e/page-beauty-cross-browser.spec.ts": "834cc006abe06b3e897cda90ccf746b9472920787ef8be0f82a2b4cc95bd2866",
+    "tests/e2e/page-beauty-cross-browser.spec.ts": "6df924c4f6deef1e50aab7595f32a169ea538338197c973aca24592e0b7e9e32",
     "tools/verify/page-beauty-ci.mjs": "c9d7fe085aed7e3b23272553c117169a0c62385bfb1b1b7e7a05beecaac66c0d",
     "tools/verify/page-beauty-ci.test.mjs": "4d63afa5f63f74a496f3ca2facd3b8b65712e01612a907a57915ada500da48c9",
     "tools/verify/page-beauty-assets.mjs": "257716a2b1ebaf90e141df85fcf2e3ad1878f3bab83c81ff6d3ca624bb4fc7eb",
     "tools/verify/page-beauty-assets.test.mjs": "fb02407b54a7420f9858cb91d01b668e69c1cd30cc1164aa470ac7e667e0d62f",
-    "docs/operations/evidence/page-beauty/after.json": "74e271c24055dc9bc5676917a4eeefd8599e58b6fcb628986d711cad8e182ccd",
+    "docs/operations/evidence/page-beauty/after.json": "6da0d4186c3cc9e4f3906a4a1844dc538a5fdddcef53f7f59432ff75ba22b43b",
     "docs/operations/evidence/page-beauty/after-A01-1280.png": "b0d0b238515ccc8bbc61f6b2c401f8d52a97f1e3ec5e366758f04cc6cb28bc16",
     "docs/operations/evidence/page-beauty/after-A01-390.png": "b659183a1f0555a952a2e342ada7316c161385c5ef3f9cafef78ad02c9798ab6",
     "docs/operations/evidence/page-beauty/after-A04-1280.png": "65549e6242d5b5062759c3e640d0806310a92b33f499c90c10722222cac222ce",
@@ -5828,16 +5830,18 @@
     "docs/operations/evidence/page-beauty/after-A20-1280.png": "64fd34ab8aeff3bf994eed966def66928d35cf9e7ade37f16fd465d304a4d482",
     "docs/operations/evidence/page-beauty/after-A20-390.png": "c47b026b192113f1e95d107a03cb5622334fa91ca9fa8aaf7427444f564300eb",
     "docs/operations/evidence/page-beauty/manual-browser.json": "5c3fd03cd4ae8c7eb7951008d300fe807c89e07748b071dd448711e9c1325b23",
-    "docs/operations/evidence/page-beauty/manual-forced-colors-reduced-motion.png": "ddf79deaa5f12cc8b487c211486786b8c5d1fa2978b989672425ec5ee6bdd1fa",
+    "docs/operations/evidence/page-beauty/manual-forced-colors-reduced-motion.png": "34eeafe497192cb41c9571b815ac87f784ea5c410871b27874b7171e77bbc883",
     "docs/operations/evidence/page-beauty/manual-reading-4x.png": "d99e916f02c4cadc6b121b8f5081db3f62152d5950b6ab5986c44b5a7e48c163",
     "docs/operations/evidence/page-beauty/original-regressions.json": "9569ad1408ced3c1b5603253094128047b8a3a88624c40ea1aac515e8ba1575c",
-    "docs/operations/evidence/page-beauty/final-regressions.json": "95a40ac48fe7a63bb1ca2a7a4dca1f8583c5abca84d7b5688194fe75aebccbf9",
-    "docs/operations/evidence/page-beauty/scope-review.json": "e12bc0e82a2609a1a645d0c5978a3f8e16726e22267c22e9d26b52f3109d1b10",
-    "docs/operations/evidence/page-beauty/text200-dialog-320.png": "0032fedeaf3d17a628efbc1dbe73318df7b7c12bf3e05a57eb242968099b0572",
-    "docs/operations/evidence/page-beauty/text200-formula-keyboard.png": "ba8a757937282073d3a58ddfd09d479380c5a45bc677bbc49d85e922dbab0ce2",
+    "docs/operations/evidence/page-beauty/final-regressions.json": "5b9192596c19f5d9f8245b7fbdd574eb8eedbf449a84be3c9e590bfcfd69dde4",
+    "docs/operations/evidence/page-beauty/scope-review.json": "46c62a2438a8c3193b4a0c6e35102bad32bf6001729fbb58c60814f97a5108c3",
+    "docs/operations/evidence/page-beauty/text200-dialog-320.png": "00731a706a236de29addc5375b268afd7049c25b8d40a6194af057723607506c",
+    "docs/operations/evidence/page-beauty/text200-formula-keyboard.png": "df5f85207e60ede519bbc7d20a529a85ec11eb16da6f3dbdec9294871e7d44e5",
     "docs/operations/evidence/page-beauty/text200-reading-320.png": "7b26730b855c3e4ab708960642e03d28dfde43c3f390cc3789c47a613042665d",
-    "docs/operations/evidence/page-beauty/text200.json": "5d7985cd9a7e9ef957902645e22e2f7ede0969f90451578451330a7edb2e0802",
-    "docs/superpowers/reports/2026-10-14-page-beauty-acceptance.md": "7f79b89bcd4704251198474c1386687693ef4eb942148833ba07c56592346758",
-    "docs/superpowers/reports/2026-10-14-page-beauty-code-review.md": "1b79d75bbb95b14501229c010b981da17410b07203e43cfe0df0021f900bad23"
+    "docs/operations/evidence/page-beauty/text200.json": "8e6d76c6258f1ed71b63734c4b6614ed1171b74e8e570a17e8a3b0ca57c1879c",
+    "docs/superpowers/reports/2026-10-14-page-beauty-acceptance.md": "2128a0953801e9fb7f2ca4b2dc652733473d5289972c22c24224f51ca5ae7f7b",
+    "docs/superpowers/reports/2026-10-14-page-beauty-code-review.md": "20703dcae62070a55fa5c7c7301b57d5506ab9e13cba6d77b91e435102e96e17",
+    "docs/operations/evidence/page-beauty/linux-browser.json": "64143bbb5cb8569f93ec018344d5564b9746e3b1e4d3603f00dc152c9487d9de",
+    "docs/operations/evidence/page-beauty/topic-select-forced-colors.json": "eb4132b2775ff44c6b71304dff8c711c6b4e48fabc3605a2a9bb7ff1c4cccd98"
   }
 }

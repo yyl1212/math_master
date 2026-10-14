@@ -30,6 +30,8 @@
 |A24|笔记审批详情|管理员|`page-beauty-admin.spec.ts`；中英1280/390/320|实际列表/内容/表单；原权限与状态机|
 |A25|人员管理|管理员|`page-beauty-admin.spec.ts`；中英1280/390/320|实际列表/内容/表单；原权限与状态机|
 
-26个旧入口由三个新spec逐项核对：14个跳转保留目标，12个退场保留退出提示。深层状态沿用原note-sharing/security、note-editor-experience、study-review-flow/recall/security、feedback-user/review/security、账户安全与管理回归，T7原49条386次逐命令记录，最终CSS修复后再跑当前118、跨浏览器16和受影响原入口36。
+26个旧入口由三个新spec逐项核对：14个跳转保留目标，12个退场保留退出提示。深层状态沿用原note-sharing/security、note-editor-experience、study-review-flow/recall/security、feedback-user/review/security、账户安全与管理回归，T7原49条386次逐命令记录，最终CSS修复后再跑当前118、跨浏览器Mac20+Linux20和受影响原入口36。
 
 补充语料：原创长中文/英文标题、连续数学公式、0/少/多条目；768/1440与断点1099/1100、800/801已实测；原生文字放大14项与整页缩放/偏好/键盘11项分别记录。基线不被当作优化后目标值。
+
+原生主题单选框收起态长文字在窄屏使用省略显示；完整原生选项和值保持。新增四项目宽字体/选值/焦点/尺寸行为保护，并在官方Ubuntu24 arm64完整20项独立验证。

@@ -524,6 +524,7 @@ main {
 .form-actions > a:not(.button) { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 4px; font-size: 14px; }
 .topic-picker legend { font-size: 14px; font-weight: 550; margin-bottom: 12px; }
 .topic-picker-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.topic-picker-grid select:not([multiple]) { overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 700px) {
   .ui-filter, .topic-picker-grid { grid-template-columns: minmax(0, 1fr); }
   .ui-filter > .button { width: 100%; }

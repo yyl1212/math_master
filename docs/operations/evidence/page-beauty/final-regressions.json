@@ -1,15 +1,15 @@
 {
-  "productParentCommit": "5abdf9280796221db3274591e0e77dd6f6bfc093",
+  "productParentCommit": "f1074af9161d5d7800231d66b98b6024424218c3",
   "finalFixSourceDigests": {
     "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
     "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2",
-    "frontend/src/styles/globals.css": "765bd334e5e5bc78704e6f1e70ceb0ed5506a5a61431a5d66a932dca2830e076"
+    "frontend/src/styles/globals.css": "812fa89ccf41297a0e25ce043c64506125c127aeb4851c4d8f9a9e84fad4dbb0"
   },
   "current": [
     {
       "group": "public",
       "returnCode": 0,
-      "seconds": 95.1,
+      "seconds": 95.2,
       "tail": [
         "[WebServer]   digest: '2532484164'",
         "[WebServer] }",
@@ -21,23 +21,23 @@
     {
       "group": "learning",
       "returnCode": 0,
-      "seconds": 116.5,
+      "seconds": 117.5,
       "tail": [
         "[WebServer]   digest: '2532484164'",
         "[WebServer] }",
-        "  ✓  42 [mobile] › ../tests/e2e/page-beauty-learning.spec.ts:22:5 › 当前阅读与私人笔记双栏及窄屏状态留存证据 (2.7s)",
+        "  ✓  42 [mobile] › ../tests/e2e/page-beauty-learning.spec.ts:22:5 › 当前阅读与私人笔记双栏及窄屏状态留存证据 (2.8s)",
         "",
-        "  42 passed (1.9m)"
+        "  42 passed (2.0m)"
       ]
     },
     {
       "group": "admin",
       "returnCode": 0,
-      "seconds": 88.8,
+      "seconds": 88.4,
       "tail": [
         "[WebServer]   digest: '2532484164'",
         "[WebServer] }",
-        "  ✓  28 [mobile] › ../tests/e2e/page-beauty-admin.spec.ts:10:43 › 笔记审批hide保留审核理由和记录 (3.4s)",
+        "  ✓  28 [mobile] › ../tests/e2e/page-beauty-admin.spec.ts:10:43 › 笔记审批hide保留审核理由和记录 (3.5s)",
         "",
         "  28 passed (1.5m)"
       ]
@@ -49,7 +49,7 @@
   "logs": [
     {
       "log": "t7-current-public.log",
-      "sha256": "ead4717c777e70cd6d893d26bcd48100f19cfdbad52edf8ee72b866ee92a9978",
+      "sha256": "e2fe2fbc28d2760ae019229c1a40eaadab0567c9c08c8995e640db3cbb973a4a",
       "passed": 48,
       "tail": [
         "[WebServer]     at ignore-listed frames {",
@@ -62,77 +62,90 @@
     },
     {
       "log": "t7-current-learning.log",
-      "sha256": "445bceb2fcd9ac79f9676da09b85f6a9930dbe2f0a31e2885abb91a1d10c19dd",
+      "sha256": "83cee4c178e742c8c6c365abfb0c8f32c8216b292629da26fdf20a4e1eaa3043",
       "passed": 42,
       "tail": [
         "[WebServer]     at ignore-listed frames {",
         "[WebServer]   digest: '2532484164'",
         "[WebServer] }",
-        "  ✓  42 [mobile] › ../tests/e2e/page-beauty-learning.spec.ts:22:5 › 当前阅读与私人笔记双栏及窄屏状态留存证据 (2.7s)",
+        "  ✓  42 [mobile] › ../tests/e2e/page-beauty-learning.spec.ts:22:5 › 当前阅读与私人笔记双栏及窄屏状态留存证据 (2.8s)",
         "",
-        "  42 passed (1.9m)"
+        "  42 passed (2.0m)"
       ]
     },
     {
       "log": "t7-current-admin.log",
-      "sha256": "f18ac884de674885a15c847223beaa50f420841132663126001c8ea3f94c30e3",
+      "sha256": "faefa2c00d0167801b58ec6db2def2ff2faba435de1e2a5fa81d818b6d75b63e",
       "passed": 28,
       "tail": [
         "[WebServer]     at ignore-listed frames {",
         "[WebServer]   digest: '2532484164'",
         "[WebServer] }",
-        "  ✓  28 [mobile] › ../tests/e2e/page-beauty-admin.spec.ts:10:43 › 笔记审批hide保留审核理由和记录 (3.4s)",
+        "  ✓  28 [mobile] › ../tests/e2e/page-beauty-admin.spec.ts:10:43 › 笔记审批hide保留审核理由和记录 (3.5s)",
         "",
         "  28 passed (1.5m)"
       ]
     },
     {
       "log": "t8-cross-final.log",
-      "sha256": "77849dd983db5adbb327ec1d694e3b0c5040f8d4c030db2708f298b0a8ff2458",
-      "passed": 16,
+      "sha256": "df5ad72cc8f62b0c96c30815b2236045d0686f51427e1958d76cdfa883e62dfa",
+      "passed": 20,
       "tail": [
+        "[WebServer]     at ignore-listed frames {",
+        "[WebServer]   digest: '2532484164'",
         "[WebServer] }",
-        "  ✓  14 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:8:5 › 笔记输入与长公式滚动保留安全和键盘入口 (2.0s)",
-        "  ✓  15 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:11:5 › 默写比对按原揭示条件冻结并保留自评 (2.2s)",
-        "  ✓  16 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:14:5 › 管理表格、表单与对话框焦点在真实引擎中可用 (3.1s)",
+        "  ✓  20 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:20:5 › 窄屏宽字体下原生主题选框保留完整选项和值且不横溢 (1.9s)",
         "",
-        "  16 passed (37.5s)"
+        "  20 passed (44.7s)"
+      ]
+    },
+    {
+      "log": "t8-linux-cross-final.log",
+      "sha256": "48d7b07e0289fb640168bfebcb96e96dc679a79970a05e865aee9e30318818cc",
+      "passed": 20,
+      "tail": [
+        "  ✓  17 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:8:5 › 笔记输入与长公式滚动保留安全和键盘入口 (2.2s)",
+        "  ✓  18 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:11:5 › 默写比对按原揭示条件冻结并保留自评 (2.5s)",
+        "  ✓  19 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:14:5 › 管理表格、表单与对话框焦点在真实引擎中可用 (2.0s)",
+        "  ✓  20 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:20:5 › 窄屏宽字体下原生主题选框保留完整选项和值且不横溢 (1.9s)",
+        "",
+        "  20 passed (43.2s)"
       ]
     },
     {
       "log": "t8-original-affected.log",
-      "sha256": "f2352c0296120dc341012110a38a48a13a6b8757663da1749218e483c8f96e16",
+      "sha256": "cc4f781609d18729d935baa95a5059c1561db8f66695e5af85733b95c02ab8a1",
       "passed": 36,
       "tail": [
         "[WebServer]     at ignore-listed frames {",
         "[WebServer]   digest: '2532484164'",
         "[WebServer] }",
-        "  ✓  36 [mobile] › ../tests/e2e/ui-language-streamline.spec.ts:33:5 › production homepage, structured editing and retired entry translate without changing input (2.8s)",
+        "  ✓  36 [mobile] › ../tests/e2e/ui-language-streamline.spec.ts:33:5 › production homepage, structured editing and retired entry translate without changing input (2.7s)",
         "",
         "  36 passed (1.8m)"
       ]
     },
     {
       "log": "t8-original-legacy.log",
-      "sha256": "33b77a0fc04aed26bdd71b98cafa19338d712c995b656ecf47f58919eef1b27c",
+      "sha256": "7b991dacd19223d608ec8f9c6bfb998ba2d90ac56b71ac3b5b505ba02ae685bc",
       "passed": 16,
       "tail": [
-        "  ✓  14 [mobile] › ../tests/e2e/reading.spec.ts:72:5 › withdrawalStopsNewReadsAndAssetRequests (13.7s)",
-        "  ✓  15 [mobile] › ../tests/e2e/reading.spec.ts:150:5 › longNamesAndMultiPrerequisitesFitBothViewports (324ms)",
-        "[WebServer] 2026/10/14 22:06:39 ERROR Private API request failed request_id=89ec34f531aeb5fa3428278208a61c7c error_code=SERVICE_UNAVAILABLE",
-        "  ✓  16 [mobile] › ../tests/e2e/reading.spec.ts:183:5 › clientResponsesDoNotExposeInternalConfiguration (351ms)",
+        "[WebServer] 2026/10/14 23:02:47 ERROR Private API request failed request_id=c167dd65602532d74f7433a48d081e01 error_code=SERVICE_UNAVAILABLE",
+        "  ✓  15 [mobile] › ../tests/e2e/reading.spec.ts:150:5 › longNamesAndMultiPrerequisitesFitBothViewports (315ms)",
+        "[WebServer] 2026/10/14 23:02:47 ERROR Private API request failed request_id=d9b9a162b01f5daa3a1aeb6d1e93d1d8 error_code=SERVICE_UNAVAILABLE",
+        "  ✓  16 [mobile] › ../tests/e2e/reading.spec.ts:183:5 › clientResponsesDoNotExposeInternalConfiguration (344ms)",
         "",
-        "  16 passed (46.6s)"
+        "  16 passed (47.2s)"
       ]
     },
     {
       "log": "t8-unit.log",
-      "sha256": "d3543d100be3605ab288dfb7dc0b7c919902d5f2f0e23bfd39e0465f2ebf6696",
+      "sha256": "394d74aeb32f40f67fc9236acef50d923718640062e711a73841518c919af3ef",
       "passed": 649,
       "tail": [
-        "   Duration  7.34s (environment 51%, tests 20%, setup 11%, import 9%, transform 9%)",
+        "   Duration  8.67s (environment 50%, tests 20%, setup 11%, transform 10%, import 9%)",
         "",
-        "Environment  jsdom was created 147 times · 56.90s total, 51% of tracked time",
+        "Environment  jsdom was created 147 times · 65.83s total, 50% of tracked time",
         "             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)",
         "             learn more: https://vitest.dev/guide/improving-performance#test-environments",
         ""
@@ -151,7 +164,7 @@
     },
     {
       "log": "t8-legacy-build.log",
-      "sha256": "a63451c2cdac08765dfbf79a45f7b29248d4ce90c601c737e461c3c8eadf9b79",
+      "sha256": "81d910c2127299f88080944ce2fdf0f090bc4a5673a18803a349e486f01302ca",
       "passed": null,
       "tail": [
         "└ ƒ /topics/[id]",
