@@ -1,0 +1,175 @@
+{
+  "productSourceCommit": "0be2c7e692745e50e0f14a6bf9113661777a92f5",
+  "productParentCommit": "8b145d2e5f319069ca430e17965400f035be5fff",
+  "finalFixSourceDigests": {
+    "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
+    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2"
+  },
+  "current": [
+    {
+      "group": "public",
+      "returnCode": 0,
+      "tail": [
+        "  ✓  44 [mobile] › ../tests/e2e/page-beauty-public.spec.ts:41:84 › 宽屏与窄屏重排 /login (1.8s)",
+        "  ✓  45 [mobile] › ../tests/e2e/page-beauty-public.spec.ts:43:5 › 320首页标题200%字级仍完整换行且不横溢 (891ms)",
+        "  ✓  46 [mobile] › ../tests/e2e/page-beauty-public.spec.ts:45:5 › 320阅读分节标题200%字级保持完整且不横溢 (936ms)",
+        "",
+        "  46 passed (1.6m)"
+      ],
+      "note": "完整首次46/46日志；源码与最终0be2c7e产品字节相同；随后休眠中断轮不计通过",
+      "durationInLog": "46 passed (1.6m)"
+    },
+    {
+      "group": "learning",
+      "returnCode": 0,
+      "seconds": 116.6,
+      "tail": [
+        "[WebServer]   digest: '2532484164'",
+        "[WebServer] }",
+        "  ✓  42 [mobile] › ../tests/e2e/page-beauty-learning.spec.ts:22:5 › 当前阅读与私人笔记双栏及窄屏状态留存证据 (2.7s)",
+        "",
+        "  42 passed (1.9m)"
+      ]
+    },
+    {
+      "group": "admin",
+      "returnCode": 0,
+      "seconds": 90.3,
+      "tail": [
+        "[WebServer]   digest: '2532484164'",
+        "[WebServer] }",
+        "  ✓  28 [mobile] › ../tests/e2e/page-beauty-admin.spec.ts:10:43 › 笔记审批hide保留审核理由和记录 (3.5s)",
+        "",
+        "  28 passed (1.5m)"
+      ]
+    }
+  ],
+  "nativeChromeRecords": 11,
+  "nativeTextOnlyRecords": 14,
+  "frames": 241,
+  "logs": [
+    {
+      "log": "t7-current-public.log",
+      "sha256": "36cc738f0bed2d4b769caa10f557048d1e1100adb6fe6d59f4ec71a984004c8a",
+      "passed": 46,
+      "tail": [
+        "  ✓  43 [mobile] › ../tests/e2e/page-beauty-public.spec.ts:41:84 › 宽屏与窄屏重排 /notes (2.0s)",
+        "  ✓  44 [mobile] › ../tests/e2e/page-beauty-public.spec.ts:41:84 › 宽屏与窄屏重排 /login (1.8s)",
+        "  ✓  45 [mobile] › ../tests/e2e/page-beauty-public.spec.ts:43:5 › 320首页标题200%字级仍完整换行且不横溢 (891ms)",
+        "  ✓  46 [mobile] › ../tests/e2e/page-beauty-public.spec.ts:45:5 › 320阅读分节标题200%字级保持完整且不横溢 (936ms)",
+        "",
+        "  46 passed (1.6m)"
+      ]
+    },
+    {
+      "log": "t7-current-learning.log",
+      "sha256": "753fc7f48879de465f20108187c36fd04ac52c500e11f36bd9eef213d663220c",
+      "passed": 42,
+      "tail": [
+        "[WebServer]     at ignore-listed frames {",
+        "[WebServer]   digest: '2532484164'",
+        "[WebServer] }",
+        "  ✓  42 [mobile] › ../tests/e2e/page-beauty-learning.spec.ts:22:5 › 当前阅读与私人笔记双栏及窄屏状态留存证据 (2.7s)",
+        "",
+        "  42 passed (1.9m)"
+      ]
+    },
+    {
+      "log": "t7-current-admin.log",
+      "sha256": "63475bd4f17dd76371cf50b51155a29b1750e4aa4fd780b17c8ec4929d029f94",
+      "passed": 28,
+      "tail": [
+        "[WebServer]     at ignore-listed frames {",
+        "[WebServer]   digest: '2532484164'",
+        "[WebServer] }",
+        "  ✓  28 [mobile] › ../tests/e2e/page-beauty-admin.spec.ts:10:43 › 笔记审批hide保留审核理由和记录 (3.5s)",
+        "",
+        "  28 passed (1.5m)"
+      ]
+    },
+    {
+      "log": "t8-cross-final.log",
+      "sha256": "41917aded25ff6dc4b6fe3ad3343fc8a38d38e6e8895d520b44e60757adc5e14",
+      "passed": 16,
+      "tail": [
+        "[WebServer]     at ignore-listed frames {",
+        "[WebServer]   digest: '2532484164'",
+        "[WebServer] }",
+        "  ✓  16 [webkit-mobile] › ../tests/e2e/page-beauty-cross-browser.spec.ts:14:5 › 管理表格、表单与对话框焦点在真实引擎中可用 (3.6s)",
+        "",
+        "  16 passed (37.3s)"
+      ]
+    },
+    {
+      "log": "t8-original-affected.log",
+      "sha256": "66d5358f999c6b4ac10970aef5c089dce8f1d69daa81542482fd78310271f6e8",
+      "passed": 26,
+      "tail": [
+        "[WebServer]     at ignore-listed frames {",
+        "[WebServer]   digest: '2532484164'",
+        "[WebServer] }",
+        "  ✓  26 [mobile] › ../tests/e2e/ui-language-streamline.spec.ts:33:5 › production homepage, structured editing and retired entry translate without changing input (2.7s)",
+        "",
+        "  26 passed (1.4m)"
+      ]
+    },
+    {
+      "log": "t8-unit.log",
+      "sha256": "90a91dddc8525647f9d5028065e9f7de79948851f41fa16a8046b575806fad70",
+      "passed": 649,
+      "tail": [
+        "   Duration  8.02s (environment 51%, tests 20%, setup 11%, import 10%, transform 8%)",
+        "",
+        "Environment  jsdom was created 147 times · 61.45s total, 51% of tracked time",
+        "             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)",
+        "             learn more: https://vitest.dev/guide/improving-performance#test-environments",
+        ""
+      ]
+    },
+    {
+      "log": "t8-types.log",
+      "sha256": "f695ac22b934cd0d3aa1bb5bc5341fc3a680ad7b96e03113c4eb0577341e2edc",
+      "passed": null,
+      "tail": [
+        "",
+        "> math-master-frontend@0.1.0 typecheck",
+        "> tsc --noEmit",
+        ""
+      ]
+    },
+    {
+      "log": "t8-legacy-build.log",
+      "sha256": "abddd5cbe4f99483cceb0a1f7b7ffc636fcc56c13be2d7da970f22d485c15677",
+      "passed": null,
+      "tail": [
+        "└ ƒ /topics/[id]",
+        "",
+        "",
+        "ƒ  (Dynamic)  server-rendered on demand",
+        "",
+        "{\"ok\":true,\"kind\":\"legacy-test-only\",\"path\":\"/Users/wiw/.codex/worktrees/7c5d/math_master/.superpowers/sdd/2026-10-11-site-streamline/legacy/frontend\",\"fixtureFiles\":68}"
+      ]
+    },
+    {
+      "log": "text200-final.log",
+      "sha256": "2dbf8c77fcaece524c47372f08a4cb9c6ed37a1469b909822ac6cb56b901d49f",
+      "passed": 14,
+      "tail": [
+        "PASS admin-form-320 320 native textZoom2/fullZoom1/DPR1",
+        "PASS dialog-320 320 native textZoom2/fullZoom1/DPR1",
+        "PASS reading-1280 1280 native textZoom2/fullZoom1/DPR1",
+        "PASS reading-320 320 native textZoom2/fullZoom1/DPR1",
+        "PASS formula-keyboard 320 native textZoom2/fullZoom1/DPR1",
+        "NATIVE_TEXT200_GREEN 14"
+      ]
+    },
+    {
+      "log": "manual-final.log",
+      "sha256": "227118379b837c340ca4a5fdf883fe3aaf88744b5f33c869fb5c9f87bdb12bf8",
+      "passed": 11,
+      "tail": [
+        "{\"passed\":true,\"records\":11}"
+      ]
+    }
+  ]
+}

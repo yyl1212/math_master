@@ -1,6 +1,12 @@
 {
-  "source": "本分支第三阶段最终产品代码；确切提交以MR最新HEAD为准",
-  "environment": "独立合成库；Node24.17.0/Go1.27.1/PG17.11/Playwright1.63.0；input/textarea遮挡。所有PNG/JSON来自同一最终采集目录。",
+  "source": "最终产品源码0be2c7e；之后仅新增视觉CI校验修复及验收文档，MR准确HEAD由CI另行验证",
+  "productSourceCommit": "0be2c7e692745e50e0f14a6bf9113661777a92f5",
+  "productParentCommit": "8b145d2e5f319069ca430e17965400f035be5fff",
+  "finalFixSourceDigests": {
+    "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
+    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2"
+  },
+  "environment": "独立合成库；Node24.17.0/Go1.27.1/PG17.11/Playwright1.63.0；input/textarea遮挡。所有PNG/JSON来自最终完整矩阵同一采集目录。",
   "frames": [
     {
       "role": "anonymous",
@@ -672,7 +678,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "7f37146e05962152202574d460ea58860a49943ad50bd5b3005fd7386378fddb"
+      "screenshotSHA256": "5a93519c8fbff85cb6cb9074de6cd80cd1a12b30974c5427613765bb0ca028a2"
     },
     {
       "role": "anonymous",
@@ -690,7 +696,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "dcd2ad6e885e644115dedae3a784abf5e0d8cac30385ad513d1b1ee5f68b5775"
+      "screenshotSHA256": "1ba48b20bd69ef28eaf382be6f6bda156090e90a6861a27b146b7d5cdcd96f91"
     },
     {
       "role": "anonymous",
@@ -708,7 +714,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f5a96390669bdf9dd6482d2bc6f9b6ddf04161a845d8ff55dca1b48a91959c35"
+      "screenshotSHA256": "4bf04c53283eb06d71dc3746884881a1f8d85323862a5e02701db04b55eb7f06"
     },
     {
       "role": "anonymous",
@@ -726,7 +732,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "a16a7e869a3216d718dcd697619a926d9bfa028c27e437f61e31dc84a285219c"
+      "screenshotSHA256": "e1794c5f9b64d76dfb59bf7a4054764532d409412c17fe43c4c19d58d434e8b3"
     },
     {
       "role": "anonymous",
@@ -744,7 +750,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "8ab8a62809d8cf0567e0fc1c9b2c7ed6b52934194d953545c8b3d9addd5b7972"
+      "screenshotSHA256": "97ac12fa15b91763c3daa7d40c00bbe32af63ba1a5113a0f5522d8bc4af2e27d"
     },
     {
       "role": "anonymous",
@@ -762,13 +768,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "649a2ec58daad4a39c79dd5e14c971ae0d3d84422e5b4a97fbdcf729ad88749c"
+      "screenshotSHA256": "4c7c0454bdd185d7b253d514ab9fa73891a9c427c5858aea7c4c5187ad895f3f"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes/2251b6de-f513-4fe0-b25c-131a8dee99b6",
+      "route": "/notes/0cf07357-11c9-447f-9743-cae3209a6efb",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -785,13 +791,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "3ccb74e8fafc0df55e1a7b5cdc85c12a7f8589a97fe4bc6e85355dff9355169c"
+      "screenshotSHA256": "73a6c9f26f1d906e9ab725a5fe76fc67a2dbbcc37a5b5dbe0026e1ee2f5b28ad"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes/2251b6de-f513-4fe0-b25c-131a8dee99b6",
+      "route": "/notes/0cf07357-11c9-447f-9743-cae3209a6efb",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -808,13 +814,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "41f52fc5481a965c781fbc51d6cb78bcee5ccb9c9ac0111209ef33a6ce0b4a8b"
+      "screenshotSHA256": "0bce1f534be7d385e00e2640ddafdbc30cfc7e3933e4c89b81db9f62b3293c45"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "mobile",
-      "route": "/notes/808a5045-38f9-4afc-a433-b0c07b2457f2",
+      "route": "/notes/c6b46609-778a-4dad-8e72-e46c4492e20f",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -831,36 +837,31 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "14ef0b81247eb1b84b4ef8f323510d44f76ede3979915560233acc2a38badb22"
+      "screenshotSHA256": "019a5570b19cc1e8fb7dc96592284a681f7cef2b7d00cd17584591a5dab736c0"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes/2251b6de-f513-4fe0-b25c-131a8dee99b6",
+      "route": "/notes",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
       "headerHeight": 104,
       "headings": [
         {
-          "text": "Shared technical note 12",
+          "text": "分享笔记",
           "size": 36
         }
       ],
-      "prose": [
-        {
-          "size": 17,
-          "line": 32.3
-        }
-      ],
-      "screenshotSHA256": "9d00ca97d7d17f573d6e79b63371b335cd161817507dd85983c5a2fdc466f83c"
+      "prose": [],
+      "screenshotSHA256": "2d19c48226396b465972c43fb62be2fe460394c0d052a74d96d6f710d08cf6d4"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes/2251b6de-f513-4fe0-b25c-131a8dee99b6",
+      "route": "/notes/0cf07357-11c9-447f-9743-cae3209a6efb",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -877,30 +878,25 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "850f80172e48d906e47a4648f44287dc664dce51f78bd069a513716b8ea5e95c"
+      "screenshotSHA256": "3f02c0c738c31db429266a7c008da969de745b088ffbf63aee5bf08135172b22"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "mobile",
-      "route": "/notes/808a5045-38f9-4afc-a433-b0c07b2457f2",
+      "route": "/notes",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
       "headerHeight": 165,
       "headings": [
         {
-          "text": "Shared technical note 12",
+          "text": "分享笔记",
           "size": 30
         }
       ],
-      "prose": [
-        {
-          "size": 16,
-          "line": 29.6
-        }
-      ],
-      "screenshotSHA256": "fa387f777cd7039f3d4b4e24eb3a799393f9bf99dc28e3bdf4fe3cffe1d30655"
+      "prose": [],
+      "screenshotSHA256": "90105b17754a9373f6bf8bc08dfc835954fd755e82f784e7894a6a05a46d665f"
     },
     {
       "role": "anonymous",
@@ -1242,7 +1238,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "e6bf61c1aba780e897188c0f104a1a9f2f70a2b2f1e740d5295c3b4ce08fe24b"
+      "screenshotSHA256": "360a8d292d0b259c568108f3e51d0904a5e945ac18bc2b80bee677c8763442a9"
     },
     {
       "role": "learner",
@@ -1260,7 +1256,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "131ff769ce8616c57587cac3a75ac83e40c168b5a908c1b5af84706de656d1f0"
+      "screenshotSHA256": "e89ef59a251faa28224ecd3ef669a8feb5883a4b16666931ae1e776a10e3d4cd"
     },
     {
       "role": "learner",
@@ -1278,7 +1274,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "54afe12fea58f2401ba62268cf41362d00680d172b006480d10e86ada330806e"
+      "screenshotSHA256": "48b027f1a0f395c397c3b0ee43e201cb6b5eb1d428a40159b3241185b99e5d51"
     },
     {
       "role": "learner",
@@ -1296,7 +1292,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "1bb2f7565f9f800205686febbf04c2ade8ef8ff9a5aba9e18664a48f0b44d70b"
+      "screenshotSHA256": "ebcae9ae92f3ee6991e053b2172be7325423be5113415da9d78d0718830a3564"
     },
     {
       "role": "learner",
@@ -1314,7 +1310,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "804357f7f5a3a378aa2ccbc26537cbb752de557f574eeab12575df8c5f5141a2"
+      "screenshotSHA256": "c3bec735708d3c1baca5aed9afac07b88ed8da854c806cb5574329be7e31e8a4"
     },
     {
       "role": "learner",
@@ -1332,7 +1328,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "ee5e954f3d77c5996ccb0f8e48f36cb714c10e550fde863dc374ea2608875504"
+      "screenshotSHA256": "949ebb023b116dece6e3500b8b16f3d3bdf6770e5fe6683694126fece7dccf57"
     },
     {
       "role": "learner",
@@ -1350,7 +1346,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "9ca8fb89e20eff7f79e2497377d31d11a4fb601f607d80cf25b562aee9a1ab48"
+      "screenshotSHA256": "f994e5efd5895b0f8fb2c71db8002ca256851e5beea8b53b9a12f62f8465df1b"
     },
     {
       "role": "learner",
@@ -1368,7 +1364,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "40ff50560aca8d365456acb8f79003e327d20ec9d78db2e3265eccdf4b7e8121"
+      "screenshotSHA256": "a6bd33c27ec58df73bd0749dc4547133dea145c1920dd8c79e377feccb936b6b"
     },
     {
       "role": "learner",
@@ -1386,7 +1382,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "314362123fa974e042abfa5b4be3185be8ae47483e97a588d6f695b7f10cd585"
+      "screenshotSHA256": "95f266fb65e3a4f124c985982f783a2008922e09d15ffafd4ce4bfdb770c8385"
     },
     {
       "role": "learner",
@@ -1404,7 +1400,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b5eb4cfc956b6aec5f9932b5c29585979a28103c2b1eb52143e06650ff55002e"
+      "screenshotSHA256": "f78ab67cc58535389f22c47c4345df4f101c54410aceeb5b10d8effcbf1d993e"
     },
     {
       "role": "learner",
@@ -1422,7 +1418,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b0a17eea83c3a8a575606735d6365e2be25ddb0f26057bbbf1a1a9451b05ff88"
+      "screenshotSHA256": "40b957fa9712bb93fbef68a2abc6b853a3e5dded2531fc7d037418192d1a888c"
     },
     {
       "role": "learner",
@@ -1440,7 +1436,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "8c998d39b8bd631752e01053dd10deb7f7ed7f03584a95ee7d08389918f62999"
+      "screenshotSHA256": "0f7c80bc3aeee110fe8ddc4de80fa870dc12d54e1bf4df59958628b7006c8def"
     },
     {
       "role": "learner",
@@ -1458,7 +1454,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "13791b2ab5b989e9de717b77c447a6e5be1c3b88c25e33b5580f5799ab8b613e"
+      "screenshotSHA256": "778508f313ce493329c0de3f44ce1b679d5af86c9d78b6d8d992af19427fd4f8"
     },
     {
       "role": "learner",
@@ -1476,7 +1472,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "373f0eabc69c43d94eb323cd87c26746b04ebe47299f0b855d08fcbcb47dd5cc"
+      "screenshotSHA256": "6fac18102e9a0989cb8c766e6c08f7be1e25b69f8cf635771af2651b869ce7af"
     },
     {
       "role": "learner",
@@ -1494,7 +1490,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "3ba650b0f579290c097c09e26861afd4ebc202f42bb079571a7a58812d1d6ac5"
+      "screenshotSHA256": "183e028090a55d40f5906210de11767adaa62aa47947da5aca9c7f9dcd9b78a2"
     },
     {
       "role": "learner",
@@ -1512,7 +1508,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b5b1cd256430de6c3b1bc0b1db9cee4f72261791f59b765f700c8bd05c6b7769"
+      "screenshotSHA256": "87a05656c4d4b3c71ed89e426e16f6a5c0574036064a2388c649ad6797fdc7f4"
     },
     {
       "role": "learner",
@@ -1530,7 +1526,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "989f069c36dd2de577b66c588a9692dcce9953d980a1ca062bb7727e360a32e0"
+      "screenshotSHA256": "e9d2c8bbb9ce069f3d5df965e78c88c733f1a3c7c6c118466004499fcace30b1"
     },
     {
       "role": "learner",
@@ -1548,13 +1544,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "4d2ad33831e77eb5387c11f44ec72cae06e302d05362e59c4425a52f38aa0c7f"
+      "screenshotSHA256": "5a1d24f7f929c02247ac834fc6dc06f02721ec3221015e38d64760ce0b982533"
     },
     {
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1597,7 +1593,7 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -1640,7 +1636,7 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "mobile",
-      "route": "/learn/review/09965a81-cf1a-4f17-a737-404e0ef6e4b0",
+      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1683,7 +1679,7 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1726,7 +1722,7 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -1769,7 +1765,7 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "mobile",
-      "route": "/learn/review/09965a81-cf1a-4f17-a737-404e0ef6e4b0",
+      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1812,7 +1808,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1830,7 +1826,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -1848,7 +1844,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "mobile",
-      "route": "/learn/review/09965a81-cf1a-4f17-a737-404e0ef6e4b0",
+      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1866,7 +1862,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1884,7 +1880,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/ecc694ec-8e62-4aca-b1b5-f7dd142c4dab",
+      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -1902,7 +1898,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "mobile",
-      "route": "/learn/review/09965a81-cf1a-4f17-a737-404e0ef6e4b0",
+      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1920,7 +1916,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/60e6f403-e83e-401f-b54f-ddcfd7cd7274",
+      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1963,7 +1959,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/60e6f403-e83e-401f-b54f-ddcfd7cd7274",
+      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2006,7 +2002,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "mobile",
-      "route": "/learn/review/242f5493-d999-4f69-99fe-169a196459d7",
+      "route": "/learn/review/f6bda7e3-e00e-46ee-a683-e9683bb22994",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2049,7 +2045,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/60e6f403-e83e-401f-b54f-ddcfd7cd7274",
+      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2092,7 +2088,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/60e6f403-e83e-401f-b54f-ddcfd7cd7274",
+      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2135,7 +2131,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "mobile",
-      "route": "/learn/review/242f5493-d999-4f69-99fe-169a196459d7",
+      "route": "/learn/review/f6bda7e3-e00e-46ee-a683-e9683bb22994",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2178,7 +2174,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/629ca78a-a172-4998-8115-1cb950cb174a",
+      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2221,7 +2217,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/629ca78a-a172-4998-8115-1cb950cb174a",
+      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2264,7 +2260,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "mobile",
-      "route": "/learn/review/5033f0e8-5b27-4aeb-ba70-b7c1ddde750d",
+      "route": "/learn/review/2202dade-a893-4064-9645-87ca3b96292c",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2307,7 +2303,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/629ca78a-a172-4998-8115-1cb950cb174a",
+      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2350,7 +2346,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/629ca78a-a172-4998-8115-1cb950cb174a",
+      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2393,7 +2389,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "mobile",
-      "route": "/learn/review/5033f0e8-5b27-4aeb-ba70-b7c1ddde750d",
+      "route": "/learn/review/2202dade-a893-4064-9645-87ca3b96292c",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2448,7 +2444,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "5f8a26e41a23fdb820b18b63b3cf397b7b8281ec025e603b16d07ed51c07a6c6"
+      "screenshotSHA256": "03b6f71264d4afb6f8f47331933f63e30cb8337efefa8c5518bf0aa75fe339b5"
     },
     {
       "role": "learner",
@@ -2466,7 +2462,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "d5c6de3687c85952e79458b61c02dda887b6ed06f4241c0543a9b51852fd0cfc"
+      "screenshotSHA256": "7821f386555f13bee76faebdd27e8b0eaee26ee8fac27281ebd59c185c3108a8"
     },
     {
       "role": "learner",
@@ -2484,7 +2480,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "2a56953c462aa9f93e6b8ce17dfbdf678f0052a812b1ba789884cd3e21537387"
+      "screenshotSHA256": "699b6e884bc3c0c48542caae851fcff6981425ac8d04980b3712c3bf505a329d"
     },
     {
       "role": "learner",
@@ -2502,7 +2498,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "304ae1c825415a7b1f2cf171c34531709d9f3ab3b77e0910a9149f86ea7155e0"
+      "screenshotSHA256": "34c582e5fe4fe56a5555a5ca9c5bbe5c3870f5ddb6a7b549b0050ce80e46f318"
     },
     {
       "role": "learner",
@@ -2520,7 +2516,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "4fcc91cef95e331ad06721c110bc20e5a2fe31ebea17094a95c0753e534a49ca"
+      "screenshotSHA256": "a11e310e57cc30bb092e1b417e1427b3276bb4fdc616b4c6c2b7f502e76baf04"
     },
     {
       "role": "learner",
@@ -2538,7 +2534,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "fdb91bb1cd9a0656b4e6044e8ae5eac39ca770edc341bf5393f7d80f62ac10d9"
+      "screenshotSHA256": "d92f631b034863b2afc5339388b9a00ae0458bcd93831ce5e75a289615a8af47"
     },
     {
       "role": "learner",
@@ -2868,7 +2864,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/152d834f-6dce-4fa8-975a-fac266028e5e",
+      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2886,7 +2882,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/152d834f-6dce-4fa8-975a-fac266028e5e",
+      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2904,7 +2900,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "mobile",
-      "route": "/feedback/7b976c20-1260-44fb-b8cb-f665a5ac3f4d",
+      "route": "/feedback/ebc9fa71-9c7d-478c-9170-7527e48fffb2",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2922,7 +2918,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/152d834f-6dce-4fa8-975a-fac266028e5e",
+      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2940,7 +2936,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/152d834f-6dce-4fa8-975a-fac266028e5e",
+      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2958,7 +2954,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "mobile",
-      "route": "/feedback/7b976c20-1260-44fb-b8cb-f665a5ac3f4d",
+      "route": "/feedback/ebc9fa71-9c7d-478c-9170-7527e48fffb2",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3084,11 +3080,11 @@
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/66e54d00-f9b7-48b8-960e-6d8067f19d24",
+      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
-      "headerHeight": 201,
+      "headerHeight": 104,
       "headings": [
         {
           "text": "Report details",
@@ -3102,7 +3098,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/66e54d00-f9b7-48b8-960e-6d8067f19d24",
+      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3120,7 +3116,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "mobile",
-      "route": "/review/feedback/9c8c9197-753b-43de-8478-4ecf3fc9f5f0",
+      "route": "/review/feedback/45568969-496f-4ae1-a7c5-772acbb0e2d1",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3138,7 +3134,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/66e54d00-f9b7-48b8-960e-6d8067f19d24",
+      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3156,7 +3152,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/66e54d00-f9b7-48b8-960e-6d8067f19d24",
+      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3174,7 +3170,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "mobile",
-      "route": "/review/feedback/9c8c9197-753b-43de-8478-4ecf3fc9f5f0",
+      "route": "/review/feedback/45568969-496f-4ae1-a7c5-772acbb0e2d1",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3420,7 +3416,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b24941752ed0dd883a994a49875cfa4b8555a13e9f883b4267a530f0f7b74fc3"
+      "screenshotSHA256": "5b84ca570debf592b06ad7fdfab1ff640e33937aa9d071bb3705c5d72323c532"
     },
     {
       "role": "admin",
@@ -3430,7 +3426,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 514.875,
       "headings": [
         {
           "text": "Note approvals",
@@ -3438,7 +3434,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "38e6096fe9d629b48c24eacdb0e7e95399d89e2d4dd578f60acd8b9b51b5720e"
+      "screenshotSHA256": "03a9bc7a701e6804338dcb3d86417fa6e2b28d04bad1426848185e1a0a92024b"
     },
     {
       "role": "admin",
@@ -3456,7 +3452,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "56e6ba1a8fe5c75d94b79b50e4311039b3dedc4ecab36b3a36e1dffba708dd78"
+      "screenshotSHA256": "36879f6c7c6bcb54fae5cb796ac284690221ecc8d77f5f2a864ed46e894770a9"
     },
     {
       "role": "admin",
@@ -3474,7 +3470,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "d6e5d86714e6eeb48072e032c90a4e72e949b20df5b27dc7b7cdeeacc278e591"
+      "screenshotSHA256": "2897ff32f5d776779d65b98d115e7d8090b9dedabf7b5227ff5f571da1696b62"
     },
     {
       "role": "admin",
@@ -3484,7 +3480,7 @@
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 333,
+      "headerHeight": 179.5,
       "headings": [
         {
           "text": "笔记审批",
@@ -3492,7 +3488,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "c4a7a4942da4a315d09b0409083edaa81d0fa55fe63f8795ee9421ef0253451d"
+      "screenshotSHA256": "d40c491530652fe6acc7fa88420080f66726c8c182c768ea0a5dc029f76602b0"
     },
     {
       "role": "admin",
@@ -3510,13 +3506,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "c70c9c5b6de1ac0501a889792752b63bb5f74658645ed3146fd1c4cdadaf57a3"
+      "screenshotSHA256": "bc5ad327767129635f8553ece4a35263865feb4c6ee080eb0131ff5239ca2c48"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/725f2840-1dfb-44ea-9c3b-8c8dd450007c",
+      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3533,13 +3529,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "740c68c52c78591a9d4815e25459e7d62c148cbb3749775fe9110fdaf1cc21aa"
+      "screenshotSHA256": "5c9375eacdba8a565a11060bf756d151bb43586b9c20ad4a045ba67dd05f6677"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/725f2840-1dfb-44ea-9c3b-8c8dd450007c",
+      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3556,13 +3552,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "2d4379ca4bc23a94a2cf2ca9097f46e6ea234cbaa2c37a776ac0e5c63941865e"
+      "screenshotSHA256": "0bb4b72afbd05b3aff0ce36633d7e4fc03f461bb4b6ff9a10bf654f95cf93405"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "mobile",
-      "route": "/admin/note-shares/47fcc84c-6d55-4e20-a13b-2956c808d9fb",
+      "route": "/admin/note-shares/46b92477-0f2b-4e39-8d82-251e5708ebfa",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3579,13 +3575,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "5edbb27ded7f0a0997be76c17a4f66220b73f82023142175d8dc893af03510d7"
+      "screenshotSHA256": "b1c460148c39abf4cb1234907f34c028aa7a4b048111e309c139d06a768eace8"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/725f2840-1dfb-44ea-9c3b-8c8dd450007c",
+      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3602,13 +3598,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "36fb864d9041b4ade86ef9030e8b17b5c94ba7fe255e599d1fc7d3158827de1d"
+      "screenshotSHA256": "d4a968281dc7620aa74ec1d9d489b54ee7521862afdd1592ea9985d378026835"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/725f2840-1dfb-44ea-9c3b-8c8dd450007c",
+      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3625,13 +3621,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "2bdd35da4d16b89bd4c9c388731fcec4c3852fd50791c0c664da19c6ca83a00c"
+      "screenshotSHA256": "e952aaa2c4ca2a454d79cfb495972f25b1d9c4dbaa3633d8195bede04a4d65e1"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "mobile",
-      "route": "/admin/note-shares/47fcc84c-6d55-4e20-a13b-2956c808d9fb",
+      "route": "/admin/note-shares/46b92477-0f2b-4e39-8d82-251e5708ebfa",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3648,7 +3644,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "f3fedae97b0850e39df5b0d36d3fb6b3cd07392733c6a9f41e4cd9da30478523"
+      "screenshotSHA256": "6f3896fecc5829da8a23d15e836e5d3a03d185d48ddab6c0b0e4af59882df549"
     },
     {
       "role": "admin",
@@ -3852,7 +3848,7 @@
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/00e40010-cec4-4d8b-b704-04477df4f7d0",
+      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3869,13 +3865,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "18b57edd67f93401597bfa3630dc8d37edc23775f733fa58ad37ed51fa50569e"
+      "screenshotSHA256": "2e1a446944d35da9b1ecaf91c9ba33deb753a9f24ec24464743bc26ffe2de22f"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/00e40010-cec4-4d8b-b704-04477df4f7d0",
+      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3892,13 +3888,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "cb77c1f44853ff248670679f2b849869b030cd39489af95497c8da4295899fd3"
+      "screenshotSHA256": "cc4b54243f23680b9141bc8eaa456cc57aebd16d6b5e07596ebff48adf8207c6"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "mobile",
-      "route": "/admin/note-shares/3e539ca8-a016-4a21-9329-618172057fcb",
+      "route": "/admin/note-shares/cb6425fa-0006-44f0-9f95-42e6208044a5",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3915,13 +3911,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "4c08335511c085297a20b291b081edc2e5c43da75911a8d9c00503201d2c2c5f"
+      "screenshotSHA256": "31c50f228e270224fc54c7a115016b42f7af163605a47f0bfb40933af2f54a81"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/00e40010-cec4-4d8b-b704-04477df4f7d0",
+      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3938,13 +3934,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "c047f13932fba3f50152335e1a59834c5b05f02486fec993110e8a0a7ba03bba"
+      "screenshotSHA256": "5e32787574f79301950bdd09b7bef0b2fdafa7f3d8d1f91fd31314856adec3d6"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/00e40010-cec4-4d8b-b704-04477df4f7d0",
+      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3961,13 +3957,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "cec4bc4b674d93a3dd88a476c05c00d799e1ef060ed132b8a7df14eee069e6db"
+      "screenshotSHA256": "7f77772a117c6aa86c36289e0ac0605ff4df86869ef3c3c403a1e537bb504aaf"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "mobile",
-      "route": "/admin/note-shares/3e539ca8-a016-4a21-9329-618172057fcb",
+      "route": "/admin/note-shares/cb6425fa-0006-44f0-9f95-42e6208044a5",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3984,13 +3980,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "a4dc580b2fe2fe5206d64ea11b6ac55b873008f3bca3fd1a70573b39016b843d"
+      "screenshotSHA256": "9aaa8de397fb62357f992dff96649e9e236c3c688893d6f7ebcdb12658308f35"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/62936e11-07bd-4f4d-aac5-416661255f34",
+      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -4007,13 +4003,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "b24f254de812d5d349f22bf71962905f5fe2897d16522d52fa826073521beed7"
+      "screenshotSHA256": "d2578934d22975f250502aaf36e10145de3680e857e898a69512a6137322755d"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/62936e11-07bd-4f4d-aac5-416661255f34",
+      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -4030,13 +4026,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "2401eac973e89217d7b4eb5cbee1e6e2edeac174250df24aa8185de81969465a"
+      "screenshotSHA256": "674c88f68a00a52e95b7a64302059dfcaf708ac55434c15e81a278e7adc1ff13"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "mobile",
-      "route": "/admin/note-shares/fe0caa7f-2e92-43bb-bd14-9318762a6c62",
+      "route": "/admin/note-shares/1ebb9b9c-9d94-4161-9252-d390c91e4a8b",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -4053,13 +4049,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "42d229ce5fc104a94073e3e4f6d8b5d8a0c0b27b34a9cc13d78cd5cd1152b181"
+      "screenshotSHA256": "66dd1db67a92d6c847bbab5822abd97bd253ad2a907a4cd066574b6fa8785bcf"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/62936e11-07bd-4f4d-aac5-416661255f34",
+      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -4076,13 +4072,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "b1776422a7c24414fdcba69cc7c6f0243fb7cdfd5f762e4974b058a6d5e633ca"
+      "screenshotSHA256": "d493aca35423fd56f7abe33740d383bad8bc9b85ba2820f1f28fa97b2c75fbaa"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/62936e11-07bd-4f4d-aac5-416661255f34",
+      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -4099,13 +4095,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "b353fed26c008561db2d45e487b739310c0789f348d434c683eaf040485f7e9e"
+      "screenshotSHA256": "89cba95584a7e8510b3d6e0325a75aa8dd01e0b579b5ad0d7d40f878d24a861b"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "mobile",
-      "route": "/admin/note-shares/fe0caa7f-2e92-43bb-bd14-9318762a6c62",
+      "route": "/admin/note-shares/1ebb9b9c-9d94-4161-9252-d390c91e4a8b",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -4122,13 +4118,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "062fec9fb39a8aff81f965150c9e71c2050daebf32be9c16624567be6320b384"
+      "screenshotSHA256": "b10683c5e582b4f1fc28e7e148417bf752acdaa589f6af53bd2adaabc75eb9bf"
     },
     {
       "role": "learner",
       "caseId": "G-compare-800",
       "project": "mobile",
-      "route": "/learn/review/33b1b616-e527-4ad9-89a9-f8e909965a14",
+      "route": "/learn/review/159b4745-e2bf-4103-a70e-56f9ce749027",
       "locale": "en",
       "viewportWidth": 800,
       "pageWidth": 800,
@@ -4171,7 +4167,7 @@
       "role": "learner",
       "caseId": "G-compare-801",
       "project": "mobile",
-      "route": "/learn/review/33b1b616-e527-4ad9-89a9-f8e909965a14",
+      "route": "/learn/review/159b4745-e2bf-4103-a70e-56f9ce749027",
       "locale": "en",
       "viewportWidth": 801,
       "pageWidth": 801,
@@ -4816,7 +4812,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 1280,
@@ -4834,7 +4830,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 1440,
@@ -4852,7 +4848,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 320,
@@ -4870,7 +4866,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 390,
@@ -4888,7 +4884,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 768,
@@ -4906,7 +4902,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 1280,
@@ -4919,12 +4915,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "92b5e1f5c84e6d8919c13dae26bd26cd57d81a369eb97c5eb169564911a7b881"
+      "screenshotSHA256": "1ed1c588a4a1b7276a0353d827a91038ea62f83c757ca4f4b589bdfdd652adbf"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 1440,
@@ -4937,12 +4933,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "6fe4a00902f3813ed009f5d89ea59d53d3d4a7c87880d86b7b6a81c6edecc6f4"
+      "screenshotSHA256": "fe5a48cf5161b8264e3091bbe43cb136bbd979a06e6994d11ded0586c0b2564e"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 320,
@@ -4955,12 +4951,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "1741abf6aa1a852f65d7defcf08b0f1edc02d6a2493d4645f94c929a6c6aef5e"
+      "screenshotSHA256": "1c5eedae94d2c8f87253a1833814f89f4efbf147c53709b3f8edac43dfc76eca"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 390,
@@ -4973,12 +4969,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "334d6f160ff5e51b2b058f96b8a0d46cc41127dbdeac8d0191f07a9907992f8f"
+      "screenshotSHA256": "15842d38120b4fd9093eebce07950631a2d56f956d6817bb56bd3aac002145fe"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "mobile",
+      "project": "desktop",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 768,
@@ -4991,7 +4987,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "a7e0cf41a451d573023b36c79b9e6503df46ad02c66eebae302dac30af57f052"
+      "screenshotSHA256": "d93034f56a9c5ce1a88b9003b8513235172dd7aa2cccb991563ee105f53831f5"
     },
     {
       "role": "anonymous",
@@ -5272,7 +5268,7 @@
       "role": "learner",
       "caseId": "cross-firefox-desktop-compare",
       "project": "firefox-desktop",
-      "route": "/learn/review/87d62a77-66ac-4ecd-a3b4-472c40918d94",
+      "route": "/learn/review/b88b7be5-f344-448d-b1fc-8476ffb3b8ef",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -5410,7 +5406,7 @@
       "role": "learner",
       "caseId": "cross-firefox-mobile-compare",
       "project": "firefox-mobile",
-      "route": "/learn/review/eb72f39e-6fd3-4991-b722-ac2297167ef3",
+      "route": "/learn/review/610c2638-5bd7-431f-8280-1341abd33512",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -5548,7 +5544,7 @@
       "role": "learner",
       "caseId": "cross-webkit-desktop-compare",
       "project": "webkit-desktop",
-      "route": "/learn/review/5a0787bf-b999-4744-b0c5-a32f1b501345",
+      "route": "/learn/review/ddb25f76-56a2-4157-96c2-a181a933e1b7",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -5686,7 +5682,7 @@
       "role": "learner",
       "caseId": "cross-webkit-mobile-compare",
       "project": "webkit-mobile",
-      "route": "/learn/review/fa05d708-42fc-4601-b938-23e56f4321df",
+      "route": "/learn/review/c502b056-21ea-4f6b-876b-389560e87c89",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -5827,8 +5823,8 @@
     "gzipLevel": 9,
     "css": {
       "before": 14224,
-      "after": 17026,
-      "delta": 2802,
+      "after": 17040,
+      "delta": 2816,
       "budget": 10240
     },
     "initialJS": {
@@ -5872,23 +5868,23 @@
       "css": {
         "assets": [
           {
-            "path": "static/chunks/0mramg9lo-hka.css",
-            "gzipBytes": 551
-          },
-          {
             "path": "static/chunks/0rcwcxgtj5jkr.css",
             "gzipBytes": 7464
           },
           {
-            "path": "static/chunks/39o8rm8q71t65.css",
-            "gzipBytes": 7620
+            "path": "static/chunks/1e1ssdd5x31a_.css",
+            "gzipBytes": 7618
+          },
+          {
+            "path": "static/chunks/2h8rihhg1h-ca.css",
+            "gzipBytes": 567
           },
           {
             "path": "static/chunks/3qpw276sm2fpp.css",
             "gzipBytes": 1391
           }
         ],
-        "gzipBytes": 17026
+        "gzipBytes": 17040
       },
       "initialJS": {
         "A01": {

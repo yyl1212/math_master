@@ -16,7 +16,7 @@ jobs:
       GOTOOLCHAIN: go1.27.1
       NEXT_TELEMETRY_DISABLED: '1'
       TEST_DATABASE_URL: postgres://math_master:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
-      PAGE_BEAUTY_CAPTURE: ${{ runner.temp }}/page-beauty
+      PAGE_BEAUTY_CAPTURE: ${{ github.workspace }}/page-beauty-capture
     services:
       postgres:
         image: postgres:17.11
@@ -68,7 +68,7 @@ jobs:
         with:
           name: page-beauty-visual-evidence
           path: |
-            ${{ runner.temp }}/page-beauty/
+            ${{ env.PAGE_BEAUTY_CAPTURE }}/
             test-results/
             playwright-report/
           if-no-files-found: ignore

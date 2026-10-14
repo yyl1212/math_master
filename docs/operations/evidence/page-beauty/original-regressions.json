@@ -444,5 +444,6 @@
     }
   ],
   "totalPassed": 386,
-  "environment": "独立合成库；原模式/预算/单worker/零重试，含原工作流中的重复命令"
+  "environment": "独立合成库；原模式/预算/单worker/零重试，含原工作流中的重复命令",
+  "sourceCommit": "8b145d2e5f319069ca430e17965400f035be5fff"
 }

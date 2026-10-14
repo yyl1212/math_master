@@ -12,6 +12,8 @@ export function validatePageBeautyCI({workflow,config,base}){
  const budgets=[...workflow.matchAll(/^\s*timeout-minutes:\s*(\d+)\s*$/gm)].map(m=>Number(m[1]));assert.deepEqual(budgets,[30],'job budget');
  assert(workflow.includes("CGO_ENABLED: '0'")&&workflow.includes("node-version: '24.17.0'")&&workflow.includes("go-version: '1.27.1'")&&workflow.includes('image: postgres:17.11'),'locked runtime');
  assert(!/^\s*MATH_MASTER_E2E_FRONTEND\s*:/m.test(workflow),'no legacy frontend environment');
+ // Job-level env is evaluated before the runner context is available.
+ for(const block of workflow.matchAll(/^ {4}env:\s*\n((?:^ {6}.+\n)*)/gm))assert(!/\$\{\{\s*runner\b/.test(block[1]),'runner context is unavailable in job env');
  const commands=activeRuns(workflow).flatMap(run=>run.split('\n'));
  const required=[
  'node tools/verify/run.mjs --cwd frontend -- npm ci',
