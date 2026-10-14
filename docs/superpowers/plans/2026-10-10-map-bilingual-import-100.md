@@ -17,18 +17,18 @@ flowchart LR
 
 ## Task 1: 严格校验与真实导入
 
-- [ ] 使用现有DecodeSource/VerifyManifestFile及工具导入器核验964549字节、100条、105条关系、身份与清单；记录原绑定缺失。
-- [ ] 在受保护的本地测试数据库中真实预览、导入100条、逐条分类与当前阅读验证、重放100条不重复、人工修正后不覆盖；保留收据，清除隔离库。
+- [x] 使用现有DecodeSource/VerifyManifestFile及工具导入器核验964549字节、100条、105条关系、身份与清单；记录原绑定缺失。
+- [x] 在受保护的本地测试数据库中真实预览、导入100条、逐条分类与当前阅读验证、重放100条不重复、人工修正后不覆盖；保留收据，清除隔离库。
 
 ## Task 2: 地图双语与上线
 
 修改 backend/internal/knowledgeadmin/model.go、backend/internal/store/knowledge_admin_public.go、api/openapi.yaml、frontend/src/lib/api/generated.d.ts、frontend/src/lib/knowledge-admin/schemas.ts、frontend/src/features/catalogue/current-catalogue.tsx；新增 frontend/src/lib/i18n/localized-name.tsx。测试修改 backend/internal/store/knowledge_admin_public_test.go、frontend/src/lib/knowledge-admin/schemas.test.ts、frontend/src/features/catalogue/current-catalogue.test.tsx、tests/e2e/managed-knowledge-study.spec.ts、tests/e2e/ui-language-managed.spec.ts。按兼容门禁精确登记变更文件和摘要，新增中文验收记录。
 
-- [ ] 编写并观察接口双语字段、实时切换、稳定链接与输入保留测试失败。
-- [ ] 实现最小修复，按语言显示主题名称和知识列表已有双语标题；原数学正文不翻译。
-- [ ] 前后端针对性测试、类型检查、构建和桌面/手机浏览器回归；单次测试<=9分钟，Go CGO_ENABLED=0。
-- [ ] 独立兼容审查，修复阻塞项，创建Git MR并核验最新HEAD CI；按既有授权合入部署。
-- [ ] 线上双视口三级目录语言切换与严格HTTPS验收，记录真实结果。
+- [x] 编写并观察接口双语字段、实时切换、稳定链接与输入保留测试失败。
+- [x] 实现最小修复，按语言显示主题名称和知识列表已有双语标题；原数学正文不翻译。
+- [x] 前后端针对性测试、类型检查、构建和桌面/手机浏览器回归；单次测试<=9分钟，Go CGO_ENABLED=0。
+- [x] 独立兼容审查，修复阻塞项，创建Git MR并核验最新HEAD CI；按既有授权合入部署。
+- [x] 线上双视口三级目录语言切换与严格HTTPS验收，记录真实结果。
 
 ## 已定位的完整名称缺口与补充范围
 
@@ -39,3 +39,5 @@ CI原浏览器门禁禁止skip，真实文件验收移至显式独立source-impo
 补充文件：schemas/topic-labels.zh-CN.json 保存固定来源、许可和精确英文/中文展示映射；schemas/embed.go 将只读译名字典嵌入二进制；backend/internal/knowledgeadmin/topic_names.go/test.go 负责完整性、准确英文匹配和中文检索候选；backend/internal/store/knowledge_admin_public.go 仅对匹配的目录名称投影，不修改taxonomy_nodes。前端messages/en.ts、zh-CN.ts及地图组件补中英来源署名说明。旧fixture同码不同英文时不套用真实译名；显式英文不匹配回退原文，避免把相同编号的未知版本套错主题。中文主题检索通过字典候选编号并入原SQL，保留参数化查询和原分页。
 
 新增数据展示层需要单独兼容审查；译名75项存在公式/音译/原名称尾注差异，将在来源编号完整对照之外单独核对并记录。当前schema与目录不新增业务版本。
+
+最终状态：两项任务及追加完整译名、兼容修复均完成，MR47已合入，58c77ec已上线。验收详见同日期报告。
