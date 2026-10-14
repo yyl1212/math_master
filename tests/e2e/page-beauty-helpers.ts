@@ -16,15 +16,22 @@ export async function assertFocusVisible(page:Page){
  expect(visible,'焦点控件必须在视口内且不被遮挡 '+JSON.stringify(bounds)).toBe(true);
 }
 export async function captureAudit(page:Page,info:TestInfo,label:string):Promise<void>{
+ await expect(page.locator('main h1')).toHaveCount(1);
+ await expect(page.locator('main h1')).toBeVisible();
  await page.evaluate(()=>document.fonts.ready);
- const metric={caseId:label,route:new URL(page.url()).pathname+new URL(page.url()).search,locale:await page.locator('html').getAttribute('lang'),project:info.project.name,...await measurePage(page),...await page.evaluate(()=>({headings:[...document.querySelectorAll('main h1')].map(e=>({text:e.textContent,size:parseFloat(getComputedStyle(e).fontSize)})),prose:[...document.querySelectorAll('main [class*="markdown"]')].map(e=>({size:parseFloat(getComputedStyle(e).fontSize),line:parseFloat(getComputedStyle(e).lineHeight)}))}))};
+ const auth=await page.request.get('/api/v1/auth/context',{headers:{'X-Requested-With':'MathMaster'}});expect(auth.status()).toBe(200);const user=(await auth.json()).data.user;
+ // Read dimensions, locale and content in one DOM snapshot after locale commits settle.
+ const readPresentation=()=>page.evaluate(()=>({route:location.pathname+location.search,locale:document.documentElement.lang,viewportWidth:innerWidth,pageWidth:document.documentElement.scrollWidth,headerHeight:document.querySelector('header.site-header')?.getBoundingClientRect().height??0,headings:[...document.querySelectorAll('main h1')].map(e=>({text:e.textContent,size:parseFloat(getComputedStyle(e).fontSize)})),prose:[...document.querySelectorAll('main [class*="markdown"]')].map(e=>({size:parseFloat(getComputedStyle(e).fontSize),line:parseFloat(getComputedStyle(e).lineHeight)}))}));
+ let presentation=await readPresentation();
+ await expect.poll(async()=>{presentation=await readPresentation();return presentation.headings.length},{message:'采集必须是最终页面而不是加载态'}).toBe(1);
+ const metric={role:user?.roles.includes('admin')?'admin':user?'learner':'anonymous',caseId:label,project:info.project.name,...presentation};
  const name=label+'-'+metric.locale+'-'+metric.viewportWidth;
  await info.attach(name,{body:JSON.stringify(metric,null,2),contentType:'application/json'});
  const png=await page.screenshot({fullPage:true,mask:[page.locator('input,textarea')]});
  await info.attach(name,{body:png,contentType:'image/png'});
  if(process.env.PAGE_BEAUTY_CAPTURE){
   const dir=process.env.PAGE_BEAUTY_CAPTURE;await mkdir(dir,{recursive:true});await writeFile(join(dir,name+'.json'),JSON.stringify(metric,null,2));
-  if(['A01','A04','A13-compare','A18','A20'].includes(label))await writeFile(join(dir,name+'.png'),png);
+  await writeFile(join(dir,name+'.png'),png);
   const paths=[...new Set([...((await page.content()).matchAll(/<script[^>]+src="([^"?]+)(?:\?[^" ]*)?"/g))].map(m=>m[1]).filter(p=>p.startsWith('/_next/static/')))];
   const assets=await Promise.all(paths.map(async path=>({path,gzipBytes:gzipSync(await readFile(join(process.cwd(),'.next',path.slice('/_next/'.length))),{level:9}).length})));
   await writeFile(join(dir,name+'-assets.json'),JSON.stringify({route:metric.route,assets,gzipBytes:assets.reduce((n,a)=>n+a.gzipBytes,0)},null,2));
@@ -41,4 +48,10 @@ export async function discussionBeauty(page:Page,review=false){
  await actor(page,'auth_admin');await handleReport(page,id,'waiting_details','原创回复：请说明需要展开的数学条件。 Original independent reply.');
  if(!review)await actor(page,'auth_learner');await page.goto((review?'/review/feedback/':'/feedback/')+id);await page.getByRole('button',{name:'Read discussion',exact:true}).click();await expect(page.locator('article')).toHaveCount(2);
  return id;
+}
+
+export function contrastRatio(first:string,second:string){
+ const rgb=(s:string)=>{if(s.trim().startsWith('#')){let value=s.trim().slice(1);if(value.length===3)value=[...value].map(c=>c+c).join('');return value.match(/../g)!.map(v=>parseInt(v,16))}return s.match(/[\d.]+/g)!.slice(0,3).map(Number)};
+ const luminance=(s:string)=>{const [r,g,b]=rgb(s).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4});return .2126*r+.7152*g+.0722*b};
+ const a=luminance(first),b=luminance(second);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
 }

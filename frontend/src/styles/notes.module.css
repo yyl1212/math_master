@@ -28,7 +28,7 @@
 .noteAside { grid-column:2; grid-row:2; min-width:0; }
 .readingLayout:not(:has(.noteAside)) { grid-template-columns:minmax(0,840px); justify-content:center; }
 .readingTabs { display:none; }
-.readingTabs button { min-height:44px; padding:10px 16px; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--ink); font:inherit; }
+.readingTabs button { min-height:44px; padding:10px 16px; border:1px solid var(--control-border); border-radius:8px; background:var(--surface); color:var(--ink); font:inherit; }
 .readingTabs button[aria-pressed="true"] { background:var(--brand); color:white; }
 .approval { display:grid; gap:20px; }
 .approval textarea { min-height:100px; }

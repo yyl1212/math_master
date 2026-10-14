@@ -21,7 +21,7 @@
 .error:focus { outline: 3px solid var(--brand); outline-offset: 3px; }
 .account { max-width: 680px; margin: auto; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
-.status { margin-left: auto; min-width:0; font-size: 13px; display: flex; flex-wrap: wrap; gap: 12px; overflow-wrap: anywhere; }
+.status { margin-left: 0; min-width:0; font-size: 13px; display: flex; flex-wrap: wrap; gap: 12px; overflow-wrap: anywhere; }
 .adminNavigation { display:flex; flex-wrap:wrap; gap:12px; }
 details.adminNavigation { display:block; }
 .adminNavigation summary { cursor:pointer; }

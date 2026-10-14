@@ -118,7 +118,12 @@ export function SafeMarkdown({
   });
   const available = new Map(assets.map((a) => [a.id, a]));
   return (
-    <div ref={root} className={styles.markdown+(presentation==='study'?' '+prose.study:'')} lang="en">
+    <div ref={root} className={styles.markdown+(presentation==='study'?' '+prose.study:'')} lang="en" onKeyDown={event => {
+      if (presentation !== 'study' || event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || target.getAttribute('tabindex') !== '0' || !target.matches('.katex-display,.katex,table') || target.scrollWidth <= target.clientWidth + 1) return;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') { event.preventDefault(); target.scrollLeft += event.key === 'ArrowRight' ? 64 : -64; }
+    }}>
       <Markdown
         skipHtml
         remarkPlugins={[remarkMath, ()=>limitMath(t("safe-markdown.formula.could.not.be.displayed.1952de",{}))]}

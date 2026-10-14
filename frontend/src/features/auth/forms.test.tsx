@@ -4,6 +4,7 @@ import { CredentialsForm } from "./credentials-form";
 import { AccountPanel } from "./account-panel";
 import { failure } from "@/lib/auth/schemas";
 import {UiLocaleProvider,useUiI18n} from '@/lib/i18n/provider';
+import {renderToString} from 'react-dom/server';
 const mocks = vi.hoisted(() => ({ replace: vi.fn(), refresh: vi.fn(), request: vi.fn(), context: vi.fn(), changed: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => mocks }));
 vi.mock("@/lib/auth/client", () => ({ authRequest: mocks.request, getAuthContext: mocks.context, notifyAuthChanged: mocks.changed }));
@@ -11,6 +12,11 @@ const user = { id: "00000000-0000-4000-8000-000000000001", username: "learner_on
 const password = "  中文数学密码保留所有空格与字符  ";
 beforeEach(() => { Object.values(mocks).forEach(m => m.mockReset()); mocks.context.mockResolvedValue({ ok: true, data: { user: null, csrfToken: "A".repeat(43) } }); });
 describe("TestCredentialForms", () => {
+  it('服务器输出在交互就绪前禁用原字段，客户就绪后保留自动填充',()=>{
+    const markup=document.createElement('div');markup.innerHTML=renderToString(<CredentialsForm mode="login"/>);
+    expect(markup.querySelector('#username')).toBeDisabled();expect(markup.querySelector('#password')).toBeDisabled();expect(markup.querySelector('button[type="submit"]')).toBeDisabled();
+    render(<CredentialsForm mode="login"/>);expect(screen.getByLabelText('Username')).toBeEnabled();expect(screen.getByLabelText('Username')).toHaveAttribute('autocomplete','username');expect(screen.getByLabelText('Password')).toHaveAttribute('autocomplete','current-password');
+  });
   it.each(["register", "login"] as const)("preserves pasted Unicode and blocks duplicate %s writes", async mode => {
     render(<CredentialsForm mode={mode} />);
     await waitFor(() => expect(mocks.context).toHaveBeenCalled());

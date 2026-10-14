@@ -1,0 +1,75 @@
+name: 页面美感与跨浏览器验证
+on:
+  push:
+    branches: [master, 'codex/**']
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TOPIC_COMPATIBILITY_STAGE: managed
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: go1.27.1
+      NEXT_TELEMETRY_DISABLED: '1'
+      TEST_DATABASE_URL: postgres://math_master:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
+      PAGE_BEAUTY_CAPTURE: ${{ runner.temp }}/page-beauty
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: math_master
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: math_master_test_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U math_master -d math_master_test_ci"
+          --health-interval 2s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.17.0'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.27.1'
+          cache-dependency-path: backend/go.sum
+      - name: 安装锁定依赖
+        run: node tools/verify/run.mjs --cwd frontend -- npm ci
+      - name: 独立CI和资源预算负例
+        run: node tools/verify/run.mjs -- node --test tools/verify/page-beauty-ci.test.mjs tools/verify/page-beauty-assets.test.mjs
+      - name: 当前前端与合成联调构建
+        run: |
+          node tools/verify/run.mjs --cwd frontend -- npm run typecheck
+          node tools/verify/run.mjs --cwd frontend -- npm run build
+          node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
+      - name: 安装锁定三引擎
+        run: node tools/verify/run.mjs --cwd frontend -- npm exec -- playwright install --with-deps chromium firefox webkit
+      - name: 当前公开页面双语矩阵
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- page-beauty-public.spec.ts
+      - name: 当前学习笔记复习双语矩阵
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- page-beauty-learning.spec.ts
+      - name: 当前管理与审批双语矩阵
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- page-beauty-admin.spec.ts
+      - name: Firefox与WebKit核心验证
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm exec -- playwright test --config ../tests/e2e/page-beauty.playwright.config.ts
+      - name: 同口径资源增量预算
+        run: node tools/verify/run.mjs -- node tools/verify/page-beauty-assets.mjs --capture "$PAGE_BEAUTY_CAPTURE"
+      - name: 保留完整视觉证据
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: page-beauty-visual-evidence
+          path: |
+            ${{ runner.temp }}/page-beauty/
+            test-results/
+            playwright-report/
+          if-no-files-found: ignore
+          retention-days: 7

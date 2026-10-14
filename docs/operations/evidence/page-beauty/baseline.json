@@ -340,7 +340,8 @@
           "size": 48
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A01",
@@ -356,7 +357,8 @@
           "size": 30
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A01",
@@ -372,7 +374,8 @@
           "size": 30
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A01",
@@ -388,7 +391,8 @@
           "size": 48
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A01",
@@ -404,7 +408,8 @@
           "size": 30
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A01",
@@ -420,7 +425,8 @@
           "size": 30
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A02",
@@ -436,7 +442,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A02",
@@ -452,7 +459,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A02",
@@ -468,7 +476,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A02",
@@ -484,7 +493,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A02",
@@ -500,7 +510,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A02",
@@ -516,7 +527,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A03",
@@ -532,7 +544,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A03",
@@ -548,7 +561,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A03",
@@ -564,7 +578,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A03",
@@ -580,7 +595,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A03",
@@ -596,7 +612,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A03",
@@ -612,7 +629,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A04",
@@ -665,7 +683,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A04",
@@ -718,7 +737,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A04",
@@ -771,7 +791,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A04",
@@ -824,7 +845,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A04",
@@ -877,7 +899,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A04",
@@ -930,7 +953,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A05",
@@ -946,7 +970,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A05",
@@ -962,7 +987,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A05",
@@ -978,7 +1004,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A05",
@@ -994,7 +1021,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A05",
@@ -1010,7 +1038,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A05",
@@ -1026,7 +1055,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A06",
@@ -1047,7 +1077,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A06",
@@ -1068,7 +1099,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A06",
@@ -1089,7 +1121,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A06",
@@ -1105,7 +1138,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A06",
@@ -1126,7 +1160,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A06",
@@ -1147,7 +1182,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "anonymous"
     },
     {
       "caseId": "A07",
@@ -1163,7 +1199,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A07",
@@ -1179,7 +1216,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A07",
@@ -1195,7 +1233,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A07",
@@ -1211,7 +1250,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A07",
@@ -1227,7 +1267,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A07",
@@ -1243,7 +1284,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A08",
@@ -1259,7 +1301,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A08",
@@ -1275,7 +1318,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A08",
@@ -1291,7 +1335,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A08",
@@ -1307,7 +1352,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A08",
@@ -1323,7 +1369,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A08",
@@ -1339,7 +1386,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "anonymous"
     },
     {
       "caseId": "A09",
@@ -1355,7 +1403,8 @@
           "size": 38
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A09",
@@ -1371,7 +1420,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A09",
@@ -1387,7 +1437,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A09",
@@ -1403,7 +1454,8 @@
           "size": 38
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A09",
@@ -1419,7 +1471,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A09",
@@ -1435,7 +1488,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A10",
@@ -1451,7 +1505,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A10",
@@ -1467,7 +1522,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A10",
@@ -1483,7 +1539,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A10",
@@ -1499,7 +1556,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A10",
@@ -1515,7 +1573,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A10",
@@ -1531,7 +1590,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A11",
@@ -1547,7 +1607,8 @@
           "size": 38
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A11",
@@ -1563,7 +1624,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A11",
@@ -1579,7 +1641,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A11",
@@ -1595,7 +1658,8 @@
           "size": 38
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A11",
@@ -1611,7 +1675,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A11",
@@ -1627,7 +1692,8 @@
           "size": 28
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A12",
@@ -1643,7 +1709,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A12",
@@ -1659,7 +1726,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A12",
@@ -1675,7 +1743,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A12",
@@ -1691,7 +1760,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A12",
@@ -1707,7 +1777,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A12",
@@ -1723,7 +1794,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A13-compare",
@@ -1764,7 +1836,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-compare",
@@ -1805,7 +1878,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-compare",
@@ -1846,7 +1920,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-compare",
@@ -1887,7 +1962,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-compare",
@@ -1928,7 +2004,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-compare",
@@ -1969,7 +2046,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-edit",
@@ -1985,7 +2063,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A13-edit",
@@ -2001,7 +2080,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A13-edit",
@@ -2017,7 +2097,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A13-edit",
@@ -2033,7 +2114,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A13-edit",
@@ -2049,7 +2131,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A13-edit",
@@ -2065,7 +2148,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A13-proof",
@@ -2106,7 +2190,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-proof",
@@ -2147,7 +2232,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-proof",
@@ -2188,7 +2274,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-proof",
@@ -2229,7 +2316,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-proof",
@@ -2270,7 +2358,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-proof",
@@ -2311,7 +2400,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-read",
@@ -2352,7 +2442,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-read",
@@ -2393,7 +2484,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-read",
@@ -2434,7 +2526,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-read",
@@ -2475,7 +2568,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-read",
@@ -2516,7 +2610,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A13-read",
@@ -2557,7 +2652,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "learner"
     },
     {
       "caseId": "A14",
@@ -2573,7 +2669,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A14",
@@ -2589,7 +2686,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A14",
@@ -2605,7 +2703,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A14",
@@ -2621,7 +2720,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A14",
@@ -2637,7 +2737,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A14",
@@ -2653,7 +2754,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A15",
@@ -2669,7 +2771,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A15",
@@ -2685,7 +2788,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A15",
@@ -2701,7 +2805,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A15",
@@ -2717,7 +2822,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A15",
@@ -2733,7 +2839,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A15",
@@ -2749,7 +2856,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A16",
@@ -2765,7 +2873,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A16",
@@ -2781,7 +2890,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A16",
@@ -2797,7 +2907,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A16",
@@ -2813,7 +2924,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A16",
@@ -2829,7 +2941,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A16",
@@ -2845,7 +2958,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A17",
@@ -2861,7 +2975,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A17",
@@ -2877,7 +2992,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A17",
@@ -2893,7 +3009,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A17",
@@ -2909,7 +3026,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A17",
@@ -2925,7 +3043,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A17",
@@ -2941,7 +3060,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A18",
@@ -2957,7 +3077,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A18",
@@ -2973,7 +3094,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A18",
@@ -2989,7 +3111,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A18",
@@ -3005,7 +3128,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A18",
@@ -3021,7 +3145,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A18",
@@ -3037,7 +3162,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "learner"
     },
     {
       "caseId": "A19",
@@ -3053,7 +3179,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A19",
@@ -3069,7 +3196,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A19",
@@ -3085,7 +3213,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A19",
@@ -3101,7 +3230,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A19",
@@ -3117,7 +3247,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A19",
@@ -3133,7 +3264,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A20",
@@ -3149,7 +3281,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A20",
@@ -3165,7 +3298,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A20",
@@ -3181,7 +3315,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A20",
@@ -3197,7 +3332,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A20",
@@ -3213,7 +3349,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A20",
@@ -3229,7 +3366,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A21",
@@ -3245,7 +3383,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A21",
@@ -3261,7 +3400,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A21",
@@ -3277,7 +3417,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A21",
@@ -3293,7 +3434,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A21",
@@ -3309,7 +3451,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A21",
@@ -3325,7 +3468,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A22",
@@ -3341,7 +3485,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A22",
@@ -3357,7 +3502,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A22",
@@ -3373,7 +3519,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A22",
@@ -3389,7 +3536,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A22",
@@ -3405,7 +3553,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A22",
@@ -3421,7 +3570,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A23",
@@ -3437,7 +3587,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A23",
@@ -3453,7 +3604,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A23",
@@ -3469,7 +3621,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A23",
@@ -3485,7 +3638,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A23",
@@ -3501,7 +3655,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A23",
@@ -3517,7 +3672,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A24",
@@ -3538,7 +3694,8 @@
           "size": 14,
           "line": 26.6
         }
-      ]
+      ],
+      "role": "admin"
     },
     {
       "caseId": "A24",
@@ -3559,7 +3716,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "admin"
     },
     {
       "caseId": "A24",
@@ -3580,7 +3738,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "admin"
     },
     {
       "caseId": "A24",
@@ -3596,7 +3755,8 @@
           "size": 56.32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A24",
@@ -3617,7 +3777,8 @@
           "size": 13,
           "line": 24.7
         }
-      ]
+      ],
+      "role": "admin"
     },
     {
       "caseId": "A24",
@@ -3633,7 +3794,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A25",
@@ -3649,7 +3811,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A25",
@@ -3665,7 +3828,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A25",
@@ -3681,7 +3845,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A25",
@@ -3697,7 +3862,8 @@
           "size": 44.8
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A25",
@@ -3713,7 +3879,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     },
     {
       "caseId": "A25",
@@ -3729,7 +3896,8 @@
           "size": 32
         }
       ],
-      "prose": []
+      "prose": [],
+      "role": "admin"
     }
   ]
 }

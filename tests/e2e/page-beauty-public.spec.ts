@@ -1,5 +1,5 @@
 import {test,expect,TEST_PASSWORD} from './fixtures';
-import {auditPage,measurePage,assertPageFits,assertFocusVisible,reviewKid} from './page-beauty-helpers';
+import {auditPage,measurePage,assertPageFits,assertFocusVisible,reviewKid,captureAudit} from './page-beauty-helpers';
 import {loginBeauty} from './page-beauty-helpers';
 test('390页头高度、控件尺寸和键盘焦点符合阅读尺度',async({page,scene})=>{
  await scene('managed-knowledge');await page.setViewportSize({width:390,height:844});
@@ -25,11 +25,12 @@ test('长用户名和展开的管理员导航在320与768宽均可达',async({pa
  await page.context().clearCookies();await loginBeauty(page,true);await page.setViewportSize({width:320,height:900});await page.getByRole('button',{name:'English',exact:true}).click();await page.locator('header summary').click();for(const href of ['/admin/knowledge','/admin/note-shares','/review/feedback','/admin/users']){const link=page.locator('header a[href="'+href+'"]');await link.focus();await link.scrollIntoViewIfNeeded();await assertFocusVisible(page)}await assertPageFits(page);
  await auditPage(page,info,'G-header-expanded');
 });
-test('视觉工具检测横溢与焦点遮挡',async({page})=>{
+test('视觉工具检测横溢、焦点遮挡与缺少最终标题',async({page},info)=>{
  await page.goto('/login');await page.waitForLoadState('networkidle');const base=await measurePage(page);expect(base.pageWidth).toBeLessThanOrEqual(base.viewportWidth+1);
  const style=await page.addStyleTag({content:'body {min-width:2000px!important}'});await expect(assertPageFits(page)).rejects.toThrow('页面不得横向溢出');await style.evaluate(e=>e.parentNode?.removeChild(e));await assertPageFits(page);
  const input=page.getByLabel('Username',{exact:true});await input.click();await expect(input).toBeFocused();await input.scrollIntoViewIfNeeded();await assertFocusVisible(page);
  await page.evaluate(()=>{const e=document.createElement('div');e.id='focus-obstruction';e.style.cssText='position:fixed;inset:0;z-index:9999;background:white';document.body.append(e)});await expect(assertFocusVisible(page)).rejects.toThrow('焦点控件必须');await page.locator('#focus-obstruction').evaluate(e=>e.remove());await assertFocusVisible(page);
+ await page.locator('main h1').evaluate(e=>e.remove());await expect(captureAudit(page,info,'G-tool-heading-missing')).rejects.toThrow();
 });
 for(const [id,path] of [['A01','/'],['A02','/knowledge'],['A03','/topics/97-XX'],['A04','/knowledge/'+reviewKid],['A05','/notes'],['A07','/login'],['A08','/register']])test(id+' 公开页面双语基线',async({page,scene},info)=>{await scene('note-sharing');await page.goto(path);await expect(page.locator('main')).toBeVisible();await auditPage(page,info,id)});
 test('A06 分享笔记正文基线',async({page,scene},info)=>{await scene('note-sharing');await page.goto('/notes');await page.locator('main a[href^="/notes/"]').first().click();await expect(page.locator('main h1')).toBeVisible();await auditPage(page,info,'A06')});
@@ -37,3 +38,4 @@ test('十二个退场入口保持退出语义',async({page,scene})=>{await scene
 test('公开旧入口保持跳转',async({page,scene})=>{await scene('managed-knowledge');await page.goto('/domains/demo');await expect(page).toHaveURL(/\/knowledge$/)});
 test('账户辅助文字至少13px且原错误焦点和自动填充保留',async({page,scene})=>{await scene('managed-knowledge');await page.goto('/login');expect(await page.locator('#password-hint').evaluate(e=>parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(13);const username=page.getByLabel('Username',{exact:true}),password=page.getByLabel('Password',{exact:true});await expect(username).toHaveAttribute('autocomplete','username');await expect(password).toHaveAttribute('autocomplete','current-password');await username.fill('auth_learner');await password.fill('Original incorrect password');await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(page.getByRole('alert').filter({hasText:'Invalid username or password.'})).toBeFocused();await expect(username).toHaveValue('auth_learner');await expect(password).toHaveValue('');await assertFocusVisible(page);await assertPageFits(page)});
 test('空搜索保留查询、署名及清空入口，未知内容保留状态语义',async({page,scene},info)=>{await scene('managed-knowledge');await page.goto('/knowledge?mode=knowledge&q=original_no_matching_mathematics');await expect(page.locator('main p[role="status"]')).toBeVisible();await expect(page.getByRole('searchbox')).toHaveValue('original_no_matching_mathematics');for(const href of ['https://msc2020.org/','https://creativecommons.org/licenses/by-nc-sa/4.0/'])await expect(page.locator('main a[href="'+href+'"]')).toBeVisible();await auditPage(page,info,'G-empty-search');await page.goto('/knowledge/k-'+'0'.repeat(56));await expect(page.locator('main .content-state')).toBeVisible();await assertPageFits(page)});
+for(const path of ['/','/knowledge','/knowledge/'+reviewKid,'/notes','/login'])test('宽屏与窄屏重排 '+path,async({page,scene},info)=>{await scene('note-sharing');await page.goto(path);await expect(page.locator('main h1')).toBeVisible();for(const width of [320,390,768,1280,1440]){await page.setViewportSize({width,height:900});await assertPageFits(page);await captureAudit(page,info,'G-wide-'+(path==='/'?'home':path.startsWith('/knowledge/')?'reading':path.split('/')[1]))}});

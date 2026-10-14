@@ -557,3 +557,6 @@ button, .button { overflow-wrap: anywhere; }
  .panel, .domain-card { padding: 20px; }
  .site-footer { margin: 0 20px; }
 }
+
+.button-row, .button-group { display:flex; flex-wrap:wrap; align-items:center; gap:12px; min-width:0; }
+.button-row > a:not(.button) { display:inline-flex; align-items:center; min-height:44px; font-size:13px; text-decoration:underline; text-underline-offset:4px; }

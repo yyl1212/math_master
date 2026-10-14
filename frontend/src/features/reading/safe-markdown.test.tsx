@@ -20,6 +20,11 @@ it('study公式在父组件重复渲染后仍可键盘滚动，切回default清�
  expect(container.querySelector('.katex-display')).toHaveAttribute('tabindex','0');
  rerender(<SafeMarkdown source={source} assets={[]}/>);expect(container.querySelector('[role="region"]')).toBeNull();
 });
+it('study容器左右箭头局部滚动，修饰键保持原浏览器操作',()=>{
+ vi.spyOn(Element.prototype,'clientWidth','get').mockReturnValue(100);vi.spyOn(Element.prototype,'scrollWidth','get').mockReturnValue(900);
+ const {container}=render(<SafeMarkdown presentation="study" source={'$$\nx+1\n$$'} assets={[]}/>);const formula=container.querySelector<HTMLElement>('.katex-display')!;formula.focus();
+ fireEvent.keyDown(formula,{key:'ArrowRight'});expect(formula.scrollLeft).toBeGreaterThan(0);const value=formula.scrollLeft;fireEvent.keyDown(formula,{key:'ArrowRight',ctrlKey:true});expect(formula.scrollLeft).toBe(value);fireEvent.keyDown(formula,{key:'ArrowLeft'});expect(formula.scrollLeft).toBe(0);
+});
 it.each(["default","study"] as const)("blocksHtmlUnsafeLinksAndUnboundImages %s", (presentation) => {
   const source =
     '<script>alert(1)</script>\n\n<iframe src="https://evil.test"></iframe>\n\n[bad](javascript:alert) [http](http://evil.test) [safe](https://example.org)\n\n![remote](https://evil.test/a.svg) ![missing](asset:unknown) ![Fractions](asset:fraction-bar)';
