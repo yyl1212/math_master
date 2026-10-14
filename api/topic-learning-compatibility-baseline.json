@@ -4001,7 +4001,23 @@
       "docs/superpowers/specs/2026-10-14-page-beauty-design.md",
       "docs/superpowers/plans/2026-10-14-page-beauty.md",
       "docs/superpowers/reports/2026-10-14-page-beauty-page-audit.md",
-      "docs/superpowers/reports/2026-10-14-page-beauty-plan-review.md"
+      "docs/superpowers/reports/2026-10-14-page-beauty-plan-review.md",
+      "tests/e2e/page-beauty-helpers.ts",
+      "tests/e2e/page-beauty-public.spec.ts",
+      "tests/e2e/page-beauty-learning.spec.ts",
+      "tests/e2e/page-beauty-admin.spec.ts",
+      "docs/operations/evidence/page-beauty/case-matrix.md",
+      "docs/operations/evidence/page-beauty/baseline.json",
+      "docs/operations/evidence/page-beauty/before-A01-1280.png",
+      "docs/operations/evidence/page-beauty/before-A01-390.png",
+      "docs/operations/evidence/page-beauty/before-A04-1280.png",
+      "docs/operations/evidence/page-beauty/before-A04-390.png",
+      "docs/operations/evidence/page-beauty/before-A13-compare-1280.png",
+      "docs/operations/evidence/page-beauty/before-A13-compare-390.png",
+      "docs/operations/evidence/page-beauty/before-A18-1280.png",
+      "docs/operations/evidence/page-beauty/before-A18-390.png",
+      "docs/operations/evidence/page-beauty/before-A20-1280.png",
+      "docs/operations/evidence/page-beauty/before-A20-390.png"
     ]
   },
   "legacySnapshots": {
@@ -5664,8 +5680,24 @@
     "docs/superpowers/reports/2026-10-14-review-recall-code-review.md": "cb35aa544d07ce0b3745cbd67fd87b29a6bbe643b93db353ddd091643a4c5f92",
     "tools/verify/study-review-restore.test.mjs": "1392e1b8e397079f9ff3d48f80e50fffa613cc7f316580b2f87ee7afc215bc5c",
     "docs/superpowers/specs/2026-10-14-page-beauty-design.md": "82334f64ffc140c144b19945dbce94d4f74178cfc4400617779aed5af89cad03",
-    "docs/superpowers/plans/2026-10-14-page-beauty.md": "211c04324ef8c4634f8f2b786db623079cd2798bc3e9d56c597be8b2130effae",
+    "docs/superpowers/plans/2026-10-14-page-beauty.md": "13bee82552831b34d91597070fd2615dba2e1ca5913fdcb3610b1cd4b0496e20",
     "docs/superpowers/reports/2026-10-14-page-beauty-page-audit.md": "7716e7b34cd2dc1738a3a9aa2bbbef67e90c4d1d3ace11e6e27b5bb0b9b6f340",
-    "docs/superpowers/reports/2026-10-14-page-beauty-plan-review.md": "5b9b423c84be7706a431a4caab496abf313766fdcf2b47e84bb823307cc20e0b"
+    "docs/superpowers/reports/2026-10-14-page-beauty-plan-review.md": "5b9b423c84be7706a431a4caab496abf313766fdcf2b47e84bb823307cc20e0b",
+    "tests/e2e/page-beauty-helpers.ts": "830b04748181f38568b1310ced8a2c5facf611975186005d00a141644bbd822d",
+    "tests/e2e/page-beauty-public.spec.ts": "9d354ed4cea74ad084f400c6d255dfae65555d8cdf9d350a9e76eb7aa7f091a2",
+    "tests/e2e/page-beauty-learning.spec.ts": "c6ca6e4d83f291cc99ba97c938efef31456ff9d54a91482ebb8252af3c1dbf84",
+    "tests/e2e/page-beauty-admin.spec.ts": "3c82db3ae5f14046193696668cf5cee09ea6970563a5ba4d9e18e24f5cdcf964",
+    "docs/operations/evidence/page-beauty/case-matrix.md": "24dd02c83e0440d8f608aa568b89540ada08f098de5d50fd4e4fec6b4a2be404",
+    "docs/operations/evidence/page-beauty/baseline.json": "c814f6c781d945df00985354531a1a299ffcd3ed54577a25f3b822f1ae9a1da2",
+    "docs/operations/evidence/page-beauty/before-A01-1280.png": "83884b7084abf916929aabc344dd51e53f41f4f6fe500774bf78c6a99215ba13",
+    "docs/operations/evidence/page-beauty/before-A01-390.png": "91b8d43e67d6ba567556dfa5cf34ce3c85b49bd66e36cd88cf87f25f18d8deb1",
+    "docs/operations/evidence/page-beauty/before-A04-1280.png": "ecba04d0a740011478c3898dacea35e23d9534c7ea3ea0c73fb62bb21dd82c0a",
+    "docs/operations/evidence/page-beauty/before-A04-390.png": "ef1daa1260da2ae6c78e0519a7f7a65b22cbf27635c33d442d3c7cae7b6dfb95",
+    "docs/operations/evidence/page-beauty/before-A13-compare-1280.png": "20adbe62a5162e6a82b6d59ab8678530b80c07b7007fcda949455c6529968d48",
+    "docs/operations/evidence/page-beauty/before-A13-compare-390.png": "19091ba4b9409646ba00a4401b4014e2a17f53f001b4d7d8b2bfb5d1fcc0b6f8",
+    "docs/operations/evidence/page-beauty/before-A18-1280.png": "54c379a367118a6d19bc85b786c5209747dba4530ef2dbc5701424111b64549e",
+    "docs/operations/evidence/page-beauty/before-A18-390.png": "62adba160155005f917ce5af880e3ca03390bc15116fc743f3d99a250629f126",
+    "docs/operations/evidence/page-beauty/before-A20-1280.png": "78799a24606f4238a186df4e4c521bfdc856bbdb66cad6f5f94c405734a4b690",
+    "docs/operations/evidence/page-beauty/before-A20-390.png": "33b5e279601a276eacad51de0ab068753a483a8b8fa7e1e0d9348e08966499c3"
   }
 }

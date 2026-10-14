@@ -38,7 +38,7 @@
 - [ ] 按Native流程建本计划专属ledger；依次T1→T2→T3→T4→T5→T6→T7→T8。建议三个验收批次为基础/阅读、其余页面、完整回归；最终一份MR。
 - [ ] 每任务提交能审查的增量，并同步该次实际改动的兼容精确路径/摘要登记；出现需要改API、业务hook、原CI或固定fixture的情况，先修订设计与兼容审查，不能以美化名义顺手重构。
 
-## T1：补齐基线、状态清单与有界视觉工具
+## Task 1：T1 补齐基线、状态清单与有界视觉工具
 
 **文件：** 新 `tests/e2e/page-beauty-helpers.ts`、`docs/operations/evidence/page-beauty/baseline.json`；在三个新spec文件中先建立场景/基线采集。现有fixtures/scene-control只复用，不修改harness。
 
@@ -54,7 +54,7 @@
 
 **完成标准：** 当前流程可真实打开；页表每行有可追踪caseId/源码结论；所有数据均为专属合成夹具。提交：`test: 建立全站视觉与状态基线`。
 
-## T2：令牌、页面标题、页头与通用控件
+## Task 2：T2 令牌、页面标题、页头与通用控件
 
 **文件：** 新 `styles/tokens.css`、`styles/page-ui.module.css`、`components/page-heading.tsx`及测试；修改 `styles/globals.css`、`components/site-header.tsx`、`styles/auth.module.css`。需要新可读标签时精确更新i18n文案及语言覆盖登记；纯ReactNode槽组件按既有noOwnText机制登记，不能伪造文案覆盖。
 
@@ -70,7 +70,7 @@
 
 **完成标准：** 两种语言/三种身份的页头与控件可用，尺寸/对比RED转GREEN；不改身份逻辑。提交：`style: 统一安静学术风格与导航控件`。
 
-## T3：阅读、私人笔记与正文排版
+## Task 3：T3 阅读、私人笔记与正文排版
 
 **文件：** 新 `styles/current-prose.module.css`；修改 `features/reading/{safe-markdown,current-knowledge-view}.tsx`、`features/notes/{note-preview,shared-note-view,admin-share-view}.tsx`、`features/study/{managed-note-editor,managed-controls}.tsx`、`features/study-review/self-rating.tsx`、`styles/notes.module.css`及相关测试。旧 `features/study/note-editor.tsx` 与固定fixture不改。
 
@@ -86,7 +86,7 @@
 
 **完成标准：** 当前阅读字号提升、原安全与笔记流程不变；新/旧模式分别有证据。提交：`style: 优化数学正文与笔记阅读编辑`。
 
-## T4：我的学习、复习、默写和两类历史
+## Task 4：T4 我的学习、复习、默写和两类历史
 
 **文件：** 修改 `features/study/{managed-learning-view,managed-history}.tsx`、`features/notes/own-note-list.tsx`、`features/study-review/{queue,history,session,recall-editor,comparison,self-rating}.tsx`、`styles/{managed-learning,study-review,notes}.module.css`及已有相关测试。
 
@@ -103,7 +103,7 @@
 
 **完成标准：** 原学习/分享/排期事实保持，视觉门禁通过。提交：`style: 统一学习复习工作区与默写比对`。
 
-## T5：首页、目录、分享页、账户与本人反馈
+## Task 5：T5 首页、目录、分享页、账户与本人反馈
 
 **文件：** 修改 `features/catalogue/{current-home,current-catalogue,catalogue-search}.tsx`、`features/notes/shared-note-list.tsx`、`features/auth/{credentials-form,account-panel}.tsx`、`features/feedback/{ticket-list,new-form,discussion-panel,status}.tsx`及对应模块样式；按需调整现有page壳，不改SSR取数和参数构造。
 
@@ -119,7 +119,7 @@
 
 **完成标准：** 所有当前公开与本人非复习页面有对应caseId；功能与URL兼容。提交：`style: 完善发现分享账户与反馈页面层级`。
 
-## T6：知识管理、笔记审批、人员与管理员反馈
+## Task 6：T6 知识管理、笔记审批、人员与管理员反馈
 
 **文件：** 修改 `features/knowledge-admin/{list,edit,upload}.tsx`、`features/notes/{admin-share-queue,admin-share-view}.tsx`、`features/auth/admin-users.tsx`、`features/feedback/{ticket-list,discussion-panel,review-panel}.tsx`及其样式；新admin视觉文件扩充A19—A25。
 
@@ -135,7 +135,7 @@
 
 **完成标准：** A19—A25全部闭环，无管理员能力或写入语义变化。提交：`style: 优化知识管理与审批工作台`。
 
-## T7：独立视觉CI、资源预算与兼容回归
+## Task 7：T7 独立视觉CI、资源预算与兼容回归
 
 **文件：** 新 `.github/workflows/page-beauty.yml`、`tests/e2e/page-beauty.playwright.config.ts`、cross-browser文件；新 `tools/verify/page-beauty-ci.mjs`、`page-beauty-assets.mjs`及对应测试；精确更新语言覆盖和兼容政策/摘要。原workflow/Playwright配置不改。
 
@@ -153,7 +153,7 @@
 
 **完成标准：** 完整矩阵证据、资源预算和原CI全部通过；人工项目如实记录，未完成的发布必要验收不标绿。提交：`test: 验证页面美感跨浏览器与原契约兼容`。
 
-## T8：最终审查、MR与交付
+## Task 8：T8 最终审查、MR与交付
 
 **文件：** 新 `docs/superpowers/reports/2026-10-14-page-beauty-code-review.md`、`page-beauty-acceptance.md`；更新逐页表的实施结果，不改已确认范围。
 
