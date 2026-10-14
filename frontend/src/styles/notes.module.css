@@ -48,3 +48,7 @@
 .editor textarea { font-size:16px; }
 .editor :global([role="status"]), .editor :global([role="alert"]) { padding:12px 16px; border-left:3px solid var(--brand); background:var(--soft); border-radius:0 10px 10px 0; }
 @media(max-width:600px){.readingBody{font-size:16px;line-height:1.85}.readingBody h2{font-size:20px}.noteAside{padding:20px}.readingBody section{margin-top:24px}}
+
+.excerpt { font-size:16px; line-height:1.8; }
+.list h3 { font-size:19px; line-height:1.5; }
+.list .metadata { padding-top:4px; }

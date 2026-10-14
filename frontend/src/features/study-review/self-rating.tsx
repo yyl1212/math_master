@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {useUiI18n} from '@/lib/i18n/provider';
 import {SafeMarkdown} from '@/features/reading/safe-markdown';
 import {LocalizedName} from '@/lib/i18n/localized-name';
+import {PageHeading} from '@/components/page-heading';
 import {UiPageTitle} from '@/components/ui-page-title';
 import type {Session,Rating,Schedule,Section} from '@/lib/study-review/types';
 import {useReviewCommand,type ReviewCommandFlow} from './use-review-command';
@@ -26,7 +27,7 @@ export function ReadingReview({initial}:{initial:Session}){
 export function ReadingReviewBody({session,flow}:{session:Session;flow:ReviewCommandFlow}){
  const{t}=useUiI18n();
  const active=session.available&&!session.materialChanged&&!flow.contentBlocked;
- return <div className={styles.session}><UiPageTitle messageKey="page.learn.review.id"/><header className={styles.header}><div><h1><LocalizedName english={session.title} chinese={session.titleZh}/></h1><p>{t('studyReview.read',{})}</p></div><Link prefetch={false} href="/learn/review">{t('studyReview.back',{})}</Link></header>
+ return <div className={styles.session}><UiPageTitle messageKey="page.learn.review.id"/><PageHeading title={<LocalizedName english={session.title} chinese={session.titleZh}/>} description={t('studyReview.read',{})} actions={<Link prefetch={false} href="/learn/review">{t('studyReview.back',{})}</Link>}/>
  {!session.available&&<p role="status">{t('studyReview.availableFalse',{})}</p>}{session.materialChanged&&<p role="status">{t('studyReview.changedHint',{})}</p>}
  {active&&session.reference&&<section className={styles.card} aria-label={t('studyReview.reference',{})}><h2>{t('studyReview.reference',{})}</h2><ReviewSections sections={session.reference.sections}/></section>}
  {active&&session.status==='working'&&<button type="button" className="button" disabled={flow.busy||flow.unconfirmed} onClick={()=>void flow.run(`/api/v3/study/review/sessions/${session.sessionId}/compare`,'POST',{expectedSequence:session.sequence,body:'',unanswered:false},session.knowledge)}>{t('studyReview.completeReading',{})}</button>}
