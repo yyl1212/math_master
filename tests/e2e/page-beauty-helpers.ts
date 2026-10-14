@@ -12,7 +12,8 @@ export async function measurePage(page:Page):Promise<{viewportWidth:number;pageW
 export async function assertPageFits(page:Page){const m=await measurePage(page);expect(m.pageWidth,'页面不得横向溢出').toBeLessThanOrEqual(m.viewportWidth+1)}
 export async function assertFocusVisible(page:Page){
  const visible=await page.evaluate(()=>{const e=document.activeElement;if(!(e instanceof HTMLElement)||e===document.body||e===document.documentElement)return false;const r=e.getBoundingClientRect(),x=Math.max(0,Math.min(innerWidth-1,r.left+r.width/2)),y=Math.max(0,Math.min(innerHeight-1,r.top+r.height/2));const top=document.elementFromPoint(x,y);return r.width>0&&r.height>0&&r.top>=0&&r.bottom<=innerHeight&&!!top&&(e===top||e.contains(top));});
- expect(visible,'焦点控件必须在视口内且不被遮挡').toBe(true);
+ const bounds=visible?null:await page.evaluate(()=>{const e=document.activeElement as HTMLElement,r=e.getBoundingClientRect();return {tag:e.tagName,top:r.top,bottom:r.bottom,height:innerHeight,scrollY,cover:document.elementFromPoint(Math.max(0,Math.min(innerWidth-1,r.left+r.width/2)),Math.max(0,Math.min(innerHeight-1,r.top+r.height/2)))?.tagName}});
+ expect(visible,'焦点控件必须在视口内且不被遮挡 '+JSON.stringify(bounds)).toBe(true);
 }
 export async function captureAudit(page:Page,info:TestInfo,label:string):Promise<void>{
  await page.evaluate(()=>document.fonts.ready);

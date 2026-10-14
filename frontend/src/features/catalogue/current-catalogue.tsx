@@ -1,4 +1,6 @@
 import 'server-only';
+import {PageHeading} from '@/components/page-heading';
+import styles from '@/styles/catalogue.module.css';
 import Link from 'next/link';
 import {readManaged} from '@/lib/knowledge-admin/server-client';
 import type {TopicPage,Topic,PublicPage} from '@/lib/knowledge-admin/types';
@@ -10,7 +12,7 @@ import {uiMessage} from '@/lib/i18n/format';
 const url=(key:string)=>`/topics/${key==='project:other'?'project-other':key}`;
 export const pageOffset=(value:unknown)=>typeof value==='string'&&/^\d{1,6}$/.test(value)?Number(value):0;
 function CatalogueAttribution(){
- return <p className="map-note"><UiText notice={uiMessage('topic.map.translationNote',{})}/>{' '}
+ return <p className={styles.mapNote}><UiText notice={uiMessage('topic.map.translationNote',{})}/>{' '}
   <a href="https://msc2020.org/" rel="noreferrer">MSC2020</a>{' · '}
   <a href="https://minsecrus.github.io/learning-notes/notes/2026/07/23/msc2020-mathematics-subject-classification-zh" rel="noreferrer">Learning Notes / minsecrus</a>{' · '}
   <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noreferrer">CC BY-NC-SA 4.0</a>
@@ -24,7 +26,7 @@ function TopicCard({topic}:{topic:Topic}){
 }
 function Paging({page,path,query,keyName='offset'}:{page:{total:number;offset:number;limit:number};path:string;query:URLSearchParams;keyName?:string}){
  const link=(offset:number)=>{const next=new URLSearchParams(query);next.set(keyName,String(offset));return path+'?'+next};
- return <nav>{page.offset>0&&<Link prefetch={false} href={link(Math.max(0,page.offset-page.limit))}><UiText notice={uiMessage('managed.previous',{})}/></Link>} {' '}{page.offset+page.limit<page.total&&<Link prefetch={false} href={link(page.offset+page.limit)}><UiText notice={uiMessage('managed.next',{})}/></Link>}</nav>;
+ return <nav className={styles.paging}>{page.offset>0&&<Link prefetch={false} href={link(Math.max(0,page.offset-page.limit))}><UiText notice={uiMessage('managed.previous',{})}/></Link>} {' '}{page.offset+page.limit<page.total&&<Link prefetch={false} href={link(page.offset+page.limit)}><UiText notice={uiMessage('managed.next',{})}/></Link>}</nav>;
 }
 function KnowledgeCards({items}:{items:PublicPage['items']}){
  return <div className="domain-grid">{items.map(knowledge=><article className="domain-card" key={knowledge.id}><h3><Link href={`/knowledge/${knowledge.id}`} prefetch={false}><LocalizedName english={knowledge.point.title} chinese={knowledge.point.title_zh}/></Link></h3><p><UiText notice={uiMessage(`managed.type.${knowledge.point.type}`,{})}/> · <UiText notice={uiMessage('managed.difficulty',{})}/>: {knowledge.point.learning_difficulty.difficulty_level}</p></article>)}</div>;
@@ -42,14 +44,14 @@ export async function CurrentCatalogue({topicKey,q,offset=0,mode='topics'}:{topi
  const paging=new URLSearchParams({mode});if(scope)paging.set('topicKey',scope);if(keyword)paging.set('q',keyword);
  const kind=topics?.ok?topics.data.items.find(topic=>topic.kind!=='project-other')?.kind:undefined;
  const level=kind==='secondary'?'topic.map.level2':kind==='specific'||kind==='other'?'topic.map.level3':'topic.map.level1';
- return <><header className="page-heading"><h1><UiText notice={uiMessage('managed.map',{})}/></h1><p><UiText notice={uiMessage('managed.taxonomy',{})}/></p></header>
+ return <div className={styles.currentCatalogue}><PageHeading title={<UiText notice={uiMessage('managed.map',{})}/>} description={<UiText notice={uiMessage('managed.taxonomy',{})}/>}/>
   <CatalogueSearch key={mode+'|'+(scope??'')+'|'+keyword} initialMode={mode} initialQuery={keyword} topicKey={scopeInfo?.ok?scopeInfo.data.topicKey:scope}/>
   {scopeInfo?.ok&&<p><UiText notice={uiMessage('map.search.scope',{})}/>: <LocalizedName english={scopeInfo.data.titleEn} chinese={scopeInfo.data.title}/></p>}
   {!result.ok?(result.status===422?<p role="alert"><UiText notice={uiMessage('managed.invalidInput',{})}/></p>:<ContentState kind="unavailable"/>):<>
    {topics?.ok&&<section><h2><UiText notice={uiMessage(level,{})}/></h2><div className="domain-grid">{topics.data.items.map(topic=><TopicCard key={topic.topicKey} topic={topic}/>)}</div>{topics.data.items.length===0&&<p role="status"><UiText notice={uiMessage('map.search.noTopics',{})}/></p>}</section>}
    {knowledge?.ok&&<section><h2><UiText notice={uiMessage('topic.map.knowledge',{})}/></h2><KnowledgeCards items={knowledge.data.items}/>{knowledge.data.items.length===0&&<p role="status"><UiText notice={uiMessage(keyword?'topic.map.noKnowledgeResults':'map.search.noKnowledge',{})}/></p>}</section>}
    <Paging page={result.data} path="/knowledge" query={paging}/>
-  </>}<CatalogueAttribution/></>;
+  </>}<CatalogueAttribution/></div>;
 }
 export async function CurrentTopicPage({topicKey,searchParams={}}:{topicKey:string;searchParams?:Record<string,string|string[]|undefined>}){
  const keyword=typeof searchParams.q==='string'?searchParams.q.trim():'';
@@ -62,7 +64,7 @@ export async function CurrentTopicPage({topicKey,searchParams={}}:{topicKey:stri
  const children=['primary','secondary'].includes(parent.kind)?await readManaged<TopicPage>('/api/v3/topics?'+childQuery):null;
  const query=new URLSearchParams();for(const [key,value]of Object.entries(searchParams))if(typeof value==='string'&&value.trim()&&!(invalidInput&&(key==='q'||key==='knowledgeOffset')))query.set(key,key==='q'?keyword:value);
  const searchLink=new URLSearchParams({mode:'knowledge',topicKey:parent.topicKey});if(keyword)searchLink.set('q',keyword);
- return <><header className="page-heading"><Link href="/knowledge" prefetch={false}><UiText notice={uiMessage('managed.map',{})}/></Link><h1><LocalizedName english={parent.titleEn} chinese={parent.title}/></h1><p><PublishedCount count={parent.knowledgeCount}/></p></header>
+ return <div className={styles.currentCatalogue}><PageHeading title={<LocalizedName english={parent.titleEn} chinese={parent.title}/>} meta={<PublishedCount count={parent.knowledgeCount}/>} actions={<Link href="/knowledge" prefetch={false}><UiText notice={uiMessage('managed.map',{})}/></Link>}/>
   {children&&!children.ok?<ContentState kind="unavailable"/>:children?.ok&&<section><h2><UiText notice={uiMessage(parent.kind==='primary'?'topic.map.level2':'topic.map.level3',{})}/></h2>
    <div className="domain-grid">{children.data.items.map(child=><TopicCard key={child.topicKey} topic={child}/>)}</div>
    <Paging page={children.data} path={url(topicKey)} query={query}/></section>}
@@ -71,5 +73,5 @@ export async function CurrentTopicPage({topicKey,searchParams={}}:{topicKey:stri
    <p><Link className="button secondary" href={'/knowledge?'+searchLink} prefetch={false}><UiText notice={uiMessage('map.search.within',{})}/></Link></p>
    <KnowledgeCards items={parent.items.items}/>
    {parent.items.total===0&&<p><UiText notice={uiMessage(keyword&&!invalidInput?'topic.map.noKnowledgeResults':'topic.map.empty',{})}/></p>}
-   <Paging page={parent.items} path={url(topicKey)} query={query} keyName="knowledgeOffset"/></section><CatalogueAttribution/></>;
+   <Paging page={parent.items} path={url(topicKey)} query={query} keyName="knowledgeOffset"/></section><CatalogueAttribution/></div>;
 }

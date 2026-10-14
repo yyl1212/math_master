@@ -1,4 +1,5 @@
 "use client";
+import {PageHeading} from '@/components/page-heading';
 import {UiEnum} from "@/lib/i18n/enums";
 import {UiText} from "@/lib/i18n/ui-text";
 import {uiMessage,uiValue} from "@/lib/i18n/format";
@@ -29,7 +30,7 @@ export function NewFeedbackForm({ context, sourcePath, initialLocation="" }: { c
     } catch (e) { setTargetError(e instanceof FeedbackRequestError ? e : new FeedbackRequestError()); }
     finally { setRefreshingTarget(false); }
   }
-  return <section className={styles.workbench}><h1><UiText notice={uiMessage("page.feedback.new",{})}/></h1><p className={styles.metadata}>{currentContext.label}</p><p><UiText notice={uiMessage("new-form.describe.what.happened.and.what.would.help.your.original.report.s.3a0e68",{})}/></p>
+  return <section className={styles.workbench}><PageHeading title={<UiText notice={uiMessage("page.feedback.new",{})}/>}/><p className={styles.metadata}>{currentContext.label}</p><p><UiText notice={uiMessage("new-form.describe.what.happened.and.what.would.help.your.original.report.s.3a0e68",{})}/></p>
     <form className="ui-form" onSubmit={e => { e.preventDefault(); setTargetRefreshed(false); void command.run({ route: '/api/v1/feedback/tickets', input }); }}>
       <fieldset disabled={locked}><label className={styles.field}><UiText notice={uiMessage("new-form.category.292c06",{})}/><select aria-label={t("new-form.category.292c06",{})} value={category} onChange={e => setCategory(e.target.value as CreateInput['category'])}>{(currentContext.target.kind === 'site' ? ['technical_issue', 'accessibility', 'typo', 'suggestion'] : ['math_error', 'unclear_explanation', 'typo', 'accessibility', 'technical_issue', 'suggestion']).map(v => <option key={v} value={v}><UiEnum group="feedback.category" value={v}/></option>)}</select></label>
       <label className={styles.field}><UiText notice={uiMessage("new-form.title.7e8cd2",{})}/><input aria-label={t("new-form.title.7e8cd2",{})} value={title} onChange={e => setTitle(e.target.value)} required/><small><UiText notice={uiMessage("new-form.value.120.characters.67f5dd",{v0:uiValue([...title].length)})}/></small></label>

@@ -1,4 +1,5 @@
 "use client";
+import {PageHeading} from '@/components/page-heading';
 import type {UiNotice} from "@/lib/i18n/types";
 import {uiError} from "@/lib/i18n/errors";
 import {UiText} from "@/lib/i18n/ui-text";
@@ -31,7 +32,7 @@ export function CredentialsForm({ mode }: { mode: "register" | "login" }) {
     } finally { setPassword(""); pending.current = false; setBusy(false); }
   }
   return <section className={styles.credentials}><div className={styles.intro}><p className="eyebrow"><UiText notice={uiMessage("site-header.a.world.of.ideas.883eb5",{})}/></p>
-    <h1>{mode === "register" ? t("credentials-form.make.room.for.mathematics.56b94d",{}) : t("credentials-form.welcome.back.dfdbca",{})}</h1>
+    <PageHeading title={mode === "register" ? t("credentials-form.make.room.for.mathematics.56b94d",{}) : t("credentials-form.welcome.back.dfdbca",{})}/>
     <p>{mode === "register" ? t("credentials-form.create.an.account.to.begin.your.next.chapter.16d5e3",{}) : t("credentials-form.sign.in.to.your.math.master.account.ced01b",{})}</p>
     <p><UiText notice={uiMessage("credentials-form.from.first.principles.to.new.frontiers.explore.a.connected.world..c2f0a1",{})}/></p>
     <Link prefetch={false} href="/knowledge"><UiText notice={uiMessage("credentials-form.explore.the.knowledge.map.d12c1a",{})}/></Link></div>

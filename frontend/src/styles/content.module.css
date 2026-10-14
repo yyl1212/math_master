@@ -2,3 +2,21 @@
 
 .previewNotice{padding:1rem;border-left:4px solid #799355;background:#f2f5e9;border-radius:0 8px 8px 0;line-height:1.65}.readingLayout{display:grid;grid-template-columns:minmax(230px,300px) minmax(0,1fr);gap:1.25rem;align-items:start}.readingNav{position:sticky;top:1rem;max-height:calc(100dvh - 2rem);overflow-y:auto;margin-top:0}.readingNav h2{margin-top:0}.readingContent{min-width:0;overflow-wrap:anywhere}.readingContent>.actions{margin-top:0}.knowledgeList{list-style:none;padding:.25rem;margin:0;display:grid;gap:.4rem}.knowledgeList button{display:flex;flex-direction:column;gap:.3rem;width:100%;padding:.8rem;text-align:left;font:inherit;line-height:1.4;background:#fff;border:1px solid #dce3d6;border-radius:10px;color:#273b2a;cursor:pointer;overflow-wrap:anywhere}.knowledgeList button[aria-pressed=true]{background:#eaf1dd;border-color:#7e9560}.knowledgeList span{font-size:.88rem}.knowledgeList small{font-size:.75rem}
 @media(max-width:800px){.readingLayout{grid-template-columns:1fr}.readingNav{position:static;max-height:none}.knowledgeList{max-height:18rem;overflow-y:auto}}
+
+.workbench { min-width:0; max-width:1100px; padding:0 0 32px; }
+.workbench > header { margin-bottom:24px; }
+.card { padding:28px; background:var(--surface); border-color:var(--border); margin-block:24px; }
+.card > h2:first-child { margin-top:0; margin-bottom:16px; }
+.list > li { padding:24px; margin-block:16px; border:1px solid var(--border); border-radius:16px; background:var(--surface); }
+.list > li > a { display:inline-flex; min-height:44px; align-items:center; font-size:18px; overflow-wrap:anywhere; }
+.list p { margin-block:8px; font-size:14px; line-height:1.8; }
+.metadata { font-size:13px; color:var(--muted); line-height:1.8; }
+.row { padding:16px 0 16px 20px; border-left-color:var(--border); }
+.row > p { font-size:16px; line-height:1.85; margin-bottom:12px; }
+.row > p:first-child { color:var(--muted); font-size:13px; }
+.workbench small { font-size:13px; color:var(--muted); }
+.workbench :focus-visible { outline-color:var(--brand); }
+.workbench :global([data-feedback-status]) { display:inline-block; border-radius:8px; padding:3px 9px; background:var(--soft); color:var(--brand); font-size:13px; }
+.workbench :global([data-feedback-status="waiting_details"]) { background:var(--warning-surface); color:var(--warning); }
+.workbench :global([data-feedback-status="closed"]) { background:var(--paper); color:var(--muted); }
+@media(max-width:700px){.workbench{padding:0 0 24px}.card{padding:20px}.list>li{padding:20px}}
