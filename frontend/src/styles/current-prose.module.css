@@ -1,0 +1,15 @@
+/* Double root specificity keeps study typography independent of legacy chunk order. */
+.study.study { font-size: 17px; line-height: 1.9; max-width: 72ch; width: 100%; min-width: 0; }
+.study.study p { margin-block: 0 16px; }
+.study.study p:last-child { margin-bottom: 0; }
+.study.study :is(ul, ol) { padding-inline-start: 24px; margin-block: 16px; }
+.study.study li + li { margin-top: 8px; }
+.study.study a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.study.study blockquote { margin: 24px 0; padding: 12px 20px; border-inline-start: 3px solid var(--brand); background: var(--paper); color: var(--muted); }
+.study.study pre { font-size: 14px; padding: 16px; border-radius: 10px; }
+.study.study :global(.katex) { font-size: 1.1em; overflow-wrap: normal; word-break: normal; }
+.study.study :global(.katex:not(.katex-display .katex)) { display:inline-block; max-width:100%; overflow-x:auto; overflow-y:hidden; white-space:nowrap; vertical-align:-.15em; }
+.study.study :global(.katex-display), .study.study table { max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 8px 3px; margin-block: 16px; }
+.study.study table { display: block; }
+.study.study [tabindex="0"]:focus-visible { outline: 3px solid var(--brand); outline-offset: 3px; }
+@media(max-width:600px) { .study.study { font-size: 16px; line-height: 1.85; } }

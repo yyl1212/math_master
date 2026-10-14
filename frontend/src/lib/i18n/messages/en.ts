@@ -6309,5 +6309,7 @@ export const enMessages = {
   "learning.attempt.enrolled": {
     "text": "enrolled",
     "params": []
-  }
+  },
+  "reading.formulaScroll": {"text":"Scrollable formula","params":[]},
+  "reading.tableScroll": {"text":"Scrollable table","params":[]}
 } as const;

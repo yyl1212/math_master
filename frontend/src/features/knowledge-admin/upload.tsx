@@ -1,4 +1,5 @@
 'use client';
+import styles from '@/styles/content.module.css';
 import {useEffect,useId,useRef,useState} from 'react';
 import {useUiI18n} from '@/lib/i18n/provider';
 import {previewSource,applyImport,readImport} from '@/lib/knowledge-admin/client';
@@ -38,7 +39,7 @@ export function UploadKnowledge({onComplete,actorId=''}:{onComplete:()=>void;act
 
  const pending=jobs.some(job=>job.phase==='ready'||job.phase==='uncertain'),totals=jobs.reduce((counts,job)=>{const value=job.receipt?.counts??job.preview?.counts;for(const key of Object.keys(counts)as(keyof typeof counts)[])counts[key]+=value?.[key]??0;return counts;},{createdKnowledge:0,linkedTopics:0,skippedItems:0,conflicts:0,invalidItems:0});
  const fileDisabled=!ready||busy||pending,fileCount=jobs.filter(job=>job.file).length;
- return <section className="panel ui-form upload-form"><h2>{t('managed.upload',{})}</h2>
+ return <section className={'panel ui-form upload-form '+styles.uploadPanel}><h2>{t('managed.upload',{})}</h2>
   {recoverable&&(jobs.length===0||jobs.some(job=>!job.preview&&job.importId))&&<><p>{t('managed.pendingImport',{})}</p><button className="button secondary" disabled={busy} onClick={()=>void recover()}>{t('managed.recoverImport',{})}</button></>}
   <div className="file-field"><label id={fileLabelId} htmlFor={fileId}>{t('managed.files',{})}</label><div className="file-picker">
    <span className="file-picker-control" data-disabled={fileDisabled}><span id={fileButtonId} className="button secondary">{t('form.file.choose',{})}</span><input id={fileId} aria-labelledby={fileButtonId+' '+fileLabelId} aria-describedby={fileStatusId} type="file" accept="application/json,.json" multiple disabled={fileDisabled} onChange={event=>{generation.current++;current.current=Array.from(event.target.files??[]).map(file=>({name:file.name,file,previewKey:crypto.randomUUID(),applyKey:crypto.randomUUID(),selected:[],phase:'selected'}));refresh()}}/></span>

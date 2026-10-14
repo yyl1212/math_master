@@ -1,0 +1,449 @@
+{
+  "workflowSha": "6a2941e5f56b912521ac699a4a9ae2edea557e92e8314ea7abeceab3b9902c17",
+  "receipts": [
+    {
+      "index": 1,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- catalogue.spec.ts reading.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 47.0,
+      "log": "t7-original-01.log",
+      "passed": 16,
+      "logSHA256": "4eefb89f617339fce333db9d6289c0045b51c4ec5d5189bdf1643e5730d836a0"
+    },
+    {
+      "index": 2,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- auth.spec.ts auth-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 37.35,
+      "log": "t7-original-02.log",
+      "passed": 12,
+      "logSHA256": "4251859aecfab2187bddb1dd998f576889bf15f93cf1b3fab55a781711bc658c"
+    },
+    {
+      "index": 3,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-authoring.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 45.71,
+      "log": "t7-original-03.log",
+      "passed": 12,
+      "logSHA256": "2cf008630f093977178d2a5f1780be42f53244639f539c21d70f1737aa10c827"
+    },
+    {
+      "index": 4,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-review.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 34.15,
+      "log": "t7-original-04.log",
+      "passed": 6,
+      "logSHA256": "3d92957603199e85b098f6437e7e16d98ea0b0c12c98925d7ac2dda95cb889a4"
+    },
+    {
+      "index": 5,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-release.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 31.97,
+      "log": "t7-original-05.log",
+      "passed": 4,
+      "logSHA256": "c87f937e7c28652f98373052f3f962d264e9cc619de8082365b4525be4531d90"
+    },
+    {
+      "index": 6,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 45.17,
+      "log": "t7-original-06.log",
+      "passed": 6,
+      "logSHA256": "f17809da8562f13d9150544f5a5674a680e8b84803b961e6504e92e548701d67"
+    },
+    {
+      "index": 7,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-authoring.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 34.02,
+      "log": "t7-original-07.log",
+      "passed": 8,
+      "logSHA256": "044c95da35fa6b816aa120c8f3ea55d17996f10c0bc45a73ec82488b5431ad91"
+    },
+    {
+      "index": 8,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-review.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 38.62,
+      "log": "t7-original-08.log",
+      "passed": 6,
+      "logSHA256": "615725ca23a0419f14a5055f4f7d2fa58e5eb9c79008b77afd4e6172bf4a42b0"
+    },
+    {
+      "index": 9,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-release.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 49.88,
+      "log": "t7-original-09.log",
+      "passed": 8,
+      "logSHA256": "d67990020388f09f01d30c0a1307c385bb808d00ab11dbd559fd943e337f13b7"
+    },
+    {
+      "index": 10,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- question-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 49.35,
+      "log": "t7-original-10.log",
+      "passed": 8,
+      "logSHA256": "a95dc4b4469f74e13dea016b3475fa3119eaa95424a3fdc856e5877b49681b4a"
+    },
+    {
+      "index": 11,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-progress.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 25.42,
+      "log": "t7-original-11.log",
+      "passed": 4,
+      "logSHA256": "5250efb2ce87851bd02bc94ccab684ed6ce3f13f40835d2f40c927f17381832e"
+    },
+    {
+      "index": 12,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-practice.spec.ts learning-assessment.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 35.64,
+      "log": "t7-original-12.log",
+      "passed": 8,
+      "logSHA256": "80b454ff2cf7746048ffdbfe658c6c0c2c008a52c20d4bc4d96123c7c61ab8a8"
+    },
+    {
+      "index": 13,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-diagnostic.spec.ts learning-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 61.63,
+      "log": "t7-original-13.log",
+      "passed": 8,
+      "logSHA256": "4a253732edc0ee9ac2026d541ff5851727ed904157373a386b318576a7fb9486"
+    },
+    {
+      "index": 14,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- learning-review-regressions.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 24.7,
+      "log": "t7-original-14.log",
+      "passed": 6,
+      "logSHA256": "8409aab46dc6e7126b4cad7485601dbbeeeedd2bc4a34ffec64233bfbe7d1e1c"
+    },
+    {
+      "index": 15,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-user.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 77.76,
+      "log": "t7-original-15.log",
+      "passed": 14,
+      "logSHA256": "21f4aeb0fdf7dcf899e4b4515d265ebc903dfef0ab650627205c4ae540e0918f"
+    },
+    {
+      "index": 16,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-review.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 52.21,
+      "log": "t7-original-16.log",
+      "passed": 8,
+      "logSHA256": "44d37c43932032ee13777ef3b7bb9a486fc114805f1db596e4f00eef40c0ab70"
+    },
+    {
+      "index": 17,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- feedback-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 61.53,
+      "log": "t7-original-17.log",
+      "passed": 8,
+      "logSHA256": "36e9c0a4aababbe9b67609688fdc76857bfd2e3ee9f28243706fcdcfb0dae9bf"
+    },
+    {
+      "index": 18,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- correction-user.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 26.83,
+      "log": "t7-original-18.log",
+      "passed": 6,
+      "logSHA256": "bf27ee9c56cc2f9c0cebaaa07fd908f089abade329af8aa2ab99b2d13eb18b3b"
+    },
+    {
+      "index": 19,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- correction-review.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 18.47,
+      "log": "t7-original-19.log",
+      "passed": 4,
+      "logSHA256": "514c8d5feae2de5f84a241e135437f5acc3413ff4185cff18c4840cb7e8983b0"
+    },
+    {
+      "index": 20,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- notification-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 51.77,
+      "log": "t7-original-20.log",
+      "passed": 6,
+      "logSHA256": "efce21fa262accb27a9f026143d23d6325d1eaf01ea23728b8adac691b016be7"
+    },
+    {
+      "index": 21,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- site-streamline.spec.ts ui-language-streamline.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 84.35,
+      "log": "t7-original-21.log",
+      "passed": 26,
+      "logSHA256": "675a5aea40ddcddad6d897e9d0ac63e87c4a2bd365d5c76f60a6cd337e3e9202"
+    },
+    {
+      "index": 22,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- form-controls.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 29.35,
+      "log": "t7-original-22.log",
+      "passed": 10,
+      "logSHA256": "07be226476a82596e00eba23af8ffee0f0b8e24b03e89214ef9b21ca45e02a03"
+    },
+    {
+      "index": 23,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- note-sharing.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 18.76,
+      "log": "t7-original-23.log",
+      "passed": 2,
+      "logSHA256": "10ddacbe182f74a5954df9677a9948c7f800aafdb834901e371de687a0785cef"
+    },
+    {
+      "index": 24,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- note-sharing-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 18.74,
+      "log": "t7-original-24.log",
+      "passed": 6,
+      "logSHA256": "4d649342f54f65a6bbffa236900daefca6f77b4e1d268fb0d2193a4883074d51"
+    },
+    {
+      "index": 25,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- note-editor-experience.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 21.8,
+      "log": "t7-original-25.log",
+      "passed": 10,
+      "logSHA256": "aeff6ac8af83179c9fa3aaa93be64fd5bbb14ae1a6ca78d365517f7dff91ce89"
+    },
+    {
+      "index": 26,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- ui-language-notes.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 17.02,
+      "log": "t7-original-26.log",
+      "passed": 4,
+      "logSHA256": "b0921d77bf545cffd1704674c6f6f8f25a4aaa7d0182fe85797d2dd4d1155acd"
+    },
+    {
+      "index": 27,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-acceptance-reading.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 42.65,
+      "log": "t7-original-27.log",
+      "passed": 8,
+      "logSHA256": "5c5133114ed123f8e9ae77f257ad2c6b759669060f034681d0e11c2ee722d0dd"
+    },
+    {
+      "index": 28,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- content-acceptance-learning.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 60.89,
+      "log": "t7-original-28.log",
+      "passed": 8,
+      "logSHA256": "86ec1e046190213be52d07c2888f76a559a7b7f77f3a3f4c4eefff07cfe87f45"
+    },
+    {
+      "index": 29,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-public.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 8.77,
+      "log": "t7-original-29.log",
+      "passed": 8,
+      "logSHA256": "c0df06954fea94d833f96d26ea3450321d236a0da395195e6e06fa046575bc85"
+    },
+    {
+      "index": 30,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-auth.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 8.07,
+      "log": "t7-original-30.log",
+      "passed": 4,
+      "logSHA256": "c477ba54afc841bbb8c81a472245cfc3f63db82657b2d9da2190c83692dca0cd"
+    },
+    {
+      "index": 31,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-content.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 23.29,
+      "log": "t7-original-31.log",
+      "passed": 4,
+      "logSHA256": "d3ffc0915591dbf83a5234931198e0917b7323c6d90f5d4d8c9e25b0b85308a1"
+    },
+    {
+      "index": 32,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-question.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 22.61,
+      "log": "t7-original-32.log",
+      "passed": 4,
+      "logSHA256": "de8e17df1d786cba6c7db9d1b142ad2db3067fe39498688374b9762c582717b0"
+    },
+    {
+      "index": 33,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-learning.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 19.58,
+      "log": "t7-original-33.log",
+      "passed": 4,
+      "logSHA256": "ff00e51ad20fbb50cb42cd4d5b70b443d64aa11d0063681e56195d6308439388"
+    },
+    {
+      "index": 34,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-feedback.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 8.93,
+      "log": "t7-original-34.log",
+      "passed": 2,
+      "logSHA256": "9e0ec942c1e8e2f1029e120aa3f74329fdc4eef23f1e8430621b4fcbbe402dd5"
+    },
+    {
+      "index": 35,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-correction.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 17.16,
+      "log": "t7-original-35.log",
+      "passed": 4,
+      "logSHA256": "7365fab282eeb927c572cec12ea6461aeb8fa2c8c873e23051d07e9f9ef7ab94"
+    },
+    {
+      "index": 36,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-navigation.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 15.41,
+      "log": "t7-original-36.log",
+      "passed": 6,
+      "logSHA256": "74c18c485b670fa568c6235a10bdf57f4ab44a60b202f88b6e22318b804b5254"
+    },
+    {
+      "index": 37,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-taxonomy.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 27.28,
+      "log": "t7-original-37.log",
+      "passed": 8,
+      "logSHA256": "07214fa55130139f525e0ac0bd156fddea12b85e3ed7bb27eb7be396a3f229d7"
+    },
+    {
+      "index": 38,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-study-navigation.spec.ts topic-study-progress.spec.ts topic-study-notes.spec.ts topic-study-security.spec.ts ui-language-study.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 124.43,
+      "log": "t7-original-38.log",
+      "passed": 18,
+      "logSHA256": "22ae67349f2fc8457bbcd4e2d5882673d92b529a7f387274787a911fbffc40f5"
+    },
+    {
+      "index": 39,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-retirement.spec.ts topic-feedback.spec.ts topic-content-corrections.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 38.92,
+      "log": "t7-original-39.log",
+      "passed": 6,
+      "logSHA256": "e94d60a92e4797b2021d41b6409b9b4bfffb16e372a3dd576dbcbaaa7b250b31"
+    },
+    {
+      "index": 40,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-learning-cutover.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 18.62,
+      "log": "t7-original-40.log",
+      "passed": 2,
+      "logSHA256": "3fdfd7b1ecccab9e5818d977e8183fb916ed74d84b02569ec6ae5744b5dd1edc"
+    },
+    {
+      "index": 41,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- topic-learning-archive.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 8.14,
+      "log": "t7-original-41.log",
+      "passed": 2,
+      "logSHA256": "b50be52cbb61de9e939bf63577105774a93071338f6904502971b8e92133a557"
+    },
+    {
+      "index": 42,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-cutover.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 15.03,
+      "log": "t7-original-42.log",
+      "passed": 2,
+      "logSHA256": "80e9a0133db82149de54e19aac6778dea37827cd6ea42a87b7aa72189cbd3a7e"
+    },
+    {
+      "index": 43,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- admin-knowledge-direct.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 23.27,
+      "log": "t7-original-43.log",
+      "passed": 8,
+      "logSHA256": "42f5038dc53cc854c13e644219f35c0ad208262d02986c00039a0faf8ddde02e"
+    },
+    {
+      "index": 44,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- managed-knowledge-study.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 31.54,
+      "log": "t7-original-44.log",
+      "passed": 10,
+      "logSHA256": "e74d8c4cd349d776db4512bca2616384384a2fa50e443c3d6bb7d48f0a07c27b"
+    },
+    {
+      "index": 45,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- ui-language-managed.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 31.07,
+      "log": "t7-original-45.log",
+      "passed": 6,
+      "logSHA256": "dd743f421e912fbe7e3643ffe876dacbb37d2916e2eecc48fefa8de46074eaa3"
+    },
+    {
+      "index": 46,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- site-streamline.spec.ts ui-language-streamline.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 83.77,
+      "log": "t7-original-46.log",
+      "passed": 26,
+      "logSHA256": "05d2340f06250aa4ed4882fa1ec26e06fcd4a77b364a4b1edb4349153f2ba0c3"
+    },
+    {
+      "index": 47,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- study-review-flow.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 12.56,
+      "log": "t7-original-47.log",
+      "passed": 4,
+      "logSHA256": "c6f94b2dc4b5268addc77ec543c24b1ef9a0162a9569eccd2bd267672bbd7089"
+    },
+    {
+      "index": 48,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- study-review-recall.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 31.78,
+      "log": "t7-original-48.log",
+      "passed": 12,
+      "logSHA256": "a12475669c0e90545965ad6feb01648406592d6fe9cc2e849ed1252be7d465bd"
+    },
+    {
+      "index": 49,
+      "command": "node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- study-review-security.spec.ts",
+      "returncode": 0,
+      "durationSeconds": 70.88,
+      "log": "t7-original-49.log",
+      "passed": 14,
+      "logSHA256": "f7990b2f7d62a16f8df16c75336337265e82ba455ff1035e62efd4f0911ff0fb"
+    }
+  ],
+  "totalPassed": 386,
+  "environment": "独立合成库；原模式/预算/单worker/零重试，含原工作流中的重复命令",
+  "sourceCommit": "8b145d2e5f319069ca430e17965400f035be5fff"
+}

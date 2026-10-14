@@ -4,6 +4,7 @@ import Link from 'next/link';
 import type {Overview,ProgressPage,StudyPage,Topic} from '@/lib/knowledge-admin/types';
 import {useUiI18n} from '@/lib/i18n/provider';
 import {LocalizedName} from '@/lib/i18n/localized-name';
+import {PageHeading} from '@/components/page-heading';
 import {UiPageTitle} from '@/components/ui-page-title';
 import {historyHref} from '@/lib/knowledge-admin/study-navigation';
 import styles from '@/styles/managed-learning.module.css';
@@ -23,10 +24,10 @@ export function LearningHeader({history=false,notes=false,filters={}}:{history?:
  const{t}=useUiI18n();
  return <>
   <UiPageTitle messageKey="page.learn"/>
-  <header className={styles.header}>
-   <div><h1>{t('managed.learn',{})}</h1><p>{t('learn.dashboard.intro',{})}</p></div>
+  <div className={styles.header}>
+   <PageHeading title={t('managed.learn',{})} description={t('learn.dashboard.intro',{})}/>
    {!history&&!notes&&<Link prefetch={false} className="button secondary" href={learningHref(filters,{mode:filters.mode==='review'?'':'review',offset:''})}>{t(filters.mode==='review'?'learn.dashboard.backToLearning':'managed.review',{})}</Link>}
-  </header>
+  </div>
   <nav className={styles.sections} aria-label={t('learn.workspace.sections',{})}>
    <Link prefetch={false} href="/learn" aria-current={!history&&!notes?'page':undefined}>{t('learn.workspace.knowledge',{})}</Link>
    <Link prefetch={false} href="/learn/review">{t('studyReview.workspace',{})}</Link>

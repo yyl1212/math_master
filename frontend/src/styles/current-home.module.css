@@ -1,6 +1,6 @@
-.page { display: grid; gap: 36px; }
-.hero { max-width: 760px; padding: 24px 0; }
-.hero h1 { font-size: clamp(30px, 4vw, 48px); line-height: 1.3; margin: 12px 0; }
+.page { display: grid; gap: 32px; }
+.hero { max-width: 760px; padding: 8px 0 16px; }
+.hero h1 { overflow-wrap:anywhere; font-size: clamp(30px, 4vw, 46px); line-height: 1.3; margin: 12px 0; }
 .hero p { color: var(--muted); line-height: 1.8; }
 .actions, .heading { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
 .actions { margin-top: 24px; }
@@ -11,3 +11,11 @@
 .steps { border-top: 1px solid var(--border); padding-top: 20px; }
 .steps ol { display: grid; gap: 12px; line-height: 1.7; }
 @media (max-width: 600px) { .page { gap: 24px; } .hero { padding: 8px 0; } }
+
+.cardMeta { color:var(--muted); font-size:13px; }
+.summary { font-size:14px; padding-block:16px; gap:12px 24px; }
+.actions > a:not(:global(.button)), .heading > a { display:inline-flex; align-items:center; min-height:44px; font-size:14px; }
+.steps ol { padding-inline-start:24px; gap:16px; }
+.steps li { padding-inline-start:8px; }
+.steps li::marker { color:var(--brand); font-weight:600; }
+@media(min-width:900px){.steps ol{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}}

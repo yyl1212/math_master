@@ -4045,7 +4045,9 @@
       "complete": true,
       "messageKeys": [
         "safe-markdown.formula.could.not.be.displayed.1952de",
-        "safe-markdown.illustration.is.not.available.ef0518"
+        "safe-markdown.illustration.is.not.available.ef0518",
+        "reading.formulaScroll",
+        "reading.tableScroll"
       ],
       "rawDataAreas": [
         "英文标题与已有中文对照",
@@ -4888,6 +4890,19 @@
       "scenarios": [
         "tests/e2e/study-review-recall.spec.ts",
         "tests/e2e/study-review-security.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/components/page-heading.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [],
+      "noOwnText": true,
+      "rawDataAreas": [
+        "caller-owned ReactNode slots, no data access"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-streamline.spec.ts"
       ]
     }
   ]

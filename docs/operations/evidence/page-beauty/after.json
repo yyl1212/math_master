@@ -1,0 +1,6167 @@
+{
+  "source": "f1074af加原生主题选择框内容约束；精确CSS源码摘要如下，MR准确HEAD由CI另行验证",
+  "productParentCommit": "f1074af9161d5d7800231d66b98b6024424218c3",
+  "finalFixSourceDigests": {
+    "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
+    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2",
+    "frontend/src/styles/globals.css": "812fa89ccf41297a0e25ce043c64506125c127aeb4851c4d8f9a9e84fad4dbb0"
+  },
+  "environment": "独立合成库；Node24.17.0/Go1.27.1/PG17.11/Playwright1.63.0；input/textarea遮挡。所有PNG/JSON来自最终完整矩阵同一采集目录。",
+  "frames": [
+    {
+      "role": "anonymous",
+      "caseId": "A01",
+      "project": "desktop",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b0d0b238515ccc8bbc61f6b2c401f8d52a97f1e3ec5e366758f04cc6cb28bc16"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A01",
+      "project": "desktop",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fcb7d4d2dd3241e1e28f7bd5a7a0b0af13dfbde6639faa0a92aff4251b68d6ba"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A01",
+      "project": "mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b659183a1f0555a952a2e342ada7316c161385c5ef3f9cafef78ad02c9798ab6"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A01",
+      "project": "desktop",
+      "route": "/",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "从一个知识点开始，理解数学",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5313ec1f3b97f403fca18d14fd35a9650d5e0ab9d6c822b5c091b26fc534dc92"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A01",
+      "project": "desktop",
+      "route": "/",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "从一个知识点开始，理解数学",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5fe11046909889ede59f59b9ed848117da180d358845cd9405d955c828b0ec4f"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A01",
+      "project": "mobile",
+      "route": "/",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "从一个知识点开始，理解数学",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "81f8d66f5a2071a6e915a82a3cdb487a88b36698cd58e497322fceccddc5a922"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A02",
+      "project": "desktop",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "d64337ba29ada295591cb39f885fe1ddf0df4d2f3baf2ab76a52659c78feb6c7"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A02",
+      "project": "desktop",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ec7f4e5ef89d9464d5d6e45d9d10b262de0de54295d517e2a69bb79cb60293f5"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A02",
+      "project": "mobile",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8e787966642d024a9a663abd3753fce00aef4815648bdbbe3763c76b3b32c35e"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A02",
+      "project": "desktop",
+      "route": "/knowledge",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "知识地图",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "f0016a3e30715c8b377ee461a13699d8d7a5b94027df57190e9ce57ea9d01e0f"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A02",
+      "project": "desktop",
+      "route": "/knowledge",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "知识地图",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8951a09022aef962c7de1dcdf769c345701e48bab0e8c1f4966131380df1a4dc"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A02",
+      "project": "mobile",
+      "route": "/knowledge",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "知识地图",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "530e0021ae66968817f4b7023b26e8162c21a0504e79cffeece571b48c9c1d9f"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A03",
+      "project": "desktop",
+      "route": "/topics/97-XX",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Original fixture theme 97-XX",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "258b34b77ac39935c27363a1304a8a9284fd9e0064660c44b69a32d57b5cf603"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A03",
+      "project": "desktop",
+      "route": "/topics/97-XX",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Original fixture theme 97-XX",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "69fcfae3cdfd1b01b7933383240ceb51fe4159938d0f63f1b59e0bcfc54ff13e"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A03",
+      "project": "mobile",
+      "route": "/topics/97-XX",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Original fixture theme 97-XX",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8b066c590b79e4ced62b646cf8957e270ce7f3e39e307f765f111103cdf29aa1"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A03",
+      "project": "desktop",
+      "route": "/topics/97-XX",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "原创主题 97-XX",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "e0420f8bdb337a4f3200f836791b518c56d4f105622985e1b6d3464d5536b8f7"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A03",
+      "project": "desktop",
+      "route": "/topics/97-XX",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "原创主题 97-XX",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "65b529eef18c76953e094eed0dad4cd843b7c4daccee7fbbb3e192e1a76f7365"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A03",
+      "project": "mobile",
+      "route": "/topics/97-XX",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "原创主题 97-XX",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "0e49d4a2e988373a54213b6a49e7487b4445d9a9cc7ae2b9e31748abcc371a33"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A04",
+      "project": "desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "65549e6242d5b5062759c3e640d0806310a92b33f499c90c10722222cac222ce"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A04",
+      "project": "desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "6192632d20b13a975d27ea029bf3b3b304d3c63c8bfa796a012d04927c479d43"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A04",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "0902e228a081d27585869c20d20ae74fce1b181a17ee70b912c0799fd69c9d12"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A04",
+      "project": "desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "d2febbc4cc1995437d25b6c290c6a765c10d0cabd8048c4da3c7db35820126c3"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A04",
+      "project": "desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "cb15461997a82419e28be7fdf2b82c9c8ddb58aa9ff8bac757464576c00b8241"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A04",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "587601b91db1d13ed3aa1545005a73793f157c2a9fd38f713c4b498cf401ea99"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A05",
+      "project": "desktop",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c565d9db0418f7b52ab2f2f94c5c73607cfea8029a09e1072187144be9050c97"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A05",
+      "project": "desktop",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fbf10083fab56b1930130ef63eed1b0db5198167b8bfcca57a5d6253556ab6a3"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A05",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9bde21ca57f5a141e1eac6909e30d09014663ce28ca07048058ef9a5ab1675a9"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A05",
+      "project": "desktop",
+      "route": "/notes",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "分享笔记",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2a7f00e1c94d64403f2097b42f11c974857597dbff3c4e6ad4d9e3959117bac1"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A05",
+      "project": "desktop",
+      "route": "/notes",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "分享笔记",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1e7a5da338958f0322e05f42d1dc6b8c18281a970961465ba4164c42c85de1cc"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A05",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "分享笔记",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "964433ce225629e96c3dd834b6eb8e6edc17efefcbee576d25a9817a4fe22968"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A06",
+      "project": "desktop",
+      "route": "/notes/58183a7b-09c2-456e-8099-7e9a43077920",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared technical note 12",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "bede575c19d5213498238570c05eb211300d4034c80591d3548516b5debd4df4"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A06",
+      "project": "desktop",
+      "route": "/notes/58183a7b-09c2-456e-8099-7e9a43077920",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Shared technical note 12",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "15d4af1bf603f11a7cbfe81b9610632a8b53e726c54d57b5e4f7c223d7a77a98"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A06",
+      "project": "mobile",
+      "route": "/notes/8995d005-c2f9-4af5-b7f2-52239b87e9f9",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Shared technical note 12",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "d3603d059de270931819b58702103052ef92ddb671b310c0371ade1fdea5527b"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A06",
+      "project": "desktop",
+      "route": "/notes/58183a7b-09c2-456e-8099-7e9a43077920",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared technical note 12",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "a32dfd984a22378be05359b14dbaeb7d48e9beaebf12941a6a17010495980a7e"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A06",
+      "project": "desktop",
+      "route": "/notes/58183a7b-09c2-456e-8099-7e9a43077920",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Shared technical note 12",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "f846c38232aa19d0e8fe9fdb647d32360853eace79dc4f5225accaa8037a3877"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A06",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "分享笔记",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "518f9f52c92c28d32f8a23f4de7cbc5ef0832f28a032ee570e7069416c3a1ed5"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A07",
+      "project": "desktop",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "a35a283571edd7404193fc0d93560860e10e90505ae649fc1b9789da2e69666d"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A07",
+      "project": "desktop",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fc9f1cf3bf2aff31e3e9bd21be45a667e4245cc3ed88daef7d3bf9451b14b8d0"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A07",
+      "project": "mobile",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5e86b66b35ebaa5fa3f9fec630cf769a144782d5c5ef3e1bf22fa2e2e051bc47"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A07",
+      "project": "desktop",
+      "route": "/login",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "欢迎回来。",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "f32005a0efbc069677d34c53580c49b21441f295af5515d688730183292f0c1d"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A07",
+      "project": "desktop",
+      "route": "/login",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "欢迎回来。",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1f52e400fc038cf1549f8b9f499e8c99e71d0c1a4f3cc833b35584a922771a49"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A07",
+      "project": "mobile",
+      "route": "/login",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "欢迎回来。",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "93172eb59464ae75239c7e8cedeacbf9d77ce77b1250d47cf930cdf24c089d1f"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A08",
+      "project": "desktop",
+      "route": "/register",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Make room for mathematics.",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2c12e15595b89b748886f177c30e41805c223dd824fcbb2ecd558804e0b5d6c6"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A08",
+      "project": "desktop",
+      "route": "/register",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Make room for mathematics.",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "550bfee76f8bb815e56730d2f6b6cddbb74aafa2c60b3be63e274f8c1170ad97"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A08",
+      "project": "mobile",
+      "route": "/register",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Make room for mathematics.",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "00672e45fa90a9bc6a9ea2a9621ded3d795df4b3e379dda784ff11b3cf3c6cea"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A08",
+      "project": "desktop",
+      "route": "/register",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "开启数学之旅。",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "44b0930d6e35f7175b4b2582439674874518d365236536cccc5cb9f4f25a8ce7"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A08",
+      "project": "desktop",
+      "route": "/register",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "开启数学之旅。",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2d86682e8462382ccf56b2fde2736a2bfe645ee5342947ed04ee7b16b729f8bb"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "A08",
+      "project": "mobile",
+      "route": "/register",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "开启数学之旅。",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "4c556198b4ae91f04f666098ef58a415e4b1fda90daf066b81445935e6110fd1"
+    },
+    {
+      "role": "learner",
+      "caseId": "A09",
+      "project": "desktop",
+      "route": "/learn",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 38
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "d415d5e7cefcbc4c1c363daf9a5c17d331619ac107032242dfd6452920f01946"
+    },
+    {
+      "role": "learner",
+      "caseId": "A09",
+      "project": "desktop",
+      "route": "/learn",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "283515b6a931021ef3bb0cecede546607a6e1e7836714695f988bc1292fdeee1"
+    },
+    {
+      "role": "learner",
+      "caseId": "A09",
+      "project": "mobile",
+      "route": "/learn",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2adf814760f525b276d2aec1bc325e1640117ad5f4be101a74fbe9c06239b043"
+    },
+    {
+      "role": "learner",
+      "caseId": "A09",
+      "project": "desktop",
+      "route": "/learn",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 38
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2185d5cf28dc81f2b416ffcc47454529921d4170bb00a17c45caca88b333f737"
+    },
+    {
+      "role": "learner",
+      "caseId": "A09",
+      "project": "desktop",
+      "route": "/learn",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "49812a2f9c95ca64f5020bb6d92301e86133e7477fb24b92200769a8fe8352c3"
+    },
+    {
+      "role": "learner",
+      "caseId": "A09",
+      "project": "mobile",
+      "route": "/learn",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "73a44fe6165be4e861e1bc469fb4cfaa0ee1ced5419461fd2fd3d9fc23bf3690"
+    },
+    {
+      "role": "learner",
+      "caseId": "A10",
+      "project": "desktop",
+      "route": "/learn?view=notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ab276ec34ab651394b6d203bd6e45b444b32527c7833411decd030bd9ff051a9"
+    },
+    {
+      "role": "learner",
+      "caseId": "A10",
+      "project": "desktop",
+      "route": "/learn?view=notes",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "a674a0889a310e94e24ca70f203617354822f2e708be83e9165a7a7d172324da"
+    },
+    {
+      "role": "learner",
+      "caseId": "A10",
+      "project": "mobile",
+      "route": "/learn?view=notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "559eb75b892bb2f112181876346618dd054ad7d187df7b0bb69a57ea8c9a0371"
+    },
+    {
+      "role": "learner",
+      "caseId": "A10",
+      "project": "desktop",
+      "route": "/learn?view=notes",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2d1d425cb0542c286e172807b075ec8c90859711204e712c356f514c7b0f4181"
+    },
+    {
+      "role": "learner",
+      "caseId": "A10",
+      "project": "desktop",
+      "route": "/learn?view=notes",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "335fcd6d25583ac9f28c3f82237a01dfe54db10aacb9ea6c3a5e04bfef98933e"
+    },
+    {
+      "role": "learner",
+      "caseId": "A10",
+      "project": "mobile",
+      "route": "/learn?view=notes",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "41210e48e78196d2b7875a645199e860638c4afe9463ed31463f3d2609d91d02"
+    },
+    {
+      "role": "learner",
+      "caseId": "A11",
+      "project": "desktop",
+      "route": "/learn?view=history",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 38
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "592ea3d4fda3b3c0e58d80c9495c903a97320076c0ffe5a6f1f3f4222cdb690d"
+    },
+    {
+      "role": "learner",
+      "caseId": "A11",
+      "project": "desktop",
+      "route": "/learn?view=history",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2a85e170f961529fe2210bcd5752c3879bdf05b9f76bde67ebe4d28b0a709f4a"
+    },
+    {
+      "role": "learner",
+      "caseId": "A11",
+      "project": "mobile",
+      "route": "/learn?view=history",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "e364edd0c03ecbd25f2056ac549db9599934639b20be53b43be9c15668dd2205"
+    },
+    {
+      "role": "learner",
+      "caseId": "A11",
+      "project": "desktop",
+      "route": "/learn?view=history",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 38
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "30172ab3640132591b4890956668f8623853be8cf49ec9d69ae53b3423f45ceb"
+    },
+    {
+      "role": "learner",
+      "caseId": "A11",
+      "project": "desktop",
+      "route": "/learn?view=history",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "78f09a7f3749d7146f18ed7dacbad789e04baa91bbad42b2c01dead8793fcdfe"
+    },
+    {
+      "role": "learner",
+      "caseId": "A11",
+      "project": "mobile",
+      "route": "/learn?view=history",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1837b059142e969225f73df292e3c1d1d928be4b2ecc75f088fb873b9065f9ac"
+    },
+    {
+      "role": "learner",
+      "caseId": "A12",
+      "project": "desktop",
+      "route": "/learn/review",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Review workspace",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9384ad0491319cf74324af0f60263065139021e61ccc72f39c2ca1f42a673bc8"
+    },
+    {
+      "role": "learner",
+      "caseId": "A12",
+      "project": "desktop",
+      "route": "/learn/review",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Review workspace",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c62410da8a7331f81c7d3c2a7b57890039e08ce9a0bc32dfc87bf4700e43b1e0"
+    },
+    {
+      "role": "learner",
+      "caseId": "A12",
+      "project": "mobile",
+      "route": "/learn/review",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Review workspace",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c8333aee682c84e5ea9220fee1ec90355a39be99b9f4a7bcd08e5b33d1dddea0"
+    },
+    {
+      "role": "learner",
+      "caseId": "A12",
+      "project": "desktop",
+      "route": "/learn/review",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "复习工作区",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "aaa84d2d6d6bc00c051744202a97cbda33bb9026541b5064390b7efc917afc8c"
+    },
+    {
+      "role": "learner",
+      "caseId": "A12",
+      "project": "desktop",
+      "route": "/learn/review",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "复习工作区",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b10254e5420a7d73ddfcecb0ef83f258092a3d12b7b132d056d7a746075fe814"
+    },
+    {
+      "role": "learner",
+      "caseId": "A12",
+      "project": "mobile",
+      "route": "/learn/review",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "复习工作区",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c4377a2a872ba0df747fa374173b139c86df9e09092f49629fc84a965494b14e"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-compare",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "71d11bfdb54796a175f88983ba3d6a1a69c5f9498efd71657b8a107f5635a431"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-compare",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "1d1b5999c6f639c459b9c82639749bdbf4189e444c1c275db8fdd53e614a2d45"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-compare",
+      "project": "mobile",
+      "route": "/learn/review/ab96f59a-bc4c-4ff7-b021-dca79df16070",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "61a56f0b3746243e1224d51fe959162282b6ea3f2af75ba5ce011b4a6b891429"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-compare",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "69e9f54dea3be1799868eea73da9718faae42941b985e183fed25a212d8ee2c7"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-compare",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "d5f39217cb3e5c4aa4a53490f752a12296f2ee8ccd94c5e6147e1d1b99021981"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-compare",
+      "project": "mobile",
+      "route": "/learn/review/ab96f59a-bc4c-4ff7-b021-dca79df16070",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "f1edbd8de711f54dba681d7e4ff9fb3eec43178bb1e3656fbbab74aaf7cc91b4"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-edit",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1fa2eeca269988e014b479fa44ea6b3fa820e63ccf89af0761b5c33428073eb5"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-edit",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "70952f96a63e0c73f8e226cf0b751851c12412ce4a6d609c7f7a5b2e250c1a56"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-edit",
+      "project": "mobile",
+      "route": "/learn/review/ab96f59a-bc4c-4ff7-b021-dca79df16070",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "3159aed61da7f0cc68f99b43b66a7cef0729864c781147f0b7ff22c2bf19a602"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-edit",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "63483fe2b1af5333dccbcbe4a042a67b041a7f32ebf9a4869dd98ded6cffd5a6"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-edit",
+      "project": "desktop",
+      "route": "/learn/review/361d70e6-5e4f-4353-9007-0541c02ba732",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c693813b41d47ca84977dac8302fb40f62d442d2a2aed9ecd6afd432536b577e"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-edit",
+      "project": "mobile",
+      "route": "/learn/review/ab96f59a-bc4c-4ff7-b021-dca79df16070",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8684d9f97367bde0414782932dff3a91ae2952e6a6187c26ece9fe06fcdfe87e"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-proof",
+      "project": "desktop",
+      "route": "/learn/review/2f0f74b7-4722-40aa-9f5d-fb35d7678d4e",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Equivalent fractions",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "434779d44505b464be3fac094688300be087360f3452061088f2072a3c8e95f3"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-proof",
+      "project": "desktop",
+      "route": "/learn/review/2f0f74b7-4722-40aa-9f5d-fb35d7678d4e",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Equivalent fractions",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "cad017bb1541c4106657f1a749540e78e218c43b69c788bc667a97840070f805"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-proof",
+      "project": "mobile",
+      "route": "/learn/review/b669b117-6b73-47e4-a279-62235c93ae5d",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Equivalent fractions",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "08082651aba390d40fafbf7d72cbdd94f1cff28ba2e53b6f0f4df0efa4ab459d"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-proof",
+      "project": "desktop",
+      "route": "/learn/review/2f0f74b7-4722-40aa-9f5d-fb35d7678d4e",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "等值分数",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "954c56e91097fb40eb1befaab79e5aa3885781852331c0ad31740233709a2709"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-proof",
+      "project": "desktop",
+      "route": "/learn/review/2f0f74b7-4722-40aa-9f5d-fb35d7678d4e",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "等值分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "6ae28e6aa299f838314f256c81e218dfefa3d92b2a973aafafdfeabf6bd5d54d"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-proof",
+      "project": "mobile",
+      "route": "/learn/review/b669b117-6b73-47e4-a279-62235c93ae5d",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "等值分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "a718db61b0511380f0f9044122c8db1fa46e10b1d22eb659a790fcd2b6ef84e3"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-read",
+      "project": "desktop",
+      "route": "/learn/review/6f8e043b-0eb2-4e4b-85dc-88a397a51dbf",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "2d2ff95ed2119cf43f5db0af67d13455d546e69d3e50405d75d314c314aa1a5a"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-read",
+      "project": "desktop",
+      "route": "/learn/review/6f8e043b-0eb2-4e4b-85dc-88a397a51dbf",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "f4abb0fd1d896756666d39ab6badcade18bc300e3b672f6b40029799e6987fc8"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-read",
+      "project": "mobile",
+      "route": "/learn/review/bf95627c-be87-4591-b568-b40eddcbc9f3",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "26328e77b1b0f71df2f1e59fe5b6d2debfab7e14aff99faf4377a03fc51ec676"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-read",
+      "project": "desktop",
+      "route": "/learn/review/6f8e043b-0eb2-4e4b-85dc-88a397a51dbf",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "290600172730af5bf16877fb6cb98145a8e01b8f47f5a515c195c98ec21bf130"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-read",
+      "project": "desktop",
+      "route": "/learn/review/6f8e043b-0eb2-4e4b-85dc-88a397a51dbf",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "10d52c052770de735a2c202e4a553795f65af4e969fec1743a50400e34a01875"
+    },
+    {
+      "role": "learner",
+      "caseId": "A13-read",
+      "project": "mobile",
+      "route": "/learn/review/bf95627c-be87-4591-b568-b40eddcbc9f3",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "71f8ddbaa89cedbf855405f8976fd3e03697b275085973bc837975d261ed01e6"
+    },
+    {
+      "role": "learner",
+      "caseId": "A14",
+      "project": "desktop",
+      "route": "/learn/review/history",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Self-rating history",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ddad95ef517bbafbb151be04872732797800ca09bf1eee245cbc3555a7fb410b"
+    },
+    {
+      "role": "learner",
+      "caseId": "A14",
+      "project": "desktop",
+      "route": "/learn/review/history",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Self-rating history",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "d76867dd37253aa1aad60cf9dfe8a40e01307582960873c5980cf3fcb5080275"
+    },
+    {
+      "role": "learner",
+      "caseId": "A14",
+      "project": "mobile",
+      "route": "/learn/review/history",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Self-rating history",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1907942c582a600fd65aaedd6feef3908aea75d8480f932a6ea9894b18317541"
+    },
+    {
+      "role": "learner",
+      "caseId": "A14",
+      "project": "desktop",
+      "route": "/learn/review/history",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "自评历史",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b24ef574dcba028f478704b1ae8fac804916fe90402e44fccd7f54b4328998ad"
+    },
+    {
+      "role": "learner",
+      "caseId": "A14",
+      "project": "desktop",
+      "route": "/learn/review/history",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "自评历史",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ae18c3158b96fedddb2d4661901e694aa1ca584939f6879b874f80a2c109acc1"
+    },
+    {
+      "role": "learner",
+      "caseId": "A14",
+      "project": "mobile",
+      "route": "/learn/review/history",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "自评历史",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "a0796115d88598fc2a6a21516affabba7d397500ae882301ce199a76ebf48e49"
+    },
+    {
+      "role": "learner",
+      "caseId": "A15",
+      "project": "desktop",
+      "route": "/account",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "auth_learner",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "edb12b0f44480d1e69a7e46bee0ab80aad1575cb7546991623d1aa696828d583"
+    },
+    {
+      "role": "learner",
+      "caseId": "A15",
+      "project": "desktop",
+      "route": "/account",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "auth_learner",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9e1957a12a38317a99bdafdef3ae2241967ba37d768f2fa060c001ed6021835b"
+    },
+    {
+      "role": "learner",
+      "caseId": "A15",
+      "project": "mobile",
+      "route": "/account",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "auth_learner",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c32f82f884f9b64a89ffae7f5b955d3bb7184d6cb6dd6ea5d4365f25cde7c670"
+    },
+    {
+      "role": "learner",
+      "caseId": "A15",
+      "project": "desktop",
+      "route": "/account",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "auth_learner",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b5c0b2225052ec38abdef48034499e17a495cbb60e6dac531515790c2cd7811c"
+    },
+    {
+      "role": "learner",
+      "caseId": "A15",
+      "project": "desktop",
+      "route": "/account",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "auth_learner",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2d822236a4d1646e367084284d72edded5888d88a0bdc385a7a4174e2c59d445"
+    },
+    {
+      "role": "learner",
+      "caseId": "A15",
+      "project": "mobile",
+      "route": "/account",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "auth_learner",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "18ef81361ca3ef0e295eb3e9b6f7af0f080e8a9367f5ecd81ad81e41cd2715c2"
+    },
+    {
+      "role": "learner",
+      "caseId": "A16",
+      "project": "desktop",
+      "route": "/feedback",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "My reports",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "4ff4d6d35e025f2b2e3784a4e953dcf3e9abf165d91ba066237b1a98bab2d560"
+    },
+    {
+      "role": "learner",
+      "caseId": "A16",
+      "project": "desktop",
+      "route": "/feedback",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "My reports",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "7c65c997ca6b5b6fd2d3bb2f96c713ffa755d2c9d8e1d28e8b878ca4de35bb0e"
+    },
+    {
+      "role": "learner",
+      "caseId": "A16",
+      "project": "mobile",
+      "route": "/feedback",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "My reports",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "3ba3dccccb5771e07fbcbd80afe108c410c18b08698fcebc6ca2200bb4d3b052"
+    },
+    {
+      "role": "learner",
+      "caseId": "A16",
+      "project": "desktop",
+      "route": "/feedback",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "我的反馈",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2193a47c990c3bb89824e0b2b99225b44f039520177a7ca3b86880a5e992697d"
+    },
+    {
+      "role": "learner",
+      "caseId": "A16",
+      "project": "desktop",
+      "route": "/feedback",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的反馈",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2a595eb9d54e7cdede711c84f0c82428f49b4144f8d4a44814c8108503cac80b"
+    },
+    {
+      "role": "learner",
+      "caseId": "A16",
+      "project": "mobile",
+      "route": "/feedback",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "我的反馈",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "e5cc48b085bd71673bdec57f2fcf3ebcae285605682c6d97983e6cd0174b8e7f"
+    },
+    {
+      "role": "learner",
+      "caseId": "A17",
+      "project": "desktop",
+      "route": "/feedback/new?kind=managed-knowledge&id=k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Report a problem",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "24c7aa8efdd46c738f4d68966d1e447e3631b0aa085a3f87e8e4446297913e7e"
+    },
+    {
+      "role": "learner",
+      "caseId": "A17",
+      "project": "desktop",
+      "route": "/feedback/new?kind=managed-knowledge&id=k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Report a problem",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "75e190274ee41166abff9da4891c621292f2cb3c4cd97c02357b0a6280e652a0"
+    },
+    {
+      "role": "learner",
+      "caseId": "A17",
+      "project": "mobile",
+      "route": "/feedback/new?kind=managed-knowledge&id=k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Report a problem",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8d650541660b9d0323665dba6fc8326a9979af80d1c15ba830bc457d5060192f"
+    },
+    {
+      "role": "learner",
+      "caseId": "A17",
+      "project": "desktop",
+      "route": "/feedback/new?kind=managed-knowledge&id=k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "报告问题",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "e58fa1b2f1e20fe52dc6cca20d54472238704b1a4be92be11e2615a3a10be8ae"
+    },
+    {
+      "role": "learner",
+      "caseId": "A17",
+      "project": "desktop",
+      "route": "/feedback/new?kind=managed-knowledge&id=k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "报告问题",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "cb04939e01b4707c9b5f9b93a06ead464d6ed010f444943fd8ffa25fc1f08411"
+    },
+    {
+      "role": "learner",
+      "caseId": "A17",
+      "project": "mobile",
+      "route": "/feedback/new?kind=managed-knowledge&id=k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "报告问题",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "e305b95dff5c96edda03cf8fea151058d28055bd0b66d3390b8a90ad0d30545c"
+    },
+    {
+      "role": "learner",
+      "caseId": "A18",
+      "project": "desktop",
+      "route": "/feedback/b6a79ec4-fffc-4898-b2e0-34a62b3194a7",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Report details",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "4e2584df63c0bf80225b39917f8001ffe5d5e9123dc66abf0a7f823204372156"
+    },
+    {
+      "role": "learner",
+      "caseId": "A18",
+      "project": "desktop",
+      "route": "/feedback/b6a79ec4-fffc-4898-b2e0-34a62b3194a7",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Report details",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "7f13c21c90eede3845d0ad448531c6eae8d41b7cf048eea3a94ee1bd74d2194c"
+    },
+    {
+      "role": "learner",
+      "caseId": "A18",
+      "project": "mobile",
+      "route": "/feedback/bbb06392-e222-4cef-a134-09b775d67198",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Report details",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5c85642a89884d75bca71d00f2c540c732b21772918a8e1e4ce5bdfec9491e24"
+    },
+    {
+      "role": "learner",
+      "caseId": "A18",
+      "project": "desktop",
+      "route": "/feedback/b6a79ec4-fffc-4898-b2e0-34a62b3194a7",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "反馈详情",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "f24f1e0efcca46708d850890bb8cd635a6fdc51550dec85957c0c466e700037d"
+    },
+    {
+      "role": "learner",
+      "caseId": "A18",
+      "project": "desktop",
+      "route": "/feedback/b6a79ec4-fffc-4898-b2e0-34a62b3194a7",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "反馈详情",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "41f9adee83378d0eb681fd9caf7ef48afbb7b1aa9881b928b4f0fff44a3bae86"
+    },
+    {
+      "role": "learner",
+      "caseId": "A18",
+      "project": "mobile",
+      "route": "/feedback/bbb06392-e222-4cef-a134-09b775d67198",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "反馈详情",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9bd6cc5d0b8fb7c9ec8257e2ce3fc9b28b9ff4761031b2c15228e4433c2c3e90"
+    },
+    {
+      "role": "admin",
+      "caseId": "A19",
+      "project": "desktop",
+      "route": "/review/feedback",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Feedback review queue",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1a9014ce2679d81030c727fc29baeff8b1459d49d468d287fb5af210d8c84661"
+    },
+    {
+      "role": "admin",
+      "caseId": "A19",
+      "project": "desktop",
+      "route": "/review/feedback",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 548,
+      "headings": [
+        {
+          "text": "Feedback review queue",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "cf99276b04068be10fdd4a25ab1aa8b80d04a95ec1302758335f34a24925514a"
+    },
+    {
+      "role": "admin",
+      "caseId": "A19",
+      "project": "mobile",
+      "route": "/review/feedback",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Feedback review queue",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "a786e2b306ce0dc0d76b5a37819d0e716dd56fefcf8c2c2392c6a40fd9b74544"
+    },
+    {
+      "role": "admin",
+      "caseId": "A19",
+      "project": "desktop",
+      "route": "/review/feedback",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "反馈审核队列",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "d86e14ca5fd8fde981c6bb18ffeaaf3c1f30e7b8f0f4411ba8bb9a8921c2d3fa"
+    },
+    {
+      "role": "admin",
+      "caseId": "A19",
+      "project": "desktop",
+      "route": "/review/feedback",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "反馈审核队列",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "86124a7f63a59e175fb532c80d870b16ceefafefadb1bf4b06676f71e480ba25"
+    },
+    {
+      "role": "admin",
+      "caseId": "A19",
+      "project": "mobile",
+      "route": "/review/feedback",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "反馈审核队列",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "aa316e4e0d7c727269e7b9b4351d2d051cbee9319a41785fb09cf4d0387cae12"
+    },
+    {
+      "role": "admin",
+      "caseId": "A20",
+      "project": "desktop",
+      "route": "/review/feedback/0f412139-a8d8-4a9a-8cdd-f62416a895d9",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Report details",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "64fd34ab8aeff3bf994eed966def66928d35cf9e7ade37f16fd465d304a4d482"
+    },
+    {
+      "role": "admin",
+      "caseId": "A20",
+      "project": "desktop",
+      "route": "/review/feedback/0f412139-a8d8-4a9a-8cdd-f62416a895d9",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 548,
+      "headings": [
+        {
+          "text": "Report details",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "133f7c52e7242a08c2cd33d164305ab6dca357fd4369782bbc96e7cd8a4003bc"
+    },
+    {
+      "role": "admin",
+      "caseId": "A20",
+      "project": "mobile",
+      "route": "/review/feedback/a5379c1d-b4c4-4797-8970-df8f4b4fd168",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Report details",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c47b026b192113f1e95d107a03cb5622334fa91ca9fa8aaf7427444f564300eb"
+    },
+    {
+      "role": "admin",
+      "caseId": "A20",
+      "project": "desktop",
+      "route": "/review/feedback/0f412139-a8d8-4a9a-8cdd-f62416a895d9",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "反馈详情",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5336fbb1e15f1d88efabfd10db12e0f7039ed9714d728ee634b292b989b059fa"
+    },
+    {
+      "role": "admin",
+      "caseId": "A20",
+      "project": "desktop",
+      "route": "/review/feedback/0f412139-a8d8-4a9a-8cdd-f62416a895d9",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 333,
+      "headings": [
+        {
+          "text": "反馈详情",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "02f25e42423ee2172925354bdc9a8cac7cb582e92eaea003b17d2a955d4b3bc1"
+    },
+    {
+      "role": "admin",
+      "caseId": "A20",
+      "project": "mobile",
+      "route": "/review/feedback/a5379c1d-b4c4-4797-8970-df8f4b4fd168",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "反馈详情",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "a9e6718a1cffe5f6466a2bc864347e9196a26aba14d4bdd830b431a65f45584a"
+    },
+    {
+      "role": "admin",
+      "caseId": "A21",
+      "project": "desktop",
+      "route": "/admin/knowledge",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Knowledge management",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "e5593f57b3ee3978eadae408943fea39b279e3b2e82f2105776c8ada66d1c28f"
+    },
+    {
+      "role": "admin",
+      "caseId": "A21",
+      "project": "desktop",
+      "route": "/admin/knowledge",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 548,
+      "headings": [
+        {
+          "text": "Knowledge management",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "56a8446c07a6e00cc738edfbb00bb18b72ba0ca500e27fa1c7206c4efe65de85"
+    },
+    {
+      "role": "admin",
+      "caseId": "A21",
+      "project": "mobile",
+      "route": "/admin/knowledge",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Knowledge management",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9210793632cdf1d6adbcc4d6ea50d57344de9fb4777d1ad5f6a3ed669b5661c1"
+    },
+    {
+      "role": "admin",
+      "caseId": "A21",
+      "project": "desktop",
+      "route": "/admin/knowledge",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "知识管理",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "201a6f4ef0cf7ace10d72054f68e7785d9db50afa8f88d722591377d8b47bc89"
+    },
+    {
+      "role": "admin",
+      "caseId": "A21",
+      "project": "desktop",
+      "route": "/admin/knowledge",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "知识管理",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b48179d62d845507b29a12867e7e0cd86b40fb97e5575a2d94dceb306710c86e"
+    },
+    {
+      "role": "admin",
+      "caseId": "A21",
+      "project": "mobile",
+      "route": "/admin/knowledge",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "知识管理",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fe2c15d3a0c5c2c22377bf7579512ec609c4b42062835ae655724ab6ae5d2598"
+    },
+    {
+      "role": "admin",
+      "caseId": "A22",
+      "project": "desktop",
+      "route": "/admin/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Edit · 有理分数",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ceb3d670a59ffff4453f47ffd409bc0e939f46b9340054e9cbccac19b1407902"
+    },
+    {
+      "role": "admin",
+      "caseId": "A22",
+      "project": "desktop",
+      "route": "/admin/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "Edit · 有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2f2049be586bb57797477449c9219c5bf9f51e9d7d3ea41af31a0179468f930e"
+    },
+    {
+      "role": "admin",
+      "caseId": "A22",
+      "project": "mobile",
+      "route": "/admin/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Edit · 有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8002f58df67aabf2521e7e3dfa4b61e101386183ec5ecd4023165996857ee3c4"
+    },
+    {
+      "role": "admin",
+      "caseId": "A22",
+      "project": "desktop",
+      "route": "/admin/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "编辑 · 有理分数",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fca926dce019e365ec3f0e07974b6213bd41a9ce4ab04381cc792016305101b7"
+    },
+    {
+      "role": "admin",
+      "caseId": "A22",
+      "project": "desktop",
+      "route": "/admin/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "编辑 · 有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "dc2804ce51cd8ad3e2f243461fa1a7feeab7f87acc0cd667de3fde94a33ee223"
+    },
+    {
+      "role": "admin",
+      "caseId": "A22",
+      "project": "mobile",
+      "route": "/admin/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "编辑 · 有理分数",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "4fa2e29ce4117f0bcef5320b91ee83d0306402ae1c4eba2a93ccd63c7a5e76f8"
+    },
+    {
+      "role": "admin",
+      "caseId": "A23",
+      "project": "desktop",
+      "route": "/admin/note-shares",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Note approvals",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b42f825e5d8bac1fd36b63e889bbdead20812fe09c9d69206141f9618768fdfa"
+    },
+    {
+      "role": "admin",
+      "caseId": "A23",
+      "project": "desktop",
+      "route": "/admin/note-shares",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 548,
+      "headings": [
+        {
+          "text": "Note approvals",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "3ef4cff246499c7bbb4e0f7b08a79265d6cd9d44442c9f285fc7724b478fc267"
+    },
+    {
+      "role": "admin",
+      "caseId": "A23",
+      "project": "mobile",
+      "route": "/admin/note-shares",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Note approvals",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "92c9527bac46de3502269a40cbfdcfebc85d3d779bdec2ee4c789fa19a9d5ffd"
+    },
+    {
+      "role": "admin",
+      "caseId": "A23",
+      "project": "desktop",
+      "route": "/admin/note-shares",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "笔记审批",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "dacda85159dc66625bd616f86fd048e121af7a4ce6495274ac0963a0d31a2be5"
+    },
+    {
+      "role": "admin",
+      "caseId": "A23",
+      "project": "desktop",
+      "route": "/admin/note-shares",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "笔记审批",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "0a4c464ccc964fc71395e452f4ac60c2c904bc014d7cce7ecb1f9c0b32835c31"
+    },
+    {
+      "role": "admin",
+      "caseId": "A23",
+      "project": "mobile",
+      "route": "/admin/note-shares",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "笔记审批",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "df466e0d7f116f9329109b97764974d595f6b9e6c020f6ca798c1d0120ff034a"
+    },
+    {
+      "role": "admin",
+      "caseId": "A24",
+      "project": "desktop",
+      "route": "/admin/note-shares/37f67f87-6dd6-4bfa-87eb-fe14a08d1427",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "e805000c81c3a8d5f742fb41dbf80ee7a735fdd89855a561dd9a6846fa154de2"
+    },
+    {
+      "role": "admin",
+      "caseId": "A24",
+      "project": "desktop",
+      "route": "/admin/note-shares/37f67f87-6dd6-4bfa-87eb-fe14a08d1427",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "3c92d39ac1ae711ad9a8141756470870e35aa684e2d75eff3a028911d05e8bf6"
+    },
+    {
+      "role": "admin",
+      "caseId": "A24",
+      "project": "mobile",
+      "route": "/admin/note-shares/657aab71-26d7-4bde-895f-b38072e6bdfa",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "7b9f67a8f4658991419ffe089ce0a84acb3f0b7d8ffb0543e4d1b2a156206ff5"
+    },
+    {
+      "role": "admin",
+      "caseId": "A24",
+      "project": "desktop",
+      "route": "/admin/note-shares/37f67f87-6dd6-4bfa-87eb-fe14a08d1427",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "bdefac2386561cf9f2095eae1f64b18922fed488532ec1a8ebf62dd74b5fdcd0"
+    },
+    {
+      "role": "admin",
+      "caseId": "A24",
+      "project": "desktop",
+      "route": "/admin/note-shares/37f67f87-6dd6-4bfa-87eb-fe14a08d1427",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "5fb1cf7b434fe4fc95b24a5af2cc7d60bd9b12d7fd7a55fbdbd9fb40000b8555"
+    },
+    {
+      "role": "admin",
+      "caseId": "A24",
+      "project": "mobile",
+      "route": "/admin/note-shares/657aab71-26d7-4bde-895f-b38072e6bdfa",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "4d9f102b6f39a8aead1fc74ec7db71503411ab2866ee09f1baddc8614dee2fa6"
+    },
+    {
+      "role": "admin",
+      "caseId": "A25",
+      "project": "desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2559fd9a0986b411043e48d9a93963073104de80497576c8194ae71de3a62f2d"
+    },
+    {
+      "role": "admin",
+      "caseId": "A25",
+      "project": "desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "0c5ce2aedfde0f85222bce9c2d5d8edcba3171b4648b7d391dee9bee4da9a605"
+    },
+    {
+      "role": "admin",
+      "caseId": "A25",
+      "project": "mobile",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "6a66f920709d59e131e74a78a3cf3879df1142a6632aee0e2313ec96aaca8b3e"
+    },
+    {
+      "role": "admin",
+      "caseId": "A25",
+      "project": "desktop",
+      "route": "/admin/users",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "用户与权限",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "118b5359e2652073d68e52d22adb3a22a1d65ccefb71436c552c3c750b322d02"
+    },
+    {
+      "role": "admin",
+      "caseId": "A25",
+      "project": "desktop",
+      "route": "/admin/users",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "用户与权限",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "3c8e29f682cf43cd16cb3a9dd2f0c41392393ccb177e182d807391bf0951d9e9"
+    },
+    {
+      "role": "admin",
+      "caseId": "A25",
+      "project": "mobile",
+      "route": "/admin/users",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "用户与权限",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "4eafdf1792ef57c3c1886eb574d24242bb06ae31713efee4ee13b3226bf35373"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-admin-dialog-click",
+      "project": "desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "6741240e2847e647743b5afdcac81e3f59e3a4dc3ea6ee2fba856f8196879e5d"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-admin-dialog-click",
+      "project": "mobile",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "d83b4002747ba19386f5c89b1c8c7e12cb1780979f097cd928c04492c16225fa"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-admin-dialog-submitter",
+      "project": "desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "6741240e2847e647743b5afdcac81e3f59e3a4dc3ea6ee2fba856f8196879e5d"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-admin-dialog-submitter",
+      "project": "mobile",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9204e1c9de38b19031e517dd132c79240d3d5f42dc756d34c18f6c3e60f0471f"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-admin-table",
+      "project": "mobile",
+      "route": "/admin/knowledge",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "Knowledge management",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "a3f76a832102dd191c845533b3d4907ef42fd6fb84ead52679a205780183964e"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-hide",
+      "project": "desktop",
+      "route": "/admin/note-shares/40d14fc3-d5a5-4dc0-a8e0-a45ce473dc5c",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Shared technical note 01",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "b2b0d22c2e209478dcebc17308c0250683b8ff9f46fb1ee7be196ba985ec1d89"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-hide",
+      "project": "desktop",
+      "route": "/admin/note-shares/40d14fc3-d5a5-4dc0-a8e0-a45ce473dc5c",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "Shared technical note 01",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "c59f108c7326012bd08b6a0bfe154691c69eaa0bffb8d3508ced5cc7d2faa830"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-hide",
+      "project": "mobile",
+      "route": "/admin/note-shares/ebe70be9-4285-4e8e-8c18-7712c5d826c0",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Shared technical note 01",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "0f6fdeac0cea4b2bc8da7aaca25e612f32b1d986d87f8e2275a7f8ffa21cc082"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-hide",
+      "project": "desktop",
+      "route": "/admin/note-shares/40d14fc3-d5a5-4dc0-a8e0-a45ce473dc5c",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared technical note 01",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "ec66b2b94055af8e81ad8aac136f3d47f5aef26bb60440363db4921c9cd93f99"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-hide",
+      "project": "desktop",
+      "route": "/admin/note-shares/40d14fc3-d5a5-4dc0-a8e0-a45ce473dc5c",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Shared technical note 01",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "b5787266760eb134de192b44ca63e412908c06e853afb34a8b85eb009f5ee839"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-hide",
+      "project": "mobile",
+      "route": "/admin/note-shares/ebe70be9-4285-4e8e-8c18-7712c5d826c0",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Shared technical note 01",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "c8506969ecb00d2648339ad0a3ea01a2478af4f44ffcc702cd66a495674e6926"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-return",
+      "project": "desktop",
+      "route": "/admin/note-shares/df582f8f-4c1e-4ffb-ba79-81ae02db1b0b",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 201,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "8a923c38e798f8b357e22ada0ccd2f41416c33c22d7f847613c1dd760f16be4c"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-return",
+      "project": "desktop",
+      "route": "/admin/note-shares/df582f8f-4c1e-4ffb-ba79-81ae02db1b0b",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "6a741a07274be4b5ea3ba121d8d2dbbac8c939a71cb09eda2ced5fef4f78e144"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-return",
+      "project": "mobile",
+      "route": "/admin/note-shares/53b7e658-195f-40d0-8143-afb3c7a98c23",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "b33ba30d8ef167564791e986c1cedf5bd36a377da6936bbe8b021801344800b8"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-return",
+      "project": "desktop",
+      "route": "/admin/note-shares/df582f8f-4c1e-4ffb-ba79-81ae02db1b0b",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "64f233b5a5ddd46329b6d731d27fb6330d604f1afe4cd2a872a2361da852fd46"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-return",
+      "project": "desktop",
+      "route": "/admin/note-shares/df582f8f-4c1e-4ffb-ba79-81ae02db1b0b",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 179.5,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "023df5879cf4b935cf1bff2837ee8c86d68eff7903f7ad70d1adcf90366c528c"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-approval-return",
+      "project": "mobile",
+      "route": "/admin/note-shares/53b7e658-195f-40d0-8143-afb3c7a98c23",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Shared technical note 13",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "9ef90f22fec976332504c3b0ea8198d4105a0e5fec2bbe5f2212951383fa7d38"
+    },
+    {
+      "role": "learner",
+      "caseId": "G-compare-800",
+      "project": "mobile",
+      "route": "/learn/review/3ac352a5-882d-4335-ab9b-5563cd43a8b1",
+      "locale": "en",
+      "viewportWidth": 800,
+      "pageWidth": 800,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 32
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "9747d6ccefe00d3fa5ce1a78a645d4cfa71f71fb541c078ab7a7608fe238453a"
+    },
+    {
+      "role": "learner",
+      "caseId": "G-compare-801",
+      "project": "mobile",
+      "route": "/learn/review/3ac352a5-882d-4335-ab9b-5563cd43a8b1",
+      "locale": "en",
+      "viewportWidth": 801,
+      "pageWidth": 801,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 32
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "2c86d7b92668bbabd06f02c29ee4994dfaf95c1b6afd0d4b2213f28815809a3b"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-empty-search",
+      "project": "desktop",
+      "route": "/knowledge?mode=knowledge&q=original_no_matching_mathematics",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "659089f8a5158c843ff1cdbfa78c3295517019714da01d446a0ff42261934ebb"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-empty-search",
+      "project": "desktop",
+      "route": "/knowledge?mode=knowledge&q=original_no_matching_mathematics",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2177c49aa9db772b2bd7b3fa2475b6242e09c1ffd514130cdafacb55f0774331"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-empty-search",
+      "project": "mobile",
+      "route": "/knowledge?mode=knowledge&q=original_no_matching_mathematics",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "cf0e377d421c8285d2ef9671326ad24187864a4bf64fb165087c852594643912"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-empty-search",
+      "project": "desktop",
+      "route": "/knowledge?mode=knowledge&q=original_no_matching_mathematics",
+      "locale": "zh-CN",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "知识地图",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c4365e014bbbde6c86a7785cc15487956e01418de2012e0cffa4370bb54cc9d5"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-empty-search",
+      "project": "desktop",
+      "route": "/knowledge?mode=knowledge&q=original_no_matching_mathematics",
+      "locale": "zh-CN",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "知识地图",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fe1a4773137c6c4611f21061a42be612cd47d946bb1885a7d2adc5f34a58e4d1"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-empty-search",
+      "project": "mobile",
+      "route": "/knowledge?mode=knowledge&q=original_no_matching_mathematics",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "知识地图",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "20c260772266378ccdbdb604de758dce0f1c415158c8f02c86a8418135d024c3"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-header-expanded",
+      "project": "mobile",
+      "route": "/learn",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 495.3125,
+      "headings": [
+        {
+          "text": "My learning",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ccac7480a50563a7590e6b9fdda70d9f37793187db3f96071e43325ab2745bac"
+    },
+    {
+      "role": "admin",
+      "caseId": "G-header-expanded",
+      "project": "mobile",
+      "route": "/learn",
+      "locale": "zh-CN",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 377,
+      "headings": [
+        {
+          "text": "我的学习",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "6a2cc0282a67713a097a24d87ba18743899f89a3240b8cc7c5609a8433747091"
+    },
+    {
+      "role": "learner",
+      "caseId": "G-long-formula",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "7846f16610da4cfd6fe1fb69b238066621c0f6aad23a90daa0ba0342e10d374f"
+    },
+    {
+      "role": "learner",
+      "caseId": "G-reading-notes",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "7ae696ffe372fe4984896135604e6797d185aacb052dfdd50081ea06a006cf3a"
+    },
+    {
+      "role": "learner",
+      "caseId": "G-reading-notes",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 1440,
+      "pageWidth": 1440,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "9236b328017dd72c9f44cc7a1047e82425dc78ea18d23ab9dd13d6fee9c69f6c"
+    },
+    {
+      "role": "learner",
+      "caseId": "G-reading-notes",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "b53e2689aa2af86a37d88ccce05192ed75b786b2b057efe061d4a626b39316f8"
+    },
+    {
+      "role": "learner",
+      "caseId": "G-reading-notes",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 768,
+      "pageWidth": 768,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 32
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "3f6677d7a7af3ce189643ad48c59a672322531a875fd2c70002a42608e5b4493"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-home",
+      "project": "mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b0d0b238515ccc8bbc61f6b2c401f8d52a97f1e3ec5e366758f04cc6cb28bc16"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-home",
+      "project": "mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 1440,
+      "pageWidth": 1440,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "695350e3f9b0fcc9ffdbb524bdcc4bf4539dcb159ded8e907ce57c635d1bd2e5"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-home",
+      "project": "mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8e898643f8e323c7fd5e908839fbb2e9026c0c75f4b38c572ab3c975810f8506"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-home",
+      "project": "mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "b659183a1f0555a952a2e342ada7316c161385c5ef3f9cafef78ad02c9798ab6"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-home",
+      "project": "mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 768,
+      "pageWidth": 768,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30.72
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "125b4be31b2c1ed5e93f4e815e7dd62bb99df205db0898448c983032e39557b2"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-knowledge",
+      "project": "mobile",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "d64337ba29ada295591cb39f885fe1ddf0df4d2f3baf2ab76a52659c78feb6c7"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-knowledge",
+      "project": "mobile",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 1440,
+      "pageWidth": 1440,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9ae1943a46ff1e0543e493983b8c3ccc8732f866a2bbb9f6a53ff267d7d362ca"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-knowledge",
+      "project": "mobile",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1ffd76858d16793cf5186b8a90fad9e4ef1001e606cf11283a17452642fd9d17"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-knowledge",
+      "project": "mobile",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8e787966642d024a9a663abd3753fce00aef4815648bdbbe3763c76b3b32c35e"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-knowledge",
+      "project": "mobile",
+      "route": "/knowledge",
+      "locale": "en",
+      "viewportWidth": 768,
+      "pageWidth": 768,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Knowledge map",
+          "size": 32
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "d70ae3509ae9cbd5fefeb2b920d649eead75d7341cbb30804469b255d7fb4ced"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-login",
+      "project": "mobile",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "a35a283571edd7404193fc0d93560860e10e90505ae649fc1b9789da2e69666d"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-login",
+      "project": "mobile",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 1440,
+      "pageWidth": 1440,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "481d2c147d5f09b6dc4aeb065f94315efc37b7193167ba29283592b3315b7450"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-login",
+      "project": "mobile",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "2122e18101b9e3190b0ce896c6bc6903563ed6e0356bdb748b4d898d9b780ea4"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-login",
+      "project": "mobile",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "5e86b66b35ebaa5fa3f9fec630cf769a144782d5c5ef3e1bf22fa2e2e051bc47"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-login",
+      "project": "mobile",
+      "route": "/login",
+      "locale": "en",
+      "viewportWidth": 768,
+      "pageWidth": 768,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Welcome back.",
+          "size": 32
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "3f6d84a274a8d2c591a6099d50f3cfcf8effb761d949735b90176b2a01469840"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-notes",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "abc2b9280a7c6cbc329a4b8b7a721f3209121fef25a14663a22427d54c3518f9"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-notes",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 1440,
+      "pageWidth": 1440,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 36
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "869ba7d83b3bf8125884b6ef00775fc0bf85466a1bdcd5352b0463992244fd08"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-notes",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ec88d2924b9e7eff95cf7bee072cb087b2339b6fd4fbb4c0b453a03b42fb4c31"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-notes",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "9b3c03aa96f607e3b1699de7ab4e2e78dd4bba3bf91ddc2a1ad959c82cdcf018"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-notes",
+      "project": "mobile",
+      "route": "/notes",
+      "locale": "en",
+      "viewportWidth": 768,
+      "pageWidth": 768,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Shared notes",
+          "size": 32
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "8e343db88d839ce1ca43feb97e2ba3121941ecad2eabb77023293806fd1c23d9"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-reading",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "65549e6242d5b5062759c3e640d0806310a92b33f499c90c10722222cac222ce"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-reading",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 1440,
+      "pageWidth": 1440,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "8d40961495fa2a1cf4827618ea73641605541f1e5679c71bfbcf279c3a063c5d"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-reading",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 213,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "b4a4024ca02559f5a7b9bcf521556f462ceec1fc85fcda5c938db93511836d7c"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-reading",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "0902e228a081d27585869c20d20ae74fce1b181a17ee70b912c0799fd69c9d12"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "G-wide-reading",
+      "project": "mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693",
+      "locale": "en",
+      "viewportWidth": 768,
+      "pageWidth": 768,
+      "headerHeight": 157,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 32
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "197184b9922b1449e0333380719037e9f2d20671a4321462f0bec9a3c320559d"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-desktop-compare",
+      "project": "firefox-desktop",
+      "route": "/learn/review/c910cbcb-651a-4904-985e-d19e89856e14",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "6908e029dec746a8aed795f97925d33b1983d16c7ee4270dbcbe3c8454b94976"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-firefox-desktop-dialog",
+      "project": "firefox-desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 227.5,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fc277d472f38105b161118390a5581111a6b2de01b198b74a517a6b5b20cbaa5"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-firefox-desktop-home",
+      "project": "firefox-desktop",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "c644749fb42a7e0f4bbdb88796d8fdfdf9c922531b18672c383cf654c003a7b4"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-desktop-notes",
+      "project": "firefox-desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        },
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "8ec8f5bc127db2379c1690eea7fa62c04e2b80887c87d234ccd40e9998d964ad"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-mobile-compare",
+      "project": "firefox-mobile",
+      "route": "/learn/review/6e9aab0d-7847-4520-a472-473bdcacd052",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "ffd6bbe324254e48616cfea817c4bb1d66196355bbcbd49a9cd3d0219e3c20cf"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-firefox-mobile-dialog",
+      "project": "firefox-mobile",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 227.5,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "fc277d472f38105b161118390a5581111a6b2de01b198b74a517a6b5b20cbaa5"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-firefox-mobile-home",
+      "project": "firefox-mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "801a0abfdc4b4f7ce0638924ac870fb16a2c502190ae41a571925e6334fdfe50"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-firefox-mobile-notes",
+      "project": "firefox-mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "a2c7e7cae71f2884120e17cfabef53eb9fe300baae988c9c93c58bffdb931182"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-desktop-compare",
+      "project": "webkit-desktop",
+      "route": "/learn/review/73ef55bc-7ede-4304-9048-955cdb24f52f",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        }
+      ],
+      "screenshotSHA256": "f3392acabc745b83e132da7106aa564009ca0b100cae3492cadcc7a6d3946c47"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-webkit-desktop-dialog",
+      "project": "webkit-desktop",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1fe0f54c52e5273730807c9885ddb55a139b2a7c32c19dc7ac62c0b0f1c580e9"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-webkit-desktop-home",
+      "project": "webkit-desktop",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 46
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "528663e391315bf11e0c4928d9bd1e8bcb1473d5931fc3cdf603dd39bc752204"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-desktop-notes",
+      "project": "webkit-desktop",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 1280,
+      "pageWidth": 1280,
+      "headerHeight": 104,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 36
+        }
+      ],
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        },
+        {
+          "size": 17,
+          "line": 32.299999
+        }
+      ],
+      "screenshotSHA256": "afdfd1e9f6ffbacce2102011a40b5b61acc781576853710775008d5bfbb8db34"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-mobile-compare",
+      "project": "webkit-mobile",
+      "route": "/learn/review/145450cb-dafa-4710-8f13-8b76ea138adb",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "5cf37c6610e2fcf52009e84816e12f59015fdfe569ce72fbf9755fc841470a74"
+    },
+    {
+      "role": "admin",
+      "caseId": "cross-webkit-mobile-dialog",
+      "project": "webkit-mobile",
+      "route": "/admin/users",
+      "locale": "en",
+      "viewportWidth": 320,
+      "pageWidth": 320,
+      "headerHeight": 247,
+      "headings": [
+        {
+          "text": "People & permissions",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "1fe0f54c52e5273730807c9885ddb55a139b2a7c32c19dc7ac62c0b0f1c580e9"
+    },
+    {
+      "role": "anonymous",
+      "caseId": "cross-webkit-mobile-home",
+      "project": "webkit-mobile",
+      "route": "/",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Understand mathematics, one idea at a time",
+          "size": 30
+        }
+      ],
+      "prose": [],
+      "screenshotSHA256": "ccaebfc456bac9d08a0a0ca2bf6f4c1ee83a6202b587a88cb0964960f9e4d9ad"
+    },
+    {
+      "role": "learner",
+      "caseId": "cross-webkit-mobile-notes",
+      "project": "webkit-mobile",
+      "route": "/knowledge/k-565ae71d0b164d1d578fe7e1e06588693d164811af0c9c30978d8693?mode=notes",
+      "locale": "en",
+      "viewportWidth": 390,
+      "pageWidth": 390,
+      "headerHeight": 165,
+      "headings": [
+        {
+          "text": "Rational fraction",
+          "size": 30
+        }
+      ],
+      "prose": [
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        },
+        {
+          "size": 16,
+          "line": 29.6
+        }
+      ],
+      "screenshotSHA256": "50336429f78f7b6b76757f1adf45251d3f5c02125a37cd18e82d4eb8040ca8b3"
+    }
+  ],
+  "assets": {
+    "baselineCommit": "bf8e02c2193ffca1c6534b1991399cacce62ce12",
+    "baselineSha": "c7a71079ef43492d86d0206d7f2f1627ef343d67c3e53625b5f0c688aee8c61a",
+    "gzipLevel": 9,
+    "css": {
+      "before": 14224,
+      "after": 17062,
+      "delta": 2838,
+      "budget": 10240
+    },
+    "initialJS": {
+      "A01": {
+        "before": 348057,
+        "after": 348161,
+        "delta": 104,
+        "budget": 8192
+      },
+      "A04": {
+        "before": 491201,
+        "after": 492124,
+        "delta": 923,
+        "budget": 8192
+      },
+      "A10": {
+        "before": 491201,
+        "after": 492124,
+        "delta": 923,
+        "budget": 8192
+      },
+      "A12": {
+        "before": 480705,
+        "after": 481524,
+        "delta": 819,
+        "budget": 8192
+      },
+      "A21": {
+        "before": 354848,
+        "after": 355513,
+        "delta": 665,
+        "budget": 8192
+      }
+    },
+    "assets": {
+      "measurement": {
+        "gzipLevel": 9,
+        "css": "all unique .next/static/**/*.css",
+        "js": "unique initial HTML script[src] at same authenticated representative routes"
+      },
+      "css": {
+        "assets": [
+          {
+            "path": "static/chunks/1e1ssdd5x31a_.css",
+            "gzipBytes": 7618
+          },
+          {
+            "path": "static/chunks/2h8rihhg1h-ca.css",
+            "gzipBytes": 567
+          },
+          {
+            "path": "static/chunks/3a7uphgxxw4u4.css",
+            "gzipBytes": 7486
+          },
+          {
+            "path": "static/chunks/3qpw276sm2fpp.css",
+            "gzipBytes": 1391
+          }
+        ],
+        "gzipBytes": 17062
+      },
+      "initialJS": {
+        "A01": {
+          "assets": [
+            {
+              "path": "/_next/static/chunks/0cz1d0mv5g_q7.js",
+              "gzipBytes": 39520
+            },
+            {
+              "path": "/_next/static/chunks/0jznlfcevp5f6.js",
+              "gzipBytes": 9107
+            },
+            {
+              "path": "/_next/static/chunks/19mx3mg6lkumu.js",
+              "gzipBytes": 7591
+            },
+            {
+              "path": "/_next/static/chunks/1v8jqw3bsiiwi.js",
+              "gzipBytes": 863
+            },
+            {
+              "path": "/_next/static/chunks/2723v1ww9onyu.js",
+              "gzipBytes": 74534
+            },
+            {
+              "path": "/_next/static/chunks/2aeds1h5dnhea.js",
+              "gzipBytes": 606
+            },
+            {
+              "path": "/_next/static/chunks/2fprsw_c6z5z1.js",
+              "gzipBytes": 71470
+            },
+            {
+              "path": "/_next/static/chunks/2z-e6jheq0ftu.js",
+              "gzipBytes": 45058
+            },
+            {
+              "path": "/_next/static/chunks/310vm2bl3xxpt.js",
+              "gzipBytes": 1969
+            },
+            {
+              "path": "/_next/static/chunks/3aksv3xhtn-bl.js",
+              "gzipBytes": 93593
+            },
+            {
+              "path": "/_next/static/chunks/turbopack-1c6b_mnqxjrmf.js",
+              "gzipBytes": 3850
+            }
+          ],
+          "gzipBytes": 348161
+        },
+        "A04": {
+          "assets": [
+            {
+              "path": "/_next/static/chunks/0cz1d0mv5g_q7.js",
+              "gzipBytes": 39520
+            },
+            {
+              "path": "/_next/static/chunks/0jznlfcevp5f6.js",
+              "gzipBytes": 9107
+            },
+            {
+              "path": "/_next/static/chunks/18js9ctcftz1x.js",
+              "gzipBytes": 122176
+            },
+            {
+              "path": "/_next/static/chunks/19mx3mg6lkumu.js",
+              "gzipBytes": 7591
+            },
+            {
+              "path": "/_next/static/chunks/1hu_2f-cec4hq.js",
+              "gzipBytes": 8756
+            },
+            {
+              "path": "/_next/static/chunks/2723v1ww9onyu.js",
+              "gzipBytes": 74534
+            },
+            {
+              "path": "/_next/static/chunks/28w_j7xudw2jf.js",
+              "gzipBytes": 13894
+            },
+            {
+              "path": "/_next/static/chunks/2aeds1h5dnhea.js",
+              "gzipBytes": 606
+            },
+            {
+              "path": "/_next/static/chunks/2fprsw_c6z5z1.js",
+              "gzipBytes": 71470
+            },
+            {
+              "path": "/_next/static/chunks/2z-e6jheq0ftu.js",
+              "gzipBytes": 45058
+            },
+            {
+              "path": "/_next/static/chunks/310vm2bl3xxpt.js",
+              "gzipBytes": 1969
+            },
+            {
+              "path": "/_next/static/chunks/3aksv3xhtn-bl.js",
+              "gzipBytes": 93593
+            },
+            {
+              "path": "/_next/static/chunks/turbopack-1c6b_mnqxjrmf.js",
+              "gzipBytes": 3850
+            }
+          ],
+          "gzipBytes": 492124
+        },
+        "A10": {
+          "assets": [
+            {
+              "path": "/_next/static/chunks/0cz1d0mv5g_q7.js",
+              "gzipBytes": 39520
+            },
+            {
+              "path": "/_next/static/chunks/0jznlfcevp5f6.js",
+              "gzipBytes": 9107
+            },
+            {
+              "path": "/_next/static/chunks/18js9ctcftz1x.js",
+              "gzipBytes": 122176
+            },
+            {
+              "path": "/_next/static/chunks/19mx3mg6lkumu.js",
+              "gzipBytes": 7591
+            },
+            {
+              "path": "/_next/static/chunks/1hu_2f-cec4hq.js",
+              "gzipBytes": 8756
+            },
+            {
+              "path": "/_next/static/chunks/2723v1ww9onyu.js",
+              "gzipBytes": 74534
+            },
+            {
+              "path": "/_next/static/chunks/28w_j7xudw2jf.js",
+              "gzipBytes": 13894
+            },
+            {
+              "path": "/_next/static/chunks/2aeds1h5dnhea.js",
+              "gzipBytes": 606
+            },
+            {
+              "path": "/_next/static/chunks/2fprsw_c6z5z1.js",
+              "gzipBytes": 71470
+            },
+            {
+              "path": "/_next/static/chunks/2z-e6jheq0ftu.js",
+              "gzipBytes": 45058
+            },
+            {
+              "path": "/_next/static/chunks/310vm2bl3xxpt.js",
+              "gzipBytes": 1969
+            },
+            {
+              "path": "/_next/static/chunks/3aksv3xhtn-bl.js",
+              "gzipBytes": 93593
+            },
+            {
+              "path": "/_next/static/chunks/turbopack-1c6b_mnqxjrmf.js",
+              "gzipBytes": 3850
+            }
+          ],
+          "gzipBytes": 492124
+        },
+        "A12": {
+          "assets": [
+            {
+              "path": "/_next/static/chunks/0cz1d0mv5g_q7.js",
+              "gzipBytes": 39520
+            },
+            {
+              "path": "/_next/static/chunks/0jznlfcevp5f6.js",
+              "gzipBytes": 9107
+            },
+            {
+              "path": "/_next/static/chunks/18js9ctcftz1x.js",
+              "gzipBytes": 122176
+            },
+            {
+              "path": "/_next/static/chunks/19mx3mg6lkumu.js",
+              "gzipBytes": 7591
+            },
+            {
+              "path": "/_next/static/chunks/2723v1ww9onyu.js",
+              "gzipBytes": 74534
+            },
+            {
+              "path": "/_next/static/chunks/2aeds1h5dnhea.js",
+              "gzipBytes": 606
+            },
+            {
+              "path": "/_next/static/chunks/2fprsw_c6z5z1.js",
+              "gzipBytes": 71470
+            },
+            {
+              "path": "/_next/static/chunks/2z-e6jheq0ftu.js",
+              "gzipBytes": 45058
+            },
+            {
+              "path": "/_next/static/chunks/310vm2bl3xxpt.js",
+              "gzipBytes": 1969
+            },
+            {
+              "path": "/_next/static/chunks/34xvyo45kpkmr.js",
+              "gzipBytes": 11482
+            },
+            {
+              "path": "/_next/static/chunks/3aksv3xhtn-bl.js",
+              "gzipBytes": 93593
+            },
+            {
+              "path": "/_next/static/chunks/3i3ep1tc40dm8.js",
+              "gzipBytes": 568
+            },
+            {
+              "path": "/_next/static/chunks/turbopack-1c6b_mnqxjrmf.js",
+              "gzipBytes": 3850
+            }
+          ],
+          "gzipBytes": 481524
+        },
+        "A21": {
+          "assets": [
+            {
+              "path": "/_next/static/chunks/0cz1d0mv5g_q7.js",
+              "gzipBytes": 39520
+            },
+            {
+              "path": "/_next/static/chunks/0jznlfcevp5f6.js",
+              "gzipBytes": 9107
+            },
+            {
+              "path": "/_next/static/chunks/19mx3mg6lkumu.js",
+              "gzipBytes": 7591
+            },
+            {
+              "path": "/_next/static/chunks/2723v1ww9onyu.js",
+              "gzipBytes": 74534
+            },
+            {
+              "path": "/_next/static/chunks/2aeds1h5dnhea.js",
+              "gzipBytes": 606
+            },
+            {
+              "path": "/_next/static/chunks/2fprsw_c6z5z1.js",
+              "gzipBytes": 71470
+            },
+            {
+              "path": "/_next/static/chunks/2xglvm08993a-.js",
+              "gzipBytes": 8215
+            },
+            {
+              "path": "/_next/static/chunks/2z-e6jheq0ftu.js",
+              "gzipBytes": 45058
+            },
+            {
+              "path": "/_next/static/chunks/310vm2bl3xxpt.js",
+              "gzipBytes": 1969
+            },
+            {
+              "path": "/_next/static/chunks/3aksv3xhtn-bl.js",
+              "gzipBytes": 93593
+            },
+            {
+              "path": "/_next/static/chunks/turbopack-1c6b_mnqxjrmf.js",
+              "gzipBytes": 3850
+            }
+          ],
+          "gzipBytes": 355513
+        }
+      }
+    }
+  }
+}

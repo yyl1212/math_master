@@ -1,0 +1,179 @@
+{
+  "method": "Chromium native tabs.setZoom/getZoom in fresh isolated profile; innerWidth/DPR checked; CDP captureScreenshot saves the full physical viewport (1280px), input/textarea covered by temporary DOM masks; CSS preferences emulated; screenshots visually reviewed separately",
+  "iosRealDevice": "not available; not tested",
+  "records": [
+    {
+      "name": "home-1x",
+      "nativeZoom": 1,
+      "requestedZoom": 1,
+      "width": 1280,
+      "documentWidth": 1280,
+      "dpr": 1,
+      "heading": "46px",
+      "prose": [],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "home-2x",
+      "nativeZoom": 2,
+      "requestedZoom": 2,
+      "width": 640,
+      "documentWidth": 640,
+      "dpr": 2,
+      "heading": "30px",
+      "prose": [],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "home-4x",
+      "nativeZoom": 3.9999999999999996,
+      "requestedZoom": 4,
+      "width": 320,
+      "documentWidth": 320,
+      "dpr": 4,
+      "heading": "30px",
+      "prose": [],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "reading-2x",
+      "nativeZoom": 2,
+      "requestedZoom": 2,
+      "width": 640,
+      "documentWidth": 640,
+      "dpr": 2,
+      "heading": "32px",
+      "prose": [
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px"
+      ],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "reading-end-2x",
+      "nativeZoom": 2,
+      "requestedZoom": 2,
+      "width": 640,
+      "documentWidth": 640,
+      "dpr": 2,
+      "heading": "32px",
+      "prose": [
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px",
+        "17px"
+      ],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "reading-4x",
+      "nativeZoom": 3.9999999999999996,
+      "requestedZoom": 4,
+      "width": 320,
+      "documentWidth": 320,
+      "dpr": 4,
+      "heading": "30px",
+      "prose": [
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px"
+      ],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "reading-end-4x",
+      "nativeZoom": 3.9999999999999996,
+      "requestedZoom": 4,
+      "width": 320,
+      "documentWidth": 320,
+      "dpr": 4,
+      "heading": "30px",
+      "prose": [
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px"
+      ],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "notes-keyboard-4x",
+      "nativeZoom": 3.9999999999999996,
+      "requestedZoom": 4,
+      "width": 320,
+      "documentWidth": 320,
+      "dpr": 4,
+      "heading": "30px",
+      "prose": [
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px",
+        "16px"
+      ],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "forced-colors-reduced-motion",
+      "nativeZoom": 1,
+      "requestedZoom": 1,
+      "width": 1280,
+      "documentWidth": 1280,
+      "dpr": 1,
+      "heading": "36px",
+      "prose": [],
+      "screenshotWidth": 1280,
+      "screenshotHeight": 813
+    },
+    {
+      "name": "forced-colors-native-select",
+      "outline": "solid",
+      "outlineWidth": "3px",
+      "appearance": "auto",
+      "reducedMotion": true,
+      "forcedColors": true,
+      "animation": "none",
+      "scrollBehavior": "auto"
+    },
+    {
+      "name": "keyboard-twelve-tabs",
+      "passed": true
+    }
+  ]
+}
