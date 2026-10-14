@@ -551,7 +551,7 @@ button, .button { overflow-wrap: anywhere; }
  h2 { font-size: 20px; }
  main { padding: 24px 20px 40px; }
  .brand { min-height: 44px; }
- .site-header nav a { padding: 8px; font-size: 13px; }
+ .site-header nav a { flex: 1 1 auto; padding: 8px; font-size: 13px; }
  .site-utility { margin-left: 0; width: 100%; flex-wrap: nowrap; gap: 8px; justify-content: space-between; align-items: flex-start; }
  .site-utility .language-switch { gap: 4px; }
  .panel, .domain-card { padding: 20px; }

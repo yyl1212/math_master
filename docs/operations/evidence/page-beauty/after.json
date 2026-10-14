@@ -1,10 +1,10 @@
 {
-  "source": "最终产品源码0be2c7e；之后仅新增视觉CI校验修复及验收文档，MR准确HEAD由CI另行验证",
-  "productSourceCommit": "0be2c7e692745e50e0f14a6bf9113661777a92f5",
-  "productParentCommit": "8b145d2e5f319069ca430e17965400f035be5fff",
+  "source": "5abdf92加手机导航自然宽度修复；精确CSS源码摘要如下，MR准确HEAD由CI另行验证",
+  "productParentCommit": "5abdf9280796221db3274591e0e77dd6f6bfc093",
   "finalFixSourceDigests": {
     "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
-    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2"
+    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2",
+    "frontend/src/styles/globals.css": "765bd334e5e5bc78704e6f1e70ceb0ed5506a5a61431a5d66a932dca2830e076"
   },
   "environment": "独立合成库；Node24.17.0/Go1.27.1/PG17.11/Playwright1.63.0；input/textarea遮挡。所有PNG/JSON来自最终完整矩阵同一采集目录。",
   "frames": [
@@ -34,7 +34,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Understand mathematics, one idea at a time",
@@ -42,7 +42,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "31a390173f282872b2280a2b7fe201b3a4efb0a5ad05343e5134cd1084a902be"
+      "screenshotSHA256": "fcb7d4d2dd3241e1e28f7bd5a7a0b0af13dfbde6639faa0a92aff4251b68d6ba"
     },
     {
       "role": "anonymous",
@@ -60,7 +60,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "df1e607b841ff0bf137b5b97bf99c03b287f3d942d3e8bc096a634b2b0306697"
+      "screenshotSHA256": "b659183a1f0555a952a2e342ada7316c161385c5ef3f9cafef78ad02c9798ab6"
     },
     {
       "role": "anonymous",
@@ -142,7 +142,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Knowledge map",
@@ -150,7 +150,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "805080ce169c6b8ed127e578b85e97808304acf4ea0fc59240271d3344dac1f7"
+      "screenshotSHA256": "ec7f4e5ef89d9464d5d6e45d9d10b262de0de54295d517e2a69bb79cb60293f5"
     },
     {
       "role": "anonymous",
@@ -160,7 +160,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Knowledge map",
@@ -168,7 +168,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "0d5f7f887122a559bbcb94d9d99a73a37da5ab06d8d96daf3101b09220891e58"
+      "screenshotSHA256": "8e787966642d024a9a663abd3753fce00aef4815648bdbbe3763c76b3b32c35e"
     },
     {
       "role": "anonymous",
@@ -250,7 +250,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Original fixture theme 97-XX",
@@ -258,7 +258,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "7005cb8932b7eb58541b4859fd35a633bc562868efb0e23960ce52f3a7f51b40"
+      "screenshotSHA256": "69fcfae3cdfd1b01b7933383240ceb51fe4159938d0f63f1b59e0bcfc54ff13e"
     },
     {
       "role": "anonymous",
@@ -276,7 +276,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "34321ac85af76c1d476984f95339c008c8d9013c953a9c0b54c35f4703c4d377"
+      "screenshotSHA256": "8b066c590b79e4ced62b646cf8957e270ce7f3e39e307f765f111103cdf29aa1"
     },
     {
       "role": "anonymous",
@@ -395,7 +395,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Rational fraction",
@@ -440,7 +440,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "5497d8e289f5c418a3eb63467dad98f2374ce844813351324d66c0753ce25358"
+      "screenshotSHA256": "6192632d20b13a975d27ea029bf3b3b304d3c63c8bfa796a012d04927c479d43"
     },
     {
       "role": "anonymous",
@@ -450,7 +450,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Rational fraction",
@@ -495,7 +495,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "522b3d0e2af492d0827e94c6f4d1d4a34c24e7d36bfe8f11b3fdbc1d0cf1858c"
+      "screenshotSHA256": "0902e228a081d27585869c20d20ae74fce1b181a17ee70b912c0799fd69c9d12"
     },
     {
       "role": "anonymous",
@@ -678,7 +678,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "5a93519c8fbff85cb6cb9074de6cd80cd1a12b30974c5427613765bb0ca028a2"
+      "screenshotSHA256": "32d54aaddf1140a6144906c2ec90a789e3e0b2cdaf87a6bb185a288c759eb37d"
     },
     {
       "role": "anonymous",
@@ -688,7 +688,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Shared notes",
@@ -696,7 +696,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "1ba48b20bd69ef28eaf382be6f6bda156090e90a6861a27b146b7d5cdcd96f91"
+      "screenshotSHA256": "7cabf647ee772c58b993f0096a61893872c1f3f78812aad66e326caffee4a9db"
     },
     {
       "role": "anonymous",
@@ -714,7 +714,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "4bf04c53283eb06d71dc3746884881a1f8d85323862a5e02701db04b55eb7f06"
+      "screenshotSHA256": "d08b8db2a521dc0b2935135c42f9a901a8a57f4d582bcc494cf272571b99ccd7"
     },
     {
       "role": "anonymous",
@@ -732,7 +732,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "e1794c5f9b64d76dfb59bf7a4054764532d409412c17fe43c4c19d58d434e8b3"
+      "screenshotSHA256": "99528b9ea76b95b1f6e6bfbaff6bdaea2a29dfd0072abed34d4918e11e63e1d0"
     },
     {
       "role": "anonymous",
@@ -750,7 +750,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "97ac12fa15b91763c3daa7d40c00bbe32af63ba1a5113a0f5522d8bc4af2e27d"
+      "screenshotSHA256": "d8ee1275fbb708160f4a054e351e5dc8386513579426e678559a8589fdc1eed3"
     },
     {
       "role": "anonymous",
@@ -768,13 +768,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "4c7c0454bdd185d7b253d514ab9fa73891a9c427c5858aea7c4c5187ad895f3f"
+      "screenshotSHA256": "98927195c9a93dc3e1f4271874c18dae12bb379ec68a361527473e1da2df90b9"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes/0cf07357-11c9-447f-9743-cae3209a6efb",
+      "route": "/notes/6fd62df2-2820-4216-a5e1-7eb4139156ba",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -791,17 +791,17 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "73a6c9f26f1d906e9ab725a5fe76fc67a2dbbcc37a5b5dbe0026e1ee2f5b28ad"
+      "screenshotSHA256": "a3e4994f1af0c8e5ba0f1ea16b0a63d82dd6774d4c2a9c7fa1114ca8271fa0b3"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes/0cf07357-11c9-447f-9743-cae3209a6efb",
+      "route": "/notes/6fd62df2-2820-4216-a5e1-7eb4139156ba",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Shared technical note 12",
@@ -814,13 +814,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "0bce1f534be7d385e00e2640ddafdbc30cfc7e3933e4c89b81db9f62b3293c45"
+      "screenshotSHA256": "b0d312d794427f692bcab2333d916da466eca15f2e3e77bb213e28e6e4dbcfe5"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "mobile",
-      "route": "/notes/c6b46609-778a-4dad-8e72-e46c4492e20f",
+      "route": "/notes/b1efaf81-ddf5-43af-b1c5-bd8720d6e777",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -837,31 +837,36 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "019a5570b19cc1e8fb7dc96592284a681f7cef2b7d00cd17584591a5dab736c0"
+      "screenshotSHA256": "28a0b388d5ca4ed51893ef20a7fd43409c0fa070678083162f7fca40f805436a"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes",
+      "route": "/notes/6fd62df2-2820-4216-a5e1-7eb4139156ba",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
       "headerHeight": 104,
       "headings": [
         {
-          "text": "分享笔记",
+          "text": "Shared technical note 12",
           "size": 36
         }
       ],
-      "prose": [],
-      "screenshotSHA256": "2d19c48226396b465972c43fb62be2fe460394c0d052a74d96d6f710d08cf6d4"
+      "prose": [
+        {
+          "size": 17,
+          "line": 32.3
+        }
+      ],
+      "screenshotSHA256": "fb584725fa2c5c68d2cb4780a2da4a9cff4e886d9a465df93bde746341771d3e"
     },
     {
       "role": "anonymous",
       "caseId": "A06",
       "project": "desktop",
-      "route": "/notes/0cf07357-11c9-447f-9743-cae3209a6efb",
+      "route": "/notes/6fd62df2-2820-4216-a5e1-7eb4139156ba",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -878,7 +883,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "3f02c0c738c31db429266a7c008da969de745b088ffbf63aee5bf08135172b22"
+      "screenshotSHA256": "2c1f62e998bdeed289e3e2ea079f126a71d25451e4f5f6ccb9cbb905ff281a35"
     },
     {
       "role": "anonymous",
@@ -896,7 +901,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "90105b17754a9373f6bf8bc08dfc835954fd755e82f784e7894a6a05a46d665f"
+      "screenshotSHA256": "004589dc3d7efc38d03a695441225f6b8ca8ff9cfb2ab13bea8e1405042cfeb8"
     },
     {
       "role": "anonymous",
@@ -924,7 +929,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Welcome back.",
@@ -932,7 +937,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "cc3d2e43d6839adbe5a6f1f334b8976f224cfc5de96a8a87e24f1a5a710857ef"
+      "screenshotSHA256": "fc9f1cf3bf2aff31e3e9bd21be45a667e4245cc3ed88daef7d3bf9451b14b8d0"
     },
     {
       "role": "anonymous",
@@ -950,7 +955,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "3731508930df8f702338419d3574f7bc3910e905cd8390183e2fe608266a87f4"
+      "screenshotSHA256": "5e86b66b35ebaa5fa3f9fec630cf769a144782d5c5ef3e1bf22fa2e2e051bc47"
     },
     {
       "role": "anonymous",
@@ -1032,7 +1037,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Make room for mathematics.",
@@ -1040,7 +1045,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "a1e652a211ee2aef0655c53e9b4bd4885d470826c1acb2320db6f34d617bd429"
+      "screenshotSHA256": "550bfee76f8bb815e56730d2f6b6cddbb74aafa2c60b3be63e274f8c1170ad97"
     },
     {
       "role": "anonymous",
@@ -1058,7 +1063,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "bf0c64c51488c06f8f013e1193e68be5795cb5a33a95468bd605a7d3d9c3c910"
+      "screenshotSHA256": "00672e45fa90a9bc6a9ea2a9621ded3d795df4b3e379dda784ff11b3cf3c6cea"
     },
     {
       "role": "anonymous",
@@ -1140,7 +1145,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "My learning",
@@ -1148,7 +1153,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "2119a7958ad13ef2a707f2a3728f5e689656de9ac7c75627c21564c981556858"
+      "screenshotSHA256": "283515b6a931021ef3bb0cecede546607a6e1e7836714695f988bc1292fdeee1"
     },
     {
       "role": "learner",
@@ -1166,7 +1171,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b6e2851a8cc1b91e4a885da41fb627510a8b90444ee017dbaf96d9a861593c48"
+      "screenshotSHA256": "2adf814760f525b276d2aec1bc325e1640117ad5f4be101a74fbe9c06239b043"
     },
     {
       "role": "learner",
@@ -1238,7 +1243,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "360a8d292d0b259c568108f3e51d0904a5e945ac18bc2b80bee677c8763442a9"
+      "screenshotSHA256": "7b573a83bb3ea02b02c86d4a42ffceda8cae9081bd1cb79ba76965c59d9a65e5"
     },
     {
       "role": "learner",
@@ -1248,7 +1253,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "My learning",
@@ -1256,7 +1261,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "e89ef59a251faa28224ecd3ef669a8feb5883a4b16666931ae1e776a10e3d4cd"
+      "screenshotSHA256": "6cec4a4cc7fd6e3bfd86491073bde792725fac6aca93cc8dd73368fd1bdb57f7"
     },
     {
       "role": "learner",
@@ -1274,7 +1279,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "48b027f1a0f395c397c3b0ee43e201cb6b5eb1d428a40159b3241185b99e5d51"
+      "screenshotSHA256": "3e6c7b815b047a471b2644978530ac110e1da38801631cf0ace0c15319ac4620"
     },
     {
       "role": "learner",
@@ -1292,7 +1297,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "ebcae9ae92f3ee6991e053b2172be7325423be5113415da9d78d0718830a3564"
+      "screenshotSHA256": "7a0046f2c2d8af6aa7ab551f8de89364756d0845c24deb1acd15254e51bc3528"
     },
     {
       "role": "learner",
@@ -1310,7 +1315,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "c3bec735708d3c1baca5aed9afac07b88ed8da854c806cb5574329be7e31e8a4"
+      "screenshotSHA256": "c07131d71767fe594d3a6951f25c5c627362728f33df04c190cbb5617dc3c64b"
     },
     {
       "role": "learner",
@@ -1328,7 +1333,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "949ebb023b116dece6e3500b8b16f3d3bdf6770e5fe6683694126fece7dccf57"
+      "screenshotSHA256": "d5e225c42170159a8e2fe78d43350879ea263fa3b710398342c58855c427a96b"
     },
     {
       "role": "learner",
@@ -1346,7 +1351,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f994e5efd5895b0f8fb2c71db8002ca256851e5beea8b53b9a12f62f8465df1b"
+      "screenshotSHA256": "1c3cef893276c3972c26db58de8a203c1cc28c6ccc0b9acdd04ae924a2e2c18b"
     },
     {
       "role": "learner",
@@ -1356,7 +1361,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "My learning",
@@ -1364,7 +1369,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "a6bd33c27ec58df73bd0749dc4547133dea145c1920dd8c79e377feccb936b6b"
+      "screenshotSHA256": "97899f99a9f35170ddd983c2b44a39a2ae8afdbb2e6d1830328eb929de02d316"
     },
     {
       "role": "learner",
@@ -1382,7 +1387,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "95f266fb65e3a4f124c985982f783a2008922e09d15ffafd4ce4bfdb770c8385"
+      "screenshotSHA256": "53c9c9f2a8f0677b3ad668a6eb2c5acf7f07e38c75e4f0340d6f37369f02ab9e"
     },
     {
       "role": "learner",
@@ -1400,7 +1405,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f78ab67cc58535389f22c47c4345df4f101c54410aceeb5b10d8effcbf1d993e"
+      "screenshotSHA256": "060ddcfa4f792804777ef26bfb925540f44af15cc771954d9b4fccc47bf965c5"
     },
     {
       "role": "learner",
@@ -1418,7 +1423,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "40b957fa9712bb93fbef68a2abc6b853a3e5dded2531fc7d037418192d1a888c"
+      "screenshotSHA256": "f8f08252f087d16de09c7333c34023717a32c355b294840d98ba9596b7ba1b3c"
     },
     {
       "role": "learner",
@@ -1436,7 +1441,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "0f7c80bc3aeee110fe8ddc4de80fa870dc12d54e1bf4df59958628b7006c8def"
+      "screenshotSHA256": "aa4f4ef0905f5bef094bca8933747dfbedb93a40a492b804b6ab96120e1f5133"
     },
     {
       "role": "learner",
@@ -1454,7 +1459,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "778508f313ce493329c0de3f44ce1b679d5af86c9d78b6d8d992af19427fd4f8"
+      "screenshotSHA256": "f222c2bceb11be8a38f2b9297a9f4564bb8e42aeca8d1f75a6f7c9e197cbe561"
     },
     {
       "role": "learner",
@@ -1464,7 +1469,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Review workspace",
@@ -1472,7 +1477,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "6fac18102e9a0989cb8c766e6c08f7be1e25b69f8cf635771af2651b869ce7af"
+      "screenshotSHA256": "4636aa465bd4de8da9010a8091bf932c1d796fcc286b25c4cc2ccafd4dc5dbba"
     },
     {
       "role": "learner",
@@ -1490,7 +1495,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "183e028090a55d40f5906210de11767adaa62aa47947da5aca9c7f9dcd9b78a2"
+      "screenshotSHA256": "f351fb2ade594464bfe99194d60fd3646e499784617027720fd99e65ab057130"
     },
     {
       "role": "learner",
@@ -1508,7 +1513,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "87a05656c4d4b3c71ed89e426e16f6a5c0574036064a2388c649ad6797fdc7f4"
+      "screenshotSHA256": "7542ec1af53c380d6d92c982d7aa0491db9524cfa8e16f7e81e6f6ca15eb83d9"
     },
     {
       "role": "learner",
@@ -1526,7 +1531,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "e9d2c8bbb9ce069f3d5df965e78c88c733f1a3c7c6c118466004499fcace30b1"
+      "screenshotSHA256": "583e57ffb7615d47eaba1d9a94c1a6b861a4067d8127c75ea772a1df7772baac"
     },
     {
       "role": "learner",
@@ -1544,13 +1549,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "5a1d24f7f929c02247ac834fc6dc06f02721ec3221015e38d64760ce0b982533"
+      "screenshotSHA256": "41f3e89d6185faa0556f1ee77646547223300ff51108b0ffb9bdba1f4c2367c4"
     },
     {
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1593,11 +1598,11 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Rational fraction",
@@ -1630,13 +1635,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "40fde8f91b8821fa16c9b33d0b4f6fe7512b2dc26af0bf15b33fb0abea2a3807"
+      "screenshotSHA256": "1d1b5999c6f639c459b9c82639749bdbf4189e444c1c275db8fdd53e614a2d45"
     },
     {
       "role": "learner",
       "caseId": "A13-compare",
       "project": "mobile",
-      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
+      "route": "/learn/review/82ab8a03-4adf-4882-8573-6c0f384b8f51",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1673,13 +1678,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "85caca394e77b34082c66041899015f636ad5037fc77d5fa3a7f980f889d0e55"
+      "screenshotSHA256": "61a56f0b3746243e1224d51fe959162282b6ea3f2af75ba5ce011b4a6b891429"
     },
     {
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1722,7 +1727,7 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -1765,7 +1770,7 @@
       "role": "learner",
       "caseId": "A13-compare",
       "project": "mobile",
-      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
+      "route": "/learn/review/82ab8a03-4adf-4882-8573-6c0f384b8f51",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1808,7 +1813,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1826,11 +1831,11 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Rational fraction",
@@ -1838,13 +1843,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "5a307584c66dcbb9b6820d4ed2f75b2f82bdd452b3a667e467a1eabb0703c9c8"
+      "screenshotSHA256": "70952f96a63e0c73f8e226cf0b751851c12412ce4a6d609c7f7a5b2e250c1a56"
     },
     {
       "role": "learner",
       "caseId": "A13-edit",
       "project": "mobile",
-      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
+      "route": "/learn/review/82ab8a03-4adf-4882-8573-6c0f384b8f51",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1856,13 +1861,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b274284f00654d081fd3a3e8c0fecaf33d05088fdb2d63f44e55f7387897a8e3"
+      "screenshotSHA256": "3159aed61da7f0cc68f99b43b66a7cef0729864c781147f0b7ff22c2bf19a602"
     },
     {
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1880,7 +1885,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "desktop",
-      "route": "/learn/review/740c7be6-7a8c-4e76-bca1-fff3cf5ca1f0",
+      "route": "/learn/review/eddd9652-20fc-4874-924d-d044f791d758",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -1898,7 +1903,7 @@
       "role": "learner",
       "caseId": "A13-edit",
       "project": "mobile",
-      "route": "/learn/review/b550be9f-3197-47d4-a5d3-cfbf87b342ef",
+      "route": "/learn/review/82ab8a03-4adf-4882-8573-6c0f384b8f51",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -1916,7 +1921,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
+      "route": "/learn/review/f778ef3a-cee7-4a6c-ac05-b95f7ed4c93b",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -1959,11 +1964,11 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
+      "route": "/learn/review/f778ef3a-cee7-4a6c-ac05-b95f7ed4c93b",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Equivalent fractions",
@@ -1996,13 +2001,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "f074d762c557301ad487f8b371deb325b05fef84c93b6fd4ccfb3d94a6e3b882"
+      "screenshotSHA256": "cad017bb1541c4106657f1a749540e78e218c43b69c788bc667a97840070f805"
     },
     {
       "role": "learner",
       "caseId": "A13-proof",
       "project": "mobile",
-      "route": "/learn/review/f6bda7e3-e00e-46ee-a683-e9683bb22994",
+      "route": "/learn/review/3d28646b-0bde-4c92-869c-c670a079b86f",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2039,13 +2044,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "853c89bdf68fd8f98ac365d4fa168f86c888c18f0a1a46c1ec075b7068d0a62c"
+      "screenshotSHA256": "08082651aba390d40fafbf7d72cbdd94f1cff28ba2e53b6f0f4df0efa4ab459d"
     },
     {
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
+      "route": "/learn/review/f778ef3a-cee7-4a6c-ac05-b95f7ed4c93b",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2088,7 +2093,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "desktop",
-      "route": "/learn/review/7601c06f-b702-49b7-b720-7dec5805a749",
+      "route": "/learn/review/f778ef3a-cee7-4a6c-ac05-b95f7ed4c93b",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2131,7 +2136,7 @@
       "role": "learner",
       "caseId": "A13-proof",
       "project": "mobile",
-      "route": "/learn/review/f6bda7e3-e00e-46ee-a683-e9683bb22994",
+      "route": "/learn/review/3d28646b-0bde-4c92-869c-c670a079b86f",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2174,7 +2179,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
+      "route": "/learn/review/083219ec-eddd-40ef-b38e-6175ad6d8cb5",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2217,11 +2222,11 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
+      "route": "/learn/review/083219ec-eddd-40ef-b38e-6175ad6d8cb5",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Rational fraction",
@@ -2254,13 +2259,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "a82f54eb8974f911ccd98f6c3d3c7660b180a88a93ef8d0169aa553042973b3a"
+      "screenshotSHA256": "f4abb0fd1d896756666d39ab6badcade18bc300e3b672f6b40029799e6987fc8"
     },
     {
       "role": "learner",
       "caseId": "A13-read",
       "project": "mobile",
-      "route": "/learn/review/2202dade-a893-4064-9645-87ca3b96292c",
+      "route": "/learn/review/1e8ce9ae-677b-4f5e-a64a-bd6e959336ea",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2297,13 +2302,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "370d49d2d36d1c9134ef15ec51e697b6459f3671a912f93831faec7df5927a70"
+      "screenshotSHA256": "26328e77b1b0f71df2f1e59fe5b6d2debfab7e14aff99faf4377a03fc51ec676"
     },
     {
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
+      "route": "/learn/review/083219ec-eddd-40ef-b38e-6175ad6d8cb5",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2346,7 +2351,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "desktop",
-      "route": "/learn/review/029d32d5-414e-4577-bd6f-054cff85af38",
+      "route": "/learn/review/083219ec-eddd-40ef-b38e-6175ad6d8cb5",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2389,7 +2394,7 @@
       "role": "learner",
       "caseId": "A13-read",
       "project": "mobile",
-      "route": "/learn/review/2202dade-a893-4064-9645-87ca3b96292c",
+      "route": "/learn/review/1e8ce9ae-677b-4f5e-a64a-bd6e959336ea",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2444,7 +2449,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "03b6f71264d4afb6f8f47331933f63e30cb8337efefa8c5518bf0aa75fe339b5"
+      "screenshotSHA256": "96846a164d24b93fde5b4abfe07f67c97928915205b75cb1c7cf7e043fe9fcd1"
     },
     {
       "role": "learner",
@@ -2454,7 +2459,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Self-rating history",
@@ -2462,7 +2467,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "7821f386555f13bee76faebdd27e8b0eaee26ee8fac27281ebd59c185c3108a8"
+      "screenshotSHA256": "68e47cbf68cf8bd53acac9dde0c03473469db0fe17de6b20f1be0d70a6aed959"
     },
     {
       "role": "learner",
@@ -2480,7 +2485,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "699b6e884bc3c0c48542caae851fcff6981425ac8d04980b3712c3bf505a329d"
+      "screenshotSHA256": "15e68c7785d9cd767649a585408a4fb2589183dd4f2eab9063f51b72f3a0b092"
     },
     {
       "role": "learner",
@@ -2498,7 +2503,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "34c582e5fe4fe56a5555a5ca9c5bbe5c3870f5ddb6a7b549b0050ce80e46f318"
+      "screenshotSHA256": "1e367be1408aef192bd7f89f7c71dcf185c2bbab64a3c71b4dfa3615b94bc722"
     },
     {
       "role": "learner",
@@ -2516,7 +2521,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "a11e310e57cc30bb092e1b417e1427b3276bb4fdc616b4c6c2b7f502e76baf04"
+      "screenshotSHA256": "d9ae7bd8b533c05963acea8c30dd0f45af950d018e7ffc81a612cf949224d541"
     },
     {
       "role": "learner",
@@ -2534,7 +2539,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "d92f631b034863b2afc5339388b9a00ae0458bcd93831ce5e75a289615a8af47"
+      "screenshotSHA256": "1098f3a265a3c3866d4d3fb7ff7bc80ab09d53bbc694fe4c69ce94ae29f2ff63"
     },
     {
       "role": "learner",
@@ -2562,7 +2567,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "auth_learner",
@@ -2570,7 +2575,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f0506cb646fba3a9d5859b1a6deb3e33f931f77df241ab0ebd0c59626bf6ed0c"
+      "screenshotSHA256": "9e1957a12a38317a99bdafdef3ae2241967ba37d768f2fa060c001ed6021835b"
     },
     {
       "role": "learner",
@@ -2588,7 +2593,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "c0a187dc3d974e279b09817dbfa1bdba8f9c4ac9af6dbb850321ae9b939b6c46"
+      "screenshotSHA256": "c32f82f884f9b64a89ffae7f5b955d3bb7184d6cb6dd6ea5d4365f25cde7c670"
     },
     {
       "role": "learner",
@@ -2670,7 +2675,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "My reports",
@@ -2678,7 +2683,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "9c9381d417511964989d6a58b603f019c3179931a86ff57bba8e91fe9ca86d83"
+      "screenshotSHA256": "7c65c997ca6b5b6fd2d3bb2f96c713ffa755d2c9d8e1d28e8b878ca4de35bb0e"
     },
     {
       "role": "learner",
@@ -2696,7 +2701,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "878ffe78c3994f49e82c4178a7d885dbba4b3eb7a5b84ceb1a17121741740405"
+      "screenshotSHA256": "3ba3dccccb5771e07fbcbd80afe108c410c18b08698fcebc6ca2200bb4d3b052"
     },
     {
       "role": "learner",
@@ -2778,7 +2783,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Report a problem",
@@ -2786,7 +2791,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "dc0a4e07c604ec5b417edeca3b783f643b18fd85ba3bed72c0ae224631bd201c"
+      "screenshotSHA256": "75e190274ee41166abff9da4891c621292f2cb3c4cd97c02357b0a6280e652a0"
     },
     {
       "role": "learner",
@@ -2804,7 +2809,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "fa024f84e33bd31856a6d0bff86bcf5fbad8ed123629f84ed59871aa827042b0"
+      "screenshotSHA256": "8d650541660b9d0323665dba6fc8326a9979af80d1c15ba830bc457d5060192f"
     },
     {
       "role": "learner",
@@ -2864,7 +2869,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
+      "route": "/feedback/89a6012c-4a5e-4bb2-9764-c3164435d0c6",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2882,11 +2887,11 @@
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
+      "route": "/feedback/89a6012c-4a5e-4bb2-9764-c3164435d0c6",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Report details",
@@ -2894,13 +2899,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "7d91cb95107f381181dcf950bf0f77ae88836c478c87344f2ea38cdc211d4c7d"
+      "screenshotSHA256": "7f13c21c90eede3845d0ad448531c6eae8d41b7cf048eea3a94ee1bd74d2194c"
     },
     {
       "role": "learner",
       "caseId": "A18",
       "project": "mobile",
-      "route": "/feedback/ebc9fa71-9c7d-478c-9170-7527e48fffb2",
+      "route": "/feedback/ae56dcf1-71fb-42aa-bfcc-a9bb3950b64a",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2912,13 +2917,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "9df331326435adff6d3ca80748718e32c77968f47373f97d17cb4ce463372ec6"
+      "screenshotSHA256": "5c85642a89884d75bca71d00f2c540c732b21772918a8e1e4ce5bdfec9491e24"
     },
     {
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
+      "route": "/feedback/89a6012c-4a5e-4bb2-9764-c3164435d0c6",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -2936,7 +2941,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "desktop",
-      "route": "/feedback/8a367f64-cce0-4c71-88b5-c0d8f9c74e52",
+      "route": "/feedback/89a6012c-4a5e-4bb2-9764-c3164435d0c6",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -2954,7 +2959,7 @@
       "role": "learner",
       "caseId": "A18",
       "project": "mobile",
-      "route": "/feedback/ebc9fa71-9c7d-478c-9170-7527e48fffb2",
+      "route": "/feedback/ae56dcf1-71fb-42aa-bfcc-a9bb3950b64a",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -2976,7 +2981,7 @@
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
-      "headerHeight": 201,
+      "headerHeight": 104,
       "headings": [
         {
           "text": "Feedback review queue",
@@ -2994,7 +2999,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 548,
       "headings": [
         {
           "text": "Feedback review queue",
@@ -3002,7 +3007,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b25dac685f7aeb571033dadd9560e843b57cf2f4d93679b2b028f870f2a2cfb7"
+      "screenshotSHA256": "cf99276b04068be10fdd4a25ab1aa8b80d04a95ec1302758335f34a24925514a"
     },
     {
       "role": "admin",
@@ -3020,7 +3025,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "1cce415b77b15d9cee8567878bd5f94268017dcbfb3278c01d83e046dbf923f6"
+      "screenshotSHA256": "a786e2b306ce0dc0d76b5a37819d0e716dd56fefcf8c2c2392c6a40fd9b74544"
     },
     {
       "role": "admin",
@@ -3080,7 +3085,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
+      "route": "/review/feedback/cc9e8524-e9a0-401f-8b86-979cd6f6acbb",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3098,11 +3103,11 @@
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
+      "route": "/review/feedback/cc9e8524-e9a0-401f-8b86-979cd6f6acbb",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "Report details",
@@ -3110,13 +3115,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "67f94f24f5c934ca21259f7ca42c5cb0acf18d4d608cd8dda905e7699c437b48"
+      "screenshotSHA256": "133f7c52e7242a08c2cd33d164305ab6dca357fd4369782bbc96e7cd8a4003bc"
     },
     {
       "role": "admin",
       "caseId": "A20",
       "project": "mobile",
-      "route": "/review/feedback/45568969-496f-4ae1-a7c5-772acbb0e2d1",
+      "route": "/review/feedback/aaa3aba0-d920-46c7-942b-5e268426f0ed",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3128,13 +3133,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "4caa712cb7df8546039ec131a746354c3bdda3d171039b6be35d5d35901cc367"
+      "screenshotSHA256": "c47b026b192113f1e95d107a03cb5622334fa91ca9fa8aaf7427444f564300eb"
     },
     {
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
+      "route": "/review/feedback/cc9e8524-e9a0-401f-8b86-979cd6f6acbb",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3152,7 +3157,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "desktop",
-      "route": "/review/feedback/3b9854f9-efe4-47aa-b0aa-9459bc470bde",
+      "route": "/review/feedback/cc9e8524-e9a0-401f-8b86-979cd6f6acbb",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3170,7 +3175,7 @@
       "role": "admin",
       "caseId": "A20",
       "project": "mobile",
-      "route": "/review/feedback/45568969-496f-4ae1-a7c5-772acbb0e2d1",
+      "route": "/review/feedback/aaa3aba0-d920-46c7-942b-5e268426f0ed",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3210,7 +3215,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "Knowledge management",
@@ -3218,7 +3223,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "a501c4c4a5ec06db078b5e6a9a417f9c43e5fd6594b8bf8a5cc3337af9875272"
+      "screenshotSHA256": "69b64169caa7ee1462771f64500a33fbb0dac0bb07d4bb27e193613bc6aa6944"
     },
     {
       "role": "admin",
@@ -3236,7 +3241,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "d51a8e59aa3869f5e6e74570f4905fc44f6a0c89251f818fdbed3ba0a9800ff1"
+      "screenshotSHA256": "0803a7ad139d48a1f6f53729d0be74ea2d3107af4721d437b405fde5af9faf73"
     },
     {
       "role": "admin",
@@ -3264,7 +3269,7 @@
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.5,
+      "headerHeight": 333,
       "headings": [
         {
           "text": "知识管理",
@@ -3272,7 +3277,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b48179d62d845507b29a12867e7e0cd86b40fb97e5575a2d94dceb306710c86e"
+      "screenshotSHA256": "d25fa011ca6dbc7dd85e9c1c1c6253fbd582965fa34f7ae5c3522f55bb88ec36"
     },
     {
       "role": "admin",
@@ -3318,7 +3323,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 548,
       "headings": [
         {
           "text": "Edit · 有理分数",
@@ -3326,7 +3331,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "faebc200a4349fa27c4d36020d126e8c8456c85cf995bf789b94e5adc6cbce79"
+      "screenshotSHA256": "71fff65e3c6a4c9f6ef3b11c926f037198be6efba095aaf212083ef7a160427a"
     },
     {
       "role": "admin",
@@ -3344,7 +3349,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f26bf2bd1ad206786c9add876b0054cb604670e568f5a5607af9f95547f7ee0c"
+      "screenshotSHA256": "8002f58df67aabf2521e7e3dfa4b61e101386183ec5ecd4023165996857ee3c4"
     },
     {
       "role": "admin",
@@ -3408,7 +3413,7 @@
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
-      "headerHeight": 201,
+      "headerHeight": 104,
       "headings": [
         {
           "text": "Note approvals",
@@ -3416,7 +3421,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "5b84ca570debf592b06ad7fdfab1ff640e33937aa9d071bb3705c5d72323c532"
+      "screenshotSHA256": "106c2044c1774bea1ee2b0695e24692be74411409e0d819e14136aa1b8b7d05e"
     },
     {
       "role": "admin",
@@ -3426,7 +3431,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 514.875,
+      "headerHeight": 548,
       "headings": [
         {
           "text": "Note approvals",
@@ -3434,7 +3439,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "03a9bc7a701e6804338dcb3d86417fa6e2b28d04bad1426848185e1a0a92024b"
+      "screenshotSHA256": "3736d86d5ee9472af4e83c38cc8bfaf58d7cf3305db5dba3e17a63ff0df1bd91"
     },
     {
       "role": "admin",
@@ -3452,7 +3457,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "36879f6c7c6bcb54fae5cb796ac284690221ecc8d77f5f2a864ed46e894770a9"
+      "screenshotSHA256": "aa7c01f883ba3b213c597a05a7a341585d1daf14f802dc666d980b3df4884136"
     },
     {
       "role": "admin",
@@ -3470,7 +3475,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "2897ff32f5d776779d65b98d115e7d8090b9dedabf7b5227ff5f571da1696b62"
+      "screenshotSHA256": "bc1979a61f457a23c023c36def4099b88c34f1a1d8879a3fbf736d8d0d2dfb59"
     },
     {
       "role": "admin",
@@ -3488,7 +3493,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "d40c491530652fe6acc7fa88420080f66726c8c182c768ea0a5dc029f76602b0"
+      "screenshotSHA256": "1d95d8c773b03b7fd5743e2a097a3b8348dbcf8f1445eccee39926429edded7a"
     },
     {
       "role": "admin",
@@ -3506,13 +3511,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "bc5ad327767129635f8553ece4a35263865feb4c6ee080eb0131ff5239ca2c48"
+      "screenshotSHA256": "9d9b1322bffb4f77179120aab1986559e162916807c47863e9c918c002b3fa11"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
+      "route": "/admin/note-shares/41412ff0-33f0-4a00-bbd9-7d7085942f0d",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3529,17 +3534,17 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "5c9375eacdba8a565a11060bf756d151bb43586b9c20ad4a045ba67dd05f6677"
+      "screenshotSHA256": "7720e5a05a47c2346fc603b579d2161e213590f0f4d2a48539c2744e44722895"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
+      "route": "/admin/note-shares/41412ff0-33f0-4a00-bbd9-7d7085942f0d",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "Shared technical note 13",
@@ -3552,13 +3557,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "0bb4b72afbd05b3aff0ce36633d7e4fc03f461bb4b6ff9a10bf654f95cf93405"
+      "screenshotSHA256": "2700e7427abcd79686c594c4b6a206f3adc005f515df40da4b3d33e031b2e0e7"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "mobile",
-      "route": "/admin/note-shares/46b92477-0f2b-4e39-8d82-251e5708ebfa",
+      "route": "/admin/note-shares/2c256223-a031-45c3-bca7-a394e8ed2c0e",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3575,13 +3580,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "b1c460148c39abf4cb1234907f34c028aa7a4b048111e309c139d06a768eace8"
+      "screenshotSHA256": "046d62a2a8bc1eee4dda5c454b39b02537e9f798212c47607b95d87a83deb4ec"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
+      "route": "/admin/note-shares/41412ff0-33f0-4a00-bbd9-7d7085942f0d",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3598,17 +3603,17 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "d4a968281dc7620aa74ec1d9d489b54ee7521862afdd1592ea9985d378026835"
+      "screenshotSHA256": "c22ed05b73ba8ae81b2be23bac331f0823d3700fe8009c0bb0690ba4542878cc"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "desktop",
-      "route": "/admin/note-shares/f9f197fe-296b-48d9-9e95-31aeafbec0f5",
+      "route": "/admin/note-shares/41412ff0-33f0-4a00-bbd9-7d7085942f0d",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.5,
+      "headerHeight": 333,
       "headings": [
         {
           "text": "Shared technical note 13",
@@ -3621,13 +3626,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "e952aaa2c4ca2a454d79cfb495972f25b1d9c4dbaa3633d8195bede04a4d65e1"
+      "screenshotSHA256": "8cc68f20701155a4f3f7ef3ce87582fbb5303918599fc19510e9bc0060b8b439"
     },
     {
       "role": "admin",
       "caseId": "A24",
       "project": "mobile",
-      "route": "/admin/note-shares/46b92477-0f2b-4e39-8d82-251e5708ebfa",
+      "route": "/admin/note-shares/2c256223-a031-45c3-bca7-a394e8ed2c0e",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3644,7 +3649,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "6f3896fecc5829da8a23d15e836e5d3a03d185d48ddab6c0b0e4af59882df549"
+      "screenshotSHA256": "61d9bc14b6045b9cc05f59e23f5830d09819b11ad42a41d53d7392af7d579f26"
     },
     {
       "role": "admin",
@@ -3654,7 +3659,7 @@
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
-      "headerHeight": 201,
+      "headerHeight": 104,
       "headings": [
         {
           "text": "People & permissions",
@@ -3672,7 +3677,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "People & permissions",
@@ -3680,7 +3685,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f7265e0e92c5fc6ce9ddc846c6c740412ca8281a8d2140986b7c0944649e5aed"
+      "screenshotSHA256": "0c5ce2aedfde0f85222bce9c2d5d8edcba3171b4648b7d391dee9bee4da9a605"
     },
     {
       "role": "admin",
@@ -3698,7 +3703,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "cf9c698863f169c5427e073d9cd32f1faa55257ba90df32c3d6af659efa1288f"
+      "screenshotSHA256": "6a66f920709d59e131e74a78a3cf3879df1142a6632aee0e2313ec96aaca8b3e"
     },
     {
       "role": "admin",
@@ -3788,7 +3793,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "02a13fdfd291bb42442c915adebd364f4339c4902fcd3f416c861761af6e022f"
+      "screenshotSHA256": "d83b4002747ba19386f5c89b1c8c7e12cb1780979f097cd928c04492c16225fa"
     },
     {
       "role": "admin",
@@ -3824,7 +3829,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "cad908b39cfb85efa60e707d10cda8a4661ce49bdb7a54abfac124bd1d0a5cf4"
+      "screenshotSHA256": "9204e1c9de38b19031e517dd132c79240d3d5f42dc756d34c18f6c3e60f0471f"
     },
     {
       "role": "admin",
@@ -3834,7 +3839,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "Knowledge management",
@@ -3842,13 +3847,13 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b16cd17592128756aa909ad9d46cae2f97776e54108a51bad21870e2ee655001"
+      "screenshotSHA256": "744a7d7da16ae9c607a4596bd6d9e48e845d9535dd63ef754090a3cc931a4da2"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
+      "route": "/admin/note-shares/a411ed95-3803-487a-b5f9-72b481ba313d",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3865,17 +3870,17 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "2e1a446944d35da9b1ecaf91c9ba33deb753a9f24ec24464743bc26ffe2de22f"
+      "screenshotSHA256": "f79a360591098bcf2319a197d6ab7e669e62de7a6936fff3b824cf7609972cdf"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
+      "route": "/admin/note-shares/a411ed95-3803-487a-b5f9-72b481ba313d",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 548,
       "headings": [
         {
           "text": "Shared technical note 01",
@@ -3888,13 +3893,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "cc4b54243f23680b9141bc8eaa456cc57aebd16d6b5e07596ebff48adf8207c6"
+      "screenshotSHA256": "2e3f28e3b328266315f71d4164a2661e5ed968fa656e6a1e7b4da1434253b177"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "mobile",
-      "route": "/admin/note-shares/cb6425fa-0006-44f0-9f95-42e6208044a5",
+      "route": "/admin/note-shares/28959be9-b5b7-4ff2-96a9-2db7c1470f7b",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3911,13 +3916,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "31c50f228e270224fc54c7a115016b42f7af163605a47f0bfb40933af2f54a81"
+      "screenshotSHA256": "e103a78368f718e1e314f5013f96f78c4f263df94647c2beff6287e218cb4a37"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
+      "route": "/admin/note-shares/a411ed95-3803-487a-b5f9-72b481ba313d",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -3934,13 +3939,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "5e32787574f79301950bdd09b7bef0b2fdafa7f3d8d1f91fd31314856adec3d6"
+      "screenshotSHA256": "602bf80fc03b457ac1fe8a3b6916413a3276a33d013b6230a6243fedcacdabb1"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "desktop",
-      "route": "/admin/note-shares/57c5f240-2957-4a70-b43f-05353ea9057a",
+      "route": "/admin/note-shares/a411ed95-3803-487a-b5f9-72b481ba313d",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -3957,13 +3962,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "7f77772a117c6aa86c36289e0ac0605ff4df86869ef3c3c403a1e537bb504aaf"
+      "screenshotSHA256": "f866ce90b02134850cd5bf0b8d2dccbd24ea61e1b10c06eb2db68d8a2fc3cedd"
     },
     {
       "role": "admin",
       "caseId": "G-approval-hide",
       "project": "mobile",
-      "route": "/admin/note-shares/cb6425fa-0006-44f0-9f95-42e6208044a5",
+      "route": "/admin/note-shares/28959be9-b5b7-4ff2-96a9-2db7c1470f7b",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -3980,13 +3985,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "9aaa8de397fb62357f992dff96649e9e236c3c688893d6f7ebcdb12658308f35"
+      "screenshotSHA256": "f73dc37149b7d189b2aefb4be7b45776f82a187e9770ad209f88a34cf0f8cadc"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
+      "route": "/admin/note-shares/adab7eec-9994-4ff1-97d0-d336e8d627cc",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -4003,17 +4008,17 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "d2578934d22975f250502aaf36e10145de3680e857e898a69512a6137322755d"
+      "screenshotSHA256": "b1215b17966dd0cbdc55b0030015e8981a2839e938ab2d5f877efa252f534cfc"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
+      "route": "/admin/note-shares/adab7eec-9994-4ff1-97d0-d336e8d627cc",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "Shared technical note 13",
@@ -4026,13 +4031,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "674c88f68a00a52e95b7a64302059dfcaf708ac55434c15e81a278e7adc1ff13"
+      "screenshotSHA256": "3711bd214556a656184cd910f25b74a4b679dc143b4bee52388cdd44654e9a9f"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "mobile",
-      "route": "/admin/note-shares/1ebb9b9c-9d94-4161-9252-d390c91e4a8b",
+      "route": "/admin/note-shares/62bf14cd-0c2b-4ef7-b253-73b4e95dd65a",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -4049,13 +4054,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "66dd1db67a92d6c847bbab5822abd97bd253ad2a907a4cd066574b6fa8785bcf"
+      "screenshotSHA256": "89400723cb901f1d25a54277457c122115a16c8f20ef99e43ba07e72e3101192"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
+      "route": "/admin/note-shares/adab7eec-9994-4ff1-97d0-d336e8d627cc",
       "locale": "zh-CN",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -4072,13 +4077,13 @@
           "line": 32.3
         }
       ],
-      "screenshotSHA256": "d493aca35423fd56f7abe33740d383bad8bc9b85ba2820f1f28fa97b2c75fbaa"
+      "screenshotSHA256": "aaa8057bc42e0bd7f60939f30af194576121e60ac41de11ad99b2a0d81f4d834"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "desktop",
-      "route": "/admin/note-shares/ee41372b-f64c-4438-9e7b-316d6f6dadc7",
+      "route": "/admin/note-shares/adab7eec-9994-4ff1-97d0-d336e8d627cc",
       "locale": "zh-CN",
       "viewportWidth": 320,
       "pageWidth": 320,
@@ -4095,13 +4100,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "89cba95584a7e8510b3d6e0325a75aa8dd01e0b579b5ad0d7d40f878d24a861b"
+      "screenshotSHA256": "51ecc184ff9fd36159098f95ba202fabcc4c2b2ca2585cb98f120fb1e0fadd13"
     },
     {
       "role": "admin",
       "caseId": "G-approval-return",
       "project": "mobile",
-      "route": "/admin/note-shares/1ebb9b9c-9d94-4161-9252-d390c91e4a8b",
+      "route": "/admin/note-shares/62bf14cd-0c2b-4ef7-b253-73b4e95dd65a",
       "locale": "zh-CN",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -4118,13 +4123,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "b10683c5e582b4f1fc28e7e148417bf752acdaa589f6af53bd2adaabc75eb9bf"
+      "screenshotSHA256": "c01325592e33fbe03845ceb33c1ab0c1f3c42a022bf20fedbcd294a51e2bc957"
     },
     {
       "role": "learner",
       "caseId": "G-compare-800",
       "project": "mobile",
-      "route": "/learn/review/159b4745-e2bf-4103-a70e-56f9ce749027",
+      "route": "/learn/review/9e35062b-4560-446e-866a-bf5bbb6b200f",
       "locale": "en",
       "viewportWidth": 800,
       "pageWidth": 800,
@@ -4167,7 +4172,7 @@
       "role": "learner",
       "caseId": "G-compare-801",
       "project": "mobile",
-      "route": "/learn/review/159b4745-e2bf-4103-a70e-56f9ce749027",
+      "route": "/learn/review/9e35062b-4560-446e-866a-bf5bbb6b200f",
       "locale": "en",
       "viewportWidth": 801,
       "pageWidth": 801,
@@ -4232,7 +4237,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Knowledge map",
@@ -4240,7 +4245,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f4275a8f7b6a37a6d1a80304aaa5141448b15206eb5d76e88aaa8a377e276345"
+      "screenshotSHA256": "292f6c7e349230a95decdab42dc8f41db728d47d73f8f37684a02a4461abf685"
     },
     {
       "role": "anonymous",
@@ -4250,7 +4255,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Knowledge map",
@@ -4258,7 +4263,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "0cfb55f4d4cbaed5e88bba476ddf770ed4b0c97f7ee169f99c1755b8bc0437ed"
+      "screenshotSHA256": "cf0e377d421c8285d2ef9671326ad24187864a4bf64fb165087c852594643912"
     },
     {
       "role": "anonymous",
@@ -4330,7 +4335,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "f0d5e87c2c0c9ebd9b0a172e101867e33b2bfd43476827a8a2cac3f0bd75173a"
+      "screenshotSHA256": "ccac7480a50563a7590e6b9fdda70d9f37793187db3f96071e43325ab2745bac"
     },
     {
       "role": "admin",
@@ -4358,7 +4363,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Rational fraction",
@@ -4407,7 +4412,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "8e6256594a9af56c5bb79e67ed14f2fa61f641d68ba7340534f3fa8f5802bf93"
+      "screenshotSHA256": "7846f16610da4cfd6fe1fb69b238066621c0f6aad23a90daa0ba0342e10d374f"
     },
     {
       "role": "learner",
@@ -4527,7 +4532,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Rational fraction",
@@ -4572,7 +4577,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "6636ce32ac2f66e9ddac1604c977fb135fbfb1f6ee2af9da1f6ed33c867ee31a"
+      "screenshotSHA256": "b53e2689aa2af86a37d88ccce05192ed75b786b2b057efe061d4a626b39316f8"
     },
     {
       "role": "learner",
@@ -4673,7 +4678,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Understand mathematics, one idea at a time",
@@ -4681,7 +4686,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "31a390173f282872b2280a2b7fe201b3a4efb0a5ad05343e5134cd1084a902be"
+      "screenshotSHA256": "8e898643f8e323c7fd5e908839fbb2e9026c0c75f4b38c572ab3c975810f8506"
     },
     {
       "role": "anonymous",
@@ -4699,7 +4704,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "df1e607b841ff0bf137b5b97bf99c03b287f3d942d3e8bc096a634b2b0306697"
+      "screenshotSHA256": "b659183a1f0555a952a2e342ada7316c161385c5ef3f9cafef78ad02c9798ab6"
     },
     {
       "role": "anonymous",
@@ -4763,7 +4768,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Knowledge map",
@@ -4771,7 +4776,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "805080ce169c6b8ed127e578b85e97808304acf4ea0fc59240271d3344dac1f7"
+      "screenshotSHA256": "1ffd76858d16793cf5186b8a90fad9e4ef1001e606cf11283a17452642fd9d17"
     },
     {
       "role": "anonymous",
@@ -4781,7 +4786,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Knowledge map",
@@ -4789,7 +4794,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "0d5f7f887122a559bbcb94d9d99a73a37da5ab06d8d96daf3101b09220891e58"
+      "screenshotSHA256": "8e787966642d024a9a663abd3753fce00aef4815648bdbbe3763c76b3b32c35e"
     },
     {
       "role": "anonymous",
@@ -4812,7 +4817,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 1280,
@@ -4830,7 +4835,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 1440,
@@ -4848,12 +4853,12 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Welcome back.",
@@ -4861,12 +4866,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "cc3d2e43d6839adbe5a6f1f334b8976f224cfc5de96a8a87e24f1a5a710857ef"
+      "screenshotSHA256": "2122e18101b9e3190b0ce896c6bc6903563ed6e0356bdb748b4d898d9b780ea4"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 390,
@@ -4879,12 +4884,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "3731508930df8f702338419d3574f7bc3910e905cd8390183e2fe608266a87f4"
+      "screenshotSHA256": "5e86b66b35ebaa5fa3f9fec630cf769a144782d5c5ef3e1bf22fa2e2e051bc47"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-login",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/login",
       "locale": "en",
       "viewportWidth": 768,
@@ -4902,7 +4907,7 @@
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 1280,
@@ -4915,12 +4920,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "1ed1c588a4a1b7276a0353d827a91038ea62f83c757ca4f4b589bdfdd652adbf"
+      "screenshotSHA256": "a09ce68d00d8470734b673ca90100bfda525a10caaf66c140f828d589b69c677"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 1440,
@@ -4933,17 +4938,17 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "fe5a48cf5161b8264e3091bbe43cb136bbd979a06e6994d11ded0586c0b2564e"
+      "screenshotSHA256": "e87b2e5a4aec20b46eb4a5211bfeca74add1ca95fe8a1599b832c7578f9aa63a"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Shared notes",
@@ -4951,12 +4956,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "1c5eedae94d2c8f87253a1833814f89f4efbf147c53709b3f8edac43dfc76eca"
+      "screenshotSHA256": "641ff403839876499910a628e637ecef5b6fc769846ee431e8770569c5693b8b"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 390,
@@ -4969,12 +4974,12 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "15842d38120b4fd9093eebce07950631a2d56f956d6817bb56bd3aac002145fe"
+      "screenshotSHA256": "0ca45736714226b1aab5733ba3c70b92edf60fb35926413723a584e44dbad879"
     },
     {
       "role": "anonymous",
       "caseId": "G-wide-notes",
-      "project": "desktop",
+      "project": "mobile",
       "route": "/notes",
       "locale": "en",
       "viewportWidth": 768,
@@ -4987,7 +4992,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "d93034f56a9c5ce1a88b9003b8513235172dd7aa2cccb991563ee105f53831f5"
+      "screenshotSHA256": "d9c3f92d2056156f22ad0006374bd195c0a2a2a133966e7af9efee7bec08d57e"
     },
     {
       "role": "anonymous",
@@ -5107,7 +5112,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 179.875,
+      "headerHeight": 213,
       "headings": [
         {
           "text": "Rational fraction",
@@ -5152,7 +5157,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "5497d8e289f5c418a3eb63467dad98f2374ce844813351324d66c0753ce25358"
+      "screenshotSHA256": "b4a4024ca02559f5a7b9bcf521556f462ceec1fc85fcda5c938db93511836d7c"
     },
     {
       "role": "anonymous",
@@ -5162,7 +5167,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Rational fraction",
@@ -5207,7 +5212,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "522b3d0e2af492d0827e94c6f4d1d4a34c24e7d36bfe8f11b3fdbc1d0cf1858c"
+      "screenshotSHA256": "0902e228a081d27585869c20d20ae74fce1b181a17ee70b912c0799fd69c9d12"
     },
     {
       "role": "anonymous",
@@ -5268,7 +5273,7 @@
       "role": "learner",
       "caseId": "cross-firefox-desktop-compare",
       "project": "firefox-desktop",
-      "route": "/learn/review/b88b7be5-f344-448d-b1fc-8476ffb3b8ef",
+      "route": "/learn/review/fff87a34-7108-4b6a-bc96-c56b947d6599",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -5315,7 +5320,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 194.39999389648438,
+      "headerHeight": 227.5,
       "headings": [
         {
           "text": "People & permissions",
@@ -5323,7 +5328,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "50d1a8a2ab678ff8587c5197c1bbf16333e0303c548cfff83bad13ec0ef04940"
+      "screenshotSHA256": "fc277d472f38105b161118390a5581111a6b2de01b198b74a517a6b5b20cbaa5"
     },
     {
       "role": "anonymous",
@@ -5406,7 +5411,7 @@
       "role": "learner",
       "caseId": "cross-firefox-mobile-compare",
       "project": "firefox-mobile",
-      "route": "/learn/review/610c2638-5bd7-431f-8280-1341abd33512",
+      "route": "/learn/review/a698a4aa-44c6-464e-86ed-3c14fc5ca99c",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -5443,7 +5448,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "37ccb65680f77146030256d8e30fe191ef89ac4005a5ea65530eb34a6bdc8729"
+      "screenshotSHA256": "ffd6bbe324254e48616cfea817c4bb1d66196355bbcbd49a9cd3d0219e3c20cf"
     },
     {
       "role": "admin",
@@ -5453,7 +5458,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 194.39999389648438,
+      "headerHeight": 227.5,
       "headings": [
         {
           "text": "People & permissions",
@@ -5461,7 +5466,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "50d1a8a2ab678ff8587c5197c1bbf16333e0303c548cfff83bad13ec0ef04940"
+      "screenshotSHA256": "fc277d472f38105b161118390a5581111a6b2de01b198b74a517a6b5b20cbaa5"
     },
     {
       "role": "anonymous",
@@ -5479,7 +5484,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "435961226ba08900e9e9bab057882bcadda17b08ae32f03abf6406c2b8307e9f"
+      "screenshotSHA256": "801a0abfdc4b4f7ce0638924ac870fb16a2c502190ae41a571925e6334fdfe50"
     },
     {
       "role": "learner",
@@ -5489,7 +5494,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.89999389648438,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Rational fraction",
@@ -5538,13 +5543,13 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "92ae0267301a34b4ff8b5787ffcdb68c12e73830028bf953c1f0f87907cfa713"
+      "screenshotSHA256": "a2c7e7cae71f2884120e17cfabef53eb9fe300baae988c9c93c58bffdb931182"
     },
     {
       "role": "learner",
       "caseId": "cross-webkit-desktop-compare",
       "project": "webkit-desktop",
-      "route": "/learn/review/ddb25f76-56a2-4157-96c2-a181a933e1b7",
+      "route": "/learn/review/7c7288a8-f302-4799-8ece-0178b3a7225d",
       "locale": "en",
       "viewportWidth": 1280,
       "pageWidth": 1280,
@@ -5591,7 +5596,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "People & permissions",
@@ -5599,7 +5604,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b50f72d4089a347609bae73eb78ce5f2a39ecf171f35a8f7444eedea71e2f920"
+      "screenshotSHA256": "1fe0f54c52e5273730807c9885ddb55a139b2a7c32c19dc7ac62c0b0f1c580e9"
     },
     {
       "role": "anonymous",
@@ -5682,7 +5687,7 @@
       "role": "learner",
       "caseId": "cross-webkit-mobile-compare",
       "project": "webkit-mobile",
-      "route": "/learn/review/c502b056-21ea-4f6b-876b-389560e87c89",
+      "route": "/learn/review/bef93b43-6a54-4772-a254-3d36ade18071",
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
@@ -5719,7 +5724,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "dd361564ffcb58e13f5fd0902d0a212f0e614f6f082d2a02db6693264e3ab5f9"
+      "screenshotSHA256": "5cf37c6610e2fcf52009e84816e12f59015fdfe569ce72fbf9755fc841470a74"
     },
     {
       "role": "admin",
@@ -5729,7 +5734,7 @@
       "locale": "en",
       "viewportWidth": 320,
       "pageWidth": 320,
-      "headerHeight": 213.875,
+      "headerHeight": 247,
       "headings": [
         {
           "text": "People & permissions",
@@ -5737,7 +5742,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "b50f72d4089a347609bae73eb78ce5f2a39ecf171f35a8f7444eedea71e2f920"
+      "screenshotSHA256": "1fe0f54c52e5273730807c9885ddb55a139b2a7c32c19dc7ac62c0b0f1c580e9"
     },
     {
       "role": "anonymous",
@@ -5755,7 +5760,7 @@
         }
       ],
       "prose": [],
-      "screenshotSHA256": "d8b8c94110c1ff243439db07ebd7fd9f71676666bfa87983f8abb9e939c81feb"
+      "screenshotSHA256": "ccaebfc456bac9d08a0a0ca2bf6f4c1ee83a6202b587a88cb0964960f9e4d9ad"
     },
     {
       "role": "learner",
@@ -5765,7 +5770,7 @@
       "locale": "en",
       "viewportWidth": 390,
       "pageWidth": 390,
-      "headerHeight": 179.875,
+      "headerHeight": 165,
       "headings": [
         {
           "text": "Rational fraction",
@@ -5814,7 +5819,7 @@
           "line": 29.6
         }
       ],
-      "screenshotSHA256": "624c3da712206e62fbbb5ad81eb60837a23d26a15ae18554a8dd2bce52f2bf47"
+      "screenshotSHA256": "50336429f78f7b6b76757f1adf45251d3f5c02125a37cd18e82d4eb8040ca8b3"
     }
   ],
   "assets": {
@@ -5823,8 +5828,8 @@
     "gzipLevel": 9,
     "css": {
       "before": 14224,
-      "after": 17040,
-      "delta": 2816,
+      "after": 17042,
+      "delta": 2818,
       "budget": 10240
     },
     "initialJS": {
@@ -5868,10 +5873,6 @@
       "css": {
         "assets": [
           {
-            "path": "static/chunks/0rcwcxgtj5jkr.css",
-            "gzipBytes": 7464
-          },
-          {
             "path": "static/chunks/1e1ssdd5x31a_.css",
             "gzipBytes": 7618
           },
@@ -5880,11 +5881,15 @@
             "gzipBytes": 567
           },
           {
+            "path": "static/chunks/2z8co_j05laci.css",
+            "gzipBytes": 7466
+          },
+          {
             "path": "static/chunks/3qpw276sm2fpp.css",
             "gzipBytes": 1391
           }
         ],
-        "gzipBytes": 17040
+        "gzipBytes": 17042
       },
       "initialJS": {
         "A01": {

@@ -1,10 +1,11 @@
 {
   "method": "Firefox native textZoom=2, fullZoom=1; no page CSS font overrides; DPR1 and content viewport held unchanged before/after. Browser chrome content container sized320 for macOS outer-window500 minimum; real page viewport320. Original input/textarea masked only for screenshots.",
   "browserVersion": "155.0",
-  "productParentCommit": "8b145d2e5f319069ca430e17965400f035be5fff",
+  "productParentCommit": "5abdf9280796221db3274591e0e77dd6f6bfc093",
   "sourceDigests": {
     "frontend/src/styles/current-home.module.css": "1603c36f07c8969799f4f6db02752daa90009918d88df064da641f632ee6b7c7",
-    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2"
+    "frontend/src/styles/notes.module.css": "e8b91bd18e666de8d3a8e416cb22ec65adef9fe49380a5db62bda857d71f26a2",
+    "frontend/src/styles/globals.css": "765bd334e5e5bc78704e6f1e70ceb0ed5506a5a61431a5d66a932dca2830e076"
   },
   "records": [
     {
@@ -46,7 +47,7 @@
       "pageWidth": 390,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 332.79998779296875,
+      "headerHeight": 352.79998779296875,
       "h1": "Understand mathematics, one idea at a time",
       "focusTargets": 9,
       "screenshot": "text200-header-390-en.png",
@@ -61,7 +62,7 @@
       "pageWidth": 390,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 269.8999938964844,
+      "headerHeight": 289.8999938964844,
       "h1": "从一个知识点开始，理解数学",
       "focusTargets": 9,
       "screenshot": "text200-header-390-zh.png",
@@ -76,7 +77,7 @@
       "pageWidth": 320,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 332.79998779296875,
+      "headerHeight": 352.79998779296875,
       "h1": "Understand mathematics, one idea at a time",
       "focusTargets": 9,
       "screenshot": "text200-header-320-en.png",
@@ -91,7 +92,7 @@
       "pageWidth": 320,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 269.8999938964844,
+      "headerHeight": 289.8999938964844,
       "h1": "从一个知识点开始，理解数学",
       "focusTargets": 9,
       "screenshot": "text200-header-320-zh.png",
@@ -106,7 +107,7 @@
       "pageWidth": 320,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 332.79998779296875,
+      "headerHeight": 352.79998779296875,
       "h1": "Welcome back.",
       "focus": {
         "active": true,
@@ -168,7 +169,7 @@
       },
       "tabSteps": 6,
       "screenshot": "text200-dialog-1280.png",
-      "screenshotSHA256": "e145f1f5d8b707b078d5dafae8801c52b5efba91ecf95a8c0d1da89821260ac7"
+      "screenshotSHA256": "1bb6387151fe147c07d7a726f54a77731e92513f39122c1f34264ec43a8cf041"
     },
     {
       "case": "admin-form-320",
@@ -179,12 +180,12 @@
       "pageWidth": 320,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 701.4000244140625,
+      "headerHeight": 721.4000244140625,
       "h1": "Edit · 有理分数",
       "textareaCount": 17,
       "focusTargets": 17,
       "screenshot": "text200-admin-form-320.png",
-      "screenshotSHA256": "45fcc89df9688f164514fce375d61ab8d79dcfc7d7d7b8736e98ffb96895214f"
+      "screenshotSHA256": "a719e3f12d71297ea6cb2aa153c61ea0a48be4fc5c61d996d114b478c89f2d2e"
     },
     {
       "case": "dialog-320",
@@ -195,7 +196,7 @@
       "pageWidth": 320,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 701.4000244140625,
+      "headerHeight": 721.4000244140625,
       "h1": "People & permissions",
       "focus": {
         "active": true,
@@ -213,7 +214,7 @@
       },
       "tabSteps": 6,
       "screenshot": "text200-dialog-320.png",
-      "screenshotSHA256": "32db0fea4992030e9b64330a40d43d42ffa6b7dbf6676ac2591d0f1ac830300e"
+      "screenshotSHA256": "0032fedeaf3d17a628efbc1dbe73318df7b7c12bf3e05a57eb242968099b0572"
     },
     {
       "case": "reading-1280",
@@ -239,11 +240,11 @@
       "pageWidth": 320,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 544.9000244140625,
+      "headerHeight": 564.9000244140625,
       "h1": "Rational fraction",
       "proseFont": 32,
       "screenshot": "text200-reading-320.png",
-      "screenshotSHA256": "b5de004d55e7d5cbad86af183e6d7ffffd2c32ea69bb2a33b382cc98bdd87f87"
+      "screenshotSHA256": "7b26730b855c3e4ab708960642e03d28dfde43c3f390cc3789c47a613042665d"
     },
     {
       "case": "formula-keyboard",
@@ -254,17 +255,17 @@
       "pageWidth": 320,
       "dpr": 1,
       "bodyFont": 32,
-      "headerHeight": 544.9000244140625,
+      "headerHeight": 564.9000244140625,
       "h1": "Rational fraction",
       "focus": {
         "active": true,
-        "top": 427.79998779296875,
-        "bottom": 488.0333251953125,
+        "top": 427.6000061035156,
+        "bottom": 487.8333282470703,
         "height": 915,
         "left": 41,
         "right": 279,
         "viewportWidth": 320,
-        "visibleHeight": 60.23333740234375,
+        "visibleHeight": 60.23332214355469,
         "uncovered": true,
         "outline": "none",
         "outlineWidth": "3px",
@@ -274,8 +275,7 @@
       "clientWidth": 238,
       "scrollWidth": 4315,
       "screenshot": "text200-formula-keyboard.png",
-      "screenshotSHA256": "9b1a0971061a91f128dbc33f652b0398027fbf81497dba71d795a704ff0899aa"
+      "screenshotSHA256": "ba8a757937282073d3a58ddfd09d479380c5a45bc677bbc49d85e922dbab0ce2"
     }
-  ],
-  "productSourceCommit": "0be2c7e692745e50e0f14a6bf9113661777a92f5"
+  ]
 }
