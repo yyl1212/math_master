@@ -4889,6 +4889,19 @@
         "tests/e2e/study-review-recall.spec.ts",
         "tests/e2e/study-review-security.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/components/page-heading.tsx",
+      "module": "public",
+      "complete": true,
+      "messageKeys": [],
+      "noOwnText": true,
+      "rawDataAreas": [
+        "caller-owned ReactNode slots, no data access"
+      ],
+      "scenarios": [
+        "tests/e2e/ui-language-streamline.spec.ts"
+      ]
     }
   ]
 }

@@ -6,7 +6,7 @@ const login=async(page:Page)=>{await page.goto('/login');await page.getByLabel('
 async function control(field:Locator){
  await expect(field).toBeVisible();
  const shape=await field.evaluate(node=>{const css=getComputedStyle(node);return {height:node.getBoundingClientRect().height,radius:css.borderRadius,color:css.color,border:css.borderTopColor,box:css.boxSizing,arrow:node.tagName==='SELECT'?css.backgroundImage:undefined}});
- expect(shape.height).toBe(48);expect(shape.radius).toBe('10px');expect(shape.color).toBe('rgb(32, 60, 46)');expect(shape.border).toBe('rgb(222, 223, 212)');expect(shape.box).toBe('border-box');
+ expect(shape.height).toBe(48);expect(shape.radius).toBe('10px');expect(shape.color).toBe('rgb(32, 60, 46)');expect(shape.border).toBe('rgb(133, 142, 130)');expect(shape.box).toBe('border-box');
  if(shape.arrow!==undefined)expect(shape.arrow).not.toBe('none');
 }
 async function narrow(page:Page){await fitsViewport(page);await page.setViewportSize({width:320,height:844});await fitsViewport(page)};
@@ -35,7 +35,7 @@ test('upload localizes native file selection and keeps chosen files through both
  const button=page.getByText('Choose files',{exact:true});await expect(button).toBeVisible();await expect(page.getByText('No files selected',{exact:true})).toBeVisible();expect(await button.evaluate(node=>getComputedStyle(node).borderRadius)).toBe('10px');
  const publish=page.getByRole('checkbox',{name:'Upload and publish',exact:true});expect(await publish.evaluate(node=>getComputedStyle(node).accentColor)).toBe('rgb(49, 88, 68)');await expect(publish).toBeChecked();
  const selected={name:'测试知识文件-'+ 'long-name-'.repeat(20)+'.json',mimeType:'application/json',buffer:Buffer.from('{}')};const clicked=page.waitForEvent('filechooser');await page.locator('.file-picker-control').click();await (await clicked).setFiles(selected);await expect(page.getByText('1 file selected',{exact:true})).toBeVisible();
- await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByText('选择文件',{exact:true})).toBeVisible();await expect(page.getByText('已选择 1 个文件',{exact:true})).toBeVisible();const keyboard=page.waitForEvent('filechooser');await file.focus();await expect(file).toBeFocused();expect(await page.getByText('选择文件',{exact:true}).evaluate(node=>getComputedStyle(node).outlineColor)).toBe('rgb(181, 142, 62)');await file.press('Space');await (await keyboard).setFiles([selected,{name:'second.json',mimeType:'application/json',buffer:Buffer.from('{}')}]);await expect(page.getByText('已选择 2 个文件',{exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByText('选择文件',{exact:true})).toBeVisible();await expect(page.getByText('已选择 1 个文件',{exact:true})).toBeVisible();const keyboard=page.waitForEvent('filechooser');await file.focus();await expect(file).toBeFocused();expect(await page.getByText('选择文件',{exact:true}).evaluate(node=>getComputedStyle(node).outlineColor)).toBe('rgb(49, 88, 68)');await file.press('Space');await (await keyboard).setFiles([selected,{name:'second.json',mimeType:'application/json',buffer:Buffer.from('{}')}]);await expect(page.getByText('已选择 2 个文件',{exact:true})).toBeVisible();
  await page.getByRole('button',{name:'English',exact:true}).click();await expect(page.getByText('Choose files',{exact:true})).toBeVisible();await expect(page.getByText('2 files selected',{exact:true})).toBeVisible();expect(await file.evaluate(node=>Array.from((node as HTMLInputElement).files??[]).map(item=>item.name))).toEqual([selected.name,'second.json']);
  await page.getByRole('button',{name:'中文',exact:true}).click();await expect(page.getByRole('checkbox',{name:'上传并发布',exact:true})).toBeChecked();if(!process.env.CI)await page.screenshot({path:info.outputPath('upload.png'),fullPage:true});await narrow(page);
 });
@@ -51,6 +51,6 @@ test('feedback filters align with the action and account roles remain native che
 
 test('keyboard focus and native invalid input remain visible with shared controls',async({page,scene})=>{
  await scene('managed-knowledge');await page.goto('/login');const username=page.getByLabel('Username',{exact:true}),password=page.getByLabel('Password',{exact:true});await control(username);
- await username.focus();await page.keyboard.press('Tab');await expect(password).toBeFocused();expect(await password.evaluate(node=>getComputedStyle(node).outlineColor)).toBe('rgb(181, 142, 62)');
- await username.fill('a');await password.fill(TEST_PASSWORD);await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(username).toBeFocused();expect(await username.evaluate(node=>getComputedStyle(node).borderTopColor)).toBe('rgb(148, 67, 46)');await narrow(page);
+ await username.focus();await page.keyboard.press('Tab');await expect(password).toBeFocused();expect(await password.evaluate(node=>getComputedStyle(node).outlineColor)).toBe('rgb(49, 88, 68)');
+ await username.fill('a');await password.fill(TEST_PASSWORD);await page.getByRole('button',{name:'Sign in',exact:true}).click();await expect(username).toBeFocused();expect(await username.evaluate(node=>getComputedStyle(node).borderTopColor)).toBe('rgb(140, 59, 40)');await narrow(page);
 });

@@ -56,7 +56,7 @@ export function SiteHeader() {
         ><UiText notice={uiMessage("nav.knowledgeMap",{})}/></Link>
         <Link prefetch={false} href="/notes" aria-current={path==='/notes'||path.startsWith('/notes/')?'page':undefined} data-active={path==='/notes'||path.startsWith('/notes/')}><UiText notice={uiMessage('notes.shared',{})}/></Link>
 </nav>
-      <LanguageSwitch /><AuthStatus />
+      <div className="site-utility"><LanguageSwitch /><AuthStatus /></div>
     </header>
   );
 }
