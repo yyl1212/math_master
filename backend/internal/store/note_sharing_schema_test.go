@@ -9,13 +9,18 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/notesharing"
 	"github.com/yyl1212/math_master/backend/internal/testutil"
+	"os"
 	"testing"
 )
 
 func sharingSchemaDB(t *testing.T) *sql.DB {
 	t.Helper()
 	db := testutil.Database(t)
-	if e := Up(context.Background(), db, "../../../db/migrations"); e != nil {
+	provider, e := goose.NewProvider(goose.DialectPostgres, db, os.DirFS("../../../db/migrations"))
+	if e != nil {
+		t.Fatal(e)
+	}
+	if _, e = provider.UpTo(context.Background(), 14); e != nil {
 		t.Fatal(e)
 	}
 	return db

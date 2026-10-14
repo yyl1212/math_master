@@ -6,3 +6,5 @@ test('bounded partitions cover every selected test exactly once without hiding c
 });
 test('bad, duplicated names and unbounded batches are rejected',()=>{for(const args of [[['TestGood','TestGood'],{size:70}],[['TestInjected|Other'],{size:70}],[['TestGood'],{size:81}],[['TestGood'],{size:0}]])assert.throws(()=>partitionTests(...args));});
 test('example and fuzz seed tests remain in the registered test inventory',()=>{const names=['Example','FuzzValue','TestPlain'];assert.deepEqual(partitionTests(names).selected,names);});
+
+test('only exact newly owned review tests leave old groups; unknown and original tests remain',()=>{const result=partitionTests(['TestReviewSchemaConstraintsAndDigests','TestReviewCapacityRead10000','TestReviewUnknownLegacy','TestOriginal']);assert.deepEqual(result.selected,['TestOriginal','TestReviewUnknownLegacy']);assert.deepEqual(result.studyReview,['TestReviewCapacityRead10000','TestReviewSchemaConstraintsAndDigests']);});

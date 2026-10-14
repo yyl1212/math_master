@@ -136,7 +136,7 @@ func TestSharingSaveSchemaGuardAndAbsentExtension(t *testing.T) {
 			if damaged {
 				f.exec("ALTER TABLE note_share_heads DROP CONSTRAINT note_share_head_status")
 			} else {
-				if e := goose.Down(f.db, "../../../db/migrations"); e != nil {
+				if e := goose.DownTo(f.db, "../../../db/migrations", 13); e != nil {
 					t.Fatal(e)
 				}
 			}

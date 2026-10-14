@@ -213,3 +213,47 @@ jobs:
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/knowledgeadmin ./internal/store ./internal/httpapi ./internal/cli -run '^Test(Managed|DecodeSource|SourceCore|Classification|ExactOldThirty|KnowledgeCLI)' -timeout 5m -count=1
       - name: 笔记分享隔离权限、事务竞争与结构回归
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/notesharing ./internal/store ./internal/httpapi -run '^TestSharing' -timeout 5m -count=1
+  study_review_verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TOPIC_COMPATIBILITY_STAGE: managed
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: go1.27.1
+      TEST_DATABASE_URL: postgres://postgres:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: math_master_test_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d math_master_test_ci"
+          --health-interval 2s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.27.1'
+          cache-dependency-path: backend/go.sum
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.17.0'
+      - name: 复习专用预算与精确测试分组门禁
+        run: node tools/verify/run.mjs -- node --test tools/verify/study-review-ci.test.mjs tools/verify/go-batches.test.mjs
+      - name: 全量复习纯领域验证
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/studyreview -timeout 5m -count=1
+      - name: 复习领域、事务、权限与夹具回归
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/studyreview ./internal/store ./internal/httpapi ./internal/e2etest -run '^Test(Review|StudyReview|RecallExpectedAbsentBeforeCompare|ProofPromptAllSourceRedacted)' -skip '^TestReviewCapacity' -timeout 5m -count=1
+      - name: 设置随机库恢复容器
+        run: echo "STUDY_REVIEW_RESTORE_CONTAINER=${{ job.services.postgres.id }}" >> "$GITHUB_ENV"
+      - name: 原14升级与含数据15真实恢复
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestReviewCapacitySchemaRestore$' -timeout 5m -count=1 -v
+      - name: 万条复习队列分页与多主题容量
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestReviewCapacityRead10000$' -timeout 5m -count=1 -v
+      - name: 万条安排下的默写、比对与自评写入容量
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestReviewCapacityWrite10000$' -timeout 5m -count=1 -v

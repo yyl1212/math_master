@@ -29,6 +29,7 @@ export function LearningHeader({history=false,notes=false,filters={}}:{history?:
   </header>
   <nav className={styles.sections} aria-label={t('learn.workspace.sections',{})}>
    <Link prefetch={false} href="/learn" aria-current={!history&&!notes?'page':undefined}>{t('learn.workspace.knowledge',{})}</Link>
+   <Link prefetch={false} href="/learn/review">{t('studyReview.workspace',{})}</Link>
    <Link prefetch={false} href="/learn?view=notes" aria-current={notes?'page':undefined}>{t('notes.mine',{})}</Link>
    <Link prefetch={false} href={historyHref()} aria-current={history?'page':undefined}>{t('managed.history',{})}</Link>
   </nav>

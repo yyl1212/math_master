@@ -696,6 +696,55 @@
       "scenarios": [
         "tests/e2e/ui-language-notes.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/app/learn/review/page.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "page.learn.review",
+        "studyReview.workspace"
+      ],
+      "rawDataAreas": [
+        "review.queue.metadata",
+        "review.schedule"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-flow.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/learn/review/history/page.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "page.learn.review.history",
+        "studyReview.history"
+      ],
+      "rawDataAreas": [
+        "review.history.metadata"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-flow.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/app/learn/review/[id]/page.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "page.learn.review.id",
+        "studyReview.reference"
+      ],
+      "rawDataAreas": [
+        "review.actorId",
+        "review.own-answer",
+        "review.reference.projection"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
+      ]
     }
   ],
   "components": [
@@ -4705,6 +4754,140 @@
       ],
       "scenarios": [
         "tests/e2e/ui-language-notes.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/queue.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.workspace",
+        "studyReview.read",
+        "studyReview.recall.statement"
+      ],
+      "rawDataAreas": [
+        "review.queue.metadata"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-flow.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/self-rating.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.selfRating",
+        "studyReview.thenSchedule"
+      ],
+      "rawDataAreas": [
+        "review.reference.sections",
+        "review.grade",
+        "review.schedule"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-flow.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/history.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.history",
+        "studyReview.availableFalse"
+      ],
+      "rawDataAreas": [
+        "review.history.metadata"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-flow.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/pages.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.error.signIn",
+        "studyReview.error.notReady"
+      ],
+      "rawDataAreas": [
+        "review.actorId",
+        "review.private-metadata"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-security.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/unavailable.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.error.signIn",
+        "studyReview.error.notReady"
+      ],
+      "rawDataAreas": [
+        "review.availability"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-security.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/session.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.saveDraft",
+        "studyReview.compare",
+        "studyReview.unanswered",
+        "studyReview.changedHint"
+      ],
+      "rawDataAreas": [
+        "review.own-answer",
+        "review.reference.projection",
+        "review.grade"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/recall-editor.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.answer",
+        "studyReview.preview",
+        "studyReview.characters"
+      ],
+      "rawDataAreas": [
+        "review.own-answer"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
+      ]
+    },
+    {
+      "file": "frontend/src/features/study-review/comparison.tsx",
+      "module": "study-review",
+      "complete": true,
+      "messageKeys": [
+        "studyReview.answer",
+        "studyReview.reference",
+        "studyReview.frozen"
+      ],
+      "rawDataAreas": [
+        "review.frozen-answer",
+        "review.current-reference"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-recall.spec.ts",
+        "tests/e2e/study-review-security.spec.ts"
       ]
     }
   ]

@@ -59,7 +59,9 @@ func NewApplicationHandler(reader Reader, pinger Pinger, options AuthOptions) ht
 			if options.Knowledge != nil {
 				o = *options.Knowledge
 			}
-			if isNoteSharingPath(r.URL.Path) {
+			if isStudyReviewPath(r.URL.Path) {
+				serveStudyReview(w, r, o)
+			} else if isNoteSharingPath(r.URL.Path) {
 				serveNoteSharing(w, r, o)
 			} else if strings.HasPrefix(r.URL.Path, "/api/v3/study/") {
 				serveManagedStudy(w, r, o)

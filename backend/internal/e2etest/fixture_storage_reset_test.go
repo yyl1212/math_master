@@ -330,7 +330,7 @@ func (c *fixtureStorageConn) BeginTx(ctx context.Context, options driver.TxOptio
 }
 func (c *fixtureStorageConn) ExecContext(ctx context.Context, query string, args []driver.NamedValue) (driver.Result, error) {
 	queryStart := strings.TrimSpace(query)
-	for _, prefix := range []string{"ALTER TABLE goose_db_version DISABLE TRIGGER", "TRUNCATE note_share_receipts", "UPDATE topic_learning_state SET experience_mode", "TRUNCATE catalogue_versions,"} {
+	for _, prefix := range []string{"ALTER TABLE goose_db_version DISABLE TRIGGER", "TRUNCATE note_share_receipts", "TRUNCATE study_review_receipts", "UPDATE topic_learning_state SET experience_mode", "TRUNCATE catalogue_versions,"} {
 		if strings.HasPrefix(queryStart, prefix) {
 			c.count.Add(1)
 			break

@@ -7,6 +7,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/notesharing"
+	"github.com/yyl1212/math_master/backend/internal/studyreview"
 	"mime"
 	"net/http"
 	"net/url"
@@ -17,6 +18,7 @@ import (
 )
 
 type KnowledgeOptions struct {
+	Reviews      studyreview.Repository
 	Notes        notesharing.Repository
 	Study        knowledgeadmin.StudyRepository
 	Service      *knowledgeadmin.Service

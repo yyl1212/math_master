@@ -10,6 +10,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/notesharing"
 	"github.com/yyl1212/math_master/backend/internal/publication"
+	"github.com/yyl1212/math_master/backend/internal/studyreview"
 	"strings"
 	"time"
 )
@@ -17,6 +18,11 @@ import (
 const knowledgeLockID int64 = 1296127059
 
 func knowledgeError(e error) error {
+	for _, known := range []error{studyreview.ErrInvalid, studyreview.ErrReferenceTooLarge, studyreview.ErrConflict, studyreview.ErrIdempotency, studyreview.ErrStale, studyreview.ErrUnavailable, studyreview.ErrNotFound, studyreview.ErrNotConfigured} {
+		if errors.Is(e, known) {
+			return e
+		}
+	}
 	for _, known := range []error{notesharing.ErrLocked, notesharing.ErrStale, notesharing.ErrIdempotency, notesharing.ErrNotPublic, notesharing.ErrNotFound, notesharing.ErrInvalid, notesharing.ErrNotReady} {
 		if errors.Is(e, known) {
 			return known

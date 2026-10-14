@@ -232,3 +232,52 @@ jobs:
             playwright-report/
           if-no-files-found: ignore
           retention-days: 7
+  study_review_verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TOPIC_COMPATIBILITY_STAGE: managed
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: go1.27.1
+      NEXT_TELEMETRY_DISABLED: '1'
+      TEST_DATABASE_URL: postgres://math_master:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: math_master
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: math_master_test_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U math_master -d math_master_test_ci"
+          --health-interval 2s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24.17.0'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.27.1'
+          cache-dependency-path: backend/go.sum
+      - name: 安装锁定依赖
+        run: node tools/verify/run.mjs --cwd frontend -- npm ci
+      - name: 复习类型与边界单元测试
+        run: |
+          node tools/verify/run.mjs --cwd frontend -- npm run typecheck
+          node tools/verify/run.mjs --cwd frontend -- npm exec -- vitest run src/features/study-review src/lib/study-review src/lib/api/study-review-proxy.test.ts
+      - name: 当前生产前端与真实Go构建
+        run: |
+          node tools/verify/run.mjs --cwd frontend -- npm run build
+          node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
+      - name: 安装锁定浏览器
+        run: node tools/verify/run.mjs --cwd frontend -- npm exec -- playwright install --with-deps chromium
+      - name: 复习默写独立双视口 flow
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- study-review-flow.spec.ts
+      - name: 复习默写独立双视口 recall
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- study-review-recall.spec.ts
+      - name: 复习默写独立双视口 security
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR -u MATH_MASTER_E2E_FRONTEND npm run e2e -- study-review-security.spec.ts

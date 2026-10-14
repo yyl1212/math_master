@@ -32175,6 +32175,1417 @@
           }
         }
       }
+    },
+    "/api/v3/study/review/health": {
+      "get": {
+        "operationId": "studyReviewHealthHealthGet",
+        "summary": "探测复习模块能力",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewHealth"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewHealth"
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/v3/study/review/overview": {
+      "get": {
+        "operationId": "studyReviewOverviewOverviewGet",
+        "summary": "读取本人复习计数",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewOverview"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/queue": {
+      "get": {
+        "operationId": "studyReviewQueuePageQueueGet",
+        "summary": "读取本人复习队列",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewQueuePage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "bucket",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "due",
+                "changed",
+                "unplanned",
+                "unfinished",
+                "future",
+                "all"
+              ]
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/history": {
+      "get": {
+        "operationId": "studyReviewHistoryPageHistoryGet",
+        "summary": "读取本人自评历史",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewHistoryPage"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "topicKey",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50
+            }
+          },
+          {
+            "name": "knowledgeId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^k-[0-9a-f]{56}$"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "read",
+                "recall"
+              ]
+            }
+          },
+          {
+            "name": "rating",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "forgotten",
+                "uncertain",
+                "familiar"
+              ]
+            }
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 512
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/sessions": {
+      "post": {
+        "operationId": "studyReviewCommandReceiptSessionsPost",
+        "summary": "发起本人阅读或默写",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewCommandReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyReviewStartInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/sessions/{id}": {
+      "get": {
+        "operationId": "studyReviewSessionSessions{Id}Get",
+        "summary": "读取本人会话当前态",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewSession"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/sessions/{id}/draft": {
+      "put": {
+        "operationId": "studyReviewCommandReceiptSessions{Id}DraftPut",
+        "summary": "明确保存本人默写草稿",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewCommandReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyReviewDraftInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/sessions/{id}/compare": {
+      "post": {
+        "operationId": "studyReviewCommandReceiptSessions{Id}ComparePost",
+        "summary": "冻结作答；回执后GET参考",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewCommandReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyReviewCompareInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/sessions/{id}/grade": {
+      "post": {
+        "operationId": "studyReviewCommandReceiptSessions{Id}GradePost",
+        "summary": "记录本人自评并安排复习",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewCommandReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyReviewGradeInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/study/review/sessions/{id}/abandon": {
+      "post": {
+        "operationId": "studyReviewCommandReceiptSessions{Id}AbandonPost",
+        "summary": "明确放弃本人活动会话",
+        "responses": {
+          "200": {
+            "description": "本人复习结果；自评不等于数学自动判定。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewCommandReceipt"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "操作未成功；保留输入并核对当前状态。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudyReviewProblem"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "SessionCookie": [],
+            "CSRFToken": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StudyReviewAbandonInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -50811,6 +52222,883 @@
         },
         "required": [
           "expectedSequence"
+        ]
+      },
+      "StudyReviewHealth": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "type": "boolean"
+          },
+          "schemaReady": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "capability",
+          "schemaReady"
+        ]
+      },
+      "StudyReviewSection": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "statement",
+              "conditions",
+              "scope",
+              "system",
+              "equations",
+              "proof",
+              "proof-scope"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "maxLength": 524288
+            },
+            "minItems": 1
+          }
+        },
+        "required": [
+          "kind",
+          "items"
+        ]
+      },
+      "StudyReviewReference": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyReviewSection"
+            },
+            "maxItems": 7
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        },
+        "required": [
+          "sections",
+          "sha256"
+        ]
+      },
+      "StudyReviewSchedule": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "stage": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 5
+          },
+          "dueAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastRef": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "lastRating": {
+            "type": "string",
+            "enum": [
+              "forgotten",
+              "uncertain",
+              "familiar"
+            ]
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "gradedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "stage",
+          "dueAt",
+          "lastRef",
+          "lastRating",
+          "sequence",
+          "gradedAt"
+        ]
+      },
+      "StudyReviewGradeResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "rating": {
+            "type": "string",
+            "enum": [
+              "forgotten",
+              "uncertain",
+              "familiar"
+            ]
+          },
+          "gradedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/StudyReviewSchedule"
+          }
+        },
+        "required": [
+          "rating",
+          "gradedAt",
+          "schedule"
+        ]
+      },
+      "StudyReviewCommandReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "sessionId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledgeId": {
+            "type": "string",
+            "pattern": "^k-[0-9a-f]{56}$"
+          },
+          "reviewId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "draftRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "working",
+              "compared",
+              "completed",
+              "abandoned"
+            ]
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "start",
+              "draft",
+              "compare",
+              "grade",
+              "abandon"
+            ]
+          },
+          "appliedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StudyReviewGradeResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "actorId",
+          "sessionId",
+          "knowledgeId",
+          "reviewId",
+          "knowledge",
+          "sequence",
+          "draftRevision",
+          "status",
+          "action",
+          "appliedAt",
+          "grade"
+        ]
+      },
+      "StudyReviewSession": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "sessionId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledgeId": {
+            "type": "string",
+            "pattern": "^k-[0-9a-f]{56}$"
+          },
+          "reviewId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "draftRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "working",
+              "compared",
+              "completed",
+              "abandoned"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "read",
+              "recall"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "statement",
+              "proof"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "titleZh": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "knowledgeType": {
+            "type": "string",
+            "enum": [
+              "concept",
+              "definition",
+              "axiom",
+              "theorem",
+              "corollary",
+              "method",
+              "mathematical-thinking",
+              "other"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "comparedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "gradedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "abandonedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "draftUpdatedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "materialChanged": {
+            "type": "boolean"
+          },
+          "unanswered": {
+            "type": "boolean"
+          },
+          "prompt": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyReviewSection"
+            },
+            "maxItems": 7
+          },
+          "answer": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 16000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reference": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StudyReviewReference"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "schedule": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StudyReviewSchedule"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "grade": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StudyReviewGradeResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "actorId",
+          "sessionId",
+          "knowledgeId",
+          "reviewId",
+          "knowledge",
+          "sequence",
+          "draftRevision",
+          "status",
+          "mode",
+          "target",
+          "title",
+          "titleZh",
+          "knowledgeType",
+          "createdAt",
+          "comparedAt",
+          "gradedAt",
+          "abandonedAt",
+          "draftUpdatedAt",
+          "available",
+          "materialChanged",
+          "unanswered",
+          "prompt",
+          "answer",
+          "reference",
+          "schedule",
+          "grade"
+        ]
+      },
+      "StudyReviewStartInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "read",
+              "recall"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "statement",
+              "proof"
+            ]
+          }
+        },
+        "required": [
+          "knowledge",
+          "mode",
+          "target"
+        ]
+      },
+      "StudyReviewDraftInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          },
+          "expectedDraftRevision": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740990
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 16000
+          }
+        },
+        "required": [
+          "expectedSequence",
+          "expectedDraftRevision",
+          "body"
+        ]
+      },
+      "StudyReviewCompareInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 16000
+          },
+          "unanswered": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "expectedSequence",
+          "body",
+          "unanswered"
+        ]
+      },
+      "StudyReviewGradeInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          },
+          "rating": {
+            "type": "string",
+            "enum": [
+              "forgotten",
+              "uncertain",
+              "familiar"
+            ]
+          }
+        },
+        "required": [
+          "expectedSequence",
+          "rating"
+        ]
+      },
+      "StudyReviewAbandonInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          }
+        },
+        "required": [
+          "expectedSequence"
+        ]
+      },
+      "StudyReviewOverview": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "asOf": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "unfinished": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "changed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "due": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "unplanned": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "future": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "asOf",
+          "total",
+          "unfinished",
+          "changed",
+          "due",
+          "unplanned",
+          "future"
+        ]
+      },
+      "StudyReviewQueueItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "titleZh": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "knowledgeType": {
+            "type": "string",
+            "enum": [
+              "concept",
+              "definition",
+              "axiom",
+              "theorem",
+              "corollary",
+              "method",
+              "mathematical-thinking",
+              "other"
+            ]
+          },
+          "topicKeys": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "bucket": {
+            "type": "string",
+            "enum": [
+              "unfinished",
+              "changed",
+              "due",
+              "unplanned",
+              "future"
+            ]
+          },
+          "materialChanged": {
+            "type": "boolean"
+          },
+          "proofAvailable": {
+            "type": "boolean"
+          },
+          "activeSessionId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "schedule": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/StudyReviewSchedule"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "knowledge",
+          "title",
+          "titleZh",
+          "knowledgeType",
+          "topicKeys",
+          "bucket",
+          "materialChanged",
+          "proofAvailable",
+          "activeSessionId",
+          "schedule"
+        ]
+      },
+      "StudyReviewQueuePage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "asOf": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyReviewQueueItem"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "actorId",
+          "asOf",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "StudyReviewHistoryItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "knowledge": {
+            "$ref": "#/components/schemas/ManagedRef"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "titleZh": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "knowledgeType": {
+            "type": "string",
+            "enum": [
+              "concept",
+              "definition",
+              "axiom",
+              "theorem",
+              "corollary",
+              "method",
+              "mathematical-thinking",
+              "other"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "read",
+              "recall"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "statement",
+              "proof"
+            ]
+          },
+          "grade": {
+            "$ref": "#/components/schemas/StudyReviewGradeResult"
+          },
+          "available": {
+            "type": "boolean"
+          },
+          "materialChanged": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "sessionId",
+          "knowledge",
+          "title",
+          "titleZh",
+          "knowledgeType",
+          "mode",
+          "target",
+          "grade",
+          "available",
+          "materialChanged"
+        ]
+      },
+      "StudyReviewHistoryPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "asOf": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyReviewHistoryItem"
+            },
+            "maxItems": 50
+          },
+          "nextCursor": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 512
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "actorId",
+          "asOf",
+          "items",
+          "nextCursor"
+        ]
+      },
+      "StudyReviewProblem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string"
+              },
+              "message": {
+                "type": "string"
+              },
+              "requestId": {
+                "type": "string"
+              },
+              "sessionId": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            },
+            "required": [
+              "code",
+              "message",
+              "requestId"
+            ]
+          }
+        },
+        "required": [
+          "error"
         ]
       }
     },
