@@ -11,7 +11,9 @@
   "r1_r4": [
     {
       "task": "R1",
-      "status": "not_executed"
+      "status": "in_progress",
+      "technicalEnvironment": "ready",
+      "personnelAndIndependence": "partially_registered"
     },
     {
       "task": "R2",
@@ -41,13 +43,58 @@
     "postReviewRegression": "passed",
     "reviewFixes": "two_important_resolved_one_pass",
     "nativeTask10": "complete",
-    "draftPR": "https://github.com/yyl1212/math_master/pull/27"
+    "draftPR": "https://github.com/yyl1212/math_master/pull/27",
+    "integration": {
+      "pullRequest": "https://github.com/yyl1212/math_master/pull/27",
+      "state": "merged",
+      "mergeCommit": "58ac4ee4965f3d008b26c7909fa87b39984ed421",
+      "postMergeCI": {
+        "status": "success",
+        "workflowRuns": 2,
+        "jobs": 3,
+        "runIds": [
+          37220020601,
+          37220020602
+        ]
+      }
+    }
   },
   "remaining": [
-    "真实负责人及非生产环境用途和操作范围",
+    "作者/编辑身份、审阅者数学能力及独立性、本人账号使用、审阅角色和全量复核分工",
     "真实独立自然人全量数学与出处许可复核",
     "正常工作流批准、双 head 发布和知情纠错演练",
     "最终八类实际文件与一致只读 accepted"
   ],
-  "productionDeployment": "not_executed"
+  "productionDeployment": "not_executed",
+  "r1TechnicalEnvironment": {
+    "recordedClientDate": "2026-10-05",
+    "location": "local_nonproduction",
+    "status": "technical_environment_ready_review_personnel_pending",
+    "runtimeCodeSHA": "58ac4ee4965f3d008b26c7909fa87b39984ed421",
+    "normalGoNextServicesVerified": true,
+    "appliedMigrations": 8,
+    "catalogueVersion": 1,
+    "catalogueDomainCount": 16,
+    "fullDatabaseBackups": 4,
+    "readOnlyBackupDirectoryChecks": "passed",
+    "actualRestoreExecuted": false,
+    "visibleEnglishDomainNames": 16,
+    "allPublicDomainsPlanned": true,
+    "anonymousSessionVerified": true,
+    "anonymousManagementHTTP": 401,
+    "responsibleOwnerRegistered": true,
+    "normalPersonnelAccountsVerified": false,
+    "independentMathReviewerVerified": false,
+    "formalR1Complete": false,
+    "note": "负责人及管理员安排已登记，正常CLI已创建管理员基础角色并核验初始化审计、前后备份与服务入口。管理员兼任数学审阅者的安排已记录；作者/编辑、数学能力/独立性、本人正常登录、审阅角色及全量复核分工仍待落实。私有人员、凭据、路径和备份正文不进入公共记录。",
+    "initialAdministratorCreated": true,
+    "initialAdministratorRoles": [
+      "learner",
+      "admin"
+    ],
+    "administratorInitializationAuditVerified": true,
+    "administratorPersonallySignedInVerified": false,
+    "mathematicalReviewerDesignated": true,
+    "mathematicalReviewerRoleGranted": false
+  }
 }
