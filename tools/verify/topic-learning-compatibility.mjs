@@ -1,6 +1,6 @@
 import assert from'node:assert/strict';import{createHash}from'node:crypto';import{readFileSync,readdirSync,lstatSync}from'node:fs';import{join,resolve,relative}from'node:path';import{fileURLToPath}from'node:url';
 const baselinePath='api/topic-learning-compatibility-baseline.json';
-export const TOPIC_COMPATIBILITY_POLICY_SHA='582b2f0ab23f5ca59823ca4f2543ca91b58ea85c8a5cc91c40e44e4b21ef1466';
+export const TOPIC_COMPATIBILITY_POLICY_SHA='9c0a69391c1834f5cdbfce7b9d0d709b63327aebc3660ef5217800a4fe2ad931';
 const stages=['taxonomy','study','cutover','managed'];
 const semanticTarget=(targets,stage)=>stages.slice(0,stages.indexOf(stage)+1).reverse().map(s=>targets?.[s]).find(Boolean);
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
