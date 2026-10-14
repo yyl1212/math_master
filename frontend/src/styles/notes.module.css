@@ -22,7 +22,7 @@
 .readingLayout { display:grid; grid-template-columns:minmax(0,840px) minmax(280px,1fr); gap:28px; align-items:start; }
 .readingBody { font-size:17px; line-height:1.9; min-width:0; grid-column:1; grid-row:2; }
 .readingBody section { margin-top:32px; }
-.readingBody h2 { margin-top:32px; margin-bottom:16px; font-size:22px; }
+.readingBody h2 { overflow-wrap:anywhere; margin-top:32px; margin-bottom:16px; font-size:22px; }
 .personal { display:contents; }
 .learningActions { grid-column:1/-1; grid-row:1; display:flex; gap:12px 20px; align-items:center; flex-wrap:wrap; padding:16px 20px; }
 .noteAside { grid-column:2; grid-row:2; min-width:0; }
