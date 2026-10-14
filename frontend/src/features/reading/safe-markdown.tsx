@@ -9,6 +9,8 @@ import type { AssetView } from "@/lib/api/types";
 import type {AssetScope} from "@/lib/content/types";
 import { AssetImage } from "./asset-image";
 import styles from "@/styles/reading.module.css";
+import prose from "@/styles/current-prose.module.css";
+import {useEffect,useRef} from 'react';
 export function safeTextUrl(url: string): string | undefined {
   if (
     !url ||
@@ -73,15 +75,50 @@ export function SafeMarkdown({
   source,
   assets,
   assetScope,
+  presentation = 'default',
 }: {
   source: string;
   assets: AssetView[];
   assetScope?: AssetScope;
+  presentation?: 'default' | 'study';
 }) {
   const {t,locale}=useUiI18n();
+  const root=useRef<HTMLDivElement>(null);
+  // Markdown's custom spans can remount even when source is unchanged.
+  // Rebind presentation measurements after every render; never fetch content.
+  useEffect(() => {
+    if (presentation !== 'study' || !root.current) return;
+    const element = root.current;
+    const scrollers = [...element.querySelectorAll<HTMLElement>(
+      '.katex-display,.katex:not(.katex-display .katex),table',
+    )];
+    let live = true;
+    const clear = (item: HTMLElement) => {
+      item.removeAttribute('tabindex');
+      item.removeAttribute('role');
+      item.removeAttribute('aria-label');
+    };
+    const measure = () => {
+      if (!live) return;
+      for (const item of scrollers) {
+        if (item.scrollWidth > item.clientWidth + 1) {
+          item.tabIndex = 0;
+          item.setAttribute('role', 'region');
+          item.setAttribute('aria-label', t(item.tagName === 'TABLE'
+            ? 'reading.tableScroll' : 'reading.formulaScroll', {}));
+        } else clear(item);
+      }
+    };
+    measure();
+    const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
+    observer?.observe(element);
+    scrollers.forEach(item => observer?.observe(item));
+    void document.fonts?.ready.then(measure);
+    return () => { live = false; observer?.disconnect(); scrollers.forEach(clear); };
+  });
   const available = new Map(assets.map((a) => [a.id, a]));
   return (
-    <div className={styles.markdown} lang="en">
+    <div ref={root} className={styles.markdown+(presentation==='study'?' '+prose.study:'')} lang="en">
       <Markdown
         skipHtml
         remarkPlugins={[remarkMath, ()=>limitMath(t("safe-markdown.formula.could.not.be.displayed.1952de",{}))]}

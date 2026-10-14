@@ -4045,7 +4045,9 @@
       "complete": true,
       "messageKeys": [
         "safe-markdown.formula.could.not.be.displayed.1952de",
-        "safe-markdown.illustration.is.not.available.ef0518"
+        "safe-markdown.illustration.is.not.available.ef0518",
+        "reading.formulaScroll",
+        "reading.tableScroll"
       ],
       "rawDataAreas": [
         "英文标题与已有中文对照",

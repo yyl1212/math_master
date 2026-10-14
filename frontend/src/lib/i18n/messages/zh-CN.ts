@@ -1820,5 +1820,7 @@ export const zhMessages = {
   "learning.attempt.expired": "已过期",
   "learning.attempt.started": "已开始",
   "learning.attempt.completed": "已完成",
-  "learning.attempt.enrolled": "已加入"
+  "learning.attempt.enrolled": "已加入",
+  "reading.formulaScroll": "可横向滚动的公式",
+  "reading.tableScroll": "可横向滚动的表格"
 } satisfies Record<MessageKey,string>;
