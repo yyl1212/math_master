@@ -1,8 +1,6 @@
 .workspace,.session {display:grid;gap:24px;max-width:1100px;margin:0 auto;min-width:0}
 .header {display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .header h1 {margin:0 0 12px}.header p {max-width:720px;color:var(--muted);line-height:1.8}
-.nav {display:flex;flex-wrap:wrap;gap:12px 20px;border-bottom:1px solid var(--border);padding-bottom:16px}
-.nav [aria-current="page"] {color:var(--brand);font-weight:700}
 .buckets {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
 .buckets a {display:grid;gap:8px;border:1px solid var(--border);border-radius:12px;background:var(--surface);padding:16px;text-decoration:none;color:var(--ink)}
 .buckets a[aria-current="page"] {border-color:var(--brand);background:var(--soft)}.buckets span,.hint,.metadata {color:var(--muted);font-size:13px}
@@ -20,9 +18,6 @@
 @media(max-width:800px){.comparisonTabs{display:flex}.comparisonColumns{grid-template-columns:minmax(0,1fr)}.comparisonColumns[data-tab="answer"] .referenceColumn{display:none}.comparisonColumns[data-tab="reference"] .answerColumn{display:none}}
 @media(max-width:600px){.answerColumn,.referenceColumn{padding:20px}.editor textarea{min-height:250px;padding:14px}}
 
-.nav { gap:8px; padding-bottom:12px; }
-.nav a { display:inline-flex; align-items:center; min-height:44px; padding:8px 16px; border-radius:10px; font-size:14px; }
-.nav [aria-current="page"] { background:var(--soft); font-weight:600; }
 .buckets a { border-radius:16px; padding:20px; }
 .buckets strong { font-size:15px; font-weight:600; }
 .buckets a[aria-current="page"] { box-shadow:inset 0 0 0 1px var(--brand); }
@@ -42,6 +37,6 @@
 .ratingActions { gap:12px; }
 .ratingActions button { flex:1 1 120px; }
 .paging a { min-height:44px; display:inline-flex; align-items:center; }
-@media(max-width:600px){.buckets a{padding:16px}.rowHeader h2{font-size:18px}.nav a{padding-inline:12px}.rating h2{font-size:20px}}
+@media(max-width:600px){.buckets a{padding:16px}.rowHeader h2{font-size:18px}.rating h2{font-size:20px}}
 .editor textarea { font-weight:400; }
 .session > header a { display:inline-flex; align-items:center; min-height:44px; }

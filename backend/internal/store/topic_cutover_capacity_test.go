@@ -12,6 +12,7 @@ import (
 	"github.com/yyl1212/math_master/backend/internal/store"
 	"github.com/yyl1212/math_master/backend/internal/study"
 	"os"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -22,7 +23,10 @@ func TestTopicCutoverCapacityPrepare(t *testing.T) {
 		t.Fatal("capacity receipt path required")
 	}
 	ctx := context.Background()
+	stageStarted := time.Now()
 	f, _ := studyCapacityPublished(t, ctx)
+	t.Log("capacity published fixture", time.Since(stageStarted))
+	stageStarted = time.Now()
 	f.exec(`WITH users AS(INSERT INTO auth_users(id,username,password_phc) SELECT gen_random_uuid(),'cutover_capacity_'||lpad(n::text,4,'0'),u.password_phc FROM generate_series(1,499) n CROSS JOIN auth_users u WHERE u.id=$1 RETURNING id) INSERT INTO auth_user_roles(user_id,role) SELECT id,'learner' FROM users`, f.ids["author_a"])
 	rows, e := f.db.Query(`SELECT id::text FROM auth_users WHERE username LIKE 'cutover_capacity_%' OR id=$1 ORDER BY id`, f.ids["author_a"])
 	if e != nil {
@@ -102,51 +106,47 @@ func TestTopicCutoverCapacityPrepare(t *testing.T) {
 		f.exec(`UPDATE publication_snapshots SET status='published' WHERE id=$1`, id)
 		publications[k.ID] = id
 	}
+	t.Log("capacity owners and historical snapshots", time.Since(stageStarted))
 	base := time.Now().UTC().Add(-24 * time.Hour).Truncate(time.Microsecond)
 	seedStarted := time.Now()
 	// Two source transactions use the two bounded database CPUs. Knowledge
 	// refs differ, every original seal/record/dependency guard stays enabled,
 	// and only preparation is parallel; all 2,000 migration batches stay serial.
-	seed := func(i int, k question.Identity) error {
+	var generateTime, eventTime, recordTime, dependencyTime, commitTime atomic.Int64
+	seed := func(first int) error {
+		measured := time.Now()
 
-		publication := publications[k.ID]
-		values := []map[string]any{}
-		for j, owner := range owners {
-			id, e := auth.NewID(rand.Reader)
-			if e != nil {
-				return e
-			}
-			at := base.Add(time.Duration(i*500+j) * time.Microsecond)
-			raw, sha, e := learning.CanonicalLearningEvent(learning.EventSeal{ID: id, ActorID: owner, Knowledge: k, KnowledgePublicationID: publication, Units: []question.Identity{}, Assets: []question.AssetRef{}, Kind: "started", RecordedAt: at})
-			if e != nil {
-				return e
-			}
-			values = append(values, map[string]any{"id": id, "owner": owner, "kid": k.ID, "version": k.Version, "sha": k.SHA256, "publication": publication, "seal": json.RawMessage(raw), "bytes": base64.StdEncoding.EncodeToString(raw), "digest": sha, "at": at})
+		values := make([]capacitySeedRow, 0, 2000)
+		end := first + 4
+		if end > len(points) {
+			end = len(points)
 		}
-		raw, e := json.Marshal(values)
+		for i := first; i < end; i++ {
+			k := points[i]
+			publication := publications[k.ID]
+			for j, owner := range owners {
+				id, e := auth.NewID(rand.Reader)
+				if e != nil {
+					return e
+				}
+				at := base.Add(time.Duration(i*500+j) * time.Microsecond)
+				raw, sha, e := learning.CanonicalLearningEvent(learning.EventSeal{ID: id, ActorID: owner, Knowledge: k, KnowledgePublicationID: publication, Units: []question.Identity{}, Assets: []question.AssetRef{}, Kind: "started", RecordedAt: at})
+				if e != nil {
+					return e
+				}
+				values = append(values, capacitySeedRow{ID: id, Owner: owner, Knowledge: k.ID, Version: k.Version, SHA: k.SHA256, Publication: publication, Seal: json.RawMessage(raw), Bytes: base64.StdEncoding.EncodeToString(raw), Digest: sha, At: at})
+			}
+		}
+		generateTime.Add(int64(time.Since(measured)))
+		times, e := writeCapacitySeedBatch(ctx, f.db, values)
+		eventTime.Add(int64(times.Events))
+		recordTime.Add(int64(times.Records))
+		dependencyTime.Add(int64(times.Dependencies))
+		commitTime.Add(int64(times.Commit))
 		if e != nil {
 			return e
 		}
-		tx, e := f.db.BeginTx(ctx, nil)
-		if e != nil {
-			return e
-		}
-		const selected = `jsonb_to_recordset($1::jsonb) x(id uuid,owner uuid,kid text,version integer,sha text,publication text,seal jsonb,bytes text,digest text,at timestamptz)`
-		if _, e = tx.Exec(`INSERT INTO learning_events(id,owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,knowledge_publication_id,kind,seal,seal_bytes,seal_sha256,recorded_at) SELECT id,owner,kid,version,sha,publication,'started',seal,decode(bytes,'base64'),digest,at FROM `+selected, string(raw)); e != nil {
-			tx.Rollback()
-			return e
-		}
-		if _, e = tx.Exec(`INSERT INTO learning_records(owner_user_id,knowledge_id,knowledge_version,knowledge_sha256,started_event_id,started_at) SELECT owner,kid,version,sha,id,at FROM `+selected, string(raw)); e != nil {
-			tx.Rollback()
-			return e
-		}
-		if _, e = tx.Exec(`INSERT INTO learning_evidence_dependencies(evidence_kind,evidence_id,owner_user_id,kind,id,version,sha256) SELECT 'learning-event',x.id,x.owner,d.kind,d.id,d.version,d.sha256 FROM `+selected+` CROSS JOIN LATERAL learning_seal_dependencies(x.seal,true) d`, string(raw)); e != nil {
-			tx.Rollback()
-			return e
-		}
-		if e = tx.Commit(); e != nil {
-			return e
-		}
+
 		return nil
 	}
 	jobs := make(chan int)
@@ -156,13 +156,13 @@ func TestTopicCutoverCapacityPrepare(t *testing.T) {
 			var first error
 			for i := range jobs {
 				if first == nil {
-					first = seed(i, points[i])
+					first = seed(i)
 				}
 			}
 			results <- first
 		}()
 	}
-	for i := range points {
+	for i := 0; i < len(points); i += 4 {
 		jobs <- i
 	}
 	close(jobs)
@@ -176,10 +176,13 @@ func TestTopicCutoverCapacityPrepare(t *testing.T) {
 		t.Fatal(seedError)
 	}
 	t.Log("sealed source100000", time.Since(seedStarted))
+	t.Log("capacity summed worker durations", "generate", time.Duration(generateTime.Load()), "events", time.Duration(eventTime.Load()), "records", time.Duration(recordTime.Load()), "dependencies", time.Duration(dependencyTime.Load()), "commit", time.Duration(commitTime.Load()))
 	if f.count("SELECT count(*) FROM learning_events") != 100000 {
 		t.Fatal("source event count")
 	}
+	stageStarted = time.Now()
 	persistCapacityFixture(t, f.db, path)
+	t.Log("capacity private handoff", time.Since(stageStarted))
 }
 
 func TestTopicCutoverCapacityMigrate(t *testing.T) {

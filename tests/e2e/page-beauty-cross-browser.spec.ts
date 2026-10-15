@@ -18,3 +18,21 @@ test('管理表格、表单与对话框焦点在真实引擎中可用',async({pa
 });
 
 test('窄屏宽字体下原生主题选框保留完整选项和值且不横溢',async({page,scene})=>{await scene('managed-knowledge');await loginBeauty(page,true);await page.setViewportSize({width:320,height:844});await page.goto('/admin/knowledge');await page.waitForLoadState('networkidle');await page.evaluate(()=>document.body.style.fontFamily='monospace');const primary=page.getByRole('combobox',{name:'Main topics',exact:true}),secondary=page.getByRole('combobox',{name:'Subtopics',exact:true}),specific=page.getByRole('combobox',{name:'Specific themes',exact:true});await expect(specific.locator('option:checked')).toHaveText('Choose a secondary theme first');await assertPageFits(page);await primary.selectOption('97-XX');await expect(primary).toHaveValue('97-XX');await expect(secondary).toBeEnabled();await expect(specific).toBeDisabled();for(const select of [primary,secondary,specific]){const rect=await select.boundingBox();expect(rect).not.toBeNull();expect(rect!.x+rect!.width).toBeLessThanOrEqual(320);expect(rect!.height).toBeGreaterThanOrEqual(48)}await primary.focus();await assertFocusVisible(page);await assertPageFits(page)});
+
+for(const locale of ['zh-CN','en'])test('真实引擎顶部导航跨页稳定 '+locale,async({page,scene})=>{
+ await scene('study-review');await loginBeauty(page);await page.getByRole('button',{name:locale==='en'?'English':'中文',exact:true}).click();
+ const hrefs=['/learn','/learn?view=notes','/learn/review','/learn/review/history','/learn?view=history'];
+ for(const width of [page.viewportSize()!.width,320]){
+  await page.setViewportSize({width,height:900});let reference:number[][]|undefined;
+  for(const href of hrefs){
+   const nav=page.getByRole('navigation',{name:locale==='en'?'My learning sections':'我的学习栏目',exact:true});
+   await nav.locator(`a[href="${href}"]`).click();await expect(page).toHaveURL('http://127.0.0.1:18080'+href);
+   await expect(nav.locator('[aria-current="page"]')).toHaveCount(1);await expect(nav.locator('[aria-current="page"]')).toHaveAttribute('href',href);
+   expect(await nav.locator('a').evaluateAll(es=>es.map(e=>e.getAttribute('href')))).toEqual(hrefs);await page.evaluate(()=>document.fonts.ready);
+   const rects=await nav.locator('a').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect(),p=e.parentElement!.getBoundingClientRect();return [r.x,r.y-p.y,r.width,r.height]}));
+   for(const rect of rects)expect(rect[3]).toBeGreaterThanOrEqual(44);
+   if(reference)rects.forEach((rect,i)=>rect.forEach((n,j)=>expect(Math.abs(n-reference![i][j])).toBeLessThanOrEqual(1)));else reference=rects;
+   await assertPageFits(page);
+  }
+ }
+});
