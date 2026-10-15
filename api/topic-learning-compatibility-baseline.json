@@ -4090,7 +4090,10 @@
       "frontend/src/components/study-navigation.tsx",
       "frontend/src/styles/study-navigation.module.css",
       "docs/superpowers/reports/2026-10-15-study-navigation-acceptance.md",
-      "docs/superpowers/reports/2026-10-15-study-navigation-code-review.md"
+      "docs/superpowers/reports/2026-10-15-study-navigation-code-review.md",
+      "backend/internal/store/topic_cutover_capacity_seed_test.go",
+      "docs/superpowers/plans/2026-10-15-topic-capacity-fixture.md",
+      "docs/superpowers/reports/2026-10-15-topic-capacity-fixture.md"
     ]
   },
   "legacySnapshots": {
@@ -5341,7 +5344,7 @@
     "backend/internal/store/topic_content_corrections_test.go": "749ccdcfba0e510e576a326ed834403843546fea0c18f6eedacf9ac0783236c7",
     "backend/internal/store/topic_cutover.go": "9a3fdd09b008ff096510bad2679a7d30977e7e229751311a742dde4535426b16",
     "backend/internal/store/topic_cutover_capacity_stage_test.go": "f75ca34a0a9389200ffcbbbc72eaaf2363a9832aa0c113fc55f06767eff142aa",
-    "backend/internal/store/topic_cutover_capacity_test.go": "3f11d9a5cfa4d61fc4938595bd65b35832e95aad26236fb936082bfea9cc7995",
+    "backend/internal/store/topic_cutover_capacity_test.go": "39321cdf3eedb1fb02fdcd1358dfe722ef2757c87627b333af1597aaef838e25",
     "backend/internal/store/topic_cutover_migration_test.go": "d3fe14474366fa3e85cccb510564ed25751f8573c3d197022da438deacd5a453",
     "backend/internal/store/topic_cutover_schema.go": "390be7adaabbf07f3731c6fb5bb12432642505e35796e1132445c1c3c62c2173",
     "backend/internal/store/topic_cutover_schema_test.go": "411e23d52d9e8bdf8c434479189b977c27fb78ff2aba139ddc71358e85430020",
@@ -5854,6 +5857,9 @@
     "frontend/src/components/study-navigation.tsx": "8e9bebcb3549f6cd3ac0fb0c9c281e2c2f7caa48b37dc4dc2ccf2b0b93c4023d",
     "frontend/src/styles/study-navigation.module.css": "05f56041e0f2b539cdf5be732746707029e83c96ef3679009bccb62c9d97f0e8",
     "docs/superpowers/reports/2026-10-15-study-navigation-acceptance.md": "f182354cd2f8773fd204a8e96378e4d9dd2960e12c1eab5d131b255f4d99bb20",
-    "docs/superpowers/reports/2026-10-15-study-navigation-code-review.md": "7978d0bc39c999178e607b1f5ab824f571fd17d39ca83efe9c0f1ebaf6233ce5"
+    "docs/superpowers/reports/2026-10-15-study-navigation-code-review.md": "7978d0bc39c999178e607b1f5ab824f571fd17d39ca83efe9c0f1ebaf6233ce5",
+    "backend/internal/store/topic_cutover_capacity_seed_test.go": "319405425546be01dd62ef830e29da255b31221e97df0aeb81a43178dea09ae0",
+    "docs/superpowers/plans/2026-10-15-topic-capacity-fixture.md": "b7c4e6e29624115c9a85ee03ff5b38166118d3f22c08b558b4a39982900b79d4",
+    "docs/superpowers/reports/2026-10-15-topic-capacity-fixture.md": "967e564aee31e46892c333739a884d34cc8b3c86f43768571233fe0f85a2fd6d"
   }
 }
