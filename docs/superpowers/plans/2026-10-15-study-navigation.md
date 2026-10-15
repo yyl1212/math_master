@@ -21,7 +21,7 @@ flowchart LR
 ## 修改文件
 
 - 新增 `frontend/src/components/study-navigation.tsx`、`frontend/src/styles/study-navigation.module.css`、`frontend/src/components/study-navigation.test.tsx`。
-- 修改 `frontend/src/features/study/managed-learning-view.tsx`、`frontend/src/features/study-review/queue.tsx`，替换两套导航；删除两个原CSS模块内已无调用的导航规则。
+- 修改 `frontend/src/features/study/managed-learning-view.tsx`、`frontend/src/features/study-review/queue.tsx`，替换两套导航；删除两个原CSS模块内已无调用的导航规则。修改现有 `frontend/src/features/study/managed-learn-page.test.tsx` 保留全部Header接线断言，新增组件测试仅引用共享组件，适配旧构建的既有覆盖边界。
 - 在现有 `tests/e2e/page-beauty-learning.spec.ts`、`tests/e2e/page-beauty-cross-browser.spec.ts` 内加入跨页顺序、位置、键盘与语言回归，使现有CI自动执行。
 - 新增本计划与验收报告，在 `docs/operations/ui-language-coverage.json` 登记共享组件的当前版复习双语场景覆盖；精确更新兼容性摘要清单和策略摘要，不改原基线、快照或旧门禁语义。
 
@@ -56,7 +56,7 @@ flowchart LR
 - [x] 完整前端单元、类型检查、构建、原工具门禁和相关学习/笔记/复习回归；在现有480秒预算内拆分命令（Expected：各自退出0）。
 - [x] 精确登记兼容摘要，保存中文验收报告与代表截图；提交 `fix: 统一学习工作区顶部导航顺序`。Task完成命令：`node tools/verify/run.mjs --cwd frontend -- npm test`（Expected：退出0）。
 
-**计划自审：** 单任务无跨任务接口；所有入口与文案已存在，新增可见的第二类历史入口是固定统一导航所需。回归检查用户可观察行为，不镜像CSS声明。暂无阻塞项。
+**计划自审：** 单任务无跨任务接口；所有入口与文案已存在，新增可见的第二类历史入口是固定统一导航所需。回归检查用户可观察行为，不镜像CSS声明。CI迭代补充：固定旧前端会覆盖LearningHeader源码，因此接线断言放入同样受覆盖的现有页面测试；独立源归档运行原builder先复现TS2724、后构建通过，68个fixture不改。强制颜色断言显式制造并清除非当前链接的hover，保留全局悬停行为，避免把暂态下划线误作选中提示。
 
 ## 任务后交付门禁
 

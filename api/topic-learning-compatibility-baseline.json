@@ -5428,7 +5428,7 @@
     "frontend/src/features/study/legacy-archive.tsx": "d13cfcf3dcbb85e56d815579bb3a4b2a718f45d9d31eabc452815f62557ce69a",
     "frontend/src/features/study/managed-controls.tsx": "e975df467de835b11597c76e776ed95b97112616c1932ebab7d6ea423b416d94",
     "frontend/src/features/study/managed-history.tsx": "a8d4a793bf56f8fa54a6c27d6ea7c632217b12386aeec69becbd024467694e44",
-    "frontend/src/features/study/managed-learn-page.test.tsx": "b1af91ae3b70e5fc6d4c0be39f68f163de0920186ad53892e717d56130c06245",
+    "frontend/src/features/study/managed-learn-page.test.tsx": "94bd43376fa7880512ddc84b45535e1ffbd320d1266ae5cdcf37d87419243e2c",
     "frontend/src/features/study/managed-learning-view.tsx": "0dddb83545c839f4f96fec09e0d2c3c70f69e52c8b6fa10ca5a9340f015838d6",
     "frontend/src/features/study/managed-note-editor.tsx": "1c5bd406c40dcb578f1df1155cdfcd604e208238df46747e1e982d6748e849c2",
     "frontend/src/features/study/managed-pages.test.tsx": "77251029ae39ce6669573346f02bae64bd6f19518561642da19a4dff2c3400fb",
@@ -5798,7 +5798,7 @@
     "docs/superpowers/reports/2026-10-14-page-beauty-plan-review.md": "5b9b423c84be7706a431a4caab496abf313766fdcf2b47e84bb823307cc20e0b",
     "tests/e2e/page-beauty-helpers.ts": "1ae5a3615401938c9cfb2a9d4459ed258ce57c8153e23e1fbe427ef833262342",
     "tests/e2e/page-beauty-public.spec.ts": "cc43acc91c9d683b82625c2dd55779e6b069c7e6c4d9539f71f8bf0bc98bb656",
-    "tests/e2e/page-beauty-learning.spec.ts": "f6929fd23245a1a3d8e39222aa07630df43eb664959e28295f838104d79f281f",
+    "tests/e2e/page-beauty-learning.spec.ts": "d7124c7c8bd285fdc58a3902caee00443966705607078357a059290da338e5b3",
     "tests/e2e/page-beauty-admin.spec.ts": "932d1f04ef2271c5d2e1e45924810bd463b9cbb62a7db52d46348aa103b61c0f",
     "docs/operations/evidence/page-beauty/case-matrix.md": "184deede7ac76b5c5fb1cee32c33724b3b5e872713bba2a15dabfc522da6651d",
     "docs/operations/evidence/page-beauty/baseline.json": "c7a71079ef43492d86d0206d7f2f1627ef343d67c3e53625b5f0c688aee8c61a",
@@ -5849,11 +5849,11 @@
     "docs/superpowers/reports/2026-10-14-page-beauty-code-review.md": "20703dcae62070a55fa5c7c7301b57d5506ab9e13cba6d77b91e435102e96e17",
     "docs/operations/evidence/page-beauty/linux-browser.json": "64143bbb5cb8569f93ec018344d5564b9746e3b1e4d3603f00dc152c9487d9de",
     "docs/operations/evidence/page-beauty/topic-select-forced-colors.json": "eb4132b2775ff44c6b71304dff8c711c6b4e48fabc3605a2a9bb7ff1c4cccd98",
-    "docs/superpowers/plans/2026-10-15-study-navigation.md": "e62f576968150123f318090943f5514b2534127d40b0db82b407e3d2933102cb",
-    "frontend/src/components/study-navigation.test.tsx": "405da5021629a08acb3605733477c62ecf9c982a0835ada5a257367c466dcc90",
+    "docs/superpowers/plans/2026-10-15-study-navigation.md": "3abb833c138998560dd30b77005b61ea1c38208093ca245673c5fe8fcded5c2e",
+    "frontend/src/components/study-navigation.test.tsx": "1f38e8caf759cc41729e411b3ded2adea1ccc3b51d11b529c77e52f1d445f8c0",
     "frontend/src/components/study-navigation.tsx": "8e9bebcb3549f6cd3ac0fb0c9c281e2c2f7caa48b37dc4dc2ccf2b0b93c4023d",
     "frontend/src/styles/study-navigation.module.css": "05f56041e0f2b539cdf5be732746707029e83c96ef3679009bccb62c9d97f0e8",
-    "docs/superpowers/reports/2026-10-15-study-navigation-acceptance.md": "6a6b7effd0a8b1b5c71eeafb4a6d73ae787a2078ddee4c55a5824539f27cb1fe",
-    "docs/superpowers/reports/2026-10-15-study-navigation-code-review.md": "2cd52cf8aec33431576390c0df7676b9e8540e9cc8823fadc9a6715f0eb153de"
+    "docs/superpowers/reports/2026-10-15-study-navigation-acceptance.md": "f182354cd2f8773fd204a8e96378e4d9dd2960e12c1eab5d131b255f4d99bb20",
+    "docs/superpowers/reports/2026-10-15-study-navigation-code-review.md": "7978d0bc39c999178e607b1f5ab824f571fd17d39ca83efe9c0f1ebaf6233ce5"
   }
 }

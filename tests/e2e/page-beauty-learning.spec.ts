@@ -57,6 +57,8 @@ test('强制颜色模式保留当前栏目非颜色提示且切页不移位',asy
   await nav.locator(`a[href="${href}"]`).click();await expect(page).toHaveURL('http://127.0.0.1:18080'+href);
   const current=nav.locator('[aria-current="page"]');await expect(current).toHaveCount(1);
   await expect(current).toHaveAttribute('href',href);await expect(current).toBeVisible();
+  await nav.locator('a:not([aria-current])').first().hover();
+  await page.mouse.move(0,0);
   expect(await current.evaluate(e=>getComputedStyle(e).textDecorationLine)).toContain('underline');
   for(const marker of await nav.locator('a:not([aria-current])').evaluateAll(es=>es.map(e=>getComputedStyle(e).textDecorationLine)))expect(marker).not.toContain('underline');
   const rects=await nav.locator('a').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect(),p=e.parentElement!.getBoundingClientRect();return [r.x,r.y-p.y,r.width,r.height]}));
