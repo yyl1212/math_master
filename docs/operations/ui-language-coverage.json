@@ -4904,6 +4904,25 @@
       "scenarios": [
         "tests/e2e/ui-language-streamline.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/components/study-navigation.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "learn.workspace.sections",
+        "learn.workspace.knowledge",
+        "notes.mine",
+        "studyReview.workspace",
+        "studyReview.history",
+        "managed.history"
+      ],
+      "rawDataAreas": [
+        "仅现有导航URL与当前栏目标识；不读取账号或数学内容"
+      ],
+      "scenarios": [
+        "tests/e2e/study-review-flow.spec.ts"
+      ]
     }
   ]
 }
