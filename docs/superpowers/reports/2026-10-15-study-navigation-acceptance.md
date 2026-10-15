@@ -4,7 +4,7 @@
 
 用户确认的问题是顶部栏目在切换页面后顺序改变。原LearningHeader按“知识学习、复习工作区、我的笔记、学习历史”排列，ReviewHeader按“知识学习、我的笔记、复习工作区、自评历史”排列，两处样式和选中字重也不同。
 
-本次统一使用StudyNavigation，顺序固定为“知识学习、我的笔记、复习工作区、自评历史、学习历史”。两类历史仍前往各自既有URL。两个页头显式传入当前栏目，组件只渲染五个关闭预取的链接，不读取身份或业务数据。所有链接使用相同字重、尺寸和换行规则，仅当前页背景/颜色变化；导航自身最大宽度1100px并居中，抵消原页面容器宽度差异。
+本次统一使用StudyNavigation，顺序固定为“知识学习、我的笔记、复习工作区、自评历史、学习历史”。两类历史仍前往各自既有URL。两个页头显式传入当前栏目，组件只渲染五个关闭预取的链接，不读取身份或业务数据。所有链接使用相同字重、尺寸和换行规则，默认仅当前页背景/颜色变化，高对比强制颜色模式另以下划线标记当前页；导航自身最大宽度1100px并居中，抵消原页面容器宽度差异。
 
 ## 可行性与兼容性
 
@@ -23,14 +23,20 @@
 | 完整 `npm test` | 148文件、659项通过 |
 | `npm run typecheck`、`npm run build`、联调harness构建 | 全部退出0 |
 | `TOPIC_COMPATIBILITY_STAGE=managed node --test tools/verify/*.test.mjs` | 103/103通过；首次受沙箱本机监听限制，允许监听后原命令通过，无代码调整 |
-| 当前 `page-beauty-learning.spec.ts` | 46/46通过，2.2分钟 |
-| 当前 `page-beauty.playwright.config.ts` | Firefox/WebKit桌面与手机共28/28通过，1.1分钟 |
+| 当前 `page-beauty-learning.spec.ts` | 初次46/46；审查修复后完整48/48通过，2.2分钟 |
+| 当前 `page-beauty.playwright.config.ts` | Firefox/WebKit桌面与手机共28/28通过，1.1分钟；最终修复后导航专门8/8再通过，20.9秒 |
 | 原 `study-review-{flow,recall,security}.spec.ts` | 30/30通过，1.9分钟 |
 | 原 `note-sharing.spec.ts`、`note-sharing-security.spec.ts`、`site-streamline.spec.ts` | 26/26通过，1.6分钟 |
+| 最终构建原代表页A01/A04/A21 | 3/3通过，7.6秒 |
+| 原资源增量预算（保留bf8e02c基线） | CSS gzip +2832B ≤10KiB；五路由初始JS最大+1108B ≤8KiB |
 
 新增浏览器用例从实际导航点击五个页面，验证中英文的链接顺序与名称、唯一aria-current、绝对水平位置、相对行位置、尺寸、至少44px目标、Tab顺序及页面不横溢。Chromium覆盖1280/390/320；Firefox/WebKit各覆盖桌面/手机及320。几何比较容许1px引擎取整误差，不比较因各页标题说明不同而改变的绝对纵向位置。
 
 截图仅含合成账号和原创测试语料，输入遮挡；本地证据目录 `/private/tmp/math-master-study-navigation-20261015/capture`。`navigation-fixed-{1,2}-zh-CN-{1280,390}.png` 对应“我的笔记”和“复习工作区”；导航顺序相同，背景随当前栏目切换。新截图不覆盖上一阶段基线或验收记录。
+
+## 独立审查修复
+
+[代码与兼容审查](2026-10-15-study-navigation-code-review.md)发现一项Important：强制颜色模式消除当前项背景区别。新增桌面/手机真实页面测试2/2失败后，仅在该模式加当前项下划线，重新构建2/2通过；修复后完整659项单元、类型、生产构建和48项学习视觉再次通过。当前项提示不改变导航字重或尺寸。无遗留Critical/Important，无延期Minor。
 
 ## 旧用例环境诊断
 

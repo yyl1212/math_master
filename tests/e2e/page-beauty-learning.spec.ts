@@ -47,3 +47,20 @@ for(const locale of ['zh-CN','en'])test('顶部学习导航跨五页固定顺序
   }
  }
 });
+
+test('强制颜色模式保留当前栏目非颜色提示且切页不移位',async({page,scene})=>{
+ await scene('study-review');await loginBeauty(page);await page.emulateMedia({forcedColors:'active'});
+ expect(await page.evaluate(()=>matchMedia('(forced-colors: active)').matches)).toBe(true);
+ let reference:number[][]|undefined;
+ for(const href of ['/learn','/learn?view=notes','/learn/review','/learn/review/history','/learn?view=history']){
+  const nav=page.getByRole('navigation',{name:'My learning sections',exact:true});
+  await nav.locator(`a[href="${href}"]`).click();await expect(page).toHaveURL('http://127.0.0.1:18080'+href);
+  const current=nav.locator('[aria-current="page"]');await expect(current).toHaveCount(1);
+  await expect(current).toHaveAttribute('href',href);await expect(current).toBeVisible();
+  expect(await current.evaluate(e=>getComputedStyle(e).textDecorationLine)).toContain('underline');
+  for(const marker of await nav.locator('a:not([aria-current])').evaluateAll(es=>es.map(e=>getComputedStyle(e).textDecorationLine)))expect(marker).not.toContain('underline');
+  const rects=await nav.locator('a').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect(),p=e.parentElement!.getBoundingClientRect();return [r.x,r.y-p.y,r.width,r.height]}));
+  if(reference)rects.forEach((rect,i)=>rect.forEach((n,j)=>expect(Math.abs(n-reference![i][j])).toBeLessThanOrEqual(1)));else reference=rects;
+  await assertPageFits(page);
+ }
+});
