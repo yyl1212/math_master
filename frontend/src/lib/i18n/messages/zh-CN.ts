@@ -1,6 +1,16 @@
 import type {
+
 MessageKey} from "../types";
 export const zhMessages = {
+  "pagination.summary": "第 {page} / {pages} 页，共 {total} 条",
+  "pagination.first": "首页",
+  "pagination.previous": "上一页",
+  "pagination.next": "下一页",
+  "pagination.last": "尾页",
+  "pagination.jump": "跳转",
+  "pagination.number": "页码",
+  "pagination.invalid": "请输入有效范围内的整数页码。",
+  "pagination.failed": "翻页失败，请重试。",
   "studyReview.section.equations": "公式",
   "page.learn.review": "复习工作区",
   "page.learn.review.history": "自评历史",

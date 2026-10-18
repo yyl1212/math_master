@@ -21,7 +21,7 @@
 
 总计划第 3—5 项分别在 B2/B3/B5、B3/B5、B1/B6 落实；重点核对未知提交、令牌变化、大正文、身份撤销与旧版本恢复。
 
-## B1：发布模型、独立三表与迁移兼容
+## Task 1: B1：发布模型、独立三表与迁移兼容
 
 **Files:** 新增 `backend/internal/knowledgeadmin/publish_batch.go`、`publish_batch_test.go`；新增 `db/migrations/00016_knowledge_publish_batches.sql`；新增 `backend/internal/store/knowledge_publish_schema.go`、`knowledge_publish_schema_test.go`；精确修改 `backend/internal/store/study_review_schema_test.go`、`study_review_restore_test.go` 的版本 15 测试夹具目标，不修改原断言；修改 `backend/internal/e2etest/{auth_fixture.go,fixture_storage_reset_test.go}`。更新 `docs/superpowers/specs/2026-10-19-query-pagination-bulk-publish-design.md` 的实施状态。
 
@@ -43,7 +43,7 @@
 
 Run：runner 下分组 `go test ./internal/knowledgeadmin -run '^TestPublishInput' -timeout 5m -count=1`、`go test ./internal/store -run '^TestPublish(Schema|Migration)' -timeout 5m -count=1`、原 review schema/down 组；真实恢复单独运行。Expected：无 skip、三套原摘要相同、旧迁移无 diff。
 
-## B2：原子固定清单、本人进度与创建幂等
+## Task 2: B2：原子固定清单、本人进度与创建幂等
 
 **Files:** 新增 `backend/internal/store/knowledge_publish_jobs.go`、`knowledge_publish_jobs_test.go`；修改 B1 的 `backend/internal/knowledgeadmin/publish_batch.go`；新增 `backend/internal/store/knowledge_publish_fixture_test.go`，复用现有知识管理员隔离夹具。
 
@@ -59,7 +59,7 @@ Run：runner 下分组 `go test ./internal/knowledgeadmin -run '^TestPublishInpu
 
 Run：`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestPublishCreate' -timeout 5m -count=1`。Expected：清单成员精确、幂等/所有权正确，失败事务无半写。
 
-## B3：原子短批次、冲突与提交未知
+## Task 3: B3：原子短批次、冲突与提交未知
 
 **Files:** 新增 `backend/internal/store/knowledge_publish_step.go`、`knowledge_publish_step_test.go`；精确修改 `backend/internal/store/knowledge_admin_write.go`；完善 `backend/internal/knowledgeadmin/publish_batch.go` 的错误类型；更新 `backend/internal/store/knowledge_admin_write_test.go`。
 
@@ -76,7 +76,7 @@ Run：`node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=
 
 Run：runner 下分别 `go test ./internal/store -run '^TestPublishStep(Mixed|Replay|Revocation|Commit)' -timeout 5m -count=1`、`go test ./internal/store -run '^TestPublishStepLarge' -timeout 5m -count=1` 及旧单条写入组。Expected：无部分提交、无重复事件、不把未知结果冒充回滚。
 
-## B4：发布路由、契约和可靠客户端
+## Task 4: B4：发布路由、契约和可靠客户端
 
 **Files:** 新增 `backend/internal/httpapi/knowledge_publish_routes.go`、`knowledge_publish_test.go`；修改 `backend/internal/httpapi/knowledge_admin_routes.go`；修改 `api/openapi.yaml`、生成 `frontend/src/lib/api/generated.d.ts`；新增 `frontend/src/lib/knowledge-admin/{publish-batch,publish-batch.test,publish-batch-schemas,publish-batch-schemas.test}.ts`；修改 `frontend/src/lib/knowledge-admin/{client,schemas,types}.ts`、`frontend/src/lib/api/knowledge-admin-proxy.ts` 及对应已有测试。
 
@@ -91,7 +91,7 @@ Run：runner 下分别 `go test ./internal/store -run '^TestPublishStep(Mixed|Re
 
 Run：runner 下 `go test ./internal/httpapi -run '^TestKnowledgePublish' -timeout 5m -count=1`；前端 `npm run api:generate`、新 publish-batch/schema tests、原 knowledge-admin client/proxy tests、`npm run typecheck`。Expected：大小、身份、未知结果和原接口均通过。
 
-## B5：跨页勾选、串行调度、暂停与恢复
+## Task 5: B5：跨页勾选、串行调度、暂停与恢复
 
 **Files:** 新增 `frontend/src/features/knowledge-admin/{publish-batch.tsx,publish-batch.test.tsx,publish-selection.ts,publish-selection.test.ts}`；修改 `frontend/src/features/knowledge-admin/list.tsx`、`frontend/src/features/knowledge-admin/knowledge-admin.test.tsx`、`frontend/src/app/admin/knowledge/page.tsx`、`frontend/src/lib/i18n/messages/{zh-CN,en}.ts`、`frontend/src/styles/content.module.css`；新增 `frontend/src/lib/knowledge-admin/{publish-runner,publish-runner.test}.ts`。
 
@@ -110,7 +110,7 @@ runner `runPublishJob({actorId,jobId,signal,onProgress,onPending,onConfirmed},tr
 
 Run：runner 下执行新 selection/runner/batch tests 及原 knowledge-admin、batch-upload、i18n/final-review 测试。Expected：所有选择/恢复/身份/临时错误状态通过，无自动换令牌或后台常驻任务。
 
-## B6：容量、真实回归、兼容登记与交付证据
+## Task 6: B6：容量、真实回归、兼容登记与交付证据
 
 **Files:** 新增 `backend/internal/store/knowledge_publish_capacity_test.go`、`backend/internal/e2etest/{knowledge_publish_fixture.go,knowledge_publish_fixture_test.go,knowledge_publish_control.go}`、`tests/e2e/knowledge-batch-publish.spec.ts`、`tools/verify/{knowledge-publish-ci.mjs,knowledge-publish-ci.test.mjs}`、`.github/workflows/knowledge-publish.yml`；修改 `backend/internal/e2etest/harness.go`；修改 `tools/verify/{go-batches.mjs,go-batches.test.mjs,topic-learning-compatibility.mjs}`、`api/topic-learning-compatibility-baseline.json` 及 P6 列明的精确例外登记；新增 `docs/operations/knowledge-batch-publish.md`；更新总计划指定验收记录。
 

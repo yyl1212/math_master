@@ -1,4 +1,14 @@
 export const enMessages = {
+  "pagination.summary": {"text": "Page {page} / {pages} · {total} results", "params": ["page", "pages", "total"]},
+  "pagination.first": {"text": "First page", "params": []},
+  "pagination.previous": {"text": "Previous page", "params": []},
+  "pagination.next": {"text": "Next page", "params": []},
+  "pagination.last": {"text": "Last page", "params": []},
+  "pagination.jump": {"text": "Jump to page", "params": []},
+  "pagination.number": {"text": "Page number", "params": []},
+  "pagination.invalid": {"text": "Enter a whole page number within the available pages.", "params": []},
+  "pagination.failed": {"text": "Unable to change page. Please retry.", "params": []},
+
   "studyReview.section.equations": {"text": "Equations", "params": []},
   "page.learn.review": {"text": "Review workspace", "params": []},
   "page.learn.review.history": {"text": "Self-rating history", "params": []},

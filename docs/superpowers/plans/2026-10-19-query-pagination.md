@@ -21,7 +21,7 @@
 
 总计划第 1、2、5 项分别落实到 P2/P3、P1/P4、P6；此外检查单页控件、旧 offset 极限后的尾页、匿名笔记和已退场页面。
 
-## P1：共用数字模型、导航与分页控件
+## Task 1: P1：共用数字模型、导航与分页控件
 
 **Files:** 新增 `backend/internal/pagination/{model,query,model_test,query_test}.go`；新增 `frontend/src/lib/pagination/{model,query,model.test,query.test}.ts`；新增 `frontend/src/components/{pagination.tsx,pagination.test.tsx}`、`frontend/src/styles/pagination.module.css`；修改 `frontend/src/lib/i18n/messages/{zh-CN,en}.ts`。
 
@@ -39,7 +39,7 @@
 
 Run：`node tools/verify/run.mjs --cwd frontend -- npm exec -- vitest run src/lib/pagination/model.test.ts src/lib/pagination/query.test.ts src/components/pagination.test.tsx`；另执行 `node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/pagination -timeout 5m -count=1`。Expected：两组全部 PASS，无跳过。
 
-## P2：笔记、当前学习历史及复习历史的页码协议
+## Task 2: P2：笔记、当前学习历史及复习历史的页码协议
 
 **Files:** 新增 `backend/internal/{knowledgeadmin,notesharing,studyreview}/numbered.go`、`backend/internal/store/{knowledge_admin_history_page,note_sharing_page,study_review_history_page}.go` 及对应 `*_test.go`、`backend/internal/httpapi/query_pagination_test.go`；修改 `backend/internal/httpapi/{knowledge_admin_routes,knowledge_study_routes,note_sharing_routes,study_review_routes,study_review_json}.go`；修改 `frontend/src/lib/{knowledge-admin,note-sharing,study-review}/{schemas,types,client,server-client}.ts` 和对应已有测试；修改 `frontend/src/lib/api/{knowledge-admin,note-sharing,study-review}-proxy.ts` 及对应测试；更新 `api/openapi.yaml`、生成 `frontend/src/lib/api/generated.d.ts`。
 
@@ -58,7 +58,7 @@ READ COMMITTED 模块使用单个 SQL 的 filtered/count/page CTE 计算总量�
 
 Run：通过 runner 分别执行 `go test ./internal/store -run '^TestNumbered(Notes|Managed|Review|OldCursor|Actor)' -timeout 5m -count=1`、`go test ./internal/httpapi -run '^TestNumbered' -timeout 5m -count=1`；前端分别运行三个模块的 `schemas.test.ts` 与三个代理测试。Expected：新增页码与原游标断言均 PASS。
 
-## P3：反馈、通知及可访问归档查询
+## Task 3: P3：反馈、通知及可访问归档查询
 
 **Files:** 新增 `backend/internal/{feedback,notification,correction,study}/numbered.go`；新增 `backend/internal/store/{feedback_ticket_page,notification_page,correction_case_page,study_history_page}.go` 及各 `*_test.go`；修改 `backend/internal/httpapi/{feedback,notification,correction,study}_routes.go`；修改 `frontend/src/lib/{feedback,notification,correction,study}/{schemas,types,client,server-client}.ts`、`frontend/src/lib/study/protocol.ts` 和对应测试；修改 `frontend/src/lib/api/{feedback,notification,correction,study}-proxy.ts` 及测试；更新 `api/openapi.yaml` 和生成类型。旧偏移量极限适配修改 `backend/internal/{knowledgeadmin,studyreview}/model.go`、`backend/internal/store/{knowledge_admin_read,knowledge_admin_public,knowledge_admin_study,study_review_read}.go` 及 P2 已列相关路由。
 
@@ -74,7 +74,7 @@ Run：通过 runner 分别执行 `go test ./internal/store -run '^TestNumbered(N
 
 Run：runner 下分组执行 `go test ./internal/store -run '^TestNumbered(Feedback|Notification|Correction|Legacy|Deep)' -timeout 5m -count=1`、HTTP Numbered 组，以及四类模块的 schemas/client 和 proxy 测试。Expected：旧/新模式、权限和深页边界全部 PASS。
 
-## P4：当前页面、行内文字操作与 URL 状态
+## Task 4: P4：当前页面、行内文字操作与 URL 状态
 
 **Files:** 修改 `frontend/src/features/catalogue/current-catalogue.tsx`、`frontend/src/features/auth/admin-users.tsx`、`frontend/src/features/knowledge-admin/list.tsx`、`frontend/src/features/study/{managed-learning-view,managed-history,managed-pages}.tsx`、`frontend/src/features/notes/{own-note-list,shared-note-list,admin-share-queue}.tsx`、`frontend/src/features/study-review/{queue,history,pages}.tsx`、`frontend/src/features/feedback/{ticket-list.tsx,page-data.ts}`、`frontend/src/features/notification/{inbox.tsx,page-data.ts}`、`frontend/src/features/correction/{case-list.tsx,page-data.ts}`、`frontend/src/lib/knowledge-admin/study-navigation.ts`；修改 `frontend/src/app/{notes,admin/note-shares,admin/knowledge}/page.tsx`、`frontend/src/styles/globals.css`；新增 `frontend/src/features/pagination/current-pages.test.tsx`，更新上述页面已有测试。
 
@@ -89,7 +89,7 @@ Run：runner 下分组执行 `go test ./internal/store -run '^TestNumbered(Feedb
 
 Run：runner 下执行 `vitest run src/features/pagination/current-pages.test.tsx`、原 auth/admin-users、catalogue/current-catalogue、study/managed-history、study-review/queue/history、notes/own-note-list 测试及 `npm run typecheck`。Expected：原语义和新交互均 PASS。
 
-## P5：仍可访问的旧查询覆盖
+## Task 5: P5：仍可访问的旧查询覆盖
 
 **Files:** 修改 `frontend/src/features/content/{draft-list,submission-list,publication-panel,topic-workspace}.tsx`、`frontend/src/features/question/{draft-list,submission-list,publication-panel,coverage-panel}.tsx`、`frontend/src/features/learning/{history-list,knowledge-list}.tsx`、`frontend/src/features/study/{knowledge-list,history-list,legacy-archive,pages}.tsx`；新增 `frontend/src/features/pagination/legacy-pages.test.tsx`，修改原 `frontend/src/features/{content,question}/authoring.test.tsx` 与 study 历史测试。固定 `test-fixtures/` 和 `.superpowers/.../legacy/frontend` 不修改。
 
@@ -102,7 +102,7 @@ Run：runner 下执行 `vitest run src/features/pagination/current-pages.test.ts
 
 Run：runner 下执行新增 legacy-pages、原 content/question authoring、study history 单元组；相关真实 legacy 浏览器测试在 P6 执行。Expected：旧写门禁、独立查询和原语义均 PASS。
 
-## P6：协议兼容、覆盖登记及分页验收
+## Task 6: P6：协议兼容、覆盖登记及分页验收
 
 **Files:** 新增 `tests/e2e/query-pagination.spec.ts`、`backend/internal/e2etest/query_pagination_fixture.go`、`query_pagination_fixture_test.go`、`query_pagination_control.go`；修改 `backend/internal/e2etest/harness.go`；新增 `tools/verify/query-pagination-ci.mjs`、`query-pagination-ci.test.mjs`、`.github/workflows/query-pagination.yml`；精确修改 `tools/verify/{go-batches.mjs,go-batches.test.mjs,topic-learning-compatibility.mjs,learning-compatibility.test.mjs,feedback-compatibility.test.mjs,correction-compatibility.mjs,admin-review-compatibility.mjs}`、`api/topic-learning-compatibility-baseline.json`、`docs/operations/ui-language-coverage.json`、`docs/operations/evidence/admin-content-review/compatibility-exceptions.json`。原 `api/{learning,feedback,correction}-compatibility-baseline.json` 保持，新增变更通过现有精确例外映射恢复原协议比较，不重写其历史基线。
 
