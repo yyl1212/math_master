@@ -17,7 +17,7 @@ it('SSR unknown/duplicate filters, another actor and force-password never expose
  server.user.mockResolvedValue({ok:true,data:{id:actorId,mustChangePassword:true}});render(<UiLocaleProvider initialLocale="zh-CN">{await ReviewWorkspacePage({searchParams:Promise.resolve({})})}</UiLocaleProvider>);expect(server.read).not.toHaveBeenCalled();expect(screen.queryByRole('heading',{name:'复习工作区'})).toBeNull();
 });
 it('SSR history is personal metadata with its original learning-history link',async()=>{
- render(<UiLocaleProvider initialLocale="zh-CN">{await ReviewHistoryPage({searchParams:Promise.resolve({mode:'recall'})})}</UiLocaleProvider>);expect(screen.getByRole('heading',{name:'自评历史'})).toBeVisible();expect(server.read.mock.calls[0][0]).toBe('/api/v3/study/review/history?mode=recall');
+ render(<UiLocaleProvider initialLocale="zh-CN">{await ReviewHistoryPage({searchParams:Promise.resolve({mode:'recall'})})}</UiLocaleProvider>);expect(screen.getByRole('heading',{name:'自评历史'})).toBeVisible();expect(server.read.mock.calls[0][0]).toBe('/api/v3/study/review/history?mode=recall&pagination=page');
 });
 
 it('rejects duplicate or unknown SSR filters before any private module request',async()=>{

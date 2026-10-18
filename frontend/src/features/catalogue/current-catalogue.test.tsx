@@ -70,7 +70,7 @@ it.each(['','   '])('keeps an empty legacy topic search %j readable instead of s
  calls.read.mockReset();calls.read.mockImplementation(async(path:string)=>new URL(path,'https://example.test').searchParams.has('q')?{ok:false,status:422,code:'INVALID_FIELD'}:{ok:true,data:path.startsWith('/api/v3/topics/')?root:{items:[secondary],total:1,limit:100,offset:0}});
  render(<UiLocaleProvider initialLocale="zh-CN">{await CurrentTopicPage({topicKey:'97-XX',searchParams:{q}})}</UiLocaleProvider>);
  expect(screen.getByRole('heading',{name:'数学教育'})).toBeVisible();expect(screen.queryByRole('alert')).toBeNull();
- expect(screen.queryByRole('textbox')).toBeNull();expect(screen.getByRole('link',{name:'检索本主题知识'})).toHaveAttribute('href','/knowledge?mode=knowledge&topicKey=97-XX');
+ expect(screen.queryByRole('searchbox')).toBeNull();expect(screen.getByRole('link',{name:'检索本主题知识'})).toHaveAttribute('href','/knowledge?mode=knowledge&topicKey=97-XX');
 });
 it('searches published knowledge in the map and preserves scope, mode and keyword when paging',async()=>{
  calls.read.mockReset();calls.read.mockImplementation(async(path:string)=>({ok:true,data:path.startsWith('/api/v3/knowledge?')?{items:[{id:'k-'+'a'.repeat(56),point:{title:'Column space',title_zh:'列空间',type:'definition',learning_difficulty:{difficulty_level:2}}}],total:45,limit:20,offset:20}:root}));
@@ -79,7 +79,7 @@ it('searches published knowledge in the map and preserves scope, mode and keywor
  expect(screen.getByRole('searchbox',{name:'关键词'})).toHaveValue('列空间');
  expect(screen.getByRole('combobox',{name:'检索对象'})).toHaveValue('knowledge');
  const next=new URL(screen.getByRole('link',{name:'下一页'}).getAttribute('href')!,'https://example.test');
- expect(Object.fromEntries(next.searchParams)).toEqual({mode:'knowledge',topicKey:'97-XX',q:'列空间',offset:'40'});
+ expect(Object.fromEntries(next.searchParams)).toEqual({mode:'knowledge',topicKey:'97-XX',q:'列空间',page:'3'});
 });
 it('keeps the global search form and clear action visible for zero matching knowledge',async()=>{
  calls.read.mockReset();calls.read.mockImplementation(async(path:string)=>({ok:true,data:path.startsWith('/api/v3/knowledge?')?empty:{items:[],total:0,limit:100,offset:0}}));

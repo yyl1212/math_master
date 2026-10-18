@@ -1,4 +1,5 @@
 'use client';
+import {Pagination} from '@/components/pagination';
 
 import Link from 'next/link';
 import type {Overview,ProgressPage,StudyPage,Topic} from '@/lib/knowledge-admin/types';
@@ -15,7 +16,7 @@ const states=['unlearned','learning','completed','reviewing'] as const;
 const stateKey=(state:typeof states[number])=>state==='completed'?'managed.learned':`managed.${state}` as const;
 export function learningHref(filters:Filters,changes:Filters={}){
  const query=new URLSearchParams();
- for(const key of ['q','topicKey','state','mode','offset']){const value={...filters,...changes}[key];if(value)query.set(key,value);}
+ for(const key of ['q','topicKey','state','mode','offset','page']){const value={...filters,...changes,...(changes.offset===''?{page:''}:{})}[key];if(value)query.set(key,value);}
  return '/learn'+(query.size?'?'+query:'');
 }
 const primary=(key:string)=>key==='project:other'||key==='project-other'?'project:other':key.replace(/^msc-/,'').slice(0,2);
@@ -90,10 +91,7 @@ export function ManagedLearningView({overview,list,themes,filters,selectedTopic}
      </article>;
     })}</div>
     {list.items.length===0&&<div className={styles.empty}><p>{t(overview.total===0?'learn.dashboard.noKnowledge':'study.empty.search',{})}</p></div>}
-    {(list.offset>0||list.offset+list.limit<list.total)&&<nav className={styles.paging} aria-label={t('learn.dashboard.pages',{})}>
-     <span>{t('learn.dashboard.showing',{from:list.total?list.offset+1:0,to:Math.min(list.offset+list.items.length,list.total),total:list.total})}</span>
-     <div>{list.offset>0&&<Link prefetch={false} href={learningHref(filters,{offset:String(Math.max(0,list.offset-list.limit))})}>{t('managed.previous',{})}</Link>}{list.offset+list.limit<list.total&&<Link prefetch={false} href={learningHref(filters,{offset:String(list.offset+list.limit)})}>{t('managed.next',{})}</Link>}</div>
-    </nav>}
+    <Pagination meta={list} label={t('learn.dashboard.pages',{})} navigation={{kind:'link',pathname:'/learn',query:filters,pageMode:true}}/>
    </section>
   </div>
  </div>;

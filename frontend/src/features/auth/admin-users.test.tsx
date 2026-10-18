@@ -64,3 +64,19 @@ describe("TestAdminUsers", () => {
     await waitFor(() => expect(mocks.replace).toHaveBeenCalledWith("/login"));
   });
 });
+
+it('uses applied filters for paging and rejects a response after identity changes',async()=>{
+ render(<AdminUsers initial={{...initial,total:41}}/>);await screen.findByRole('button',{name:'Save roles'});
+ mocks.request.mockResolvedValueOnce({ok:true,data:{...initial,total:41}});
+ fireEvent.change(screen.getByLabelText('Search usernames'),{target:{value:'applied'}});
+ fireEvent.submit(screen.getByRole('button',{name:'Search'}).closest('form')!);
+ await waitFor(()=>expect(mocks.request).toHaveBeenCalledTimes(1));
+ fireEvent.change(screen.getByLabelText('Search usernames'),{target:{value:'unapplied'}});
+ let finish!:(v:unknown)=>void;mocks.request.mockReturnValueOnce(new Promise(r=>{finish=r}));
+ fireEvent.click(screen.getByRole('button',{name:'Next page'}));
+ expect(mocks.request).toHaveBeenLastCalledWith({kind:'users',query:{q:'applied',limit:20,offset:20}},undefined);
+ mocks.context.mockResolvedValue({ok:true,data:{user:null}});window.dispatchEvent(new Event('math-master:auth-change'));
+ finish({ok:true,data:{...initial,items:[{...user,username:'late-secret'}]}});
+ await waitFor(()=>expect(mocks.context).toHaveBeenCalledTimes(2));
+ await waitFor(()=>expect(screen.queryByText('late-secret')).toBeNull());
+});

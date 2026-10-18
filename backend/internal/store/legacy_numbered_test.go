@@ -9,11 +9,11 @@ import (
 
 func TestNumberedLegacyHistory(t *testing.T) {
 	f := newStudyFixture(t)
-	_, e := f.repo.BeginStudy(f.ctx, f.Access("learner_a"), f.Ref().ID, f.Command(0))
+	_, e := f.repo.BeginStudy(f.ctx, f.Access("author_a"), f.Ref().ID, f.Command(0))
 	if e != nil {
 		t.Fatal(e)
 	}
-	p, e := f.repo.ListStudyHistoryPage(f.ctx, f.Access("learner_a"), study.HistoryQuery{}, pagination.Request{Enabled: true, Page: 99, Limit: 1})
+	p, e := f.repo.ListStudyHistoryPage(f.ctx, f.Access("author_a"), study.HistoryQuery{}, pagination.Request{Enabled: true, Page: 99, Limit: 1})
 	if e != nil || p.Total != 1 || p.Offset != 0 || len(p.Items) != 1 {
 		t.Fatal(p, e)
 	}

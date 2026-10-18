@@ -49,7 +49,8 @@ export function routeForReview(path:string):ReviewRoute|null{
  const match=new RegExp('^sessions/('+uuidPath+')(?:/(draft|compare|grade|abandon))?$').exec(rest);if(!match)return null;
  const kind=match[2]??'session';return {kind,private:true,method:kind==='session'?'GET':kind==='draft'?'PUT':'POST',id:match[1]};
 }
-export function schemaForReviewPath(path:string,method='GET'){const url=new URL(path,'http://localhost');path=url.pathname;if(url.searchParams.get('pagination')==='page'&&path==='/api/v3/study/review/history')return method==='GET'?historyPage.omit({nextCursor:true}).extend(numberedFields()).strict():z.never();
+export function schemaForReviewPath(path:string,method='GET'){const url=new URL(path,'http://localhost');path=url.pathname;if(url.searchParams.get('pagination')==='page'&&path==='/api/v3/study/review/queue')return method==='GET'?queuePage.extend({offset:z.number().int().min(0).max(Number.MAX_SAFE_INTEGER)}).strict():z.never();
+ if(url.searchParams.get('pagination')==='page'&&path==='/api/v3/study/review/history')return method==='GET'?historyPage.omit({nextCursor:true}).extend(numberedFields()).strict():z.never();
  const route=routeForReview(path);if(!route||route.method!==method)return z.never();
  switch(route.kind){case 'health':return health;case 'overview':return overview;case 'queue':return queuePage;case 'history':return historyPage;case 'session':return sessionSchema;default:return receiptSchema}
 }

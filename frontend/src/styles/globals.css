@@ -561,3 +561,5 @@ button, .button { overflow-wrap: anywhere; }
 
 .button-row, .button-group { display:flex; flex-wrap:wrap; align-items:center; gap:12px; min-width:0; }
 .button-row > a:not(.button) { display:inline-flex; align-items:center; min-height:44px; font-size:13px; text-decoration:underline; text-underline-offset:4px; }
+
+.text-button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:6px 10px;border:0;background:transparent;color:var(--accent);font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}.text-button:disabled{opacity:.5;cursor:not-allowed}.text-button.danger{color:var(--danger,#b42318)}
