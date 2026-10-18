@@ -143,6 +143,14 @@ func (s *Store) SetManagedKnowledgeState(ctx context.Context, a knowledgeadmin.A
 		if ok, e := knowledgeReplay(ctx, tx, u, a, action, id, digest, &out); e != nil || ok {
 			return e
 		}
+		if action == "publish" {
+			var err error
+			out, err = publishManagedKnowledgeTx(ctx, tx, u, id, token, "")
+			if err != nil {
+				return err
+			}
+			return knowledgeReceipt(ctx, tx, u, a, action, id, digest, out)
+		}
 		old, e := readManaged(ctx, tx, id, true)
 		if e != nil {
 			return e
@@ -204,4 +212,38 @@ func existingExternal(ctx context.Context, tx *sql.Tx, id string) (knowledgeadmi
 		return k, false, nil
 	}
 	return k, e == nil, e
+}
+
+// Shared by single and batch publish; the empty jobID retains the original audit shape.
+func publishManagedKnowledgeTx(ctx context.Context, tx *sql.Tx, u auth.User, id, token, jobID string) (knowledgeadmin.Knowledge, error) {
+	old, e := readManaged(ctx, tx, id, true)
+	if e != nil {
+		return old, e
+	}
+	if old.EditToken != token {
+		return old, knowledgeadmin.ErrStale
+	}
+	if old.Deleted {
+		return old, knowledgeadmin.ErrConflict
+	}
+	if e = knowledgeadmin.ValidateCurrent(knowledgeadmin.CurrentInput{ExternalID: old.ExternalID, Point: old.Point, Sources: old.Sources}); e != nil {
+		return old, e
+	}
+	if _, e = tx.ExecContext(ctx, `UPDATE managed_knowledge SET published=true,deleted_at=NULL,edit_token=gen_random_uuid(),updated_by=$2,updated_at=clock_timestamp() WHERE internal_id=$1`, id, u.ID); e != nil {
+		return old, e
+	}
+	next, e := readManaged(ctx, tx, id, false)
+	if e != nil {
+		return next, e
+	}
+	topics, e := managedTopics(ctx, tx, id)
+	if e != nil {
+		return next, e
+	}
+	evidence := map[string]any{"published": true, "deleted": false}
+	if jobID != "" {
+		evidence["jobId"] = jobID
+	}
+	e = managedEvent(ctx, tx, u, "publish", &old, next, topics, topics, evidence)
+	return next, e
 }

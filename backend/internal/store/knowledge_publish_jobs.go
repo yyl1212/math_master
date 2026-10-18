@@ -65,7 +65,10 @@ func (s *Store) publishTx(ctx context.Context, a k.Access, write, step bool, fn 
 		return knowledgeError(err)
 	}
 	committing = true
-	return knowledgeError(tx.Commit())
+	if err = tx.Commit(); err != nil {
+		return k.ErrPublishInterrupted
+	}
+	return nil
 }
 func publishDomainError(e error) bool {
 	for _, v := range []error{k.ErrInvalid, k.ErrConflict, k.ErrStale, k.ErrIdempotency, k.ErrNotConfigured, k.ErrNotFound, auth.ErrForbidden, auth.ErrAuthenticationRequired, auth.ErrPasswordChangeRequired, auth.ErrCSRF} {

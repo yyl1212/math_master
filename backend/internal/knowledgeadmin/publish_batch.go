@@ -25,6 +25,7 @@ const (
 )
 const MaxPublishInteger int64 = 9007199254740991
 
+var ErrPublishInterrupted = errors.New("publish commit outcome unknown")
 var ErrPublishRolledBack = errors.New("publish batch rolled back")
 var publishID = regexp.MustCompile(`^k-[0-9a-f]{56}$`)
 var publishUUID = regexp.MustCompile(`^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$`)
