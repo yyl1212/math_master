@@ -52,3 +52,5 @@ jobs:
         run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
       - name: 验证步骤 52
         run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- query-pagination.spec.ts
+      - name: 完整公共分页模型
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/pagination -timeout 5m -count=1

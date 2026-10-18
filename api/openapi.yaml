@@ -34113,7 +34113,7 @@
             }
           },
           "503": {
-            "description": "明确失败，不计入发布成功。",
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
             "content": {
               "application/json": {
                 "schema": {
@@ -34253,7 +34253,7 @@
             }
           },
           "503": {
-            "description": "明确失败，不计入发布成功。",
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
             "content": {
               "application/json": {
                 "schema": {
@@ -34272,7 +34272,39 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2048
+            }
+          }
+        ]
       }
     },
     "/api/v3/admin/knowledge/publish-jobs/{jobId}": {
@@ -34381,7 +34413,7 @@
             }
           },
           "503": {
-            "description": "明确失败，不计入发布成功。",
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
             "content": {
               "application/json": {
                 "schema": {
@@ -34546,7 +34578,7 @@
             }
           },
           "503": {
-            "description": "明确失败，不计入发布成功。",
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
             "content": {
               "application/json": {
                 "schema": {
@@ -34564,6 +34596,36 @@
             "schema": {
               "type": "string",
               "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2048
             }
           }
         ],

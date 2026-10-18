@@ -25070,7 +25070,7 @@ export interface operations {
                     "application/json": components["schemas"]["ManagedProblem"];
                 };
             };
-            /** @description 明确失败，不计入发布成功。 */
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -25084,7 +25084,11 @@ export interface operations {
     knowledge_publish_create: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+                Origin: string;
+            };
             path?: never;
             cookie?: never;
         };
@@ -25175,7 +25179,7 @@ export interface operations {
                     "application/json": components["schemas"]["ManagedProblem"];
                 };
             };
-            /** @description 明确失败，不计入发布成功。 */
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -25283,7 +25287,7 @@ export interface operations {
                     "application/json": components["schemas"]["ManagedProblem"];
                 };
             };
-            /** @description 明确失败，不计入发布成功。 */
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
             503: {
                 headers: {
                     [name: string]: unknown;
@@ -25297,7 +25301,11 @@ export interface operations {
     knowledge_publish_step: {
         parameters: {
             query?: never;
-            header?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+                Origin: string;
+            };
             path: {
                 jobId: string;
             };
@@ -25390,7 +25398,7 @@ export interface operations {
                     "application/json": components["schemas"]["ManagedProblem"];
                 };
             };
-            /** @description 明确失败，不计入发布成功。 */
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
             503: {
                 headers: {
                     [name: string]: unknown;

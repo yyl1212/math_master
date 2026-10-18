@@ -4945,6 +4945,31 @@
       "scenarios": [
         "tests/e2e/query-pagination.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/features/knowledge-admin/publish-batch.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "publish.title",
+        "publish.scope",
+        "publish.selected",
+        "publish.all",
+        "publish.progress",
+        "publish.counts",
+        "publish.pause",
+        "publish.resume",
+        "publish.failures",
+        "publish.retryPrepare",
+        "publish.retrySubmit",
+        "publish.recent"
+      ],
+      "rawDataAreas": [
+        "知识标题、状态计数、本人操作时间及失败字段定位；无正文和令牌入storage"
+      ],
+      "scenarios": [
+        "tests/e2e/knowledge-batch-publish.spec.ts"
+      ]
     }
   ]
 }

@@ -8,7 +8,7 @@ import (
 
 var publishTables = []string{"managed_knowledge_publish_jobs", "managed_knowledge_publish_items", "managed_knowledge_publish_receipts"}
 
-const publishSchemaDigest = "e27638b6605a23002f09ad930c017cc8"
+const publishSchemaDigest = "b709ad5e16cd5e3f124a8135c323d0d2"
 
 func publishSchemaIntegrity(ctx context.Context, tx *sql.Tx) error {
 	var count int

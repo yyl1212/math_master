@@ -117,3 +117,26 @@ func TestPublishMigrationMissingKeepsOriginal(t *testing.T) {
 		t.Fatal(e)
 	}
 }
+
+func TestPublishMigration16AfterReviewRestore(t *testing.T) {
+	db := reviewSchemaDB(t)
+	sharingSchemaSeed(t, db)
+	if e := goose.UpContext(context.Background(), db, "../../../db/migrations"); e != nil {
+		t.Fatal(e)
+	}
+	var body string
+	if e := db.QueryRow("SELECT body FROM managed_study_notes").Scan(&body); e != nil || body != "自己整理的数学笔记" {
+		t.Fatal(body, e)
+	}
+	tx, e := db.Begin()
+	if e != nil {
+		t.Fatal(e)
+	}
+	defer tx.Rollback()
+	if e = studyReviewSchemaIntegrity(context.Background(), tx); e != nil {
+		t.Fatal(e)
+	}
+	if e = publishSchemaIntegrity(context.Background(), tx); e != nil {
+		t.Fatal(e)
+	}
+}

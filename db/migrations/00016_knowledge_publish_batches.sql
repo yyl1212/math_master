@@ -26,21 +26,30 @@ CREATE TABLE managed_knowledge_publish_receipts (
 CREATE TRIGGER managed_publish_receipt_immutable BEFORE UPDATE OR DELETE ON managed_knowledge_publish_receipts FOR EACH ROW EXECUTE FUNCTION reject_content_update();
 -- +goose StatementBegin
 CREATE FUNCTION managed_publish_item_guard() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN
- IF TG_OP='DELETE' OR OLD.state<>'pending' OR NEW.state='pending' OR (to_jsonb(NEW)-ARRAY['state','error_code','error_path']) IS DISTINCT FROM (to_jsonb(OLD)-ARRAY['state','error_code','error_path']) THEN RAISE EXCEPTION 'publish snapshot or terminal item is immutable';END IF;RETURN NEW;
+ IF TG_OP='DELETE' THEN RAISE EXCEPTION 'publish item is immutable';END IF;
+ PERFORM set_config('math_master.publish_checked_'||replace(NEW.job_id::text,'-',''),'0',true);
+ IF TG_OP='INSERT' THEN RETURN NEW;END IF;
+ IF OLD.state<>'pending' OR NEW.state='pending' OR (to_jsonb(NEW)-ARRAY['state','error_code','error_path']) IS DISTINCT FROM (to_jsonb(OLD)-ARRAY['state','error_code','error_path']) THEN RAISE EXCEPTION 'publish snapshot or terminal item is immutable';END IF;RETURN NEW;
 END $$;
 -- +goose StatementEnd
-CREATE TRIGGER managed_publish_item_guard BEFORE UPDATE OR DELETE ON managed_knowledge_publish_items FOR EACH ROW EXECUTE FUNCTION managed_publish_item_guard();
+CREATE TRIGGER managed_publish_item_guard BEFORE INSERT OR UPDATE OR DELETE ON managed_knowledge_publish_items FOR EACH ROW EXECUTE FUNCTION managed_publish_item_guard();
 -- +goose StatementBegin
 CREATE FUNCTION managed_publish_job_guard() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN
- IF TG_OP='DELETE' OR (to_jsonb(NEW)-ARRAY['sequence','pending','published','skipped','failed']) IS DISTINCT FROM (to_jsonb(OLD)-ARRAY['sequence','pending','published','skipped','failed']) OR NEW.sequence<>OLD.sequence+1 OR OLD.pending=0 OR NEW.pending>=OLD.pending OR NEW.published<OLD.published OR NEW.skipped<OLD.skipped OR NEW.failed<OLD.failed THEN RAISE EXCEPTION 'invalid publish progress';END IF;RETURN NEW;
+ IF TG_OP='DELETE' THEN RAISE EXCEPTION 'publish operation is immutable';END IF;
+ PERFORM set_config('math_master.publish_checked_'||replace(NEW.job_id::text,'-',''),'0',true);
+ IF TG_OP='INSERT' THEN RETURN NEW;END IF;
+ IF (to_jsonb(NEW)-ARRAY['sequence','pending','published','skipped','failed']) IS DISTINCT FROM (to_jsonb(OLD)-ARRAY['sequence','pending','published','skipped','failed']) OR NEW.sequence<>OLD.sequence+1 OR OLD.pending=0 OR NEW.pending>=OLD.pending OR NEW.published<OLD.published OR NEW.skipped<OLD.skipped OR NEW.failed<OLD.failed THEN RAISE EXCEPTION 'invalid publish progress';END IF;RETURN NEW;
 END $$;
 -- +goose StatementEnd
-CREATE TRIGGER managed_publish_job_guard BEFORE UPDATE OR DELETE ON managed_knowledge_publish_jobs FOR EACH ROW EXECUTE FUNCTION managed_publish_job_guard();
+CREATE TRIGGER managed_publish_job_guard BEFORE INSERT OR UPDATE OR DELETE ON managed_knowledge_publish_jobs FOR EACH ROW EXECUTE FUNCTION managed_publish_job_guard();
 -- +goose StatementBegin
-CREATE FUNCTION managed_publish_counts_guard() RETURNS trigger LANGUAGE plpgsql AS $$ DECLARE j managed_knowledge_publish_jobs; n bigint;p bigint;d bigint;s bigint;f bigint;BEGIN
+CREATE FUNCTION managed_publish_counts_guard() RETURNS trigger LANGUAGE plpgsql AS $$ DECLARE j managed_knowledge_publish_jobs; n bigint;p bigint;d bigint;s bigint;f bigint;cache_key text;BEGIN
+ cache_key:='math_master.publish_checked_'||replace(NEW.job_id::text,'-','');
+ IF current_setting(cache_key,true)='1' THEN RETURN NULL;END IF;
  SELECT * INTO j FROM managed_knowledge_publish_jobs WHERE job_id=NEW.job_id;
  SELECT count(*),count(*) FILTER(WHERE state='pending'),count(*) FILTER(WHERE state='published'),count(*) FILTER(WHERE state='skipped'),count(*) FILTER(WHERE state='failed') INTO n,p,d,s,f FROM managed_knowledge_publish_items WHERE job_id=NEW.job_id;
- IF (j.total,j.pending,j.published,j.skipped,j.failed) IS DISTINCT FROM (n,p,d,s,f) THEN RAISE EXCEPTION 'publish counts mismatch';END IF;RETURN NULL;
+ IF (j.total,j.pending,j.published,j.skipped,j.failed) IS DISTINCT FROM (n,p,d,s,f) THEN RAISE EXCEPTION 'publish counts mismatch';END IF;
+ PERFORM set_config(cache_key,'1',true);RETURN NULL;
 END $$;
 -- +goose StatementEnd
 CREATE CONSTRAINT TRIGGER managed_publish_job_counts AFTER INSERT OR UPDATE ON managed_knowledge_publish_jobs DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION managed_publish_counts_guard();

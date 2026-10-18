@@ -1,6 +1,6 @@
 # 查询分页与知识批量发布实施总计划
 
-> 执行者必须使用 `superpowers:executing-plans`（Native）或用户选择后的 `superpowers:subagent-driven-development`，按任务复选框实施。本计划待用户审阅及选择执行方式，尚未开发。
+> 执行者必须使用 `superpowers:executing-plans`（Native）或用户选择后的 `superpowers:subagent-driven-development`，按任务复选框实施。用户已选择 Native，按此计划完成实现并进入最终审查。
 
 **Goal:** 全站查询显示页数、支持图标翻页与跳转，统一行内文字操作，并提供可靠的知识勾选发布和全量发布。
 
@@ -59,9 +59,9 @@ flowchart LR
 ## 实施前与最终交付
 
 - [x] 同步 master、创建分支，提交书面设计 `daac202`，用户确认该设计。
-- [ ] 用户审阅本总计划及两个子计划，并选择 Native 或逐任务子代理执行。
-- [ ] 复用当前已隔离工作树，记录最新 master、迁移编号、原 schema 摘要和原协议样例；不重新创建无关工作树。
-- [ ] 依次执行 P1—P6、B1—B6，每个任务先运行对应失败用例，再最小实现并验证；按任务提交，记录实际测试证据。
+- [x] 用户审阅本总计划及两个子计划，并选择 Native 或逐任务子代理执行。
+- [x] 复用当前已隔离工作树，记录最新 master、迁移编号、原 schema 摘要和原协议样例；不重新创建无关工作树。
+- [x] 依次执行 P1—P6、B1—B6，每个任务先运行对应失败用例，再最小实现并验证；按任务提交，记录实际测试证据。
 - [ ] 执行整分支代码审查，逐项处理发现，针对修复重跑相关回归；新增正确性或兼容性问题未解决前不得创建完成态 MR。
 - [ ] 前端类型检查、构建与单元测试；Go vet/build 及按领域分批测试；真实 PostgreSQL 和桌面/手机浏览器回归，均遵守单次时限。
 - [ ] 更新中文验收记录 `docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md`，逐项记录 Spec 第 12 节的 12 条验收结论、测试命令、数量和实际限制。

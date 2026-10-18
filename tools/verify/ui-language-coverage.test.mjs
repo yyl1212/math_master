@@ -17,6 +17,6 @@ test('repository page and component inventory has verified coverage',()=>{
  const pages=files(join(base,'frontend/src/app')).filter(p=>p.endsWith('/page.tsx')).map(rel);
  const components=['components','features'].flatMap(f=>files(join(base,'frontend/src/'+f))).filter(p=>p.endsWith('.tsx')&&!p.includes('.test.')&&!p.includes('test-fixtures')).map(rel);
  const entries=JSON.parse(read('frontend/src/lib/i18n/messages/en.ts').match(/= ([\s\S]*) as const;/)[1]);
- const scenarios=files(join(base,'tests/e2e')).filter(p=>/(?:query-pagination|ui-language-[a-z]+|study-review-(?:flow|recall|security))\.spec\.ts$/.test(p)).map(rel);
+ const scenarios=files(join(base,'tests/e2e')).filter(p=>/(?:knowledge-batch-publish|query-pagination|ui-language-[a-z]+|study-review-(?:flow|recall|security))\.spec\.ts$/.test(p)).map(rel);
  assert.equal(validateUiCoverage(JSON.parse(read('docs/operations/ui-language-coverage.json')),{pages,components,keys:Object.keys(entries),scenarios,noOwnText:['frontend/src/components/page-heading.tsx','frontend/src/features/learning/learning-account.tsx','frontend/src/features/reading/path-connections.tsx','frontend/src/features/notes/note-time.tsx','frontend/src/features/notes/note-preview.tsx']}),true);
 });
