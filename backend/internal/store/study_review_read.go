@@ -7,8 +7,10 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/pagination"
 	"github.com/yyl1212/math_master/backend/internal/study"
 	"github.com/yyl1212/math_master/backend/internal/studyreview"
+	"strings"
 	"time"
 )
 
@@ -149,10 +151,26 @@ func (s *Store) ListReviewQueue(ctx context.Context, a studyreview.Access, q stu
 	e = s.studyReviewReadTx(ctx, a, func(ctx context.Context, tx *sql.Tx, u auth.User) error {
 		out = studyreview.QueuePage{ActorID: u.ID, Items: []studyreview.QueueItem{}, Limit: q.Limit, Offset: q.Offset}
 		const filter = ` ,filtered AS(SELECT * FROM eligible WHERE ($2='' OR strpos(lower(title),lower($2))>0 OR strpos(lower(title_zh),lower($2))>0) AND ($3='' OR EXISTS(SELECT 1 FROM managed_knowledge_topics t WHERE t.internal_id=knowledge_id AND t.active AND (t.topic_key=$3 OR t.topic_key LIKE $3||'%'))) AND ($4='' OR $4='all' OR bucket=$4 OR ($4='due' AND bucket='changed'))),chosen AS(SELECT * FROM filtered ORDER BY CASE bucket WHEN 'unfinished' THEN 0 WHEN 'changed' THEN 1 WHEN 'due' THEN 2 WHEN 'unplanned' THEN 3 ELSE 4 END,due_at NULLS FIRST,knowledge_id LIMIT $5 OFFSET $6),chosen_topics AS MATERIALIZED(SELECT t.internal_id,jsonb_agg(t.topic_key ORDER BY t.topic_key) topic_keys FROM managed_knowledge_topics t JOIN chosen c ON c.knowledge_id=t.internal_id WHERE t.active GROUP BY t.internal_id) `
+		filterSQL := filter
+		offset := any(q.Offset)
+		if q.Numbered != nil {
+			if _, err := pagination.Window(0, q.Numbered.Page, q.Limit); err != nil {
+				return studyreview.ErrInvalid
+			}
+			filterSQL = strings.Replace(filter, "OFFSET $6", "OFFSET (SELECT least($6::bigint-1,greatest((count(*)-1)/$5::bigint,0))*$5::bigint FROM filtered)", 1)
+			offset = q.Numbered.Page
+		}
 		var raw []byte
-		e := tx.QueryRowContext(ctx, reviewQueueCTE+filter+`SELECT (SELECT as_of FROM at),(SELECT count(*) FROM filtered),coalesce((SELECT jsonb_agg(jsonb_build_object('knowledge',jsonb_build_object('id',knowledge_id,'contentSha256',content_sha256,'sourceKind','managed'),'title',left(title,128),'titleZh',left(title_zh,128),'knowledgeType',knowledge_type,'topicKeys',coalesce((SELECT topic_keys FROM chosen_topics t WHERE t.internal_id=knowledge_id),'[]'::jsonb),'bucket',bucket,'materialChanged',material_changed,'proofAvailable',proof_available,'activeSessionId',active_session_id,'schedule',schedule) ORDER BY CASE bucket WHEN 'unfinished' THEN 0 WHEN 'changed' THEN 1 WHEN 'due' THEN 2 WHEN 'unplanned' THEN 3 ELSE 4 END,due_at NULLS FIRST,knowledge_id) FROM chosen),'[]'::jsonb)`, u.ID, q.Q, topicPrefix(q.TopicKey), q.Bucket, q.Limit, q.Offset).Scan(&out.AsOf, &out.Total, &raw)
+		e := tx.QueryRowContext(ctx, reviewQueueCTE+filterSQL+`SELECT (SELECT as_of FROM at),(SELECT count(*) FROM filtered),coalesce((SELECT jsonb_agg(jsonb_build_object('knowledge',jsonb_build_object('id',knowledge_id,'contentSha256',content_sha256,'sourceKind','managed'),'title',left(title,128),'titleZh',left(title_zh,128),'knowledgeType',knowledge_type,'topicKeys',coalesce((SELECT topic_keys FROM chosen_topics t WHERE t.internal_id=knowledge_id),'[]'::jsonb),'bucket',bucket,'materialChanged',material_changed,'proofAvailable',proof_available,'activeSessionId',active_session_id,'schedule',schedule) ORDER BY CASE bucket WHEN 'unfinished' THEN 0 WHEN 'changed' THEN 1 WHEN 'due' THEN 2 WHEN 'unplanned' THEN 3 ELSE 4 END,due_at NULLS FIRST,knowledge_id) FROM chosen),'[]'::jsonb)`, u.ID, q.Q, topicPrefix(q.TopicKey), q.Bucket, q.Limit, offset).Scan(&out.AsOf, &out.Total, &raw)
 		if e != nil {
 			return e
+		}
+		if q.Numbered != nil {
+			m, err := pagination.Window(int64(out.Total), q.Numbered.Page, q.Limit)
+			if err != nil {
+				return err
+			}
+			out.Offset = int(m.Offset)
 		}
 		if json.Unmarshal(raw, &out.Items) != nil {
 			return studyreview.ErrNotConfigured

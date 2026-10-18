@@ -122,6 +122,18 @@ func routeManaged(path, method string) (out managedRoute, e error) {
 	return out, nil
 }
 func managedQuery(raw string, route managedRoute) (out knowledgeadmin.Query, e error) {
+	raw, numbered, pageErr := numberedQuery(raw, true, 20, 100)
+	if pageErr != nil {
+		return out, knowledgeadmin.ErrInvalid
+	}
+	if numbered.Enabled {
+		if numbered.Cursor != "" {
+			return out, knowledgeadmin.ErrInvalid
+		}
+		out.Numbered = &numbered
+		out.Limit = numbered.Limit
+	}
+
 	v, e := url.ParseQuery(raw)
 	if e != nil {
 		return out, knowledgeadmin.ErrInvalid

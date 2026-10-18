@@ -83,12 +83,19 @@ func serveStudyReview(w http.ResponseWriter, r *http.Request, o KnowledgeOptions
 		studyReviewHTTPError(w, r, errReviewRequest)
 		return
 	}
-	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.kind == "history", 20, 50)
+	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.kind == "history" || route.kind == "queue", 20, 50)
 	if pageErr != nil {
 		studyReviewHTTPError(w, r, errReviewRequest)
 		return
 	}
 	q, h, e := reviewQuery(rawQuery, route.kind)
+	if numbered.Enabled && route.kind == "queue" {
+		if numbered.Cursor != "" {
+			studyReviewHTTPError(w, r, errReviewRequest)
+			return
+		}
+		q.Numbered = &numbered
+	}
 	if e != nil {
 		studyReviewHTTPError(w, r, e)
 		return

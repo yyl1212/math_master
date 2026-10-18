@@ -12649,6 +12649,27 @@
               "maxLength": 512,
               "pattern": "^[A-Za-z0-9_-]+$"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -12677,7 +12698,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FeedbackNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -14377,6 +14405,27 @@
                 "suggestion"
               ]
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -14405,7 +14454,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FeedbackNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -15739,6 +15795,27 @@
               "maxLength": 512,
               "pattern": "^[A-Za-z0-9_-]+$"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -15767,7 +15844,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CorrectionCaseMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CorrectionCaseMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CorrectionCaseNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -20942,6 +21026,27 @@
               "maxLength": 512,
               "pattern": "^[A-Za-z0-9_-]+$"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -20970,7 +21075,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NotificationMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/NotificationMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NotificationNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -24633,7 +24745,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StudyHistoryPage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudyHistoryPage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StudyHistoryNumberedPage"
+                    }
+                  ]
                 }
               }
             },
@@ -24798,6 +24917,27 @@
               "minimum": 1,
               "maximum": 50
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -26153,6 +26293,27 @@
                 "deleted"
               ]
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
@@ -27865,6 +28026,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28141,6 +28323,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28299,6 +28502,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28565,6 +28789,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28742,6 +28987,27 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -32674,6 +32940,27 @@
               "minimum": 0,
               "maximum": 100000
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -53439,6 +53726,200 @@
           "limit",
           "offset"
         ]
+      },
+      "FeedbackNumberedPageResponseData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "$ref": "#/components/schemas/FeedbackMetadata"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "FeedbackNumberedPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedbackNumberedPageResponseData"
+          }
+        }
+      },
+      "NotificationNumberedPageResponseData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationMetadata"
+            },
+            "minItems": 0,
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "NotificationNumberedPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/NotificationNumberedPageResponseData"
+          }
+        }
+      },
+      "CorrectionCaseNumberedPageResponseData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CorrectionCaseMetadata"
+            },
+            "minItems": 0,
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "CorrectionCaseNumberedPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CorrectionCaseNumberedPageResponseData"
+          }
+        }
+      },
+      "StudyHistoryNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "items",
+          "limit",
+          "total",
+          "offset"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyHistoryEntry"
+            },
+            "maxItems": 50
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
       }
     },
     "securitySchemes": {

@@ -20,6 +20,9 @@ func numberedQuery(raw string, allowed bool, defaultLimit, maxLimit int) (string
 	if !allowed {
 		return raw, p, pagination.ErrInvalid
 	}
+	if values.Has("offset") {
+		return raw, p, pagination.ErrInvalid
+	}
 	values.Del("pagination")
 	values.Del("page")
 	return values.Encode(), p, nil

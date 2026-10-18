@@ -6874,6 +6874,43 @@ export interface components {
             limit: number;
             offset: number;
         };
+        FeedbackNumberedPageResponseData: {
+            items: components["schemas"]["FeedbackMetadata"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        FeedbackNumberedPageResponse: {
+            actorId: string;
+            data: components["schemas"]["FeedbackNumberedPageResponseData"];
+        };
+        NotificationNumberedPageResponseData: {
+            items: components["schemas"]["NotificationMetadata"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        NotificationNumberedPageResponse: {
+            actorId: string;
+            data: components["schemas"]["NotificationNumberedPageResponseData"];
+        };
+        CorrectionCaseNumberedPageResponseData: {
+            items: components["schemas"]["CorrectionCaseMetadata"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        CorrectionCaseNumberedPageResponse: {
+            actorId: string;
+            data: components["schemas"]["CorrectionCaseNumberedPageResponseData"];
+        };
+        StudyHistoryNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["StudyHistoryEntry"][];
+            limit: number;
+            total: number;
+            offset: number;
+        };
     };
     responses: {
         /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */
@@ -12519,6 +12556,10 @@ export interface operations {
             query?: {
                 limit?: number;
                 cursor?: string;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -12535,7 +12576,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"] | components["schemas"]["FeedbackNumberedPageResponse"];
                 };
             };
             /** @description 闭合错误；不回显输入、答案或私有正文。 */
@@ -13200,6 +13241,10 @@ export interface operations {
                 cursor?: string;
                 status?: "new" | "processing" | "waiting_details" | "resolved" | "closed";
                 category?: "math_error" | "unclear_explanation" | "typo" | "accessibility" | "technical_issue" | "suggestion";
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -13216,7 +13261,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"] | components["schemas"]["FeedbackNumberedPageResponse"];
                 };
             };
             /** @description 闭合错误；不回显输入、答案或私有正文。 */
@@ -13742,6 +13787,10 @@ export interface operations {
             query?: {
                 limit?: number;
                 cursor?: string;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -13758,7 +13807,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CorrectionCaseMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["CorrectionCaseMetadataPageEnvelope"] | components["schemas"]["CorrectionCaseNumberedPageResponse"];
                 };
             };
             /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
@@ -15831,6 +15880,10 @@ export interface operations {
             query?: {
                 limit?: number;
                 cursor?: string;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -15847,7 +15900,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["NotificationMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["NotificationMetadataPageEnvelope"] | components["schemas"]["NotificationNumberedPageResponse"];
                 };
             };
             /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
@@ -18103,6 +18156,10 @@ export interface operations {
                 kind?: string;
                 cursor?: string;
                 limit?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -18117,7 +18174,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StudyHistoryPage"];
+                    "application/json": components["schemas"]["StudyHistoryPage"] | components["schemas"]["StudyHistoryNumberedPage"];
                 };
             };
             /** @description Fixed private study error. */
@@ -19185,6 +19242,10 @@ export interface operations {
                 limit?: number;
                 offset?: number;
                 status?: "published" | "unpublished" | "deleted";
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -20481,6 +20542,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -20692,6 +20757,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -20799,6 +20868,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path: {
@@ -21010,6 +21083,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -21120,6 +21197,10 @@ export interface operations {
                 offset?: number;
                 state?: "unlearned" | "learning" | "completed" | "reviewing";
                 reviewOnly?: boolean;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -23914,6 +23995,10 @@ export interface operations {
                 q?: string;
                 bucket?: "due" | "changed" | "unplanned" | "unfinished" | "future" | "all";
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;

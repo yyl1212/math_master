@@ -241,7 +241,12 @@ func serveCorrection(w http.ResponseWriter, r *http.Request, o CorrectionOptions
 		return
 	}
 	list := route.Action == correction.ListCasesAction || route.Action == correction.ListPlansAction || route.Action == correction.ListJobsAction || route.Action == correction.ListOwnAction
-	q, ref, e := correctionQuery(r.URL.RawQuery, list, route.Action == correction.ListOwnAction)
+	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.Action == correction.ListCasesAction, 20, 50)
+	if pageErr != nil {
+		fail(auth.ErrInvalidInput)
+		return
+	}
+	q, ref, e := correctionQuery(rawQuery, list, route.Action == correction.ListOwnAction)
 	if e != nil {
 		fail(e)
 		return
@@ -263,7 +268,13 @@ func serveCorrection(w http.ResponseWriter, r *http.Request, o CorrectionOptions
 		fail(auth.ErrInvalidInput)
 		return
 	}
-	v, status, e := dispatchCorrection(ctx, r, route, a, q, ref, o.Service)
+	var v any
+	status := 200
+	if numbered.Enabled {
+		v, e = o.Service.ListCorrectionCasePage(ctx, a, q, numbered)
+	} else {
+		v, status, e = dispatchCorrection(ctx, r, route, a, q, ref, o.Service)
+	}
 	if e != nil {
 		fail(e)
 		return

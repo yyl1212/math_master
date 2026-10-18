@@ -212,7 +212,12 @@ func serveFeedback(w http.ResponseWriter, r *http.Request, o FeedbackOptions) {
 		fail(e)
 		return
 	}
-	q, c, e := feedbackQuery(r.URL.RawQuery, route)
+	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.Action == feedback.ListOwnAction || route.Action == feedback.ListReviewAction, 20, 50)
+	if pageErr != nil {
+		feedbackError(w, r, auth.ErrInvalidInput)
+		return
+	}
+	q, c, e := feedbackQuery(rawQuery, route)
 	if e != nil {
 		fail(e)
 		return
@@ -271,7 +276,13 @@ func serveFeedback(w http.ResponseWriter, r *http.Request, o FeedbackOptions) {
 		fail(auth.ErrInvalidInput)
 		return
 	}
-	v, status, e := dispatchFeedback(ctx, r, route, a, q, c, o.Service)
+	var v any
+	status := 200
+	if numbered.Enabled {
+		v, e = o.Service.ListFeedbackTicketPage(ctx, a, route.Action == feedback.ListReviewAction, q, numbered)
+	} else {
+		v, status, e = dispatchFeedback(ctx, r, route, a, q, c, o.Service)
+	}
 	if e != nil {
 		fail(e)
 		return

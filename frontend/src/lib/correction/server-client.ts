@@ -1,3 +1,5 @@
+import {numberedPath,type NumberedQuery} from '../pagination/query';
+import {numberedCasePageSchema} from './schemas';
 import 'server-only';
 import { z } from 'zod';
 import { cookies } from 'next/headers';
@@ -22,6 +24,7 @@ function planPath(ref: PlanRef) { const r = planRefSchema.safeParse(ref); if (!r
     throw new CorrectionRequestError('INVALID_REQUEST'); return '/api/v1/corrections/plans/' + r.data.id + '/versions/' + r.data.version; }
 function read<T>(path: string, schema: z.ZodType<T>, access: ReadAccess = {}) { resolveCorrectionRoute(path); return correctionServerRead(path, schema, access); }
 export const correctionServer = {
+ listCasesPage:(query:NumberedQuery={},access:ReadAccess={})=>read(numberedPath('/api/v1/corrections/cases',query),numberedCasePageSchema,access),
     listCases: (query: PageQuery = {}, access: ReadAccess = {}) => read(queryPath('/api/v1/corrections/cases', query), casePageSchema, access),
     readCase: (id: string, access: ReadAccess = {}) => read('/api/v1/corrections/cases/' + checkedId(id), caseMetadataSchema, access),
     listPlans: (id: string, query: PageQuery = {}, access: ReadAccess = {}) => read(queryPath('/api/v1/corrections/cases/' + checkedId(id) + '/plans', query), planPageSchema, access),

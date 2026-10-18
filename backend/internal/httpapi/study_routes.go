@@ -240,10 +240,15 @@ func serveStudy(w http.ResponseWriter, r *http.Request, o StudyOptions) {
 		fail(e)
 		return
 	}
+	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.kind == "history", 20, 50)
+	if pageErr != nil {
+		fail(auth.ErrInvalidInput)
+		return
+	}
 	var q study.ListQuery
 	var h study.HistoryQuery
 	if route.list {
-		q, h, e = studyQueries(r.URL.RawQuery, route)
+		q, h, e = studyQueries(rawQuery, route)
 	} else if r.URL.RawQuery != "" {
 		e = auth.ErrInvalidInput
 	}
@@ -310,7 +315,12 @@ func serveStudy(w http.ResponseWriter, r *http.Request, o StudyOptions) {
 		fail(auth.ErrInvalidInput)
 		return
 	}
-	value, e := dispatchStudy(ctx, o.Service, route, q, h, a, r.Body, limit)
+	var value any
+	if numbered.Enabled {
+		value, e = o.Service.ListStudyHistoryPage(ctx, a, h, numbered)
+	} else {
+		value, e = dispatchStudy(ctx, o.Service, route, q, h, a, r.Body, limit)
+	}
 	if ctx.Err() != nil {
 		e = auth.ErrUnavailable
 	}

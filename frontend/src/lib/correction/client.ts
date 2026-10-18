@@ -1,3 +1,5 @@
+import {numberedPath,type NumberedQuery} from '../pagination/query';
+import {numberedCasePageSchema} from './schemas';
 import { z } from 'zod';
 import { getAuthContext, notifyAuthChanged } from '../auth/client';
 import { correctionAwait, withCorrectionDeadline, validateCorrectionBytes } from './bytes';
@@ -24,6 +26,7 @@ function read<T>(path: string, schema: z.ZodType<T>, access: ReadAccess = {}) { 
 function command(path: string, method: 'POST' | 'PUT', input: unknown, access: CommandAccess) { return withCorrectionDeadline(access.signal, async (active) => { if (!uuidSchema.safeParse(access.actorId).success || !uuidSchema.safeParse(access.key).success)
     throw new CorrectionRequestError('INVALID_REQUEST'); const route = resolveCorrectionRoute(path, method), body = JSON.stringify(input), actorId = access.actorId, key = access.key; validateCorrectionBytes(new TextEncoder().encode(body), route.action); const current = await currentCorrectionActor({ actorId }, active); const response = await correctionAwait(fetch(path, { method, credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: active, headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'X-CSRF-Token': current.csrfToken, 'Idempotency-Key': key }, body }), active); const out = envelopeSchema(receiptSchema).parse(await correctionAwait(readCorrectionResponse(response, path, active, method), active)); assertCorrectionActor(out.actorId, actorId); return out; }); }
 export const correctionClient = {
+ listCasesPage:(query:NumberedQuery={},access:ReadAccess={})=>read(numberedPath('/api/v1/corrections/cases',query),numberedCasePageSchema,access),
     listCases: (query: PageQuery = {}, access: ReadAccess = {}) => read(queryPath('/api/v1/corrections/cases', query), casePageSchema, access),
     readCase: (id: string, access: ReadAccess = {}) => read('/api/v1/corrections/cases/' + checkedId(id), caseMetadataSchema, access),
     listPlans: (id: string, query: PageQuery = {}, access: ReadAccess = {}) => read(queryPath('/api/v1/corrections/cases/' + checkedId(id) + '/plans', query), planPageSchema, access),

@@ -82,6 +82,10 @@ func listCurrent(ctx context.Context, tx *sql.Tx, q knowledgeadmin.Query, owners
 	if e = tx.QueryRowContext(ctx, "SELECT count(*) FROM managed_knowledge k WHERE "+filter, args...).Scan(&out.Total); e != nil {
 		return
 	}
+	if e := normalizeNumberedKnowledge(&q, out.Total, &out.Offset); e != nil {
+		return out, e
+	}
+
 	rows, e := tx.QueryContext(ctx, "SELECT "+managedColumns+" FROM managed_knowledge k WHERE "+filter+fmt.Sprintf(" ORDER BY updated_at DESC,internal_id LIMIT $%d OFFSET $%d", len(args)+1, len(args)+2), append(args, q.Limit, q.Offset)...)
 	if e != nil {
 		return
@@ -190,6 +194,10 @@ func (s *Store) ListCurrentTopics(ctx context.Context, q knowledgeadmin.Query) (
 		if includeOther {
 			out.Total++
 		}
+		if e := normalizeNumberedKnowledge(&q, out.Total, &out.Offset); e != nil {
+			return e
+		}
+
 		rows, e := tx.QueryContext(ctx, currentTopicSelect+filter+" ORDER BY n.code LIMIT $5 OFFSET $6", level, prefix, q.Q, namesJSON, q.Limit, q.Offset)
 		if e != nil {
 			return e
