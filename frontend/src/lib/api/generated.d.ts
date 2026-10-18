@@ -2961,6 +2961,54 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/admin/knowledge/publish-jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["knowledge_publish_list"];
+        put?: never;
+        post: operations["knowledge_publish_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/knowledge/publish-jobs/{jobId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["knowledge_publish_read"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/knowledge/publish-jobs/{jobId}/step": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["knowledge_publish_step"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -6910,6 +6958,78 @@ export interface components {
             limit: number;
             total: number;
             offset: number;
+        };
+        KnowledgePublishSelection: {
+            id: string;
+            editToken: string;
+        };
+        KnowledgePublishCreateInput: {
+            /** @constant */
+            mode: "all";
+        } | {
+            /** @constant */
+            mode: "selected";
+            items: components["schemas"]["KnowledgePublishSelection"][];
+        };
+        KnowledgePublishJob: {
+            actorId: string;
+            id: string;
+            /** @enum {string} */
+            mode: "all" | "selected";
+            sequence: number;
+            total: number;
+            pending: number;
+            published: number;
+            skipped: number;
+            failed: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        KnowledgePublishItem: {
+            id: string;
+            externalId: string;
+            title: string;
+            titleZh: string;
+            /** @enum {string} */
+            state: "pending" | "published" | "skipped" | "failed";
+            errorCode: string;
+            errorPath: string;
+        };
+        KnowledgePublishStepInput: {
+            expectedSequence: number;
+            /** @default 20 */
+            batchSize: number;
+        };
+        KnowledgePublishStepReceipt: {
+            actorId: string;
+            jobId: string;
+            sequence: number;
+            total: number;
+            pending: number;
+            published: number;
+            skipped: number;
+            failed: number;
+            items: components["schemas"]["KnowledgePublishItem"][];
+        };
+        KnowledgePublishJobPage: {
+            actorId: string;
+            items: components["schemas"]["KnowledgePublishJob"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        KnowledgePublishJobDetail: {
+            job: components["schemas"]["KnowledgePublishJob"];
+            items: components["schemas"]["KnowledgePublishItem"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        KnowledgePublishReceiptLookup: {
+            actorId: string;
+            jobId: string;
+            key: string;
+            receipt: components["schemas"]["KnowledgePublishStepReceipt"] | null;
         };
     };
     responses: {
@@ -24852,6 +24972,431 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_list: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+                createKey?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishJobPage"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_create: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgePublishCreateInput"];
+            };
+        };
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishJob"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_read: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+                state?: "pending" | "published" | "skipped" | "failed";
+                receiptKey?: string;
+            };
+            header?: never;
+            path: {
+                jobId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishJobDetail"] | components["schemas"]["KnowledgePublishReceiptLookup"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_step: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                jobId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgePublishStepInput"];
+            };
+        };
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishStepReceipt"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
                 };
             };
         };
