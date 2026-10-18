@@ -65,7 +65,7 @@ flowchart LR
 - [x] 执行整分支代码审查，逐项处理发现，针对修复重跑相关回归；新增正确性或兼容性问题未解决前不得创建完成态 MR。
 - [x] 前端类型检查、构建与单元测试；Go vet/build 及按领域分批测试；真实 PostgreSQL 和桌面/手机浏览器回归，均遵守单次时限。
 - [x] 更新中文验收记录 `docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md`，逐项记录 Spec 第 12 节的 12 条验收结论、测试命令、数量和实际限制。
-- [ ] Git 提交、push 开发分支，通过 `gh pr create --base master --head codex/query-pagination-bulk-publish --body-file <中文说明文件>` 创建 MR，再将实际 MR 链接附加到本聊天；不自动合并。
+- [x] Git 提交、push 开发分支，通过 `gh pr create --base master --head codex/query-pagination-bulk-publish --body-file <中文说明文件>` 创建 MR，再将实际 MR 链接附加到本聊天；不自动合并。已创建并附加 [MR #62](https://github.com/yyl1212/math_master/pull/62)。
 
 最终共用验证命令（各条独立执行；数据库测试按子计划明确的组执行）：
 

@@ -6153,7 +6153,7 @@
     "backend/internal/study/numbered.go": "81d57b78333e1d1f8d8e040816c051e9a92436f8a538e36dbe77b38096e1cefa",
     "backend/internal/studyreview/numbered.go": "093ffef9dea8e07029dd5c42fc0056162569d7d8c801c9e4015ba76a2eec83d1",
     "docs/superpowers/plans/2026-10-19-knowledge-bulk-publish.md": "1ed17325064216cd7ffb4b036f601573efbc570201371a93407979556ee93ec2",
-    "docs/superpowers/plans/2026-10-19-query-pagination-bulk-publish.md": "5c78d3970c7ab5ba888dc25aa2dd9b704111cc0846326c74792f0827cca8b139",
+    "docs/superpowers/plans/2026-10-19-query-pagination-bulk-publish.md": "a643f4652d8dc7d0a3906d77cc0de76fa26e7f0c245dae350d9b68e8de8cf221",
     "docs/superpowers/plans/2026-10-19-query-pagination.md": "b602ec3c8ff767910232d62305b5cf0666cdb8ebf8ebf689ff0bad2fde582d37",
     "docs/superpowers/specs/2026-10-19-query-pagination-bulk-publish-design.md": "2c77d26cc882704b7cd02bb280188e9b891dc7d455f1a4a6b5479853d2a761dc",
     "frontend/src/components/pagination.test.tsx": "d96ebb861a850584a299af06cf1841b7b161972123a2a33c24fe621ebee11040",
@@ -6202,6 +6202,6 @@
     "tools/verify/knowledge-publish-ci.mjs": "ec964d05f53d58a9885f591cd993bdc482f9e9caea44fb8a27c0fc5a34417642",
     "tools/verify/knowledge-publish-ci.test.mjs": "be2b728e9d4d5a5e33cf6c2d90fcd52a66a9168e4a5bdd5e0bd44f285083479a",
     "docs/operations/knowledge-batch-publish.md": "7053a72b938c9cdbddd7bb4760087f7e25595779af2656f49b55e987ce26239a",
-    "docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md": "adb1ec56ca450a3d9012292ac2a505a406243f6708e382c4650bcc0873a96fd0"
+    "docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md": "2bfcee960a9843e400d8683869c9f0a3cf07f00469b15aeaba60e9e9f798e969"
   }
 }
