@@ -16,7 +16,7 @@ export async function reviewRequest<T>(path:string,method='GET',input?:unknown,k
   let bytes:Uint8Array;try{bytes=await boundedBytes(response,1048576,controller.signal)}catch(e){if(e instanceof NoteShareError&&e.status===413)throw new ReviewError('STUDY_REVIEW_NOT_READY');throw e}
   const raw=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)) as unknown;
   if(!response.ok){const problem=reviewProblem.safeParse(raw);throw new ReviewError(problem.success?problem.data.error.code:'STUDY_REVIEW_NOT_READY',response.status,problem.success?problem.data.error.sessionId:undefined)}
-  const value=schemaForReviewPath(path.split('?')[0],method).parse(raw);
+  const value=schemaForReviewPath(path,method).parse(raw);
   if(route.private){if(!('actorId' in value)||value.actorId!==actor)throw new ReviewError('AUTHENTICATION_REQUIRED',401);const current=await withinSignal(getAuthContext(true),controller.signal);if(!current.ok||!current.data.user||current.data.user.id!==actor||current.data.user.mustChangePassword)throw new ReviewError('AUTHENTICATION_REQUIRED',401)}
   return value as T;
  }catch(e){if(e instanceof ReviewError)throw e;throw new ReviewError(controller.signal.aborted?'REQUEST_INTERRUPTED':'STUDY_REVIEW_NOT_READY')}

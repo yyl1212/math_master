@@ -15,8 +15,10 @@ export async function readReview<T>(path:string,cookie=''):Promise<ReviewResult<
   const response=await withinSignal(fetch(getGoOrigin()+path,{cache:'no-store',redirect:'error',signal:controller.signal,headers:{Accept:'application/json',...(selected?{Cookie:selected}:{})}}),controller.signal);
   let bytes:Uint8Array;try{bytes=await boundedBytes(response,1048576,controller.signal)}catch(e){if(e instanceof NoteShareError&&e.status===413)throw new ReviewError('STUDY_REVIEW_NOT_READY');throw e}
   const raw=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes)) as unknown;if(!response.ok){const problem=reviewProblem.safeParse(raw);return {ok:false,status:response.status,code:problem.success?problem.data.error.code:'STUDY_REVIEW_NOT_READY'}}
-  const value=schemaForReviewPath(path.split('?')[0]).parse(raw);
+  const value=schemaForReviewPath(path).parse(raw);
   if(actor){if(!('actorId' in value)||value.actorId!==actor)return {ok:false,status:401,code:'AUTHENTICATION_REQUIRED'};const current=await withinSignal(readServerSession(cookie),controller.signal);if(!current.ok||!current.data||current.data.id!==actor||current.data.mustChangePassword)return {ok:false,status:401,code:'AUTHENTICATION_REQUIRED'}}
   return {ok:true,data:value as T};
  }catch(e){return {ok:false,status:e instanceof ReviewError?e.status:503,code:controller.signal.aborted?'REQUEST_INTERRUPTED':e instanceof ReviewError?e.code:'STUDY_REVIEW_NOT_READY'}}finally{clearTimeout(timer)}
 }
+
+export const readNumberedReview=readReview;

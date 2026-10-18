@@ -23,3 +23,5 @@ export type NoteInput=components['schemas']['ManagedNoteInput'];
 export type HistoryPage=components['schemas']['ManagedHistoryPage'];
 export type Result<T>={ok:true;data:T}|{ok:false;status:number;code:string};
 export class KnowledgeError extends Error{constructor(public readonly code:string,public readonly status=503){super(code);this.name='KnowledgeError'}}
+
+export type ManagedHistoryNumberedPage=import('../api/generated').components['schemas']['ManagedHistoryNumberedPage'];

@@ -21,3 +21,5 @@ export type Mode=StartInput['mode'];
 export type Target=StartInput['target'];
 export type ReviewResult<T>={ok:true;data:T}|{ok:false;status:number;code:string};
 export class ReviewError extends Error{constructor(public readonly code:string,public readonly status=503,public readonly sessionId?:string){super(code);this.name='ReviewError'}}
+
+export type StudyReviewHistoryNumberedPage=import('../api/generated').components['schemas']['StudyReviewHistoryNumberedPage'];

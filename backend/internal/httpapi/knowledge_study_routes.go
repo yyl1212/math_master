@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
+	"github.com/yyl1212/math_master/backend/internal/pagination"
 	"github.com/yyl1212/math_master/backend/internal/study"
 	"mime"
 	"net/http"
@@ -76,9 +77,16 @@ func serveManagedStudy(w http.ResponseWriter, r *http.Request, o KnowledgeOption
 	var value any
 	var query knowledgeadmin.Query
 	var history study.HistoryQuery
+	var numbered pagination.Request
 	if len(parts) == 1 && r.Method == "GET" {
 		if parts[0] == "history" {
-			history, e = managedHistoryQuery(r.URL.RawQuery)
+			var raw string
+			raw, numbered, e = numberedQuery(r.URL.RawQuery, true, 20, 50)
+			if e != nil {
+				knowledgeHTTPError(w, r, knowledgeadmin.ErrInvalid)
+				return
+			}
+			history, e = managedHistoryQuery(raw)
 		} else if parts[0] == "overview" {
 			if r.URL.RawQuery != "" {
 				e = knowledgeadmin.ErrInvalid
@@ -98,7 +106,15 @@ func serveManagedStudy(w http.ResponseWriter, r *http.Request, o KnowledgeOption
 		case "knowledge":
 			value, e = repo.ListManagedStudyKnowledge(ctx, a, query)
 		case "history":
-			value, e = repo.ListManagedHistory(ctx, a, history)
+			if numbered.Enabled {
+				if paged, ok := repo.(knowledgeadmin.NumberedRepository); ok {
+					value, e = paged.ListManagedHistoryPage(ctx, a, history, numbered)
+				} else {
+					e = knowledgeadmin.ErrNotConfigured
+				}
+			} else {
+				value, e = repo.ListManagedHistory(ctx, a, history)
+			}
 		default:
 			e = knowledgeadmin.ErrNotFound
 		}

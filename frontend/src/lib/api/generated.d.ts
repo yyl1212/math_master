@@ -6836,6 +6836,44 @@ export interface components {
                 sessionId?: string;
             };
         };
+        ManagedHistoryNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["ManagedHistoryEntry"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        OwnNoteNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["OwnNoteSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        SharedNoteNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["SharedNoteSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        AdminNoteShareNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["AdminNoteShareSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        StudyReviewHistoryNumberedPage: {
+            /** Format: uuid */
+            actorId: string;
+            /** Format: date-time */
+            asOf: string;
+            items: components["schemas"]["StudyReviewHistoryItem"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
     };
     responses: {
         /** @description INVALID_REQUEST / INVALID_COOKIE. Fixed English messages only. */
@@ -22057,6 +22095,10 @@ export interface operations {
                 from?: string;
                 to?: string;
                 limit?: number;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -22070,7 +22112,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ManagedHistoryPage"];
+                    "application/json": components["schemas"]["ManagedHistoryPage"] | components["schemas"]["ManagedHistoryNumberedPage"];
                 };
             };
             /** @description 明确失败，不计入发布成功。 */
@@ -22392,6 +22434,10 @@ export interface operations {
                 cursor?: string;
                 limit?: number;
                 shareStatus?: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -22405,7 +22451,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OwnNotePage"];
+                    "application/json": components["schemas"]["OwnNotePage"] | components["schemas"]["OwnNoteNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留原输入并核对当前状态。 */
@@ -22971,6 +23017,10 @@ export interface operations {
                 topicKey?: string;
                 cursor?: string;
                 limit?: number;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -22984,7 +23034,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SharedNotePage"];
+                    "application/json": components["schemas"]["SharedNotePage"] | components["schemas"]["SharedNoteNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留原输入并核对当前状态。 */
@@ -23161,6 +23211,10 @@ export interface operations {
                 status?: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
                 cursor?: string;
                 limit?: number;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -23174,7 +23228,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AdminNoteSharePage"];
+                    "application/json": components["schemas"]["AdminNoteSharePage"] | components["schemas"]["AdminNoteShareNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留原输入并核对当前状态。 */
@@ -23968,6 +24022,10 @@ export interface operations {
                 mode?: "read" | "recall";
                 rating?: "forgotten" | "uncertain" | "familiar";
                 cursor?: string;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -23981,7 +24039,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StudyReviewHistoryPage"];
+                    "application/json": components["schemas"]["StudyReviewHistoryPage"] | components["schemas"]["StudyReviewHistoryNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留输入并核对当前状态。 */

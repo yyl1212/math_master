@@ -29872,7 +29872,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ManagedHistoryPage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ManagedHistoryPage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManagedHistoryNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -30019,6 +30026,27 @@
               "minimum": 1,
               "maximum": 50
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -30480,7 +30508,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OwnNotePage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OwnNotePage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OwnNoteNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -30624,6 +30659,27 @@
                 "hidden"
               ]
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -31243,7 +31299,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SharedNotePage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/SharedNotePage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedNoteNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -31371,6 +31434,27 @@
               "maximum": 50,
               "default": 20
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -31499,7 +31583,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AdminNoteSharePage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdminNoteSharePage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AdminNoteShareNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -31626,6 +31717,27 @@
               "maximum": 50,
               "default": 20
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -32576,7 +32688,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StudyReviewHistoryPage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudyReviewHistoryPage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StudyReviewHistoryNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -32738,6 +32857,27 @@
               "type": "string",
               "maxLength": 512
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -53099,6 +53239,205 @@
         },
         "required": [
           "error"
+        ]
+      },
+      "ManagedHistoryNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedHistoryEntry"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "OwnNoteNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OwnNoteSummary"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "SharedNoteNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SharedNoteSummary"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "AdminNoteShareNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminNoteShareSummary"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "StudyReviewHistoryNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "asOf": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyReviewHistoryItem"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "asOf",
+          "items",
+          "total",
+          "limit",
+          "offset"
         ]
       }
     },
