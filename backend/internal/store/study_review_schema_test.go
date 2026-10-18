@@ -11,7 +11,7 @@ import (
 func reviewSchemaDB(t *testing.T) *sql.DB {
 	t.Helper()
 	db := testutil.Database(t)
-	if e := Up(context.Background(), db, "../../../db/migrations"); e != nil {
+	if e := goose.UpToContext(context.Background(), db, "../../../db/migrations", 15); e != nil {
 		t.Fatal(e)
 	}
 	return db

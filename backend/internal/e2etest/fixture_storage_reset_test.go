@@ -350,3 +350,25 @@ func (c *fixtureStorageConn) Ping(ctx context.Context) error {
 func (c *fixtureStorageConn) ResetSession(ctx context.Context) error {
 	return c.Conn.(driver.SessionResetter).ResetSession(ctx)
 }
+
+func TestFixtureStorageResetPublishJobs(t *testing.T) {
+	db, _, accounts, admin, _ := fixtureStorageSetup(t)
+	ctx := context.Background()
+	if e := resetAccounts(ctx, db, accounts, admin); e != nil {
+		t.Fatal(e)
+	}
+	if _, e := db.Exec(`INSERT INTO managed_knowledge_publish_jobs(owner_user_id,mode,key,input_sha256,total,pending) SELECT id,'all','reset-publish',repeat('a',64),0,0 FROM auth_users WHERE username='auth_admin';INSERT INTO managed_knowledge_publish_receipts(owner_user_id,action,key,job_id,input_sha256,receipt) SELECT owner_user_id,'create',key,job_id,input_sha256,'{}' FROM managed_knowledge_publish_jobs`); e != nil {
+		t.Fatal(e)
+	}
+	counted, count := fixtureStorageCountingDB(t, db)
+	if e := resetFixtureStorage(ctx, counted, false); e != nil {
+		t.Fatal(e)
+	}
+	if count.Load() != 1 {
+		t.Fatal("reset split", count.Load())
+	}
+	var n int
+	if e := db.QueryRow("SELECT count(*) FROM managed_knowledge_publish_jobs").Scan(&n); e != nil || n != 0 {
+		t.Fatal(n, e)
+	}
+}

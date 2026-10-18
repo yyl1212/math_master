@@ -76,7 +76,7 @@ func TestReviewCapacitySchemaRestore(t *testing.T) {
 	if e != nil {
 		t.Fatal(e)
 	}
-	if e = store.Up(f.ctx, restored, "../../../db/migrations"); e != nil {
+	if e = goose.UpToContext(f.ctx, restored, "../../../db/migrations", 15); e != nil {
 		restored.Close()
 		t.Fatal(e)
 	}
@@ -113,7 +113,7 @@ func TestReviewCapacitySchemaRestore(t *testing.T) {
 		t.Fatal(e)
 	}
 	run("upgrade15")
-	if e := store.Up(f.ctx, f.db, "../../../db/migrations"); e != nil {
+	if e := goose.UpToContext(f.ctx, f.db, "../../../db/migrations", 15); e != nil {
 		t.Fatal(e)
 	}
 	for i, mode := range []studyreview.Mode{studyreview.Read, studyreview.Recall} {
