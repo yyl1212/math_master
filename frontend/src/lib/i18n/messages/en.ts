@@ -40,6 +40,7 @@ export const enMessages = {
   "pagination.number": {"text": "Page number", "params": []},
   "pagination.invalid": {"text": "Enter a whole page number within the available pages.", "params": []},
   "pagination.failed": {"text": "Unable to change page. Please retry.", "params": []},
+  "pagination.correcting": {"text": "Loading the last available page…", "params": []},
 
   "studyReview.section.equations": {"text": "Equations", "params": []},
   "page.learn.review": {"text": "Review workspace", "params": []},

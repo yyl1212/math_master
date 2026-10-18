@@ -62,9 +62,9 @@ flowchart LR
 - [x] 用户审阅本总计划及两个子计划，并选择 Native 或逐任务子代理执行。
 - [x] 复用当前已隔离工作树，记录最新 master、迁移编号、原 schema 摘要和原协议样例；不重新创建无关工作树。
 - [x] 依次执行 P1—P6、B1—B6，每个任务先运行对应失败用例，再最小实现并验证；按任务提交，记录实际测试证据。
-- [ ] 执行整分支代码审查，逐项处理发现，针对修复重跑相关回归；新增正确性或兼容性问题未解决前不得创建完成态 MR。
-- [ ] 前端类型检查、构建与单元测试；Go vet/build 及按领域分批测试；真实 PostgreSQL 和桌面/手机浏览器回归，均遵守单次时限。
-- [ ] 更新中文验收记录 `docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md`，逐项记录 Spec 第 12 节的 12 条验收结论、测试命令、数量和实际限制。
+- [x] 执行整分支代码审查，逐项处理发现，针对修复重跑相关回归；新增正确性或兼容性问题未解决前不得创建完成态 MR。
+- [x] 前端类型检查、构建与单元测试；Go vet/build 及按领域分批测试；真实 PostgreSQL 和桌面/手机浏览器回归，均遵守单次时限。
+- [x] 更新中文验收记录 `docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md`，逐项记录 Spec 第 12 节的 12 条验收结论、测试命令、数量和实际限制。
 - [ ] Git 提交、push 开发分支，通过 `gh pr create --base master --head codex/query-pagination-bulk-publish --body-file <中文说明文件>` 创建 MR，再将实际 MR 链接附加到本聊天；不自动合并。
 
 最终共用验证命令（各条独立执行；数据库测试按子计划明确的组执行）：

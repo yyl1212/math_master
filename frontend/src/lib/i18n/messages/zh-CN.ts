@@ -43,6 +43,7 @@ export const zhMessages = {
   "pagination.number": "页码",
   "pagination.invalid": "请输入有效范围内的整数页码。",
   "pagination.failed": "翻页失败，请重试。",
+  "pagination.correcting": "正在读取最后一个有效页…",
   "studyReview.section.equations": "公式",
   "page.learn.review": "复习工作区",
   "page.learn.review.history": "自评历史",

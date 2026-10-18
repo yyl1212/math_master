@@ -2353,7 +2353,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "64833d6b0cc6e6c48da72ed34bfed017b37b579a747cd733258e2f4b077f3a6f",
+        "sha256": "686926f07758c27572c51ac34d0f6e08a47ac665978a0db875bcf5546751523f",
         "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
       }
     },
@@ -2539,7 +2539,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "56813aed61b900c23aac084b8952e4f98b5ae9a2a95daccb86936e219dcee9b4",
+        "sha256": "09200b24870199168bc1ca21592e52442b840c93df8048fb953fc1b0661ebe6a",
         "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
       }
     },
@@ -2557,7 +2557,7 @@
         "reason": "2026-10-08已确认导入自动归属：正文保存后准确修订接线、归属缺失/失败汇总、原输入幂等重试与中英文；不自动送审/批准或扩大旧API。"
       },
       "managed": {
-        "sha256": "163ddbfd2a9da8e5c128bb7f38f9b87b3671d0243937de9ab34e417b4bdb5f9d",
+        "sha256": "6562e6e13035e77e3869b00db9368ba886ddb9ebe752055eac7ce49dba2a2eeb",
         "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
       }
     },
@@ -5886,8 +5886,8 @@
     "frontend/src/app/learning-history/page.tsx": "9cb3b75cc339e03202412e83a0cb0033d339051a286e3679d0a23ab3adf5024b",
     "frontend/src/components/auth-status.test.tsx": "398e7222f02aae88a817758431670bb2d52a1a04f2c398654d6293f6afe97c4c",
     "frontend/src/components/auth-status.tsx": "d1a5ef0b7d3166d2a3dffb42e519926fd11debff8458935aee95aee6d59d8760",
-    "frontend/src/lib/i18n/messages/en.ts": "56813aed61b900c23aac084b8952e4f98b5ae9a2a95daccb86936e219dcee9b4",
-    "frontend/src/lib/i18n/messages/zh-CN.ts": "163ddbfd2a9da8e5c128bb7f38f9b87b3671d0243937de9ab34e417b4bdb5f9d",
+    "frontend/src/lib/i18n/messages/en.ts": "09200b24870199168bc1ca21592e52442b840c93df8048fb953fc1b0661ebe6a",
+    "frontend/src/lib/i18n/messages/zh-CN.ts": "6562e6e13035e77e3869b00db9368ba886ddb9ebe752055eac7ce49dba2a2eeb",
     "frontend/src/lib/knowledge-admin/study-navigation.ts": "2516f05870593f748d984df27b8abc5fd38feb14b63620559e1670bab698cec6",
     "tests/fixtures/legacy-frontend/src/features/study/managed-learn-page.test.tsx": "11ffc89c321432cec6692811f14eab77a191410e3a4dff74c5246c1eb1eb8fc7",
     "tests/fixtures/legacy-frontend/src/features/study/managed-learning-view.tsx": "62c3d829c8451bb2e8e25e3b4b7f193d97ce01a204fbe04bf95b4e6a8f4c79a6",
@@ -6004,7 +6004,7 @@
     "backend/internal/studyreview/validate.go": "b93ec35e4e09e2abfba16af61a5cf56d1b91fa9164446b50f48a0d2515bef0cb",
     "backend/internal/studyreview/validate_test.go": "88054d99a3e7a0e258c062587d78e775ef2be035e7757110e171dbabee9e05ee",
     "db/migrations/00015_study_review.sql": "01fe7542a74a08e93fdebec4d60a8bd04e32c4be1494fa4d8ec06dba5c932c7e",
-    "docs/operations/ui-language-coverage.json": "64833d6b0cc6e6c48da72ed34bfed017b37b579a747cd733258e2f4b077f3a6f",
+    "docs/operations/ui-language-coverage.json": "686926f07758c27572c51ac34d0f6e08a47ac665978a0db875bcf5546751523f",
     "frontend/src/app/learn/review/[id]/page.tsx": "c68a24ba88ee7a2377759c5d54c058b841581891092bd9ee23a9856d5ef85639",
     "frontend/src/app/learn/review/history/page.tsx": "f719ada6ddb2bbe74f72fcde81ca62cecd77b94b56d8d417ff375b54220ea021",
     "frontend/src/app/learn/review/page.tsx": "bd841034da97c90f59425cf0536c95da96faf423b53da2856937f112dbee207f",
@@ -6153,11 +6153,11 @@
     "backend/internal/study/numbered.go": "81d57b78333e1d1f8d8e040816c051e9a92436f8a538e36dbe77b38096e1cefa",
     "backend/internal/studyreview/numbered.go": "093ffef9dea8e07029dd5c42fc0056162569d7d8c801c9e4015ba76a2eec83d1",
     "docs/superpowers/plans/2026-10-19-knowledge-bulk-publish.md": "1ed17325064216cd7ffb4b036f601573efbc570201371a93407979556ee93ec2",
-    "docs/superpowers/plans/2026-10-19-query-pagination-bulk-publish.md": "12d1554038cfd54bc00ba3456ababb0aaab70124a8c8e6943e564889a9d4e243",
+    "docs/superpowers/plans/2026-10-19-query-pagination-bulk-publish.md": "5c78d3970c7ab5ba888dc25aa2dd9b704111cc0846326c74792f0827cca8b139",
     "docs/superpowers/plans/2026-10-19-query-pagination.md": "b602ec3c8ff767910232d62305b5cf0666cdb8ebf8ebf689ff0bad2fde582d37",
     "docs/superpowers/specs/2026-10-19-query-pagination-bulk-publish-design.md": "2c77d26cc882704b7cd02bb280188e9b891dc7d455f1a4a6b5479853d2a761dc",
-    "frontend/src/components/pagination.test.tsx": "655352a3ad3d78941f68d161837ab94eda45f3f1d76aea4c78be9b9ea95c00f8",
-    "frontend/src/components/pagination.tsx": "9bff47c1d93b63ddce938e698c748e6d79157b86a7be4db7f77dc5d5c48f1dcb",
+    "frontend/src/components/pagination.test.tsx": "d96ebb861a850584a299af06cf1841b7b161972123a2a33c24fe621ebee11040",
+    "frontend/src/components/pagination.tsx": "5fcdf630cb3606909c3685b9652b4de27b006fea5f7ed888136ff1e746f3c90a",
     "frontend/src/features/pagination/current-pages.test.tsx": "92381ad562b2f5309d650152066ff78dd2c795feccc1e621e3e5f061cd3554b1",
     "frontend/src/features/pagination/legacy-pages.test.tsx": "f74a9bbe5ac7a6f12e9984e6d0945d1c39ede59e6a03cae01cea0b3721529203",
     "frontend/src/lib/pagination/model.test.ts": "ed0fc2f5fb2e32f4f5d8f9af56d581eabe6b1fa32dc9c9391ac353910bb9b704",
@@ -6168,7 +6168,7 @@
     "frontend/src/lib/pagination/schemas.test.ts": "63bfbc533cbb984a991b48426b893b152c7edf009af4c45865930994113b3b89",
     "frontend/src/lib/pagination/schemas.ts": "d97130e33bd82246dcc24d11984ee66ebc1341857bf6fd5120809a9d590933dc",
     "frontend/src/styles/pagination.module.css": "c9d0816c9fbe4bae4d015f8b7d24f3754239bba68b695a4c3eb3662af2b6fc60",
-    "tests/e2e/query-pagination.spec.ts": "80e44e980a60cd49fbd0626646faa618fd920d21a20994bfb197c0af1c8298e7",
+    "tests/e2e/query-pagination.spec.ts": "4062af173a9c83dab31690a1e8744a8f10d050c7e68c3764b311269ec19dc8d6",
     "tools/verify/query-pagination-ci.mjs": "97d23967440d355c541c0b9eaa44a1b204f07ad2a32c9bdf33124e1c26a451ac",
     "tools/verify/query-pagination-ci.test.mjs": "842cf1abef62865224cf0ddc15f8ffd5d044aa9b1f70b4fce24853ee226ab21c",
     ".github/workflows/knowledge-publish.yml": "378d25e022e97a6bd6989c2db0c0541aa8de26a20f2478e679f39d7a7175051b",
@@ -6188,8 +6188,8 @@
     "backend/internal/store/knowledge_publish_step.go": "b4cf8b830552781bc4b4cb6447f80a593b46605ec1a2055eacc05d187836d545",
     "backend/internal/store/knowledge_publish_step_test.go": "8a2dd30f2d72dfca38d966c3244f1a4aae522d5384815e8fcbe022ee05a17c4d",
     "db/migrations/00016_knowledge_publish_batches.sql": "2aec397f8bb87158019f39a10c602b5fc911b7073361b84abb08890e36525c3d",
-    "frontend/src/features/knowledge-admin/publish-batch.test.tsx": "1f153cc09ee87e8c10953c19dd9a42c5aa0530cb53ab4cc9f788e0b10065e371",
-    "frontend/src/features/knowledge-admin/publish-batch.tsx": "2a75a03bfa163eaabffbf584e94a1d6d39d75bf554cd283ddc7c6ea5ccb3a1a2",
+    "frontend/src/features/knowledge-admin/publish-batch.test.tsx": "078d8013c3a0fd73dbb2803d633269411cf0546f0a8a15a0c8139e9e5460ee82",
+    "frontend/src/features/knowledge-admin/publish-batch.tsx": "c002afb1ee28962ab55008986c15ab056de0b5d6f2a67d1b05fb6c69fc53e2e0",
     "frontend/src/features/knowledge-admin/publish-selection.test.ts": "1c1459946a451472be957e2876c475aa3fe5fea9c4fa9a214d763eab4b0cd3ec",
     "frontend/src/features/knowledge-admin/publish-selection.ts": "90463c1694edf0c151de92442ddef975c3ca70f5519e51a48849fe1b5f1203cb",
     "frontend/src/lib/knowledge-admin/publish-batch-schemas.test.ts": "ab8063fea531f1a35a44f7bb0339b0942062fe4565be511fab3d9bdbfb7e38c9",
@@ -6201,7 +6201,7 @@
     "tests/e2e/knowledge-batch-publish.spec.ts": "5448cda5070ba9f921c5e2db8e4c42943fa62b48707a166492d645264238ed81",
     "tools/verify/knowledge-publish-ci.mjs": "ec964d05f53d58a9885f591cd993bdc482f9e9caea44fb8a27c0fc5a34417642",
     "tools/verify/knowledge-publish-ci.test.mjs": "be2b728e9d4d5a5e33cf6c2d90fcd52a66a9168e4a5bdd5e0bd44f285083479a",
-    "docs/operations/knowledge-batch-publish.md": "46f0b9f81d987aaab16a75a562f978a785f21f37c6f993823872fb803b1ea90a",
-    "docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md": "d4801b296657ffdd4329db9c64c5275b225bb965bb335ce29b2a5275a723f4b6"
+    "docs/operations/knowledge-batch-publish.md": "7053a72b938c9cdbddd7bb4760087f7e25595779af2656f49b55e987ce26239a",
+    "docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md": "adb1ec56ca450a3d9012292ac2a505a406243f6708e382c4650bcc0873a96fd0"
   }
 }

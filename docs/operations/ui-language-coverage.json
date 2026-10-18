@@ -4937,7 +4937,8 @@
         "pagination.jump",
         "pagination.number",
         "pagination.invalid",
-        "pagination.failed"
+        "pagination.failed",
+        "pagination.correcting"
       ],
       "rawDataAreas": [
         "仅实际总数、页长、偏移量和查询URL；无知识正文或身份凭据"
