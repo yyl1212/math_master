@@ -2,9 +2,9 @@ import {it,expect,vi} from 'vitest';import {render,screen} from '@testing-librar
 vi.mock('@/lib/i18n/provider',()=>({useUiI18n:()=>({t:(key:string)=>key})}));
 it('offers direct upload and saving with no review or version controls',()=>{render(<UploadKnowledge onComplete={()=>{}}/>);expect(screen.getByRole('button',{name:'managed.uploadPublish'})).toBeDisabled();expect(screen.queryByText(/review|version/i)).toBeNull();expect(document.querySelector('input[type=file][multiple]')).not.toBeNull()});
 
-import {fireEvent,waitFor} from '@testing-library/react';import {KnowledgeError} from '@/lib/knowledge-admin/types';const uploadMocks=vi.hoisted(()=>({preview:vi.fn(),apply:vi.fn(),read:vi.fn()}));vi.mock('@/lib/knowledge-admin/client',()=>({previewSource:uploadMocks.preview,applyImport:uploadMocks.apply,readImport:uploadMocks.read,managedRequest:vi.fn(async()=>{throw new KnowledgeError('CONTENT_NOT_READY',503)})}));
+import {fireEvent,waitFor} from '@testing-library/react';import {KnowledgeError} from '@/lib/knowledge-admin/types';const uploadMocks=vi.hoisted(()=>({preview:vi.fn(),apply:vi.fn(),read:vi.fn(),query:'topicKey=97F40&difficulty=2&q=fractions'}));vi.mock('@/lib/knowledge-admin/client',()=>({previewSource:uploadMocks.preview,applyImport:uploadMocks.apply,readImport:uploadMocks.read,managedRequest:vi.fn(async()=>{throw new KnowledgeError('CONTENT_NOT_READY',503)})}));
 it('lets an administrator replace a file after a definite invalid source response',async()=>{uploadMocks.preview.mockRejectedValueOnce(new KnowledgeError('INVALID_FIELD',422));render(<UploadKnowledge onComplete={()=>{}}/>);const input=document.querySelector('input[type=file]') as HTMLInputElement;await waitFor(()=>expect(input).toBeEnabled());fireEvent.change(input,{target:{files:[new File(['invalid'],'bad.json')]}});fireEvent.click(screen.getByRole('button',{name:'managed.uploadPublish'}));await screen.findByRole('alert');expect(input).toBeEnabled()});
-import {KnowledgeAdminList} from './list';vi.mock('next/navigation',()=>({useRouter:()=>({refresh:vi.fn()}),useSearchParams:()=>new URLSearchParams('topicKey=97F40&difficulty=2&q=fractions')}));
+import {KnowledgeAdminList} from './list';vi.mock('next/navigation',()=>({useRouter:()=>({refresh:vi.fn()}),useSearchParams:()=>new URLSearchParams(uploadMocks.query)}));
 import {renderToString} from 'react-dom/server';
 import {EditKnowledge} from './edit';
 import type {Knowledge} from '@/lib/knowledge-admin/types';
@@ -16,4 +16,12 @@ it('keeps server-rendered editing controls disabled until the client owns their 
  expect(host.querySelector('fieldset')).toHaveAttribute('disabled');
  render(<EditKnowledge initial={initial}/>);expect(screen.getByRole('textbox',{name:'managed.statement'})).toBeEnabled();
 });
-it('exposes topic and difficulty filtering with current query values',()=>{render(<KnowledgeAdminList initial={{items:[],total:0,limit:20,offset:0}}/>);expect(document.querySelector('input[name=topicKey]')).toHaveValue('97F40');expect(document.querySelector('select[name=difficulty]')).toHaveValue('2');expect(document.querySelector('input[name=q]')).toHaveValue('fractions')});
+it('exposes topic and difficulty filtering with current query values',()=>{render(<KnowledgeAdminList actorId="11111111-1111-4111-8111-111111111111" initial={{items:[],total:0,limit:20,offset:0}}/>);expect(document.querySelector('input[name=topicKey]')).toHaveValue('97F40');expect(document.querySelector('select[name=difficulty]')).toHaveValue('2');expect(document.querySelector('input[name=q]')).toHaveValue('fractions')});
+
+vi.mock('./publish-batch',()=>({PublishBatch:({selection}:{selection:Map<string,unknown>})=><output data-testid="selection-count">{selection.size}</output>}));
+it('keeps selections across page props, clears on filters and never submits a row action',()=>{
+ const actorId='11111111-1111-4111-8111-111111111111';const item=(n:number)=>({id:'k-'+String(n).padStart(56,'a'),externalId:'item-'+n,title:'Item '+n,titleZh:'',type:'concept',difficulty:1,topicKeys:[],published:false,deleted:false,editToken:actorId,updatedAt:'2026-10-19T00:00:00Z',ref:{id:'k-'+String(n).padStart(56,'a'),contentSha256:'a'.repeat(64),sourceKind:'managed' as const}});
+ const one={items:[item(1),item(2)],total:41,limit:20,offset:0};const view=render(<KnowledgeAdminList actorId={actorId} initial={one}/>);fireEvent.click(screen.getByRole('checkbox',{name:'publish.selectPage'}));expect(screen.getByTestId('selection-count')).toHaveTextContent('2');
+ uploadMocks.query+='&page=2';view.rerender(<KnowledgeAdminList actorId={actorId} initial={{...one,items:[item(3)],offset:20}}/>);fireEvent.click(screen.getByRole('checkbox',{name:'publish.selectOne'}));expect(screen.getByTestId('selection-count')).toHaveTextContent('3');expect(screen.getByRole('button',{name:'managed.publish'})).toHaveAttribute('type','button');
+ uploadMocks.query='q=changed';view.rerender(<KnowledgeAdminList actorId={actorId} initial={one}/>);expect(screen.getByTestId('selection-count')).toHaveTextContent('0');
+});

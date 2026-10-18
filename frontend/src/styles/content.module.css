@@ -40,3 +40,5 @@
 .uploadPanel summary { min-height:44px; padding-block:8px; }
 .danger:global(.button.secondary) { color:var(--danger); border-color:var(--danger); background:var(--danger-surface); }
 @media(max-width:600px){.adminEditor h2{font-size:20px}.tableScroll th,.tableScroll td{padding:12px}.adminEditor fieldset fieldset{padding:16px}}
+
+.publishPanel{overflow-wrap:anywhere;min-width:0}.publishPanel progress{display:block;width:min(100%,32rem);height:14px;margin-block:12px}.publishPanel li{padding-block:8px}.publishPanel code{overflow-wrap:anywhere;white-space:normal}.publishPanel button{max-width:100%;white-space:normal}
