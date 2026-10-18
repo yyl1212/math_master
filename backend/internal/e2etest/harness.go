@@ -241,6 +241,9 @@ func Run(ctx context.Context, c Config) (result error) {
 		if scene == "note-sharing" {
 			return resetNoteSharing(ctx, db, s, accounts, accountAdmin, root)
 		}
+		if scene == "query-pagination" {
+			return resetQueryPagination(ctx, db, s, accounts, accountAdmin, root)
+		}
 		if scene == "managed-knowledge" {
 			return resetManagedKnowledge(ctx, db, s, accounts, accountAdmin, root)
 		}

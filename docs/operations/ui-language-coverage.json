@@ -4923,6 +4923,28 @@
       "scenarios": [
         "tests/e2e/study-review-flow.spec.ts"
       ]
+    },
+    {
+      "file": "frontend/src/components/pagination.tsx",
+      "module": "managed",
+      "complete": true,
+      "messageKeys": [
+        "pagination.summary",
+        "pagination.first",
+        "pagination.previous",
+        "pagination.next",
+        "pagination.last",
+        "pagination.jump",
+        "pagination.number",
+        "pagination.invalid",
+        "pagination.failed"
+      ],
+      "rawDataAreas": [
+        "仅实际总数、页长、偏移量和查询URL；无知识正文或身份凭据"
+      ],
+      "scenarios": [
+        "tests/e2e/query-pagination.spec.ts"
+      ]
     }
   ]
 }
