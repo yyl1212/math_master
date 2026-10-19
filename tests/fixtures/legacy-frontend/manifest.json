@@ -68,6 +68,21 @@
     "src/features/auth/forms.test.tsx": "37e56e1ac513c0c85c6a5757b4e204d085344a771a2d8423b8b9f5d3478cc817",
     "src/features/study/managed-pages.tsx": "e1c220607a65730d670ca5cf2b24d047bbb661198c01ae5ce8a364ec5d2b84e1",
     "src/features/study/managed-learning-view.tsx": "62c3d829c8451bb2e8e25e3b4b7f193d97ce01a204fbe04bf95b4e6a8f4c79a6",
-    "src/features/study/managed-learn-page.test.tsx": "11ffc89c321432cec6692811f14eab77a191410e3a4dff74c5246c1eb1eb8fc7"
+    "src/features/study/managed-learn-page.test.tsx": "11ffc89c321432cec6692811f14eab77a191410e3a4dff74c5246c1eb1eb8fc7",
+    "src/features/content/draft-list.tsx": "01cb3c7255fb22a5b39aba05de37260db5544cf2b80a4134c1e772461d48fbfb",
+    "src/features/content/publication-panel.tsx": "4289c6017a4097ad9b754cb9cd58e51c6720e3bf324a08f6771a9f87c23de3a8",
+    "src/features/content/submission-list.tsx": "b382abe53caaafc593082699aee55fffa2f9222c10372df121f2e5ada458aeff",
+    "src/features/content/topic-workspace.tsx": "cd4ee33433dfb2ab280af1a38a0f67628b4f565a11c70f0d0dda5e2fc1d1e726",
+    "src/features/feedback/page-data.ts": "b0dd73d253cada634eb019ff780553d949f198feb6b7298ad7f5156e0c67921f",
+    "src/features/feedback/ticket-list.tsx": "d9124fb6fc056bcd25312e8cbf68638f1472bfa275a8cf3c627158ac06af49fe",
+    "src/features/learning/history-list.tsx": "7dabf112ee49488b865fc2a931bf340584eb184a54d50be14d67b4bab0defcf2",
+    "src/features/learning/knowledge-list.tsx": "ccc7c1fc5042a3a0e9a6d42b46c6f88778935e7b4c5816e13693c4fe77a8bccb",
+    "src/features/question/coverage-panel.tsx": "ca53214f26e6bf581dd3af39e875545b161df4a9c83d30a0c17b28bcc227d01b",
+    "src/features/question/draft-list.tsx": "d635c7c35bc61892cea92fe3d1d8d5bccde631f2ce956731339911bcda7f6739",
+    "src/features/question/publication-panel.tsx": "50f587ae87ffd20b08d1efdaf03b78cef8b0ce0a246cf17cf7581f17a84a9b10",
+    "src/features/question/submission-list.tsx": "679c309f97e487218c0d7bbc8b41feb5657ea241d49b11e6a466cbf146c10c4c",
+    "src/features/study/history-list.tsx": "83ec1340e9b6ba1da5f50a8ede83328dbb9f8e2e43a81ba94fbe02ea70c19481",
+    "src/features/study/pages.tsx": "36d9d8d2dc250c7f5f5e34d0abad4c8072f28fdbd2306e091de8f385d8212602",
+    "src/features/study/query.ts": "482ba385999cf4ab24f840654c828aff3cc22fee5128221e35995f07de4b360c"
   }
 }

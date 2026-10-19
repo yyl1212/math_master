@@ -5,6 +5,13 @@ vi.mock('@/lib/auth/client',()=>({getAuthContext:mocks.auth}));
 vi.mock('@/lib/knowledge-admin/publish-runner',()=>({runPublishJob:mocks.run}));
 const actorId='11111111-1111-4111-8111-111111111111';
 beforeEach(()=>{vi.resetAllMocks();sessionStorage.clear()});
+it('loads collapsed personal operations only after opening the panel',async()=>{
+ mocks.list.mockResolvedValue({actorId,items:[],total:0,limit:20,offset:0});
+ render(<PublishBatch actorId={actorId} selection={new Map()} onStarted={vi.fn()} onSettled={vi.fn()}/>);
+ const summary=await screen.findByText('My publishing operations',{selector:'summary'});
+ expect(mocks.list).not.toHaveBeenCalled();fireEvent.click(summary);
+ await waitFor(()=>expect(mocks.list).toHaveBeenCalledTimes(1));
+});
 it('full publish ignores current filters and uses server current progress',async()=>{const job={actorId,id:actorId,mode:'all',sequence:1,total:0,pending:0,published:0,skipped:0,failed:0,createdAt:'2026-10-19T00:00:00Z'};mocks.list.mockResolvedValue({actorId,items:[],total:0,limit:20,offset:0});mocks.create.mockResolvedValue(job);mocks.read.mockResolvedValue({job,items:[],total:0,limit:20,offset:0});mocks.run.mockResolvedValue(job);render(<PublishBatch actorId={actorId} selection={new Map()} onStarted={vi.fn()} onSettled={vi.fn()}/>);fireEvent.click(screen.getByRole('button',{name:'Publish all unpublished knowledge'}));await waitFor(()=>expect(mocks.create).toHaveBeenCalled());expect(mocks.create.mock.calls[0][1]).toEqual({mode:'all'});expect(mocks.run).toHaveBeenCalledTimes(1)});
 
 it('account changes cancel recovery and clear actor-specific saved metadata',async()=>{sessionStorage.clear();mocks.list.mockResolvedValue({actorId,items:[],total:0,limit:20,offset:0});mocks.auth.mockResolvedValue({ok:true,data:{user:{id:'22222222-2222-4222-8222-222222222222',roles:['admin']}}});const invalidated=vi.fn();render(<PublishBatch actorId={actorId} selection={new Map()} onStarted={vi.fn()} onSettled={vi.fn()} onInvalidated={invalidated}/>);sessionStorage.setItem('math-master:publish:'+actorId,JSON.stringify({createKey:'original',jobId:actorId}));window.dispatchEvent(new Event('math-master:auth-change'));await screen.findByRole('alert');expect(invalidated).toHaveBeenCalledOnce();expect(sessionStorage.getItem('math-master:publish:'+actorId)).toBeNull();expect(screen.queryByRole('button',{name:'Publish all unpublished knowledge'})).toBeNull()});
@@ -15,7 +22,7 @@ it('keeps the recent operation page after navigation and inspecting its job',asy
  mocks.read.mockResolvedValue({job,items:[],total:0,limit:20,offset:0});
  render(<PublishBatch actorId={actorId} selection={new Map()} onStarted={vi.fn()} onSettled={vi.fn()}/>);
  const summary=await screen.findByText('My publishing operations',{selector:'summary'});fireEvent.click(summary);
- const recent=summary.closest('details')!;fireEvent.click(within(recent).getByRole('button',{name:'Next page'}));
+ const recent=summary.closest('details')!;fireEvent.click(await within(recent).findByRole('button',{name:'Next page'}));
  await waitFor(()=>expect(within(recent).getByText('Page 2 / 2 · 21 results')).toBeVisible());
  expect(within(recent).getByText(/999 total, 0 pending/)).toBeVisible();
  fireEvent.click(within(recent).getByRole('button',{name:'View / recover'}));
