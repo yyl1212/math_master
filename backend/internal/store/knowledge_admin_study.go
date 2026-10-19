@@ -324,7 +324,9 @@ func (s *Store) ReadManagedOverview(ctx context.Context, a knowledgeadmin.Access
 			return e
 		}
 		out = knowledgeadmin.ManagedOverview{ActorID: u.ID, Reminders: []knowledgeadmin.ManagedReminder{}}
-		if e := tx.QueryRowContext(ctx, `SELECT count(*),count(*) FILTER(WHERE r.state='completed'),count(*) FILTER(WHERE r.state='learning'),count(*) FILTER(WHERE r.state='reviewing'),count(*) FILTER(WHERE NOT EXISTS(SELECT 1 FROM managed_knowledge_topics t WHERE t.internal_id=k.internal_id AND t.active)) FROM managed_knowledge k LEFT JOIN managed_study_records r ON r.knowledge_id=k.internal_id AND r.owner_user_id=$1 WHERE k.published AND k.deleted_at IS NULL`, u.ID).Scan(&out.Total, &out.Completed, &out.Learning, &out.Reviewing, &out.Unclassified); e != nil {
+		// Deduplicate active memberships once: each knowledge contributes one row
+		// even when it belongs to several topics, without a per-knowledge scan.
+		if e := tx.QueryRowContext(ctx, `WITH active_topics AS MATERIALIZED (SELECT DISTINCT internal_id FROM managed_knowledge_topics WHERE active) SELECT count(*),count(*) FILTER(WHERE r.state='completed'),count(*) FILTER(WHERE r.state='learning'),count(*) FILTER(WHERE r.state='reviewing'),count(*) FILTER(WHERE t.internal_id IS NULL) FROM managed_knowledge k LEFT JOIN managed_study_records r ON r.knowledge_id=k.internal_id AND r.owner_user_id=$1 LEFT JOIN active_topics t ON t.internal_id=k.internal_id WHERE k.published AND k.deleted_at IS NULL`, u.ID).Scan(&out.Total, &out.Completed, &out.Learning, &out.Reviewing, &out.Unclassified); e != nil {
 			return e
 		}
 		if e := tx.QueryRowContext(ctx, `SELECT count(*) FROM managed_study_records r JOIN managed_knowledge k ON k.internal_id=r.knowledge_id WHERE r.owner_user_id=$1 AND (NOT k.published OR k.deleted_at IS NOT NULL)`, u.ID).Scan(&out.Unavailable); e != nil {
