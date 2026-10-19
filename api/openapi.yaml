@@ -12649,6 +12649,27 @@
               "maxLength": 512,
               "pattern": "^[A-Za-z0-9_-]+$"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -12677,7 +12698,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FeedbackNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -14377,6 +14405,27 @@
                 "suggestion"
               ]
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -14405,7 +14454,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/FeedbackMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/FeedbackNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -15739,6 +15795,27 @@
               "maxLength": 512,
               "pattern": "^[A-Za-z0-9_-]+$"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -15767,7 +15844,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CorrectionCaseMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/CorrectionCaseMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/CorrectionCaseNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -20942,6 +21026,27 @@
               "maxLength": 512,
               "pattern": "^[A-Za-z0-9_-]+$"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "responses": {
@@ -20970,7 +21075,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NotificationMetadataPageEnvelope"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/NotificationMetadataPageEnvelope"
+                    },
+                    {
+                      "$ref": "#/components/schemas/NotificationNumberedPageResponse"
+                    }
+                  ]
                 }
               }
             }
@@ -24633,7 +24745,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StudyHistoryPage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudyHistoryPage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StudyHistoryNumberedPage"
+                    }
+                  ]
                 }
               }
             },
@@ -24798,6 +24917,27 @@
               "minimum": 1,
               "maximum": 50
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -26153,6 +26293,27 @@
                 "deleted"
               ]
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ],
         "description": "仅当前管理员会话可操作；没有知识审核或业务版本选择。"
@@ -27865,6 +28026,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28141,6 +28323,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28299,6 +28502,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28565,6 +28789,27 @@
               "type": "integer",
               "minimum": 0
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -28742,6 +28987,27 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -29872,7 +30138,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ManagedHistoryPage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/ManagedHistoryPage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ManagedHistoryNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -30019,6 +30292,27 @@
               "minimum": 1,
               "maximum": 50
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -30480,7 +30774,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/OwnNotePage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/OwnNotePage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/OwnNoteNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -30624,6 +30925,27 @@
                 "hidden"
               ]
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -31243,7 +31565,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/SharedNotePage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/SharedNotePage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SharedNoteNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -31371,6 +31700,27 @@
               "maximum": 50,
               "default": 20
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -31499,7 +31849,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AdminNoteSharePage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/AdminNoteSharePage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AdminNoteShareNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -31626,6 +31983,27 @@
               "maximum": 50,
               "default": 20
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -32562,6 +32940,27 @@
               "minimum": 0,
               "maximum": 100000
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；省略时保持原协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "从1开始的页码，与cursor互斥。"
           }
         ]
       }
@@ -32576,7 +32975,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StudyReviewHistoryPage"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StudyReviewHistoryPage"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StudyReviewHistoryNumberedPage"
+                    }
+                  ]
                 }
               }
             }
@@ -32738,6 +33144,27 @@
               "type": "string",
               "maxLength": 512
             }
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "page"
+              ]
+            },
+            "description": "显式页码模式；不传则保持原游标协议。"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 9007199254740991
+            },
+            "description": "页码，从1开始；与cursor互斥。"
           }
         ]
       }
@@ -33585,6 +34012,682 @@
             }
           }
         ]
+      }
+    },
+    "/api/v3/admin/knowledge/publish-jobs": {
+      "get": {
+        "operationId": "knowledge_publish_list",
+        "tags": [
+          "Knowledge administration"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Bounded private publish metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgePublishJobPage"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          {
+            "in": "query",
+            "name": "createKey",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 128
+            }
+          }
+        ]
+      },
+      "post": {
+        "operationId": "knowledge_publish_create",
+        "tags": [
+          "Knowledge administration"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Bounded private publish metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgePublishJob"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgePublishCreateInput"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2048
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/admin/knowledge/publish-jobs/{jobId}": {
+      "get": {
+        "operationId": "knowledge_publish_read",
+        "tags": [
+          "Knowledge administration"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Bounded private publish metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/KnowledgePublishJobDetail"
+                    },
+                    {
+                      "$ref": "#/components/schemas/KnowledgePublishReceiptLookup"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "jobId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            }
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "published",
+                "skipped",
+                "failed"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "receiptKey",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "maxLength": 128
+            }
+          }
+        ]
+      }
+    },
+    "/api/v3/admin/knowledge/publish-jobs/{jobId}/step": {
+      "post": {
+        "operationId": "knowledge_publish_step",
+        "tags": [
+          "Knowledge administration"
+        ],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Bounded private publish metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgePublishStepReceipt"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "明确失败，不计入发布成功。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "jobId",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-CSRF-Token",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "in": "header",
+            "name": "Origin",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2048
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KnowledgePublishStepInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v3/knowledge-publish/health": {
+      "get": {
+        "operationId": "knowledgePublishHealthGet",
+        "summary": "探测知识批量发布能力与迁移16结构，仅返回两个布尔值",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "能力与结构就绪",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgePublishHealth"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "结构缺失、损坏或暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgePublishHealth"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "只允许GET",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "不接受查询参数或请求体",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -53099,6 +54202,780 @@
         },
         "required": [
           "error"
+        ]
+      },
+      "ManagedHistoryNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManagedHistoryEntry"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "OwnNoteNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OwnNoteSummary"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "SharedNoteNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SharedNoteSummary"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "AdminNoteShareNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminNoteShareSummary"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "StudyReviewHistoryNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "asOf": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyReviewHistoryItem"
+            },
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "asOf",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "FeedbackNumberedPageResponseData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 50,
+            "items": {
+              "$ref": "#/components/schemas/FeedbackMetadata"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "FeedbackNumberedPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/FeedbackNumberedPageResponseData"
+          }
+        }
+      },
+      "NotificationNumberedPageResponseData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NotificationMetadata"
+            },
+            "minItems": 0,
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "NotificationNumberedPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/NotificationNumberedPageResponseData"
+          }
+        }
+      },
+      "CorrectionCaseNumberedPageResponseData": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CorrectionCaseMetadata"
+            },
+            "minItems": 0,
+            "maxItems": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "CorrectionCaseNumberedPageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "data"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CorrectionCaseNumberedPageResponseData"
+          }
+        }
+      },
+      "StudyHistoryNumberedPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "actorId",
+          "items",
+          "limit",
+          "total",
+          "offset"
+        ],
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StudyHistoryEntry"
+            },
+            "maxItems": 50
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "KnowledgePublishSelection": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^k-[0-9a-f]{56}$"
+          },
+          "editToken": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          }
+        },
+        "required": [
+          "id",
+          "editToken"
+        ]
+      },
+      "KnowledgePublishCreateInput": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "mode": {
+                "type": "string",
+                "const": "all"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "mode": {
+                "type": "string",
+                "const": "selected"
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/KnowledgePublishSelection"
+                },
+                "maxItems": 1000,
+                "minItems": 1
+              }
+            },
+            "required": [
+              "mode",
+              "items"
+            ]
+          }
+        ]
+      },
+      "KnowledgePublishJob": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "all",
+              "selected"
+            ]
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "pending": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "published": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "skipped": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "failed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "actorId",
+          "id",
+          "mode",
+          "sequence",
+          "total",
+          "pending",
+          "published",
+          "skipped",
+          "failed",
+          "createdAt"
+        ]
+      },
+      "KnowledgePublishItem": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^k-[0-9a-f]{56}$"
+          },
+          "externalId": {
+            "type": "string",
+            "maxLength": 512
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "titleZh": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "published",
+              "skipped",
+              "failed"
+            ]
+          },
+          "errorCode": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "errorPath": {
+            "type": "string",
+            "maxLength": 512
+          }
+        },
+        "required": [
+          "id",
+          "externalId",
+          "title",
+          "titleZh",
+          "state",
+          "errorCode",
+          "errorPath"
+        ]
+      },
+      "KnowledgePublishStepInput": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "expectedSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740990
+          },
+          "batchSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "default": 20
+          }
+        },
+        "required": [
+          "expectedSequence"
+        ]
+      },
+      "KnowledgePublishStepReceipt": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "jobId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "sequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "pending": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "published": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "skipped": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "failed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KnowledgePublishItem"
+            },
+            "maxItems": 20
+          }
+        },
+        "required": [
+          "actorId",
+          "jobId",
+          "sequence",
+          "total",
+          "pending",
+          "published",
+          "skipped",
+          "failed",
+          "items"
+        ]
+      },
+      "KnowledgePublishJobPage": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KnowledgePublishJob"
+            },
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "actorId",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "KnowledgePublishJobDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "job": {
+            "$ref": "#/components/schemas/KnowledgePublishJob"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KnowledgePublishItem"
+            },
+            "maxItems": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": [
+          "job",
+          "items",
+          "total",
+          "limit",
+          "offset"
+        ]
+      },
+      "KnowledgePublishReceiptLookup": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "jobId": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 128
+          },
+          "receipt": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/KnowledgePublishStepReceipt"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "actorId",
+          "jobId",
+          "key",
+          "receipt"
+        ]
+      },
+      "KnowledgePublishHealth": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "type": "boolean"
+          },
+          "schemaReady": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "capability",
+          "schemaReady"
         ]
       }
     },

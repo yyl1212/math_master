@@ -1,3 +1,4 @@
+import {numberedFields} from '../pagination/schemas';
 import {z} from 'zod';
 const uuid=z.string().regex(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/),kid=z.string().regex(/^k-[0-9a-f]{56}$/),time=z.iso.datetime({offset:true}),seq=z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
 const text=(max:number)=>z.string().refine(v=>v.isWellFormed()&&Array.from(v).length<=max);
@@ -32,7 +33,7 @@ export function routeForNote(path:string):NoteRoute|null{
  if(new RegExp('^/api/v3/study/knowledge/'+noteKid+'/note-sharing$').test(path))return make('head',true);
  if(new RegExp('^/api/v3/study/knowledge/'+noteKid+'/note-sharing/(submit|withdraw)$').test(path))return make('receipt',true,'POST');return null;
 }
-export function schemaForNotePath(path:string,method='GET'){
+export function schemaForNotePath(path:string,method='GET'){const url=new URL(path,'http://localhost');path=url.pathname;const numbered=url.searchParams.get('pagination')==='page';if(numbered){if(method!=='GET')return z.never();if(path==='/api/v3/study/notes')return ownPage.omit({nextCursor:true}).extend(numberedFields()).strict();if(path==='/api/v3/shared-notes')return sharedPage.omit({nextCursor:true}).extend(numberedFields()).strict();if(path==='/api/v3/admin/note-shares')return z.object({actorId:uuid,items:z.array(adminSummary).max(50),...numberedFields()}).strict();return z.never();}
  const route=routeForNote(path);if(!route||route.method!==method)return z.never();
  switch(route.kind){case 'health':return health;case 'latest':return z.object({items:z.array(summary).max(10)}).strict();case 'own':return ownPage;case 'head':return head;case 'shared':return sharedPage;case 'public-detail':return detail;case 'member-detail':return z.object({actorId:uuid,note:detail}).strict();case 'admin':return z.object({actorId:uuid,items:z.array(adminSummary).max(50),nextCursor:cursor}).strict();case 'admin-detail':return adminDetail;case 'receipt':return receipt;default:return z.never()}
 }

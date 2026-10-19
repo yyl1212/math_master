@@ -122,6 +122,18 @@ func routeManaged(path, method string) (out managedRoute, e error) {
 	return out, nil
 }
 func managedQuery(raw string, route managedRoute) (out knowledgeadmin.Query, e error) {
+	raw, numbered, pageErr := numberedQuery(raw, true, 20, 100)
+	if pageErr != nil {
+		return out, knowledgeadmin.ErrInvalid
+	}
+	if numbered.Enabled {
+		if numbered.Cursor != "" {
+			return out, knowledgeadmin.ErrInvalid
+		}
+		out.Numbered = &numbered
+		out.Limit = numbered.Limit
+	}
+
 	v, e := url.ParseQuery(raw)
 	if e != nil {
 		return out, knowledgeadmin.ErrInvalid
@@ -178,6 +190,10 @@ func knowledgeHTTPError(w http.ResponseWriter, r *http.Request, e error) {
 	status, code, message := 503, "CONTENT_NOT_READY", "Knowledge is temporarily unavailable."
 	var de *knowledgeadmin.DecodeError
 	switch {
+	case errors.Is(e, knowledgeadmin.ErrPublishRolledBack):
+		status, code, message = 503, "PUBLISH_BATCH_ROLLED_BACK", "The publish batch was rolled back. Retry with the same sequence."
+	case errors.Is(e, knowledgeadmin.ErrPublishInterrupted):
+		status, code, message = 503, "REQUEST_INTERRUPTED", "The request was interrupted. Check the operation receipt before retrying."
 	case errors.Is(e, notesharing.ErrLocked):
 		status, code, message = 409, "NOTE_SHARING_LOCKED", "Withdraw the note share before editing."
 	case errors.Is(e, notesharing.ErrNotReady):
@@ -256,6 +272,14 @@ func serveKnowledge(w http.ResponseWriter, r *http.Request, o KnowledgeOptions) 
 	r = r.Clone(r.Context())
 	r.Header = r.Header.Clone()
 	r.Header.Set("X-Request-ID", id)
+	if r.URL.Path == "/api/v3/knowledge-publish/health" {
+		servePublishHealth(w, r, o)
+		return
+	}
+	if r.URL.Path == "/api/v3/admin/knowledge/publish-jobs" || strings.HasPrefix(r.URL.Path, "/api/v3/admin/knowledge/publish-jobs/") {
+		serveKnowledgePublish(w, r, o)
+		return
+	}
 	route, e := routeManaged(r.URL.Path, r.Method)
 	if e != nil {
 		if errors.Is(e, errPrivateMethod) {

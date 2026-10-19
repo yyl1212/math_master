@@ -1,0 +1,4 @@
+export type SelectedKnowledge={id:string;editToken:string;title:string;titleZh:string};
+export function setSelected(current:ReadonlyMap<string,SelectedKnowledge>,item:SelectedKnowledge,checked:boolean){if(checked&&!current.has(item.id)&&current.size>=1000)throw new Error('SELECTION_LIMIT');const next=new Map(current);if(checked)next.set(item.id,{...item});else next.delete(item.id);return next}
+export function selectPage(current:ReadonlyMap<string,SelectedKnowledge>,items:readonly(SelectedKnowledge&{published?:boolean;deleted?:boolean})[],checked:boolean){let next=new Map(current);for(const item of items)if(!item.published&&!item.deleted)next=setSelected(next,item,checked);return next}
+export function selectionState(current:ReadonlyMap<string,SelectedKnowledge>,items:readonly SelectedKnowledge[]){const n=items.filter(item=>current.has(item.id)).length;return {all:items.length>0&&n===items.length,some:n>0&&n<items.length}}

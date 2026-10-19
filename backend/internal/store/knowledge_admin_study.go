@@ -372,6 +372,10 @@ func (s *Store) ListManagedStudyTopics(ctx context.Context, a knowledgeadmin.Acc
 		if e := tx.QueryRowContext(ctx, `SELECT count(DISTINCT t.topic_key) FROM managed_knowledge_topics t JOIN managed_knowledge k ON k.internal_id=t.internal_id WHERE t.active AND k.published AND k.deleted_at IS NULL AND ($1='' OR t.topic_key=$1 OR t.topic_key LIKE $1||'%')`, key).Scan(&out.Total); e != nil {
 			return e
 		}
+		if e := normalizeNumberedKnowledge(&q, out.Total, &out.Offset); e != nil {
+			return e
+		}
+
 		rows, e := tx.QueryContext(ctx, `SELECT t.topic_key,count(DISTINCT k.internal_id),count(DISTINCT k.internal_id) FILTER(WHERE r.state='completed'),count(DISTINCT k.internal_id) FILTER(WHERE r.state='learning'),count(DISTINCT k.internal_id) FILTER(WHERE r.state='reviewing') FROM managed_knowledge_topics t JOIN managed_knowledge k ON k.internal_id=t.internal_id LEFT JOIN managed_study_records r ON r.knowledge_id=k.internal_id AND r.owner_user_id=$1 WHERE t.active AND k.published AND k.deleted_at IS NULL AND ($2='' OR t.topic_key=$2 OR t.topic_key LIKE $2||'%') GROUP BY t.topic_key ORDER BY t.topic_key LIMIT $3 OFFSET $4`, u.ID, key, q.Limit, q.Offset)
 		if e != nil {
 			return e

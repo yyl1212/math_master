@@ -1,3 +1,4 @@
+import {numberedFields} from '../pagination/schemas';
 import {isReviewAnswerBlank} from './answer';
 import {z} from 'zod';
 const uuid=z.string().regex(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/),kid=z.string().regex(/^k-[0-9a-f]{56}$/),sha=z.string().regex(/^[a-f0-9]{64}$/),time=z.iso.datetime({offset:true}),seq=z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
@@ -48,7 +49,8 @@ export function routeForReview(path:string):ReviewRoute|null{
  const match=new RegExp('^sessions/('+uuidPath+')(?:/(draft|compare|grade|abandon))?$').exec(rest);if(!match)return null;
  const kind=match[2]??'session';return {kind,private:true,method:kind==='session'?'GET':kind==='draft'?'PUT':'POST',id:match[1]};
 }
-export function schemaForReviewPath(path:string,method='GET'){
+export function schemaForReviewPath(path:string,method='GET'){const url=new URL(path,'http://localhost');path=url.pathname;if(url.searchParams.get('pagination')==='page'&&path==='/api/v3/study/review/queue')return method==='GET'?queuePage.extend({offset:z.number().int().min(0).max(Number.MAX_SAFE_INTEGER)}).strict():z.never();
+ if(url.searchParams.get('pagination')==='page'&&path==='/api/v3/study/review/history')return method==='GET'?historyPage.omit({nextCursor:true}).extend(numberedFields()).strict():z.never();
  const route=routeForReview(path);if(!route||route.method!==method)return z.never();
  switch(route.kind){case 'health':return health;case 'overview':return overview;case 'queue':return queuePage;case 'history':return historyPage;case 'session':return sessionSchema;default:return receiptSchema}
 }

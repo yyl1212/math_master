@@ -2961,6 +2961,71 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/admin/knowledge/publish-jobs": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["knowledge_publish_list"];
+        put?: never;
+        post: operations["knowledge_publish_create"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/knowledge/publish-jobs/{jobId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["knowledge_publish_read"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/admin/knowledge/publish-jobs/{jobId}/step": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["knowledge_publish_step"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/knowledge-publish/health": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 探测知识批量发布能力与迁移16结构，仅返回两个布尔值 */
+        get: operations["knowledgePublishHealthGet"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -6835,6 +6900,157 @@ export interface components {
                 /** Format: uuid */
                 sessionId?: string;
             };
+        };
+        ManagedHistoryNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["ManagedHistoryEntry"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        OwnNoteNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["OwnNoteSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        SharedNoteNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["SharedNoteSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        AdminNoteShareNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["AdminNoteShareSummary"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        StudyReviewHistoryNumberedPage: {
+            /** Format: uuid */
+            actorId: string;
+            /** Format: date-time */
+            asOf: string;
+            items: components["schemas"]["StudyReviewHistoryItem"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        FeedbackNumberedPageResponseData: {
+            items: components["schemas"]["FeedbackMetadata"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        FeedbackNumberedPageResponse: {
+            actorId: string;
+            data: components["schemas"]["FeedbackNumberedPageResponseData"];
+        };
+        NotificationNumberedPageResponseData: {
+            items: components["schemas"]["NotificationMetadata"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        NotificationNumberedPageResponse: {
+            actorId: string;
+            data: components["schemas"]["NotificationNumberedPageResponseData"];
+        };
+        CorrectionCaseNumberedPageResponseData: {
+            items: components["schemas"]["CorrectionCaseMetadata"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        CorrectionCaseNumberedPageResponse: {
+            actorId: string;
+            data: components["schemas"]["CorrectionCaseNumberedPageResponseData"];
+        };
+        StudyHistoryNumberedPage: {
+            actorId: string;
+            items: components["schemas"]["StudyHistoryEntry"][];
+            limit: number;
+            total: number;
+            offset: number;
+        };
+        KnowledgePublishSelection: {
+            id: string;
+            editToken: string;
+        };
+        KnowledgePublishCreateInput: {
+            /** @constant */
+            mode: "all";
+        } | {
+            /** @constant */
+            mode: "selected";
+            items: components["schemas"]["KnowledgePublishSelection"][];
+        };
+        KnowledgePublishJob: {
+            actorId: string;
+            id: string;
+            /** @enum {string} */
+            mode: "all" | "selected";
+            sequence: number;
+            total: number;
+            pending: number;
+            published: number;
+            skipped: number;
+            failed: number;
+            /** Format: date-time */
+            createdAt: string;
+        };
+        KnowledgePublishItem: {
+            id: string;
+            externalId: string;
+            title: string;
+            titleZh: string;
+            /** @enum {string} */
+            state: "pending" | "published" | "skipped" | "failed";
+            errorCode: string;
+            errorPath: string;
+        };
+        KnowledgePublishStepInput: {
+            expectedSequence: number;
+            /** @default 20 */
+            batchSize: number;
+        };
+        KnowledgePublishStepReceipt: {
+            actorId: string;
+            jobId: string;
+            sequence: number;
+            total: number;
+            pending: number;
+            published: number;
+            skipped: number;
+            failed: number;
+            items: components["schemas"]["KnowledgePublishItem"][];
+        };
+        KnowledgePublishJobPage: {
+            actorId: string;
+            items: components["schemas"]["KnowledgePublishJob"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        KnowledgePublishJobDetail: {
+            job: components["schemas"]["KnowledgePublishJob"];
+            items: components["schemas"]["KnowledgePublishItem"][];
+            total: number;
+            limit: number;
+            offset: number;
+        };
+        KnowledgePublishReceiptLookup: {
+            actorId: string;
+            jobId: string;
+            key: string;
+            receipt: components["schemas"]["KnowledgePublishStepReceipt"] | null;
+        };
+        KnowledgePublishHealth: {
+            capability: boolean;
+            schemaReady: boolean;
         };
     };
     responses: {
@@ -12481,6 +12697,10 @@ export interface operations {
             query?: {
                 limit?: number;
                 cursor?: string;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -12497,7 +12717,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"] | components["schemas"]["FeedbackNumberedPageResponse"];
                 };
             };
             /** @description 闭合错误；不回显输入、答案或私有正文。 */
@@ -13162,6 +13382,10 @@ export interface operations {
                 cursor?: string;
                 status?: "new" | "processing" | "waiting_details" | "resolved" | "closed";
                 category?: "math_error" | "unclear_explanation" | "typo" | "accessibility" | "technical_issue" | "suggestion";
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -13178,7 +13402,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["FeedbackMetadataPageEnvelope"] | components["schemas"]["FeedbackNumberedPageResponse"];
                 };
             };
             /** @description 闭合错误；不回显输入、答案或私有正文。 */
@@ -13704,6 +13928,10 @@ export interface operations {
             query?: {
                 limit?: number;
                 cursor?: string;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -13720,7 +13948,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["CorrectionCaseMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["CorrectionCaseMetadataPageEnvelope"] | components["schemas"]["CorrectionCaseNumberedPageResponse"];
                 };
             };
             /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
@@ -15793,6 +16021,10 @@ export interface operations {
             query?: {
                 limit?: number;
                 cursor?: string;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -15809,7 +16041,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["NotificationMetadataPageEnvelope"];
+                    "application/json": components["schemas"]["NotificationMetadataPageEnvelope"] | components["schemas"]["NotificationNumberedPageResponse"];
                 };
             };
             /** @description 闭合安全错误，不回显请求、答案、来源正文或数据库错误。 */
@@ -18065,6 +18297,10 @@ export interface operations {
                 kind?: string;
                 cursor?: string;
                 limit?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -18079,7 +18315,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StudyHistoryPage"];
+                    "application/json": components["schemas"]["StudyHistoryPage"] | components["schemas"]["StudyHistoryNumberedPage"];
                 };
             };
             /** @description Fixed private study error. */
@@ -19147,6 +19383,10 @@ export interface operations {
                 limit?: number;
                 offset?: number;
                 status?: "published" | "unpublished" | "deleted";
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -20443,6 +20683,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -20654,6 +20898,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -20761,6 +21009,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path: {
@@ -20972,6 +21224,10 @@ export interface operations {
                 difficulty?: number;
                 limit?: number;
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -21082,6 +21338,10 @@ export interface operations {
                 offset?: number;
                 state?: "unlearned" | "learning" | "completed" | "reviewing";
                 reviewOnly?: boolean;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -22057,6 +22317,10 @@ export interface operations {
                 from?: string;
                 to?: string;
                 limit?: number;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -22070,7 +22334,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["ManagedHistoryPage"];
+                    "application/json": components["schemas"]["ManagedHistoryPage"] | components["schemas"]["ManagedHistoryNumberedPage"];
                 };
             };
             /** @description 明确失败，不计入发布成功。 */
@@ -22392,6 +22656,10 @@ export interface operations {
                 cursor?: string;
                 limit?: number;
                 shareStatus?: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -22405,7 +22673,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["OwnNotePage"];
+                    "application/json": components["schemas"]["OwnNotePage"] | components["schemas"]["OwnNoteNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留原输入并核对当前状态。 */
@@ -22971,6 +23239,10 @@ export interface operations {
                 topicKey?: string;
                 cursor?: string;
                 limit?: number;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -22984,7 +23256,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["SharedNotePage"];
+                    "application/json": components["schemas"]["SharedNotePage"] | components["schemas"]["SharedNoteNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留原输入并核对当前状态。 */
@@ -23161,6 +23433,10 @@ export interface operations {
                 status?: "unshared" | "pending" | "shared" | "returned" | "withdrawn" | "hidden";
                 cursor?: string;
                 limit?: number;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -23174,7 +23450,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["AdminNoteSharePage"];
+                    "application/json": components["schemas"]["AdminNoteSharePage"] | components["schemas"]["AdminNoteShareNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留原输入并核对当前状态。 */
@@ -23860,6 +24136,10 @@ export interface operations {
                 q?: string;
                 bucket?: "due" | "changed" | "unplanned" | "unfinished" | "future" | "all";
                 offset?: number;
+                /** @description 显式页码模式；省略时保持原协议。 */
+                pagination?: "page";
+                /** @description 从1开始的页码，与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -23968,6 +24248,10 @@ export interface operations {
                 mode?: "read" | "recall";
                 rating?: "forgotten" | "uncertain" | "familiar";
                 cursor?: string;
+                /** @description 显式页码模式；不传则保持原游标协议。 */
+                pagination?: "page";
+                /** @description 页码，从1开始；与cursor互斥。 */
+                page?: number;
             };
             header?: never;
             path?: never;
@@ -23981,7 +24265,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["StudyReviewHistoryPage"];
+                    "application/json": components["schemas"]["StudyReviewHistoryPage"] | components["schemas"]["StudyReviewHistoryNumberedPage"];
                 };
             };
             /** @description 操作未成功；保留输入并核对当前状态。 */
@@ -24709,6 +24993,486 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["StudyReviewProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_list: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+                createKey?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishJobPage"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_create: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+                Origin: string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgePublishCreateInput"];
+            };
+        };
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishJob"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_read: {
+        parameters: {
+            query?: {
+                limit?: number;
+                offset?: number;
+                state?: "pending" | "published" | "skipped" | "failed";
+                receiptKey?: string;
+            };
+            header?: never;
+            path: {
+                jobId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishJobDetail"] | components["schemas"]["KnowledgePublishReceiptLookup"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    knowledge_publish_step: {
+        parameters: {
+            query?: never;
+            header: {
+                "Idempotency-Key": string;
+                "X-CSRF-Token": string;
+                Origin: string;
+            };
+            path: {
+                jobId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["KnowledgePublishStepInput"];
+            };
+        };
+        responses: {
+            /** @description Bounded private publish metadata */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishStepReceipt"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            410: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            413: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 明确失败，不计入发布成功。 */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 暂不可用或提交结果未知。REQUEST_INTERRUPTED 必须查询原键回执；仅 PUBLISH_BATCH_ROLLED_BACK 确认本批未提交。 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+        };
+    };
+    knowledgePublishHealthGet: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description 能力与结构就绪 */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishHealth"];
+                };
+            };
+            /** @description 只允许GET */
+            405: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 不接受查询参数或请求体 */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ManagedProblem"];
+                };
+            };
+            /** @description 结构缺失、损坏或暂不可用 */
+            503: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["KnowledgePublishHealth"];
                 };
             };
         };

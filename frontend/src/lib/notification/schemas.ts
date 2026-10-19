@@ -1,8 +1,10 @@
+import {numberedFields} from '../pagination/schemas';
 import { z } from 'zod';
 import { CorrectionRequestError } from '../correction/types';
 import { uuidSchema, timeSchema, evidenceRefSchema, pageSchema, envelopeSchema, strictPrivatePath, validatePageQuery, readPrivateCorrectionJSON } from '../correction/schemas';
 import type { Metadata, NotificationRoute, ReadReceipt } from './types';
 export const metadataSchema = z.object({ id: uuidSchema, type: z.enum(['checking', 'corrected', 'retake', 'review_material', 'path_unavailable']), evidence: evidenceRefSchema, caseId: uuidSchema, resultId: uuidSchema.nullable(), createdAt: timeSchema, readAt: timeSchema.nullable() }).strict() satisfies z.ZodType<Metadata>;
+export const numberedNotificationPageSchema=z.object({items:z.array(metadataSchema).max(50),...numberedFields()}).strict();
 export const notificationPageSchema = pageSchema(metadataSchema), unreadCountSchema = z.object({ count: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER) }).strict(), readReceiptSchema = z.object({ status: z.literal(200), notificationId: uuidSchema, readAt: timeSchema }).strict() satisfies z.ZodType<ReadReceipt>;
 export const notificationReadInputSchema = z.object({}).strict();
 export function resolveNotificationRoute(path: string, method = 'GET'): NotificationRoute { if (path === '/api/v1/notifications/')
@@ -36,7 +38,7 @@ function schemaFor(action: NotificationRoute['action']) { switch (action) {
 } }
 export async function readNotificationResponse(response: Response, path: string, signal: AbortSignal, method = 'GET') { try {
     const r = resolveNotificationRoute(path, method);
-    const out = envelopeSchema(schemaFor(r.action)).parse(await readPrivateCorrectionJSON(response, signal));
+    const out = envelopeSchema(new URL(path,'http://localhost').searchParams.get('pagination')==='page'&&r.action==='list'?numberedNotificationPageSchema:schemaFor(r.action)).parse(await readPrivateCorrectionJSON(response, signal));
     if (response.status !== 200)
         throw new Error();
     return out;

@@ -44,6 +44,8 @@ class DeployTests(unittest.TestCase):
         public_health.start();self.addCleanup(public_health.stop)
         review_health=patch.object(module,'verify_study_review_public',return_value=None)
         review_health.start();self.addCleanup(review_health.stop)
+        publish_health=patch.object(module,'verify_publish_public',return_value=None)
+        publish_health.start();self.addCleanup(publish_health.stop)
         self.commands=[]
         self.state_path=shared/'deployment.json'
         self.state={'schemaVersion':1,'current':OLD,'previous':None,'runningRevision':OLD,'bootstrapVerified':True,'status':'active'}
@@ -59,7 +61,7 @@ class DeployTests(unittest.TestCase):
 
     def transport(self,root,revision,args,sudo=False,acme='production'):
         self.commands.append((revision,args,acme))
-        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (b'{"capability":true,"schemaReady":true}' if args and args[-1].endswith(('/api/v3/note-sharing/health','/api/v3/study/review/health')) else json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False},'content':{'capability':True,'schemaReady':True,'managedMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
+        stdout=b'a'*64+b'\n' if args==['ps','-q','db'] else (b'{"capability":true,"schemaReady":true}' if args and args[-1].endswith(('/api/v3/note-sharing/health','/api/v3/study/review/health','/api/v3/knowledge-publish/health')) else json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False},'content':{'capability':True,'schemaReady':True,'managedMode':False}}).encode() if args[:4]==['exec','-T','api','wget'] else b'')
         return subprocess.CompletedProcess(args,0,stdout,b'')
 
     def invoke(self,*args):
@@ -253,11 +255,11 @@ class NoteSharingCompatibilityTests(unittest.TestCase):
         order=[];state={'bootstrapVerified':True,'runningRevision':OLD,'current':OLD}
         def compose(root,revision,args,sudo=False,failure=''):
             order.append('web' if args[:2]==['up','-d'] and 'web' in args else 'api' if args[:2]==['up','-d'] and 'api' in args else 'other');return b''
-        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'verify_note_sharing_next',side_effect=lambda *a:order.append('next-probe')),patch.object(module,'verify_study_review_next'),patch.object(module,'save_state'):
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'verify_note_sharing_next',side_effect=lambda *a:order.append('next-probe')),patch.object(module,'verify_publish_next'),patch.object(module,'verify_study_review_next'),patch.object(module,'save_state'):
             module.start(Path('/private/tmp'),NEW,False,state,None)
         self.assertLess(order.index('go-probe'),order.index('web'));self.assertLess(order.index('web'),order.index('next-probe'))
         order=[];state={'bootstrapVerified':True,'runningRevision':NEW}
-        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public',side_effect=lambda *a:order.append('public-probe')),patch.object(module,'verify_study_review_public'),patch.object(module,'publish_current'):
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-probe')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public',side_effect=lambda *a:order.append('public-probe')),patch.object(module,'verify_publish_public'),patch.object(module,'verify_study_review_public'),patch.object(module,'publish_current'):
             module.activate(Path('/private/tmp'),NEW,False,state,'production')
         self.assertLess(order.index('gateway'),order.index('public-probe'))
 
@@ -304,10 +306,10 @@ class StudyReviewCompatibilityTests(unittest.TestCase):
         order=[];state={'bootstrapVerified':True,'runningRevision':OLD,'current':OLD}
         def compose(root,revision,args,sudo=False,failure=''):
             order.append('web' if args[:2]==['up','-d'] and 'web' in args else 'api' if args[:2]==['up','-d'] and 'api' in args else 'other');return b''
-        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-review')),patch.object(module,'verify_note_sharing_next'),patch.object(module,'verify_study_review_next',side_effect=lambda *a:order.append('next-review')),patch.object(module,'save_state',side_effect=lambda *a:order.append('ready')):
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'stop_writes'),patch.object(module.snapshot,'capture'),patch.object(module,'run_compose',side_effect=compose),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-review')),patch.object(module,'verify_note_sharing_next'),patch.object(module,'verify_publish_next'),patch.object(module,'verify_study_review_next',side_effect=lambda *a:order.append('next-review')),patch.object(module,'save_state',side_effect=lambda *a:order.append('ready')):
             module.start(Path('/private/tmp'),NEW,False,state,None)
         self.assertLess(order.index('api'),order.index('go-review'));self.assertLess(order.index('web'),order.index('next-review'));self.assertLess(order.index('next-review'),order.index('ready'))
         order=[];state['runningRevision']=NEW
-        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-review')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public'),patch.object(module,'verify_study_review_public',side_effect=lambda *a:order.append('public-review')),patch.object(module,'publish_current',side_effect=lambda *a:order.append('published')):
+        with patch.object(module,'database_container',return_value='container'),patch.object(module,'verify_topic_runtime',side_effect=lambda *a:order.append('go-review')),patch.object(module,'run_compose',side_effect=lambda *a:order.append('gateway')),patch.object(module,'trusted_check',side_effect=lambda *a:order.append('https')),patch.object(module,'verify_note_sharing_public'),patch.object(module,'verify_publish_public'),patch.object(module,'verify_study_review_public',side_effect=lambda *a:order.append('public-review')),patch.object(module,'publish_current',side_effect=lambda *a:order.append('published')):
             module.activate(Path('/private/tmp'),NEW,False,state,'production')
         self.assertLess(order.index('gateway'),order.index('public-review'));self.assertLess(order.index('public-review'),order.index('published'))

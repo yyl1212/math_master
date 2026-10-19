@@ -1,3 +1,4 @@
+import {numberedFields} from '../pagination/schemas';
 import { z } from 'zod';
 import { parseContentJSON, validContentString } from '../content/raw-json';
 import { readContentBytes } from '../content/bytes';
@@ -71,6 +72,7 @@ export function validCorrectionCursor(raw: string): boolean {
 }
 export const cursorSchema = z.string().refine(validCorrectionCursor).nullable();
 export const pageSchema = <T extends z.ZodType>(item: T) => z.object({ items: z.array(item).max(50), nextCursor: cursorSchema }).strict();
+export const numberedCasePageSchema = z.object({items:z.array(caseMetadataSchema).max(50),...numberedFields()}).strict();
 export const casePageSchema = pageSchema(caseMetadataSchema), planPageSchema = pageSchema(planMetadataSchema), jobPageSchema = pageSchema(jobMetadataSchema), resultPageSchema = pageSchema(resultMetadataSchema);
 export const envelopeSchema = <T extends z.ZodType>(data: T) => z.object({ actorId: uuidSchema, data }).strict();
 export function queryPath(path: string, query: PageQuery = {}): string { const q = z.object({ limit: z.number().int().min(1).max(50).optional(), cursor: z.string().refine(validCorrectionCursor).optional() }).strict().safeParse(query); if (!q.success)
@@ -105,6 +107,8 @@ export function validatePageQuery(query: URLSearchParams, list: boolean, evidenc
         if (!value)
             throw new CorrectionRequestError('INVALID_REQUEST');
         switch (key) {
+            case 'pagination': if(!list||value!=='page')throw new CorrectionRequestError('INVALID_REQUEST');break;
+            case 'page': if(!list||query.get('pagination')!=='page'||query.has('cursor')||!/^[1-9][0-9]*$/.test(value)||!Number.isSafeInteger(Number(value)))throw new CorrectionRequestError('INVALID_REQUEST');break;
             case 'limit':
                 if (!list || !/^[1-9][0-9]*$/.test(value) || Number(value) > 50)
                     throw new CorrectionRequestError('INVALID_REQUEST');
@@ -177,6 +181,7 @@ export function resolveCorrectionRoute(path: string, method = 'GET'): Correction
         return bad();
     if (method !== wanted)
         throw new CorrectionRequestError('METHOD_NOT_ALLOWED');
+    if(query.has('pagination')&&action!=='listCases')return bad();
     validatePageQuery(query, ['listCases', 'listPlans', 'listJobs', 'listOwn'].includes(action), action === 'listOwn');
     return { path, method: wanted, action };
 }
@@ -224,7 +229,7 @@ export async function readCorrectionResponse(response: Response, path: string, s
     try {
         const route = resolveCorrectionRoute(path, method);
         const value = await readPrivateCorrectionJSON(response, signal);
-        const out = envelopeSchema(responseSchema(route.action)).parse(value);
+        const out = envelopeSchema(new URL(path,'http://localhost').searchParams.get('pagination')==='page'&&route.action==='listCases'?numberedCasePageSchema:responseSchema(route.action)).parse(value);
         const expected = ['createCase', 'createPlan'].includes(route.action) ? 201 : 200;
         if (response.status !== expected || 'status' in out.data && out.data.status !== response.status)
             throw new Error();

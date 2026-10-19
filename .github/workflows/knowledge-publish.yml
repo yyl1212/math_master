@@ -1,0 +1,67 @@
+name: 知识批量发布验证
+on:
+  push:
+    branches: [master, 'codex/**']
+  pull_request:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TOPIC_COMPATIBILITY_STAGE: managed
+      CGO_ENABLED: '0'
+      GOTOOLCHAIN: go1.27.1
+      TEST_DATABASE_URL: postgres://math_master:ci-only@127.0.0.1:5432/math_master_test_ci?sslmode=disable
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: math_master
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: math_master_test_ci
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U math_master -d math_master_test_ci"
+          --health-interval 2s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.27.1'
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '24.17.0'
+      - name: 验证步骤 36
+        run: node tools/verify/run.mjs --cwd frontend -- npm ci --no-audit --no-fund
+      - name: 验证步骤 38
+        run: node tools/verify/run.mjs --cwd frontend -- npx playwright install --with-deps chromium
+      - name: 验证步骤 40
+        run: node tools/verify/run.mjs -- node --test tools/verify/knowledge-publish-ci.test.mjs tools/verify/go-batches.test.mjs
+      - name: 验证步骤 42
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/knowledgeadmin ./internal/httpapi ./internal/e2etest -run '^Test(Publish|Fixture)' -timeout 5m -count=1
+      - name: 原子发布与迁移
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestPublish' -skip '^TestPublishCapacity' -timeout 5m -count=1
+      - name: 一万零一条固定清单容量
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestPublishCapacity10001' -timeout 5m -count=1 -v
+      - name: 大正文与中断边界
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestPublishStepLarge' -timeout 5m -count=1
+      - name: 原知识分享复习回归
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^Test(Managed|Sharing|Review)' -skip '^TestReviewCapacity' -timeout 5m -count=1
+
+      - name: 验证步骤 44
+        run: node tools/verify/run.mjs --cwd frontend -- npm test
+      - name: 验证步骤 46
+        run: node tools/verify/run.mjs --cwd frontend -- npm run typecheck
+      - name: 验证步骤 48
+        run: node tools/verify/run.mjs --cwd frontend -- npm run build
+      - name: 验证步骤 50
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go build -o bin/e2e-harness ./cmd/e2e-harness
+      - name: 验证步骤 52
+        run: node tools/verify/run.mjs --cwd frontend -- env -u NO_COLOR npm run e2e -- knowledge-batch-publish.spec.ts
+      - name: 发布HTTP与真实夹具
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/httpapi ./internal/e2etest -run '^TestKnowledgePublish' -timeout 5m -count=1
+      - name: 大正文批次回滚与未知提交
+        run: node tools/verify/run.mjs --cwd backend -- env CGO_ENABLED=0 GOTOOLCHAIN=go1.27.1 go test ./internal/store -run '^TestPublishCapacityLarge' -timeout 5m -count=1 -v

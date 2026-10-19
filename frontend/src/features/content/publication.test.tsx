@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, within, waitFor } from "@testing-library/react";
 import { beforeEach, it, expect, vi } from "vitest";
 import { PublicationPanel } from "./publication-panel";
 import { WithdrawalPanel } from "./withdrawal-panel";
@@ -26,7 +26,7 @@ it("TestPublicationPagerUsesEffectiveLimitAndSelectsReturnedSnapshot",async()=>{
  const old=publicationView(),next={...publicationView(),id:"22222222-2222-4222-8222-222222222222"};
  render(<PublicationPanel initial={{items:[old],total:3,limit:1,offset:0,head:null}}/>);
  mocks.request.mockResolvedValue({ok:true,data:{items:[next],total:3,limit:1,offset:1,head:null}});
- fireEvent.click(screen.getByRole("button",{name:"Next snapshots"}));
+ fireEvent.click(within(screen.getByRole("navigation",{name:"Snapshot history"})).getByRole("button",{name:"Next page"}));
  await waitFor(()=>expect(mocks.request).toHaveBeenCalledWith({kind:"listPublications",query:{limit:1,offset:1}}));
  expect(screen.getByLabelText("Selected snapshot")).toHaveValue(next.id);expect(screen.getByText(/Manifest SHA:/)).toBeVisible();
 });

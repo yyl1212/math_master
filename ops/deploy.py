@@ -26,11 +26,11 @@ class DeployError(ValueError):
 
 
 def topicSchemaCompatibility(actualMigration: int,targetCapabilities: dict,mode: str) -> bool:
-    if type(actualMigration) is not int or not 1<=actualMigration<=15 or mode not in ['legacy','topics']:return False
-    if set(targetCapabilities) not in [{'taxonomy','study','retirement'},{'taxonomy','study','retirement','managed'},{'taxonomy','study','retirement','managed','noteSharing'},{'taxonomy','study','retirement','managed','noteSharing','studyReview'}] or any(type(v) is not bool for v in targetCapabilities.values()):return False
+    if type(actualMigration) is not int or not 1<=actualMigration<=16 or mode not in ['legacy','topics']:return False
+    if set(targetCapabilities) not in [{'taxonomy','study','retirement'},{'taxonomy','study','retirement','managed'},{'taxonomy','study','retirement','managed','noteSharing'},{'taxonomy','study','retirement','managed','noteSharing','studyReview'},{'taxonomy','study','retirement','managed','noteSharing','studyReview','knowledgePublish'}] or any(type(v) is not bool for v in targetCapabilities.values()):return False
     if mode=='topics' and actualMigration<12:return False
     required={'taxonomy':actualMigration>=10,'study':actualMigration>=11,'retirement':actualMigration>=12 or mode=='topics'}
-    return (actualMigration<13 or targetCapabilities.get('managed') is True) and (actualMigration<14 or targetCapabilities.get('noteSharing') is True) and (actualMigration<15 or targetCapabilities.get('studyReview') is True) and all(not needed or targetCapabilities[name] for name,needed in required.items())
+    return (actualMigration<13 or targetCapabilities.get('managed') is True) and (actualMigration<14 or targetCapabilities.get('noteSharing') is True) and (actualMigration<15 or targetCapabilities.get('studyReview') is True) and (actualMigration<16 or targetCapabilities.get('knowledgePublish') is True) and all(not needed or targetCapabilities[name] for name,needed in required.items())
 
 
 def topic_database_state(container: str,sudo: bool) -> dict:
@@ -76,6 +76,9 @@ def verify_topic_runtime(root: Path,revision: str,sudo: bool,container: str) -> 
     if actual['requiredMigration']>=15:
         review=runtime_study_review_health(root,revision,sudo)
         capabilities['studyReview']=review['capability'] and review['schemaReady']
+    if actual['requiredMigration']>=16:
+        publish=runtime_publish_health(root,revision,sudo)
+        capabilities['knowledgePublish']=publish['capability'] and publish['schemaReady']
     if health.get('managedMode',False)!=actual.get('managedMode',False):raise DeployError('managed-schema-incompatible')
     if not health['schemaReady'] or health['topicsMode']!=(actual['mode']=='topics') or not topicSchemaCompatibility(actual['requiredMigration'],capabilities,actual['mode']):raise DeployError('topic-schema-incompatible')
 
@@ -138,6 +141,37 @@ def verify_study_review_public(root: Path,revision: str) -> None:
             strict_study_review_health(response.read(2049))
     except (OSError,ValueError,urllib.error.URLError) as error:
         raise DeployError('study-review-https-unavailable') from error
+
+
+
+def strict_publish_health(raw: bytes) -> dict:
+    if len(raw)>2048:raise DeployError('publish-readiness-unavailable')
+    value=json.loads(raw)
+    if not isinstance(value,dict) or set(value)!={'capability','schemaReady'} or any(type(v) is not bool for v in value.values()) or not all(value.values()):raise DeployError('publish-readiness-unavailable')
+    return value
+
+
+def runtime_publish_health(root: Path,revision: str,sudo: bool) -> dict:
+    return strict_publish_health(run_compose(root,revision,['exec','-T','api','wget','-qO-','http://127.0.0.1:8080/api/v3/knowledge-publish/health'],sudo,'publish-readiness-unavailable'))
+
+
+def verify_publish_next(root: Path,revision: str,sudo: bool) -> None:
+    if expected_migration(root,revision)<16:return
+    strict_publish_health(run_compose(root,revision,['exec','-T','web','wget','-qO-','http://127.0.0.1:3000/api/v3/knowledge-publish/health'],sudo,'publish-proxy-unavailable'))
+
+
+def verify_publish_public(root: Path,revision: str) -> None:
+    if expected_migration(root,revision)<16:return
+    import ssl
+    import urllib.request
+    import urllib.error
+    url=common.ORIGIN+'/api/v3/knowledge-publish/health'
+    try:
+        with urllib.request.urlopen(url,timeout=5,context=ssl.create_default_context()) as response:
+            if response.status!=200 or response.geturl()!=url:raise DeployError('publish-https-unavailable')
+            strict_publish_health(response.read(2049))
+    except (OSError,ValueError,urllib.error.URLError) as error:
+        raise DeployError('publish-https-unavailable') from error
 
 
 def load_state(root: Path) -> dict:
@@ -231,9 +265,11 @@ def rollback(root: Path,revision: str,sudo: bool,state: dict) -> None:
         run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api','web','gateway'],sudo,'rollback-health-failed')
         verify_note_sharing_next(root,revision,sudo)
         verify_study_review_next(root,revision,sudo)
+        verify_publish_next(root,revision,sudo)
         trusted_check(common.ORIGIN)
         verify_note_sharing_public(root,revision)
         verify_study_review_public(root,revision)
+        verify_publish_public(root,revision)
         publish_current(root,revision,state)
     except (ValueError,OSError,subprocess.SubprocessError) as error:
         try:
@@ -298,6 +334,7 @@ def start(root: Path,revision: str,sudo: bool,state: dict,baseline: Path | None)
         run_compose(root,revision,['up','-d','--no-deps','--wait','--wait-timeout','120','api','web'],sudo,'application-health-failed')
         verify_note_sharing_next(root,revision,sudo)
         verify_study_review_next(root,revision,sudo)
+        verify_publish_next(root,revision,sudo)
         state.update(attempt=revision,runningRevision=revision,status='ready');save_state(root,state)
     except (ValueError,OSError,subprocess.SubprocessError):
         recover(root,revision,sudo,state)
@@ -312,7 +349,7 @@ def activate(root: Path,revision: str,sudo: bool,state: dict,acme: str) -> None:
         # 强制重建，确保切换 issuer 和相应证书卷，不延用 staging 容器。
         run_compose(root,revision,['up','-d','--no-deps','--force-recreate','--wait','--wait-timeout','120','gateway'],sudo,'gateway-health-failed',acme)
         if acme=='production':
-            trusted_check(common.ORIGIN);verify_note_sharing_public(root,revision);verify_study_review_public(root,revision);publish_current(root,revision,state)
+            trusted_check(common.ORIGIN);verify_note_sharing_public(root,revision);verify_study_review_public(root,revision);verify_publish_public(root,revision);publish_current(root,revision,state)
         else:
             state.update(status='staging-started');save_state(root,state)
     except (ValueError,OSError,subprocess.SubprocessError):

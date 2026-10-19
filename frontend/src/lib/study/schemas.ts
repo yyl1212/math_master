@@ -1,3 +1,4 @@
+import {numberedFields} from '../pagination/schemas';
 import {z} from "zod";
 import {validContentString} from "../content/raw-json";
 import {knowledgeRefSchema,knowledgeSummarySchema,pairSchema} from "../taxonomy/schemas";
@@ -21,3 +22,5 @@ export const overviewSchema=z.object({actorId:actor,pair:pairSchema,mode:z.enum(
 export const historyEntrySchema=z.object({id:actor,title:text.optional(),titleZh:text.optional(),knowledge:knowledgeRefSchema,taxonomyVersionId:text.regex(/^[a-f0-9]{64}$/).nullable(),taxonomyHead:actor.nullable(),kind:z.enum(["started","completed","review-started","review-finished","note-saved","note-deleted"]),occurredAt:time,noteRevision:count.nullable(),reviewId:actor.nullable(),sourceKind:z.enum(["native","legacy"]),originEventId:actor.nullable()}).strict().refine(v=>v.sourceKind==="native"?v.taxonomyVersionId!==null&&v.taxonomyHead!==null&&v.originEventId===null:v.originEventId!==null);
 const cursor=text.max(512).regex(/^[\x20-\x7e]*$/);
 export const historyPageSchema=z.object({actorId:actor,items:z.array(historyEntrySchema).max(50),limit:count.min(1).max(50),nextCursor:cursor.nullable()}).strict().refine(v=>v.items.length<=v.limit);
+
+export const numberedHistoryPageSchema=z.object({actorId:actor,items:z.array(historyEntrySchema).max(50),...numberedFields()}).strict().refine(v=>v.items.length<=v.limit&&v.items.length<=v.total);

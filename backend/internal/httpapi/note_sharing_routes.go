@@ -163,7 +163,12 @@ func serveNoteSharing(w http.ResponseWriter, r *http.Request, o KnowledgeOptions
 			}
 		}
 	}
-	q, events, e := noteShareQuery(r.URL.RawQuery, route.kind)
+	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.kind == "own-list" || route.kind == "shared-list" || route.kind == "admin-list", 20, 50)
+	if pageErr != nil {
+		noteShareHTTPError(w, r, errNoteRequest)
+		return
+	}
+	q, events, e := noteShareQuery(rawQuery, route.kind)
 	if e != nil {
 		noteShareHTTPError(w, r, e)
 		return
@@ -182,7 +187,15 @@ func serveNoteSharing(w http.ResponseWriter, r *http.Request, o KnowledgeOptions
 		noteShareResponse(w, r, h, status, false, notesharing.MaxDetailBytes)
 		return
 	case "own-list":
-		value, e = repo.ListOwnNotes(ctx, a, q)
+		if numbered.Enabled {
+			if paged, ok := repo.(notesharing.NumberedRepository); ok {
+				value, e = paged.ListOwnNotePage(ctx, a, q, numbered)
+			} else {
+				e = notesharing.ErrNotReady
+			}
+		} else {
+			value, e = repo.ListOwnNotes(ctx, a, q)
+		}
 	case "head":
 		value, e = repo.ReadOwnHead(ctx, a, route.id)
 	case "submit":
@@ -200,11 +213,27 @@ func serveNoteSharing(w http.ResponseWriter, r *http.Request, o KnowledgeOptions
 	case "public-detail":
 		value, e = repo.ReadPublic(ctx, route.id)
 	case "shared-list":
-		value, e = repo.ListShared(ctx, a, q)
+		if numbered.Enabled {
+			if paged, ok := repo.(notesharing.NumberedRepository); ok {
+				value, e = paged.ListSharedNotePage(ctx, a, q, numbered)
+			} else {
+				e = notesharing.ErrNotReady
+			}
+		} else {
+			value, e = repo.ListShared(ctx, a, q)
+		}
 	case "shared-detail":
 		value, e = repo.ReadShared(ctx, a, route.id)
 	case "admin-list":
-		value, e = repo.ListAdmin(ctx, a, q)
+		if numbered.Enabled {
+			if paged, ok := repo.(notesharing.NumberedRepository); ok {
+				value, e = paged.ListAdminNoteSharePage(ctx, a, q, numbered)
+			} else {
+				e = notesharing.ErrNotReady
+			}
+		} else {
+			value, e = repo.ListAdmin(ctx, a, q)
+		}
 	case "admin-detail":
 		value, e = repo.ReadAdmin(ctx, a, route.id, events)
 	case "decision":

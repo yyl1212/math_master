@@ -77,6 +77,10 @@ func (s *Store) ListManagedKnowledge(ctx context.Context, a knowledgeadmin.Acces
 		if e := tx.QueryRowContext(ctx, "SELECT count(*) FROM managed_knowledge k WHERE "+filter, args...).Scan(&out.Total); e != nil {
 			return e
 		}
+		if e := normalizeNumberedKnowledge(&q, out.Total, &out.Offset); e != nil {
+			return e
+		}
+
 		rows, e := tx.QueryContext(ctx, "SELECT "+managedSummaryColumns+" FROM managed_knowledge k WHERE "+filter+" ORDER BY updated_at DESC,internal_id LIMIT $6 OFFSET $7", append(args, q.Limit, q.Offset)...)
 		if e != nil {
 			return e

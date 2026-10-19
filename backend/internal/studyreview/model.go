@@ -4,6 +4,7 @@ package studyreview
 import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
+	"github.com/yyl1212/math_master/backend/internal/pagination"
 	"time"
 )
 
@@ -139,6 +140,7 @@ type Session struct {
 	Grade           *GradeResult       `json:"grade"`
 }
 type QueueQuery struct {
+	Numbered            *pagination.Request
 	Q, TopicKey, Bucket string
 	Limit, Offset       int
 }

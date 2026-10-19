@@ -1,4 +1,4 @@
-const historyKeys=['knowledgeId','topicKey','kind','from','to','cursor','legacyCursor'] as const;
+const historyKeys=['knowledgeId','topicKey','kind','from','to','cursor','legacyCursor','page','legacyPage','limit'] as const;
 
 export function historyHref(filters:Record<string,string|string[]|undefined>={}){
  const query=new URLSearchParams({view:'history'});

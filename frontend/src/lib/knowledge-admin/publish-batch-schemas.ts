@@ -1,0 +1,16 @@
+import {z} from 'zod';
+const uuid=z.string().regex(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/),kid=z.string().regex(/^k-[0-9a-f]{56}$/),safe=z.number().int().min(0).max(Number.MAX_SAFE_INTEGER);
+const text=(runes:number,bytes=4*runes)=>z.string().refine(v=>v.isWellFormed()&&!v.includes('\0')&&Array.from(v).length<=runes&&new TextEncoder().encode(v).length<=bytes);
+const counts={total:safe,pending:safe,published:safe,skipped:safe,failed:safe},consistent=(v:{total:number;pending:number;published:number;skipped:number;failed:number})=>v.total===v.pending+v.published+v.skipped+v.failed;
+export const publishCreateSchema=z.discriminatedUnion('mode',[z.object({mode:z.literal('all')}).strict(),z.object({mode:z.literal('selected'),items:z.array(z.object({id:kid,editToken:uuid}).strict()).min(1).max(1000).refine(v=>new Set(v.map(i=>i.id)).size===v.length)}).strict()]);
+export const publishStepSchema=z.object({expectedSequence:safe.min(1).max(Number.MAX_SAFE_INTEGER-1),batchSize:z.number().int().min(1).max(20).optional()}).strict();
+export const publishJobSchema=z.object({actorId:uuid,id:uuid,mode:z.enum(['all','selected']),sequence:safe.min(1),...counts,createdAt:z.iso.datetime({offset:true})}).strict().refine(consistent);
+export const publishItemSchema=z.object({id:kid,externalId:text(512,512),title:text(128),titleZh:text(128),state:z.enum(['pending','published','skipped','failed']),errorCode:text(64,64),errorPath:text(512,512)}).strict().refine(v=>v.state==='failed'||v.errorCode===''&&v.errorPath==='');
+export const publishReceiptSchema=z.object({actorId:uuid,jobId:uuid,sequence:safe.min(2),...counts,items:z.array(publishItemSchema.refine(v=>v.state!=='pending')).min(1).max(20)}).strict().refine(v=>consistent(v)&&new Set(v.items.map(i=>i.id)).size===v.items.length&&v.items.length<=v.total-v.pending);
+const meta={total:safe,limit:z.number().int().min(1).max(100),offset:safe};
+const page=(v:{items:unknown[];total:number;limit:number;offset:number})=>v.items.length<=v.limit&&v.items.length<=Math.max(0,v.total-v.offset)&&(v.total===0?v.offset===0:v.offset<v.total);
+export const publishJobPageSchema=z.object({actorId:uuid,items:z.array(publishJobSchema).max(100),...meta}).strict().refine(v=>page(v)&&v.items.every(j=>j.actorId===v.actorId));
+export const publishDetailSchema=z.object({job:publishJobSchema,items:z.array(publishItemSchema).max(100),...meta}).strict().refine(v=>page(v)&&v.total<=v.job.total&&new Set(v.items.map(i=>i.id)).size===v.items.length);
+export const publishLookupSchema=z.object({actorId:uuid,jobId:uuid,key:text(128,128),receipt:publishReceiptSchema.nullable()}).strict().refine(v=>!v.receipt||v.receipt.actorId===v.actorId&&v.receipt.jobId===v.jobId);
+const base='/api/v3/admin/knowledge/publish-jobs';
+export function publishSchemaForPath(path:string,method='GET'){const u=new URL(path,'http://localhost');if(u.pathname===base)return method==='POST'?publishJobSchema:method==='GET'?publishJobPageSchema:z.never();if(new RegExp('^'+base+'/[0-9a-f-]{36}/step$').test(u.pathname))return method==='POST'?publishReceiptSchema:z.never();if(new RegExp('^'+base+'/[0-9a-f-]{36}$').test(u.pathname))return method==='GET'?(u.searchParams.has('receiptKey')?publishLookupSchema:publishDetailSchema):z.never();return z.never()}

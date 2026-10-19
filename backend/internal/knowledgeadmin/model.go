@@ -4,6 +4,7 @@ package knowledgeadmin
 import (
 	"errors"
 	"github.com/yyl1212/math_master/backend/internal/auth"
+	"github.com/yyl1212/math_master/backend/internal/pagination"
 	"time"
 )
 
@@ -172,6 +173,7 @@ type PublicKnowledge struct {
 	UpdatedAt  time.Time      `json:"updatedAt"`
 }
 type Query struct {
+	Numbered                  *pagination.Request
 	State                     string
 	ReviewOnly                bool
 	TopicKey, Q, Type, Status string

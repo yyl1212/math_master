@@ -1,4 +1,5 @@
 "use client";
+import {Pagination} from '@/components/pagination';
 import {PageHeading} from '@/components/page-heading';
 import type {UiNotice} from "@/lib/i18n/types";
 import {uiError} from "@/lib/i18n/errors";
@@ -16,16 +17,16 @@ import styles from "@/styles/auth.module.css";
 export function AdminUsers({ initial }: { initial: UserPage }) {
  const {t}=useUiI18n();
 
-  const router = useRouter(), pending = useRef(false), verifyInput = useRef<HTMLInputElement>(null), verifyTrigger = useRef<HTMLElement | null>(null);
+  const router = useRouter(), pending = useRef(false), epoch = useRef(0), verifyInput = useRef<HTMLInputElement>(null), verifyTrigger = useRef<HTMLElement | null>(null);
   const [access, setAccess] = useState<"loading" | "allowed" | "anonymous" | "forbidden" | "unavailable" | "invalid-cookie">("loading");
   const [page, setPage] = useState(initial), [query, setQuery] = useState(""), [applied, setApplied] = useState("");
   const [selected, setSelected] = useState(initial.items[0]?.id ?? ""), [roles, setRoles] = useState<Role[]>((initial.items[0]?.roles ?? ["learner"]).filter(role=>role==="learner"||role==="admin"));
   const [reason, setReason] = useState(""), [ownershipNote, setOwnership] = useState(""), [temporaryPassword, setTemporary] = useState(""), [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false), [verify, setVerify] = useState(false), [error, setError] = useState<UiNotice | null>(null), [message, setMessage] = useState<UiNotice | null>(null);
-  useEffect(() => { let live = true; void getAuthContext().then(result => {
+  useEffect(() => { let live = true; const check=()=>{epoch.current++;void getAuthContext().then(result => {
     if (!live) return;
     setAccess(!result.ok ? result.code === "INVALID_COOKIE" ? "invalid-cookie" : "unavailable" : !result.data.user ? "anonymous" : result.data.user.mustChangePassword || !result.data.user.roles.includes("admin") ? "forbidden" : "allowed");
-  }); return () => { live = false; }; }, []);
+  });};check();window.addEventListener("math-master:auth-change",check);return () => {live=false;epoch.current++;window.removeEventListener("math-master:auth-change",check)}; }, []);
   useEffect(() => {
     if (!verify) return;
     verifyInput.current?.focus();
@@ -43,7 +44,8 @@ export function AdminUsers({ initial }: { initial: UserPage }) {
     else setError(uiError("auth",result));
   }
   async function load(q: string, offset: number) {
-    const result = await authRequest<UserPage>({ kind: "users", query: { q, limit: page.limit, offset } }, undefined);
+    const version=epoch.current;const result = await authRequest<UserPage>({ kind: "users", query: { q, limit: page.limit, offset } }, undefined);
+    if(version!==epoch.current)return false;
     if (!result.ok) { handleFailure(result); return false; }
     setPage(result.data); setApplied(q); choose(result.data.items.find(u => u.id === selected) ?? result.data.items[0]); return true;
   }
@@ -76,7 +78,7 @@ export function AdminUsers({ initial }: { initial: UserPage }) {
     <form className="ui-filter" onSubmit={e => { e.preventDefault(); void search(); }}><label htmlFor="user-query"><UiText notice={uiMessage("admin-users.search.usernames.adb993",{})}/><input id="user-query" value={query} onChange={e => setQuery(e.target.value)} maxLength={128} disabled={busy} /></label><button className="button" disabled={busy}><UiText notice={uiMessage("knowledge-map.search.49c266",{})}/></button></form>
     <p className={styles.hint}>{page.total} {page.total === 1 ? t("admin-users.account.9af211",{}) : t("admin-users.accounts.bc62a3",{})}</p>
     <div className={styles.adminGrid}><div className={styles.card}><h2><UiText notice={uiMessage("admin-users.accounts.8a7c8b",{})}/></h2><ul className={styles.users}>{page.items.map(user => <li key={user.id}><button aria-pressed={selected === user.id} disabled={busy} onClick={() => choose(user)}><strong>{user.username}</strong><span>{user.roles.filter((role):role is "learner"|"admin"=>role==="learner"||role==="admin").map(role=>t(roleKeys[role],{})).join(" · ")}</span>{user.mustChangePassword && <span><UiText notice={uiMessage("admin-users.password.change.required.77288b",{})}/></span>}</button></li>)}</ul>
-      {page.items.length === 0 && <p><UiText notice={uiMessage("admin-users.no.matching.accounts.277fda",{})}/></p>}<div className={styles.actions}><button className="button secondary" disabled={busy || page.offset === 0} onClick={() => void search(Math.max(0, page.offset - page.limit), applied)}><UiText notice={uiMessage("admin-users.previous.a57b08",{})}/></button><button className="button secondary" disabled={busy || page.offset + page.limit >= page.total} onClick={() => void search(page.offset + page.limit, applied)}><UiText notice={uiMessage("admin-users.next.1ff57a",{})}/></button></div></div>
+      {page.items.length === 0 && <p><UiText notice={uiMessage("admin-users.no.matching.accounts.277fda",{})}/></p>}<Pagination meta={page} label={t('admin-users.accounts.8a7c8b',{})} disabled={busy} navigation={{kind:'callback',onPageChange:offset=>search(offset,applied)}}/></div>
     {selected && <div className={styles.card}><h2>{page.items.find(u => u.id === selected)?.username}</h2><form className={styles.form} onSubmit={e => { e.preventDefault(); void write("roles", (e.nativeEvent as SubmitEvent).submitter); }}>
       <fieldset disabled={busy}><legend><UiText notice={uiMessage("admin-users.roles.c25337",{})}/></legend>{(["learner", "admin"] as const).map(role => <label className="form-check" key={role}><input type="checkbox" checked={roles.includes(role)} disabled={role === "learner"} onChange={e => setRoles(current => (["learner", "admin"] as Role[]).filter(r => r === role ? e.target.checked : current.includes(r)))} />{t(roleKeys[role],{})}</label>)}</fieldset>
       <label htmlFor="role-reason"><UiText notice={uiMessage("admin-users.reason.f81ab8",{})}/></label><textarea id="role-reason" required minLength={10} maxLength={1000} value={reason} onChange={e => setReason(e.target.value)} disabled={busy} /><button className="button" disabled={busy}><UiText notice={uiMessage("admin-users.save.roles.1a0378",{})}/></button></form>

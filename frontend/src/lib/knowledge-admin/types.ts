@@ -23,3 +23,15 @@ export type NoteInput=components['schemas']['ManagedNoteInput'];
 export type HistoryPage=components['schemas']['ManagedHistoryPage'];
 export type Result<T>={ok:true;data:T}|{ok:false;status:number;code:string};
 export class KnowledgeError extends Error{constructor(public readonly code:string,public readonly status=503){super(code);this.name='KnowledgeError'}}
+
+export type ManagedHistoryNumberedPage=import('../api/generated').components['schemas']['ManagedHistoryNumberedPage'];
+
+export type PublishSelection=components['schemas']['KnowledgePublishSelection'];
+export type PublishCreateInput=components['schemas']['KnowledgePublishCreateInput'];
+export type PublishJob=components['schemas']['KnowledgePublishJob'];
+export type PublishItem=components['schemas']['KnowledgePublishItem'];
+export type PublishStepInput=components['schemas']['KnowledgePublishStepInput'];
+export type PublishStepReceipt=components['schemas']['KnowledgePublishStepReceipt'];
+export type PublishJobPage=components['schemas']['KnowledgePublishJobPage'];
+export type PublishJobDetail=components['schemas']['KnowledgePublishJobDetail'];
+export type PublishReceiptLookup=components['schemas']['KnowledgePublishReceiptLookup'];

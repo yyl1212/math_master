@@ -217,6 +217,7 @@ func Run(ctx context.Context, c Config) (result error) {
 	var holdSave atomic.Bool
 	var holdLearning atomic.Bool
 	var holdStudy atomic.Bool
+	var holdPublish atomic.Bool
 	var holdStudyReview atomic.Bool
 	var failStudyReviewRead atomic.Bool
 	var holdFeedback atomic.Bool
@@ -225,6 +226,14 @@ func Run(ctx context.Context, c Config) (result error) {
 	change := func(ctx context.Context, scene string) error {
 		mu.Lock()
 		defer mu.Unlock()
+		if scene == "knowledge-publish" {
+			holdPublish.Store(false)
+			return resetKnowledgePublish(ctx, db, s, accounts, accountAdmin, root)
+		}
+		if scene == "knowledge-publish-hold-next-step" {
+			holdPublish.Store(true)
+			return nil
+		}
 		if scene == "study-review" {
 			holdStudyReview.Store(false)
 			failStudyReviewRead.Store(false)
@@ -240,6 +249,9 @@ func Run(ctx context.Context, c Config) (result error) {
 		}
 		if scene == "note-sharing" {
 			return resetNoteSharing(ctx, db, s, accounts, accountAdmin, root)
+		}
+		if scene == "query-pagination" {
+			return resetQueryPagination(ctx, db, s, accounts, accountAdmin, root)
 		}
 		if scene == "managed-knowledge" {
 			return resetManagedKnowledge(ctx, db, s, accounts, accountAdmin, root)
@@ -554,7 +566,7 @@ func Run(ctx context.Context, c Config) (result error) {
 		}
 		// Commit through the real handler before dropping a delayed response. The
 		// next request must prove idempotent replay, rather than mock a success.
-		if ((r.Method == "POST" || r.Method == "PUT") && strings.HasPrefix(r.URL.Path, "/api/v3/study/review/") && holdStudyReview.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT" || r.Method == "DELETE") && strings.HasPrefix(r.URL.Path, "/api/v2/study/") && holdStudy.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT") && (strings.HasPrefix(r.URL.Path, "/api/v1/corrections/") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications/")) && holdCorrection.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
+		if (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v3/admin/knowledge/publish-jobs/") && strings.HasSuffix(r.URL.Path, "/step") && holdPublish.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT") && strings.HasPrefix(r.URL.Path, "/api/v3/study/review/") && holdStudyReview.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT" || r.Method == "DELETE") && strings.HasPrefix(r.URL.Path, "/api/v2/study/") && holdStudy.CompareAndSwap(true, false)) || ((r.Method == "POST" || r.Method == "PUT") && (strings.HasPrefix(r.URL.Path, "/api/v1/corrections/") || strings.HasPrefix(r.URL.Path, "/api/v1/notifications/")) && holdCorrection.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/feedback/") && holdFeedback.CompareAndSwap(true, false)) || (r.Method == "POST" && strings.HasPrefix(r.URL.Path, "/api/v1/learning/") && holdLearning.CompareAndSwap(true, false)) || r.Method == "PUT" && (strings.HasPrefix(r.URL.Path, "/api/v1/content/drafts/") && holdSave.CompareAndSwap(true, false) || strings.HasPrefix(r.URL.Path, "/api/v1/question-bank/drafts/") && qcontrol.holdSave.CompareAndSwap(true, false)) {
 			captured := httptest.NewRecorder()
 			actual.ServeHTTP(captured, r)
 			if captured.Code == http.StatusOK || captured.Code == http.StatusCreated {
@@ -589,6 +601,19 @@ func Run(ctx context.Context, c Config) (result error) {
 		ctx, stop := context.WithTimeout(r.Context(), 3*time.Second)
 		defer stop()
 		if e := studyReviewChange(ctx, s, accounts, r.PathValue("operation")); e != nil {
+			w.WriteHeader(503)
+			return
+		}
+		w.WriteHeader(204)
+	})
+	control.HandleFunc("POST /knowledge-publish/{operation}", func(w http.ResponseWriter, r *http.Request) {
+		if subtle.ConstantTimeCompare([]byte(r.Header.Get("Authorization")), []byte("Bearer "+token)) != 1 {
+			w.WriteHeader(401)
+			return
+		}
+		mu.Lock()
+		defer mu.Unlock()
+		if e := knowledgePublishChange(r.Context(), db, r.PathValue("operation")); e != nil {
 			w.WriteHeader(503)
 			return
 		}

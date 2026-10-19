@@ -83,7 +83,19 @@ func serveStudyReview(w http.ResponseWriter, r *http.Request, o KnowledgeOptions
 		studyReviewHTTPError(w, r, errReviewRequest)
 		return
 	}
-	q, h, e := reviewQuery(r.URL.RawQuery, route.kind)
+	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.kind == "history" || route.kind == "queue", 20, 50)
+	if pageErr != nil {
+		studyReviewHTTPError(w, r, errReviewRequest)
+		return
+	}
+	q, h, e := reviewQuery(rawQuery, route.kind)
+	if numbered.Enabled && route.kind == "queue" {
+		if numbered.Cursor != "" {
+			studyReviewHTTPError(w, r, errReviewRequest)
+			return
+		}
+		q.Numbered = &numbered
+	}
 	if e != nil {
 		studyReviewHTTPError(w, r, e)
 		return
@@ -158,7 +170,15 @@ func serveStudyReview(w http.ResponseWriter, r *http.Request, o KnowledgeOptions
 	case "queue":
 		value, e = repo.ListReviewQueue(ctx, a, q)
 	case "history":
-		value, e = repo.ListReviewHistory(ctx, a, h)
+		if numbered.Enabled {
+			if paged, ok := repo.(studyreview.NumberedRepository); ok {
+				value, e = paged.ListReviewHistoryPage(ctx, a, h, numbered)
+			} else {
+				e = studyreview.ErrNotConfigured
+			}
+		} else {
+			value, e = repo.ListReviewHistory(ctx, a, h)
+		}
 	case "session":
 		value, e = repo.ReadReviewSession(ctx, a, route.id)
 	case "start":

@@ -1,3 +1,4 @@
+import {Pagination} from '@/components/pagination';
 import 'server-only';
 import {PageHeading} from '@/components/page-heading';
 import styles from '@/styles/catalogue.module.css';
@@ -25,16 +26,15 @@ function TopicCard({topic}:{topic:Topic}){
  return <Link className="domain-card" prefetch={false} href={url(topic.topicKey)}><h3><LocalizedName english={topic.titleEn} chinese={topic.title}/></h3><p><PublishedCount count={topic.knowledgeCount}/></p></Link>;
 }
 function Paging({page,path,query,keyName='offset'}:{page:{total:number;offset:number;limit:number};path:string;query:URLSearchParams;keyName?:string}){
- const link=(offset:number)=>{const next=new URLSearchParams(query);next.set(keyName,String(offset));return path+'?'+next};
- return <nav className={styles.paging}>{page.offset>0&&<Link prefetch={false} href={link(Math.max(0,page.offset-page.limit))}><UiText notice={uiMessage('managed.previous',{})}/></Link>} {' '}{page.offset+page.limit<page.total&&<Link prefetch={false} href={link(page.offset+page.limit)}><UiText notice={uiMessage('managed.next',{})}/></Link>}</nav>;
+ return <Pagination meta={page} label={<UiText notice={uiMessage('learn.dashboard.pages',{})}/>} navigation={{kind:'link',pathname:path,query:Object.fromEntries(query),offsetKey:keyName,pageMode:true,pageKey:keyName==='knowledgeOffset'?'knowledgePage':'page'}}/>;
 }
 function KnowledgeCards({items}:{items:PublicPage['items']}){
  return <div className="domain-grid">{items.map(knowledge=><article className="domain-card" key={knowledge.id}><h3><Link href={`/knowledge/${knowledge.id}`} prefetch={false}><LocalizedName english={knowledge.point.title} chinese={knowledge.point.title_zh}/></Link></h3><p><UiText notice={uiMessage(`managed.type.${knowledge.point.type}`,{})}/> · <UiText notice={uiMessage('managed.difficulty',{})}/>: {knowledge.point.learning_difficulty.difficulty_level}</p></article>)}</div>;
 }
-export async function CurrentCatalogue({topicKey,q,offset=0,mode='topics'}:{topicKey?:string;q?:string;offset?:number;mode?:'topics'|'knowledge'}){
+export async function CurrentCatalogue({topicKey,q,offset=0,page,mode='topics'}:{topicKey?:string;q?:string;offset?:number;page?:string;mode?:'topics'|'knowledge'}){
  const keyword=(q??'').trim(),scope=topicKey?.trim()||undefined;
  const start=q!==undefined&&!keyword?0:offset;
- const query=new URLSearchParams({limit:mode==='knowledge'?'20':'100',offset:String(start)});if(scope)query.set('topicKey',scope);if(keyword)query.set('q',keyword);
+ const query=new URLSearchParams({limit:mode==='knowledge'?'20':'100',offset:String(start)});if(page){query.delete('offset');query.set('pagination','page');query.set('page',page)}if(scope)query.set('topicKey',scope);if(keyword)query.set('q',keyword);
  const [topics,knowledge,scopeInfo]=await Promise.all([
   mode==='topics'?readManaged<TopicPage>('/api/v3/topics?'+query):Promise.resolve(null),
   mode==='knowledge'?readManaged<PublicPage>('/api/v3/knowledge?'+query):Promise.resolve(null),
@@ -56,11 +56,13 @@ export async function CurrentCatalogue({topicKey,q,offset=0,mode='topics'}:{topi
 export async function CurrentTopicPage({topicKey,searchParams={}}:{topicKey:string;searchParams?:Record<string,string|string[]|undefined>}){
  const keyword=typeof searchParams.q==='string'?searchParams.q.trim():'';
  const q=new URLSearchParams({limit:'20',offset:String(typeof searchParams.q==='string'&&!keyword?0:pageOffset(searchParams.knowledgeOffset))});if(keyword)q.set('q',keyword);
+ if(typeof searchParams.knowledgePage==='string'){q.delete('offset');q.set('pagination','page');q.set('page',searchParams.knowledgePage)}
  let topic=await readManaged<Topic>('/api/v3/topics/'+encodeURIComponent(topicKey)+'?'+q);
  const invalidInput=!topic.ok&&topic.status===422;
  if(invalidInput)topic=await readManaged<Topic>('/api/v3/topics/'+encodeURIComponent(topicKey)+'?limit=20&offset=0');
  if(!topic.ok)return <ContentState kind={topic.status===404?'not-found':'unavailable'}/>;
  const parent=topic.data,childQuery=new URLSearchParams({topicKey:parent.topicKey,limit:'100',offset:String(pageOffset(searchParams.offset))});
+ if(typeof searchParams.page==='string'){childQuery.delete('offset');childQuery.set('pagination','page');childQuery.set('page',searchParams.page)}
  const children=['primary','secondary'].includes(parent.kind)?await readManaged<TopicPage>('/api/v3/topics?'+childQuery):null;
  const query=new URLSearchParams();for(const [key,value]of Object.entries(searchParams))if(typeof value==='string'&&value.trim()&&!(invalidInput&&(key==='q'||key==='knowledgeOffset')))query.set(key,key==='q'?keyword:value);
  const searchLink=new URLSearchParams({mode:'knowledge',topicKey:parent.topicKey});if(keyword)searchLink.set('q',keyword);

@@ -18,5 +18,5 @@ it('TestReviewWorkspaceSections: exclusive counts, named queue, filters and read
 });
 it('paging keeps filters and does not expand an empty queue into other buckets',()=>{
  render(<UiLocaleProvider initialLocale="zh-CN"><ReviewQueue overview={overview} page={{...page,items:[],total:41,limit:20,offset:20}} filters={{bucket:'future',q:'公式',topicKey:'15-XX',offset:'20'}}/></UiLocaleProvider>);
- const next=new URL(screen.getByRole('link',{name:'下一页'}).getAttribute('href')!,'https://example.test');expect(Object.fromEntries(next.searchParams)).toEqual({bucket:'future',q:'公式',topicKey:'15-XX',limit:'20',offset:'40'});expect(screen.getByText('此队列暂无知识点。')).toBeVisible();
+ const next=new URL(screen.getByRole('link',{name:'下一页'}).getAttribute('href')!,'https://example.test');expect(Object.fromEntries(next.searchParams)).toEqual({bucket:'future',q:'公式',topicKey:'15-XX',limit:'20',page:'3'});expect(screen.getByText('此队列暂无知识点。')).toBeVisible();
 });

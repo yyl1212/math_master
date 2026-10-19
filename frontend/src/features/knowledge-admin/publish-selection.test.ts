@@ -1,0 +1,4 @@
+import {it,expect} from 'vitest';import {setSelected,selectPage,selectionState} from './publish-selection';
+const item=(id:string)=>({id,editToken:'token-'+id,title:id,titleZh:''});
+it('selection across pages and filter reset preserve frozen tokens',()=>{let s=new Map();s=setSelected(s,item('1'),true);s=setSelected(s,item('2'),true);s=setSelected(s,item('3'),true);expect(s.size).toBe(3);expect(selectionState(s,[item('1'),item('4')])).toEqual({all:false,some:true});expect(s.get('1').editToken).toBe('token-1');const before=s;s=selectPage(s,[{...item('4'),published:true},item('5')],true);expect(s.has('4')).toBe(false);expect(s.has('5')).toBe(true);expect(before.has('5')).toBe(false)});
+it('selected publishes never exceed 1000',()=>{const s=new Map(Array.from({length:1000},(_,n)=>[String(n),item(String(n))]));expect(()=>setSelected(s,item('1001'),true)).toThrow();expect(setSelected(s,item('1'),false).size).toBe(999)});

@@ -81,7 +81,12 @@ func serveNotification(w http.ResponseWriter, r *http.Request, o NotificationOpt
 		fail(e)
 		return
 	}
-	q, _, e := correctionQuery(r.URL.RawQuery, route.Action == notification.ListAction, false)
+	rawQuery, numbered, pageErr := numberedQuery(r.URL.RawQuery, route.Action == notification.ListAction, 20, 50)
+	if pageErr != nil {
+		fail(auth.ErrInvalidInput)
+		return
+	}
+	q, _, e := correctionQuery(rawQuery, route.Action == notification.ListAction, false)
 	if e != nil {
 		fail(e)
 		return
@@ -104,7 +109,13 @@ func serveNotification(w http.ResponseWriter, r *http.Request, o NotificationOpt
 		fail(auth.ErrInvalidInput)
 		return
 	}
-	v, status, e := dispatchNotification(ctx, r, route, a, notification.Query{Limit: q.Limit, Cursor: q.Cursor}, o.Service)
+	var v any
+	status := 200
+	if numbered.Enabled {
+		v, e = o.Service.ListNotificationPage(ctx, a, notification.Query{Limit: q.Limit, Cursor: q.Cursor}, numbered)
+	} else {
+		v, status, e = dispatchNotification(ctx, r, route, a, notification.Query{Limit: q.Limit, Cursor: q.Cursor}, o.Service)
+	}
 	if e != nil {
 		fail(e)
 		return

@@ -1,3 +1,5 @@
+import {numberedPath,type NumberedQuery} from '../pagination/query';
+import {numberedNotificationPageSchema} from './schemas';
 import { z } from 'zod';
 import { currentCorrectionActor, assertCorrectionActor } from '../correction/client';
 import { correctionAwait, withCorrectionDeadline } from '../correction/bytes';
@@ -8,6 +10,7 @@ function checkedId(id: string) { if (!uuidSchema.safeParse(id).success)
     throw new CorrectionRequestError('INVALID_REQUEST'); return id; }
 function read<T>(path: string, schema: z.ZodType<T>, access: ReadAccess = {}) { return withCorrectionDeadline(access.signal, async (active) => { resolveNotificationRoute(path); const current = await currentCorrectionActor(access, active); const response = await correctionAwait(fetch(path, { method: 'GET', credentials: 'same-origin', cache: 'no-store', redirect: 'error', signal: active, headers: { Accept: 'application/json' } }), active); const out = envelopeSchema(schema).parse(await correctionAwait(readNotificationResponse(response, path, active), active)); assertCorrectionActor(out.actorId, current.actorId); return out; }); }
 export const notificationClient = {
+ listPage:(query:NumberedQuery={},access:ReadAccess={})=>read(numberedPath('/api/v1/notifications',query),numberedNotificationPageSchema,access),
     list: (query: PageQuery = {}, access: ReadAccess = {}) => read(queryPath('/api/v1/notifications', query), notificationPageSchema, access),
     count: (access: ReadAccess = {}) => read('/api/v1/notifications/count', unreadCountSchema, access),
     read: (id: string, access: ReadAccess = {}) => read('/api/v1/notifications/' + checkedId(id), metadataSchema, access),

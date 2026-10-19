@@ -16,8 +16,8 @@ export async function feedbackPage<T>(path: string, review = false): Promise<Env
   return result;
 }
 export function feedbackListPath(query: Record<string, string | string[] | undefined>, review: boolean): string {
-  const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(query)) { if (typeof value !== 'string' || !value || value === '' || !['limit', 'cursor', ...(review ? ['status', 'category'] : [])].includes(key)) throw new FeedbackRequestError('INVALID_REQUEST'); params.set(key, value); }
+  const params = new URLSearchParams({pagination:'page'});
+  for (const [key, value] of Object.entries(query)) { if (typeof value !== 'string' || !value || value === '' || !['limit', 'cursor','page', ...(review ? ['status', 'category'] : [])].includes(key)) throw new FeedbackRequestError('INVALID_REQUEST'); params.set(key, value); }
   const path = '/api/v1/feedback/' + (review ? 'review/' : '') + 'tickets' + (params.size ? '?' + params : ''); resolveFeedbackRoute(path); return path;
 }
 export function feedbackSourcePath(query: Record<string, string | string[] | undefined>): string {
