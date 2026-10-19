@@ -10,6 +10,26 @@ var publishTables = []string{"managed_knowledge_publish_jobs", "managed_knowledg
 
 const publishSchemaDigest = "b709ad5e16cd5e3f124a8135c323d0d2"
 
+func (s *Store) ReadPublishHealth(ctx context.Context) (out knowledgeadmin.PublishHealth, e error) {
+	out.Capability = true
+	tx, e := s.db.BeginTx(ctx, &sql.TxOptions{ReadOnly: true, Isolation: sql.LevelRepeatableRead})
+	if e != nil {
+		return out, knowledgeError(e)
+	}
+	defer tx.Rollback()
+	if e = knowledgeConfigured(ctx, tx); e == nil {
+		e = publishSchemaIntegrity(ctx, tx)
+	}
+	if e != nil {
+		return out, nil
+	}
+	if e = tx.Commit(); e != nil {
+		return out, knowledgeError(e)
+	}
+	out.SchemaReady = true
+	return out, nil
+}
+
 func publishSchemaIntegrity(ctx context.Context, tx *sql.Tx) error {
 	var count int
 	var installed bool

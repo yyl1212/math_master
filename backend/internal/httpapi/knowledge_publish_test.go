@@ -2,6 +2,7 @@ package httpapi
 
 import (
 	"context"
+	"fmt"
 	"github.com/yyl1212/math_master/backend/internal/auth"
 	k "github.com/yyl1212/math_master/backend/internal/knowledgeadmin"
 	"github.com/yyl1212/math_master/backend/internal/pagination"
@@ -14,6 +15,47 @@ import (
 type publishHTTPRepo struct {
 	*httpKnowledgeRepo
 	k.PublishRepository
+}
+type publishHealthHTTPRepo struct {
+	*httpKnowledgeRepo
+	ready bool
+}
+
+func (r *publishHealthHTTPRepo) ReadPublishHealth(context.Context) (k.PublishHealth, error) {
+	return k.PublishHealth{Capability: true, SchemaReady: r.ready}, nil
+}
+func TestKnowledgePublishHealthPublicStrict(t *testing.T) {
+	repo := &publishHealthHTTPRepo{httpKnowledgeRepo: &httpKnowledgeRepo{}}
+	h := KnowledgeHandler(k.NewService(repo), KnowledgeOptions{PublicOrigin: privateOrigin})
+	path := "/api/v3/knowledge-publish/health"
+	for _, ready := range []bool{false, true} {
+		repo.ready = ready
+		w := privateRequest(h, "GET", path, "", nil)
+		want := 503
+		if ready {
+			want = 200
+		}
+		if w.Code != want || strings.TrimSpace(w.Body.String()) != fmt.Sprintf(`{"capability":true,"schemaReady":%t}`, ready) {
+			t.Fatal(w.Code, w.Body.String())
+		}
+		if w.Header().Get("Set-Cookie") != "" {
+			t.Fatal("health set cookie")
+		}
+	}
+	for _, query := range []string{"?unknown=1", "?limit=1", "?"} {
+		if w := privateRequest(h, "GET", path+query, "", nil); w.Code != 422 {
+			t.Fatal(query, w.Code)
+		}
+	}
+	if w := privateRequest(h, "GET", path, "{}", nil); w.Code != 422 {
+		t.Fatal(w.Code)
+	}
+	if w := privateRequest(h, "POST", path, "", nil); w.Code != 405 {
+		t.Fatal(w.Code)
+	}
+	if w := privateRequest(KnowledgeHandler(nil), "GET", path, "", nil); w.Code != 503 {
+		t.Fatal(w.Code)
+	}
 }
 
 func (r *publishHTTPRepo) CreatePublishJob(_ context.Context, _ k.Access, in k.PublishCreateInput) (k.PublishJob, error) {

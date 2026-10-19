@@ -101,6 +101,41 @@ func publishQueryWindow(q url.Values) (limit int, offset int64, e error) {
 	}
 	return
 }
+func servePublishHealth(w http.ResponseWriter, r *http.Request, o KnowledgeOptions) {
+	if r.URL.RawPath != "" || r.URL.ForceQuery || r.URL.RawQuery != "" || r.URL.Fragment != "" {
+		knowledgeHTTPError(w, r, k.ErrInvalid)
+		return
+	}
+	if r.Method != "GET" {
+		w.Header().Set("Allow", "GET")
+		knowledgeHTTPError(w, r, errPrivateMethod)
+		return
+	}
+	if r.ContentLength != 0 || len(r.TransferEncoding) > 0 {
+		knowledgeHTTPError(w, r, k.ErrInvalid)
+		return
+	}
+	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)
+	defer cancel()
+	health := k.PublishHealth{Capability: true}
+	if o.Service != nil {
+		if repo, ok := o.Service.Repository.(k.PublishHealthRepository); ok {
+			value, e := repo.ReadPublishHealth(ctx)
+			if e == nil {
+				health.SchemaReady = value.Capability && value.SchemaReady
+			}
+		}
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Cache-Control", "no-store")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
+	if health.SchemaReady {
+		w.WriteHeader(200)
+	} else {
+		w.WriteHeader(503)
+	}
+	_ = json.NewEncoder(w).Encode(health)
+}
 func serveKnowledgePublish(w http.ResponseWriter, r *http.Request, o KnowledgeOptions) {
 	fail := func(e error) { knowledgeHTTPError(w, r, e) }
 	ctx, cancel := context.WithTimeout(r.Context(), 8*time.Second)

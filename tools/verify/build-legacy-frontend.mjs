@@ -9,7 +9,7 @@ const manifest=JSON.parse(await readFile(join(fixture,'manifest.json'),'utf8'));
 if(manifest.baseCommit!=='06d04a2eb20cf2a56cfec57283224583659c2ffd')throw new Error('Unexpected legacy base');
 for(const[path,sha]of Object.entries(manifest.files)){if(path.includes('..')||path.startsWith('/')||!path.startsWith('src/'))throw new Error('Unsafe fixture path');const data=await readFile(join(fixture,path));if(createHash('sha256').update(data).digest('hex')!==sha)throw new Error('Legacy fixture integrity mismatch: '+path);}
 await rm(target,{recursive:true,force:true});await mkdir(target,{recursive:true});
-await cp(join(root,'frontend'),target,{recursive:true,filter:path=>!['node_modules','.next','tsconfig.tsbuildinfo'].some(part=>relative(join(root,'frontend'),path).split('/').includes(part))&&!basename(path).startsWith('.env')});
+await cp(join(root,'frontend'),target,{recursive:true,filter:path=>!['node_modules','.next','tsconfig.tsbuildinfo'].some(part=>relative(join(root,'frontend'),path).split('/').includes(part))&&!basename(path).startsWith('.env')&&!/\.(?:test|spec)\.tsx?$/.test(basename(path))});
 await cp(join(root,'content'),join(target,'../content'),{recursive:true});
 await cp(join(root,'backend/internal/content/testdata'),join(target,'../backend/internal/content/testdata'),{recursive:true});
 await cp(join(root,'frontend/node_modules'),join(target,'node_modules'),{recursive:true,mode:constants.COPYFILE_FICLONE,verbatimSymlinks:true});

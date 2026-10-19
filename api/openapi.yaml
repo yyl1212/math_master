@@ -34640,6 +34640,55 @@
           }
         }
       }
+    },
+    "/api/v3/knowledge-publish/health": {
+      "get": {
+        "operationId": "knowledgePublishHealthGet",
+        "summary": "探测知识批量发布能力与迁移16结构，仅返回两个布尔值",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "能力与结构就绪",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgePublishHealth"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "结构缺失、损坏或暂不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KnowledgePublishHealth"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "只允许GET",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "不接受查询参数或请求体",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManagedProblem"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -54911,6 +54960,22 @@
           "jobId",
           "key",
           "receipt"
+        ]
+      },
+      "KnowledgePublishHealth": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "capability": {
+            "type": "boolean"
+          },
+          "schemaReady": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "capability",
+          "schemaReady"
         ]
       }
     },

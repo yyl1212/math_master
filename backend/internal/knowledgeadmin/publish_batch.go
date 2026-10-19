@@ -25,6 +25,14 @@ const (
 )
 const MaxPublishInteger int64 = 9007199254740991
 
+type PublishHealth struct {
+	Capability  bool `json:"capability"`
+	SchemaReady bool `json:"schemaReady"`
+}
+type PublishHealthRepository interface {
+	ReadPublishHealth(context.Context) (PublishHealth, error)
+}
+
 var ErrPublishInterrupted = errors.New("publish commit outcome unknown")
 var ErrPublishRolledBack = errors.New("publish batch rolled back")
 var publishID = regexp.MustCompile(`^k-[0-9a-f]{56}$`)

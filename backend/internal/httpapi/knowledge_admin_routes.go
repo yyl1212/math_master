@@ -272,6 +272,10 @@ func serveKnowledge(w http.ResponseWriter, r *http.Request, o KnowledgeOptions) 
 	r = r.Clone(r.Context())
 	r.Header = r.Header.Clone()
 	r.Header.Set("X-Request-ID", id)
+	if r.URL.Path == "/api/v3/knowledge-publish/health" {
+		servePublishHealth(w, r, o)
+		return
+	}
 	if r.URL.Path == "/api/v3/admin/knowledge/publish-jobs" || strings.HasPrefix(r.URL.Path, "/api/v3/admin/knowledge/publish-jobs/") {
 		serveKnowledgePublish(w, r, o)
 		return

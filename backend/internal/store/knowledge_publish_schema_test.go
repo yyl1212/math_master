@@ -8,6 +8,34 @@ import (
 	"testing"
 )
 
+func TestPublishHealth16IntegrityAndMissing(t *testing.T) {
+	db := reviewSchemaDB(t)
+	repo := New(db)
+	ctx := context.Background()
+	health, e := repo.ReadPublishHealth(ctx)
+	if e != nil || !health.Capability || health.SchemaReady {
+		t.Fatal(health, e)
+	}
+	if e = goose.UpContext(ctx, db, "../../../db/migrations"); e != nil {
+		t.Fatal(e)
+	}
+	health, e = repo.ReadPublishHealth(ctx)
+	if e != nil || !health.Capability || !health.SchemaReady {
+		t.Fatal(health, e)
+	}
+	if _, e = db.Exec("ALTER TABLE managed_knowledge_publish_items DISABLE TRIGGER managed_publish_item_guard"); e != nil {
+		t.Fatal(e)
+	}
+	health, e = repo.ReadPublishHealth(ctx)
+	if e != nil || !health.Capability || health.SchemaReady {
+		t.Fatal(health, e)
+	}
+	original, e := repo.ReadReviewHealth(ctx)
+	if e != nil || !original.SchemaReady {
+		t.Fatal("publish damage affected review", original, e)
+	}
+}
+
 func TestPublishSchema16KeepsOriginal(t *testing.T) {
 	db := testutil.Database(t)
 	if e := Up(context.Background(), db, "../../../db/migrations"); e != nil {

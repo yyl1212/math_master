@@ -2216,7 +2216,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "89e8bcd65e3b287c4129df949526c89c523af4b6e2ad1fd759c91de4cc02661c",
+        "sha256": "5d976128e38110e1f36f08612024bbd9b8f9af4188832d576fefd47679c2fd76",
         "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
       }
     },
@@ -2521,7 +2521,7 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "6c94145478932304096052b79bd8de0ee4cf719450513a12097eb24f96beee7a",
+        "sha256": "bef2c84012298d24c7ece9de011509b3bded3e65222a54c3ff54d3af4ae181d2",
         "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
       }
     },
@@ -3141,8 +3141,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "fd7990ae9a5b110c73ea14da8e962d13b473a28d1b64d7fc8e36af095f9987f6",
-        "reason": "第二阶段复习与默写的精确追加；原契约由原快照、原命令及API语义摘要继续保护。"
+        "sha256": "0fecd85864e55259084ca215f63f647f9ee2dae15b5c7f6cdd7b2c0cf08242a6",
+        "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
       }
     },
     "ops/tests/test_deploy.py": {
@@ -3151,8 +3151,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "c9145927a04416f57a961a8cefcec56b3bbd51f60081bf4086d6d8395673347d",
-        "reason": "第二阶段复习与默写的精确追加；原契约由原快照、原命令及API语义摘要继续保护。"
+        "sha256": "ad72d09d124ae3407b54be50cda258d0834a465f65709d3a28406e3cd21f2468",
+        "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
       }
     },
     "ops/tests/test_verify.py": {
@@ -3997,6 +3997,7 @@
       "docs/superpowers/plans/2026-10-15-topic-capacity-fixture.md",
       "docs/superpowers/plans/2026-10-19-knowledge-bulk-publish.md",
       "docs/superpowers/plans/2026-10-19-query-pagination-bulk-publish.md",
+      "docs/superpowers/plans/2026-10-19-query-pagination-rollout.md",
       "docs/superpowers/plans/2026-10-19-query-pagination.md",
       "docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md",
       "docs/superpowers/reports/2026-10-10-map-bilingual-import-100-verification.md",
@@ -4167,6 +4168,7 @@
       "frontend/src/styles/tokens.css",
       "ops/knowledge-cutover.py",
       "ops/tests/test_knowledge_cutover.py",
+      "ops/tests/test_publish_deploy.py",
       "schemas/knowledge-manifest.schema.json",
       "schemas/knowledge-source.schema.json",
       "schemas/msc2020-classification-codes.json",
@@ -5518,7 +5520,7 @@
     "backend/internal/e2etest/topic_cutover_fixture.go": "9fcab1a0217e6c50418a67118fd869d1d50a3bdb18bd2c5af4b7ddf62d44c5dc",
     "backend/internal/e2etest/topic_retirement_fixture.go": "6eec6947e4ff286ec3b9741dbaa54c10ea68e76ffb56ea6ff3231c17b73f8a53",
     "backend/internal/httpapi/knowledge_admin_json.go": "a00114042371c3ad04f095fef5aa88f21bc7593761b00a870991ea805269786c",
-    "backend/internal/httpapi/knowledge_admin_routes.go": "066c0bd9a0ec1e76739312840fbdd8be2dfe599e011e73f8adf3daa9ea6ca8c5",
+    "backend/internal/httpapi/knowledge_admin_routes.go": "9783a09790582386ab590f4a313580816414a5d721fae3f90e565f526d146733",
     "backend/internal/httpapi/knowledge_admin_test.go": "fdcaf10c6c7fd4ab58a1592a07cca1829a874edc1e668460745d4fc5994e98b2",
     "backend/internal/httpapi/knowledge_current_routes.go": "472e4576d3146b17805a64b76ca14bc9746717826307e737fe0dbc3d817bf154",
     "backend/internal/httpapi/knowledge_current_test.go": "8aa2196ba35dff879ef7185dab0b143ee284abda5adc8e4daf0c0fff0dc76768",
@@ -5709,8 +5711,8 @@
     "frontend/src/features/study/retired-module.tsx": "f1b34b39d7f665ab29667250fa45763227b127a7a873380f556dc251c43e128b",
     "frontend/src/features/study/topic-area.tsx": "31300448e7999613101f01f282b2a85255346949d17e7e16d33d1f974f2ea377",
     "frontend/src/features/study/topic-progress.tsx": "e1e6b7186ced42c076e3b59efd643796310dd1a7ece95a6b8f8f38598e73c803",
-    "frontend/src/lib/api/knowledge-admin-proxy.test.ts": "bc2a7e8e09572ef4b8557015dbcf9700263e57044685b36d9e9879194d538ca9",
-    "frontend/src/lib/api/knowledge-admin-proxy.ts": "8b84624f3002077d515b9d7bc6d75268a2e5226f350d1f06ee34010a3a34f571",
+    "frontend/src/lib/api/knowledge-admin-proxy.test.ts": "876edd8f0de3c0e23ad6a53fb09470b50b0e87b77a4830a09677277c0b535327",
+    "frontend/src/lib/api/knowledge-admin-proxy.ts": "a8c19e06dfdad693d2a604d098ae1ede61dcf721f157651c4e1b49f67dd5f527",
     "frontend/src/lib/api/study-proxy.test.ts": "64506ca537544b9a7569228190dacf1ca6cc2637decb35363b72f23433724715",
     "frontend/src/lib/api/study-proxy.ts": "7911d66e377ad2073d55ca4992155545810e93162e7b11363581c4a50a2b1620",
     "frontend/src/lib/api/taxonomy-proxy.test.ts": "094e1cd8b543b29f65661a74f5918abf5fd6f30e4f0a6f6408904a891317b897",
@@ -5793,7 +5795,7 @@
     "tools/verify/admin-knowledge-acceptance.mjs": "0e125c7862baac6184844994eb61cd3c7257544ce6a6cd49773e6448fb6d8dd0",
     "tools/verify/admin-knowledge-acceptance.test.mjs": "d58f247761ac26eeb9cc0afa5f299859c15c6d117b8149f64919121318fcb0c4",
     "tools/verify/admin-knowledge-approved-paths.json": "4927376e3a87ae17b10ff67815c0e058358c88639eb511d65654008adf4a7693",
-    "tools/verify/go-batches.mjs": "96fb11b3e0db5cd51ae04db8d9725e13b95c4680aa1ece31e61e0c6fc7cc9fd7",
+    "tools/verify/go-batches.mjs": "f347dfca4305ddfce39b6d876480ed958963c468cdff6a6edd7d1547a780d95b",
     "tools/verify/go-batches.test.mjs": "42c2bfac4630e8032a306d1300e01ba6459ca513a4cb49408455be37a2d69ea1",
     "tools/verify/topic-learning-ci.test.mjs": "d401ee5d14c1cd4c7e1959365612d33a6f2e2a570364e3136b7d96bf8bf8e145",
     "tools/verify/topic-learning-compatibility.mjs": "d430c16a1c43fc9d9d06caedfaf7c605ef8fd970d04037bf5da2cc71de319f3a",
@@ -5874,7 +5876,7 @@
     "tests/fixtures/legacy-frontend/src/features/study/managed-controls.tsx": "5399ab01bb8d39c89ff3c649e6df4351115bb591735f8d743bba4798e26d253f",
     "tests/fixtures/legacy-frontend/src/features/study/managed-history.tsx": "789607b5b43e7cee976f54fced6bd49981e1040e2b3c769160da728acf7407fc",
     "tests/fixtures/legacy-frontend/src/features/study/managed-pages.test.tsx": "5649b30e33d77b15ce8687a49dafddf9ef82ba2efa7cefbcb4e6952a8f51e63a",
-    "tools/verify/build-legacy-frontend.mjs": "370b6f5431726dd7f1d1e1c4b7b3bc4e5ab3ac40394065b42c6b2685fbb4d7bf",
+    "tools/verify/build-legacy-frontend.mjs": "f0fc13034345768a98837c103cb703916118add8c8f9b81945f8cf4cafd30eb6",
     "tools/verify/site-streamline-production.mjs": "45b24a93fd80424af08981325e2e38f336c7f81ca2ab531d97ee6f5d635e2400",
     "frontend/src/features/catalogue/catalogue-search.tsx": "91a7fa8d9ef01b6b865fc0e3d0bbfcfaa731b2eaea9080a0c792ec628cdb93e2",
     "tests/fixtures/legacy-frontend/src/features/catalogue/current-catalogue.test.tsx": "94d59fe17e39dbca37de567a7c2a19752f9b33684092e4b8eebe1d9a4aa47dfc",
@@ -5972,7 +5974,7 @@
     "docs/superpowers/reports/2026-10-14-review-recall-plan-review.md": "7fc4f3ae98d1625ec23daf412f64971a52b4ea296ebe65e20e3bcfc168981f0b",
     ".github/workflows/backend.yml": "c6094dc6e1ed5f9125b40b6e58713293b561682a206763a42397a5bd339b3d60",
     ".github/workflows/frontend.yml": "6a2941e5f56b912521ac699a4a9ae2edea557e92e8314ea7abeceab3b9902c17",
-    "api/openapi.yaml": "89e8bcd65e3b287c4129df949526c89c523af4b6e2ad1fd759c91de4cc02661c",
+    "api/openapi.yaml": "5d976128e38110e1f36f08612024bbd9b8f9af4188832d576fefd47679c2fd76",
     "backend/cmd/server/main.go": "c1963d419136b4559971081c72d7e06e7da5f4f620d9c0f32f8e294fdb42ed20",
     "backend/internal/e2etest/auth_fixture.go": "8f4b3c69f1a7393b3af5650f8afaa2fdaf872cddd995757c35cef577d38cb487",
     "backend/internal/e2etest/harness.go": "7a9d9f658e2912812fc7d43a5d5cc9345a4b57481379b37ac2b10e412d1ff063",
@@ -6025,7 +6027,7 @@
     "frontend/src/features/study-review/session.tsx": "25e9a792277eb501f37d34da1c183ce67d453e059c662bd607118ba36be5d49e",
     "frontend/src/features/study-review/unavailable.tsx": "b23ec32578306b86762cb7a45eae8f233f193b2fa9dcb41d83731349e77365d5",
     "frontend/src/features/study-review/use-review-command.ts": "7a5c4c2a418050b0fc1994c35b0690e8c503a213127871fb2d736a23ad22bb66",
-    "frontend/src/lib/api/generated.d.ts": "6c94145478932304096052b79bd8de0ee4cf719450513a12097eb24f96beee7a",
+    "frontend/src/lib/api/generated.d.ts": "bef2c84012298d24c7ece9de011509b3bded3e65222a54c3ff54d3af4ae181d2",
     "frontend/src/lib/api/study-review-proxy.test.ts": "2f05713c92e4fcaa014e95760909f9198bd3f51b875d2e2e929b3fc27907971a",
     "frontend/src/lib/api/study-review-proxy.ts": "ef6429fc1f568571b2ffdb26eb375ee798956073a4f2a80865cf3d8c9dafe3a0",
     "frontend/src/lib/i18n/page-titles.ts": "5b6aafbce4fea0bbef0e9783b506dceeed06860e22e10ea90e23377c87c18279",
@@ -6050,8 +6052,8 @@
     "tools/verify/ui-language-coverage.test.mjs": "063982bef3d3fac16791c05478834b783bfafe2e8cdb9b22768209a0e2725701",
     "docs/operations/study-review.md": "581cd2981db9a13fd1f7451767b6284c9c0fddbd0becec2778142358943c9a9c",
     "docs/superpowers/reports/2026-10-14-review-recall-acceptance.md": "734e7301aca394efc7604db0718c6b0f59334cce4f515632b77964684e341dea",
-    "ops/deploy.py": "fd7990ae9a5b110c73ea14da8e962d13b473a28d1b64d7fc8e36af095f9987f6",
-    "ops/tests/test_deploy.py": "c9145927a04416f57a961a8cefcec56b3bbd51f60081bf4086d6d8395673347d",
+    "ops/deploy.py": "0fecd85864e55259084ca215f63f647f9ee2dae15b5c7f6cdd7b2c0cf08242a6",
+    "ops/tests/test_deploy.py": "ad72d09d124ae3407b54be50cda258d0834a465f65709d3a28406e3cd21f2468",
     "docs/operations/evidence/review-recall/2026-10-14-local-verification.json": "bac91859a2e4b59d2ccf404834e40079f93d1f3dd0eca2dee19fbf7b6237899c",
     "frontend/src/lib/study-review/answer.test.ts": "9a54e01fabd9ea4a59b1dc4fe3c6af4f446f981641a4be6eb43c24224cddfd6e",
     "frontend/src/lib/study-review/answer.ts": "48e146a778e62845ac7b5a380a64940be495bfcea1639af17e30448be4449321",
@@ -6064,7 +6066,7 @@
     "tests/e2e/page-beauty-helpers.ts": "1ae5a3615401938c9cfb2a9d4459ed258ce57c8153e23e1fbe427ef833262342",
     "tests/e2e/page-beauty-public.spec.ts": "cc43acc91c9d683b82625c2dd55779e6b069c7e6c4d9539f71f8bf0bc98bb656",
     "tests/e2e/page-beauty-learning.spec.ts": "d7124c7c8bd285fdc58a3902caee00443966705607078357a059290da338e5b3",
-    "tests/e2e/page-beauty-admin.spec.ts": "932d1f04ef2271c5d2e1e45924810bd463b9cbb62a7db52d46348aa103b61c0f",
+    "tests/e2e/page-beauty-admin.spec.ts": "cb12ed870de41120004e93fd91f9a947e71d562b861415bdca583bd97360e31f",
     "docs/operations/evidence/page-beauty/case-matrix.md": "184deede7ac76b5c5fb1cee32c33724b3b5e872713bba2a15dabfc522da6651d",
     "docs/operations/evidence/page-beauty/baseline.json": "c7a71079ef43492d86d0206d7f2f1627ef343d67c3e53625b5f0c688aee8c61a",
     "docs/operations/evidence/page-beauty/before-A01-1280.png": "83884b7084abf916929aabc344dd51e53f41f4f6fe500774bf78c6a99215ba13",
@@ -6175,16 +6177,16 @@
     "backend/internal/e2etest/knowledge_publish_control.go": "a4d8bd6adb804a89b27456c76b81bd7dd2ba567c097eae387ba935a67ce0a0b1",
     "backend/internal/e2etest/knowledge_publish_fixture.go": "571be448239c384e66020b7e8f4caaf7b8df5e6e78ff857b268356333cfdfa8f",
     "backend/internal/e2etest/knowledge_publish_fixture_test.go": "dd3d304b5db7ee28751535c0e0671a04649774c006f9822f487dca5043db1ab7",
-    "backend/internal/httpapi/knowledge_publish_routes.go": "9406ef2b79f8574c71797b47da291c2aa2c34b91e70d13f0f24f2d49a87ec802",
-    "backend/internal/httpapi/knowledge_publish_test.go": "a072480a70463781d097f3b51e489c8b8aeba1e1b6c211943311460f214ab33e",
-    "backend/internal/knowledgeadmin/publish_batch.go": "82ff7aa4db97419e492791a2bfa58782d00df182b222b92e26706d81476c3e63",
+    "backend/internal/httpapi/knowledge_publish_routes.go": "e2912f935fc81d89f347858f3700e48a823b483965ca356091bdbea37d6ef29d",
+    "backend/internal/httpapi/knowledge_publish_test.go": "c3e36965d1a47ccb3daf712037b1c428a129d012558dbc26dedb67fd4864b40f",
+    "backend/internal/knowledgeadmin/publish_batch.go": "3ffe542831e21714e6d3b6594ca31f7f34de9cd4e9f858c7f4bae6e2f603b2da",
     "backend/internal/knowledgeadmin/publish_batch_test.go": "c311aae3052ade859b7bc93f6bb264ed20fe59cc55cdfe4bc590b81d8c790e5d",
     "backend/internal/store/knowledge_publish_capacity_test.go": "1e98b0db4560aa951ade58fa52495eb11b36fc340d0fcfee38efd117a93bff37",
     "backend/internal/store/knowledge_publish_commit_test.go": "985c6ee892dfdb7b4b8ef5553501a9aba80e0e01f0d6ab687d9d1e155eba9470",
     "backend/internal/store/knowledge_publish_jobs.go": "8551ffcdd263c68dc22517c4a059ed40b1e00a64b52b091a7519b6274ba7e69f",
     "backend/internal/store/knowledge_publish_jobs_test.go": "c37f77da02a9d30ef7809187bd0e9387bb0b8676821d6b59baa1974fc24d222f",
-    "backend/internal/store/knowledge_publish_schema.go": "68f850006c2c27a85bda8810940ac7a7b05c5cd58b0b9eba966a108bd6563e8d",
-    "backend/internal/store/knowledge_publish_schema_test.go": "bcc0cbb18de24af482fb325b705723e5da0fbe68a232580be7b0552e28545c85",
+    "backend/internal/store/knowledge_publish_schema.go": "cd70f42ded8dc1acbf4f9cd7ed4d2d469f49da337884ca6273ba972d6252f383",
+    "backend/internal/store/knowledge_publish_schema_test.go": "5ab1c873e502f87d16504d451c34d22a6e494cf1f87fe8da2ace6756bda11035",
     "backend/internal/store/knowledge_publish_step.go": "b4cf8b830552781bc4b4cb6447f80a593b46605ec1a2055eacc05d187836d545",
     "backend/internal/store/knowledge_publish_step_test.go": "8a2dd30f2d72dfca38d966c3244f1a4aae522d5384815e8fcbe022ee05a17c4d",
     "db/migrations/00016_knowledge_publish_batches.sql": "2aec397f8bb87158019f39a10c602b5fc911b7073361b84abb08890e36525c3d",
@@ -6198,10 +6200,12 @@
     "frontend/src/lib/knowledge-admin/publish-batch.ts": "0a1e2b1695bc3d151761c7b733f1753ebf14d18a62a806b871c1fdf90b7d41cf",
     "frontend/src/lib/knowledge-admin/publish-runner.test.ts": "285bdf6640ca06df8e78bbca9784c77793ee9e22c3a7dbce517051a50ecd91e6",
     "frontend/src/lib/knowledge-admin/publish-runner.ts": "4e799f6e5c3ce49b136c9e4f11de014416bf20eb4f86dc86dae429774d6b19ea",
-    "tests/e2e/knowledge-batch-publish.spec.ts": "5448cda5070ba9f921c5e2db8e4c42943fa62b48707a166492d645264238ed81",
+    "tests/e2e/knowledge-batch-publish.spec.ts": "105ee715488743bff093b5fd635cb107d572511c5f6a3d6eee6067f1cc23328f",
     "tools/verify/knowledge-publish-ci.mjs": "ec964d05f53d58a9885f591cd993bdc482f9e9caea44fb8a27c0fc5a34417642",
     "tools/verify/knowledge-publish-ci.test.mjs": "be2b728e9d4d5a5e33cf6c2d90fcd52a66a9168e4a5bdd5e0bd44f285083479a",
-    "docs/operations/knowledge-batch-publish.md": "7053a72b938c9cdbddd7bb4760087f7e25595779af2656f49b55e987ce26239a",
-    "docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md": "2bfcee960a9843e400d8683869c9f0a3cf07f00469b15aeaba60e9e9f798e969"
+    "docs/operations/knowledge-batch-publish.md": "27f1528940b798a4e64d93e129fcb29a2c4e76ef1f8b7920aa851716b1adcc09",
+    "docs/superpowers/reports/2026-10-19-query-pagination-bulk-publish-acceptance.md": "6ced34ed077af271c2cea46e3041c60a069bba8e6830f6967dcdf4cbf36c1f6a",
+    "docs/superpowers/plans/2026-10-19-query-pagination-rollout.md": "35feeb4ba80f8ede5bb0dc3e3e49c67c648b83204a616679b5e2992a599123b4",
+    "ops/tests/test_publish_deploy.py": "f1be790effbb343f7c7e0051585297e7015331ee25ef643234ad36afe82d5e37"
   }
 }
