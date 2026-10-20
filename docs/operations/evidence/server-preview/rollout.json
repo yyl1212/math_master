@@ -1,0 +1,182 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-05T11:30:10.594621+00:00",
+  "revision": "610aefff8da3358194a6ec8693f168c0f0cb5a39",
+  "origin": "https://43.135.142.53",
+  "websiteOpen": true,
+  "technicalDeploymentAccepted": true,
+  "previewAccepted": false,
+  "formalContentAccepted": false,
+  "pendingAcceptance": [
+    "知识点逐条切换、双语标题搜索和9张SVG完整视觉验收；浏览器DOM接口多次超时，未虚构完成"
+  ],
+  "codeDelivery": {
+    "pullRequests": [
+      30,
+      31,
+      32
+    ],
+    "finalHead": "cec8fc22a3a1dbc5496da0a851c2bdd3342ca418",
+    "finalLatestCIChecksPassed": 10,
+    "ciFailureResolved": "同一提交题库编写用例未等待异步reload完成，一次重跑完整前端job成功；代码、断言及预算不改"
+  },
+  "migration": {
+    "sourceAPIVersion": "58ac4ee4965f3d008b26c7909fa87b39984ed421",
+    "sourceWebVersion": "b7b1eb4df2dd0da5c483517fb24ac8dc78ed2838",
+    "postgresVersion": "17.11",
+    "locale": "en_US.utf8",
+    "migrationVersion": 8,
+    "restoredTableDigestsMatchedBeforeApps": 83,
+    "knowledge": 30,
+    "units": 30,
+    "paths": 1,
+    "fixedQuestions": 450,
+    "templates": 24,
+    "blueprints": 30,
+    "workspaces": 6,
+    "workspaceRevision": 2,
+    "workspaceStatus": "editing",
+    "svgAssets": 9,
+    "assetDigestsMatched": true,
+    "roles": [
+      "admin",
+      "editor",
+      "learner"
+    ],
+    "accountReinitialized": false,
+    "passwordReset": false,
+    "reviewerGranted": false,
+    "publishedKnowledgeHeads": 0,
+    "publishedQuestionHeads": 0
+  },
+  "https": {
+    "schemaVersion": 1,
+    "ok": true,
+    "origin": "https://43.135.142.53",
+    "checkedAt": "2026-10-05T10:36:11.698011+00:00",
+    "tls": {
+      "trusted": true,
+      "ipSAN": [
+        "43.135.142.53"
+      ],
+      "issuer": "Let's Encrypt / YE1",
+      "notAfter": "2026-10-12T00:30:46+00:00"
+    },
+    "httpRedirect": true,
+    "publicPages": true,
+    "anonymousDraftDenied": true,
+    "anonymousPreviewSignIn": true,
+    "productionCookieAttributes": true,
+    "stylesheets": 2,
+    "katexFonts": 20,
+    "load": {
+      "requests": 40,
+      "concurrency": 2,
+      "failures": 0,
+      "p50Ms": 739.172,
+      "p95Ms": 1468.223,
+      "maxMs": 1614.565
+    },
+    "revision": "610aefff8da3358194a6ec8693f168c0f0cb5a39"
+  },
+  "restart": {
+    "parallelContainerRestartFullAcceptance": false,
+    "observedFailure": "503 CONTENT_NOT_CONFIGURED，数据库表完整但内容配置初始化未就绪",
+    "recovery": "数据库healthy后重启API并等待应用，匿名接口恢复401；用户刷新确认可用",
+    "orderedRecoveryPassed": true,
+    "sameTrustedCertificatePreserved": true,
+    "postRecoveryExternalCheck": {
+      "schemaVersion": 1,
+      "ok": true,
+      "origin": "https://43.135.142.53",
+      "checkedAt": "2026-10-05T11:09:11.807546+00:00",
+      "tls": {
+        "trusted": true,
+        "ipSAN": [
+          "43.135.142.53"
+        ],
+        "issuer": "Let's Encrypt / YE1",
+        "notAfter": "2026-10-12T00:30:46+00:00"
+      },
+      "httpRedirect": true,
+      "publicPages": true,
+      "anonymousDraftDenied": true,
+      "anonymousPreviewSignIn": true,
+      "productionCookieAttributes": true,
+      "stylesheets": 2,
+      "katexFonts": 20,
+      "load": {
+        "requests": 4,
+        "concurrency": 1,
+        "failures": 0,
+        "p50Ms": 698.086,
+        "p95Ms": 886.074,
+        "maxMs": 886.074
+      },
+      "revision": "610aefff8da3358194a6ec8693f168c0f0cb5a39"
+    }
+  },
+  "userConfirmation": {
+    "normalServerLogin": true,
+    "workspaceWorksAfterRecovery": true,
+    "passwordEnteredInWebsiteOnly": true,
+    "cookieOrCSRFExtracted": false
+  },
+  "firewall": {
+    "hostRulesChanged": false,
+    "cloudRulesChanged": false,
+    "externalTCP80Reachable": true,
+    "externalTCP443Reachable": true,
+    "internalPortsExternallyClosedOrFiltered": [
+      3000,
+      8080,
+      5432,
+      2019
+    ]
+  },
+  "backup": {
+    "timerEnabled": true,
+    "scheduleTimezone": "Asia/Shanghai",
+    "dailyTime": "02:00",
+    "dailyRetainedDates": 7,
+    "weeklyRetainedWeeks": 4,
+    "actualServiceResult": "success",
+    "actualExecStatus": 0,
+    "actualDailyBackupRestoreDrillPassed": true,
+    "dailyOffsiteCopyVerified": true,
+    "tablesRestored": 83,
+    "workspacesRestored": 6,
+    "assetsRestored": 9,
+    "dailyAutomaticOffsiteTransfer": false
+  },
+  "resources": {
+    "peakMemoryBytes": {
+      "api": 47292416,
+      "db": 126038016,
+      "gateway": 30380032,
+      "web": 131854336
+    },
+    "limitsMiB": {
+      "api": 512,
+      "db": 512,
+      "gateway": 128,
+      "web": 768
+    },
+    "spontaneousRestartCountsBeforeControlledRestart": {
+      "api": 0,
+      "db": 0,
+      "gateway": 0,
+      "web": 0
+    },
+    "databaseConnectionsObserved": 3,
+    "measurementScope": "本次启动及40请求检查的容器cgroup峰值，非长期容量结论"
+  },
+  "renewal": {
+    "ipSAN": "43.135.142.53",
+    "issuer": "Let’s Encrypt YE1",
+    "notAfterUTC": "2026-10-12T00:30:46Z",
+    "notAfterAsiaShanghai": "2026-10-12 08:30:46",
+    "automaticRenewalConfigured": true,
+    "observedFullRenewalCycle": false
+  }
+}
