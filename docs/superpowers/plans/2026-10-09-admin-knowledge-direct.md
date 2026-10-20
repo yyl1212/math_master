@@ -1,6 +1,6 @@
 # 管理员知识上传与直接发布实施计划
 
-> **For agentic workers:** REQUIRED SUB-SKILL: 使用 superpowers:executing-plans，由当前会话逐任务实施；结束后做一次独立代码审查。步骤使用 `- [ ]` 跟踪。
+> **For agentic workers:** REQUIRED SUB-SKILL: 使用 superpowers:executing-plans，由当前会话逐任务实施；结束后做一次独立代码审查。步骤使用 `- [x]` 跟踪。
 
 **Goal:** 管理员上传 dot 规范文件后即可发布、修正知识，以数据中的 ID 与主题唯一归属，学习者继续按主题学习、记笔记和查看历史。
 
@@ -10,7 +10,7 @@
 
 **Source contract:** 已交付目录 `/Users/wiw/.codex/visualizations/2026/10/06/01a11073-c676-7413-8c14-8ca76c85e4a2/knowledge-format-v1` 中的源/manifest schema、MSC代码、SHA256SUMS 和校验金样。任务1复制准确规范字节并保留目录来源许可说明，不修改原交付文件。
 
-**Spec:** [已确认设计](../specs/2026-10-09-admin-knowledge-direct-design.md)。设计在 2026-10-09 经用户“确认”；实施计划已由用户确认，当前按任务实施；上线及生产清理尚未执行。
+**Spec:** [已确认设计](../specs/2026-10-09-admin-knowledge-direct-design.md)。设计在 2026-10-09 经用户“确认”；实施计划已由用户确认并完成，最终版本6ae8ed7已上线；旧30与授权学习已准确清理，正式1209数据按要求暂缓。
 
 ## 全局约束
 
@@ -265,15 +265,15 @@ flowchart LR
 **Consumes:** 所有前置产物；approved path 名单为任务 1–8 精确文件，不自动从工作树批量批准。
 **Produces:** managed 第四阶段兼容登记，批准每个实际旧文件目标 SHA/API节摘要，保存旧快照；验收报告包含实际命令、结果、独立审查、MR/CI精确HEAD、部署和数据验证证据。
 
-- [ ] 写 `managed compatibility refuses unlisted and changed bytes`：新阶段精准路径通过；增加未列文件、改旧迁移、未批准 API 分支或修改目标 SHA 均失败。原 taxonomy/study/cutover 基线继续通过；不放行整个目录或删除门禁。
-- [ ] RED：`node --test tools/verify/admin-knowledge-acceptance.test.mjs tools/verify/topic-learning-compatibility.test.mjs`；应因缺新阶段失败。
-- [ ] 实现 exact SHA/新路径登记、新阶段逆向比较和 CI 单批执行；旧原测试保留，在 legacy/topics 场景跑原写合同，在 managed 场景断言410。确认所有规范依赖已锁定、源码无演示知识自动上线逻辑。
-- [ ] GREEN：运行新验收门禁；Go 原有批次每批5分钟、前端/tool/Python各批9分钟、浏览器按 spec 分批9分钟。失败先诊断修复，不重复无关长套件。记录端到端证据及每个审查重点对应测试。
-- [ ] 做一次独立代码审查，重点为 raw id/主题唯一、权限撤销、旧读泄露、私人数据、模式回退；修复所有阻塞/P1问题，相关回归通过再创建 Git MR，并 attach_artifact。MR 描述中文，针对最终行为及实际验证，不宣称尚未部署的结果。
-- [ ] 精确 MR HEAD 的 CI 全绿后合入 master，按既有授权部署固定合入提交；创建最新备份、完成恢复/异地验证，再显式启用 managed。准备与迁入分开：每步最多5分钟、有独立回执和恢复点，超时暂停该步，禁止自动扩大清理。
-- [ ] 用正式规范源文件执行上传并发布；只取 dot 当前正式快照，通过同一管理员接口和自动检查，不替 dot 随意映射类型，不把格式示例当正式内容。若标准文件尚未到位，完成模块上线，报告实际数据缺口和数量，按最新“暂不用真实数据测试”要求允许空库启用；通过新备份和准确清理演练后移除原30，正式0013迁入另行接续，不能假报导入。
-- [ ] 按准确旧30清单和新备份回执执行授权清理；逐项校验发布数量、external_id+topic唯一、难度/类型、学习/反馈/管理、未登录公开访问与保护数据指纹。生产失败只回退到兼容代码，保留库和证据。
-- [ ] 提交验收报告和勾选进度，commit：`docs: 记录当前知识管理验收与上线证据`；向用户报告链接、实际导入/跳过/冲突/清理数量及尚存问题。
+- [x] 写 `managed compatibility refuses unlisted and changed bytes`：新阶段精准路径通过；增加未列文件、改旧迁移、未批准 API 分支或修改目标 SHA 均失败。原 taxonomy/study/cutover 基线继续通过；不放行整个目录或删除门禁。
+- [x] RED：`node --test tools/verify/admin-knowledge-acceptance.test.mjs tools/verify/topic-learning-compatibility.test.mjs`；应因缺新阶段失败。
+- [x] 实现 exact SHA/新路径登记、新阶段逆向比较和 CI 单批执行；旧原测试保留，在 legacy/topics 场景跑原写合同，在 managed 场景断言410。确认所有规范依赖已锁定、源码无演示知识自动上线逻辑。
+- [x] GREEN：运行新验收门禁；Go 原有批次每批5分钟、前端/tool/Python各批9分钟、浏览器按 spec 分批9分钟。失败先诊断修复，不重复无关长套件。记录端到端证据及每个审查重点对应测试。
+- [x] 做一次独立代码审查，重点为 raw id/主题唯一、权限撤销、旧读泄露、私人数据、模式回退；修复所有阻塞/P1问题，相关回归通过再创建 Git MR，并 attach_artifact。MR 描述中文，针对最终行为及实际验证，不宣称尚未部署的结果。
+- [x] 精确 MR HEAD 的 CI 全绿后合入 master，按既有授权部署固定合入提交；创建最新备份、完成恢复/异地验证，再显式启用 managed。准备与迁入分开：每步最多5分钟、有独立回执和恢复点，超时暂停该步，禁止自动扩大清理。
+- [x] 用正式规范源文件执行上传并发布；只取 dot 当前正式快照，通过同一管理员接口和自动检查，不替 dot 随意映射类型，不把格式示例当正式内容。若标准文件尚未到位，完成模块上线，报告实际数据缺口和数量，按最新“暂不用真实数据测试”要求允许空库启用；通过新备份和准确清理演练后移除原30，正式0013迁入另行接续，不能假报导入。
+- [x] 按准确旧30清单和新备份回执执行授权清理；逐项校验发布数量、external_id+topic唯一、难度/类型、学习/反馈/管理、未登录公开访问与保护数据指纹。生产失败只回退到兼容代码，保留库和证据。
+- [x] 提交验收报告和勾选进度，commit：`docs: 记录当前知识管理验收与上线证据`；向用户报告链接、实际导入/跳过/冲突/清理数量及尚存问题。
 
 ## 自审结论
 
