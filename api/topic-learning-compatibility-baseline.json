@@ -3161,7 +3161,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "07386dc28881be1e504413028763e288ef5507a0515c84e62c2eeb27288d9f4f"
+        "sha256": "e32d7d2a9859476281f0d6762987fa1585e08e85eab9f9a90b9f641d23e62b74",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
       }
     },
     "ops/verify-deployment.py": {
@@ -3170,7 +3171,8 @@
         "reason": "已确认C1-C6：来源反馈能力、精确旧写410/保护档案、模式/可信构建、保留后台/双语、实际兼容恢复；原数学来源答案成绩及历史迁移不改。"
       },
       "managed": {
-        "sha256": "895641205457950681676cccae51519eca2729bc9bbda5f671e6cf8021783a8d"
+        "sha256": "98c03d9e7bf301509fc08bca7c989c493dadff1977dea461fed9920fad415935",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
       }
     },
     "tools/verify/learning-compatibility.test.mjs": {
@@ -3195,6 +3197,10 @@
       "cutover": {
         "sha256": "daa4294c3e9ce9af8e77de6d838c4645aa135a12f7508af206c8f00fef2d63d7",
         "reason": "2026-10-08真实远端Linux镜像路由失败，添加仅受控fixture HTTP方法/路径/状态及模拟body/末尾网关错误诊断，不修改断言、不读取真实用户数据。"
+      },
+      "managed": {
+        "sha256": "cc79af6164f4348ab8ed143e41e199974e935e7cd54e7699e87d2701daa154a7",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
       }
     },
     "backend/internal/store/feedback_read.go": {
@@ -3233,7 +3239,8 @@
     },
     ".github/workflows/deployment.yml": {
       "managed": {
-        "sha256": "ec8ea0ab5e1d442f2d7569a917cd08140f176b93aac326a197f97ca05b492551"
+        "sha256": "628e4c13142bb379b848107726e2503699b674363577e82217e477c86ed0ea1a",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
       }
     },
     "backend/go.mod": {
@@ -3566,6 +3573,30 @@
       "managed": {
         "sha256": "29eb4f66ead78736fedc3be15046e7833c76bd479325a9b05b3c8d80ecdb2ce7",
         "reason": "已确认页码查询与批量发布设计：精确登记兼容扩展，旧协议按显式模式保留，原迁移不变。"
+      }
+    },
+    "docs/operations/server-preview.md": {
+      "managed": {
+        "sha256": "2ca2334101260032a3bd5dc954c73b2190b0fd3f9eeb0fad91ae4f8ae788d879",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
+      }
+    },
+    "ops/.env.example": {
+      "managed": {
+        "sha256": "e2e9be49a32dfeaab797105fdc51d88b1d1fe1eb7a3ac63a35fa0be22571d783",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
+      }
+    },
+    "ops/common.py": {
+      "managed": {
+        "sha256": "07c8e5ddd851f456ba015322e18efe9d1afcb7c1bc278ef4a4f82a1fa8e4662d",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
+      }
+    },
+    "ops/tests/test_config.py": {
+      "managed": {
+        "sha256": "75cea1261359a10c3b9ee7ab607424d6bc173c8211586639b9b1d7440038f711",
+        "reason": "2026-10-28 用户指定迁移服务器至43.172.85.104；仅更新部署origin、TLS/重定向、测试和操作手册。保留原始快照、API契约和数据库迁移摘要。"
       }
     }
   },
@@ -3946,6 +3977,7 @@
       "docs/operations/2026-10-13-legacy-correction-fence-acceptance.md",
       "docs/operations/2026-10-13-note-sharing-acceptance.md",
       "docs/operations/2026-10-19-learn-performance.md",
+      "docs/operations/2026-10-28-server-migration.md",
       "docs/operations/evidence/page-beauty/after-A01-1280.png",
       "docs/operations/evidence/page-beauty/after-A01-390.png",
       "docs/operations/evidence/page-beauty/after-A04-1280.png",
@@ -4001,6 +4033,7 @@
       "docs/superpowers/plans/2026-10-19-query-pagination-bulk-publish.md",
       "docs/superpowers/plans/2026-10-19-query-pagination-rollout.md",
       "docs/superpowers/plans/2026-10-19-query-pagination.md",
+      "docs/superpowers/plans/2026-10-28-server-migration.md",
       "docs/superpowers/reports/2026-10-09-admin-knowledge-direct-verification.md",
       "docs/superpowers/reports/2026-10-10-map-bilingual-import-100-verification.md",
       "docs/superpowers/reports/2026-10-13-fixture-initialization-code-review.md",
