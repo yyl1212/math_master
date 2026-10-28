@@ -17,7 +17,7 @@ except ModuleNotFoundError:
 
 REVISION = '1' * 40
 BODY = '\n'.join([
-    'AUTH_PUBLIC_ORIGIN=https://43.135.142.53',
+    'AUTH_PUBLIC_ORIGIN=https://43.172.85.104',
     'POSTGRES_DB=math_master_preview', 'POSTGRES_USER=math_master_preview',
     'POSTGRES_PASSWORD=' + 'a' * 64,
     'DB_LC_COLLATE=en_US.utf8', 'DB_LC_CTYPE=en_US.utf8', '',
@@ -55,7 +55,8 @@ class ConfigTests(unittest.TestCase):
             BODY + f'EXTRA=$(touch {sentinel})\n',
             BODY.replace('en_US.utf8', f'`touch {sentinel}`'),
             BODY + 'POSTGRES_DB=math_master_preview\n',
-            BODY.replace('https://43.135.142.53', 'http://43.135.142.53'),
+            BODY.replace('https://43.172.85.104', 'http://43.172.85.104'),
+            BODY.replace('43.172.85.104', '43.135.142.53'),
         ]
         for body in variants:
             with self.subTest(kind=variants.index(body)):
@@ -83,7 +84,7 @@ class ConfigTests(unittest.TestCase):
         config = json.loads(result.stdout)
         for service in ['api', 'web']:
             self.assertEqual(config['services'][service]['environment']['APP_ENV'], 'production')
-            self.assertEqual(config['services'][service]['environment']['AUTH_PUBLIC_ORIGIN'], 'https://43.135.142.53')
+            self.assertEqual(config['services'][service]['environment']['AUTH_PUBLIC_ORIGIN'], 'https://43.172.85.104')
         self.assertNotIn('invalid-dev-url', config['services']['api']['environment']['DATABASE_URL'])
         self.assertNotIn('inherited-wrong-password', config['services']['api']['environment']['DATABASE_URL'])
 

@@ -122,7 +122,7 @@ def check(origin: str,requests: int,concurrency: int) -> dict:
         raise VerifyError('invalid-verification-input')
     certificate=tls(origin)
     ready=json.loads(read_ok(origin+"/readyz")["body"]);topic=verify_topic_readiness(ready);content=verify_content_readiness(ready)
-    redirect=request('http://43.135.142.53/login')
+    redirect=request('http://43.172.85.104/login')
     if redirect['status'] not in [301,302,307,308] or redirect['headers'].get('Location')!=origin+'/login':
         raise VerifyError('http-redirect-invalid')
     login=read_ok(origin+'/login')

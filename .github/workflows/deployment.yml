@@ -38,7 +38,7 @@ jobs:
       - name: 网关 ACME 配置
         run: >-
           node tools/verify/run.mjs -- docker run --rm --network none --read-only
-          --env PUBLIC_HOST=43.135.142.53
+          --env PUBLIC_HOST=43.172.85.104
           --env ACME_DIRECTORY=https://acme-staging-v02.api.letsencrypt.org/directory
           --mount "type=bind,src=$GITHUB_WORKSPACE/ops/Caddyfile,dst=/etc/caddy/Caddyfile,readonly"
           "math-master-gateway:$GITHUB_SHA" validate --config /etc/caddy/Caddyfile --adapter caddyfile

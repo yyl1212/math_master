@@ -6,7 +6,7 @@ import stat
 import subprocess
 
 PROJECT = 'math-master-preview'
-ORIGIN = 'https://43.135.142.53'
+ORIGIN = 'https://43.172.85.104'
 ACME = {
     'staging': 'https://acme-staging-v02.api.letsencrypt.org/directory',
     'production': 'https://acme-v02.api.letsencrypt.org/directory',
@@ -89,7 +89,7 @@ def compose(root: Path, revision: str, args: list[str], sudo: bool = False, acme
     if not compose_file.is_file():
         raise ConfigError('missing-release')
     dynamic = {
-        'RELEASE_SHA': revision, 'PUBLIC_HOST': '43.135.142.53',
+        'RELEASE_SHA': revision, 'PUBLIC_HOST': '43.172.85.104',
         'ACME_DIRECTORY': ACME[acme], 'CADDY_DATA_VOLUME': f'{PROJECT}-caddy-{acme}',
     }
     command = ['docker', 'compose', '--project-name', PROJECT, '--project-directory', str(release), '--env-file', str(config), '-f', str(compose_file), *args]

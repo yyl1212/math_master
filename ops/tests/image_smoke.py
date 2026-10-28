@@ -59,13 +59,13 @@ def check_ip_tls(image: str, web_image: str) -> dict:
         fixture.chmod(0o755)
         certificate, key = fixture / 'server.crt', fixture / 'server.key'
         subprocess.run(['openssl', 'req', '-x509', '-newkey', 'rsa:2048', '-nodes', '-days', '1',
-                        '-subj', '/CN=43.135.142.53', '-addext', 'subjectAltName=IP:43.135.142.53',
+                        '-subj', '/CN=43.172.85.104', '-addext', 'subjectAltName=IP:43.172.85.104',
                         '-out', str(certificate), '-keyout', str(key)],
                        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=15)
         # root 为 0700；仅容器内非 root Caddy 读取这些一次性夹具文件。
         certificate.chmod(0o644); key.chmod(0o644)
         config = json.loads(docker('run', '--rm', '--network', 'none', '--read-only',
-                           '--env', 'PUBLIC_HOST=43.135.142.53',
+                           '--env', 'PUBLIC_HOST=43.172.85.104',
                            '--env', 'ACME_DIRECTORY=https://acme-staging-v02.api.letsencrypt.org/directory',
                            '--mount', f'type=bind,src={OPS / "Caddyfile"},dst=/etc/caddy/Caddyfile,readonly',
                            image, 'adapt', '--config', '/etc/caddy/Caddyfile', '--adapter', 'caddyfile'))
@@ -121,12 +121,12 @@ for (const [port, source] of [[8080, 'api'], [3000, 'web']]) {
                     with context.wrap_socket(transport, server_hostname=hostname) as connection:
                         return connection.getpeercert()
             try:
-                cert = handshake(ssl.create_default_context(cafile=str(certificate)), '43.135.142.53')
+                cert = handshake(ssl.create_default_context(cafile=str(certificate)), '43.172.85.104')
             except ssl.SSLError:
                 raise RuntimeError('public-ip-tls-unavailable') from None
-            if ('IP Address', '43.135.142.53') not in cert.get('subjectAltName', ()):
+            if ('IP Address', '43.172.85.104') not in cert.get('subjectAltName', ()):
                 raise RuntimeError('public-ip-san-missing')
-            for context, hostname in [(ssl.create_default_context(), '43.135.142.53'),
+            for context, hostname in [(ssl.create_default_context(), '43.172.85.104'),
                                       (ssl.create_default_context(cafile=str(certificate)), '43.135.142.54')]:
                 try:handshake(context, hostname)
                 except ssl.SSLCertVerificationError:pass
@@ -146,8 +146,8 @@ for (const [port, source] of [[8080, 'api'], [3000, 'web']]) {
                                          ('GET', '/api/v1/content/private', 'web'), ('POST', '/readyz', 'web')]:
                 with socket.create_connection(('127.0.0.1', port), timeout=5) as transport:
                     with ssl.create_default_context(cafile=str(certificate)).wrap_socket(
-                            transport, server_hostname='43.135.142.53') as connection:
-                        connection.sendall((method+' '+path+' HTTP/1.0\r\nHost: 43.135.142.53\r\nContent-Length: 0\r\nConnection: close\r\n\r\n').encode())
+                            transport, server_hostname='43.172.85.104') as connection:
+                        connection.sendall((method+' '+path+' HTTP/1.0\r\nHost: 43.172.85.104\r\nContent-Length: 0\r\nConnection: close\r\n\r\n').encode())
                         raw = b''
                         while True:
                             chunk = connection.recv(8192)
@@ -188,7 +188,7 @@ def check(revision: str) -> dict:
     created = False
     try:
         docker('run', '--detach', '--name', name, '--network', 'none', '--read-only', *mounts['web'],
-               '--env', 'APP_ENV=production', '--env', 'AUTH_PUBLIC_ORIGIN=https://43.135.142.53',
+               '--env', 'APP_ENV=production', '--env', 'AUTH_PUBLIC_ORIGIN=https://43.172.85.104',
                '--env', 'GO_API_INTERNAL_URL=http://api:8080', '--env', 'HOSTNAME=0.0.0.0', '--env', 'PORT=3000', images['web'])
         created = True
         probe = r'''

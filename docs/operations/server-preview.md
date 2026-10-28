@@ -1,6 +1,6 @@
 # 服务器预览版运行手册
 
-日期：2026-10-05。目标入口：`https://43.135.142.53`。本手册对应 P7a；当前正在实施，实际上线以 [rollout.json](evidence/server-preview/rollout.json) 为准，该文件仅在取得现场证据后生成。
+更新日期：2026-10-28；服务器迁移后的目标入口：`https://43.172.85.104`。本手册对应 P7a；当前正在实施，实际上线以 [rollout.json](evidence/server-preview/rollout.json) 为准，该文件仅在取得现场证据后生成。
 
 本阶段复制现有账号与六个私有草稿，保留密码、权限、作者关系和未审阅状态。公开课程仍按独立数学复核与既有发布流程推进；不能把网站可访问计为内容审核完成。
 
@@ -44,7 +44,7 @@ sudo install -d -m 0700 -o ubuntu -g ubuntu /opt/math_master/releases /opt/math_
 
 从 `ops/.env.example` 创建 `shared/.env` 并设 0600。数据库/用户名为 `math_master_preview`，新数据库密码由 `python3` 的 `secrets.token_hex(32)` 生成并直接写入私有文件；不要输出到终端、命令参数或 Git。
 
-`DB_LC_COLLATE` 和 `DB_LC_CTYPE` 使用源快照实际值。源库须为 PostgreSQL 17.11、UTF8、libc locale provider；编码/locale/版本不一致时停止恢复。生产 Go/Next 的 APP_ENV、内部监听和内部 API 地址由 Compose 固定；origin 为 `https://43.135.142.53`。
+`DB_LC_COLLATE` 和 `DB_LC_CTYPE` 使用源快照实际值。源库须为 PostgreSQL 17.11、UTF8、libc locale provider；编码/locale/版本不一致时停止恢复。生产 Go/Next 的 APP_ENV、内部监听和内部 API 地址由 Compose 固定；origin 为 `https://43.172.85.104`。
 
 文件只接受六个键、重复/未知键拒绝，禁止引号、命令替换等可执行语法。配置不是 shell 脚本，不使用 source/eval。每个版本有自己的配置副本，回退不会错误地套用下一版本配置。
 
@@ -106,7 +106,7 @@ staging 的证书为测试证书。查看该次网关日志中的证书获取成
 
 ## 6. 验收与正常登录
 
-在普通外部客户端运行 `ops/verify-deployment.py --origin https://43.135.142.53 --out <新私有证据文件> --requests 40 --concurrency 2`，单请求 5 秒。检查 HTTP 跳转、可信 IP SAN/到期日、公开页、CSS/KaTeX 字体及匿名草稿 API 401。阅读页匿名状态沿用登录提示，不要求自动重定向。
+在普通外部客户端运行 `ops/verify-deployment.py --origin https://43.172.85.104 --out <新私有证据文件> --requests 40 --concurrency 2`，单请求 5 秒。检查 HTTP 跳转、可信 IP SAN/到期日、公开页、CSS/KaTeX 字体及匿名草稿 API 401。阅读页匿名状态沿用登录提示，不要求自动重定向。
 
 用户在真实 HTTPS 登录页用 yyl1212 与当前密码登录。核对 learner/editor/admin、草稿状态与 revision、标题搜索、知识点切换及原创 SVG；操作人员不提取 Cookie 或重置密码。正常登录未确认时，完整预览验收保持 pending。
 

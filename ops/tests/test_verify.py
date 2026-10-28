@@ -18,9 +18,9 @@ module=None
 if (OPS/'verify-deployment.py').exists():
     spec=importlib.util.spec_from_file_location('deployment_verifier',OPS/'verify-deployment.py')
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
-ORIGIN='https://43.135.142.53'
+ORIGIN='https://43.172.85.104'
 DRAFT='/api/v1/content/drafts/904d550b-226b-48c0-98e0-610af339826c'
-TLS={'trusted':True,'ipSAN':['43.135.142.53'],'issuer':'TLS fixture','notAfter':'2026-10-11T00:00:00+00:00'}
+TLS={'trusted':True,'ipSAN':['43.172.85.104'],'issuer':'TLS fixture','notAfter':'2026-10-11T00:00:00+00:00'}
 
 
 def response(status,body=b'',**headers):
@@ -37,6 +37,7 @@ class VerifyTests(unittest.TestCase):
     def transport(self,url,**kwargs):
         if url.endswith('/readyz'):return response(200,json.dumps({'status':'ready','topic':{'taxonomy':True,'study':True,'retirement':True,'schemaReady':True,'topicsMode':False}}).encode())
         if url.startswith('http://'):
+            self.assertEqual(url, 'http://43.172.85.104/login')
             return response(308,Location=ORIGIN+'/login')
         if url.endswith('/api/v1/auth/context'):
             return response(200,b'{"data":{"user":null,"csrfToken":"csrf-must-not-be-recorded"}}',Set_Cookie='__Host-mm_preauth=session-must-not-be-recorded; Path=/; Secure; HttpOnly; SameSite=Lax; Max-Age=600')
